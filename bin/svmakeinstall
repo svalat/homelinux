@@ -12,6 +12,7 @@
 ######################### SECTION ############################
 package="$1"
 version="$2"
+variant="$3"
 
 ######################### SECTION ############################
 #check config file
@@ -33,7 +34,7 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ######################### SECTION ############################
 if [ -z "$package" ] || [ -z "$version" ]
 then
-	echo "Usage : $0 {package} {version}"
+	echo "Usage : $0 {package} {version} [variant]"
 	exit 1
 fi
 
@@ -62,7 +63,20 @@ safe_exec make install
 echo ">>> Build manifest <<<"
 cd ${PREFIX}
 echo > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist
+if [ -z "$variant" ]; then
+	ln -s ${package}-${version}.flist ${SV_HOME_LINUX_INSTALLED}/${package}.flist
+fi
 find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | tee ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist || exit 1
+
+######################### SECTION ############################
+if [ ! -z "$variant" ]; then
+	echo ">>> Make variant <<<"
+	if [ "$variant" = "$package" ]; then
+		safe_exec svselect add ${variant} ${variant}-${version}
+	else
+		safe_exec svselect add ${variant} ${variant}-${package}-${version}
+	fi
+fi
 
 ######################### SECTION ############################
 echo ">>> Register ${package}-${version} <<<"

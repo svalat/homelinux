@@ -47,6 +47,7 @@ fi
 archive=$(yumFindFileName "$package" "$version")
 deps=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.deps | cut -d ' ' -f 2-)
 type=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.type | cut -d ' ' -f 2 )
+variant=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.variant | cut -d ' ' -f 2 )
 
 if [ -z "$type" ]; then
 	type=basic
@@ -62,7 +63,7 @@ PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\"
 #PACKAGE_VERSION='$version'
 PACKAGE_ARCHIVE='$archive'
 PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
-PACKAGE_VARIANT=''
+PACKAGE_VARIANT='$variant'
 PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
 PACKAGE_EXEC_DEPENDS='$deps'

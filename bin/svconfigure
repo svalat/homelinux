@@ -30,13 +30,13 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 function configure_cmake_package()
 {
 	echo ">> Display cmake options <<"
-	echo "cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} $*"
+	echo "cmake -DCMAKE_INSTALL_PREFIX=${PREFIX}$*"
 	echo ">> Create build dir <<"
 	if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
 	safe_exec mkdir ./svbuild
 	safe_exec cd ./svbuild
 	echo ">> Call cmake <<"
-	safe_exec cmake .. -DCMAKE_INSTALL_PREFIX=${PREFIX} $*
+	safe_exec cmake .. -DCMAKE_INSTALL_PREFIX=${PREFIX}$*
 	echo ">> Finish configure step <<"
 }
 
@@ -44,13 +44,13 @@ function configure_cmake_package()
 function configure_autotools_package()
 {
 	echo ">> Display configure options <<"
-	echo "configure --prefix=${PREFIX} $*"
+	echo "configure --prefix=${PREFIX}$*"
 	#echo ">> Create build dir <<"
 	#if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
 	#safe_exec mkdir ./svbuild
 	#safe_exec cd ./svbuild
 	echo ">> Call configure script <<"
-	safe_exec ./configure --prefix=${PREFIX} $*
+	safe_exec ./configure --prefix=${PREFIX}$*
 	echo ">> Finish configure step <<"
 }
 
@@ -58,13 +58,13 @@ function configure_autotools_package()
 function configure_perlmodule_package()
 {
 	echo ">> Display perl module options <<"
-	echo "perl Makefile.PL PREFIX=${PREFIX} $*"
+	echo "perl Makefile.PL PREFIX=${PREFIX}$*"
 	#echo ">> Create build dir <<"
 	#if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
 	#safe_exec mkdir ./svbuild
 	#safe_exec cd ./svbuild
 	echo ">> Call configure script <<"
-	safe_exec perl Makefile.PL PREFIX=${PREFIX} $*
+	safe_exec perl Makefile.PL PREFIX=${PREFIX}$*
 	echo ">> Finish configure step <<"
 }
 
@@ -93,7 +93,7 @@ for arg in $*
 do
 	case $arg in
 		--variant=*)
-			subdir=`extract_argument "$arg" variant`
+			subdir=/variants/`extract_argument "$arg" variant`
 			;;
 		*)
 			args="$args $arg"

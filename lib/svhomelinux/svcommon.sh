@@ -18,6 +18,7 @@ SV_HOME_LINUX_DISTFILES="${SV_HOME_LINUX_SHARED}/distfiles"
 SV_HOME_LINUX_PACKAGES="${SV_HOME_LINUX_SHARED}/packages"
 SV_HOME_LINUX_ENV_DIR="${SV_HOME_LINUX_SHARED}/env"
 SV_HOME_LINUX_QUICK_PACKAGES="${SV_HOME_LINUX_SHARED}/quickpackages"
+SV_HOME_LINUX_VARIANTES="$PREFIX/variants"
 
 ######################### FUNCTION ###########################
 function safe_exec()

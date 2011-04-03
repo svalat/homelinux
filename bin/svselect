@@ -10,7 +10,6 @@
 ##############################################################
 
 ######################### SECTION ############################
-VARIANTS=$PREFIX/variants
 action="$1"
 
 ######################### SECTION ############################
@@ -40,6 +39,7 @@ function printHelp()
 	echo "   list {tool}       :   list all implementation for the"
 	echo "                         selected tool"
 	echo "   set {tool} {impl} :   Select the tool implementation"
+	echo "   add {tool} {impl} :   Add new tool"
 	echo "   help              :   Display this help"
 }
 
@@ -47,10 +47,10 @@ function printHelp()
 function doListTools()
 {
 	echo "Avalable tools :"
-	if [ -d "${VARIANTS}" ]; then
-		ls $VARIANTS/ | sed -e "s/-/ /g" | cut -f 1 -d " " | uniq | while read tool
+	if [ -d "${SV_HOME_LINUX_VARIANTES}" ]; then
+		ls $SV_HOME_LINUX_VARIANTES/ | sed -e "s/-/ /g" | cut -f 1 -d " " | uniq | while read tool
 		do
-			echo " * $tool"
+			echo " * $tool -> $(readlink $SV_HOME_LINUX_VARIANTES/$tool)"
 		done
 	fi
 }
@@ -58,7 +58,7 @@ function doListTools()
 ######################### FUNCTION ###########################
 function doListToolImpl()
 {
-	tool=$VARIANTS/$1
+	tool=$SV_HOME_LINUX_VARIANTES/$1
 	if [ -h "$tool" ]; then
 		echo "List of implementations for $1"
 		for impl in $tool-*
@@ -86,10 +86,26 @@ function doList()
 }
 
 ######################### FUNCTION ###########################
+function doAddTool()
+{
+	tool="$SV_HOME_LINUX_VARIANTES/$1"
+	impl="$SV_HOME_LINUX_VARIANTES/$2"
+	if [ -d "$impl" ] && [ ! -z "$2" ]
+	then
+		echo "Selecting $2 as implementation of $1"
+		rm -f $tool
+		ln -sf "$2" "$tool" && echo ">> SUCCESS on update $1 to $2 <<" || exit 1
+	else
+		echo "Invalid implementation of $1 : '$2'"
+		exit 1
+	fi
+}
+
+######################### FUNCTION ###########################
 function doSetToolImpl()
 {
-	tool="$VARIANTS/$1"
-	impl="$VARIANTS/$2"
+	tool="$SV_HOME_LINUX_VARIANTES/$1"
+	impl="$SV_HOME_LINUX_VARIANTES/$2"
 	if [ -h "$tool" ]; then
 		if [ -d "$impl" ] && [ ! -z "$2" ]
 		then
@@ -98,9 +114,11 @@ function doSetToolImpl()
 			ln -sf "$2" "$tool" && echo ">> SUCCESS on update $1 to $2 <<" || exit 1
 		else
 			echo "Invalid implementation of $1 : '$2'"
+			exit 1
 		fi
 	else
 		echo "Invalid tool name : '$1'"
+		exit 1
 	fi
 }
 
@@ -111,6 +129,9 @@ case "$action" in
 		;;
 	"set")
 			doSetToolImpl "$2" "$3"
+		;;
+	"add")
+		doAddTool "$2" "$3"
 		;;
 	*)
 			printHelp
