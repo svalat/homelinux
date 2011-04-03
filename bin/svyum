@@ -1,0 +1,53 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### FUNCTION ###########################
+function showHelp()
+{
+	echo "Usage: svyum {action}"
+	echo "       svyum help               -> display this help"
+	echo "       svyum resync             -> resync distfile list"
+	echo "       svyum install {name} ... -> install the selected package and deps"
+}
+
+######################### SECTION ############################
+case $1 in
+	resync)
+		svyum-resync || exit 1
+		;;
+	install)
+		svyum-install $(skip_args 1 $*)  || exit 1
+		;;
+	help)
+		showHelp
+		;;
+	*)
+		showHelp
+		exit 1
+		;;
+esac

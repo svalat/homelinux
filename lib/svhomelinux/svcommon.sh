@@ -143,3 +143,17 @@ function yumFindFileName()
 	basename "$res"
 }
 
+######################### SECTION ############################
+#{nb args to skip} {args} ....
+function skip_args()
+{
+	id=0
+	for tmp in $*
+	do
+		if [ $id -gt $1 ]
+		then
+			echo $tmp
+		fi
+		id=$(( $id +1 ))
+	done
+}
