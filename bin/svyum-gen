@@ -54,7 +54,8 @@ if [ -z "$type" ]; then
 fi
 
 ######################### SECTION ############################
-echo "inherit svpack-${type}
+echo "#!/bin/bash
+inherit svpack-${type}
 
 PACKAGE_NAME='$package'
 PACKAGE_LAST_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"

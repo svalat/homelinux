@@ -1,0 +1,31 @@
+#!/bin/bash
+inherit svpack-basic
+
+PACKAGE_NAME='schedtool'
+PACKAGE_LAST_VERSION="$(yumFindLastVersion $PACKAGE_NAME | cut -f 2 -d ' ')"
+#PACKAGE_LAST_VERSION='1.3.0'
+PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
+#PACKAGE_VERSION='1.3.0'
+PACKAGE_ARCHIVE='schedtool-1.3.0.tar.bz2'
+PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
+PACKAGE_VARIANT=''
+PACKAGE_CONFIGURE_OPTIONS=''
+PACKAGE_TEST_TARGET=''
+PACKAGE_EXEC_DEPENDS=''
+PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+
+#You can override if require
+#function do_download() {}
+#function do_extract() {}
+#function do_move_to_build_dir() {}
+#function do_configure() {}
+#function do_test() {}
+#function do_pre_isntall() {}
+#function do_install() {}
+#function do_post_isntall() {}
+#function do_clean() {}
+
+function do_configure()
+{
+	sed -i -e "s#DESTPREFIX=/usr/local#DESTPREFIX=${PREFIX}#" Makefile
+}

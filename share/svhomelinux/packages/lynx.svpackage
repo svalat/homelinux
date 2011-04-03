@@ -1,0 +1,24 @@
+inherit svpack-basic
+
+PACKAGE_NAME='lynx'
+PACKAGE_LAST_VERSION='2.8.6rel.4'
+PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
+PACKAGE_ARCHIVE='lynx2.8.6rel.4.tar.bz2'
+PACKAGE_SUBDIR="${PACKAGE_NAME}2-8-6"
+PACKAGE_VARIANT=''
+PACKAGE_CONFIGURE_OPTIONS=''
+PACKAGE_TEST_TARGET=''
+PACKAGE_EXEC_DEPENDS=''
+PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+
+#You can override if require
+#function do_download() {}
+#function do_extract() {}
+#function do_move_to_build_dir() {}
+#function do_configure() {}
+#function do_test() {}
+#function do_pre_isntall() {}
+#function do_install() {}
+#function do_post_isntall() {}
+#function do_clean() {}
+
