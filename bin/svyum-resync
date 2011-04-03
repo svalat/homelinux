@@ -1,0 +1,48 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+function resyncDistfilesList()
+{
+	echo > ${SV_HOME_LINUX_SHARED}/distfile.list
+	echo > ${SV_HOME_LINUX_SHARED}/distfile.list.html
+	for tmp in ${GENTOO_MIRROR}
+	do
+		echo ">> download from ${tmp} <<"
+		safe_exec curl "${tmp}/distfiles/" >> ${SV_HOME_LINUX_SHARED}/distfile.list.html
+	done
+	echo ">> Formatting package source list <<"
+	safe_exec lynx -dump ${SV_HOME_LINUX_SHARED}/distfile.list.html | egrep "^[0-9]+" | sed -e "s#${SV_HOME_LINUX_SHARED}##g" > ${SV_HOME_LINUX_SHARED}/distfile.list
+	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfile.list
+	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfile.list.html
+}
+
+######################### SECTION ############################
+echo ">>> Start resync source tree <<<"
+resyncDistfilesList
+echo ">>> END <<<"

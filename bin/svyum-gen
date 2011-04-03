@@ -1,0 +1,68 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+package=$1
+version=$2
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+if [ -z "$1$2" ]; then
+	echo "Usage : $0 {package} [version]"
+	exit 1
+fi
+
+######################### SECTION ############################
+if [ -z "$version" ]; then
+	version=$(yumFindLastVersion "$package" | cut -f 2 -d ' ')
+fi
+
+archive=$(yumFindFileName "$package" "$version")
+
+######################### SECTION ############################
+echo "inherit svpack-basic
+
+PACKAGE_NAME='$package'
+PACKAGE_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
+#PACKAGE_VERSION='$version'
+PACKAGE_ARCHIVE='$archive'
+PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
+PACKAGE_VARIANT=''
+PACKAGE_CONFIGURE_OPTIONS=''
+PACKAGE_TEST_TARGET=''
+PACKAGE_EXE_DEPENDS=''
+PACKAGE_BUILD_DEPENDS="${PACKAGE_EXEC_DEPENDS}"
+
+#You can override if require
+#function do_download() {}
+#function do_extract() {}
+#function do_move_to_build_dir() {}
+#function do_configure() {}
+#function do_test() {}
+#function do_install() {}
+#function do_clean() {}
+"

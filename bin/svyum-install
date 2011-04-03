@@ -1,0 +1,83 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+function  yumInvertList()
+{
+	res=""
+	for tmp in $*
+	do
+		res="$tmp $res"
+	done
+	echo $res
+}
+
+######################### SECTION ############################
+#deps
+function yumClearnDeps()
+{
+	lst=""
+	for tmp in $(yumInvertList $*)
+	do
+		if [ -z "`echo $lst | grep \"$tmp\"`" ]; then
+			lst="$lst $tmp "
+		fi
+	done
+	echo $lst
+}
+
+######################### SECTION ############################
+function yumInstall()
+{
+	DEPS=$(yumSearchDepsInstall $1)
+	DEPS=$(yumClearnDeps $DEPS)
+	echo "========================== PACKAGES TO INSTALL ============================="
+	for tmp in $DEPS
+	do
+		pname=`echo $tmp | cut -f 1 -d ';'`
+		pvers=`echo $tmp | cut -f 2 -d ';'`
+		pfname=`echo $tmp | cut -f 3 -d ';'`
+		plvers=`echo $tmp | cut -f 4 -d ';'`
+		printf "%-15s	%-10s	%-10s	%-25s\n" "$pname" "$pvers" "$plvers" "$pfname"
+	done
+	echo "============================================================================"
+
+	yes_no_question "Are you agree" "yes" || exit 0
+
+	for tmp in $DEPS
+	do
+		pname=`echo $tmp | cut -f 1 -d ';'`
+		pvers=`echo $tmp | cut -f 2 -d ';'`
+		pfname=`echo $tmp | cut -f 3 -d ';'`
+		plvers=`echo $tmp | cut -f 4 -d ';'`
+		yumInstallPackage "$pname" "$pvers" "$pfname" "$plvers"
+	done
+}
+
+######################### SECTION ############################
+yumInstall $1

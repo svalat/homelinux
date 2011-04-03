@@ -1,0 +1,83 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+PACKAGE=$(basename "$1" | sed -e "s/\.tar\.gz//g")
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### FUNCTION ###########################
+function getFiles()
+{
+	cat "$1" | while read line
+	do
+		if [ ! -d "$PREFIX/$line" ]; then echo $line; fi
+	done
+}
+
+######################### FUNCTION ###########################
+function getPackages()
+{
+	for fname in ${SV_HOME_LINUX_INSTALLED}/*.flist
+	do
+		basename "$fname" | sed -e "s/\.flist$//g"
+	done
+}
+
+######################### FUNCTION ###########################
+if [ -z "$1" ]; then
+	echo "Available packages :"
+	getPackages | while read line
+	do
+		if [ ! -z "$line" ]; then
+			echo " * $line"
+		fi
+	done
+else
+	if [ "$1" = 'all' ]
+	then
+		getPackages | while read line
+	    do
+	    	$0 "$line" || exit 1
+	    done
+	else
+		package=$1
+		if [ ! -f ${SV_HOME_LINUX_INSTALLED}/$1.flist ]
+		then
+			echo "Unknown package $1"
+			echo "Candidate are :"
+			if [ $(getPackages | grep "$1" | wc -l) -eq 1 ]; then
+				package=$(getPackages | grep "$1")
+				echo "$package"
+			else
+				getPackages | grep "$1"
+				exit 1
+			fi
+		fi
+		getFiles "${SV_HOME_LINUX_INSTALLED}/${package}.flist" | xargs tar -cvzf "${package}.tar.gz" -C $PREFIX || exit 1
+	    echo "Package $package" >> ${SV_HOME_LINUX_SHARED}/package-actions.log
+	fi
+fi

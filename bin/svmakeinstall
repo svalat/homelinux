@@ -1,0 +1,72 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+package="$1"
+version="$2"
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+if [ -z "$package" ] || [ -z "$version" ]
+then
+	echo "Usage : $0 {package}-{version}"
+	exit 1
+fi
+
+######################### SECTION ############################
+echo ">>> Package is ${package}-${version} <<<"
+echo ">>> Prefix is $PREFIX <<<"
+
+######################### SECTION ############################
+error_if_package_is_installed "${package}" "${version}"
+
+######################### SECTION ############################
+echo ">>> Start installing process <<<"
+safe_exec touch ${SV_HOME_LINUX_SHARED}/package-actions.log
+sleep 2
+
+######################### SECTION ############################
+echo ">>> Building <<<"
+if [ -d svbuild ]; then safe_exec cd svbuild ; fi
+safe_exec make
+
+######################### SECTION ############################
+echo ">>> Installing <<<"
+safe_exec make install
+
+######################### SECTION ############################
+echo ">>> Build manifest <<<"
+cd ${PREFIX}
+echo > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist
+find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | tee ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist || exit 1
+
+######################### SECTION ############################
+echo ">>> Register ${package}-${version} <<<"
+echo "Install ${package}-${version}" >> $SV_HOME_LINUX_SHARED/package-actions.log || exit 1
+
+######################### SECTION ############################
+echo ">>> FINISH <<<"

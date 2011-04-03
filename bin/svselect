@@ -1,0 +1,117 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+VARIANTS=$PREFIX/variants
+action="$1"
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### FUNCTION ###########################
+function printHelp()
+{
+	echo "Usage : $0 {command} [command options]"
+	echo
+	echo "{command} could be :"
+	echo "   list              :   list all available tools"
+	echo "   list {tool}       :   list all implementation for the"
+	echo "                         selected tool"
+	echo "   set {tool} {impl} :   Select the tool implementation"
+	echo "   help              :   Display this help"
+}
+
+######################### FUNCTION ###########################
+function doListTools()
+{
+	echo "Avalable tools :"
+	if [ -d "${VARIANTS}" ]; then
+		ls $VARIANTS/ | sed -e "s/-/ /g" | cut -f 1 -d " " | uniq | while read tool
+		do
+			echo " * $tool"
+		done
+	fi
+}
+
+######################### FUNCTION ###########################
+function doListToolImpl()
+{
+	tool=$VARIANTS/$1
+	if [ -h "$tool" ]; then
+		echo "List of implementations for $1"
+		for impl in $tool-*
+		do
+			if [ "$(basename $(readlink $tool))" = "$(basename $impl)" ]
+			then
+				echo " > $(basename $impl)"
+			else
+				echo " * $(basename $impl)"
+			fi
+		done
+	else
+		echo "Invalid tool name : '$1'"
+	fi
+}
+
+######################### FUNCTION ###########################
+function doList()
+{
+	if [ -z "$1" ]; then
+		doListTools
+	else
+		doListToolImpl "$1"
+	fi
+}
+
+######################### FUNCTION ###########################
+function doSetToolImpl()
+{
+	tool="$VARIANTS/$1"
+	impl="$VARIANTS/$2"
+	if [ -h "$tool" ]; then
+		if [ -d "$impl" ] && [ ! -z "$2" ]
+		then
+			echo "Selecting $2 as implementation of $1"
+			rm $tool || exit 1
+			ln -sf "$2" "$tool" && echo ">> SUCCESS on update $1 to $2 <<" || exit 1
+		else
+			echo "Invalid implementation of $1 : '$2'"
+		fi
+	else
+		echo "Invalid tool name : '$1'"
+	fi
+}
+
+######################### SECTION ############################
+case "$action" in
+	"list")
+			doList "$2"
+		;;
+	"set")
+			doSetToolImpl "$2" "$3"
+		;;
+	*)
+			printHelp
+esac

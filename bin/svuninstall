@@ -1,0 +1,101 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+PACKAGE=$1
+VERSION=$2
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+if [ -z "$PACKAGE" ]
+then
+	echo "Usage : $0 {package} [version]"
+	exit 1
+fi
+
+######################### SECTION ############################
+function filterFiles()
+{
+	cat "$1" | while read line
+	do
+		if [ ! -d "${PREFIX}/$line" ] && [ `grep "$line" ${SV_HOME_LINUX_INSTALLED}/*.flist | wc -l` -eq 1 ]; then
+			echo "${PREFIX}/$line"
+		fi
+	done || exit 1
+}
+
+######################### SECTION ############################
+function filterDirs()
+{
+	cat "$1" | while read line
+	do
+		if [ -d "${PREFIX}/$line" ] && [ "$(ls -A ${PREFIX}/$line/)" ]; then
+			echo "${PREFIX}/$line"
+		fi
+	done || exit 1
+}
+
+######################### SECTION ############################
+echo ">>> Check if already installed <<<"
+if [ -z "$VERSION" ]; then
+	if [ `ls ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist | wc -l` -gt 1 ]; then
+		echo "Multiple version of package, please define the version you want to uninstall"
+	fi
+	VERSION=`echo ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist | sed -e "s#^${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-##g" -e 's#\.flist$##g'`
+	echo "Detected ${PACKAGE}-${VERSION}"
+fi
+
+######################### SECTION ############################
+if [ -f "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist" ]
+then
+	echo "Installation ok"
+else
+	echo "ERROR : ${PACKAGE}-${VERSION} not installed !"
+	exit 1
+fi
+
+######################### SECTION ############################
+echo ">>> Check flist file <<<"
+if [ ! -f "$SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist" ]; then
+	echo "ERROR: Can't find $SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist"
+	exit 1
+fi
+######################### SECTION ############################
+echo ">>> Remove files <<<"
+filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist"
+dirlist=$(filterDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
+filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist" | xargs rm || exit 1
+if [ ! -z "$dirlist" ]; then
+	echo ">>> Remove empty directories <<<"
+	rmdir $dirlist
+fi
+
+######################### SECTION ############################
+echo ">>> Remve from register <<<"
+str=$(echo "${PACKAGE}-${VERSION}" | sed -e "s/\./\\\./g") || exit 1
+#sed -e "/^$str$/d" -i "${PREFIX}/info/installed.txt" || exit 1
+echo "Uninstall ${PACKAGE}-${VERSION}" >> $SV_HOME_LINUX_SHARED/package-actions.log || exit 1

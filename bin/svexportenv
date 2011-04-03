@@ -1,0 +1,83 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig
+
+######################### FUNCTION ###########################
+# Return the list of variants available
+function getVariants()
+{
+	$PREFIX/bin/svselect list | grep '*' | cut -f 3 -d ' '
+}
+
+######################### FUNCTION ###########################
+# Add the given path to the given value
+# Parms:
+#   - initial value
+#   - path to add before the given list
+function addPathToVar()
+{
+	if [ -z "$1" ]; then
+		echo "$2"
+	else
+		echo "$2:$1"
+	fi
+}
+
+######################### FUNCTION ###########################
+# Define a new prefix and setup all variables
+# Parms:
+#   - Prefix path
+function addNewPrefix()
+{
+	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib`
+	PATH=`addPathToVar $PATH $1/bin`
+	MANPATH=`addPathToVar $MANPATH $1/share/man`
+	CPATH=`addPathToVar $CPATH $1/include`
+	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5`
+	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5/site_perl`
+	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/lib/pkgconfig`
+}
+
+######################### SECTION ############################
+#setup the default prefix
+addNewPrefix "${PREFIX}"
+
+#setup all variants
+for variant in $(getVariants)
+do
+	addNewPrefix "${PREFIX}/variants/$variant"
+done
+
+######################### SECTION ############################
+echo export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+echo export PATH="$PATH"
+echo export MANPATH="$MANPATH"
+echo export CPATH="$CPATH"
+echo export PERL5LIB="$PERL5LIB"
+echo export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+
+#if [ "$1" != "-s" ]; then
+#	echo "###############################################"
+#	echo "#   Wilcome to svEnvironnement installed in   #"
+#	printf "# %-43s #\n" "$PREFIX"
+#	echo "#                                             #"
+#	echo "# Management commands are :                   #"
+#	echo "# svinstall, svconfigure, svpackage, svselect #"
+#	echo "###############################################"
+#fi

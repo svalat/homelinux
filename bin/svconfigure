@@ -1,0 +1,119 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### FUNCTION ###########################
+function configure_cmake_package()
+{
+	echo ">> Display cmake options <<"
+	echo "cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} $*"
+	echo ">> Create build dir <<"
+	if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
+	safe_exec mkdir ./svbuild
+	safe_exec cd ./svbuild
+	echo ">> Call cmake <<"
+	safe_exec cmake .. -DCMAKE_INSTALL_PREFIX=${PREFIX} $*
+	echo ">> Finish configure step <<"
+}
+
+######################### FUNCTION ###########################
+function configure_autotools_package()
+{
+	echo ">> Display configure options <<"
+	echo "configure --prefix=${PREFIX} $*"
+	#echo ">> Create build dir <<"
+	#if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
+	#safe_exec mkdir ./svbuild
+	#safe_exec cd ./svbuild
+	echo ">> Call configure script <<"
+	safe_exec ./configure --prefix=${PREFIX} $*
+	echo ">> Finish configure step <<"
+}
+
+######################### FUNCTION ###########################
+function configure_perlmodule_package()
+{
+	echo ">> Display perl module options <<"
+	echo "perl Makefile.PL PREFIX=${PREFIX} $*"
+	#echo ">> Create build dir <<"
+	#if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
+	#safe_exec mkdir ./svbuild
+	#safe_exec cd ./svbuild
+	echo ">> Call configure script <<"
+	safe_exec perl Makefile.PL PREFIX=${PREFIX} $*
+	echo ">> Finish configure step <<"
+}
+
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig
+
+######################### SECTION ###########################
+#check package type
+if   [ -f ./configure ];      then packageType=autotools;
+elif [ -f ./CMakeLists.txt ]; then packageType=cmake;
+elif [ -f ./Makefile.PL ]; then packageType=perlmodule;
+else                               packageType=unknown;
+fi
+
+######################## SECTION ############################
+subdir=''
+args=''
+for arg in $*
+do
+	case $arg in
+		--variant=*)
+			subdir=`extract_argument "$arg" variant`
+			;;
+		*)
+			args="$args $arg"
+			;;
+	esac
+done
+
+######################## SECTION ############################
+case $packageType in
+	autotools)
+		configure_autotools_package "$subdir" $args
+		;;
+	cmake)
+		configure_cmake_package "$subdir" $args
+		;;
+	perlmodule)
+		configure_perlmodule_package "$subdir" $args
+		;;
+	*)
+		echo "ERROR : no configure script, or CMakeLists.txt found in ./ directory"
+		exit 1
+		;;
+esac

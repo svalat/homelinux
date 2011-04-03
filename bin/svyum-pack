@@ -1,0 +1,99 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+function setup_pack_tmp()
+{
+	echo ">>> Extracting <<<"
+	if [ -z "$TMPDIR" ]; then echo "You need to define TMPDIR in ~/.svconfig"; exit 1; fi
+	BDIR="${TMPDIR}/${PACKAGE_NAME}-${PACKAGE_VERSION}"
+	echo "BDIR=$BDIR"
+	if [ -z "$BDIR" ]; then exit 1; fi
+	if [ -d "$BDIR" ]; then safe_exec rm -rf "$BDIR/*"; else safe_exec mkdir -p "$BDIR"; fi
+
+	safe_exec cd "$BDIR"
+}
+
+######################### SECTION ############################
+function cleanup_pack_tmp()
+{
+	echo ">>> Cleanup tmp directory <<<"
+	if [ -z "$TMPDIR" ]; then echo "You need to define TMPDIR in ~/.svconfig"; exit 1; fi
+	BDIR="${TMPDIR}/${PACKAGE_NAME}-${PACKAGE_VERSION}"
+	echo "BDIR=$BDIR"
+	if [ -z "$BDIR" ]; then exit 1; fi
+	if [ -d "$BDIR" ]; then safe_exec rm -rf "$BDIR"; fi
+}
+
+######################### SECTION ############################
+#{package file}
+function manage_install()
+{
+	#error
+	if [ ! -f "$1" ]; then
+		echo "Can't open package file $1"
+		exit 1
+	fi
+
+	#source the package
+	echo ">>> Source $1 <<<"
+	source "$1"
+
+	#call install functions
+	do_check_vars
+	safe_exec cd "${SV_HOME_LINUX_SHARED}/distfiles"
+	do_download
+	setup_pack_tmp
+	do_extract
+	do_move_to_build_dir
+	do_configure
+	do_test
+	do_install
+	do_clean
+	cleanup_pack_tmp
+}
+
+######################### SECTION ############################
+function showHelp()
+{
+	echo "Usage : $0 {help|install} {package name}"
+}
+
+######################### SECTION ############################
+case "$1" in
+	help)
+		showHelp
+		;;
+	install)
+		manage_install "$2"
+		;;
+	*)
+		showHelp
+		exit 1
+		;;
+esac

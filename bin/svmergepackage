@@ -1,0 +1,67 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+PACKAGE=$(basename "$1" | sed -e "s/\.tar\.gz//g")
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+function check_package_content()
+{
+	echo ">>> Check package content <<<"
+	res=ok
+	tar -tvzf "$1" "${SV_HOME_LINUX_SHARED_NP}/*.flist" | grep "$PACKAGE.flist" || res=notok
+	if [ "$res" != "ok" ]
+	then
+		echo "Invalid package $1"
+		exit 1
+	fi
+}
+
+######################### SECTION ############################
+if [ "$1" = "$*" ]
+then
+	check_package_content "$1"
+	error_if_package_is_installed "${PACKAGE}"
+
+	tar -xvzf "$1" -C ${PREFIX} || exit 1
+	echo "Merge $PACKAGE" >> ${SV_HOME_LINUX_SHARED}/package-actions.log
+	echo ">> Package $PACKAGE merged <<"
+else
+	echo ">>> Multiple package detected <<<"
+	for tmp in $*
+	do
+		echo " * $tmp"
+	done
+	echo ">>> Wait 2 seconds before merging <<<"
+	sleep 2
+	echo ">>>Start merging <<<"
+	for tmp in $*
+	do
+		${PREFIX}/svmergepackage $tmp || exit 1
+	done
+fi
