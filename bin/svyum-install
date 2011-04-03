@@ -27,6 +27,79 @@ fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
 ######################### SECTION ############################
+function genAutoPackage()
+{
+	fname="${SV_HOME_LINUX_QUICK_PACKAGES}/${1}.svquickpackage"
+	if [ ! -f $fname ] || [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.version -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.deps -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.type -nt $fname ] \
+		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
+	then
+		safe_exec svyum-gen "$1" > $fname
+	fi
+	echo $fname
+}
+
+######################### SECTION ############################
+function getPackageFile()
+{
+	if [ -f "${SV_HOME_LINUX_PACKAGES}/$1.svpackage" ]
+	then
+		echo "${SV_HOME_LINUX_PACKAGES}/$1.svpackage"
+	else
+		genAutoPackage "$1"
+	fi
+}
+
+######################### SECTION ############################
+function getPackageVersion()
+{
+	svyum-pack version "$1"
+}
+
+######################### SECTION ############################
+function getPackageDeps()
+{
+	svyum-pack deps "$1"
+}
+
+######################### SECTION ############################
+function getPackageArchive()
+{
+	svyum-pack archive "$1"
+}
+
+######################### SECTION ############################
+#{name}
+function yumSearchDepsInstall()
+{
+	package_file=$(getPackageFile "$1")
+
+	if [ -z "$package_file" ]; then
+		echo "Unknown package $1"
+		exit 1
+	fi
+
+	package_version=$(getPackageVersion "$package_file")
+	echo "$1 -> $package_file -> $package_version"
+	last_version=$(yumFindLastVersion "$1" | cut -f 2 -d ' ')
+	package_deps=$(getPackageDeps "$package_file")
+	package_archive=$(getPackageArchive "$package_file")
+
+	echo "${1};${package_version};${package_archive};${last_version}"
+ 
+	if [ ! -z "$package_deps" ]; then
+		echo "DEPS = $package_deps"
+		for p in $package_deps
+		do
+			yumCheckIfInstall "$p" && continue
+			yumSearchDepsInstall "$p"
+		done
+	fi
+}
+
+######################### SECTION ############################
 function  yumInvertList()
 {
 	res=""
@@ -54,30 +127,36 @@ function yumClearnDeps()
 ######################### SECTION ############################
 function yumInstall()
 {
-	DEPS=$(yumSearchDepsInstall $1)
-	DEPS=$(yumClearnDeps $DEPS)
-	echo "========================== PACKAGES TO INSTALL ============================="
-	for tmp in $DEPS
-	do
-		pname=`echo $tmp | cut -f 1 -d ';'`
-		pvers=`echo $tmp | cut -f 2 -d ';'`
-		pfname=`echo $tmp | cut -f 3 -d ';'`
-		plvers=`echo $tmp | cut -f 4 -d ';'`
-		printf "%-15s	%-10s	%-10s	%-25s\n" "$pname" "$pvers" "$plvers" "$pfname"
-	done
-	echo "============================================================================"
-
-	yes_no_question "Are you agree" "yes" || exit 0
-
-	for tmp in $DEPS
-	do
-		pname=`echo $tmp | cut -f 1 -d ';'`
-		pvers=`echo $tmp | cut -f 2 -d ';'`
-		pfname=`echo $tmp | cut -f 3 -d ';'`
-		plvers=`echo $tmp | cut -f 4 -d ';'`
-		yumInstallPackage "$pname" "$pvers" "$pfname" "$plvers"
-	done
+	yumSearchDepsInstall $1
+# 	DEPS=$(yumSearchDepsInstall $1)
+# 	DEPS=$(yumClearnDeps $DEPS)
+# 	echo "========================== PACKAGES TO INSTALL ============================="
+# 	for tmp in $DEPS
+# 	do
+# 		pname=`echo $tmp | cut -f 1 -d ';'`
+# 		pvers=`echo $tmp | cut -f 2 -d ';'`
+# 		pfname=`echo $tmp | cut -f 3 -d ';'`
+# 		plvers=`echo $tmp | cut -f 4 -d ';'`
+# 		printf "%-15s	%-10s	%-10s	%-25s\n" "$pname" "$pvers" "$plvers" "$pfname"
+# 	done
+# 	echo "============================================================================"
+# 
+# 	yes_no_question "Are you agree" "yes" || exit 0
+# 
+# 	for tmp in $DEPS
+# 	do
+# 		pname=`echo $tmp | cut -f 1 -d ';'`
+# 		pvers=`echo $tmp | cut -f 2 -d ';'`
+# 		pfname=`echo $tmp | cut -f 3 -d ';'`
+# 		plvers=`echo $tmp | cut -f 4 -d ';'`
+# 		yumInstallPackage "$pname" "$pvers" "$pfname" "$plvers"
+# 	done
 }
 
 ######################### SECTION ############################
-yumInstall $1
+if [ -z "$1" ]; then
+	echo "Usage : $0 {package_name}"
+	exit 1
+else
+	yumInstall $1
+fi

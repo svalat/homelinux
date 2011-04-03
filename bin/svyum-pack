@@ -51,8 +51,8 @@ function cleanup_pack_tmp()
 }
 
 ######################### SECTION ############################
-#{package file}
-function manage_install()
+#loadPackage {name}
+function loadPackage()
 {
 	#error
 	if [ ! -f "$1" ]; then
@@ -61,8 +61,15 @@ function manage_install()
 	fi
 
 	#source the package
+	source $1
+}
+
+######################### SECTION ############################
+#manageInstall {package file}
+function manageInstall()
+{
 	echo ">>> Source $1 <<<"
-	source "$1"
+	loadPackage "$1"
 
 	#call install functions
 	do_check_vars
@@ -81,7 +88,38 @@ function manage_install()
 ######################### SECTION ############################
 function showHelp()
 {
-	echo "Usage : $0 {help|install} {package name}"
+	echo "Usage : $0 {help|install|version|deps|archive} {package name}"
+}
+
+######################### SECTION ############################
+#showDeps {name}
+function showDeps()
+{
+	loadPackage "$1"
+
+	if [ ! -z "${PACKAGE_BUILD_DEPENDS}" ]; then
+		echo "${PACKAGE_BUILD_DEPENDS}"
+	fi
+}
+
+######################### SECTION ############################
+#showVersion {name}
+function showVersion()
+{
+	loadPackage "$1"
+
+	echo "${PACKAGE_VERSION}"
+}
+
+######################### SECTION ############################
+#showVersion {name}
+function showArchive()
+{
+	loadPackage "$1"
+
+	if [ ! -z "${PACKAGE_ARCHIVE}" ]; then 
+		echo "${PACKAGE_ARCHIVE}"
+	fi
 }
 
 ######################### SECTION ############################
@@ -90,7 +128,16 @@ case "$1" in
 		showHelp
 		;;
 	install)
-		manage_install "$2"
+		manageInstall "$2"
+		;;
+	deps)
+		showDeps "$2" | tail -n 1
+		;;
+	version)
+		showVersion "$2" | tail -n 1
+		;;
+	archive)
+		showArchive "$2" | tail -n 1
 		;;
 	*)
 		showHelp

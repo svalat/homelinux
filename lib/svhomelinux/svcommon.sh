@@ -15,6 +15,8 @@ SV_HOME_LINUX_INSTALLED="${SV_HOME_LINUX_SHARED}/installed"
 SV_HOME_LINUX_SHARED_NP="./share/svhomelinux"
 SV_HOME_LINUX_INSTALLED_NP="${SV_HOME_LINUX_SHARED_NP}/installed"
 SV_HOME_LINUX_DISTFILES="${SV_HOME_LINUX_SHARED}/distfiles"
+SV_HOME_LINUX_PACKAGES="${SV_HOME_LINUX_SHARED}/packages"
+SV_HOME_LINUX_QUICK_PACKAGES="${SV_HOME_LINUX_SHARED}/quickpackages"
 
 ######################### FUNCTION ###########################
 function safe_exec()
@@ -121,7 +123,7 @@ function pack_var_required()
 #{name}
 function yumFindLastVersion()
 {
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfile.list.gz | egrep \"^[0-9]+\. .*/${1}-[0-9\.]\" | cut -f 2 -d ' ' | tail -n 1`"
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-[0-9\.]\" | cut -f 2 -d ' ' | tail -n 1`"
 	if [ -z "$res" ]; then
 		echo "Package not found $1" 1>&2
 		exit 1
@@ -133,7 +135,7 @@ function yumFindLastVersion()
 #{name} {version}
 function yumFindFileName()
 {
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfile.list.gz | egrep \"^[0-9]+\. .*/${1}-${2}\" | cut -f 2 -d ' ' | tail -n 1`"
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-${2}\" | cut -f 2 -d ' ' | tail -n 1`"
 	basename "$res"
 }
 

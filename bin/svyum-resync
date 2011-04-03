@@ -29,17 +29,17 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ######################### SECTION ############################
 function resyncDistfilesList()
 {
-	echo > ${SV_HOME_LINUX_SHARED}/distfile.list
-	echo > ${SV_HOME_LINUX_SHARED}/distfile.list.html
+	echo > ${SV_HOME_LINUX_SHARED}/distfiles.list
+	echo > ${SV_HOME_LINUX_SHARED}/distfiles.list.html
 	for tmp in ${GENTOO_MIRROR}
 	do
 		echo ">> download from ${tmp} <<"
-		safe_exec curl "${tmp}/distfiles/" >> ${SV_HOME_LINUX_SHARED}/distfile.list.html
+		safe_exec curl "${tmp}/distfiles/" >> ${SV_HOME_LINUX_SHARED}/distfiles.list.html
 	done
 	echo ">> Formatting package source list <<"
-	safe_exec lynx -dump ${SV_HOME_LINUX_SHARED}/distfile.list.html | egrep "^[0-9]+" | sed -e "s#${SV_HOME_LINUX_SHARED}##g" > ${SV_HOME_LINUX_SHARED}/distfile.list
-	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfile.list
-	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfile.list.html
+	safe_exec lynx -dump ${SV_HOME_LINUX_SHARED}/distfiles.list.html | egrep "^[0-9]+" | sed -e "s#${SV_HOME_LINUX_SHARED}##" > ${SV_HOME_LINUX_SHARED}/distfiles.list
+	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfiles.list
+	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfiles.list.html
 }
 
 ######################### SECTION ############################

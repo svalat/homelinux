@@ -38,24 +38,35 @@ fi
 
 ######################### SECTION ############################
 if [ -z "$version" ]; then
-	version=$(yumFindLastVersion "$package" | cut -f 2 -d ' ')
+	last_version=$(yumFindLastVersion "$package" | cut -f 2 -d ' ')
+	version=$last_version
+else
+	last_version=$last_version
 fi
 
 archive=$(yumFindFileName "$package" "$version")
+deps=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.deps | cut -d ' ' -f 2-)
+type=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.type | cut -d ' ' -f 2 )
+
+if [ -z "$type" ]; then
+	type=basic
+fi
 
 ######################### SECTION ############################
-echo "inherit svpack-basic
+echo "inherit svpack-${type}
 
 PACKAGE_NAME='$package'
-PACKAGE_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
+PACKAGE_LAST_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
+#PACKAGE_LAST_VERSION='$last_version'
+PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\"
 #PACKAGE_VERSION='$version'
 PACKAGE_ARCHIVE='$archive'
 PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
 PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXE_DEPENDS=''
-PACKAGE_BUILD_DEPENDS="${PACKAGE_EXEC_DEPENDS}"
+PACKAGE_EXEC_DEPENDS='$deps'
+PACKAGE_BUILD_DEPENDS=\"\$PACKAGE_EXEC_DEPENDS\"
 
 #You can override if require
 #function do_download() {}
