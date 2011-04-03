@@ -175,6 +175,7 @@ function yumInstall()
 		pfile=`echo $tmp | cut -f 5 -d ';'`
 		yumInstallPackage "$pname" "$pvers" "$pfname" "$plvers" "$pfile"
 	done
+	echo ">>> END <<<"
 }
 
 ######################### SECTION ############################

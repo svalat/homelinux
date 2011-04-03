@@ -32,7 +32,7 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ######################### FUNCTION ###########################
 function getFiles()
 {
-	cat "$1" | while read line
+	zcat "$1" | while read line
 	do
 		if [ ! -d "$PREFIX/$line" ]; then echo $line; fi
 	done
@@ -41,9 +41,9 @@ function getFiles()
 ######################### FUNCTION ###########################
 function getPackages()
 {
-	for fname in ${SV_HOME_LINUX_INSTALLED}/*.flist
+	for fname in ${SV_HOME_LINUX_INSTALLED}/*.flist.gz
 	do
-		basename "$fname" | sed -e "s/\.flist$//g"
+		basename "$fname" | sed -e "s/\.flist.gz$//g"
 	done
 }
 
@@ -65,7 +65,7 @@ else
 	    done
 	else
 		package=$1
-		if [ ! -f ${SV_HOME_LINUX_INSTALLED}/$1.flist ]
+		if [ ! -f ${SV_HOME_LINUX_INSTALLED}/$1.flist.gz ]
 		then
 			echo "Unknown package $1"
 			echo "Candidate are :"
@@ -77,7 +77,7 @@ else
 				exit 1
 			fi
 		fi
-		getFiles "${SV_HOME_LINUX_INSTALLED}/${package}.flist" | xargs tar -cvzf "${package}.tar.gz" -C $PREFIX || exit 1
+		getFiles "${SV_HOME_LINUX_INSTALLED}/${package}.flist.gz" | xargs tar -cvzf "${package}.tar.gz" -C $PREFIX || exit 1
 	    echo "Package $package" >> ${SV_HOME_LINUX_SHARED}/package-actions.log
 	fi
 fi

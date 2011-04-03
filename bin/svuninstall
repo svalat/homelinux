@@ -40,9 +40,9 @@ fi
 ######################### SECTION ############################
 function filterFiles()
 {
-	cat "$1" | while read line
+	zcat "$1" | while read line
 	do
-		if [ ! -d "${PREFIX}/$line" ] && [ `grep "^$line$" ${SV_HOME_LINUX_INSTALLED}/*.flist | wc -l` -eq 1 ]; then
+		if [ ! -d "${PREFIX}/$line" ] && [ `zgrep "^$line$" ${SV_HOME_LINUX_INSTALLED}/*.flist.gz | wc -l` -eq 1 ]; then
 			echo "${PREFIX}/$line"
 		fi
 	done || exit 1
@@ -51,7 +51,7 @@ function filterFiles()
 ######################### SECTION ############################
 function getAllDirs()
 {
-	cat "$1" | while read line
+	zcat "$1" | while read line
 	do
 		if [ -z "$(echo $line | grep svhomelinux)" ]; then
 			if [ -d $line ]; then
@@ -66,15 +66,15 @@ function getAllDirs()
 ######################### SECTION ############################
 echo ">>> Check if already installed <<<"
 if [ -z "$VERSION" ]; then
-	if [ `ls ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist | wc -l` -gt 1 ]; then
+	if [ `ls ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz | wc -l` -gt 1 ]; then
 		echo "Multiple version of package, please define the version you want to uninstall"
 	fi
-	VERSION=`echo ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist | sed -e "s#^${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-##g" -e 's#\.flist$##g'`
+	VERSION=`echo ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz | sed -e "s#^${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-##g" -e 's#\.flist.gz$##g'`
 	echo "Detected ${PACKAGE}-${VERSION}"
 fi
 
 ######################### SECTION ############################
-if [ -f "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist" ]
+if [ -f "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz" ]
 then
 	echo "Installation ok"
 else
@@ -84,14 +84,14 @@ fi
 
 ######################### SECTION ############################
 echo ">>> Check flist file <<<"
-if [ ! -f "$SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist" ]; then
-	echo "ERROR: Can't find $SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist"
+if [ ! -f "$SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist.gz" ]; then
+	echo "ERROR: Can't find $SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist.gz"
 	exit 1
 fi
 ######################### SECTION ############################
 echo ">>> Remove files <<<"
-dirlist=$(getAllDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
-filelist=$(filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
+dirlist=$(getAllDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz")
+filelist=$(filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz")
 for f in $filelist
 do
 	rm -v "$f" || exit 1

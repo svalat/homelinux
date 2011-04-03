@@ -62,11 +62,9 @@ safe_exec make install
 ######################### SECTION ############################
 echo ">>> Build manifest <<<"
 cd ${PREFIX}
-echo > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist
-if [ -z "$variant" ]; then
-	ln -s ${package}-${version}.flist ${SV_HOME_LINUX_INSTALLED}/${package}.flist
-fi
-find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | tee ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist || exit 1
+echo > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz
+find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | gzip > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz || exit 1
+zcat ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz || exit 1
 
 ######################### SECTION ############################
 if [ ! -z "$variant" ]; then

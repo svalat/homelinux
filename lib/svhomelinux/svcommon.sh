@@ -35,12 +35,14 @@ function safe_exec()
 function error_if_package_is_installed()
 {
 	echo ">>> Check if already installed <<<"
-	if [ -z "$2" ]; then
-		pname="$1"
-	else
-		pname="$1-$2"
+	
+	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz" ]
+	then
+		echo "ERROR : ${pname} alredy installed, please remove first"
+		exit 1
 	fi
-	if [ -f "${SV_HOME_LINUX_INSTALLED}/${pname}.flist" ]
+
+	if [ ! -z "$2" ] && [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-${2}.flist.gz" ]
 	then
 		echo "ERROR : ${pname} alredy installed, please remove first"
 		exit 1
@@ -92,7 +94,7 @@ function yes_no_question()
 ######################### SECTION ############################
 function yumCheckIfInstall()
 {
-	if [ `ls ${SV_HOME_LINUX_INSTALLED}/${1}-*.flist 2>/dev/null | wc -l` -eq 0 ]; then
+	if [ -f ${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz ] || [ `ls ${SV_HOME_LINUX_INSTALLED}/${1}-*.flist.gz 2>/dev/null | wc -l` -eq 0 ]; then
 		return 1
 	else
 		return 0

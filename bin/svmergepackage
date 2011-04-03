@@ -34,7 +34,7 @@ function check_package_content()
 {
 	echo ">>> Check package content <<<"
 	res=ok
-	tar --wildcards -tvzf "$1" "${SV_HOME_LINUX_SHARED_NP}/*.flist" | grep "$PACKAGE.flist" || res=notok
+	tar --wildcards -tvzf "$1" "${SV_HOME_LINUX_SHARED_NP}/*.flist.gz" | grep "$PACKAGE.flist.gz" || res=notok
 	if [ "$res" != "ok" ]
 	then
 		echo "Invalid package $1"
