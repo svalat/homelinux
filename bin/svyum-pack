@@ -74,15 +74,17 @@ function manageInstall()
 	#call install functions
 	do_check_vars
 	safe_exec cd "${SV_HOME_LINUX_SHARED}/distfiles"
-	do_download
-	setup_pack_tmp
-	do_extract
-	do_move_to_build_dir
-	do_configure
-	do_test
-	do_install
-	do_clean
-	cleanup_pack_tmp
+	safe_exec do_download
+	safe_exec setup_pack_tmp
+	safe_exec do_extract
+	safe_exec do_move_to_build_dir
+	safe_exec do_configure
+	safe_exec do_test
+	safe_exec do_pre_install
+	safe_exec do_install
+	safe_exec do_post_install
+	safe_exec do_clean
+	safe_exec cleanup_pack_tmp
 }
 
 ######################### SECTION ############################

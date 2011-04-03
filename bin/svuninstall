@@ -42,21 +42,25 @@ function filterFiles()
 {
 	cat "$1" | while read line
 	do
-		if [ ! -d "${PREFIX}/$line" ] && [ `grep "$line" ${SV_HOME_LINUX_INSTALLED}/*.flist | wc -l` -eq 1 ]; then
+		if [ ! -d "${PREFIX}/$line" ] && [ `grep "^$line$" ${SV_HOME_LINUX_INSTALLED}/*.flist | wc -l` -eq 1 ]; then
 			echo "${PREFIX}/$line"
 		fi
 	done || exit 1
 }
 
 ######################### SECTION ############################
-function filterDirs()
+function getAllDirs()
 {
 	cat "$1" | while read line
 	do
-		if [ -d "${PREFIX}/$line" ] && [ "$(ls -A ${PREFIX}/$line/)" ]; then
-			echo "${PREFIX}/$line"
+		if [ -z "$(echo $line | grep svhomelinux)" ]; then
+			if [ -d $line ]; then
+				echo $line
+			else
+				dirname $line
+			fi
 		fi
-	done || exit 1
+	done  | uniq | sort -r
 }
 
 ######################### SECTION ############################
@@ -86,12 +90,22 @@ if [ ! -f "$SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist" ]; then
 fi
 ######################### SECTION ############################
 echo ">>> Remove files <<<"
-filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist"
-dirlist=$(filterDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
-filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist" | xargs rm || exit 1
+dirlist=$(getAllDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
+filelist=$(filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist")
+for f in $filelist
+do
+	rm -v "$f" || exit 1
+done
+
 if [ ! -z "$dirlist" ]; then
 	echo ">>> Remove empty directories <<<"
-	rmdir $dirlist
+	for d in $dirlist; do
+		if [ ! "$(ls -A $d)" ]; then
+			rmdir -v $d
+		fi
+	done
+else
+	echo ">>> No empty directories <<<"
 fi
 
 ######################### SECTION ############################

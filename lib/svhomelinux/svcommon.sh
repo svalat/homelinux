@@ -16,6 +16,7 @@ SV_HOME_LINUX_SHARED_NP="./share/svhomelinux"
 SV_HOME_LINUX_INSTALLED_NP="${SV_HOME_LINUX_SHARED_NP}/installed"
 SV_HOME_LINUX_DISTFILES="${SV_HOME_LINUX_SHARED}/distfiles"
 SV_HOME_LINUX_PACKAGES="${SV_HOME_LINUX_SHARED}/packages"
+SV_HOME_LINUX_ENV_DIR="${SV_HOME_LINUX_SHARED}/env"
 SV_HOME_LINUX_QUICK_PACKAGES="${SV_HOME_LINUX_SHARED}/quickpackages"
 
 ######################### FUNCTION ###########################
@@ -62,7 +63,7 @@ function extract_argument()
 #    $2 : Define the default answer ('yes' or 'no')
 function yes_no_question()
 {
-	res=$2
+	res=""
 	tmp=''
 	while [ -z "$res" ]; do
 		if [ "$2" ]; then
@@ -70,12 +71,12 @@ function yes_no_question()
 		else
 			printf "$1 ? (y/N) "
 		fi
-		read res
-		if [ -z "$res" ]; then
+		read tmp
+		if [ -z "$tmp" ]; then
 			res="$2"
-		elif [ "$rep" != "y" ] || [ "$rep" != "Y" ]; then
+		elif [ "$tmp" = "y" ] || [ "$tmp" = "Y" ]; then
 			res='yes'
-		elif [ "$rep" = 'n' ] || [ "$rep" = "N" ]; then
+		elif [ "$tmp" = 'n' ] || [ "$tmp" = "N" ]; then
 			res='no'
 		fi
 	done

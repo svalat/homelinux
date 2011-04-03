@@ -97,9 +97,21 @@ function do_test()
 }
 
 ######################### SECTION ############################
+function do_pre_install()
+{
+	echo "Nothing to to at pre-install"
+}
+
+######################### SECTION ############################
 function do_install()
 {
 	safe_exec svmakeinstall "$PACKAGE_NAME" "$PACKAGE_VERSION"
+}
+
+######################### SECTION ############################
+function do_post_install()
+{
+	echo "Nothing to to at post-install"
 }
 
 ######################### SECTION ############################

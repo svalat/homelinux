@@ -74,6 +74,8 @@ PACKAGE_BUILD_DEPENDS=\"\$PACKAGE_EXEC_DEPENDS\"
 #function do_move_to_build_dir() {}
 #function do_configure() {}
 #function do_test() {}
+#function do_pre_isntall() {}
 #function do_install() {}
+#function do_post_isntall() {}
 #function do_clean() {}
 "

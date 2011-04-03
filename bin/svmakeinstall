@@ -33,7 +33,7 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ######################### SECTION ############################
 if [ -z "$package" ] || [ -z "$version" ]
 then
-	echo "Usage : $0 {package}-{version}"
+	echo "Usage : $0 {package} {version}"
 	exit 1
 fi
 

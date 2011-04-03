@@ -18,6 +18,14 @@ fi
 #load it
 source ${HOME}/.svconfig
 
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
 ######################### FUNCTION ###########################
 # Return the list of variants available
 function getVariants()
@@ -65,12 +73,23 @@ do
 done
 
 ######################### SECTION ############################
+echo "#Global :"
 echo export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 echo export PATH="$PATH"
 echo export MANPATH="$MANPATH"
 echo export CPATH="$CPATH"
 echo export PERL5LIB="$PERL5LIB"
 echo export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+
+######################### SECTION ############################
+if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then
+	for tmp in ${SV_HOME_LINUX_ENV_DIR}/*
+	do
+		echo
+		echo "#From $tmp :"
+		cat "$tmp"
+	done
+fi
 
 #if [ "$1" != "-s" ]; then
 #	echo "###############################################"
