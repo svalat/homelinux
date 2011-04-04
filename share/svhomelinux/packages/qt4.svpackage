@@ -1,0 +1,27 @@
+#!/bin/bash
+inherit svpack-basic
+
+PACKAGE_NAME='qt4'
+PACKAGE_LAST_VERSION="$(yumFindLastVersion qt-everywhere-opensource-src | cut -f 2 -d ' ')"
+#PACKAGE_LAST_VERSION='4.7.2'
+PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
+#PACKAGE_VERSION='4.7.2'
+PACKAGE_ARCHIVE="qt-everywhere-opensource-src-${PACKAGE_VERSION}.tar.gz"
+PACKAGE_SUBDIR="qt-everywhere-opensource-src-${PACKAGE_VERSION}"
+PACKAGE_VARIANT=''
+PACKAGE_CONFIGURE_OPTIONS=""
+PACKAGE_TEST_TARGET=''
+PACKAGE_EXEC_DEPENDS=''
+PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+
+#You can override if require
+#function do_download() {}
+#function do_extract() {}
+#function do_move_to_build_dir() {}
+#function do_configure() {}
+#function do_test() {}
+#function do_pre_isntall() {}
+#function do_install() {}
+#function do_post_isntall() {}
+#function do_clean() {}
+
