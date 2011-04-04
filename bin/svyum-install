@@ -72,6 +72,12 @@ function getPackageArchive()
 }
 
 ######################### SECTION ############################
+function getPackageLastVersion()
+{
+	svyum-pack last-version "$1"
+}
+
+######################### SECTION ############################
 #{name}
 function yumSearchDepsInstall()
 {
@@ -84,7 +90,7 @@ function yumSearchDepsInstall()
 
 	package_version=$(getPackageVersion "$package_file")
 	#echo "$1 -> $package_file -> $package_version"
-	last_version=$(yumFindLastVersion "$1" | cut -f 2 -d ' ')
+	last_version=$(getPackageLastVersion "$package_file")
 	package_deps=$(getPackageDeps "$package_file")
 	package_archive=$(getPackageArchive "$package_file")
 

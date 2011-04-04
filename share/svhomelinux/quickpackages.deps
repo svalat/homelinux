@@ -4,3 +4,7 @@ gcc gmp mpfr
 doxygen graphviz
 automake autoconf
 subversion apr apr-util sqlite
+nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm
+GConf glib ORBit2 libxml2
+ORBit2 libIDL
+dbus-glib expat

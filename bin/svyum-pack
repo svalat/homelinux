@@ -79,6 +79,7 @@ function manageInstall()
 	safe_exec do_extract
 	safe_exec do_move_to_build_dir
 	safe_exec do_configure
+	safe_exec do_make
 	safe_exec do_test
 	safe_exec do_pre_install
 	safe_exec do_install
@@ -90,7 +91,7 @@ function manageInstall()
 ######################### SECTION ############################
 function showHelp()
 {
-	echo "Usage : $0 {help|install|version|deps|archive} {package name}"
+	echo "Usage : $0 {help|install|version|deps|archive|last-version} {package name}"
 }
 
 ######################### SECTION ############################
@@ -111,6 +112,15 @@ function showVersion()
 	loadPackage "$1"
 
 	echo "${PACKAGE_VERSION}"
+}
+
+######################### SECTION ############################
+#showVersion {name}
+function showLastVersion()
+{
+	loadPackage "$1"
+
+	echo "${PACKAGE_LAST_VERSION}"
 }
 
 ######################### SECTION ############################
@@ -144,6 +154,9 @@ case "$1" in
 		;;
 	version)
 		showVersion "$2" | tail -n 1
+		;;
+	last-version)
+		showLastVersion "$2" | tail -n 1
 		;;
 	archive)
 		showArchive "$2" | tail -n 1

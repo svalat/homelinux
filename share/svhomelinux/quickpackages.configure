@@ -2,3 +2,5 @@ mpfr --with-gmp=${PREFIX}
 gcc --with-gmp=${PREFIX} --with-mpfr=${PREFIX} --disable-multilib
 subversion --disable-mod-activation
 apr-util --with-apr=${PREFIX}
+dbus --with-xml=libxml LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
+dbus-glib LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include

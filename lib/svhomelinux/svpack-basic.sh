@@ -99,7 +99,7 @@ function do_test()
 		echo ">>> Execute tests <<<"
 		current="$PWD"
 		if [ -d svbuild ]; then safe_exec cd svbuild ; fi
-		safe_exec make
+		safe_exec make ${PACKAGE_TEST_TARGET} ${MAKE_OPTS}
 		safe_exec cd "$current"
 	fi
 }
@@ -108,6 +108,12 @@ function do_test()
 function do_pre_install()
 {
 	echo "Nothing to to at pre-install"
+}
+
+######################### SECTION ############################
+function do_make()
+{
+	safe_exec make ${MAKE_OPTS}
 }
 
 ######################### SECTION ############################

@@ -50,6 +50,12 @@ function do_configure()
 }
 
 ######################### SECTION ############################
+function do_make()
+{
+	echo "Nothing to do at make"
+}
+
+######################### SECTION ############################
 function do_test()
 {
  echo "Nothing to do at test"
@@ -78,3 +84,5 @@ function do_clean()
 {
 	echo "Nothing to do"
 }
+
+

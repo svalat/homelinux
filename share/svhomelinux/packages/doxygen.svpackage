@@ -9,6 +9,7 @@ PACKAGE_ARCHIVE="doxygen-${PACKAGE_VERSION}.src.tar.gz"
 #function do_extract() {}
 #function do_move_to_build_dir() {}
 #function do_configure() {}
+#function do_make() {}
 #function do_test() {}
 #function do_pre_isntall() {}
 #function do_install() {}
@@ -17,5 +18,5 @@ PACKAGE_ARCHIVE="doxygen-${PACKAGE_VERSION}.src.tar.gz"
 
 function do_configure()
 {
-	safe_exec ./configure --prefix "${PREFIX}/${PACKAGE_VARIANT}" ${PACKAGE_CONFIGURE_OPTIONS}
+	safe_exec ./configure --prefix "${PREFIX}" ${PACKAGE_CONFIGURE_OPTIONS}
 }
