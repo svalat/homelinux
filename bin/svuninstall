@@ -100,8 +100,8 @@ done
 if [ ! -z "$dirlist" ]; then
 	echo ">>> Remove empty directories <<<"
 	for d in $dirlist; do
-		if [ ! "$(ls -A $d)" ]; then
-			rmdir -v $d
+		if [ ! "$(ls -A ${PREFIX}/$d)" ]; then
+			rmdir -v "${PREFIX}/$d"
 		fi
 	done
 else

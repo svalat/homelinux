@@ -37,11 +37,17 @@ if [ -z "$1$2" ]; then
 fi
 
 ######################### SECTION ############################
+forced_version=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.version | cut -d ' ' -f 2 )
+
 if [ -z "$version" ]; then
 	last_version=$(yumFindLastVersion "$package" | cut -f 2 -d ' ')
 	version=$last_version
 else
 	last_version=$last_version
+fi
+
+if [ ! -z "$forced_version" ]; then
+	version="$forced_version"
 fi
 
 archive=$(yumFindFileName "$package" "$version")
@@ -59,9 +65,13 @@ inherit svpack-${type}
 
 PACKAGE_NAME='$package'
 PACKAGE_LAST_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
-#PACKAGE_LAST_VERSION='$last_version'
-PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\"
-#PACKAGE_VERSION='$version'
+#PACKAGE_LAST_VERSION='$last_version'"
+if [ -z "$forced_version" ]; then
+	echo "PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\""
+else
+	echo "PACKAGE_VERSION=\"$forced_version\""
+fi
+echo "#PACKAGE_VERSION='$version'
 PACKAGE_ARCHIVE='$archive'
 PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
 PACKAGE_VARIANT='$variant'
