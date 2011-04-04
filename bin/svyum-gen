@@ -32,9 +32,18 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
 ######################### SECTION ############################
 if [ -z "$1$2" ]; then
-	echo "Usage : $0 {package} [version]"
+	echo "Usage : $0 {package} [version] [--noinherit]"
 	exit 1
 fi
+
+######################### SECTION ############################
+function get_def_inheritance()
+{
+	for tmp in $*
+	do
+		echo "inherit svpack-${tmp}"
+	done
+}
 
 ######################### SECTION ############################
 forced_version=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.version | cut -d ' ' -f 2 )
@@ -48,9 +57,12 @@ fi
 
 if [ ! -z "$forced_version" ]; then
 	version="$forced_version"
+else
+	forced_version='$PACKAGE_LAST_VERSION'
 fi
 
-archive=$(yumFindFileName "$package" "$version")
+######################### SECTION ############################
+archive=$(yumFindFileName "$package" "$version" | sed -e "s/$version/\${PACKAGE_VERSION}/g")
 deps=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.deps | cut -d ' ' -f 2-)
 type=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.type | cut -d ' ' -f 2 )
 variant=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.variant | cut -d ' ' -f 2 )
@@ -61,20 +73,21 @@ if [ -z "$type" ]; then
 fi
 
 ######################### SECTION ############################
+if [ -z "$(echo $* | grep -e --noinherit)" ]; then
+	def_inheritance="$(get_def_inheritance $type)"
+else
+	def_inheritance=''
+fi
+
+######################### SECTION ############################
 echo "#!/bin/bash
-inherit svpack-${type}
+${def_inheritance}
 
 PACKAGE_NAME='$package'
 PACKAGE_LAST_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
-#PACKAGE_LAST_VERSION='$last_version'"
-
-if [ -z "$forced_version" ]; then
-	echo "PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\""
-else
-	echo "PACKAGE_VERSION=\"$forced_version\""
-fi
-
-echo "#PACKAGE_VERSION='$version'
+#PACKAGE_LAST_VERSION='$last_version'
+PACKAGE_VERSION=\"$forced_version\"
+#PACKAGE_VERSION='$version'
 PACKAGE_ARCHIVE='$archive'
 PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
 PACKAGE_VARIANT='$variant'

@@ -1,18 +1,8 @@
 #!/bin/bash
 inherit svpack-basic
+svPackLoadDefault 'doxygen'
 
-PACKAGE_NAME='doxygen'
-PACKAGE_LAST_VERSION="$(yumFindLastVersion $PACKAGE_NAME | cut -f 2 -d ' ')"
-#PACKAGE_LAST_VERSION='1.7.3.src'
-PACKAGE_VERSION="1.7.3"
-#PACKAGE_VERSION='1.7.3'
-PACKAGE_ARCHIVE='doxygen-1.7.3.src.tar.gz'
-PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
-PACKAGE_VARIANT=''
-PACKAGE_CONFIGURE_OPTIONS=""
-PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS='graphviz'
-PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+PACKAGE_ARCHIVE="doxygen-${PACKAGE_VERSION}.src.tar.gz"
 
 #You can override if require
 #function do_download() {}

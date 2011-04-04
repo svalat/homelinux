@@ -19,6 +19,10 @@ PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
 
 ######################### SECTION ############################
+export CFLAGS
+export CXXFLAGS
+
+######################### SECTION ############################
 function do_check_vars()
 {
 	if [ -z "$PACKAGE_NAME" ]; then pack_var_required PACKAGE_NAME; fi

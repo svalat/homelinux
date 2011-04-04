@@ -85,9 +85,11 @@ echo export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
 if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then
 	for tmp in ${SV_HOME_LINUX_ENV_DIR}/*
 	do
-		echo
-		#echo "#From $tmp :"
-		cat "$tmp"
+		if [ "$(basename $tmp)" != "README.txt" ]; then
+			echo
+			#echo "#From $tmp :"
+			cat "$tmp"
+		fi
 	done
 fi
 

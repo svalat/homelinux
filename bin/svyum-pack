@@ -125,6 +125,13 @@ function showArchive()
 }
 
 ######################### SECTION ############################
+#{name} [version]
+function svPackLoadDefault()
+{
+	eval "$(svyum-gen $1 $2 --noinherit)"
+}
+
+######################### SECTION ############################
 case "$1" in
 	help)
 		showHelp
