@@ -26,36 +26,17 @@ if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
 fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
-######################### FUNCTION ###########################
-function showHelp()
-{
-	echo "Usage: svyum {action}"
-	echo "       svyum help                       -> display this help"
-	echo "       svyum resync                     -> resync distfile list"
-	echo "       svyum install {name} ...         -> install the selected package and deps"
-	echo "       svyum search {filter}            -> list package sources"
-	echo "       svyum uninstall {name} [version] -> remove the selected package"
-}
+######################### SECTION ############################
+if [ -z "$1" ]; then
+	echo "Usage : $0 {filter}"
+	exit 1
+fi
 
 ######################### SECTION ############################
-case $1 in
-	resync)
-		svyum-resync || exit 1
-		;;
-	install)
-		svyum-install $(skip_args 1 $*)  || exit 1
-		;;
-	uninstall)
-		svuninstall "$2" "$3" "$4" "$5" "$6" || exit 1
-		;;
-	search)
-		svyum-search "$2" || exit 1
-		;;
-	help)
-		showHelp
-		;;
-	*)
-		showHelp
-		exit 1
-		;;
-esac
+echo "================================ PACKAGES ==================================="
+echo
+echo "-------------------------------- SVPACKAGE ----------------------------------"
+ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep "$1"
+echo "--------------------------------- GENTOO ------------------------------------"
+zgrep "$1" ${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz
+echo "============================================================================="
