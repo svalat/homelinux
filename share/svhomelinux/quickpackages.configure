@@ -1,0 +1,2 @@
+mpfr --with-gmp=${PREFIX}
+gcc --with-gmp=${PREFIX} --with-mpfr=${PREFIX} --disable-multilib

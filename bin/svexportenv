@@ -73,7 +73,7 @@ do
 done
 
 ######################### SECTION ############################
-echo "#Global :"
+#echo "#Global :"
 echo export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 echo export PATH="$PATH"
 echo export MANPATH="$MANPATH"
@@ -86,7 +86,7 @@ if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then
 	for tmp in ${SV_HOME_LINUX_ENV_DIR}/*
 	do
 		echo
-		echo "#From $tmp :"
+		#echo "#From $tmp :"
 		cat "$tmp"
 	done
 fi

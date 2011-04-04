@@ -1,2 +1,3 @@
 mpfr gmp
 git curl
+gcc gmp mpfr

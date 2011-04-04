@@ -54,6 +54,7 @@ archive=$(yumFindFileName "$package" "$version")
 deps=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.deps | cut -d ' ' -f 2-)
 type=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.type | cut -d ' ' -f 2 )
 variant=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.variant | cut -d ' ' -f 2 )
+configure=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.configure | cut -d ' ' -f 2-)
 
 if [ -z "$type" ]; then
 	type=basic
@@ -66,16 +67,18 @@ inherit svpack-${type}
 PACKAGE_NAME='$package'
 PACKAGE_LAST_VERSION=\"\$(yumFindLastVersion \$PACKAGE_NAME | cut -f 2 -d ' ')\"
 #PACKAGE_LAST_VERSION='$last_version'"
+
 if [ -z "$forced_version" ]; then
 	echo "PACKAGE_VERSION=\"\$PACKAGE_LAST_VERSION\""
 else
 	echo "PACKAGE_VERSION=\"$forced_version\""
 fi
+
 echo "#PACKAGE_VERSION='$version'
 PACKAGE_ARCHIVE='$archive'
 PACKAGE_SUBDIR=\"\${PACKAGE_NAME}-\${PACKAGE_VERSION}\"
 PACKAGE_VARIANT='$variant'
-PACKAGE_CONFIGURE_OPTIONS=''
+PACKAGE_CONFIGURE_OPTIONS=\"$configure\"
 PACKAGE_TEST_TARGET=''
 PACKAGE_EXEC_DEPENDS='$deps'
 PACKAGE_BUILD_DEPENDS=\"\$PACKAGE_EXEC_DEPENDS\"

@@ -34,6 +34,7 @@ function genAutoPackage()
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.version -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.deps -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.type -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.configure -nt $fname ] \
 		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
 	then
 		safe_exec svyum-gen "$1" > $fname
