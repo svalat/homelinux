@@ -1,3 +1,6 @@
 mpfr gmp
 git curl
 gcc gmp mpfr
+doxygen graphviz
+automake autoconf
+subversion apr apr-util sqlite

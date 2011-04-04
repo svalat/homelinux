@@ -127,7 +127,7 @@ function pack_var_required()
 #{name}
 function yumFindLastVersion()
 {
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-[0-9\.]+\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-[0-9\.]+(\.src)?\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
 	if [ -z "$res" ]; then
 		echo "Package not found $1" 1>&2
 		exit 1
