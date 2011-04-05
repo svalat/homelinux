@@ -85,7 +85,9 @@ function do_configure()
 	if [ -z "$PACKAGE_VARIANT" ]; then
 		safe_exec svconfigure ${PACKAGE_CONFIGURE_OPTIONS}
 	else
-		if [ "${PACKAGE_VARIANT}" = "${PACKAGE_NAME}" ]; then
+		if [ "${PACKAGE_VARIANT}" = "noldpath" ]; then
+			safe_exec svconfigure --variant="${PACKAGE_VARIANT}" ${PACKAGE_CONFIGURE_OPTIONS}
+		elif [ "${PACKAGE_VARIANT}" = "${PACKAGE_NAME}" ]; then
 			safe_exec svconfigure --variant="${PACKAGE_VARIANT}-${PACKAGE_VERSION}" ${PACKAGE_CONFIGURE_OPTIONS}
 		else
 			safe_exec svconfigure --variant="${PACKAGE_VARIANT}-${PACKAGE_NAME}-${PACKAGE_VERSION}" ${PACKAGE_CONFIGURE_OPTIONS}

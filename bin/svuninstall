@@ -56,10 +56,10 @@ function getAllDirs()
 	do
 		if [ -d $line ]; then
 			echo $line
-		elif [ -d $(dirname $line) ]; then
+		else
 			dirname $line
 		fi
-	done  | tac | uniq
+	done  | sort -r | uniq
 }
 
 ######################### SECTION ############################
@@ -100,13 +100,13 @@ echo " * Get non conflicting files"
 filelist=$(filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz")
 for f in $filelist
 do
-	rm -v "$f" || exit 1
+	rm -v -f "$f" || exit 1
 done
 
 if [ ! -z "$dirlist" ]; then
 	echo ">>> Remove empty directories <<<"
 	for d in $dirlist; do
-		if [ ! "$(ls -A ${PREFIX}/$d)" ]; then
+		if [ -d "${PREFIX}/$d" ] && [ ! "$(ls -A ${PREFIX}/$d)" ]; then
 			rmdir -v "${PREFIX}/$d"
 		fi
 	done

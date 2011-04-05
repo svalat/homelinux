@@ -50,7 +50,7 @@ function doListTools()
 	if [ -d "${SV_HOME_LINUX_VARIANTES}" ]; then
 		ls $SV_HOME_LINUX_VARIANTES/ | sed -e "s/-/ /g" | cut -f 1 -d " " | uniq | while read tool
 		do
-			if [ -d $SV_HOME_LINUX_VARIANTES/$tool ]; then
+			if [ -d $SV_HOME_LINUX_VARIANTES/$tool ] && [ "$tool" != "noldpath" ]; then
 				echo " * $tool -> $(readlink $SV_HOME_LINUX_VARIANTES/$tool)"
 			fi
 		done

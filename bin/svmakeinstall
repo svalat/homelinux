@@ -75,7 +75,7 @@ find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | gzip > ${SV_HOME_LI
 zcat ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz || exit 1
 
 ######################### SECTION ############################
-if [ ! -z "$variant" ]; then
+if [ ! -z "$variant" ] && [ "$variant" != "noldpath" ]; then
 	echo ">>> Make variant <<<"
 	if [ "$variant" = "$package" ]; then
 		safe_exec svselect add ${variant} ${variant}-${version}

@@ -51,9 +51,12 @@ function addPathToVar()
 # Define a new prefix and setup all variables
 # Parms:
 #   - Prefix path
+#   - [noldpath]
 function addNewPrefix()
 {
+	if [ "$2" != 'noldpath' ]; then
 	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib`
+	fi
 	PATH=`addPathToVar $PATH $1/bin`
 	MANPATH=`addPathToVar $MANPATH $1/share/man`
 	CPATH=`addPathToVar $CPATH $1/include`
@@ -65,6 +68,9 @@ function addNewPrefix()
 ######################### SECTION ############################
 #setup the default prefix
 addNewPrefix "${PREFIX}"
+if [ -d "${PREFIX}/variants/noldpath" ]; then
+	addNewPrefix "${PREFIX}/variants/noldpath" noldpath
+fi
 
 #setup all variants
 for variant in $(getVariants)
