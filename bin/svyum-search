@@ -36,7 +36,7 @@ fi
 echo "================================ PACKAGES ==================================="
 echo
 echo "--------------------------------- GENTOO ------------------------------------"
-zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz
+zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | cut -f 4 -d '/'
 echo
 echo "-------------------------------- QUICKPAGES ---------------------------------"
 for tmp in slots configure variant deps type version
