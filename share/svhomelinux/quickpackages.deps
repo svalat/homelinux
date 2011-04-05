@@ -10,8 +10,10 @@ ORBit2 libIDL
 dbus-glib expat
 kdiff3 qt4
 fontconfig libxml2
-cairo libpng pixman libsvg poppler fontconfig freetype
+cairo libpng pixman libsvg poppler fontconfig freetype glib
 XML-Parser expat
 intltool XML-Parser
 inkscape intltool gc
 pango glib
+gnuplot cairo PDFlib-Lite
+glib gettext

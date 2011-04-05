@@ -1,0 +1,48 @@
+#!/bin/bash
+inherit svpack-basic
+
+PACKAGE_NAME='kdelibs'
+PACKAGE_LAST_VERSION="$(yumFindLastVersion $PACKAGE_NAME | cut -f 2 -d ' ')"
+#PACKAGE_LAST_VERSION='4.6.1'
+PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
+#PACKAGE_VERSION='4.6.1'
+PACKAGE_ARCHIVE="kdelibs-${PACKAGE_VERSION}.tar.bz2"
+PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
+PACKAGE_VARIANT=''
+PACKAGE_CONFIGURE_OPTIONS=""
+PACKAGE_TEST_TARGET=''
+PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon'
+PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+
+#You can override if require
+#function do_download() {}
+#function do_extract() {}
+#function do_move_to_build_dir() {}
+#function do_configure() {}
+#function do_make() {}
+#function do_test() {}
+#function do_pre_isntall() {}
+#function do_install() {}
+#function do_post_isntall() {}
+#function do_clean() {}
+
+function do_configure()
+{
+	current=$PWD
+	if [ ! -d svbuild ]; then
+		safe_exec mkdir svbuild
+		safe_exec cd svbuild
+	fi
+	safe_exec cmake .. -DCMAKE_INSTALL_PREFIX:PATH=${PREFIX} ${PACKAGE_CONFIGURE_OPTIONS}
+	safe_exec cd $current
+}
+
+function do_make()
+{
+	current=$PWD
+	if [ ! -d svbuild ]; then
+		safe_exec cd svbuild
+	fi
+	safe_exec make
+	safe_exec cd $current
+}

@@ -113,6 +113,7 @@ function do_pre_install()
 ######################### SECTION ############################
 function do_make()
 {
+	if [ -d svbuild ]; then safe_exec cd svbuild ; fi
 	safe_exec make ${MAKE_OPTS}
 }
 
