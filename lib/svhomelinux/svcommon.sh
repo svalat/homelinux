@@ -32,9 +32,21 @@ function safe_exec()
 #Params :
 #    $1 : package name (or package-version)
 #    $2 : package version
+#    $3 : package slot (0 per default)
 function error_if_package_is_installed()
 {
 	echo ">>> Check if already installed <<<"
+
+	if [ -z "$3" ]; then
+		s=0
+	else
+		s=$3
+	fi
+
+	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version" ]; then
+		echo "ERROR : ${pname} alredy installed in version $(cat ${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version), please remove first"
+		exit 1
+	fi
 	
 	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz" ]
 	then
@@ -47,6 +59,19 @@ function error_if_package_is_installed()
 		echo "ERROR : ${pname} alredy installed, please remove first"
 		exit 1
 	fi
+}
+
+######################### SECTION ############################
+#{name} {version} [slot]
+function markVersionAsInstalled()
+{
+	if [ -z "$3" ]; then
+		s=0
+	else
+		s=$3
+	fi
+
+	echo $2 > ${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version
 }
 
 ######################### FUNCTION ###########################

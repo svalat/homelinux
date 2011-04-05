@@ -42,7 +42,8 @@ function filterFiles()
 {
 	zcat "$1" | while read line
 	do
-		if [ ! -d "${PREFIX}/$line" ] && [ `zgrep "^$line$" ${SV_HOME_LINUX_INSTALLED}/*.flist.gz | wc -l` -eq 1 ]; then
+		if [ ! -d "${PREFIX}/$line" ]; then
+		#&& [ `echo "$cache" | zgrep "^$line$"  | wc -l` -eq 1 ]; then
 			echo "${PREFIX}/$line"
 		fi
 	done || exit 1
@@ -51,16 +52,14 @@ function filterFiles()
 ######################### SECTION ############################
 function getAllDirs()
 {
-	zcat "$1" | while read line
+	zgrep -v 'svhomelinux' "$1" | while read line
 	do
-		if [ -z "$(echo $line | grep svhomelinux)" ]; then
-			if [ -d $line ]; then
-				echo $line
-			else
-				dirname $line
-			fi
+		if [ -d $line ]; then
+			echo $line
+		elif [ -d $(dirname $line) ]; then
+			dirname $line
 		fi
-	done  | uniq | sort -r
+	done  | tac | uniq
 }
 
 ######################### SECTION ############################
@@ -68,9 +67,14 @@ echo ">>> Check if already installed <<<"
 if [ -z "$VERSION" ]; then
 	if [ `ls ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz | wc -l` -gt 1 ]; then
 		echo "Multiple version of package, please define the version you want to uninstall"
+		for tmp in ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz; do
+			echo " * $tmp" | sed -e "s#${SV_HOME_LINUX_INSTALLED}/##g" -e 's#\.flist.gz$##g'
+		done
+		exit 1
+	else
+		VERSION=`echo ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz | sed -e "s#^${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-##g" -e 's#\.flist.gz$##g'`
+		echo "Detected ${PACKAGE}-${VERSION}"
 	fi
-	VERSION=`echo ${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-*.flist.gz | sed -e "s#^${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-##g" -e 's#\.flist.gz$##g'`
-	echo "Detected ${PACKAGE}-${VERSION}"
 fi
 
 ######################### SECTION ############################
@@ -90,7 +94,9 @@ if [ ! -f "$SV_HOME_LINUX_INSTALLED/${PACKAGE}-${VERSION}.flist.gz" ]; then
 fi
 ######################### SECTION ############################
 echo ">>> Remove files <<<"
+echo " * Get directories"
 dirlist=$(getAllDirs "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz")
+echo " * Get non conflicting files"
 filelist=$(filterFiles "${SV_HOME_LINUX_INSTALLED}/${PACKAGE}-${VERSION}.flist.gz")
 for f in $filelist
 do

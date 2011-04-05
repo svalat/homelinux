@@ -27,17 +27,53 @@ fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
 ######################### SECTION ############################
+function getAllSlots()
+{
+	cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
+	do
+		echo $p-$s $s
+	done
+}
+
+######################### SECTION ############################
+#{name}
+function getSlot()
+{
+	pn=$(echo $1 | sed -e 's/\+/\\+/g')
+	res=$(getAllSlots | grep "^$pn " | cut -d ' ' -f 2)
+	if [ ! -z "$res" ]; then
+		echo $res
+	fi
+}
+
+######################### SECTION ############################
+#{name} {slot}
+function getSlotPName()
+{
+	if [ -z "$2" ]; then
+		echo "$1"
+	else
+		echo $1 | sed -e "s/-$2$//g"
+	fi
+}
+
+######################### SECTION ############################
 function genAutoPackage()
 {
+	slot=$(getSlot $1)
+	pname=$(getSlotPName $1 $slot)
 	fname="${SV_HOME_LINUX_QUICK_PACKAGES}/${1}.svquickpackage"
 	if [ ! -f $fname ] || [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.version -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.deps -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.type -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.configure -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.slots -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.variant -nt $fname ] \
 		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
 	then
-		safe_exec svyum-gen "$1" > $fname
+		echo "svyum-gen \"$pname\" \"\" \"${slot}\"" 1>&2
+		svyum-gen "$pname" "" "${slot}" > $fname || exit 1
 	fi
 	echo $fname
 }

@@ -17,6 +17,7 @@ PACKAGE_SUBDIR=''
 PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
+PACKAGE_SLOT='0'
 
 ######################### SECTION ############################
 export CFLAGS
@@ -120,7 +121,7 @@ function do_make()
 ######################### SECTION ############################
 function do_install()
 {
-	safe_exec svmakeinstall "$PACKAGE_NAME" "$PACKAGE_VERSION" "$PACKAGE_VARIANT"
+	safe_exec svmakeinstall "$PACKAGE_NAME" "$PACKAGE_VERSION" "$PACKAGE_VARIANT" "$PACKAGE_SLOT"
 }
 
 ######################### SECTION ############################

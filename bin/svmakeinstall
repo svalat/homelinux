@@ -13,6 +13,13 @@
 package="$1"
 version="$2"
 variant="$3"
+slot="$4"
+
+######################### SECTION ############################
+if [ ! -z "$(echo $slot | grep '\.')" ]; then
+	echo "Error: Slot must be a simple integer (eg. 5 or 05 or 44 ...)"
+	exit 1
+fi
 
 ######################### SECTION ############################
 #check config file
@@ -62,6 +69,7 @@ safe_exec make install
 ######################### SECTION ############################
 echo ">>> Build manifest <<<"
 cd ${PREFIX}
+echo "${version}" > ${SV_HOME_LINUX_INSTALLED}/${package}-slot-${slot}.version || exit 1
 echo > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz
 find ./ -newer ${SV_HOME_LINUX_SHARED}/package-actions.log | gzip > ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz || exit 1
 zcat ${SV_HOME_LINUX_INSTALLED}/${package}-${version}.flist.gz || exit 1
@@ -74,6 +82,11 @@ if [ ! -z "$variant" ]; then
 	else
 		safe_exec svselect add ${variant} ${variant}-${package}-${version}
 	fi
+fi
+
+######################### SECTION ############################
+if [ -z "$slot" ]; then
+	slot=0
 fi
 
 ######################### SECTION ############################

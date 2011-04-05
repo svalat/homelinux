@@ -38,6 +38,13 @@ echo
 echo "-------------------------------- SVPACKAGE ----------------------------------"
 ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep "$1"
 echo
+echo "----------------------------- SLOTED PACKAGES -------------------------------"
+cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
+do
+	if [ ! -z "`echo $p | grep $1`" ]; then
+		echo "$p-$s ($v)"
+	fi
+done
 echo "--------------------------------- GENTOO ------------------------------------"
 zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz
 echo
