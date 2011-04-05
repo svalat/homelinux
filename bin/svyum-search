@@ -35,8 +35,14 @@ fi
 ######################### SECTION ############################
 echo "================================ PACKAGES ==================================="
 echo
-echo "-------------------------------- SVPACKAGE ----------------------------------"
-ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep "$1"
+echo "--------------------------------- GENTOO ------------------------------------"
+zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz
+echo
+echo "-------------------------------- QUICKPAGES ---------------------------------"
+for tmp in slots configure variant deps type version
+do
+	cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp} | grep "^$1" | cut -f 1 -d ' '
+done | uniq
 echo
 echo "----------------------------- SLOTED PACKAGES -------------------------------"
 cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
@@ -45,7 +51,8 @@ do
 		echo "$p-$s ($v)"
 	fi
 done
-echo "--------------------------------- GENTOO ------------------------------------"
-zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz
+echo
+echo "-------------------------------- SVPACKAGES ---------------------------------"
+ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep "$1"
 echo
 echo "============================================================================="
