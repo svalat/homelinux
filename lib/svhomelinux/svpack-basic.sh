@@ -61,7 +61,7 @@ function do_extract()
 		*.tgz)
 			safe_exec tar -xzf "${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}"
 			;;
-		*.tar.bz2)
+		*.tar.bz2|*.tbz2)
 			safe_exec tar -xjf "${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}"
 			;;
 		*)

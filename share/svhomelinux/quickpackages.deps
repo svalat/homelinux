@@ -9,3 +9,9 @@ GConf glib ORBit2 libxml2
 ORBit2 libIDL
 dbus-glib expat
 kdiff3 qt4
+fontconfig libxml2
+cairo libpng pixman libsvg poppler fontconfig freetype
+XML-Parser expat
+intltool XML-Parser
+inkscape intltool gc
+pango glib

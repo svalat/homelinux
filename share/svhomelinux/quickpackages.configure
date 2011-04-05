@@ -4,3 +4,6 @@ subversion --disable-mod-activation
 apr-util --with-apr=${PREFIX}
 dbus --with-xml=libxml LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
 dbus-glib LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
+cairo --enable-xml
+XML-Parser EXPATLIBPATH=${PREFIX}/lib EXPATINCPATH=${PREFIX}/include
+inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
