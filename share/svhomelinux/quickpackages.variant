@@ -1,4 +1,3 @@
 gcc gcc
 openmpi mpi
 mpich2 mpi
-bash noldpath

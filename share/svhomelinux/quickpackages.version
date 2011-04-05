@@ -4,3 +4,5 @@ mpich2 1.2.1p1
 doxygen 1.7.3
 gettext 0.18.1
 openssl 1.0.0d
+jpegsrc v8c
+libpng 1.4.5

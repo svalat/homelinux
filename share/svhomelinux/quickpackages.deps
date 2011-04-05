@@ -20,3 +20,8 @@ glib gettext
 glibmm glib
 dbus-glib dbus
 dbus libxml2
+gitg glib
+gtk+ cairo glib atk pango gdk-pixbuf libX11
+libX11 xextproto
+gtkmm pangomm
+pangomm glibmm cairomm
