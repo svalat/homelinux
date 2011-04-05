@@ -17,3 +17,6 @@ inkscape intltool gc
 pango glib
 gnuplot cairo PDFlib-Lite
 glib gettext
+glibmm glib
+dbus-glib dbus
+dbus libxml2

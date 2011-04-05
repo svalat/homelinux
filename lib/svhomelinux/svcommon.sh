@@ -127,19 +127,22 @@ function pack_var_required()
 #{name}
 function yumFindLastVersion()
 {
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-[0-9\.]+(\.src)?\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
+	n=$(echo $1 | sed -e "s/\+/\\\\+/g")
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${n}-[0-9\.]+(\.src)?\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
 	if [ -z "$res" ]; then
 		echo "Package not found $1" 1>&2
 		exit 1
 	fi
-	basename "$res" | sed -e "s/${1}-/${1} /g" -e "s/\.tar\.bz2//g" -e "s/\.tar\.gz//g" -e "s/\.zip//g" -e "s/\.tgz//g" -e "s/\.tar.xz//g"
+	n=$(echo $1 | sed -e "s/\+/\\+/g")
+	basename "$res" | sed -e "s/${n}-/${1} /g" -e "s/\.tar\.bz2//g" -e "s/\.tar\.gz//g" -e "s/\.zip//g" -e "s/\.tgz//g" -e "s/\.tar.xz//g"
 }
 
 ######################### SECTION ############################
 #{name} {version}
 function yumFindFileName()
 {
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${1}-${2}\" | cut -f 2 -d ' ' | tail -n 1`"
+	n=$(echo $1 | sed -e "s/\+/\\\\+/g")
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${n}-${2}\" | cut -f 2 -d ' ' | tail -n 1`"
 	basename "$res"
 }
 
