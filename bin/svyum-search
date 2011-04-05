@@ -41,8 +41,15 @@ echo
 echo "-------------------------------- QUICKPAGES ---------------------------------"
 for tmp in slots configure variant deps type version
 do
-	cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp} | grep "^$1" | cut -f 1 -d ' '
-done | uniq
+	if [ $tmp = "deps" ]; then
+		for tmp in $(cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp})
+		do
+			echo $tmp
+		done  | grep "$1"
+	else
+		cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp} | grep "$1" | cut -f 1 -d ' '
+	fi
+done | sort | uniq
 echo
 echo "----------------------------- SLOTED PACKAGES -------------------------------"
 cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
