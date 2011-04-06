@@ -123,6 +123,7 @@ function do_make()
 ######################### SECTION ############################
 function do_install()
 {
+	if [ -z "$PACKAGE_VARIANT" ]; then PACKAGE_VARIANT=none; fi
 	safe_exec svmakeinstall "$PACKAGE_NAME" "$PACKAGE_VERSION" "$PACKAGE_VARIANT" "$PACKAGE_SLOT"
 }
 

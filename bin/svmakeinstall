@@ -16,6 +16,14 @@ variant="$3"
 slot="$4"
 
 ######################### SECTION ############################
+if [ "$variant" = "none" ]; then variant=''; fi
+
+######################### SECTION ############################
+if [ -z "$slot" ]; then
+	slot=0
+fi
+
+######################### SECTION ############################
 if [ ! -z "$(echo $slot | grep '\.')" ]; then
 	echo "Error: Slot must be a simple integer (eg. 5 or 05 or 44 ...)"
 	exit 1
@@ -82,11 +90,6 @@ if [ ! -z "$variant" ] && [ "$variant" != "noldpath" ]; then
 	else
 		safe_exec svselect add ${variant} ${variant}-${package}-${version}
 	fi
-fi
-
-######################### SECTION ############################
-if [ -z "$slot" ]; then
-	slot=0
 fi
 
 ######################### SECTION ############################
