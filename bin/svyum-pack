@@ -142,6 +142,22 @@ function svPackLoadDefault()
 }
 
 ######################### SECTION ############################
+#{name}
+function showName()
+{
+	loadPackage "$1"
+	echo "${PACKAGE_NAME}"
+}
+
+######################### SECTION ############################
+#{name}
+function showSlot()
+{
+	loadPackage "$1"
+    echo "${PACKAGE_SLOT}"
+}
+
+######################### SECTION ############################
 case "$1" in
 	help)
 		showHelp
@@ -160,6 +176,12 @@ case "$1" in
 		;;
 	archive)
 		showArchive "$2" | tail -n 1
+		;;
+	name)
+		showName "$2" | tail -n 1
+		;;
+	slot)
+		showSlot "$2" | tail -n 1
 		;;
 	*)
 		showHelp

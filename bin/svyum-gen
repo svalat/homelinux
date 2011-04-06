@@ -15,6 +15,11 @@ version=$2
 slot=$3
 
 ######################### SECTION ############################
+if [ "$version" = "none" ]; then
+	version=''
+fi
+
+######################### SECTION ############################
 #check config file
 if [ ! -f ${HOME}/.svconfig ]; then
 	echo "Error: Can't find ~/.svconfig file"

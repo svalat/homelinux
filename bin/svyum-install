@@ -39,7 +39,7 @@ function getAllSlots()
 #{name}
 function getSlot()
 {
-	pn=$(echo $1 | sed -e 's/\+/\\+/g')
+	pn=$(echo $1 | sed -e 's/\+/\+/g')
 	res=$(getAllSlots | grep "^$pn " | cut -d ' ' -f 2)
 	if [ ! -z "$res" ]; then
 		echo $res
@@ -72,8 +72,7 @@ function genAutoPackage()
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.variant -nt $fname ] \
 		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
 	then
-		echo "svyum-gen \"$pname\" \"\" \"${slot}\"" 1>&2
-		svyum-gen "$pname" "" "${slot}" > $fname || exit 1
+		svyum-gen "$pname" "none" "${slot}" > $fname || exit 1
 	fi
 	echo $fname
 }
@@ -114,6 +113,18 @@ function getPackageLastVersion()
 }
 
 ######################### SECTION ############################
+function getPackageName()
+{
+	svyum-pack name "$1"
+}
+
+######################### SECTION ############################
+function getPackageSlot()
+{
+	svyum-pack slot "$1"
+}
+
+######################### SECTION ############################
 #{name}
 function yumSearchDepsInstall()
 {
@@ -129,16 +140,20 @@ function yumSearchDepsInstall()
 	last_version=$(getPackageLastVersion "$package_file")
 	package_deps=$(getPackageDeps "$package_file")
 	package_archive=$(getPackageArchive "$package_file")
+	package_name=$(getPackageName "$package_file")
+	package_slot=$(getPackageSlot "$package_file")
 
-	echo "${1};${package_version};${package_archive};${last_version};${package_file}"
- 
-	if [ ! -z "$package_deps" ]; then
-		#echo "DEPS = $package_deps"
-		for p in $package_deps
-		do
-			yumCheckIfInstall "$p" && continue
-			yumSearchDepsInstall "$p"
-		done
+	if ! yumCheckIfInstall "${package_name}" "${package_slot}"; then
+		echo "${1};${package_version};${package_archive};${last_version};${package_file};${package_name};${package_slot}"
+
+		if [ ! -z "$package_deps" ]; then
+			#echo "DEPS = $package_deps"
+			for p in $package_deps
+			do
+				yumCheckIfInstall "$p" && continue
+				yumSearchDepsInstall "$p"
+			done
+		fi
 	fi
 }
 
@@ -179,7 +194,7 @@ function checkPackageInstallation()
 {
 	for tmp in $*
 	do
-		pname=`echo $tmp | cut -f 1 -d ';'`
+		pname=`echo $tmp | cut -f 6 -d ';'`
 		pvers=`echo $tmp | cut -f 2 -d ';'`
 		error_if_package_is_installed "${pname}" "${pvers}"
 	done

@@ -63,6 +63,7 @@ function addNewPrefix()
 	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5`
 	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5/site_perl`
 	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/lib/pkgconfig`
+	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/share/pkgconfig`
 }
 
 ######################### SECTION ############################

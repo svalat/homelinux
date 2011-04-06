@@ -9,3 +9,5 @@ XML-Parser EXPATLIBPATH=${PREFIX}/lib EXPATINCPATH=${PREFIX}/include
 inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
 gdk-pixbuf --without-libtiff --with-jpeg=${PREFIX} LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
 gtk+ --x-libraries=${PREFIX}/lib --x-includes=${PREFIX}/include/X11 LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include/X11
+mpich2 F90=gfortran F70=gfortran
+gitg CFLAGS=-O1

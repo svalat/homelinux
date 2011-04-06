@@ -13,15 +13,15 @@ fontconfig libxml2
 cairo libpng pixman libsvg poppler fontconfig freetype glib
 XML-Parser expat
 intltool XML-Parser
-inkscape intltool gc
+inkscape intltool gc libxslt gtkmm
 pango glib
 gnuplot cairo PDFlib-Lite
 glib gettext
 glibmm glib
 dbus-glib dbus
 dbus libxml2
-gitg glib
-gtk+ cairo glib atk pango gdk-pixbuf libX11
-libX11 xextproto
+gitg glib gtk+-2 gtksourceview gsettings-desktop-schemas libglade
+gtk+ cairo glib atk pango gdk-pixbuf
 gtkmm pangomm
-pangomm glibmm cairomm
+pangomm glibmm cairomm libsigc++
+apr-util apr

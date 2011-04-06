@@ -119,7 +119,9 @@ function yes_no_question()
 ######################### SECTION ############################
 function yumCheckIfInstall()
 {
-	if [ -f ${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz ] || [ `ls ${SV_HOME_LINUX_INSTALLED}/${1}-*.flist.gz 2>/dev/null | wc -l` -eq 0 ]; then
+	if [ -z "$2" ]; then s=0; else s=$2; fi
+	#if [ -f ${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz ] || [ `ls ${SV_HOME_LINUX_INSTALLED}/${1}-*.flist.gz 2>/dev/null | wc -l` -eq 0 ]; then
+	if [ ! -f "${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version" ]; then
 		return 1
 	else
 		return 0

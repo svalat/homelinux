@@ -6,3 +6,6 @@ gettext 0.18.1
 openssl 1.0.0d
 jpegsrc v8c
 libpng 1.4.5
+gdb 7.2
+gtk+ 2.24.3
+gnome-shell 2.91.1_p20101026
