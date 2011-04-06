@@ -14,12 +14,14 @@ package="$1"
 version="$2"
 variant="$3"
 slot="$4"
+target="$5"
 
 ######################### SECTION ############################
 if [ "$variant" = "none" ]; then variant=''; fi
+if [ -z "$target" ]; then target='install'; fi
 
 ######################### SECTION ############################
-if [ -z "$slot" ]; then
+if [ -z "$slot" ] || [ "$slot" = "none" ]; then
 	slot=0
 fi
 
@@ -49,7 +51,7 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ######################### SECTION ############################
 if [ -z "$package" ] || [ -z "$version" ]
 then
-	echo "Usage : $0 {package} {version} [variant]"
+	echo "Usage : $0 {package} {version} [variant] [slot] [target]"
 	exit 1
 fi
 
@@ -72,7 +74,7 @@ safe_exec make
 
 ######################### SECTION ############################
 echo ">>> Installing <<<"
-safe_exec make install
+safe_exec make ${target}
 
 ######################### SECTION ############################
 echo ">>> Build manifest <<<"
