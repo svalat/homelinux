@@ -81,21 +81,20 @@ done
 
 ######################### SECTION ############################
 #echo "#Global :"
-echo export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-echo export PATH="$PATH"
-echo export MANPATH="$MANPATH"
-echo export CPATH="$CPATH"
-echo export PERL5LIB="$PERL5LIB"
-echo export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export PATH="$PATH"
+export MANPATH="$MANPATH"
+export CPATH="$CPATH"
+export PERL5LIB="$PERL5LIB"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
 
 ######################### SECTION ############################
 if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then
 	for tmp in ${SV_HOME_LINUX_ENV_DIR}/*
 	do
 		if [ "$(basename $tmp)" != "README.txt" ]; then
-			echo
 			#echo "#From $tmp :"
-			cat "$tmp"
+			source "$tmp"
 		fi
 	done
 fi

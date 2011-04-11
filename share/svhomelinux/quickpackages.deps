@@ -4,7 +4,7 @@ gcc gmp mpfr
 doxygen graphviz
 automake autoconf
 subversion apr apr-util sqlite
-nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm
+nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm gtksourceviewmm vte
 GConf glib ORBit2 libxml2
 ORBit2 libIDL
 dbus-glib expat
@@ -13,8 +13,8 @@ fontconfig libxml2
 cairo libpng pixman libsvg poppler fontconfig freetype glib
 XML-Parser expat
 intltool XML-Parser
-inkscape intltool gc libxslt gtkmm gsl boost
-pango glib
+inkscape intltool gc libxslt gtkmm gsl boost lcms
+pango glib cairo
 gnuplot cairo PDFlib-Lite
 glib gettext
 glibmm glib
@@ -29,3 +29,10 @@ phonon automoc4
 libdbusmenu-qt qjson
 strigi bzip2
 gtkmm atkmm
+git curl expat
+libpng xz
+geany XML-Parser gtk+
+gnome-doc-utils scrollkeeper
+vte binutils
+gtksourceviewmm gtkmm gtksourceview
+gtkmm pangomm
