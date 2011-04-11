@@ -40,3 +40,4 @@ gtksourceviewmm gtkmm gtksourceview
 gtkmm pangomm
 gdk-pixbuf glib
 gcalctool intltool gnome-doc-utils libxslt libxml2
+dia glib gtk+ pango libxml2 atk libxslt libart_lgpl
