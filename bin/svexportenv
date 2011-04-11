@@ -64,6 +64,7 @@ function addNewPrefix()
 	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5/site_perl`
 	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/lib/pkgconfig`
 	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/share/pkgconfig`
+	PYTHONPATH=/ptmp/gpocre/besnardjb/usr/lib/python${PYTHON_VERSION}/site-packages/:${PYTHONPATH}
 }
 
 ######################### SECTION ############################
@@ -87,6 +88,7 @@ export MANPATH="$MANPATH"
 export CPATH="$CPATH"
 export PERL5LIB="$PERL5LIB"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
+export PYTHONPATH="$PYTHONPATH"
 
 ######################### SECTION ############################
 if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then

@@ -5,6 +5,7 @@ apr-util --with-apr=${PREFIX}
 dbus --with-xml=libxml LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
 dbus-glib LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
 cairo --enable-xml
+gnuplot --disable-wxwidgets
 XML-Parser EXPATLIBPATH=${PREFIX}/lib EXPATINCPATH=${PREFIX}/include
 inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
 gdk-pixbuf --without-libtiff --with-jpeg=${PREFIX} LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
@@ -12,4 +13,4 @@ gtk+ --x-libraries=${PREFIX}/lib --x-includes=${PREFIX}/include/X11 LDFLAGS=-L${
 mpich2 F90=gfortran F70=gfortran
 gitg CFLAGS=-O1
 git --with-curl=${PREFIX} --with-expat=${PREFIX}
-gnuplot --disable-wxwidgets
+vte --disable-Bsymbolic

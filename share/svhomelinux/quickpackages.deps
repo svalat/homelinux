@@ -5,6 +5,7 @@ doxygen graphviz
 automake autoconf
 subversion apr apr-util sqlite
 nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm gtksourceviewmm vte
+libgtksourceviewmm pangomm
 GConf glib ORBit2 libxml2
 ORBit2 libIDL
 dbus-glib expat
@@ -17,7 +18,8 @@ inkscape intltool gc libxslt gtkmm gsl boost lcms
 pango glib cairo
 gnuplot cairo PDFlib-Lite
 glib gettext
-glibmm glib
+glibmm glib libsigc++
+gdk-pixbuf glib
 dbus-glib dbus
 dbus libxml2
 gitg glib gtk+-2 gtksourceview gsettings-desktop-schemas libglade
@@ -37,3 +39,4 @@ vte binutils
 gtksourceviewmm gtkmm gtksourceview
 gtkmm pangomm
 gdk-pixbuf glib
+gcalctool intltool gnome-doc-utils libxslt libxml2
