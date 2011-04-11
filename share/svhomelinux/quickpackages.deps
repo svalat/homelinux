@@ -36,3 +36,4 @@ gnome-doc-utils scrollkeeper
 vte binutils
 gtksourceviewmm gtkmm gtksourceview
 gtkmm pangomm
+gdk-pixbuf glib
