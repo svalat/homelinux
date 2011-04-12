@@ -11,7 +11,7 @@ PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
 PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS=""
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon pcre strigi attica giflib aspell'
+PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon pcre strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 
 #TODO add fam and acl and bzip and libdbusmenu-qt2 docbook-xsl shared-mime-info

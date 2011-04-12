@@ -52,6 +52,9 @@ function do_download()
 function do_extract()
 {
 	case "$PACKAGE_ARCHIVE" in
+		*.zip)
+			safe_exec unzip "${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}"
+			;;
 		*.tar.xz)
 			echo "xz -d -c \"${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}\" | tar -x"
 			xz -d -c "${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}" | tar -x || exit 1

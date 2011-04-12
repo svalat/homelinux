@@ -26,6 +26,12 @@ if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
 fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
+############################ CHECK ###########################
+#Check python version
+if [ -z "$PYTHON_VERSION" ]; then
+	echo "Warning : Please setup the PYTHON_VERSION into you ~/.svconfig" 1>&2
+fi
+
 ######################### FUNCTION ###########################
 # Return the list of variants available
 function getVariants()

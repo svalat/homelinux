@@ -11,8 +11,9 @@ PACKAGE_SUBDIR="qt-everywhere-opensource-src-${PACKAGE_VERSION}"
 PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS="-no-ssse3 -no-sse3 -fast"
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS='openssl'
+PACKAGE_EXEC_DEPENDS='openssl dbus'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+MAKE_OPTS=''
 
 #You can override if require
 #function do_download() {}

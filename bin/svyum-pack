@@ -68,6 +68,8 @@ function loadPackage()
 #manageInstall {package file}
 function manageInstall()
 {
+	echo ">>> Source env <<<"
+	source "${PREFIX}/bin/svexportenv" || exit 1
 	echo ">>> Source $1 <<<"
 	loadPackage "$1"
 

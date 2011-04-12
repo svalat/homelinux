@@ -36,7 +36,7 @@ fi
 echo "================================ PACKAGES ==================================="
 echo
 echo "--------------------------------- GENTOO ------------------------------------"
-zgrep "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | cut -f 4 -d '/'
+zgrep -i "$1" ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | cut -f 4 -d '/'
 echo
 echo "-------------------------------- QUICKPAGES ---------------------------------"
 for tmp in slots configure variant deps type version
@@ -45,21 +45,21 @@ do
 		for tmp in $(cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp})
 		do
 			echo $tmp
-		done  | grep "$1"
+		done  | grep -i "$1"
 	else
-		cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp} | grep "$1" | cut -f 1 -d ' '
+		cat ${SV_HOME_LINUX_SHARED}/quickpackages.${tmp} | grep -i "$1" | cut -f 1 -d ' '
 	fi
 done | sort | uniq
 echo
 echo "----------------------------- SLOTED PACKAGES -------------------------------"
 cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
 do
-	if [ ! -z "`echo $p | grep $1`" ]; then
+	if [ ! -z "`echo $p | grep -i $1`" ]; then
 		echo "$p-$s ($v)"
 	fi
 done
 echo
 echo "-------------------------------- SVPACKAGES ---------------------------------"
-ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep "$1"
+ls ${SV_HOME_LINUX_PACKAGES}/*.svpackage | grep -i "$1"
 echo
 echo "============================================================================="

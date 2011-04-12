@@ -14,3 +14,5 @@ mpich2 F90=gfortran F70=gfortran
 gitg CFLAGS=-O1
 git --with-curl=${PREFIX} --with-expat=${PREFIX}
 vte --disable-Bsymbolic
+Python --enable-shared
+xine-ui --disable-lirc
