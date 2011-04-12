@@ -9,7 +9,6 @@ libgtksourceviewmm pangomm
 GConf glib ORBit2 libxml2
 ORBit2 libIDL
 dbus-glib expat
-kdiff3 qt4
 fontconfig libxml2
 cairo libpng pixman libsvg poppler fontconfig freetype glib
 XML-Parser expat
@@ -24,20 +23,18 @@ dbus-glib dbus
 dbus libxml2
 gitg glib gtk+-2 gtksourceview gsettings-desktop-schemas libglade
 gtk+ cairo glib atk pango gdk-pixbuf
-gtkmm pangomm
+gtkmm pangomm atkmm
 pangomm glibmm cairomm libsigc++
 apr-util apr
 phonon automoc4
 libdbusmenu-qt qjson
 strigi bzip2
-gtkmm atkmm
 git curl expat
 libpng xz
 geany XML-Parser gtk+
 gnome-doc-utils scrollkeeper
 vte binutils
 gtksourceviewmm gtkmm gtksourceview
-gtkmm pangomm
 gdk-pixbuf glib
 gcalctool intltool gnome-doc-utils libxslt libxml2
 dia glib gtk+ pango libxml2 atk libxslt libart_lgpl
