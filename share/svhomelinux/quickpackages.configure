@@ -17,3 +17,4 @@ vte --disable-Bsymbolic
 Python --enable-shared
 xine-ui --disable-lirc
 ffmpeg --enable-postproc --enable-gpl --enable-shared
+libgnome --disable-canberra

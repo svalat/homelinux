@@ -40,8 +40,12 @@ gcalctool intltool gnome-doc-utils libxslt libxml2
 dia glib gtk+ pango libxml2 atk libxslt libart_lgpl intltool docbook-xsl
 docbook-xsl docbook-xml
 mplayer yasm xine-ui
-xine-ui xine-lib curl
+xine-ui xine-lib curl libXt
 xine-lib ffmpeg
 pygtk pygobject
 pygobject gobject-introspection glib pycairo
 gobject-introspection libffi
+libbonoboui libbonobo libgnome activation libgnomecanvas
+libgnome gnome-vfs libbonobo
+libcanberra libvorbis
+libvorbis libogg
