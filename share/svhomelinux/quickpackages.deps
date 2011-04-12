@@ -45,4 +45,3 @@ xine-lib ffmpeg
 pygtk pygobject
 pygobject gobject-introspection glib pycairo
 gobject-introspection libffi
-ffmpeg --enable-postproc --enable-gpl
