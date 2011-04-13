@@ -9,11 +9,11 @@ PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
 PACKAGE_ARCHIVE="qt-everywhere-opensource-src-${PACKAGE_VERSION}.tar.gz"
 PACKAGE_SUBDIR="qt-everywhere-opensource-src-${PACKAGE_VERSION}"
 PACKAGE_VARIANT=''
-PACKAGE_CONFIGURE_OPTIONS="-no-ssse3 -no-sse3 -fast"
+PACKAGE_CONFIGURE_OPTIONS="-no-ssse3 -no-sse3 -fast -nomake demos -nomake examples -dbus-linked"
 PACKAGE_TEST_TARGET=''
 PACKAGE_EXEC_DEPENDS='openssl dbus'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
-MAKE_OPTS=''
+#MAKE_OPTS=''
 
 #You can override if require
 #function do_download() {}

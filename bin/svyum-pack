@@ -80,13 +80,21 @@ function manageInstall()
 	safe_exec setup_pack_tmp
 	safe_exec do_extract
 	safe_exec do_move_to_build_dir
+	current_build_dir="$PWD"
 	safe_exec do_configure
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_make
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_test
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_pre_install
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_install
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_post_install
+	safe_exec cd "${current_build_dir}"
 	safe_exec do_clean
+	safe_exec cd "${current_build_dir}"
 	safe_exec cleanup_pack_tmp
 }
 
