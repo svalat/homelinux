@@ -9,9 +9,9 @@ PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
 PACKAGE_ARCHIVE="kdelibs-${PACKAGE_VERSION}.tar.bz2"
 PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
 PACKAGE_VARIANT=''
-PACKAGE_CONFIGURE_OPTIONS=""
+PACKAGE_CONFIGURE_OPTIONS="-DDOCBOOKXML_CURRENTDTD_DIR=${PREFIX}/share/docbook-xml/docbookx.dtd -DDOCBOOKXSL_DIR=${PREFIX}/share/docbook-xsl"
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon pcre strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info'
+PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 
 #TODO add fam and acl and bzip and libdbusmenu-qt2 docbook-xsl shared-mime-info
@@ -39,12 +39,12 @@ function do_configure()
 	safe_exec cd $current
 }
 
-function do_make()
-{
-	current=$PWD
-	if [ ! -d svbuild ]; then
-		safe_exec cd svbuild
-	fi
-	safe_exec make
-	safe_exec cd $current
-}
+#function do_make()
+#{
+#	current=$PWD
+#	if [ -d svbuild ]; then
+#		safe_exec cd svbuild
+#	fi
+#	safe_exec make ${MAKE_OPTS}
+#	safe_exec cd $current
+#}

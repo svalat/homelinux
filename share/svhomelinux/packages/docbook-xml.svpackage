@@ -12,7 +12,7 @@ PACKAGE_SUBDIR=""
 PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS=""
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS=''
+PACKAGE_EXEC_DEPENDS='sgml-common'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 PACKAGE_SLOT=""
 
@@ -35,16 +35,21 @@ do_move_to_build_dir()
 
 do_configure()
 {
-	echo "export XML_CATALOG_FILES=\"\$(addPathToVar \"\${XML_CATALOG_FILES}\" ${PREFIX}/share/docbook-xml/catalog.xml)\"" > 09-docbook-xml.env
+	#echo "export XML_CATALOG_FILES=\"\$(addPathToVar \"\${XML_CATALOG_FILES}\" ${PREFIX}/share/docbook-xml/catalog.xml)\"" > 09-docbook-xml.env
 	echo "install:" > Makefile
 	echo "	mkdir -p ${PREFIX}/share/docbook-xml/" >> Makefile
 	echo "	cp -r -v * ${PREFIX}/share/docbook-xml/" >> Makefile
 	echo "	rm -f ${PREFIX}/share/docbook-xml/README" >> Makefile
 	echo "	rm -f ${PREFIX}/share/docbook-xml/ChangeLog" >> Makefile
-	echo "	mv \"${PREFIX}/share/docbook-xml/09-docbook-xml.env\" \"${SV_HOME_LINUX_ENV_DIR}\"" >> Makefile
+	#echo "	mv \"${PREFIX}/share/docbook-xml/09-docbook-xml.env\" \"${SV_HOME_LINUX_ENV_DIR}\"" >> Makefile
 }
 
 do_make()
 {
 	echo "Nothing to do"
+}
+
+do_post_install()
+{
+	safe_exec install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xml/docbook.cat
 }

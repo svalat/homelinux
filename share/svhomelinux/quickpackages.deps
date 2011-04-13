@@ -27,7 +27,7 @@ gtkmm pangomm atkmm
 pangomm glibmm cairomm libsigc++
 apr-util apr
 phonon automoc4
-libdbusmenu-qt qjson
+libdbusmenu-qt qjson qt4
 strigi bzip2
 git curl expat
 libpng xz

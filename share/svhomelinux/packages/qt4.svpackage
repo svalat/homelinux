@@ -15,6 +15,13 @@ PACKAGE_EXEC_DEPENDS='openssl dbus'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 #MAKE_OPTS=''
 
+if [ -h ${SV_HOME_LINUX_VARIANTES}/gcc ]; then
+	GCC_VARIANT=${SV_HOME_LINUX_VARIANTES}/$(readlink ${SV_HOME_LINUX_VARIANTES}/gcc)
+	if [ -d "${GCC_VARIANT}" ]; then
+		PACKAGE_CONFIGURE_OPTIONS="${PACKAGE_CONFIGURE_OPTIONS} -R ${GCC_VARIANT}/lib64/"
+	fi
+fi
+
 #You can override if require
 #function do_download() {}
 #function do_extract() {}
