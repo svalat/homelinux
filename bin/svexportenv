@@ -62,6 +62,7 @@ function addNewPrefix()
 {
 	if [ "$2" != 'noldpath' ]; then
 	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib`
+	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib64`
 	fi
 	PATH=`addPathToVar $PATH $1/bin`
 	MANPATH=`addPathToVar $MANPATH $1/share/man`
