@@ -57,4 +57,4 @@ libXdamage damageproto
 libXrandr randrproto
 libXcursor libXfixes
 indent texi2html
-kdebase kdelibs
+kdebase kdelibs oxygen-icons
