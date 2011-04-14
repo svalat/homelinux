@@ -57,3 +57,4 @@ libXdamage damageproto
 libXrandr randrproto
 libXcursor libXfixes
 indent texi2html
+kdebase kdelibs
