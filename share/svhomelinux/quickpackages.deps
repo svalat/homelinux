@@ -49,3 +49,9 @@ libbonoboui libbonobo libgnome activation libgnomecanvas
 libgnome gnome-vfs libbonobo
 libcanberra libvorbis
 libvorbis libogg
+kdevelop kdevplatform kdebase-workspace
+kdebase-workspace qimageblitz libxkbfile libpng libXcomposite libXrandr libXdamage libXcursor
+libXcomposite compositeproto libXfixes
+libXfixes fixesproto xextproto
+libXdamage damageproto
+libXrandr randrproto
