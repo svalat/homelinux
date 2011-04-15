@@ -60,3 +60,5 @@ indent texi2html
 kdebase kdelibs oxygen-icons
 valgrind boost
 kdesdk graphviz
+kdev-xtest veritas
+wine flex

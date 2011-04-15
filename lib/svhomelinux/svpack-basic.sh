@@ -83,6 +83,12 @@ function  do_move_to_build_dir()
 }
 
 ######################### SECTION ############################
+function do_pre_configure()
+{
+	echo "Nothing to do"
+}
+
+######################### SECTION ############################
 function do_configure()
 {
 	if [ -z "$PACKAGE_VARIANT" ]; then

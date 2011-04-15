@@ -44,6 +44,12 @@ function  do_move_to_build_dir()
 }
 
 ######################### SECTION ############################
+function do_pre_configure()
+{
+	echo "Nothing to do at pre configure"
+}
+
+######################### SECTION ############################
 function do_configure()
 {
 	echo "Nothing to do at configure"

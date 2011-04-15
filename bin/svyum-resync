@@ -27,6 +27,13 @@ fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
 ######################### SECTION ############################
+if [ "$1" = "extra" ]; then
+	MODE=extra
+else
+	MODE=all
+fi
+
+######################### SECTION ############################
 function gen_custom_list()
 {
 	if [ -f "${SV_HOME_LINUX_SHARED}/distfiles.extra" ]; then
@@ -41,12 +48,16 @@ function gen_custom_list()
 function resyncDistfilesList()
 {
 	echo > ${SV_HOME_LINUX_SHARED}/distfiles.list
-	echo > ${SV_HOME_LINUX_SHARED}/distfiles.list.html
-	for tmp in ${GENTOO_MIRROR}
-	do
-		echo ">> download from ${tmp} <<"
-		safe_exec curl "${tmp}/distfiles/" >> ${SV_HOME_LINUX_SHARED}/distfiles.list.html
-	done
+	if [ "$MODE" = "all" ]; then
+		echo > ${SV_HOME_LINUX_SHARED}/distfiles.list.html
+		for tmp in ${GENTOO_MIRROR}
+		do
+			echo ">> download from ${tmp} <<"
+			safe_exec curl "${tmp}/distfiles/" >> ${SV_HOME_LINUX_SHARED}/distfiles.list.html
+		done
+	else
+		safe_exec gzip -d ${SV_HOME_LINUX_SHARED}/distfiles.list.html.gz
+	fi
 	echo ">> Formatting package source list <<"
 	safe_exec lynx -dump ${SV_HOME_LINUX_SHARED}/distfiles.list.html | egrep "^[0-9]+" | sed -e "s#${SV_HOME_LINUX_SHARED}##" > ${SV_HOME_LINUX_SHARED}/distfiles.list
 	gen_custom_list >> ${SV_HOME_LINUX_SHARED}/distfiles.list || exit 1
