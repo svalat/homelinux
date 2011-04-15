@@ -34,11 +34,11 @@ function do_check_vars()
 ######################### SECTION ############################
 function do_download()
 {
-	for serv in ${GENTOO_MIRROR}
+	for url in $(get_pack_urls "${PACKAGE_ARCHIVE}")
 	do
 		if [ ! -f "${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}" ]; then
 			echo ">>> Downloading ${PACKAGE_ARCHIVE} <<<"
-			wget "$serv/distfiles/${PACKAGE_ARCHIVE}" -O ${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}
+			wget "$url" -O ${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE} || rm ${SV_HOME_LINUX_SHARED}/distfiles/${PACKAGE_ARCHIVE}
 		fi
 	done
 

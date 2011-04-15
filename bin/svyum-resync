@@ -27,6 +27,17 @@ fi
 source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 
 ######################### SECTION ############################
+function gen_custom_list()
+{
+	if [ -f "${SV_HOME_LINUX_SHARED}/distfiles.extra" ]; then
+		cat ${SV_HOME_LINUX_SHARED}/distfiles.extra | while read line
+		do
+			echo "00000. file://localhost/$(basename $line)"
+		done
+	fi
+}
+
+######################### SECTION ############################
 function resyncDistfilesList()
 {
 	echo > ${SV_HOME_LINUX_SHARED}/distfiles.list
@@ -38,6 +49,7 @@ function resyncDistfilesList()
 	done
 	echo ">> Formatting package source list <<"
 	safe_exec lynx -dump ${SV_HOME_LINUX_SHARED}/distfiles.list.html | egrep "^[0-9]+" | sed -e "s#${SV_HOME_LINUX_SHARED}##" > ${SV_HOME_LINUX_SHARED}/distfiles.list
+	gen_custom_list >> ${SV_HOME_LINUX_SHARED}/distfiles.list || exit 1
 	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfiles.list
 	safe_exec gzip -f ${SV_HOME_LINUX_SHARED}/distfiles.list.html
 }

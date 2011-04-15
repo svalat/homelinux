@@ -187,3 +187,17 @@ function skip_args()
 		id=$(( $id +1 ))
 	done
 }
+
+######################### SECTION ############################
+#{pack_archive}
+function get_pack_urls()
+{
+	if [ -f "${SV_HOME_LINUX_SHARED}/distfiles.extra" ]; then
+		grep "/${1}$" ${SV_HOME_LINUX_SHARED}/distfiles.extra
+	fi
+
+	for serv in ${GENTOO_MIRROR}
+	do
+		echo "$serv/distfiles/${1}"
+	done
+}
