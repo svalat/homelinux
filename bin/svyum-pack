@@ -81,7 +81,7 @@ function manageInstall()
 	safe_exec do_extract
 	safe_exec do_move_to_build_dir
 	current_build_dir="$PWD"
-	safe_exec do_pre_configure
+	safe_exec do_patch
 	safe_exec cd "${current_build_dir}"
 	safe_exec do_configure
 	safe_exec cd "${current_build_dir}"
@@ -150,7 +150,8 @@ function showArchive()
 #{name} [version]
 function svPackLoadDefault()
 {
-	eval "$(svyum-gen $1 $2 --noinherit)"
+	source $(genAutoPackage "$1" "$2" --noinherit)
+# 	eval "$(svyum-gen $1 $2 --noinherit)"
 }
 
 ######################### SECTION ############################

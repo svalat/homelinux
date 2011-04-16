@@ -83,7 +83,7 @@ function  do_move_to_build_dir()
 }
 
 ######################### SECTION ############################
-function do_pre_configure()
+function do_patch()
 {
 	echo "Nothing to do"
 }

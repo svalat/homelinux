@@ -270,11 +270,21 @@ function getSlotPName()
 }
 
 ######################### SECTION ############################
+#{name} [version] [--noinherit]
 function genAutoPackage()
 {
+	if [ -z "$2" ]; then
+		pv=none
+	else
+		pv=$2
+	fi
 	slot=$(getSlot $1)
 	pname=$(getSlotPName $1 $slot)
-	fname="${SV_HOME_LINUX_QUICK_PACKAGES}/${1}.svquickpackage"
+	if [ "$3" = "--noinherit" ]; then
+		fname="${SV_HOME_LINUX_QUICK_PACKAGES}/noinherit-${1}.svquickpackage"
+	else
+		fname="${SV_HOME_LINUX_QUICK_PACKAGES}/${1}.svquickpackage"
+	fi
 	if [ ! -f $fname ] || [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.version -nt $fname ] \
 		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.deps -nt $fname ] \
@@ -285,7 +295,12 @@ function genAutoPackage()
 		|| [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
 		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
 	then
-		svyum-gen "$pname" "none" "${slot}" > $fname || exit 1
+		echo "-- Generate quickpackage for $1 -> $pname $pv$3 --" 1>&2
+		if [ "$3" = "--noinherit" ]; then
+			svyum-gen "$pname" "$pv" "${slot}" --noinherit > $fname || exit 1
+		else
+			svyum-gen "$pname" "$pv" "${slot}" > $fname || exit 1
+		fi
 	fi
 	echo $fname
 }

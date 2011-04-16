@@ -29,7 +29,7 @@ svPackLoadDefault 'kdev-xtest'
 #function do_post_isntall() {}
 #function do_clean() {}
 
-function do_pre_configure()
+function do_patch()
 {
 	./initrepo.sh
 }
