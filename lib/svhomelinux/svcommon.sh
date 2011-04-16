@@ -36,27 +36,8 @@ function safe_exec()
 function error_if_package_is_installed()
 {
 	echo ">>> Check if already installed <<<"
-
-	if [ -z "$3" ]; then
-		s=0
-	else
-		s=$3
-	fi
-
-	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version" ]; then
-		echo "ERROR : ${pname} alredy installed in version $(cat ${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version), please remove first" 1>&2
-		exit 1
-	fi
-	
-	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz" ]
-	then
-		echo "ERROR : ${pname} alredy installed, please remove first" 1>&2
-		exit 1
-	fi
-
-	if [ ! -z "$2" ] && [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-${2}.flist.gz" ]
-	then
-		echo "ERROR : ${pname} alredy installed, please remove first" 1>&2
+	if yumCheckIfInstall "${1}" "${3}" "${2}"; then
+		echo "ERROR : ${1} alredy installed, please remove first" 1>&2
 		exit 1
 	fi
 }
@@ -117,15 +98,59 @@ function yes_no_question()
 }
 
 ######################### SECTION ############################
-function yumCheckIfInstall()
+#[env config]
+function getInheritedPrefix()
 {
-	if [ -z "$2" ]; then s=0; else s=$2; fi
-	#if [ -f ${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz ] || [ `ls ${SV_HOME_LINUX_INSTALLED}/${1}-*.flist.gz 2>/dev/null | wc -l` -eq 0 ]; then
-	if [ ! -f "${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version" ]; then
+	if [ -z "$1" ]; then
+		prefix_conf=$HOME/.svconfig
+		subcfg=${INHERIT_SVENV}
+	else
+		prefix_conf=$1
+		subcfg=""
+		bash -c "$(cat $prefix_conf); echo \$PREFIX"
+		subcfg=$(bash -c "$(cat $prefix_conf); echo \$INHERIT_SVENV")
+	fi
+	#echo "DEBUG : subcfg = $subcfg" 1>&2
+	for cfg in $subcfg
+	do
+		getInheritedPrefix $cfg
+	done
+}
+
+######################### SECTION ############################
+#{name}
+function packageMustIgnoreInheritance()
+{
+	if [ -z "$(echo " ${IGNORE_INHERIT_PACKAGES} " | grep " ${1} ")" ]; then
 		return 1
 	else
 		return 0
 	fi
+}
+
+######################### SECTION ############################
+#{name} {slot} [version]
+function yumCheckIfInstall()
+{
+	#calc slot
+	if [ -z "$2" ]; then s=0; else s=$2; fi
+
+	if packageMustIgnoreInheritance "$1"
+	then
+		plist="${PREFIX}"
+	else
+		plist="${PREFIX} $(getInheritedPrefix)"
+	fi
+	
+	#echo "DEBUG : Prefixes to check : $plist" 1>&2
+	
+	for prefix in $plist
+	do
+		if [ -f "${prefix}/${SV_HOME_LINUX_INSTALLED_NP}/${1}-slot-${s}.version" ]; then return 0; fi
+		if [ ! -z "$3" ] && [ -f "${prefix}/${SV_HOME_LINUX_INSTALLED_NP}/${1}-${3}.flist.gz" ]; then return 0; fi
+	done
+
+	return 1
 }
 
 ######################### FUNCTION ###########################

@@ -10,13 +10,55 @@
 ##############################################################
 
 ######################### SECTION ############################
+if [ -z "$1" ]; then
+	CONFIG_FILE=${HOME}/.svconfig
+else
+	CONFIG_FILE=$1
+fi
+# echo "#Config file is $CONFIG_FILE"
+
+######################### SECTION ############################
 #check config file
-if [ ! -f ${HOME}/.svconfig ]; then
-	echo "Error: Can't find ~/.svconfig file" 1>&2
+if [ ! -f ${CONFIG_FILE} ]; then
+	echo "Error: Can't find ${CONFIG_FILE} file" 1>&2
 	exit 1
 fi
+
+######################### FUNCTION ###########################
+# Add the given path to the given value
+# Parms:
+#   - initial value
+#   - path to add before the given list
+function addPathToVar()
+{
+	if [ -z "$1" ]; then
+		echo "$2"
+	else
+		echo "$2:$1"
+	fi
+}
+
+######################### SECTION ############################
+#before sourcing local config file, we load inherited one to avoid
+#an impact of local values.
+flist=$(bash -c "$(cat ${CONFIG_FILE});echo \$INHERIT_SVENV")
+if [ ! -z "$flist" ]
+then
+	for tmp in $flist
+	do
+		#echo "#Load env $tmp"
+		inherited_prefix=$(bash -c "$(cat $tmp);echo \$PREFIX")
+		if [ -z "$inherited_prefix" ] || [ ! -d "$inherited_prefix" ]; then
+			echo "Inherated environnement $tmp provide an invalide prefix : '$inherited_prefix'"
+		else
+			eval "$($inherited_prefix/bin/svenvgen $tmp)"
+		fi
+	done
+fi
+
+######################### SECTION ############################
 #load it
-source ${HOME}/.svconfig
+source ${CONFIG_FILE}
 
 ######################### SECTION ############################
 #check config file
@@ -29,7 +71,7 @@ source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
 ############################ CHECK ###########################
 #Check python version
 if [ -z "$PYTHON_VERSION" ]; then
-	echo "Warning : Please setup the PYTHON_VERSION into you ~/.svconfig" 1>&2
+	echo "Warning : Please setup the PYTHON_VERSION into ${CONFIG_FILE} file" 1>&2
 fi
 
 ######################### FUNCTION ###########################

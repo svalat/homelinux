@@ -1,0 +1,40 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                         #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+#COPY THIS CONTENT IN FILE ${HOME}/.svconfig AND UPDATE IT
+
+#Define the base prefix path
+PREFIX="${HOME}/usr"
+
+#Options to pass to the make command
+MAKE_OPTS="-j2"
+
+#CFLAGS and LDFLAGS to use for compilation
+CFLAGS="-O2 -fomit-frame-pointer"
+CXXFLAGS="${CFLAGS}"
+
+#Gentoo mirror to use to fetch the list of gentoo source packages
+GENTOO_MIRROR=http://mirror.ovh.net/gentoo-distfiles/
+
+#Directory to use for package building
+TMPDIR="/tmp/build-${USER}"
+
+#Version of python you are using (only major.minor)
+#Caution, if you change this, you may need to reinstall all
+#packaging who installed files into
+#${PREFIX}/lib/python${OLD_PYTHON_VERSION}/site-packages/
+PYTHON_VERSION=2.7
+
+#Define environnement inheritance to avoid re-providing packages
+#It permit to share a common base installation between multiple
+#users, you need to provide path of the related config file
+INHERIT_SVENV=""
+IGNORE_INHERIT_PACKAGES=""

@@ -1,8 +1,0 @@
-#!/bin/bash
-PREFIX="${HOME}/ptmp/usr2"
-MAKE_OPTS="-j3"
-CFLAGS="-O2 -fomit-frame-pointer"
-CXXFLAGS="${CFLAGS}"
-GENTOO_MIRROR=http://mirror.ovh.net/gentoo-distfiles/
-TMPDIR="${HOME}/ptmp/tmp"
-PYTHON_VERSION="2.4"
