@@ -44,19 +44,19 @@ function error_if_package_is_installed()
 	fi
 
 	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version" ]; then
-		echo "ERROR : ${pname} alredy installed in version $(cat ${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version), please remove first"
+		echo "ERROR : ${pname} alredy installed in version $(cat ${SV_HOME_LINUX_INSTALLED}/${1}-slot-${s}.version), please remove first" 1>&2
 		exit 1
 	fi
 	
 	if [ -f "${SV_HOME_LINUX_INSTALLED}/${1}.flist.gz" ]
 	then
-		echo "ERROR : ${pname} alredy installed, please remove first"
+		echo "ERROR : ${pname} alredy installed, please remove first" 1>&2
 		exit 1
 	fi
 
 	if [ ! -z "$2" ] && [ -f "${SV_HOME_LINUX_INSTALLED}/${1}-${2}.flist.gz" ]
 	then
-		echo "ERROR : ${pname} alredy installed, please remove first"
+		echo "ERROR : ${pname} alredy installed, please remove first" 1>&2
 		exit 1
 	fi
 }
@@ -136,7 +136,7 @@ function inherit()
 {
 	#check config file
 	if [ ! -f ${PREFIX}/lib/svhomelinux/$1.sh ]; then
-		echo "Error: Can't find ${PREFIX}/lib/svhomelinux/$1.sh file"
+		echo "Error: Can't find ${PREFIX}/lib/svhomelinux/$1.sh file" 1>&2
 		exit 1
 	fi
 	source ${PREFIX}/lib/svhomelinux/$1.sh || exit 1
@@ -146,7 +146,7 @@ function inherit()
 #{name}
 function pack_var_required()
 {
-	echo "The package require the definition of variable $1"
+	echo "The package require the definition of variable $1" 1>&2
 	exit 1
 }
 
