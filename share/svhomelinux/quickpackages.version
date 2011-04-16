@@ -16,6 +16,5 @@ glibc 2.5
 binutils 2.19.[0-9]+
 veritas latest
 kdev-xtest latest
-svUnitTest latest
 gtkmm 2.[0-9]+.[0-9]+
 glibmm 2.[0-9]+.[0-9]+
