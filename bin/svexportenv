@@ -12,32 +12,9 @@
 ######################### SECTION ############################
 #check config file
 if [ ! -f ${HOME}/.svconfig ]; then
-	echo "Error: Can't find ~/.svconfig file"
+	echo "Error: Can't find ~/.svconfig file" 1>&2
 	exit 1
 fi
-#load it
-source ${HOME}/.svconfig
-
-######################### SECTION ############################
-#check config file
-if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
-	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
-	exit 1
-fi
-source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
-
-############################ CHECK ###########################
-#Check python version
-if [ -z "$PYTHON_VERSION" ]; then
-	echo "Warning : Please setup the PYTHON_VERSION into you ~/.svconfig" 1>&2
-fi
-
-######################### FUNCTION ###########################
-# Return the list of variants available
-function getVariants()
-{
-	$PREFIX/bin/svselect list | grep '*' | cut -f 3 -d ' '
-}
 
 ######################### FUNCTION ###########################
 # Add the given path to the given value
@@ -53,67 +30,10 @@ function addPathToVar()
 	fi
 }
 
-######################### FUNCTION ###########################
-# Define a new prefix and setup all variables
-# Parms:
-#   - Prefix path
-#   - [noldpath]
-function addNewPrefix()
-{
-	if [ "$2" != 'noldpath' ]; then
-	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib`
-	LD_LIBRARY_PATH=`addPathToVar $LD_LIBRARY_PATH $1/lib64`
-	fi
-	PATH=`addPathToVar $PATH $1/bin`
-	MANPATH=`addPathToVar $MANPATH $1/share/man`
-	CPATH=`addPathToVar $CPATH $1/include`
-	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5`
-	PERL5LIB=`addPathToVar $PERL5LIB $1/lib/perl5/site_perl`
-	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/lib/pkgconfig`
-	PKG_CONFIG_PATH=`addPathToVar $PKG_CONFIG_PATH $1/share/pkgconfig`
-	PYTHONPATH=/ptmp/gpocre/besnardjb/usr/lib/python${PYTHON_VERSION}/site-packages/:${PYTHONPATH}
-}
+######################### SECTION ############################
+#search PREFIX PATH
+# echo "$($(bash -c "$(cat ~/.svconfig | grep '^PREFIX='); echo \$PREFIX;")/bin/svenvgen)"
+eval "$($(bash -c "$(cat ~/.svconfig | grep '^PREFIX='); echo \$PREFIX;")/bin/svenvgen)"
 
 ######################### SECTION ############################
-#setup the default prefix
-addNewPrefix "${PREFIX}"
-if [ -d "${PREFIX}/variants/noldpath" ]; then
-	addNewPrefix "${PREFIX}/variants/noldpath" noldpath
-fi
-
-#setup all variants
-for variant in $(getVariants)
-do
-	addNewPrefix "${PREFIX}/variants/$variant"
-done
-
-######################### SECTION ############################
-#echo "#Global :"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-export PATH="$PATH"
-export MANPATH="$MANPATH"
-export CPATH="$CPATH"
-export PERL5LIB="$PERL5LIB"
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH"
-export PYTHONPATH="$PYTHONPATH"
-
-######################### SECTION ############################
-if [ "$(ls -A ${SV_HOME_LINUX_ENV_DIR})" ]; then
-	for tmp in ${SV_HOME_LINUX_ENV_DIR}/*
-	do
-		if [ "$(basename $tmp)" != "README.txt" ]; then
-			#echo "#From $tmp :"
-			source "$tmp"
-		fi
-	done
-fi
-
-#if [ "$1" != "-s" ]; then
-#	echo "###############################################"
-#	echo "#   Wilcome to svEnvironnement installed in   #"
-#	printf "# %-43s #\n" "$PREFIX"
-#	echo "#                                             #"
-#	echo "# Management commands are :                   #"
-#	echo "# svinstall, svconfigure, svpackage, svselect #"
-#	echo "###############################################"
-#fi
+unset -f addPathToVar
