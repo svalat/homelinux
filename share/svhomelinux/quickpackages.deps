@@ -60,5 +60,11 @@ indent texi2html
 kdebase kdelibs oxygen-icons
 valgrind boost
 kdesdk graphviz
-kdev-xtest veritas
+kdev-xtest veritas kdevelop
 wine flex
+acl attr
+gkrellm gtk+
+glibc binutils libtool
+kdelibs pcre qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano
+kdiff3 qt
+sgml-common automake autoconf

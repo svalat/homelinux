@@ -1,18 +1,19 @@
 #!/bin/bash
 inherit svpack-basic
+svPackLoadDefault 'kdelibs'
 
-PACKAGE_NAME='kdelibs'
-PACKAGE_LAST_VERSION="$(yumFindLastVersion $PACKAGE_NAME | cut -f 2 -d ' ')"
-#PACKAGE_LAST_VERSION='4.6.1'
-PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
-#PACKAGE_VERSION='4.6.1'
-PACKAGE_ARCHIVE="kdelibs-${PACKAGE_VERSION}.tar.bz2"
-PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
-PACKAGE_VARIANT=''
-PACKAGE_CONFIGURE_OPTIONS="-DDOCBOOKXML_CURRENTDTD_DIR=${PREFIX}/share/docbook-xml/ -DDOCBOOKXSL_DIR=${PREFIX}/share/docbook-xsl"
-PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano'
-PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
+# PACKAGE_NAME='kdelibs'
+# PACKAGE_LAST_VERSION="$(yumFindLastVersion $PACKAGE_NAME | cut -f 2 -d ' ')"
+# #PACKAGE_LAST_VERSION='4.6.1'
+# PACKAGE_VERSION="$PACKAGE_LAST_VERSION"
+# #PACKAGE_VERSION='4.6.1'
+# PACKAGE_ARCHIVE="kdelibs-${PACKAGE_VERSION}.tar.bz2"
+# PACKAGE_SUBDIR="${PACKAGE_NAME}-${PACKAGE_VERSION}"
+# PACKAGE_VARIANT=''
+# PACKAGE_CONFIGURE_OPTIONS="-DDOCBOOKXML_CURRENTDTD_DIR=${PREFIX}/share/docbook-xml/ -DDOCBOOKXSL_DIR=${PREFIX}/share/docbook-xsl"
+# PACKAGE_TEST_TARGET=''
+# PACKAGE_EXEC_DEPENDS='qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano'
+# PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 
 #TODO add fam and acl and bzip and libdbusmenu-qt2 docbook-xsl shared-mime-info
 

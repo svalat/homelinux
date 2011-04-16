@@ -20,3 +20,5 @@ ffmpeg --enable-postproc --enable-gpl --enable-shared
 libgnome --disable-canberra
 kdebase-workspace -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${PREFIX}/lib -DCMAKE_EXE_LINKER_FLAGS="-L${PREFIX}/lib"
 svUnitTest -DDISABLE_UNIT_TESTS=yes -DCMAKE_BUILD_TYPE=release
+kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=${PREFIX}/share/docbook-xml/ -DDOCBOOKXSL_DIR=${PREFIX}/share/docbook-xsl
+openssl shared threads zlib
