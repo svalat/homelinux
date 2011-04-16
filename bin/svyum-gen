@@ -53,9 +53,10 @@ function get_def_inheritance()
 
 ######################### SECTION ############################
 if [ ! -z "$slot" ]; then
-	forced_version=$(grep "^$package .* $slot$" ${SV_HOME_LINUX_SHARED}/quickpackages.slots | cut -d ' ' -f 2 )
+	#forced_version="$(grep "^$package .* $slot$" ${SV_HOME_LINUX_SHARED}/quickpackages.slots | cut -d ' ' -f 2 )"
+	forced_version=$(yumFindLastVersion ${package} $(yumGetVersionRegexp $package $slot) | cut -f 2 -d ' ')
 else
-	forced_version=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.version | cut -d ' ' -f 2 )
+	forced_version=$(yumFindLastVersion ${package} $(yumGetVersionRegexp $package) | cut -f 2 -d ' ')
 fi
 
 if [ -z "$version" ]; then

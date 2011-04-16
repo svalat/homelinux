@@ -151,17 +151,53 @@ function pack_var_required()
 }
 
 ######################### SECTION ############################
+#{name} [slot]
+function yumGetVersionRegexp()
+{
+	n=$(echo $1 | sed -e "s/\+/\\+/g")
+	if [ -z "$2" ]; then
+		res=$(grep "^$n " "${SV_HOME_LINUX_SHARED}/quickpackages.version" | cut -f 2 -d ' ')
+	else
+		res=$(grep "^$n .* $2$" ${SV_HOME_LINUX_SHARED}/quickpackages.slots | cut -f 2 -d ' ')
+	fi
+	if [ -z "$res" ]; then
+		echo '[0-9\.]+'
+	else
+		echo "$res" | sed -e 's/\./\\./g'
+	fi
+}
+
+######################### SECTION ############################
 #{name}
-function yumFindLastVersion()
+function yumGetVersionSeparator()
 {
 	n=$(echo $1 | sed -e "s/\+/\\\\+/g")
-	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${n}-[0-9\.]+(\.src)?\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
+	res=$(cat "${SV_HOME_LINUX_SHARED}/quickpackages.version" | grep "^$n " | cut -f 3 -d ' ')
+	if [ -z "$res" ]; then
+		echo '-'
+	else
+		echo "$res"
+	fi
+}
+
+######################### SECTION ############################
+#{name} [regexp]
+function yumFindLastVersion()
+{
+	sep=$(yumGetVersionSeparator "$1")
+	if [ -z "$2" ]; then
+		vregexp=$(yumGetVersionRegexp "$1")
+	else
+		vregexp="$2"
+	fi
+	n=$(echo $1 | sed -e "s/\+/\\\\+/g")
+	res="`zcat ${SV_HOME_LINUX_SHARED}/distfiles.list.gz | egrep \"^[0-9]+\. .*/${n}${sep}${vregexp}(\.src)?\.(tar|zip|tgz|xgz)\" | cut -f 2 -d ' ' | tail -n 1`"
 	if [ -z "$res" ]; then
 		echo "Package not found $1" 1>&2
 		exit 1
 	fi
 	n=$(echo $1 | sed -e "s/\+/\\+/g")
-	basename "$res" | sed -e "s/${n}-/${1} /g" -e "s/\.tar\.bz2//g" -e "s/\.tar\.gz//g" -e "s/\.zip//g" -e "s/\.tgz//g" -e "s/\.tar.xz//g"
+	basename "$res" | sed -e "s/${n}${sep}/${1} /g" -e "s/\.tar\.bz2//g" -e "s/\.tar\.gz//g" -e "s/\.zip//g" -e "s/\.tgz//g" -e "s/\.tar.xz//g"
 }
 
 ######################### SECTION ############################
@@ -200,4 +236,103 @@ function get_pack_urls()
 	do
 		echo "$serv/distfiles/${1}"
 	done
+}
+
+######################### SECTION ############################
+function getAllSlots()
+{
+	cat ${SV_HOME_LINUX_SHARED}/quickpackages.slots | while read p v s
+	do
+		echo $p-$s $s
+	done
+}
+
+######################### SECTION ############################
+#{name}
+function getSlot()
+{
+	pn=$(echo $1 | sed -e 's/\+/\+/g')
+	res=$(getAllSlots | grep "^$pn " | cut -d ' ' -f 2)
+	if [ ! -z "$res" ]; then
+		echo $res
+	fi
+}
+
+######################### SECTION ############################
+#{name} {slot}
+function getSlotPName()
+{
+	if [ -z "$2" ]; then
+		echo "$1"
+	else
+		echo $1 | sed -e "s/-$2$//g"
+	fi
+}
+
+######################### SECTION ############################
+function genAutoPackage()
+{
+	slot=$(getSlot $1)
+	pname=$(getSlotPName $1 $slot)
+	fname="${SV_HOME_LINUX_QUICK_PACKAGES}/${1}.svquickpackage"
+	if [ ! -f $fname ] || [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.version -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.deps -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.type -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.configure -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.slots -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/quickpackages.variant -nt $fname ] \
+		|| [ ${SV_HOME_LINUX_SHARED}/distfiles.list.gz -nt $fname ] \
+		|| [ ${PREFIX}/bin/svyum-gen -nt $fname ]
+	then
+		svyum-gen "$pname" "none" "${slot}" > $fname || exit 1
+	fi
+	echo $fname
+}
+
+######################### SECTION ############################
+function getPackageFile()
+{
+	if [ -f "${SV_HOME_LINUX_PACKAGES}/$1.svpackage" ]
+	then
+		echo "${SV_HOME_LINUX_PACKAGES}/$1.svpackage"
+	else
+		genAutoPackage "$1"
+	fi
+}
+
+######################### SECTION ############################
+function getPackageVersion()
+{
+	svyum-pack version "$1"
+}
+
+######################### SECTION ############################
+function getPackageDeps()
+{
+	svyum-pack deps "$1"
+}
+
+######################### SECTION ############################
+function getPackageArchive()
+{
+	svyum-pack archive "$1"
+}
+
+######################### SECTION ############################
+function getPackageLastVersion()
+{
+	svyum-pack last-version "$1"
+}
+
+######################### SECTION ############################
+function getPackageName()
+{
+	svyum-pack name "$1"
+}
+
+######################### SECTION ############################
+function getPackageSlot()
+{
+	svyum-pack slot "$1"
 }

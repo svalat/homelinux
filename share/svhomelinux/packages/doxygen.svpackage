@@ -2,6 +2,8 @@
 inherit svpack-basic
 svPackLoadDefault 'doxygen'
 
+PACKAGE_LAST_VERSION=$(echo $PACKAGE_LAST_VERSION | sed -e 's/\.src$//g')
+PACKAGE_VERSION=$(echo $PACKAGE_VERSION | sed -e 's/\.src$//g')
 PACKAGE_ARCHIVE="doxygen-${PACKAGE_VERSION}.src.tar.gz"
 
 #You can override if require

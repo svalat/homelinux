@@ -170,6 +170,24 @@ function showSlot()
 }
 
 ######################### SECTION ############################
+function findCurrentVersion()
+{
+	if [ -f "${SV_HOME_LINUX_INSTALLED}/${PACKAGE_NAME}-slot-${PACKAGE_SLOT}.version" ]; then
+		cat ${SV_HOME_LINUX_INSTALLED}/${PACKAGE_NAME}-slot-${PACKAGE_SLOT}.version
+	fi
+}
+
+######################### SECTION ############################
+#{name}
+function showInfoLine()
+{
+	loadPackage "$1"
+	if [ -z "$PACKAGE_SLOT" ]; then PACKAGE_SLOT=0; fi
+	PACKAGE_CURRENT_VERSION=$(findCurrentVersion)
+	echo "${PACKAGE_NAME};${PACKAGE_VERSION};${PACKAGE_ARCHIVE};${PACKAGE_LAST_VERSION};${1};${PACKAGE_NAME};${PACKAGE_SLOT};${PACKAGE_CURRENT_VERSION}"
+}
+
+######################### SECTION ############################
 case "$1" in
 	help)
 		showHelp
@@ -191,6 +209,9 @@ case "$1" in
 		;;
 	name)
 		showName "$2" | tail -n 1
+		;;
+	infoline)
+		showInfoLine "$2" | tail -n 1
 		;;
 	slot)
 		showSlot "$2" | tail -n 1

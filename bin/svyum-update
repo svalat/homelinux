@@ -1,0 +1,89 @@
+#!/bin/bash
+##############################################################
+#                                                            #
+#         PROJECT : svHomeLinux                              #
+#         VERSION : 1.1                                      #
+#         DATE    : jeu. févr.  3 18:53:24 CET 2011          #
+#         AUTHORS : Sébastien Valat                          #
+#         LICENCE : GPLv2                                    #
+#                                                            #
+##############################################################
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${HOME}/.svconfig ]; then
+	echo "Error: Can't find ~/.svconfig file"
+	exit 1
+fi
+#load it
+source ${HOME}/.svconfig || exit 1
+
+######################### SECTION ############################
+#check config file
+if [ ! -f ${PREFIX}/lib/svhomelinux/svcommon.sh ]; then
+	echo "Error: Can't find ${PREFIX}/lib/svhomelinux/svcommon.sh file"
+	exit 1
+fi
+source ${PREFIX}/lib/svhomelinux/svcommon.sh || exit 1
+
+######################### SECTION ############################
+#package file
+function getPackageInfoLine()
+{
+	svyum-pack infoline "$1"
+}
+
+######################### SECTION ############################
+function getListToUpdate()
+{
+	for p in $*
+	do
+		package_file=$(getPackageFile "$p")
+		getPackageInfoLine "$package_file"
+	done
+}
+
+######################### SECTION ############################
+#{packname1} {packname2} ...
+function yumUpdatePackages()
+{
+	lst=$(getListToUpdate $*)
+	echo "========================== PACKAGES TO UPDATE =============================="
+	for tmp in $lst
+	do
+		pname=`echo $tmp | cut -f 1 -d ';'`
+		pvers=`echo $tmp | cut -f 2 -d ';'`
+		pfname=`echo $tmp | cut -f 3 -d ';'`
+		plvers=`echo $tmp | cut -f 4 -d ';'`
+		pfile=`echo $tmp | cut -f 5 -d ';'`
+		pcur=`echo $tmp | cut -f 8 -d ';'`
+		if [ "$pvers" != "$pcur" ]; then
+			printf "%-15s	%-10s	%-10s	%-10s	%-25s\n" "$pname" "$pcur" "$pvers" "$plvers" "$pfname"
+		fi
+	done
+	echo "============================================================================"
+
+# 	yes_no_question "Do you agree" "yes" || exit 0
+}
+
+######################### SECTION ############################
+function yumGetPackageNameFromSlotFile()
+{
+	basename "$1" | sed -e 's/-slot-[0-9]*\.version$//g'
+}
+
+######################### SECTION ############################
+function yumGetPackageList()
+{
+	for tmp in ${SV_HOME_LINUX_INSTALLED}/*.version
+	do
+		yumGetPackageNameFromSlotFile $tmp
+	done
+}
+
+######################### SECTION ############################
+if [ "$1" = '--all' ]; then
+	yumUpdatePackages $(yumGetPackageList)
+else
+	yumUpdatePackages $*
+fi
