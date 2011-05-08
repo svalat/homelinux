@@ -78,6 +78,7 @@ deps=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.deps | cut -d ' '
 type=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.type | cut -d ' ' -f 2 )
 variant=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.variant | cut -d ' ' -f 2 )
 configure=$(grep "^$package " ${SV_HOME_LINUX_SHARED}/quickpackages.configure | cut -d ' ' -f 2-)
+patches=$(grep "^$package-${version} " ${SV_HOME_LINUX_SHARED}/quickpackages.patches | cut -d ' ' -f 2-)
 if [ -z "$slot" ]; then
 	slot=$(grep "^$package $version" ${SV_HOME_LINUX_SHARED}/quickpackages.slots | cut -d ' ' -f 3 )
 fi
@@ -111,6 +112,7 @@ PACKAGE_TEST_TARGET=''
 PACKAGE_EXEC_DEPENDS='$deps'
 PACKAGE_BUILD_DEPENDS=\"\$PACKAGE_EXEC_DEPENDS\"
 PACKAGE_SLOT=\"$slot\"
+PACKAGE_PATCHES=\"$patches\"
 
 #You can override if require
 #function do_download() {}

@@ -10,6 +10,10 @@
 ##############################################################
 
 ######################### SECTION ############################
+#ENV VAR : SVCONFIGURE_FORCE_PACKAGE_TYPE=package_type
+package_type="${SVCONFIGURE_FORCE_PACKAGE_TYPE}"
+
+######################### SECTION ############################
 #check config file
 if [ ! -f ${HOME}/.svconfig ]; then
 	echo "Error: Can't find ~/.svconfig file"
@@ -80,10 +84,12 @@ source ${HOME}/.svconfig
 
 ######################### SECTION ###########################
 #check package type
-if   [ -f ./configure ];      then packageType=autotools;
-elif [ -f ./CMakeLists.txt ]; then packageType=cmake;
-elif [ -f ./Makefile.PL ]; then packageType=perlmodule;
-else                               packageType=unknown;
+if   [ -z "$package_type" ]; then
+	if   [ -f ./configure ];      then packageType=autotools;
+	elif [ -f ./CMakeLists.txt ]; then packageType=cmake;
+	elif [ -f ./Makefile.PL ]; then packageType=perlmodule;
+	else                               packageType=unknown;
+	fi
 fi
 
 ######################## SECTION ############################

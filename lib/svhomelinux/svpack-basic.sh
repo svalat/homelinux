@@ -18,6 +18,7 @@ PACKAGE_VARIANT=''
 PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
 PACKAGE_SLOT='0'
+PACKAGE_PATCHES=''
 
 ######################### SECTION ############################
 export CFLAGS
@@ -85,7 +86,15 @@ function  do_move_to_build_dir()
 ######################### SECTION ############################
 function do_patch()
 {
-	echo "Nothing to do"
+	echo ">>> Apply patches <<<"
+	if [ -z "$PACKAGE_PATCHES" ]; then
+		echo "Nothing to do"
+	else
+		for tmp in ${PACKAGE_PATCHES}
+		do
+			safe_exec patch -p1 -i ${SV_HOME_LINUX_SHARED}/patches/${PACKAGE_NAME}-${PACKAGE_VERSION}-${tmp}.patch
+		done
+	fi
 }
 
 ######################### SECTION ############################

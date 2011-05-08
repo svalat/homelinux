@@ -13,7 +13,7 @@ fontconfig libxml2
 cairo libpng pixman libsvg poppler fontconfig freetype glib
 XML-Parser expat
 intltool XML-Parser
-inkscape intltool gc libxslt gtkmm gsl boost lcms2
+inkscape intltool gc libxslt gtkmm gsl boost lcms2 poppler
 pango glib cairo
 gnuplot cairo PDFlib-Lite
 glib gettext
@@ -68,3 +68,4 @@ glibc binutils libtool
 kdelibs pcre qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano
 kdiff3 qt
 sgml-common automake autoconf
+poppler gdk-pixbuf

@@ -1,0 +1,21 @@
+--- /src/color-profile.cpp	2011-01-01 21:34:09.000000000 -0700
++++ /src/color-profile.cpp	2011-02-24 08:02:56.000000000 -0700
+@@ -31,6 +31,7 @@ 
+ #include "inkscape.h"
+ #include "document.h"
+ #include "preferences.h"
++#include "io/sys.h"
+ 
+ #include "dom/uri.h"
+ #include "dom/util/digest.h"
+@@ -557,9 +558,6 @@ 
+     return (outofgamut == 255);
+ }
+ 
+-
+-#include <io/sys.h>
+-
+ class ProfileInfo
+ {
+ public:
+
