@@ -1,18 +1,18 @@
-mpfr --with-gmp=${PREFIX}
-gcc --with-gmp=${PREFIX} --with-mpfr=${PREFIX} --disable-multilib --enable-languages=c,c++
+mpfr --with-gmp=$(getPackagePrefix gmp)
+gcc --with-gmp=$(getPackagePrefix gmp) --with-mpfr=$(getPackagePrefix mpfr) --disable-multilib --enable-languages=c,c++
 subversion --disable-mod-activation
-apr-util --with-apr=${PREFIX}
-dbus --with-xml=libxml LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
-dbus-glib LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
+apr-util --with-apr=$(getPackagePrefix arp)
+dbus --with-xml=libxml LDFLAGS=-L$(getPackagePrefix libxml2)/lib CFLAGS=-I$(getPackagePrefix libxml2)/include
+dbus-glib LDFLAGS=-L$(getPackagePrefix glib)/lib CFLAGS=-I$(getPackagePrefix glib)/include
 cairo --enable-xml
 gnuplot --disable-wxwidgets
-XML-Parser EXPATLIBPATH=${PREFIX}/lib EXPATINCPATH=${PREFIX}/include
+XML-Parser EXPATLIBPATH=$(getPackagePrefix expat)/lib EXPATINCPATH=$(getPackagePrefix expat)/include
 inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
-gdk-pixbuf --without-libtiff --with-jpeg=${PREFIX} LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
+gdk-pixbuf --without-libtiff --with-jpeg=$(getPackagePrefix jpegsrc) LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
 gtk+ --x-libraries=${PREFIX}/lib --x-includes=${PREFIX}/include/X11 LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include/X11
 mpich2 F90=gfortran F70=gfortran
 gitg CFLAGS=-O1
-git --with-curl=${PREFIX} --with-expat=${PREFIX}
+git --with-curl=$(getPackagePrefix curl) --with-expat=$(getPackagePrefix expat)
 vte --disable-Bsymbolic
 Python --enable-shared
 xine-ui --disable-lirc
@@ -20,5 +20,5 @@ ffmpeg --enable-postproc --enable-gpl --enable-shared
 libgnome --disable-canberra
 kdebase-workspace -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${PREFIX}/lib -DCMAKE_EXE_LINKER_FLAGS="-L${PREFIX}/lib"
 svUnitTest -DDISABLE_UNIT_TESTS=yes -DCMAKE_BUILD_TYPE=release
-kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=${PREFIX}/share/docbook-xml/ -DDOCBOOKXSL_DIR=${PREFIX}/share/docbook-xsl
+kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=$(getPackagePrefix docbook-xml)/share/docbook-xml/ -DDOCBOOKXSL_DIR=$(getPackagePrefix docbook-xsl)/share/docbook-xsl
 openssl shared threads zlib

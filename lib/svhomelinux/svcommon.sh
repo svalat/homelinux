@@ -128,6 +128,32 @@ function packageMustIgnoreInheritance()
 	fi
 }
 
+######################### FUNCTION ###########################
+#{name} {slot}
+function getPackagePrefix()
+{
+	#calc slot
+	if [ -z "$2" ]; then s=0; else s=$2; fi
+
+	if packageMustIgnoreInheritance "$1"
+	then
+		plist="${PREFIX}"
+	else
+		plist="${PREFIX} $(getInheritedPrefix)"
+	fi
+
+	#echo "DEBUG : Prefixes to check : $plist" 1>&2
+
+	for prefix in $plist
+	do
+		if [ -f "${prefix}/${SV_HOME_LINUX_INSTALLED_NP}/${1}-slot-${s}.version" ]; then echo "${prefix}"; return 0; fi
+		if [ ! -z "$3" ] && [ -f "${prefix}/${SV_HOME_LINUX_INSTALLED_NP}/${1}-${3}.flist.gz" ]; then echo "${prefix}"; return 0; fi
+	done
+
+	echo "Package not found : ${1}-${s}" 1>&2
+	exit 1
+}
+
 ######################### SECTION ############################
 #{name} {slot} [version]
 function yumCheckIfInstall()

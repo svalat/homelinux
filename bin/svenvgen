@@ -12,8 +12,10 @@
 ######################### SECTION ############################
 if [ -z "$1" ]; then
 	CONFIG_FILE=${HOME}/.svconfig
+	LOAD_VARIANTS=true
 else
 	CONFIG_FILE=$1
+	LOAD_VARIANTS=false
 fi
 # echo "#Config file is $CONFIG_FILE"
 
@@ -123,11 +125,13 @@ if [ -d "${PREFIX}/variants/noldpath" ]; then
 	addNewPrefix "${PREFIX}/variants/noldpath" noldpath
 fi
 
-#setup all variants
-for variant in $(getVariants)
-do
-	addNewPrefix "${PREFIX}/variants/$variant"
-done
+if [ "$LOAD_VARIANTS" = "true" ]; then
+	#setup all variants
+	for variant in $(getVariants)
+	do
+		addNewPrefix "${PREFIX}/variants/$variant"
+	done
+fi
 
 ######################### SECTION ############################
 echo "###############################################"
