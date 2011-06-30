@@ -24,6 +24,7 @@ dbus libxml2
 gitg glib gtk+-2 gtksourceview gsettings-desktop-schemas libglade
 gtk+ cairo glib atk pango gdk-pixbuf
 gtkmm pangomm atkmm
+atkmm glibmm
 pangomm glibmm cairomm libsigc++
 apr-util apr
 phonon automoc4
@@ -66,7 +67,9 @@ acl attr
 gkrellm gtk+
 glibc binutils libtool
 kdelibs pcre qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano
-kdiff3 qt
+soprano qt4
+kdiff3 qt diffutils
 sgml-common automake autoconf
 poppler gdk-pixbuf
 gimp babl
+kdegraphics libkdcraw
