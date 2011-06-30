@@ -1,7 +1,7 @@
 mpfr --with-gmp=$(getPackagePrefix gmp)
 gcc --with-gmp=$(getPackagePrefix gmp) --with-mpfr=$(getPackagePrefix mpfr) --disable-multilib --enable-languages=c,c++
 subversion --disable-mod-activation
-apr-util --with-apr=$(getPackagePrefix arp)
+apr-util --with-apr=$(getPackagePrefix apr)
 dbus --with-xml=libxml LDFLAGS=-L$(getPackagePrefix libxml2)/lib CFLAGS=-I$(getPackagePrefix libxml2)/include
 dbus-glib LDFLAGS=-L$(getPackagePrefix glib)/lib CFLAGS=-I$(getPackagePrefix glib)/include
 cairo --enable-xml
