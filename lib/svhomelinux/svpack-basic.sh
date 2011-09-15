@@ -19,6 +19,7 @@ PACKAGE_CONFIGURE_OPTIONS=''
 PACKAGE_TEST_TARGET=''
 PACKAGE_SLOT='0'
 PACKAGE_PATCHES=''
+PACKAGE_AUTOTOOL_VARIANT=''
 
 ######################### SECTION ############################
 export CFLAGS

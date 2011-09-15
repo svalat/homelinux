@@ -20,4 +20,4 @@ gtkmm 2.[0-9]+.[0-9]+
 glibmm 2.[0-9]+.[0-9]+
 gtksourceview 2.[0-9]+.[0-9]+
 gtksourceviewmm 2.[0-9]+.[0-9]+
-
+atlas 3.9.23

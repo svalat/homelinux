@@ -59,6 +59,20 @@ function configure_autotools_package()
 }
 
 ######################### FUNCTION ###########################
+function configure_autotools_subdir_package()
+{
+	echo ">> Display configure options <<"
+	echo "configure --prefix=${PREFIX}$*"
+	#echo ">> Create build dir <<"
+	if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
+	safe_exec mkdir ./svbuild
+	safe_exec cd ./svbuild
+	echo ">> Call configure script <<"
+	safe_exec ../configure --prefix=${PREFIX}$*
+	echo ">> Finish configure step <<"
+}
+
+######################### FUNCTION ###########################
 function configure_perlmodule_package()
 {
 	echo ">> Display perl module options <<"
@@ -85,7 +99,7 @@ source ${HOME}/.svconfig
 ######################### SECTION ###########################
 #check package type
 if   [ -z "$package_type" ]; then
-	if   [ -f ./configure ];      then packageType=autotools;
+	if   [ -f ./configure ];      then packageType=autotools${PACKAGE_AUTOTOOLS_VARIANT};
 	elif [ -f ./CMakeLists.txt ]; then packageType=cmake;
 	elif [ -f ./Makefile.PL ]; then packageType=perlmodule;
 	else                               packageType=unknown;
@@ -111,6 +125,9 @@ done
 case $packageType in
 	autotools)
 		configure_autotools_package "$subdir" $args
+		;;
+	autotools-subdir)
+		configure_autotools_subdir_package "$subdir" $args
 		;;
 	cmake)
 		configure_cmake_package "$subdir" $args
