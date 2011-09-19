@@ -60,7 +60,7 @@ libXcursor libXfixes
 indent texi2html
 kdebase kdelibs oxygen-icons
 valgrind boost
-kdesdk graphviz
+kdesdk kdelibs graphviz
 kdev-xtest veritas kdevelop
 wine flex
 acl attr
@@ -73,3 +73,4 @@ sgml-common automake autoconf
 poppler gdk-pixbuf
 gimp babl
 kdegraphics libkdcraw
+shared-mime intltool
