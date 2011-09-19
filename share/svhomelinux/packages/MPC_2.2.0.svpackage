@@ -10,11 +10,10 @@ PACKAGE_VERSION="2.2.0"
 PACKAGE_ARCHIVE="${PACKAGE_NAME}.tar.gz"
 PACKAGE_SUBDIR="${PACKAGE_NAME}"
 PACKAGE_VARIANT='mpi'
-#PACKAGE_CONFIGURE_OPTIONS="--with-mpfr=${PREFIX} --with-gmp=${PREFIX}"
-PACKAGE_CONFIGURE_OPTIONS="--includedir=${PREFIX}/variants/mpi-MPC_2.2.0/include/mpc"
+PACKAGE_CONFIGURE_OPTIONS="--includedir=${PREFIX}/variants/mpi-MPC_2.2.0/include/mpc --with-mpfr=$(getPackagePrefix mpfr) --with-gmp=$(getPackagePrefix gmp)"
 PACKAGE_TEST_TARGET=''
-PACKAGE_EXEC_DEPENDS=''
-#PACKAGE_EXEC_DEPENDS='gmp mpfr'
+#PACKAGE_EXEC_DEPENDS=''
+PACKAGE_EXEC_DEPENDS='gmp mpfr'
 PACKAGE_BUILD_DEPENDS="$PACKAGE_EXEC_DEPENDS"
 PACKAGE_SLOT=""
 
