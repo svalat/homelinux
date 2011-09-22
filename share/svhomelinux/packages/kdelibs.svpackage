@@ -37,6 +37,7 @@ function do_configure()
 		safe_exec cd svbuild
 	fi
 	safe_exec cmake .. -DCMAKE_INSTALL_PREFIX:PATH=${PREFIX} ${PACKAGE_CONFIGURE_OPTIONS}
+	# -DGIF_INCLUDE_DIR=$(getPackagePrefix giflib)/include  -DGIF_LIBRARIES=$(getPackagePrefix giflib)/lib/libgif.so -DGIF_FOUND=yes
 	safe_exec cd $current
 }
 

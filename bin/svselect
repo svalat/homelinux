@@ -40,6 +40,7 @@ function printHelp()
 	echo "                         selected tool"
 	echo "   set {tool} {impl} :   Select the tool implementation"
 	echo "   add {tool} {impl} :   Add new tool"
+	echo "   import            :   Import all variantes from inherited environnement"
 	echo "   help              :   Display this help"
 }
 
@@ -124,6 +125,32 @@ function doSetToolImpl()
 	fi
 }
 
+######################### FUNCTION ###########################
+# Params:
+#  - $1 : config file
+function getInheritedVariants()
+{
+	echo $(bash -c "$(cat ${1});echo \$PREFIX")/variants
+	for config in $(bash -c "$(cat ${1});echo \$INHERIT_SVENV")
+	do
+		getInheritedVariants "$config"
+	done
+}
+
+######################### FUNCTION ###########################
+function importVariants()
+{
+	for variant in $(getInheritedVariants "$HOME/.svconfig")
+	do
+		for vpack in $variant/*
+		do
+			if [ ! -e "$SV_HOME_LINUX_VARIANTES/$(basename $vpack)" ]; then
+				safe_exec ln -s "$vpack" "$SV_HOME_LINUX_VARIANTES/$(basename $vpack)"
+			fi
+		done
+	done
+}
+
 ######################### SECTION ############################
 case "$action" in
 	"list")
@@ -134,6 +161,9 @@ case "$action" in
 		;;
 	"add")
 		doAddTool "$2" "$3"
+		;;
+	"import")
+		importVariants
 		;;
 	*)
 			printHelp

@@ -1,0 +1,25 @@
+From 3b7406c766a82a463d8c3f01649759ee0dd4f71d Mon Sep 17 00:00:00 2001
+From: Sebastien Valat <sebastien.valat@cea.fr>
+Date: Wed, 21 Sep 2011 11:57:18 +0200
+Subject: [PATCH] Remove doc
+
+---
+ CMakeLists.txt |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e224839..a704de1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,7 +23,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kdiff3.h.cmake ${CMAKE_CURRENT
+ 
+ add_subdirectory(src-QT4)
+ add_subdirectory(po)
+-add_subdirectory(doc)
++#add_subdirectory(doc)
+ if(LIBKONQ_FOUND)
+   message(STATUS "")
+   message(STATUS "libkonq module found........... YES")
+-- 
+1.7.4
+

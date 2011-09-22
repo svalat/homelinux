@@ -45,5 +45,6 @@ do_make()
 
 do_post_install()
 {
-	safe_exec install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat
+	echo "Do nothing"
+	#safe_exec install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat
 }

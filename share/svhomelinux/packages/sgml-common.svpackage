@@ -32,7 +32,7 @@ svPackLoadDefault 'sgml-common'
 function do_configure()
 {
 	safe_exec rm install-sh missing* COPYING INSTALL mkinstalldirs
-	safe_exec ln -s ${PREFIX}/share/automake-1.11/mkinstalldirs .
+	safe_exec ln -s $(getPackagePrefix automake)/share/automake-1.11/mkinstalldirs .
 	autoreconf
 	automake --add-missing
 	autoreconf
