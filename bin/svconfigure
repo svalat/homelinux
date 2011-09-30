@@ -86,6 +86,24 @@ function configure_perlmodule_package()
 	echo ">> Finish configure step <<"
 }
 
+######################### FUNCTION ###########################
+function configure_pythonmodule_package()
+{
+	echo ">> Display python module options <<"
+	echo "python setup.py install --prefix=${PREFIX}$*"
+	#echo ">> Create build dir <<"
+	#if [ -d ./svbuild ]; then safe_exec rm -rf ./svbuild; fi
+	#safe_exec mkdir ./svbuild
+	#safe_exec cd ./svbuild
+	echo ">> Call configure script <<"
+	safe_exec python setup.py build
+	echo ">> Generate Makefile for installation <<"
+	echo "all:" > Makefile
+	echo "" >> Makefile
+	echo "install:" >> Makefile
+	echo "	python setup.py install --prefix=${PREFIX}$*" >> Makefile
+	echo ">> Finish configure step <<"
+}
 
 ######################### SECTION ############################
 #check config file
@@ -102,6 +120,7 @@ if   [ -z "$package_type" ]; then
 	if   [ -f ./configure ];      then packageType=autotools${PACKAGE_AUTOTOOLS_VARIANT};
 	elif [ -f ./CMakeLists.txt ]; then packageType=cmake;
 	elif [ -f ./Makefile.PL ]; then packageType=perlmodule;
+	elif [ -f ./setup.py ]; then packageType=pythonmodule;
 	else                               packageType=unknown;
 	fi
 fi
@@ -134,6 +153,9 @@ case $packageType in
 		;;
 	perlmodule)
 		configure_perlmodule_package "$subdir" $args
+		;;
+	pythonmodule)
+		configure_pythonmodule_package "$subdir" $args
 		;;
 	*)
 		echo "ERROR : no configure script, or CMakeLists.txt found in ./ directory"
