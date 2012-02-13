@@ -1,1 +1,1 @@
-Root dir for variant installation.
+/ptmp/gpocre/valats/prefix/public/gui/variants/README.txt

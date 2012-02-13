@@ -51,7 +51,7 @@ then
 		#echo "#Load env $tmp"
 		inherited_prefix=$(bash -c "$(cat $tmp);echo \$PREFIX")
 		if [ -z "$inherited_prefix" ] || [ ! -d "$inherited_prefix" ]; then
-			echo "Inherated environnement $tmp provide an invalide prefix : '$inherited_prefix'"
+			echo "#Inherated environnement $tmp provide an invalide prefix : '$inherited_prefix'"
 		else
 			eval "$($inherited_prefix/bin/svenvgen $tmp)"
 		fi

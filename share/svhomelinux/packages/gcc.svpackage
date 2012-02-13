@@ -30,6 +30,6 @@ svPackLoadDefault 'gcc'
 #function do_install() {}
 function do_post_install()
 {
-	echo "export LD_PRELOAD=\"${SV_HOME_LINUX_VARIANTES}/gcc-${PACKAGE_VERSION}/lib64:\${LD_PRELOAD}\"" > ${SV_HOME_LINUX_ENV_DIR}/gcc-${PACKAGE_VERSION}.cfg
+	echo "export LD_LIBRARY_PATH=\"${SV_HOME_LINUX_VARIANTES}/gcc-${PACKAGE_VERSION}/lib64:${SV_HOME_LINUX_VARIANTES}/gcc-${PACKAGE_VERSION}/lib:\${LD_PRELOAD}\"" > ${SV_HOME_LINUX_ENV_DIR}/gcc-${PACKAGE_VERSION}.cfg
 }
 #function do_clean() {}
