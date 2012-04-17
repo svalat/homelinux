@@ -23,4 +23,4 @@ svUnitTest -DDISABLE_UNIT_TESTS=yes -DCMAKE_BUILD_TYPE=release
 kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=$(getPackagePrefix docbook-xml)/share/docbook-xml/ -DDOCBOOKXSL_DIR=$(getPackagePrefix docbook-xsl)/share/docbook-xsl
 openssl shared threads zlib
 poppler --enable-xpdf-headers
-
+gimp --without-libtiff --disable-python

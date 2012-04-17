@@ -71,7 +71,7 @@ soprano qt4
 kdiff3 qt4 diffutils
 sgml-common automake autoconf
 poppler gdk-pixbuf
-gimp babl
+gimp babl tiff gegl
 kdegraphics libkdcraw
 shared-mime-info intltool
 kchmviewer chmlib
@@ -80,3 +80,4 @@ gnome-icon-theme icon-naming-utils
 icon-naming-utils XML-Simple
 gnome-keyring libgcrypt libtasn1
 libgcrypt libgpg-error
+libxslt libxml2

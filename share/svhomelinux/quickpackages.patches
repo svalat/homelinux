@@ -1,2 +1,3 @@
 inkscape-0.48.1 disable-lcms
 kdiff3-0.9.95 disable-doc
+gegl-0.1.6 NAN-fixes
