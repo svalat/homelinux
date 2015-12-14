@@ -8,9 +8,10 @@ function UserConfig()
 	//default
 	var defaultConfig = {
 		prefix: process.env.HOME + "/usr",
-		host: "undefined",
+		host: "default",
 		python: "2.7",
-		modules: []
+		modules: [],
+		temp: "/tmp/homelinux-"+process.env.USER
 	};
 	
 	//load

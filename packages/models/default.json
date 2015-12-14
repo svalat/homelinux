@@ -1,0 +1,32 @@
+{
+	"name": "hl-template-default",
+	"deps": [
+		"tar"
+	],
+	"steps": {
+		"download": [ "hl-download" ],
+		"check": [ "hl-check" ],
+		"preinstall": [ ],
+		"extract": [ "hl-extract" ],
+		"patch": [ "hl-patch" ],
+		"prepare": [ ],
+		"configure": [ "hl-configure" ],
+		"build": [ "hl-build" ],
+		"test": [ "hl-test" ],
+		"install": [ "hl-install" ],
+		"postinstall": [],
+		"main" : [
+			"@download",
+			"@check",
+			"@preinstall",
+			"@extract",
+			"@patch",
+			"@prepare",
+			"@configure",
+			"@build",
+			"@test",
+			"@install",
+			"@postinstall"
+		]
+	}
+}

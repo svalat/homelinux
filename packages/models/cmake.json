@@ -1,0 +1,11 @@
+{
+	"name": "hl-template-cmake",
+	"deps": [
+		"cmake",
+		"make"
+	],
+	"inherit": "default",
+	"steps": {
+		"configure": [ "hl-configure-cmake" ],
+	}
+}

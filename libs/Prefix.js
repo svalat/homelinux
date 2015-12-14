@@ -29,6 +29,8 @@ Prefix.prototype.load = function(prefix)
 			"CXXFLAGS":"$CFLAGS"
 		},
 		"packages": {
+		},
+		"useflags": {
 		}
 	};
 	

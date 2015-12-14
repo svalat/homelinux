@@ -1,0 +1,12 @@
+{
+	"name": "hl-template-autotools",
+	"deps": [
+		"automake",
+		"autoconf",
+		"alocal",
+	],
+	"inherit": "default",
+	"steps": {
+		"configure": [ "hl-configure-autotools" ],
+	}
+}

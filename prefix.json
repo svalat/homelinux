@@ -12,6 +12,11 @@
 		],
 		"versions": {
 			"bash": "3.4.1"
+		},
+		"useflags": {
+			"bash": ["+debug"]
 		}
-	}
+	},
+	"useflags": {
+	},
 }
