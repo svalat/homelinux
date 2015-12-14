@@ -1,0 +1,6 @@
+{
+	"prefix":"$HOME/usr",
+	"host":"debian8",
+	"modules": [],
+	"python": "2.7"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "HomeLinux",
+  "version": "1.0.0",
+  "description": "A simple package manager for your home directory",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "package",
+    "source",
+    "compile",
+    "dependencies",
+    "manager"
+  ],
+  "author": "Sébastien Valat",
+  "license": "BSD",
+  "dependencies": {
+    "json-override": "^0.2.0"
+  }
+}

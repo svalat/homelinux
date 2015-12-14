@@ -1,0 +1,17 @@
+{
+	"inherit": [
+	],
+	"compiler": {
+		"MAKEOPTS":"-j8",
+		"CFLAGS":"-O3 -march=native",
+		"CXXFLAGS":"$CFLAGS"
+	},
+	"packages": {
+		"override": [
+			"bash"
+		],
+		"versions": {
+			"bash": "3.4.1"
+		}
+	}
+}
