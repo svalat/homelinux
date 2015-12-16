@@ -14,6 +14,7 @@ function PackageBuilder(prefix,userConfig,packageName)
 PackageBuilder.prototype.load = function(packageName)
 {
 	var pack = this.prefix.loadPackage(packageName);
+	this.origPack = pack;
 	this.pack = this.loadInherit(pack);
 }
 
@@ -109,7 +110,7 @@ PackageBuilder.prototype.genScript = function()
 	script.push("NAME=\""+this.pack.name+"\"");
 	script.push("VERSION=\""+version+"\"");
 	script.push("URLS=\""+this.pack.urls.join(' ')+"\"");
-	script.push("MD5=\""+this.pack.md5[version]+"\"");
+	script.push("MD5=\""+this.pack.md5[version] != undefined?this.pack.md5[version]:''+"\"");
 	script.push("SUBDIR=\""+this.pack.subdir+"\"");
 	script.push("PREFIX=\""+this.prefix.prefix+"\"");
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");

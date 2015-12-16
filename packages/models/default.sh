@@ -118,6 +118,18 @@ function hl_prefix()
 	return $PREFIX
 }
 
+function hl_configure_auto()
+{
+	run_sh cd $HL_TEMP/$SUBDIR
+	if [ -f configure ]; then
+		hl_configure_autotools
+	elif [ -f CMakeLists.txt ]; then
+		hl_configure_cmake
+	else
+		die "Unknown package type, cannot detect automatically !"
+	fi
+}
+
 function hl_configure_autotools()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
@@ -147,20 +159,22 @@ function hl_test()
 
 function hl_install()
 {
-	run make install DESTDIR=$HL_TEMP/install
+	run make install
 }
 
 function hl_manifest()
 {
-	run mkdir -p $PREFIX/share/homelinux/manifests/
-	run_sh pushd $HL_TEMP/install
-	run find -P > $($PREFIX/share/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
-	run_sh popd
+	echo "TODO"
+# 	run mkdir -p $PREFIX/share/homelinux/manifests/
+# 	run_sh pushd $HL_TEMP/install
+# 	run find -P > $($PREFIX/share/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
+# 	run_sh popd
 }
 
 function hl_merge()
 {
-	run make install
+	echo "TODO"
+# 	run make install
 }
 
 function hl_postinstall()

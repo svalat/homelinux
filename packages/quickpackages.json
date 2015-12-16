@@ -1,17 +1,23 @@
 {
-	"gentoo/gcc-4.5": {
+	"sys-devel/gcc-4.5": {
 		"name": "gcc",
+		"source": "gentoo",
 		"configure": [],
 		"deps": [],
 		"type": "autotools",
 		"version": "4.5.[0-9]+",
 		"module": "gcc-4.5",
 		"host": {
-			"default": true,
+			"default": false,
 			"debian8": {
 				"std": "bash",
-				"dev": "bash",
+				"dev": "bash"
 			}
-		},
+		}
+	},
+	"htop": {
+		"name": "htop",
+		"source": "gentoo",
+		"configure": ["--disable-unicode"]
 	}
 }

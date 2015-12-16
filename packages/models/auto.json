@@ -1,10 +1,11 @@
 {
 	"name": "hl-template-autotools",
 	"deps": [
-		"make"
+		"make",
+		"cmake"
 	],
 	"inherit": "default",
 	"steps": {
-		"configure": [ "hl_configure_autotools" ]
+		"configure": [ "hl_configure_auto" ]
 	}
 }

@@ -12,7 +12,7 @@
 		"prepare": [ ],
 		"configure": [ "hl_configure" ],
 		"build": [ "hl_build" ],
-		"test": [ "hl_test" ],
+		"test": [ ],
 		"install": [ "hl_install" ],
 		"merge": [ "hl_merge" ],
 		"postinstall": [],
