@@ -1,0 +1,17 @@
+{
+	"gentoo/gcc-4.5": {
+		"name": "gcc",
+		"configure": [],
+		"deps": [],
+		"type": "autotools",
+		"version": "4.5.[0-9]+",
+		"module": "gcc-4.5",
+		"host": {
+			"default": true,
+			"debian8": {
+				"std": "bash",
+				"dev": "bash",
+			}
+		},
+	}
+}

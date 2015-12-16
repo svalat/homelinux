@@ -6,6 +6,6 @@
 	],
 	"inherit": "default",
 	"steps": {
-		"configure": [ "hl-configure-cmake" ],
+		"configure": [ "hl_configure_cmake" ],
 	}
 }

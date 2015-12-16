@@ -3,10 +3,10 @@
 	"deps": [
 		"automake",
 		"autoconf",
-		"alocal",
+		"alocal"
 	],
 	"inherit": "default",
 	"steps": {
-		"configure": [ "hl-configure-autotools" ],
+		"configure": [ "hl_configure_autotools" ]
 	}
 }

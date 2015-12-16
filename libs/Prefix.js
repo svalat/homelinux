@@ -60,4 +60,26 @@ Prefix.prototype.fillEnv = function(env)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.getFile = function(path)
+{
+	return this.prefix + "/" + path;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.loadPackage = function(packageName)
+{
+	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
+	if (fs.existsSync(fname) == false)
+		fname = this.prefix + "/share/homelinux/packages/models/"+packageName+".json";
+// 	try {
+	var content = fs.readFileSync(fname);
+	var json = JSON.parse(content);
+	return json;
+// 	} catch (e) {
+// 		console.error("Error while loading "+fname+":\n" + e);
+// 		throw e;
+// 	}
+}
+
+/*******************  FUNCTION  *********************/
 module.exports = Prefix;

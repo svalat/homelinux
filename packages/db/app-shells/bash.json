@@ -2,17 +2,24 @@
 	"name": "bash",
 	"inherit": "autotools",
 	"versions": [
-		"4.0"
-		"4.1"
-		"4.2"
+		"4.0",
+		"4.1",
+		"4.2",
 		"4.3"
 	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.cwru.edu/pub/bash",
+		"regexp": "bash-([0-9]+.[0-9]+).tar.gz"
+	},
 	"md5" : {
 		"4.0": "azekljqsmfkljsfmkljsdmlfkqflj",
-		"4.1": "sdfsdbqsdbnf,;qsd 54678979"
+		"4.3": "81348932d5da294953e15d4814c74dd1"
 	},
+	"subdir": "bash-${VERSION}",
 	"urls" : [
-		"ftp://ftp.cwru.edu/pub/bash/bash-${VERSION}.tar.gz"
+		"ftp://ftp.cwru.edu/pub/bash/bash-${VERSION}.tar.gz",
+		"ftp://otherftp.cwru.edu/pub/bash/bash-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"make",
@@ -25,16 +32,16 @@
 		"debian8": {
 			"std": "bash",
 			"dev": "bash",
-			"use": ["shell"],
+			"use": ["shell"]
 		}
 	},
 	"configure": {
-		"": [ "--enable-always", "--with-curses=$(hl-prefix curses)" ],
-		"debug": ["--${enable}-debug"],
+		"": [ "--enable-always", "--with-curses=$(hl_prefix curses)" ],
+		"debug": ["--$enable-debug"],
 		"+profile": ["--enable-profile"],
-		"-profile": ["--disable-profile"],
+		"-profile": ["--disable-profile"]
 	},
-	"version-specific": {
+	"vspecific": {
 		"4.2": {
 			"configure": {
 				"": [ "--enable-bugfix" ]
@@ -45,5 +52,8 @@
 				"": [ "!--enable-bugfix" ]
 			}
 		}
+	},
+	"steps": {
+		"test": []
 	}
 }

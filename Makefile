@@ -12,6 +12,8 @@ install: check
 	cp bin/hl-env.sh $(PREFIX)/bin/hl-env
 	mkdir -p $(PREFIX)/lib/homelinux
 	cp -r index.js libs $(PREFIX)/lib/homelinux
+	mkdir -p $(PREFIX)/share/homelinux
+	cp -r packages $(PREFIX)/share/homelinux
 	
 
 .PHONY: check install

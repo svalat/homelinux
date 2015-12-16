@@ -4,17 +4,20 @@
 		"tar"
 	],
 	"steps": {
-		"download": [ "hl-download" ],
-		"check": [ "hl-check" ],
+		"download": [ "hl_download" ],
+		"check": [ "hl_check" ],
 		"preinstall": [ ],
-		"extract": [ "hl-extract" ],
-		"patch": [ "hl-patch" ],
+		"extract": [ "hl_extract" ],
+		"patch": [ "hl_patch" ],
 		"prepare": [ ],
-		"configure": [ "hl-configure" ],
-		"build": [ "hl-build" ],
-		"test": [ "hl-test" ],
-		"install": [ "hl-install" ],
+		"configure": [ "hl_configure" ],
+		"build": [ "hl_build" ],
+		"test": [ "hl_test" ],
+		"install": [ "hl_install" ],
+		"merge": [ "hl_merge" ],
 		"postinstall": [],
+		"manifest": [ "hl_manifest" ],
+		"clean": [ "hl_clean" ],
 		"main" : [
 			"@download",
 			"@check",
@@ -26,7 +29,10 @@
 			"@build",
 			"@test",
 			"@install",
-			"@postinstall"
+			"@manifest",
+			"@merge",
+			"@postinstall",
+			"@clean"
 		]
 	}
 }
