@@ -7,6 +7,9 @@
 		"4.2",
 		"4.3"
 	],
+	"provide": [
+		"gfortran"
+	],
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.cwru.edu/pub/bash",

@@ -67,6 +67,20 @@ function hl_setup_tmp_dir()
 	run_sh cd ${HL_TEMP}
 }
 
+function hl_github_download()
+{
+	DISTFILES="$PREFIX/share/homelinux/distfiles"
+	DIR=$PWD
+	run mkdir -p $DISTFILES
+	run_sh cd $DISTFILES
+	for url in ${URLS}
+	do
+		ARCHIVE=$NAME-$VERSION.tar.gz
+		run wget -c "${url}" -O $ARCHIVE && break
+	done
+	run_sh cd ${HL_TEMP}
+}
+
 function hl_download()
 {
 	DISTFILES="$PREFIX/share/homelinux/distfiles"

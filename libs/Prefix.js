@@ -1,6 +1,7 @@
 /********************  GLOBALS  *********************/
 var fs = require('fs');
 var jso = require('json-override');
+var httpreq = require('sync-request');
 
 /*********************  CLASS  **********************/
 function Prefix(prefix) 
@@ -87,6 +88,30 @@ Prefix.prototype.loadPackage = function(packageName)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.buildGithubPackage = function(qp)
+{
+	console.error("Search "+qp.name+" on github");
+	var ret = httpreq('GET',"https://api.github.com/repos/"+qp.name+"/releases/latest",
+		{
+			'headers': {
+				'user-agent': 'homelinux-user-agent'
+		}
+	});
+	
+	ret = JSON.parse(ret.getBody('utf8'));
+	if (ret.tag_name == undefined)
+		throw "Fail to find last release of package on github";
+	
+	//gen
+	qp.version = ret.tag_name.replace('v','');
+	qp.url = "https://github.com/"+qp.name+"/archive/"+ret.tag_name+".tar.gz";
+	qp.steps = { "download": [ "hl_github_download" ] };
+	qp.name = qp.name.split('/').pop();
+
+	return qp;
+}
+
+/*******************  FUNCTION  *********************/
 Prefix.prototype.buildGentooQuickPackage = function(qp)
 {
 	//build regexp
@@ -114,16 +139,18 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	
 	//error
 	if (finalv == undefined)
-		throw 'Fail to find version in gentoo DB for package ';
-	
-	//setup
-	qp.version = v;
-	qp.url = "ftp://"+this.config.gentoo.server
-	       + ":"+this.config.gentoo.port
-	       + "/"+this.config.gentoo.distfiles
-	       + "/"+qp.name+"-${VERSION}.tar."+ext;
-		   
-	return qp;
+	{
+		return undefined;
+	} else {
+		//setup
+		qp.version = v;
+		qp.url = "ftp://"+this.config.gentoo.server
+			+ ":"+this.config.gentoo.port
+			+ "/"+this.config.gentoo.distfiles
+			+ "/"+qp.name+"-${VERSION}.tar."+ext;
+			
+		return qp;
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -138,8 +165,10 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	
 	//if not has entry
 	var qp = this.quickdb[packageName];
+	var auto = false;
 	if (qp == undefined)
 	{
+		auto = true;
 		console.error("Can't find package "+packageName+" in DB not QuickDB, try to build from gentoo with defaults");
 		qp = {
 			name: packageName,
@@ -152,12 +181,27 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	//if is gentoo source
 	if (qp.source == 'gentoo' || qp.source == undefined)
 		qp = this.buildGentooQuickPackage(qp);
+	else if (qp.source == 'github')
+		qp = this.buildGithubPackage(qp);
 	else
 		throw "Unexpected qp.source !"
+		
+	//if auto & undef try github
+	if (qp == undefined && auto ==true)
+	{
+		console.error("Can't find package "+packageName+" in gentoo, try github");
+		qp = {
+			name: packageName,
+			source: 'github',
+			type: 'auto',
+			host: { 'default': false }
+		};
+		qp = this.buildGithubPackage(qp);
+	}
 	
 	//build package
 	var pack = {
-		"name": packageName,
+		"name": qp.name,
 		"inherit": qp.type == undefined ? 'auto' : qp.type,
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
 		"subdir" : qp.name+"-${VERSION}",
@@ -165,7 +209,9 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		"deps": qp.deps == undefined ? [] : qp.deps ,
 		"host": qp.host,
 		"configure": qp.configure == undefined ? [] : { "":qp.configure },
-		"md5": {}
+		"provide": qp.provide,
+		"md5": {},
+		"steps": qp.steps
 	};
 	
 	return pack;

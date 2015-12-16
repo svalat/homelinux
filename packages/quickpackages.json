@@ -4,6 +4,7 @@
 		"source": "gentoo",
 		"configure": [],
 		"deps": [],
+		"provide": ["gfortran"],
 		"type": "autotools",
 		"version": "4.5.[0-9]+",
 		"module": "gcc-4.5",
