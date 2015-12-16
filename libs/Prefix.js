@@ -69,6 +69,7 @@ Prefix.prototype.getFile = function(path)
 Prefix.prototype.loadPackage = function(packageName)
 {
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
+	console.log(fname);
 	if (fs.existsSync(fname) == false)
 		fname = this.prefix + "/share/homelinux/packages/models/"+packageName+".json";
 // 	try {

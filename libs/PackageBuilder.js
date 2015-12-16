@@ -1,5 +1,6 @@
 /********************  GLOBALS  *********************/
 var jso = require('json-override');
+var spawn = require('child_process').spawn;
 
 /*********************  CLASS  **********************/
 function PackageBuilder(prefix,userConfig,packageName)
@@ -154,6 +155,18 @@ PackageBuilder.prototype.getVersion = function()
 PackageBuilder.prototype.printDebug = function()
 {
 	console.log(this.pack);
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.install = function()
+{
+	child = spawn('bash');
+	
+	//child.stdin.setEncoding('utf-8');
+	child.stdout.pipe(process.stdout);
+	child.stderr.pipe(process.stderr);
+	child.stdin.write(this.genScript()+"\n\n\n");
+	child.stdin.end();
 }
 
 /*******************  FUNCTION  *********************/

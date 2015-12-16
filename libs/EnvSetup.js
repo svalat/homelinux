@@ -72,7 +72,7 @@ EnvSetup.prototype.addPrefix = function(prefix)
 EnvSetup.prototype.print = function()
 {
 	for (var i in this.vars)
-		console.log("export "+i+"=\""+this.vars[i]+"\"");
+		console.log("export "+i+"="+this.vars[i]+"");
 }
 
 /*******************  FUNCTION  *********************/

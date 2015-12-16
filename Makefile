@@ -14,6 +14,7 @@ install: check
 	cp -r index.js libs $(PREFIX)/lib/homelinux
 	mkdir -p $(PREFIX)/share/homelinux
 	cp -r packages $(PREFIX)/share/homelinux
+	cp -r node_modules $(PREFIX)/lib/homelinux
 	
 
 .PHONY: check install

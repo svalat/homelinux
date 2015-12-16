@@ -17,5 +17,9 @@ if (process.argv[2] == "env")
 } else if (process.argv[2] == "install") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	//pack.printDebug();
+	pack.install();
+	//console.log(pack.genScript())
+} else if (process.argv[2] == "geninstall") {
+	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	console.log(pack.genScript())
 }
