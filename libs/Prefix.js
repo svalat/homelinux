@@ -97,18 +97,39 @@ Prefix.prototype.buildGithubPackage = function(qp)
 				'user-agent': 'homelinux-user-agent'
 		}
 	});
-	
-	ret = JSON.parse(ret.getBody('utf8'));
-	if (ret.tag_name == undefined)
-		throw "Fail to find last release of package on github";
-	
-	//gen
-	qp.version = ret.tag_name.replace('v','');
-	qp.url = "https://github.com/"+qp.name+"/archive/"+ret.tag_name+".tar.gz";
-	qp.steps = { "download": [ "hl_github_download" ] };
-	qp.name = qp.name.split('/').pop();
 
-	return qp;
+	if (ret.statusCode == 200)
+	{
+		ret = JSON.parse(ret.getBody('utf8'));
+		if (ret.tag_name == undefined)
+			throw "Fail to find last release of package on github";
+		
+		//gen
+		qp.version = ret.tag_name.replace('v','');
+		qp.url = "https://github.com/"+qp.name+"/archive/"+ret.tag_name+".tar.gz";
+		qp.steps = { "download": [ "hl_github_download" ] };
+		qp.name = qp.name.split('/').pop();
+
+		return qp;
+	} else {
+		var ret = httpreq('GET',"https://api.github.com/repos/"+qp.name+"/tags",
+			{
+				'headers': {
+					'user-agent': 'homelinux-user-agent'
+			}
+		});
+		if (ret.statusCode != 200)
+			throw 'Failed to search version on github !';
+		ret = JSON.parse(ret.getBody('utf8'));
+		
+		//gen
+		qp.version = ret[0].name.replace('v','');
+		qp.url = "https://github.com/"+qp.name+"/archive/"+ret[0].name+".tar.gz";
+		qp.steps = { "download": [ "hl_github_download" ] };
+		qp.name = qp.name.split('/').pop();
+
+		return qp;
+	}
 }
 
 /*******************  FUNCTION  *********************/
