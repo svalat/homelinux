@@ -1,0 +1,26 @@
+{
+	"name": "x11-libs/pixman",
+	"homepage": "http://www.pixman.org/",
+	"inherit": "autotools",
+	"versions": [ 
+		"0.32.8" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://cairographics.org/releases/",
+		"regexp": "pixman-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "pixman-${VERSION}",
+	"urls" : [
+		"http://cairographics.org/releases//pixman-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": "libpixman-1-dev"
+	}
+}

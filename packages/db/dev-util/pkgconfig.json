@@ -1,0 +1,24 @@
+{
+	"name": "dev-util/pkgconfig",
+	"homepage": "http://www.freedesktop.org/wiki/Software/pkg-config/",
+	"inherit": "autotools",
+	"versions": [ 
+		"0.18" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://pkgconfig.freedesktop.org/releases/",
+		"regexp": "pkgconfig-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "pkgconfig-${VERSION}",
+	"urls" : [
+		"http://pkgconfig.freedesktop.org/releases/pkgconfig-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": "pkg-config"
+	}
+}

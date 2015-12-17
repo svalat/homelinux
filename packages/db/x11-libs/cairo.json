@@ -1,0 +1,30 @@
+{
+	"name": "x11-libs/cairo",
+	"homepage": "http://cairographics.org/",
+	"inherit": "autotools",
+	"versions": [ 
+		"1.14.6" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://cairographics.org/releases/",
+		"regexp": "cairo-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.(gz|xz)"
+	},
+	"md5" : {},
+	"subdir": "cairo-${VERSION}",
+	"urls" : [
+		"http://cairographics.org/releases/cairo-${VERSION}.tar.gz",
+		"http://cairographics.org/releases/cairo-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-ruby/pkg-config",
+		"media-libs/libpng",
+		"x11-libs/pixman"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": "libcairo2-dev"
+	}
+}

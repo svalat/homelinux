@@ -59,7 +59,7 @@ function run()
 	echo "$STEPINFO ${COLOR_DGRAY}$@${COLOR_STD}"
 	eval "$@" 2>&1 | sed -e "s#^#$STEPINFO #"
 	if [ ${PIPESTATUS[0]} != 0 ]; then
-		exit 1
+		return 1
 	fi
 }
 
@@ -67,6 +67,11 @@ function run_sh()
 {
 	echo "$STEPINFO ${COLOR_DGRAY}$@${COLOR_STD}"
 	"$@"
+}
+
+function hl_with()
+{
+	echo "--with-$1=$PREFIX"
 }
 
 #setup temps
@@ -103,7 +108,7 @@ function hl_download_internal()
 		github://*/*)
 			ARCHIVE=$(short_name)-$VERSION.tar.gz
 			project=$(echo $url | cut -d '/' -f 3-4)
-			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" 
+			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || return 1 
 			;;
 	esac
 }
@@ -117,7 +122,7 @@ function hl_download()
 
 	for url in ${URLS}
 	do
-		hl_download_internal ${url} && break
+		hl_download_internal ${url} || continue && break
 	done
 	run_sh cd ${HL_TEMP}
 }
@@ -137,6 +142,9 @@ function hl_extract()
 			;;
 		*.tar.bz2)
 			run tar -xjf $DISTFILES/$ARCHIVE
+			;;
+		*.tar.xz)
+			run tar -xJf $DISTFILES/$ARCHIVE
 			;;
 		*)
 			die "Unmanaged archive format : $ARCHIVE"
