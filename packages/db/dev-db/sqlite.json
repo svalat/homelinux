@@ -1,0 +1,24 @@
+{
+	"name": "dev-db/sqlite",
+	"homepage": "https://www.sqlite.org/",
+	"inherit": "autotools",
+	"versions": [ 
+		"3090200" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://www.sqlite.org/download.html",
+		"regexp": "sqlite-autoconf-([0-9]+).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "sqlite-autoconf-${VERSION}",
+	"urls" : [
+		"https://www.sqlite.org/2015/sqlite-autoconf-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": "sqlite"
+	}
+}

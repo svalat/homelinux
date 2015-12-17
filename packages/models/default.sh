@@ -156,7 +156,7 @@ function hl_configure()
 
 function hl_prefix()
 {
-	return $PREFIX
+	echo $PREFIX
 }
 
 function hl_configure_auto()

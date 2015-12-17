@@ -21,7 +21,7 @@
 		"http://bash-completion.alioth.debian.org/files/bash-completion-${VERSION}.tar.gz"
 	],
 	"deps": [
-		
+		"app-shells/bash"
 	],
 	"host": {
 		"default": true,

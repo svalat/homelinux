@@ -49,7 +49,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
 			// Tell Cherrio to load the HTML
 			$ = cheerio.load(body);
 			$('a').each(function() {
-					var href = $(this).attr('href');
+					var href = $(this).text();
 					console.log(href);
 					self.checkFile(pack,href);
 			});
