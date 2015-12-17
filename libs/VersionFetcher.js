@@ -33,24 +33,32 @@ function sort_unique(arr) {
 VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
 {
 	var self = this;
+	var lst = pack.pack.vfetcher.url;
+	if (Array.isArray(lst) == false)
+		lst = [ lst ];
 
-	request({
-		method: 'GET',
-		url: pack.pack.vfetcher.url
-	}, function(err, response, body) {
-		if (err) return console.error(err);
+	for (var i in lst)
+	{
+		console.log(lst[i]);
+		request({
+			method: 'GET',
+			url: lst[i]
+		}, function(err, response, body) {
+			if (err) return console.error(err);
 
-		// Tell Cherrio to load the HTML
-		$ = cheerio.load(body);
-		$('td a').each(function() {
-				var href = $(this).attr('href');
-				self.checkFile(pack,href);
+			// Tell Cherrio to load the HTML
+			$ = cheerio.load(body);
+			$('a').each(function() {
+					var href = $(this).attr('href');
+					console.log(href);
+					self.checkFile(pack,href);
+			});
+			
+			//sort & uniq
+			pack.pack.versions = sort_unique(pack.pack.versions);
+			console.log(pack.pack.versions);
 		});
-		
-		//sort & uniq
-		pack.pack.versions = sort_unique(pack.pack.versions);
-		console.log(pack.pack.versions);
-	});
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -59,36 +67,43 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
 	var ftp = new FtpClient()
 	var self = this;
 	
-	console.log(pack.pack.vfetcher.url);
-	var vregexp = new RegExp('^ftp://([a-z0-9\.]+)/(.+)');
-	var ret = vregexp.exec(pack.pack.vfetcher.url);
+	var lst = pack.pack.vfetcher.url;
+	if (Array.isArray(lst) == false)
+		lst = [ lst ];
 	
-	var server = ret[1];
-	var dir = ret[2];
-	
-	ftp.on('ready', function() {
-		console.log("connected to "+server+" mirror...");
-		ftp.cwd(dir,function(err, curr) {
-			console.log("move to "+ dir+", fetching list...");
-			if (err) throw err;
-			ftp.list(function(err, list) {
+	for (var j in lst)
+	{
+		console.log(lst[j]);
+		var vregexp = new RegExp('^ftp://([a-z0-9\.]+)/(.+)');
+		var ret = vregexp.exec(lst[j]);
+		
+		var server = ret[1];
+		var dir = ret[2];
+		
+		ftp.on('ready', function() {
+			console.log("connected to "+server+" mirror...");
+			ftp.cwd("/"+dir,function(err, curr) {
+				console.log("move to "+ dir+", fetching list...");
 				if (err) throw err;
-				for (var i in list)
-				{
-					if (list[i].type == '-')
-						self.checkFile(pack,list[i].name);
-				}
-				
-				//sort & uniq
-				pack.pack.versions = sort_unique(pack.pack.versions);
-				console.log(pack.pack.versions);
-				
-				ftp.end();
+				ftp.list(function(err, list) {
+					if (err) throw err;
+					for (var i in list)
+					{
+						if (list[i].type == '-')
+							self.checkFile(pack,list[i].name);
+					}
+					
+					//sort & uniq
+					pack.pack.versions = sort_unique(pack.pack.versions);
+					console.log(pack.pack.versions);
+					
+					ftp.end();
+				});
 			});
 		});
-	});
-	
-	ftp.connect({host: server});
+		
+		ftp.connect({host: server});
+	}
 }
 
 /*******************  FUNCTION  *********************/
