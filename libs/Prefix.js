@@ -197,6 +197,14 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 			type: 'auto',
 			host: { 'default': false }
 		};
+		
+		//manage github/XXX/YYY
+		if (packageName.split('/')[0] == 'github')
+		{
+			console.error("Fallback automatically to github based on package name");
+			qp.name = packageName.replace('github/','');
+			qp.source = 'github';
+		}
 	}
 	
 	//if is gentoo source
