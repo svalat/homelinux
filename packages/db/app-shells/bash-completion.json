@@ -1,0 +1,30 @@
+{
+	"name": "app-shells/bash-completion",
+	"homepage": "http://http://bash-completion.alioth.debian.org",
+	"inherit": "autotools",
+	"versions": [ 
+		"1.0", 
+		"1.1", 
+		"1.2", 
+		"1.3", 
+		"2.0", 
+		"2.1"
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://bash-completion.alioth.debian.org/files/",
+		"regexp": "bash-completion-([0-9]+.[0-9]+).tar.bz2"
+	},
+	"md5" : {},
+	"subdir": "bash-completion-${VERSION}",
+	"urls" : [
+		"http://bash-completion.alioth.debian.org/files/bash-completion-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"host": {
+		"default": true,
+		"debian8": "bash-completion"
+	}
+}

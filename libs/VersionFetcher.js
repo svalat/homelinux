@@ -2,6 +2,8 @@
 var FtpClient = require('ftp');
 var fs = require('fs');
 var compareVersion = require('compare-version');
+var cheerio = require('cheerio');
+var request = require('request');
 
 /*********************  CLASS  **********************/
 function VersionFetcher()
@@ -15,6 +17,8 @@ VersionFetcher.prototype.fetchVersions = function(pack)
 	console.log(pack.pack);
 	if (pack.pack.vfetcher.mode == 'ftp')
 		this.fetchVersionsFromFtp(pack);
+	else if (pack.pack.vfetcher.mode == 'http-apache-list')
+		this.fetchVersionsFromApacheHttpList(pack);
 }
 
 /*******************  FUNCTION  *********************/
@@ -22,6 +26,30 @@ VersionFetcher.prototype.fetchVersions = function(pack)
 function sort_unique(arr) {
 	return arr.sort(compareVersion).filter(function(el,i,a) {
 		return (i==a.indexOf(el));
+	});
+}
+
+/*******************  FUNCTION  *********************/
+VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
+{
+	var self = this;
+
+	request({
+		method: 'GET',
+		url: pack.pack.vfetcher.url
+	}, function(err, response, body) {
+		if (err) return console.error(err);
+
+		// Tell Cherrio to load the HTML
+		$ = cheerio.load(body);
+		$('td a').each(function() {
+				var href = $(this).attr('href');
+				self.checkFile(pack,href);
+		});
+		
+		//sort & uniq
+		pack.pack.versions = sort_unique(pack.pack.versions);
+		console.log(pack.pack.versions);
 	});
 }
 
