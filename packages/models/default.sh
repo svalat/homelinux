@@ -170,12 +170,12 @@ function hl_prefix()
 function hl_configure_auto()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
-	if [ -f configure ]; then
+	if [ -f CMakeLists.txt ]; then
+		hl_configure_cmake
+	elif [ -f configure ]; then
 		hl_configure_autotools
 	elif [ -f autogen.sh ]; then
 		hl_configure_autotools_autogen
-	elif [ -f CMakeLists.txt ]; then
-		hl_configure_cmake
 	else
 		die "Unknown package type, cannot detect automatically !"
 	fi
@@ -196,7 +196,7 @@ function hl_configure_autotools()
 
 function hl_configure_cmake()
 {
-	run_sh cd $SUBDIR
+	run_sh cd $HL_TEMP/$SUBDIR
 	run mkdir build
 	run_sh cd build
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS

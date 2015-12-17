@@ -10,10 +10,23 @@ The main use case if a user (or developper) running into a non root environnemen
 to install into the system. Thanks to HomeLinux you can handle the installation of the source package by checking the dependencies
 available on the current system and automatically installing the missing one.
 
+Pre-requist
+-----------
+
+Homelinux is currently configured to be used on top of debian8 but there is no strict restiction which limit it's usage on other
+platform except that it will not autodetect the presence of native packages. In this case it will tend to rebuild more packages
+than required.
+
+The only dependency is `nodejs` and `npm`.
+
 Installation
 ------------
 
-First install and create your prefix with make command :
+First fetch the NPM dependencies :
+
+	npm install
+
+Then, install and create your prefix with make command :
 
 	make install PREFIX=$HOME/usr
 
