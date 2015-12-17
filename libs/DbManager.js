@@ -27,7 +27,7 @@ DbManager.prototype.fetchGentoo = function()
 		});
 	});
 	
-	ftp.connect({host: this.prefix.config.gentoo.server, post:this.prefix.config.gentoo.port});
+	ftp.connect({host: this.prefix.config.gentoo.server, port:this.prefix.config.gentoo.port});
 }
 
 /*******************  FUNCTION  *********************/

@@ -72,8 +72,42 @@ Prefix.prototype.getFile = function(path)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.searchInCache = function(packageName)
+{
+	if (this.cache == undefined)
+	{
+		var fname = this.getFile('share/homelinux/packages/db/cache.json');
+		var content = fs.readFileSync(fname);
+		this.cache = JSON.parse(content);
+	}
+	
+	var regexp = new RegExp("/"+packageName+"$");
+	
+	var list = [];
+	for (var i in this.cache)
+		if (regexp.test(i))
+			list.push(i);
+	
+	if (list.length == 0)
+	{
+		return packageName;
+	} else if (list.length == 1) {
+		console.error("Ok, simple name converted to : "+list[0]);
+		return list[0];
+	} else {
+		console.error("Failed to find your package, multiple match : "+list.concat(','));
+		process.exit(1);
+	}
+}
+
+/*******************  FUNCTION  *********************/
 Prefix.prototype.loadPackage = function(packageName)
 {
+	//if has no / search in db first before fallback
+	if (packageName.indexOf('/') == -1)
+		packageName = this.searchInCache(packageName);
+	
+	//load path
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
 	if (fs.existsSync(fname) == false)
 		fname = this.prefix + "/share/homelinux/packages/models/"+packageName+".json";

@@ -3,6 +3,7 @@ var Prefix = require('./libs/Prefix');
 var EnvSetup = require('./libs/EnvSetup');
 var PackageBuilder = require('./libs/PackageBuilder');
 var DbManager = require('./libs/DbManager');
+var VersionFetcher = require('./libs/VersionFetcher');
 
 var userConfig = new UserConfig();
 // userConfig.print();
@@ -32,4 +33,8 @@ if (process.argv[2] == "env")
 } else if (process.argv[2] == "update-db") {
 	var dbManager = new DbManager(prefix);
 	dbManager.fetchGentoo();
+} else if (process.argv[2] == "fetch-versions") {
+	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
+	var fetcher = new VersionFetcher();
+	fetcher.fetchVersions(pack);
 }

@@ -16,8 +16,9 @@
   "author": "Sébastien Valat",
   "license": "BSD",
   "dependencies": {
+    "compare-version": "^0.1.2",
     "ftp": "^0.3.10",
     "json-override": "^0.2.0",
-    "sync-request": "^2.1.0",
+    "sync-request": "^2.1.0"
   }
 }

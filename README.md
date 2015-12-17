@@ -30,6 +30,10 @@ Now you can load the configuration into your `~/.bashrc` :
 
 	`$HOME/usr/bin/hl env`
 
+Before usage you need to create the cache with :
+
+	hl build-cache
+
 Basic usage
 -----------
 

@@ -3,19 +3,22 @@ var jso = require('json-override');
 var spawn = require('child_process').spawn;
 
 /*********************  CLASS  **********************/
-function PackageBuilder(prefix,userConfig,packageName)
+function PackageBuilder(prefix,userConfig,packageName,inherit)
 {
 	this.prefix = prefix;
 	this.userConfig = userConfig;
-	this.load(packageName);
+	this.load(packageName,inherit);
 }
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.load = function(packageName)
+PackageBuilder.prototype.load = function(packageName,inherit)
 {
 	var pack = this.prefix.loadPackage(packageName);
 	this.origPack = pack;
-	this.pack = this.loadInherit(pack);
+	if (inherit == true || inherit == undefined)
+		this.pack = this.loadInherit(pack);
+	else
+		this.pack = pack;
 }
 
 /*******************  FUNCTION  *********************/
@@ -36,21 +39,23 @@ PackageBuilder.prototype.loadInherit = function(pack)
 	} else {
 		//load
 		var parent = this.prefix.loadPackage(pack.inherit);
-		//merge onto parent
-		parent.name = mergeEntry(parent.name,pack.name);
-		parent.configure = mergeEntry(parent.configure,pack.configure);
-		parent.subdir = mergeEntry(parent.subdir,pack.subdir);
-		parent.vfetcher = mergeEntry(parent.vfetcher,pack.vfetcher);
-		parent.versions = mergeEntry(parent.versions,pack.versions);
-		parent.md5 = mergeEntry(parent.md5,pack.md5);
-		parent.urls = mergeEntry(parent.urls,pack.urls);
-		parent.deps = pack.deps.concat(parent.deps);
-		parent.host = mergeEntry(parent.host,pack.host);
-		parent.vspecific = mergeEntry(parent.vspecific,pack.vspecific);
-		if (parent.steps != undefined && pack.steps != undefined)
-			parent.steps = jso(parent.steps,pack.steps);
-		else if (pack.steps != undefined)
-			parent.steps = pack.steps;
+		
+		//merge
+		for (var i in pack)
+		{
+			if (i == 'deps')
+			{
+				parent.deps = pack.deps.concat(parent.deps);
+			} else if (i == 'steps') {
+				if (parent.steps != undefined && pack.steps != undefined)
+					parent.steps = jso(parent.steps,pack.steps);
+				else if (pack.steps != undefined)
+					parent.steps = pack.steps;
+			} else if ( i == 'inherit' ) {
+			} else {
+				parent[i] = mergeEntry(parent[i],pack[i]);
+			}
+		}
 			
 		return this.loadInherit(parent);
 	}
