@@ -1,0 +1,25 @@
+{
+	"name": "dev-vcs/git",
+	"homepage": "https://git-scm.com/",
+	"inherit": "autotools",
+	"versions": [ 
+		"2.6.4" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://www.kernel.org/pub/software/scm/git/",
+		"regexp": "git-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "git-${VERSION}",
+	"urls" : [
+		"https://www.kernel.org/pub/software/scm/git/git-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-devel/gettext"
+	],
+	"host": {
+		"default": false,
+		"debian8": "git"
+	}
+}

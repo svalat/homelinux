@@ -42,6 +42,18 @@ function info()
 	echo "$STEPINFO ${COLOR_CYAN} >>> $@${COLOR_STD}"
 }
 
+function short_name()
+{
+	case $NAME in
+		*/*)
+			echo $NAME | cut -d '/' -f 2
+			;;
+		*)
+			echo $NAME
+			;;
+	esac
+}
+
 function run()
 {
 	echo "$STEPINFO ${COLOR_DGRAY}$@${COLOR_STD}"
@@ -81,16 +93,31 @@ function hl_github_download()
 	run_sh cd ${HL_TEMP}
 }
 
+function hl_download_internal()
+{
+	case "${url}" in
+		http://*|ftp://*|https://*|sftp://*)
+			ARCHIVE=$(basename ${url})
+			run wget -c "${url}" || return 1
+			;;
+		github://*/*)
+			ARCHIVE=$(short_name)-$VERSION.tar.gz
+			project=$(echo $url | cut -d '/' -f 3-4)
+			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" 
+			;;
+	esac
+}
+
 function hl_download()
 {
 	DISTFILES="$PREFIX/share/homelinux/distfiles"
 	DIR=$PWD
 	run mkdir -p $DISTFILES
 	run_sh cd $DISTFILES
+
 	for url in ${URLS}
 	do
-		ARCHIVE=$(basename ${url})
-		run wget -c "${url}" && break
+		hl_download_internal ${url} && break
 	done
 	run_sh cd ${HL_TEMP}
 }
@@ -156,10 +183,7 @@ function hl_configure_autotools_autogen()
 function hl_configure_autotools()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
-	run mkdir build
-	run_sh cd build
-	pwd
-	run ../configure --prefix=$PREFIX $BUILD_OPTIONS
+	run ./configure --prefix=$PREFIX $BUILD_OPTIONS
 }
 
 function hl_configure_cmake()
