@@ -1,3 +1,11 @@
+/*****************************************************
+*           Project : HomeLinux                      *
+*           Version : 1.0.0                          *
+*           Date    : 12/2015                        *
+*           Licence : BSD                            *
+*           Authors : Sebastien Valat                *
+*****************************************************/
+
 /*********************  CLASS  **********************/
 function EnvSetup(userConfig)
 {

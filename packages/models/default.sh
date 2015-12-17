@@ -1,4 +1,11 @@
 #!/bin/bash
+######################################################
+#           Project : HomeLinux                      #
+#           Version : 1.0.0                          #
+#           Date    : 12/2015                        #
+#           Licence : BSD                            #
+#           Authors : Sebastien Valat                #
+######################################################
 
 #We consider availability of : 
 #HL_TEMP : Root temp directory to download and build (/tmp/homelinux-$USER by default

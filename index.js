@@ -1,3 +1,11 @@
+/*****************************************************
+*           Project : HomeLinux                      *
+*           Version : 1.0.0                          *
+*           Date    : 12/2015                        *
+*           Licence : BSD                            *
+*           Authors : Sebastien Valat                *
+*****************************************************/
+
 var UserConfig = require('./libs/UserConfig');
 var Prefix = require('./libs/Prefix');
 var EnvSetup = require('./libs/EnvSetup');
