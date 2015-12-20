@@ -28,6 +28,19 @@ Commands:
 	env              : Setup the environement variable to load.
 "
 
+function yesno()
+{
+	rep=''
+	while [ "$rep" != 'y' ] && [ "$rep" != "n" ]
+	do
+		read -p "Continue (y/n) ? " rep
+	done
+
+	if [ "$rep" = 'n' ]; then
+		exit 0
+	fi
+}
+
 case "$1" in
 	"build-cache")
 		hl-build-cache
@@ -37,6 +50,8 @@ case "$1" in
 		;;
 	"install")
 		shift 1
+		node index.js install-ls "$@"
+		yesno
 		node index.js gen-install "$@" | bash
 		;;
 	"env")

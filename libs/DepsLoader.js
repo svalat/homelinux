@@ -22,7 +22,8 @@ function DepsLoader(prefix,userConfig,packageList)
 	{
 		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
 		this.packages[p.pack.name] = p;
-		console.log(p.pack.name +" -> " + this.presentOnSystem(p));
+		if (this.presentOnSystem(p))
+			p.pack.present = 'force';
 		this.loadDeps(p);
 	}
 	
@@ -42,9 +43,11 @@ DepsLoader.prototype.loadDeps = function(p)
 		for (var j in p.pack.deps)
 		{
 			var p = new PackageBuilder(this.prefix,this.userConfig,p.pack.deps[j]);
-			console.log(p.pack.name +" -> " + this.presentOnSystem(p));
-			if (this.packages[p.pack.name] == undefined && this.presentOnSystem(p) == false)
+			if (this.presentOnSystem(p))
 			{
+				p.pack.present = 'use-host';
+				this.packages[p.pack.name] = p;
+			} else if (this.packages[p.pack.name] == undefined) {
 				this.packages[p.pack.name] = p;
 				this.loadDeps(p);
 			} else {
@@ -78,8 +81,14 @@ DepsLoader.prototype.genScript = function()
 /*******************  FUNCTION  *********************/
 DepsLoader.prototype.printList = function()
 {
+	console.log("----------------------TO INSTALL--------------------------");
 	for (var i in this.sched)
 		console.log(this.sched[i]);
+	console.log("----------------------REUSE HOST--------------------------");
+	for (var i in this.packages)
+		if (this.packages[i].pack.present == 'use-host')
+			console.log(this.packages[i].pack.name);
+	console.log("----------------------------------------------------------");
 }
 
 /*******************  FUNCTION  *********************/
@@ -108,13 +117,13 @@ DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 	if (h === false)
 		return false;
 	
-	console.log("Check ncurses on host : "+h);
+	//console.log("Check ncurses on host : "+h);
 	
 	//check in list
 	for (var i in h)
 	{
 		try {
-			console.error("Check with dpkg "+h[i]);
+			//console.error("Check with dpkg "+h[i]);
 			var res = child_process.spawnSync('dpkg -s '+h[i]);
 		} catch (e) {
 			console.log(e);
