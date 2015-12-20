@@ -1,7 +1,7 @@
 {
 	"name": "dev-util/pkgconfig",
 	"homepage": "http://www.freedesktop.org/wiki/Software/pkg-config/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"0.18" 
 	],

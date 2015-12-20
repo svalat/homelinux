@@ -12,6 +12,7 @@ var EnvSetup = require('./libs/EnvSetup');
 var PackageBuilder = require('./libs/PackageBuilder');
 var DbManager = require('./libs/DbManager');
 var VersionFetcher = require('./libs/VersionFetcher');
+var depsLoader = require('./libs/DepsLoader');
 
 var userConfig = new UserConfig();
 // userConfig.print();
@@ -36,8 +37,11 @@ if (process.argv[2] == "env")
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	console.log(pack.pack)
 } else if (process.argv[2] == "gen-install") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	console.log(pack.genScript())
+	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
+	console.log(packs.genScript())
+} else if (process.argv[2] == "install-ls") {
+	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
+	packs.printList();
 } else if (process.argv[2] == "update-db") {
 	var dbManager = new DbManager(prefix);
 	dbManager.fetchGentoo();

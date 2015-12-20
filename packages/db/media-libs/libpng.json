@@ -1,7 +1,7 @@
 {
 	"name": "media-libs/libpng",
 	"homepage": "http://www.libpng.org/pub/png/libpng.html",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.6.20" 
 	],

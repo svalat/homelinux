@@ -1,7 +1,7 @@
 {
 	"name": "x11-libs/pixman",
 	"homepage": "http://www.pixman.org/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"0.32.8" 
 	],

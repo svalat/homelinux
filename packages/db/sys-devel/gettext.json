@@ -1,7 +1,7 @@
 {
 	"name": "sys-devel/gettext",
 	"homepage": "https://www.gnu.org/software/gettext/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"0.19.6"
 	],

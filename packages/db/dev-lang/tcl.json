@@ -1,7 +1,7 @@
 {
 	"name": "dev-lang/tcl",
 	"homepage": "http://www.tcl.tk/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"8.6.4" 
 	],

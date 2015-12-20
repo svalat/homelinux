@@ -1,7 +1,7 @@
 {
 	"name": "sys-cluster/mpich",
 	"homepage": "http://www.mpich.org/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"3.2" 
 	],

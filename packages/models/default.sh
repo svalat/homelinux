@@ -30,10 +30,13 @@ COLOR_STD=$(echo -e "\e[0m")
 #setup some defaults
 if [ -z "${HL_TEMP}" ]; then HL_TEMP=/tmp/homelinux-${USER}; fi
 
+#inc
+HL_CUR_PACK=$(($HL_CUR_PACK + 1))
+
 #start stop message
 function start_stop()
 {
-	STEPINFO="${COLOR_DGRAY}[$NAME-$VERSION]${COLOR_STD}"
+	STEPINFO="${COLOR_DGRAY}[${HL_CUR_PACK}/${HL_TOT_PACK}][$NAME-$VERSION]${COLOR_STD}"
 	echo "$STEPINFO ${COLOR_GREEN}>>>>> $@ <<<<<${COLOR_STD}"
 }
 
@@ -47,7 +50,7 @@ function die()
 #info
 function info()
 {
-	echo "$STEPINFO ${COLOR_CYAN} >>> $@${COLOR_STD}"
+	echo "$STEPINFO ${COLOR_CYAN}>>> $@${COLOR_STD}"
 }
 
 function short_name()
@@ -64,7 +67,7 @@ function short_name()
 
 function run()
 {
-	echo "$STEPINFO ${COLOR_DGRAY}$@${COLOR_STD}"
+	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
 	eval "$@" 2>&1 | sed -e "s#^#$STEPINFO #"
 	if [ ${PIPESTATUS[0]} != 0 ]; then
 		return 1
@@ -73,7 +76,7 @@ function run()
 
 function run_sh()
 {
-	echo "$STEPINFO ${COLOR_DGRAY}$@${COLOR_STD}"
+	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
 	"$@"
 }
 

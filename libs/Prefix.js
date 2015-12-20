@@ -117,10 +117,11 @@ Prefix.prototype.loadPackage = function(packageName)
 	
 	//load path
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
-	if (fs.existsSync(fname) == false)
-		fname = this.prefix + "/share/homelinux/packages/models/"+packageName+".json";
+	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
+		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";
 	if (fs.existsSync(fname))
 	{
+		console.error("loading "+fname);
 		var content = fs.readFileSync(fname);
 		var json = JSON.parse(content);
 		return json;
@@ -236,7 +237,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		qp = {
 			name: packageName,
 			source: 'gentoo',
-			type: 'auto',
+			type: 'models/auto',
 			host: { 'default': false }
 		};
 		
@@ -264,7 +265,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		qp = {
 			name: packageName,
 			source: 'github',
-			type: 'auto',
+			type: 'models/auto',
 			host: { 'default': false }
 		};
 		qp = this.buildGithubPackage(qp);
@@ -273,7 +274,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	//build package
 	var pack = {
 		"name": qp.name,
-		"inherit": qp.type == undefined ? 'auto' : qp.type,
+		"inherit": qp.type == undefined ? 'models/auto' : qp.type,
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
 		"subdir" : qp.name+"-${VERSION}",
 		"urls": [ qp.url ],

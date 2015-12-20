@@ -1,7 +1,7 @@
 {
 	"name": "dev-vcs/subversion",
 	"homepage": "https://subversion.apache.org/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.9.3" 
 	],

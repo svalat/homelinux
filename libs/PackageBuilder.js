@@ -117,18 +117,13 @@ PackageBuilder.prototype.getPrefix = function(version)
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPatchList = function(version)
 {
-	var lst = [];
+	var final = [];
+	
 	if (this.pack.patch != undefined)
 	{
-		if (this.pack.patch[""] != undefined)
-			lst = lst.concat(this.pack.patch['']);
-		if (this.pack.patch[version] != undefined)
-			lst = lst.concat(this.pack.patch[version]);
+		for (var i in this.pack.patch)
+			final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+this.pack.patch[i]));
 	}
-	
-	var final = [];
-	for (var i in lst)
-		final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+lst[i]));
 	
 	return final;
 }

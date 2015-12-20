@@ -1,7 +1,7 @@
 {
 	"name": "dev-vcs/git",
 	"homepage": "https://git-scm.com/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"2.6.4" 
 	],

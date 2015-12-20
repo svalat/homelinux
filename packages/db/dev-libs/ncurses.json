@@ -1,7 +1,7 @@
 {
 	"name": "sys-devel/ncurses",
 	"homepage": "https://www.gnu.org/software/ncurses/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"6.0"
 	],

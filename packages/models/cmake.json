@@ -1,11 +1,10 @@
 {
 	"name": "hl-template-cmake",
 	"deps": [
-		"cmake",
-		"make"
+		"dev-util/cmake"
 	],
-	"inherit": "default",
+	"inherit": "models/default",
 	"steps": {
-		"configure": [ "hl_configure_cmake" ],
+		"configure": [ "hl_configure_cmake" ]
 	}
 }

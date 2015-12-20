@@ -1,7 +1,7 @@
 {
 	"name": "sys-apps/htop",
 	"homepage": "http://hisham.hm/htop",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.0.3" 
 	],

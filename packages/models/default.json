@@ -1,7 +1,6 @@
 {
 	"name": "hl-template-default",
 	"deps": [
-		"tar"
 	],
 	"steps": {
 		"download": [ "hl_download" ],

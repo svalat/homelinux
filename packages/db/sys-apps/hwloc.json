@@ -1,7 +1,7 @@
 {
 	"name": "sys-apps/hwloc",
 	"homepage": "http://www.open-mpi.org/projects/hwloc/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.11.2" 
 	],

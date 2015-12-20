@@ -1,7 +1,7 @@
 {
 	"name": "dev-libs/apr",
 	"homepage": "http://apr.apache.org/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.5.2" 
 	],

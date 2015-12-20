@@ -1,7 +1,7 @@
 {
 	"name": "app-shells/bash",
 	"homepage": "http://tiswww.case.edu/php/chet/bash/bashtop.html",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"3.0", 
 		"3.1", 

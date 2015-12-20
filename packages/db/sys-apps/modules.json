@@ -1,7 +1,7 @@
 {
 	"name": "sys-cluster/modules",
 	"homepage": "http://moduless.sourceforge.net/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"3.2.10" 
 	],
@@ -21,9 +21,7 @@
 	"configure": {
 		"": [ "--with-tcl-lib=$(hl_prefix tcl) --with-tcl-inc=$(hl_prefix tcl)" ]
 	},
-	"patch": {
-		"": [ "modules-tcl86.patch" ]
-	},
+	"patch": [ "modules-tcl86.patch" ],
 	"steps": {
 		"postinstall": [ "ln -s ${PREFIX}/Modules/${VERSION} ${PREFIX}/Modules/current" ]
 	},

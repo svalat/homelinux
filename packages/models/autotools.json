@@ -1,9 +1,8 @@
 {
 	"name": "hl-template-autotools",
 	"deps": [
-		"make"
 	],
-	"inherit": "default",
+	"inherit": "models/default",
 	"steps": {
 		"configure": [ "hl_configure_autotools" ]
 	}

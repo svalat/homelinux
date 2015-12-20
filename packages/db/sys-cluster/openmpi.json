@@ -1,7 +1,7 @@
 {
 	"name": "sys-cluster/openmpi",
 	"homepage": "http://www.open-mpi.org/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.10.0" 
 	],

@@ -1,7 +1,7 @@
 {
 	"name": "dev-vcs/tig",
 	"homepage": "http://jonas.nitro.dk/tig/",
-	"inherit": "autotools",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"2.1" 
 	],
