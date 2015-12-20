@@ -69,6 +69,9 @@ Example
 		"steps": {
 			"test": []
 		},
+		"slots": [
+			"^([0-9]+\\.[0-9]+)"
+		]
 		"conflict": [ "nodejs-bin" ]
 	}
 ```
@@ -111,3 +114,7 @@ you might want to use `default` and override the required steps.
  * *steps* : Define what to do for the different steps. See `default` template and `default.sh` in models
  to understand how it work.
  * *conflict* : NOT YET SUPPORTED provide a list of packages which must ne be installed with the current one.
+ * *slots* : You can provide a list of values or regular expression with capture to extract part of the 
+ package version and generate a slot name. It helps to install mulitple version of the package limiting
+ the checking to a sub-part of the version numbers.
+ 
