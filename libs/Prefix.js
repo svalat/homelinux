@@ -151,7 +151,7 @@ Prefix.prototype.buildGithubPackage = function(qp)
 		qp.version = ret.tag_name.replace('v','');
 		qp.url = "https://github.com/"+qp.name+"/archive/"+ret.tag_name+".tar.gz";
 		qp.steps = { "download": [ "hl_github_download" ] };
-		qp.name = qp.name.split('/').pop();
+		qp.name = "github/"+qp.name.split('/').pop();
 
 		return qp;
 	} else {
@@ -169,7 +169,7 @@ Prefix.prototype.buildGithubPackage = function(qp)
 		qp.version = ret[0].name.replace('v','');
 		qp.url = "https://github.com/"+qp.name+"/archive/"+ret[0].name+".tar.gz";
 		qp.steps = { "download": [ "hl_github_download" ] };
-		qp.name = qp.name.split('/').pop();
+		qp.name = "github/"+qp.name.split('/').pop();
 
 		return qp;
 	}
@@ -207,6 +207,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 		return undefined;
 	} else {
 		//setup
+		qp.name = "gentoo/"+qp.name;
 		qp.version = v;
 		qp.url = "ftp://"+this.config.gentoo.server
 			+ ":"+this.config.gentoo.port
