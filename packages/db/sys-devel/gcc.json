@@ -13,7 +13,9 @@
 	"md5" : {},
 	"subdir": "gcc-${VERSION}",
 	"urls" : [
-		"ftp://ftp.lip6.fr/pub/gcc/releases/gcc-${VERSION}/gcc-${VERSION}.tar.gz"
+		"ftp://ftp.lip6.fr/pub/gcc/releases/gcc-${VERSION}/gcc-${VERSION}.tar.gz",
+		"ftp://mirrors-usa.go-parts.com/gcc/releases/gcc-${VERSION}/gcc-${VERSION}.tar.gz",
+		"http://gcc.parentingamerica.com/releases/gcc-${VERSION}/gcc-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/gmp",
