@@ -106,6 +106,34 @@ PackageBuilder.prototype.buildOptions = function()
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getPrefix = function(version)
+{
+	if (this.pack.module == undefined)
+		return this.prefix.prefix;
+	else
+		return this.prefix.prefix+"/Modules/installed/"+this.pack.module;
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getPatchList = function(version)
+{
+	var lst = [];
+	if (this.pack.patch != undefined)
+	{
+		if (this.pack.patch[""] != undefined)
+			lst = lst.concat(this.pack.patch['']);
+		if (this.pack.patch[version] != undefined)
+			lst = lst.concat(this.pack.patch[version]);
+	}
+	
+	var final = [];
+	for (var i in lst)
+		final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+lst[i]));
+	
+	return final;
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.genScript = function()
 {
 	//header
@@ -121,12 +149,18 @@ PackageBuilder.prototype.genScript = function()
 	//setup package variables
 	var version = this.getVersion();
 	script.push("NAME=\""+this.pack.name+"\"");
+	script.push("SHORT_NAME=\""+this.pack.name.split('/').pop()+"\"");
 	script.push("VERSION=\""+version+"\"");
 	script.push("URLS=\""+this.pack.urls.join(' ')+"\"");
 	script.push("MD5=\""+this.pack.md5[version] != undefined?this.pack.md5[version]:''+"\"");
 	script.push("SUBDIR=\""+this.pack.subdir+"\"");
-	script.push("PREFIX=\""+this.prefix.prefix+"\"");
+	script.push("PREFIX=\""+this.getPrefix(version)+"\"");
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");
+	script.push("PATCHES=\""+this.getPatchList(version)+"\"");
+	if (this.pack.module == undefined)
+		script.push("MODULE=\"\"");
+	else
+		script.push("MODULE=\""+this.pack.module+"\"");
 	
 	//gen functions
 	for (var i in this.pack.steps)

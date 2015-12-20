@@ -16,7 +16,7 @@ var VersionFetcher = require('./libs/VersionFetcher');
 var userConfig = new UserConfig();
 // userConfig.print();
 
-var prefix = new Prefix("/home/sebv/usr");
+var prefix = new Prefix(UserConfig.config.prefix);
 // prefix.print();
 
 if (process.argv[2] == "env")
@@ -45,4 +45,6 @@ if (process.argv[2] == "env")
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
 	var fetcher = new VersionFetcher();
 	fetcher.fetchVersions(pack);
+} else if (process.argv[2] == "prefix-of") {
+	console.log(UserConfig.config.prefix);
 }

@@ -25,7 +25,7 @@ VersionFetcher.prototype.fetchVersions = function(pack)
 	console.log(pack.pack);
 	if (pack.pack.vfetcher.mode == 'ftp')
 		this.fetchVersionsFromFtp(pack);
-	else if (pack.pack.vfetcher.mode == 'http-apache-list')
+	else if (pack.pack.vfetcher.mode == 'http-apache-list' || pack.pack.vfetcher.mode == 'http')
 		this.fetchVersionsFromApacheHttpList(pack);
 }
 

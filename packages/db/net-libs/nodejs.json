@@ -1,0 +1,25 @@
+{
+	"name": "net-libs/nodejs",
+	"homepage": "https://nodejs.org",
+	"inherit": "autotools",
+	"versions": [ 
+		"5.3.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://nodejs.org/dist/",
+		"regexp": "^v([0-9]+.[0-9]+.[0-9]+)/$"
+	},
+	"md5" : {},
+	"subdir": "node-v${VERSION}",
+	"urls" : [
+		"https://nodejs.org/dist/v${VERSION}/node-v${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": "node"
+	}
+}

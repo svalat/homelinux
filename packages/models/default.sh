@@ -117,6 +117,13 @@ function hl_download_internal()
 			project=$(echo $url | cut -d '/' -f 3-4)
 			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || return 1 
 			;;
+		sourceforge://*/*)
+			ARCHIVE=$(basename ${url})
+			name=$(echo $url | cut -d '/' -f 3)
+			file=$(echo $url | cut -d '/' -f 4-)
+			surl="http://sourceforge.net/projects/$name/files/$file/download";
+			run wget -c -O ${ARCHIVE} "$surl" || return 1
+			;;
 	esac
 }
 
@@ -161,7 +168,11 @@ function hl_extract()
 
 function hl_patch()
 {
-	echo "Nothing to patch"
+	run_sh cd $HL_TEMP/$SUBDIR
+	for p in $PATCHES
+	do
+		run patch -p1 -i $p
+	done
 }
 
 function hl_configure()
@@ -231,6 +242,28 @@ function hl_manifest()
 # 	run_sh pushd $HL_TEMP/install
 # 	run find -P > $($PREFIX/share/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
 # 	run_sh popd
+}
+
+function hl_module()
+{
+	if [ ! -z "$MODULE" ];
+	then
+		run mkdir -p "$PREFIX/../../modulefiles"
+		cat > "$PREFIX/../../modulefiles/$MODULE" << EOF
+#%Module1.0#####################################################################
+##
+## dot modulefile
+##
+## modulefiles/${MODULE}
+##
+module-whatis   "Add support for ${MODULE}"
+
+prepend-path    PATH    $PREFIX/bin
+prepend-path    LD_LIBRARY_PATH $PREFIX/lib
+prepend-path    LD_LIBRARY_PATH $PREFIX/lib64
+prepend-path    PKG_CONFIG_PATH $PREFIX/lib/pkgconfig
+EOF
+	fi
 }
 
 function hl_merge()

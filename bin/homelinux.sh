@@ -25,14 +25,23 @@ Commands:
 	update-db        : Sync the gentoo DB for unknown packages.
 	fetch-versions   : Fetch versions of given package (work only
 	                   for db packages.
+	env              : Setup the environement variable to load.
 "
 
 case "$1" in
 	"build-cache")
 		hl-build-cache
 		;;
-	"help"|"--help"|"-h")
+	"help"|"--help"|"-h"|"")
 		echo "$HELP"
+		;;
+	"install")
+		shift 1
+		node index.js gen-install "$@" | bash
+		;;
+	"env")
+		node index.js env
+		module 1>/dev/null 2>/dev/null || echo ". $(node index.js prefix-of sys-cluster/modules)/Modules/current/init/$(basename $SHELL)"
 		;;
 	*)
 		node index.js "$@"

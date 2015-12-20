@@ -1,0 +1,33 @@
+{
+	"name": "sys-cluster/modules",
+	"homepage": "http://moduless.sourceforge.net/",
+	"inherit": "autotools",
+	"versions": [ 
+		"3.2.10" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/modules/files/Modules/",
+		"regexp": "modules-([0-9]+.[0-9]+.[0-9]+)"
+	},
+	"md5" : {},
+	"subdir": "modules-${VERSION}",
+	"urls" : [
+		"sourceforge://modules/Modules/modules-${VERSION}/modules-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-lang/tcl"
+	],
+	"configure": {
+		"": [ "--with-tcl-lib=$(hl_prefix tcl) --with-tcl-inc=$(hl_prefix tcl)" ]
+	},
+	"patch": {
+		"": [ "modules-tcl86.patch" ]
+	},
+	"steps": {
+		"postinstall": [ "ln -s ${PREFIX}/Modules/${VERSION} ${PREFIX}/Modules/current" ]
+	},
+	"host": {
+		"default": false
+	}
+}

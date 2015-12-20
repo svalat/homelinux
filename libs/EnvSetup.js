@@ -18,6 +18,7 @@ function EnvSetup(userConfig)
 		'MANPATH':process.env.PATH,
 		'PERL5LIB':process.env.PATH,
 		'PKG_CONFIG_PATH':process.env.PATH,
+		'MODULEPATH':process.env.MODULEPATH,
 	};
 }
 
@@ -74,6 +75,9 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	
 	//python
 	this.prepend('PYTHONPATH',prefix + "/lib/python"+this.userConfig.config.python+"/site-packages/");
+	
+	//module
+	this.prepend('MODULEPATH',prefix + "/Modules/modulefiles");
 }
 
 /*******************  FUNCTION  *********************/

@@ -18,6 +18,7 @@
 		"postinstall": [],
 		"manifest": [ "hl_manifest" ],
 		"clean": [ "hl_clean" ],
+		"module": [ "hl_module" ],
 		"main" : [
 			"@download",
 			"@check",
@@ -31,6 +32,7 @@
 			"@install",
 			"@manifest",
 			"@merge",
+			"@module",
 			"@postinstall",
 			"@clean"
 		]

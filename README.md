@@ -41,7 +41,7 @@ You can also setup global user configuration by copying `userconf.json` :
 
 Now you can load the configuration into your `~/.bashrc` :
 
-	`$HOME/usr/bin/hl env`
+	eval "`$HOME/usr/bin/hl env`"
 
 Before usage you need to create the cache with :
 
