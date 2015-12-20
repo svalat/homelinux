@@ -68,6 +68,7 @@ Example
 		},
 		"steps": {
 			"test": []
-		}
+		},
+		"conflict": [ "nodejs-bin" ]
 	}
 ```

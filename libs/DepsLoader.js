@@ -1,4 +1,5 @@
 var PackageBuilder = require('./PackageBuilder');
+var child_process = require('child_process');
 
 /*********************  CLASS  **********************/
 function DepsLoader(prefix,userConfig,packageList)
@@ -12,6 +13,7 @@ function DepsLoader(prefix,userConfig,packageList)
 	{
 		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
 		this.packages[p.pack.name] = p;
+		console.log(p.pack.name +" -> " + this.presentOnSystem(p));
 		this.loadDeps(p);
 	}
 	
@@ -30,10 +32,13 @@ DepsLoader.prototype.loadDeps = function(p)
 		for (var j in p.pack.deps)
 		{
 			var p = new PackageBuilder(this.prefix,this.userConfig,p.pack.deps[j]);
-			if (this.packages[p.pack.name] == undefined)
+			console.log(p.pack.name +" -> " + this.presentOnSystem(p));
+			if (this.packages[p.pack.name] == undefined && this.presentOnSystem(p) == false)
 			{
 				this.packages[p.pack.name] = p;
 				this.loadDeps(p);
+			} else {
+				console.error(p.pack.name + " already provided by host, not installed as deps");
 			}
 		}
 	}
@@ -65,6 +70,32 @@ DepsLoader.prototype.printList = function()
 {
 	for (var i in this.sched)
 		console.log(this.sched[i]);
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.presentOnSystem = function(p)
+{
+	if (this.userConfig.config.host == 'default')
+	{
+		if (p.pack.host['default'] == undefined)
+			return false;
+		else
+			return p.pack.host['default'];
+	} else if (this.userConfig.config.host == 'debian8') {
+		if (p.pack.host['debian8'] == undefined)
+		{
+			return false;
+		} else {
+			try {
+				console.error("Check with dpkg "+p.pack.host['debian8']);
+				var res = child_process.spawnSync('dpkg -s '+p.pack.host['debian8']);
+				return true;
+			} catch (e) {
+				console.log(e);
+				return false;
+			}
+		}
+	}
 }
 
 module.exports = DepsLoader;

@@ -19,6 +19,7 @@ function UserConfig()
 		host: "default",
 		python: "2.7",
 		modules: [],
+		host: 'default',
 		temp: "/tmp/homelinux-"+process.env.USER
 	};
 	
