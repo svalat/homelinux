@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
-		"regexp": "gnuplot-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "gnuplot-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "gnuplot-${VERSION}",

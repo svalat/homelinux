@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://archive.apache.org/dist/subversion/",
-		"regexp": "subversion-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "subversion-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "subversion-${VERSION}",

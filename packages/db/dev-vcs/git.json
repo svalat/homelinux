@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "https://www.kernel.org/pub/software/scm/git/",
-		"regexp": "git-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "git-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "git-${VERSION}",

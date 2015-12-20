@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://sourceforge.net/projects/modules/files/Modules/",
-		"regexp": "modules-([0-9]+.[0-9]+.[0-9]+)"
+		"regexp": "modules-([0-9]+\\.[0-9]+\\.[0-9]+)"
 	},
 	"md5" : {},
 	"subdir": "modules-${VERSION}",

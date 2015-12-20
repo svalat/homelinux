@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://cairographics.org/releases/",
-		"regexp": "pixman-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "pixman-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "pixman-${VERSION}",

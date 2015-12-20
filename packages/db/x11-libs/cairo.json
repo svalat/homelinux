@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://cairographics.org/releases/",
-		"regexp": "cairo-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.(gz|xz)"
+		"regexp": "cairo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
 	},
 	"md5" : {},
 	"subdir": "cairo-${VERSION}",

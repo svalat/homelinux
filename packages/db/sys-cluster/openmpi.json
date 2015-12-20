@@ -1,0 +1,26 @@
+{
+	"name": "sys-cluster/openmpi",
+	"homepage": "http://www.open-mpi.org/",
+	"inherit": "autotools",
+	"versions": [ 
+		"1.10.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.open-mpi.org/software/ompi",
+		"regexp": "^openmpi-([0-9]+\\.[0-9]+\\.[0-9]+).tar.gz/$"
+	},
+	"md5" : {},
+	"subdir": "openmpi-${VERSION}",
+	"urls" : [
+		"http://www.open-mpi.org/software/ompi/v$(echo ${VERSION} | cut -d '.' -f 1-2)/downloads/openmpi-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"module": "openmpi-${VERSION}",
+	"host": {
+		"default": false,
+		"debian8": "openmpi-bin"
+	}
+}

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": [ "http://www.zsh.org/pub/", "http://www.zsh.org/pub/old/" ],
-		"regexp": "zsh-([0-9]+.[0-9]+.?[0-9]*).tar.gz"
+		"regexp": "zsh-([0-9]+\\.[0-9]+\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "zsh-${VERSION}",

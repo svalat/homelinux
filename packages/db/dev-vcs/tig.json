@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://jonas.nitro.dk/tig/releases/",
-		"regexp": "tig-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "tig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "tig-${VERSION}",

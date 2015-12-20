@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
-		"regexp": "tig-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.xz"
+		"regexp": "tig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},
 	"subdir": "libpng-${VERSION}",

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.gnu.org/pub/gnu/gettext/",
-		"regexp": "gettext-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "gettext-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "gettext-${VERSION}",

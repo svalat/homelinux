@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://apr.apache.org/download.cgi?Preferred=http%3A%2F%2Fapache.crihan.fr%2Fdist%2F",
-		"regexp": "apr-util-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"regexp": "apr-util-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "apr-util-${VERSION}",

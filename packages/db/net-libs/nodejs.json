@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://nodejs.org/dist/",
-		"regexp": "^v([0-9]+.[0-9]+.[0-9]+)/$"
+		"regexp": "^v([0-9]+\\.[0-9]+\\.[0-9]+)/$"
 	},
 	"md5" : {},
 	"subdir": "node-v${VERSION}",
