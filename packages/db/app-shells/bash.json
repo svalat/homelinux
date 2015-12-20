@@ -26,6 +26,6 @@
 	],
 	"host": {
 		"default": true,
-		"debian8": "bash"
+		"debian8": [ "bash" ]
 	}
 }

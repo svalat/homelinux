@@ -26,6 +26,7 @@
 		"postinstall": [ "ln -s ${PREFIX}/Modules/${VERSION} ${PREFIX}/Modules/current" ]
 	},
 	"host": {
-		"default": false
+		"default": false,
+		"debian8": false
 	}
 }

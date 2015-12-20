@@ -1,5 +1,6 @@
 var PackageBuilder = require('./PackageBuilder');
 var child_process = require('child_process');
+var fs = require('fs');
 
 /*********************  CLASS  **********************/
 function DepsLoader(prefix,userConfig,packageList)
@@ -9,6 +10,14 @@ function DepsLoader(prefix,userConfig,packageList)
 	this.userConfig = userConfig;
 	this.packages = {};
 	this.sched = [];
+	
+		
+	//lost host
+	var fname = prefix.getFile('share/homelinux/packages/hosts/'+userConfig.config.host+".json");
+	var content = fs.readFileSync(fname);
+	this.hostsRefs = JSON.parse(content);
+	
+	//load packages
 	for (var i in packageList)
 	{
 		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
@@ -17,6 +26,7 @@ function DepsLoader(prefix,userConfig,packageList)
 		this.loadDeps(p);
 	}
 	
+	//sched
 	this.buildSched();
 }
 
@@ -73,28 +83,57 @@ DepsLoader.prototype.printList = function()
 }
 
 /*******************  FUNCTION  *********************/
+DepsLoader.prototype.presentOnSystemDefault = function(p)
+{
+	if (p.pack.host['default'] == undefined)
+		return false;
+	else
+		return p.pack.host['default'];
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.presentOnSystemDebian8 = function(p)
+{
+	var h = p.pack.host['debian8'];
+
+	//load from separate file
+	if (this.hostsRefs[p.pack.name] != undefined)
+		h = this.hostsRefs[p.pack.name];
+	
+	//not defined, consider not provided
+	if (h == undefined)
+		return false;
+	
+	//is not provided
+	if (h === false)
+		return false;
+	
+	console.log("Check ncurses on host : "+h);
+	
+	//check in list
+	for (var i in h)
+	{
+		try {
+			console.error("Check with dpkg "+h[i]);
+			var res = child_process.spawnSync('dpkg -s '+h[i]);
+		} catch (e) {
+			console.log(e);
+			return false;
+		}
+	}
+	return true;
+}
+
+/*******************  FUNCTION  *********************/
 DepsLoader.prototype.presentOnSystem = function(p)
 {
 	if (this.userConfig.config.host == 'default')
 	{
-		if (p.pack.host['default'] == undefined)
-			return false;
-		else
-			return p.pack.host['default'];
+		return this.presentOnSystemDefault(p);
 	} else if (this.userConfig.config.host == 'debian8') {
-		if (p.pack.host['debian8'] == undefined)
-		{
-			return false;
-		} else {
-			try {
-				console.error("Check with dpkg "+p.pack.host['debian8']);
-				var res = child_process.spawnSync('dpkg -s '+p.pack.host['debian8']);
-				return true;
-			} catch (e) {
-				console.log(e);
-				return false;
-			}
-		}
+		return this.presentOnSystemDebian8(p);
+	} else {
+		throw "Unsupposed host system to check deps, please use default in that case !";
 	}
 }
 

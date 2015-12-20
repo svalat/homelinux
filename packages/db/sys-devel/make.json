@@ -19,6 +19,6 @@
 	],
 	"host": {
 		"default": true,
-		"debian8": "make"
+		"debian8": [ "make" ]
 	}
 }

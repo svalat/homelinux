@@ -19,6 +19,6 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": "pkg-config"
+		"debian8": [ "pkg-config" ]
 	}
 }

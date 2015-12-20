@@ -21,6 +21,6 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": "libpng2-dev"
+		"debian8": [ "libpng12-dev" ]
 	}
 }

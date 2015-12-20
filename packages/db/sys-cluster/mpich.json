@@ -21,6 +21,6 @@
 	"module": "mpich-${VERSION}",
 	"host": {
 		"default": false,
-		"debian8": "mpich"
+		"debian8": [ "mpich" ]
 	}
 }

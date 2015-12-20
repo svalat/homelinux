@@ -22,6 +22,6 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": "gnuplot"
+		"debian8": [ "gnuplot" ]
 	}
 }

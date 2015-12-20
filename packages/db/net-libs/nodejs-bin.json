@@ -20,7 +20,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": "node"
+		"debian8": [ "node" ]
 	},
 	"conflict": [ "nodejs" ],
 	"steps": {

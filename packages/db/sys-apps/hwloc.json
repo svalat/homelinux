@@ -21,6 +21,6 @@
 	"module": "hwloc-${VERSION}",
 	"host": {
 		"default": false,
-		"debian8": "hwloc"
+		"debian8": [ "hwloc" ]
 	}
 }

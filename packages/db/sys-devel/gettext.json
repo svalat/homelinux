@@ -20,6 +20,6 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": "gettext"
+		"debian8": [ "gettext" ]
 	}
 }

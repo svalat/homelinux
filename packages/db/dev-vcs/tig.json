@@ -23,6 +23,6 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": "tig"
+		"debian8": [ "tig" ]
 	}
 }

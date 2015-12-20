@@ -23,6 +23,6 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": "htop"
+		"debian8": [ "htop" ]
 	}
 }

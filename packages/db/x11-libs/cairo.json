@@ -25,6 +25,6 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": "libcairo2-dev"
+		"debian8": [ "libcairo2-dev" ]
 	}
 }
