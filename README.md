@@ -71,6 +71,12 @@ You can use the given commands to install search or sync your repos :
 	#you can force the vesion to install with
 	hl install htop@4.8
 	
+	#search in avail packages
+	hl search htop
+	
+	#list installed packages
+	hl ls
+	
 	#Whatch generated quickpackages
 	hl gen-package gentoo/htop
 	hl gen-full-package gentoo/htop
