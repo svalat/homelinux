@@ -23,7 +23,7 @@ function DepsLoader(prefix,userConfig,packageList)
 		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
 		this.packages[p.pack.name] = p;
 		if (this.presentOnSystem(p))
-			p.pack.present = 'force';
+			p.pack.present = 'override-system';
 		this.loadDeps(p);
 	}
 	
@@ -81,14 +81,20 @@ DepsLoader.prototype.genScript = function()
 /*******************  FUNCTION  *********************/
 DepsLoader.prototype.printList = function()
 {
-	console.log("----------------------TO INSTALL--------------------------");
+	console.log("\n\n----------------------TO INSTALL--------------------------");
 	for (var i in this.sched)
-		console.log(this.sched[i]);
+	{
+		var p = this.packages[this.sched[i]];
+		if (p.pack.present == 'override-system')
+			console.log(this.sched[i]+"-"+p.getVersion()+" [override system]");
+		else
+			console.log(this.sched[i]+"-"+p.getVersion());
+	}
 	console.log("----------------------REUSE HOST--------------------------");
 	for (var i in this.packages)
 		if (this.packages[i].pack.present == 'use-host')
 			console.log(this.packages[i].pack.name);
-	console.log("----------------------------------------------------------");
+	console.log("----------------------------------------------------------\n");
 }
 
 /*******************  FUNCTION  *********************/
@@ -124,7 +130,7 @@ DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 	{
 		try {
 			//console.error("Check with dpkg "+h[i]);
-			var res = child_process.spawnSync('dpkg -s '+h[i]);
+			var res = child_process.execSync('dpkg -s '+h[i]);
 		} catch (e) {
 			console.log(e);
 			return false;

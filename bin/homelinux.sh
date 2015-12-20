@@ -30,14 +30,17 @@ Commands:
 
 function yesno()
 {
-	rep=''
-	while [ "$rep" != 'y' ] && [ "$rep" != "n" ]
+	rep='?'
+	while [ "$rep" != 'y' ] && [ "$rep" != "n" ] && [ "$rep" != '' ]
 	do
-		read -p "Continue (y/n) ? " rep
+		read -p "Continue (Y/n) ? " rep
 	done
 
 	if [ "$rep" = 'n' ]; then
 		exit 0
+	else
+		#skip one line before start
+		echo
 	fi
 }
 
