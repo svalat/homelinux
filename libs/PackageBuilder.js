@@ -211,7 +211,7 @@ PackageBuilder.prototype.genScript = function()
 	script.push('');
 	this.pack.version = version;
 	script.push("PACK_INSTALLED=\""+this.getPackInstalled(version)+"\"");
-	script.push("PACK_JSON=\""+JSON.stringify(this.pack).replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
+	script.push("PACK_JSON=\""+JSON.stringify(this.pack,null,'\t').replace(/[\\]/g,'\\\\').replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
 	script.push('');
 	
 	//gen functions

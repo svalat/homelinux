@@ -10,6 +10,7 @@
 var fs = require('fs');
 var jso = require('json-override');
 var httpreq = require('sync-request');
+var find = require('find');
 
 /*********************  CLASS  **********************/
 function Prefix(prefix) 
@@ -328,6 +329,35 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	};
 	
 	return pack;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.search = function(name)
+{
+	var cache = this.getCache();
+	console.log("-------------------------PACKAGES---------------------------");
+	for (var i in cache)
+		if (i.indexOf(name) != -1)
+			console.log(i);
+	console.log("--------------------------GENTOO----------------------------");
+	this.gentooDb = require(this.getFile('/share/homelinux/packages/db/gentoo.json'));
+	for (var i in this.gentooDb)
+		if (this.gentooDb[i].indexOf(name) != -1)
+			console.log("gentoo/"+this.gentooDb[i]);
+	console.log("------------------------------------------------------------");
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.listInstalled = function()
+{
+	find.file(this.getFile("share/homelinux/install-db/"), function(files) {
+		for (var i in files)
+		{
+			var content = fs.readFileSync(files[i]);
+			var p = JSON.parse(content);
+			console.log(p.name+"-"+p.version);
+		}
+	})
 }
 
 /*******************  FUNCTION  *********************/

@@ -28,6 +28,8 @@ Commands:
 	env               : Setup the environement variable to load.
 	is-pack-installed : Check if the given package is installed or not.
 	prefix-of         : Return the prefix where the package is installed or empty if not.
+	ls                : List installed packages.
+	search            : Search for matching packages in the available dbs.
 "
 
 function yesno()

@@ -65,6 +65,10 @@ if (command == "env")
 	} else {
 		console.log(process.argv[3]+" installed");
 	}
+} else if (command == 'ls') {
+	prefix.listInstalled();
+} else if (command == 'search') {
+	prefix.search(process.argv[3]);
 } else {
 	console.error("Invalid command : '"+userConfig,command+"', please check --help|-h");
 }
