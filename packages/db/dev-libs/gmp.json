@@ -1,0 +1,24 @@
+{
+	"name": "dev-libs/gmp",
+	"homepage": "http://gmplib.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"6.1.0" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://mirror0.babylon.network/gnu/gmp/",
+		"regexp": "gmp-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
+	},
+	"md5" : {},
+	"subdir": "gmp-${VERSION}",
+	"urls" : [
+		"ftp://mirror0.babylon.network/gnu/gmp/gmp-${VERSION}.tar.bz2"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libgmp-dev" ]
+	}
+}

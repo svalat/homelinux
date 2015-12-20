@@ -97,8 +97,8 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
 					if (err) throw err;
 					for (var i in list)
 					{
-						if (list[i].type == '-')
-							self.checkFile(pack,list[i].name);
+						//if (list[i].type == '-')
+						self.checkFile(pack,list[i].name);
 					}
 					
 					//sort & uniq

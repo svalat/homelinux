@@ -1,0 +1,34 @@
+{
+	"name": "sys-devel/gcc",
+	"homepage": "https://www.gnu.org/software/gcc/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"5.3.0"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.lip6.fr/pub/gcc/releases/",
+		"regexp": "gcc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "gcc-${VERSION}",
+	"urls" : [
+		"ftp://ftp.lip6.fr/pub/gcc/releases/gcc-${VERSION}/gcc-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/gmp",
+		"dev-libs/mpfr",
+		"dev-libs/mpc"
+	],
+	"slots": [
+		"^([0-9]+\\.[0-9]+)"
+	],
+	"module": "gcc-${VERSION}",
+	"configure": {
+		"": [ "$(hl_with gmp dev-libs/gmp)","$(hl_with mpfr dev-libs/mpfr)","$(hl_with mpc dev-libs/mpc)","--disable-multilib","--enable-languages=c,c++,fortran" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "gcc" ]
+	}
+}

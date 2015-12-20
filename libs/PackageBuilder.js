@@ -9,6 +9,7 @@
 /********************  GLOBALS  *********************/
 var jso = require('json-override');
 var spawn = require('child_process').spawn;
+var fs = require('fs');
 
 /*********************  CLASS  **********************/
 function PackageBuilder(prefix,userConfig,packageName,inherit)
@@ -129,6 +130,38 @@ PackageBuilder.prototype.getPatchList = function(version)
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getSlot = function(version)
+{
+	//search slot
+	if (this.pack.slots != undefined)
+	{
+		for (var i in this.pack.slots)
+		{
+			var regexp = new RegExp(this.pack.slots[i]);
+			var ret = regexp.exec(version);
+			if (ret != null)
+				return ret[1];
+		}
+	}
+
+	//no slot
+	return '0';
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getPackInstalled = function(version)
+{
+	return this.prefix.getFile("/share/homelinux/install-db/"+this.pack.name.replace(/[/]/g,"_")+"-"+this.getSlot(version)+".json");
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.isInstalled = function()
+{
+	var fname = this.getPackInstalled(this.getVersion());
+	return fs.existsSync(fname);
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.genScript = function()
 {
 	//header
@@ -153,10 +186,17 @@ PackageBuilder.prototype.genScript = function()
 	script.push("PREFIX=\""+this.getPrefix(version)+"\"");
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");
 	script.push("PATCHES=\""+this.getPatchList(version)+"\"");
+	script.push("SLOT=\""+this.getSlot(version)+"\"");
 	if (this.pack.module == undefined)
 		script.push("MODULE=\"\"");
 	else
 		script.push("MODULE=\""+this.pack.module+"\"");
+	
+	script.push('');
+	this.pack.version = version;
+	script.push("PACK_INSTALLED=\""+this.getPackInstalled(version)+"\"");
+	script.push("PACK_JSON=\""+JSON.stringify(this.pack).replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
+	script.push('');
 	
 	//gen functions
 	for (var i in this.pack.steps)
@@ -184,6 +224,7 @@ PackageBuilder.prototype.genScript = function()
 	script.push("start_stop Start $NAME-$VERSION");
 	script.push("hl_setup_tmp_dir");
 	script.push("hl_pack_main")
+	script.push("hl_pack_finish")
 	script.push("start_stop Finish $NAME-$VERSION");
 	
 	return script.join('\n');
@@ -192,7 +233,12 @@ PackageBuilder.prototype.genScript = function()
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getVersion = function()
 {
-	return this.pack.versions[this.pack.versions.length-1];
+	if (this.pack.version != undefined)
+		return this.pack.version;
+	else if (this.prefix.config.versions != undefined && this.prefix.config.versions[this.pack.name] != undefined)
+		this.prefix.config.versions[this.pack.name];
+	else
+		return this.pack.versions[this.pack.versions.length-1];
 }
 
 /*******************  FUNCTION  *********************/

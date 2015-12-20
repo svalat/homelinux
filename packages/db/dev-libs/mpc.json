@@ -1,0 +1,29 @@
+{
+	"name": "dev-libs/mpc",
+	"homepage": "http://mpc.multiprecision.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.0.3" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://mirror0.babylon.network/gnu/mpc/",
+		"regexp": "mpc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "mpc-${VERSION}",
+	"urls" : [
+		"ftp://mirror0.babylon.network/gnu/mpc/mpc-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/gmp",
+		"dev-libs/mpfr"
+	],
+	"configure": {
+		"": [ "$(hl_with gmp dev-libs/gmp)", "$(hl_with gmp dev-libs/mpfr)" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libmpc-dev" ]
+	}
+}

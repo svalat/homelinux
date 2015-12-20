@@ -37,7 +37,7 @@ Prefix.prototype.load = function(prefix)
 			"CFLAGS":"-O3 -march=native",
 			"CXXFLAGS":"$CFLAGS"
 		},
-		"packages": {
+		"versions": {
 		},
 		"useflags": {
 		},
@@ -111,12 +111,17 @@ Prefix.prototype.searchInCache = function(packageName)
 /*******************  FUNCTION  *********************/
 Prefix.prototype.loadPackage = function(packageName)
 {
+	//extract version
+	var version = packageName.split('@')[1];
+	var packageName = packageName.split('@')[0];
+	
 	//if has no / search in db first before fallback
 	if (packageName.indexOf('/') == -1)
 		packageName = this.searchInCache(packageName);
 	
 	//load path
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
+	var p;
 	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
 		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";
 	if (fs.existsSync(fname))
@@ -124,10 +129,15 @@ Prefix.prototype.loadPackage = function(packageName)
 		console.error("loading "+fname);
 		var content = fs.readFileSync(fname);
 		var json = JSON.parse(content);
-		return json;
+		p = json;
 	} else {
-		return this.buildQuickPackage(packageName);
+		p = this.buildQuickPackage(packageName);
 	}
+	
+	//setup version
+	p.version = version;
+	
+	return p;
 }
 
 /*******************  FUNCTION  *********************/
@@ -207,13 +217,13 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 		return undefined;
 	} else {
 		//setup
-		qp.name = "gentoo/"+qp.name;
 		qp.version = v;
 		qp.url = "ftp://"+this.config.gentoo.server
 			+ ":"+this.config.gentoo.port
 			+ "/"+this.config.gentoo.distfiles
 			+ "/"+qp.name+"-${VERSION}.tar."+ext;
-			
+		qp.name = "gentoo/"+qp.name;
+		
 		return qp;
 	}
 }
@@ -277,7 +287,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		"name": qp.name,
 		"inherit": qp.type == undefined ? 'models/auto' : qp.type,
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
-		"subdir" : qp.name+"-${VERSION}",
+		"subdir" : qp.name.split('/').pop()+"-${VERSION}",
 		"urls": [ qp.url ],
 		"deps": qp.deps == undefined ? [] : qp.deps ,
 		"host": qp.host,

@@ -13,6 +13,7 @@
 #HL_MAKEOPTS : Options for make
 #HL_PREFIX : the prefix in use
 #NAME : name of packaged (used to build tmp dir)
+#SHORT_NAME: base name of the package
 #VERSION : version of package to install
 #URLS : package url to download it (list sep by space)
 #MD5 : MD5 sum of package if available, empty if not
@@ -82,14 +83,14 @@ function run_sh()
 
 function hl_with()
 {
-	echo "--with-$1=$PREFIX"
+	echo "--with-$1=$HL_PREFIX"
 }
 
 #setup temps
 function hl_setup_tmp_dir()
 {
 	#setup final
-	HL_TEMP=${HL_TEMP}/${NAME}-${VERSION}
+	HL_TEMP=${HL_TEMP}/${SHORT_NAME}-${VERSION}
 	run rm -rf ${HL_TEMP}
 	run mkdir -p ${HL_TEMP}
 	run_sh cd ${HL_TEMP}
@@ -103,7 +104,7 @@ function hl_github_download()
 	run_sh cd $DISTFILES
 	for url in ${URLS}
 	do
-		ARCHIVE=$NAME-$VERSION.tar.gz
+		ARCHIVE=$SHORT_NAME-$VERSION.tar.gz
 		run wget -c "${url}" -O $ARCHIVE && break
 	done
 	run_sh cd ${HL_TEMP}
@@ -117,7 +118,7 @@ function hl_download_internal()
 			run wget -c "${url}" || return 1
 			;;
 		github://*/*)
-			ARCHIVE=$(short_name)-$VERSION.tar.gz
+			ARCHIVE=$SHORT_NAME-$VERSION.tar.gz
 			project=$(echo $url | cut -d '/' -f 3-4)
 			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || return 1 
 			;;
@@ -284,4 +285,10 @@ function hl_postinstall()
 function hl_clean()
 {
 	run rm -rfd "$HL_TEMP"
+}
+
+function hl_pack_finish()
+{
+	run mkdir -p $HL_PREFIX/share/homelinux/install-db
+	echo "$PACK_JSON" > $PACK_INSTALLED
 }

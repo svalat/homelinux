@@ -64,6 +64,12 @@ You can use the given commands to install search or sync your repos :
 	hl install gentoo/htop
 	hl install github/svalat/svUnitTest
 	
+	#will search automatically in db, quickpackages and gentoo db
+	hl install htop
+	
+	#you can force the vesion to install with
+	hl install htop@4.8
+	
 	#Whatch generated quickpackages
 	hl gen-package gentoo/htop
 	hl gen-full-package gentoo/htop

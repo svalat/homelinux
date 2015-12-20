@@ -24,6 +24,8 @@ function DepsLoader(prefix,userConfig,packageList)
 		this.packages[p.pack.name] = p;
 		if (this.presentOnSystem(p))
 			p.pack.present = 'override-system';
+		if (p.isInstalled())
+			p.pack.present = 'reinstall';
 		this.loadDeps(p);
 	}
 	
@@ -35,23 +37,27 @@ function DepsLoader(prefix,userConfig,packageList)
 DepsLoader.prototype
 
 /*******************  FUNCTION  *********************/
-DepsLoader.prototype.loadDeps = function(p)
+DepsLoader.prototype.loadDeps = function(pack)
 {
-	this.sched.push(p.pack.name);
-	if (p.pack.deps != undefined)
+	this.sched.push(pack.pack.name);
+	if (pack.pack.deps != undefined)
 	{
-		for (var j in p.pack.deps)
+		for (var j in pack.pack.deps)
 		{
-			var p = new PackageBuilder(this.prefix,this.userConfig,p.pack.deps[j]);
-			if (this.presentOnSystem(p))
-			{
+			var p = new PackageBuilder(this.prefix,this.userConfig,pack.pack.deps[j]);
+			if (this.packages[p.pack.name] != undefined) {
+				console.error(pack.pack.name + " already provided by host, not installed as deps");
+			} else if (p.isInstalled()) {
+				p.pack.present = 'already-installed';
+				this.packages[p.pack.name] = p;
+			} else if (this.presentOnSystem(p)) {
 				p.pack.present = 'use-host';
 				this.packages[p.pack.name] = p;
 			} else if (this.packages[p.pack.name] == undefined) {
 				this.packages[p.pack.name] = p;
 				this.loadDeps(p);
 			} else {
-				console.error(p.pack.name + " already provided by host, not installed as deps");
+				console.error(pack.pack.name + " already provided by host, not installed as deps");
 			}
 		}
 	}
@@ -85,11 +91,15 @@ DepsLoader.prototype.printList = function()
 	for (var i in this.sched)
 	{
 		var p = this.packages[this.sched[i]];
-		if (p.pack.present == 'override-system')
-			console.log(this.sched[i]+"-"+p.getVersion()+" [override system]");
+		if (p.pack.present != undefined)
+			console.log(this.sched[i]+"-"+p.getVersion()+" ["+p.pack.present+"]");
 		else
 			console.log(this.sched[i]+"-"+p.getVersion());
 	}
+	console.log("-----------------------INSTALLED--------------------------");
+	for (var i in this.packages)
+		if (this.packages[i].pack.present == 'already-installed')
+			console.log(this.packages[i].pack.name);
 	console.log("----------------------REUSE HOST--------------------------");
 	for (var i in this.packages)
 		if (this.packages[i].pack.present == 'use-host')
@@ -132,7 +142,6 @@ DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 			//console.error("Check with dpkg "+h[i]);
 			var res = child_process.execSync('dpkg -s '+h[i]);
 		} catch (e) {
-			console.log(e);
 			return false;
 		}
 	}
