@@ -92,7 +92,8 @@ you might want to use `default` and override the required steps.
  * *vfetcher* : Define some parameters to automatically fetch the list of available version by grabbing
  an FTP directory or a web page. You need to provide mode saying `ftp` or `http`. Then you need to
  provide an url to fetch and to grab on and a regexp with capture semantic to extract the version
- from the files or links extracted from the page.
+ from the files or links extracted from the page. If you fail to find websites you can also use
+ `gentoo` without any URL (see media-libs/libpng as example).
  * *md5* : You can provide the MD5 checksums for each version (TO BE IMPROVED BY USING FILENAMES INSTEAD).
  * *subdir* : Define the directory which is used into the archive.
  * *urls* : A list of URL to fetch the package archive. You can use $VERSION, $NAME, $SHORT_NAME or
