@@ -98,7 +98,7 @@ PackageBuilder.prototype.buildOptions = function()
 		{
 			for (var j in this.pack.configure[i])
 			{
-				opts.push(this.pack.configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable'))
+				opts.push(this.pack.configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable').replace('$with',this.hasUseFlags(i)?'with':'without'))
 			}
 		}
 	}

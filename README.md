@@ -78,6 +78,11 @@ You can use the given commands to install search or sync your repos :
 	hl gen-install gentoo/htop
 ```
 
+Create packages
+---------------
+
+To create package, check [doc/package.md](doc/package.md).
+
 Licence
 -------
 

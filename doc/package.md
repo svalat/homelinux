@@ -10,7 +10,7 @@ Example
 	{
 		"name": "app-shells/bash",
 		"homepage": "http://tiswww.case.edu/php/chet/bash/bashtop.html",
-		"inherit": "autotools",
+		"inherit": "models/autotools",
 		"versions": [
 			"4.0",
 			"4.1",
@@ -38,7 +38,7 @@ Example
 			"make",
 			"gcc > 3.4 < 4.8 ! 4.5.8",
 			"install = 4.5",
-			"curses@dev[+shell,-gui] > 3.4 < 4.8 ! 4.5.8"
+			"curses[+shell,-gui] > 3.4 < 4.8 ! 4.5.8"
 		],
 		"host": {
 			"default": true,
@@ -60,7 +60,7 @@ Example
 					"": [ "--enable-bugfix" ]
 				}
 			},
-			"4.2 on debian8": {
+			"> 4.2 < 4.8": {
 				"configure": {
 					"": [ "!--enable-bugfix" ]
 				}
@@ -72,3 +72,42 @@ Example
 		"conflict": [ "nodejs-bin" ]
 	}
 ```
+
+Main points
+-----------
+
+ * *name* : Define the name of the package, it must be XXX/NAME where XXX is the gentoo-like category.
+ * *homepage* : URL of the home page of the package.
+ * *inherit* : You can inherit from other packages or from templates provided into `models/XXX`.
+you mainly need `virtual` (don't do anything), `autotools`, `cmake`. `auto` is also provided
+for quickpackges as it tries to automatically apply the good sub-template. For other packages
+you might want to use `default` and override the required steps.
+ * *versions* : List of available version for this package. By default we take the last one to
+ install so take care of the ordering. It can be automatically updated with `hl fetch-versions`.
+ * *provide* : (NOT YET SUPPORTED) say that this package provide another package which can be
+ used as deps from other packages. It can be use for example to support gfotran.
+ * *vfetcher* : Define some parameters to automatically fetch the list of available version by grabbing
+ an FTP directory or a web page. You need to provide mode saying `ftp` or `http`. Then you need to
+ provide an url to fetch and to grab on and a regexp with capture semantic to extract the version
+ from the files or links extracted from the page.
+ * *md5* : You can provide the MD5 checksums for each version (TO BE IMPROVED BY USING FILENAMES INSTEAD).
+ * *subdir* : Define the directory which is used into the archive.
+ * *urls* : A list of URL to fetch the package archive. You can use $VERSION, $NAME, $SHORT_NAME or
+ every variable defined by the packaging script, it will be replaced before downloading the file.
+ * *deps* : A list of dependencies. You can request enabling of some use flags by using syntax `[+shell,-gui]`
+ and provide some version restriction using `>3.4 < 4.8 ! 4.5.8` (applied with AND operator). 
+ VERSION AND FLAGS NOT YET SUPPORTED.
+ * *host* : Provide the package name for the given host distribution, default only say if it is provided
+ by default or not. Each distribution name can provide a list of packages if it is splitted into multiple one.
+ You might also prefer to edit this into the `packages/hosts/XXXX` files.
+ * *configure* : Provide some configure options to apply. It must be a map where the index is flag.
+ You can say `+flag` to apply the config option when the flag is enabled. `-flag` to enable
+ when not enabled and `empty string` to always apply. You can use notation like `--$enable-feature` linked
+ to the `flag` notation, it will be replaced by `enable` or `disable` depending on the status of `flag`.
+ The same applies for `--$with-package`. You can also use some macros to extract prefix of packages like
+ `--with-gmp=$(hl_prefix dev-libs/gmp)` and `$(hl_with gmp dev-libs/gmp)`.
+ * *vspecific* : You can define here some features to apply for some specific version, you can use any keyword
+ used in the root object, it will override or complete them.
+ * *steps* : Define what to do for the different steps. See `default` template and `default.sh` in models
+ to understand how it work.
+ * *conflict* : NOT YET SUPPORTED provide a list of packages which must ne be installed with the current one.
