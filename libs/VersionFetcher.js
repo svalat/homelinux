@@ -40,7 +40,7 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 	
 	//fetch all
 	var batch = new Batch();
-	batch.concurrency(8);
+	batch.concurrency(2);
 	
 	var self = this;
 	packs.forEach(function(p) {
@@ -51,6 +51,14 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 
 	batch.on('progress', function(e) {
 		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
+		if (e.complete == e.total - 1)
+		{
+			var out = {};
+			for (var i in packs)
+				out[packs[i].pack.name] = packs[i].pack.versions;
+			console.log("Writing share/homelinux/packages/db/versions.json...");
+			fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
+		}
 	});
 	
 	batch.end(function(err,datas){
@@ -154,6 +162,8 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 		var server = ret[1];
 		var dir = ret[2];
 		
+		try{
+		
 		ftp.on('ready', function() {
 			//console.log("connected to "+server+" mirror...");
 			ftp.cwd("/"+dir,function(err, curr) {
@@ -181,6 +191,10 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 		});
 		
 		ftp.connect({host: server});
+		} catch (e) {
+			console.log("Get error on "+pack.pack.name);
+			callback();
+		}
 	}
 }
 

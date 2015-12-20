@@ -47,10 +47,11 @@ if (command == "env")
 } else if (command == "update-db") {
 	//gentoo db
 	var dbManager = new DbManager(prefix);
-	dbManager.fetchGentoo();
-	//versions
-	var fetcher = new VersionFetcher();
-	fetcher.fetchAll(prefix,userConfig);
+	dbManager.fetchGentoo(function() {
+		//versions
+		var fetcher = new VersionFetcher();
+		fetcher.fetchAll(prefix,userConfig);
+	});
 } else if (command == "fetch-versions") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
 	var fetcher = new VersionFetcher();

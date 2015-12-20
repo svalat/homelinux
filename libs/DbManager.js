@@ -17,7 +17,7 @@ function DbManager(prefix)
 }
 
 /*******************  FUNCTION  *********************/
-DbManager.prototype.fetchGentoo = function()
+DbManager.prototype.fetchGentoo = function(callback)
 {
 	var ftp = new FtpClient()
 	var self = this;
@@ -31,6 +31,8 @@ DbManager.prototype.fetchGentoo = function()
 				if (err) throw err;
 				self.saveGentooDb(list);
 				ftp.end();
+				if (callback != undefined)
+					callback();
 			});
 		});
 	});
