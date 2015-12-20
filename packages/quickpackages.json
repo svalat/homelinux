@@ -15,10 +15,5 @@
 				"dev": "bash"
 			}
 		}
-	},
-	"htop": {
-		"name": "htop",
-		"source": "gentoo",
-		"configure": ["--disable-unicode"]
 	}
 }
