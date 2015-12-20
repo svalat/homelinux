@@ -16,6 +16,7 @@
 		"http://cairographics.org/releases//pixman-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-libs/ncurses"
 	],
 	"configure": {
 	},

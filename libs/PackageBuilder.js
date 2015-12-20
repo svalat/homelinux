@@ -145,6 +145,7 @@ PackageBuilder.prototype.genScript = function()
 	script.push("HL_TEMP=\""+this.userConfig.config.temp+"\"");
 	script.push("HL_PACKAGE=\""+this.prefix.getFile("share/homelinux/packages/")+"\"");
 	script.push("HL_MAKEOPTS=\""+this.prefix.config.compiler.MAKEOPTS+"\"");
+	script.push("HL_PREFIX=\""+this.prefix.prefix+"\"");
 	
 	//setup package variables
 	var version = this.getVersion();

@@ -11,6 +11,7 @@
 #HL_TEMP : Root temp directory to download and build (/tmp/homelinux-$USER by default
 #HL_PACKAGES : Path to homelinux packages directory
 #HL_MAKEOPTS : Options for make
+#HL_PREFIX : the prefix in use
 #NAME : name of packaged (used to build tmp dir)
 #VERSION : version of package to install
 #URLS : package url to download it (list sep by space)
@@ -182,7 +183,7 @@ function hl_configure()
 
 function hl_prefix()
 {
-	echo $PREFIX
+	echo $HL_PREFIX
 }
 
 function hl_configure_auto()

@@ -16,9 +16,11 @@
 		"http://hisham.hm/htop/releases/${VERSION}/htop-${VERSION}.tar.gz"
 	],
 	"deps": [
-		
+		"dev-libs/ncurses"
 	],
-	"module": "htop-${VERSION}",
+	"configure": {
+		"": [ "LDFLAGS=-L$(hl_prefix dev-libs/ncurses)/lib" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": "htop"

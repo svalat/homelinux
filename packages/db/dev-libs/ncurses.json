@@ -18,6 +18,9 @@
 	"deps": [
 		
 	],
+	"configure": {
+		"": [ "--enable-widec" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": "ncurses-bin"
