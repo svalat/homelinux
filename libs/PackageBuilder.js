@@ -73,19 +73,41 @@ PackageBuilder.prototype.loadInherit = function(pack)
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.hasUseFlags = function(value)
 {
+	//if not use flags defined, default is enable
 	if (value == '')
 		return true;
-	else
-		return false;
+
+	//get global use flag
+	var global = this.prefix.config.useflags[""];
+	var pack = this.prefix.config.useflags[this.pack.name];
+	
+	//apply global
+	var status = false;
+	if (global != undefined && (global.indexOf(value) != -1 || global.indexOf('+'+value) != -1))
+		status = true;
+	
+	//apply package
+	if (pack != undefined && (pack.indexOf(value) != -1 || pack.indexOf('+'+value) != -1))
+		status = true;
+	else if (pack != undefined && pack.indexOf('-'+value) != -1)
+		status = false;
+
+	return status;
 }
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.applyUseFlags = function(value)
 {
-	if (value == '' || value[0] != '+')
+	if (value == '')
+	{
 		return true;
-	else
-		return false;
+	} else if (value[0] == '+') {
+		return this.hasUseFlags(value.substring(1,value.length));
+	} else if (value[0] == '-') {
+		return !this.hasUseFlags(value.substring(1,value.length));
+	} else {
+		 return true;
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -93,15 +115,9 @@ PackageBuilder.prototype.buildOptions = function()
 {
 	var opts = [];
 	for (var i in this.pack.configure)
-	{
 		if (this.applyUseFlags(i))
-		{
 			for (var j in this.pack.configure[i])
-			{
 				opts.push(this.pack.configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable').replace('$with',this.hasUseFlags(i)?'with':'without'))
-			}
-		}
-	}
 	
 	return opts.join(' ');
 }
