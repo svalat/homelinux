@@ -1,0 +1,26 @@
+{
+	"name": "app-doc/doxygen",
+	"homepage": "http://www.doxygen.org/",
+	"inherit": "models/cmake",
+	"versions": [ 
+		"1.8.10"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.stack.nl/pub/users/dimitri/",
+		"regexp": "doxygen-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).src.tar.gz"
+	},
+	"md5" : {},
+	"subdir": "doxygen-${VERSION}",
+	"urls" : [
+		"ftp://ftp.stack.nl/pub/users/dimitri/doxygen-${VERSION}.src.tar.gz"
+	],
+	"deps": [
+		"media-gfx/graphviz",
+		"sys-devel/flex"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "doxygen" ]
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "app-crypt/p11-kit",
+	"homepage": "http://p11-glue.freedesktop.org/.html",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.23.1"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://p11-glue.freedesktop.org/releases/",
+		"regexp": "p11-kit-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "p11-kit-${VERSION}",
+	"urls" : [
+		"http://p11-glue.freedesktop.org/releases/p11-kit-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/libffi"
+	],
+	"configure": {
+		"": [ "$(hl_with libffi dev-libs/libffi)" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "p11-kit" ]
+	}
+}

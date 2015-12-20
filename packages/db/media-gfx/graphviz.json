@@ -1,0 +1,24 @@
+{
+	"name": "media-gfx/graphviz",
+	"homepage": "http://www.graphviz.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.38.0" 
+	],
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
+		"regexp": "graphviz-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "graphviz-${VERSION}",
+	"urls" : [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/graphviz-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "graphviz", "graphviz-dev" ]
+	}
+}

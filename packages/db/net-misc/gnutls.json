@@ -1,0 +1,33 @@
+{
+	"name": "net-misc/gnutls",
+	"homepage": "http://www.gnutls.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.4.7"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.4/",
+		"regexp": "gnutls-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "gnutls-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnutls.org/gcrypt/gnutls/v3.4/gnutls-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/nettle",
+		"dev-libs/gmp",
+		"dev-libs/libtasn1",
+		"net-dns/libidn2",
+		"net-dns/unbound",
+		"app-crypt/p11-kit"
+	],
+	"configure": {
+		"": [ "$(hl_with nettle dev-libs/nettle)", "$(hl_with gmp dev-libs/gmp)","$(hl_with libidn2 net-dns/libidn2)","$(hl_with unbound net-dns/unbound)","$(hl_with p11-kit app-crypt/p11-kit)", "LDFLAGS=-L$HL_PREFIX/lib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "gnutls-bin" ]
+	}
+}

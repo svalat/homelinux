@@ -17,7 +17,7 @@ Homelinux is currently configured to be used on top of debian8 but there is no s
 platform except that it will not autodetect the presence of native packages. In this case it will tend to rebuild more packages
 than required.
 
-The only dependency is `nodejs` and `npm`.
+The only dependencies are `nodejs`, `npm` and the necessary to download and build basic packages (`tar`,`wget`,`gcc`, `make`...).
 
 Installation
 ------------

@@ -52,8 +52,11 @@ if (command == "env")
 	var fetcher = new VersionFetcher();
 	fetcher.fetchAll(prefix,userConfig);
 } else if (command == "fetch-versions") {
+	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
 	var fetcher = new VersionFetcher();
-	fetcher.fetchAll(prefix,userConfig);
+	fetcher.fetchVersions(pack,function(){
+		console.log(pack.pack.versions);
+	});
 } else if (command == "prefix-of") {
 	console.log(userConfig.config.prefix);
 } else if (command == "is-pack-installed") {

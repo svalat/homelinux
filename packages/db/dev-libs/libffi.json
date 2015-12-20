@@ -1,0 +1,24 @@
+{
+	"name": "dev-libs/libffi",
+	"homepage": "http://sourceware.org/libffi/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.2.1" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://sourceware.org/pub/libffi/",
+		"regexp": "libffi-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "libffi-${VERSION}",
+	"urls" : [
+		"ftp://sourceware.org/pub/libffi/libffi-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libffi-dev" ]
+	}
+}

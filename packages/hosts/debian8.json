@@ -25,5 +25,6 @@
 	"sys-devel/ncurses": [ "ncurses-bin", "ncurses-base" ],
 	"dev-vcs/git": [ "git" ],
 	"dev-vcs/tig": [ "tig" ],
-	"dev-vcs/subversion": [ "subversion" ]
+	"dev-vcs/subversion": [ "subversion" ],
+	"media-gfx/graphviz": [ "graphviz","graphviz-dev" ]
 }

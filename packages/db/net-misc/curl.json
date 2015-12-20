@@ -1,0 +1,24 @@
+{
+	"name": "net-misc/curl",
+	"homepage": "http://curl.haxx.se/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"7.46.0"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://curl.haxx.se/download.html",
+		"regexp": "curl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "curl-${VERSION}",
+	"urls" : [
+		"http://curl.haxx.se/download/curl-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "curl" ]
+	}
+}

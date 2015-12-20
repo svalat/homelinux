@@ -1,5 +1,5 @@
 {
-	"name": "sys-devel/ncurses",
+	"name": "dev-libs/ncurses",
 	"homepage": "https://www.gnu.org/software/ncurses/",
 	"inherit": "models/autotools",
 	"versions": [ 
