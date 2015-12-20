@@ -253,6 +253,8 @@ PackageBuilder.prototype.getVersion = function()
 		return this.pack.version;
 	else if (this.prefix.config.versions != undefined && this.prefix.config.versions[this.pack.name] != undefined)
 		this.prefix.config.versions[this.pack.name];
+	else if (this.prefix.versions[this.pack.name] != undefined)
+		return this.prefix.versions[this.pack.name][this.prefix.versions[this.pack.name].length-1];
 	else
 		return this.pack.versions[this.pack.versions.length-1];
 }

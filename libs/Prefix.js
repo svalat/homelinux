@@ -63,6 +63,9 @@ Prefix.prototype.load = function(prefix)
 	this.inherits = [];
 	for (var i in this.config.inherit)
 		this.inherit.push(new Prefix(i));
+	
+	//load version
+	this.getVersions();
 }
 
 /*******************  FUNCTION  *********************/
@@ -80,7 +83,26 @@ Prefix.prototype.getFile = function(path)
 }
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.searchInCache = function(packageName)
+Prefix.prototype.getVersions = function()
+{
+	if (this.versions == undefined)
+	{
+		var fname = this.getFile('share/homelinux/packages/db/versions.json');
+		if (fs.existsSync(fname))
+		{
+			var content = fs.readFileSync(fname);
+			this.versions = JSON.parse(content);
+		} else {
+			console.error("Please run 'hl update-db' at lease once, using known package version !");
+			this.versions = {};
+		}
+	}
+	
+	return this.versions;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.getCache = function()
 {
 	if (this.cache == undefined)
 	{
@@ -88,6 +110,14 @@ Prefix.prototype.searchInCache = function(packageName)
 		var content = fs.readFileSync(fname);
 		this.cache = JSON.parse(content);
 	}
+	
+	return this.cache;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.searchInCache = function(packageName)
+{
+	this.getCache();
 	
 	var regexp = new RegExp("/"+packageName+"$");
 	

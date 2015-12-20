@@ -12,21 +12,83 @@ var fs = require('fs');
 var compareVersion = require('compare-version');
 var cheerio = require('cheerio');
 var request = require('request');
+var Batch = require('batch')
+var PackageBuilder = require('./PackageBuilder');
 
 /*********************  CLASS  **********************/
 function VersionFetcher()
 {
-	
 }
 
 /*******************  FUNCTION  *********************/
-VersionFetcher.prototype.fetchVersions = function(pack)
+VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 {
-	console.log(pack.pack);
-	if (pack.pack.vfetcher.mode == 'ftp')
-		this.fetchVersionsFromFtp(pack);
-	else if (pack.pack.vfetcher.mode == 'http-apache-list' || pack.pack.vfetcher.mode == 'http')
-		this.fetchVersionsFromApacheHttpList(pack);
+	this.gentooDb = require(prefix.getFile('/share/homelinux/packages/db/gentoo.json'));;
+	
+	//load all
+	var packs = [];
+	var cache = prefix.getCache();
+	console.log("Loading packages....");
+	for (var p in cache)
+	{
+		if (p != '__ignore_to_skip_last_comma__')
+		{
+			console.log("  - "+p);
+			packs.push(new PackageBuilder(prefix,userConfig,p,false));
+		}
+	}
+	
+	//fetch all
+	var batch = new Batch();
+	batch.concurrency(8);
+	
+	var self = this;
+	packs.forEach(function(p) {
+		batch.push(function(done) {
+			self.fetchVersions(p,done);
+		});
+	});
+
+	batch.on('progress', function(e) {
+		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
+	});
+	
+	batch.end(function(err,datas){
+		if (err == null)
+		{
+			console.log("Finished without errors");
+			var out = {};
+			for (var i in packs)
+				out[packs[i].pack.name] = packs[i].pack.versions;
+			console.log("Writing share/homelinux/packages/db/versions.json...");
+			fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
+		} else {
+			console.log("Get error : "+err);
+		}
+	});
+}
+
+/*******************  FUNCTION  *********************/
+VersionFetcher.prototype.fetchVersions = function(pack,callback)
+{
+	var mode = pack.pack.vfetcher.mode;
+	if (mode == 'ftp')
+		this.fetchVersionsFromFtp(pack,callback);
+	else if (mode == 'http-apache-list' || mode == 'http')
+		this.fetchVersionsFromApacheHttpList(pack,callback);
+	else if (mode == 'gentoo')
+		this.fetchFromGentoo(pack,callback);
+	else
+		throw "Invalid vfetcher "+mode+", please use ftp, http or gentoo !";
+}
+
+/*******************  FUNCTION  *********************/
+VersionFetcher.prototype.fetchFromGentoo = function(pack,callback)
+{
+	for (var i in this.gentooDb)
+	{
+		this.checkFile(pack,this.gentooDb[i]);
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -38,7 +100,7 @@ function sort_unique(arr) {
 }
 
 /*******************  FUNCTION  *********************/
-VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
+VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callback)
 {
 	var self = this;
 	var lst = pack.pack.vfetcher.url;
@@ -47,7 +109,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
 
 	for (var i in lst)
 	{
-		console.log(lst[i]);
+		//console.log(lst[i]);
 		request({
 			method: 'GET',
 			url: lst[i]
@@ -58,19 +120,23 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack)
 			$ = cheerio.load(body);
 			$('a').each(function() {
 					var href = $(this).text();
-					console.log(href);
+					//console.log(href);
 					self.checkFile(pack,href);
 			});
 			
 			//sort & uniq
 			pack.pack.versions = sort_unique(pack.pack.versions);
-			console.log(pack.pack.versions);
+			console.log(pack.pack.name);
+// 			console.log(pack.pack.name+" : "+pack.pack.versions);
+			
+			if (callback != undefined)
+				callback(null,pack);
 		});
 	}
 }
 
 /*******************  FUNCTION  *********************/
-VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
+VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 {
 	var ftp = new FtpClient()
 	var self = this;
@@ -81,7 +147,7 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
 	
 	for (var j in lst)
 	{
-		console.log(lst[j]);
+		//console.log(lst[j]);
 		var vregexp = new RegExp('^ftp://([a-z0-9\.]+)/(.+)');
 		var ret = vregexp.exec(lst[j]);
 		
@@ -89,9 +155,9 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
 		var dir = ret[2];
 		
 		ftp.on('ready', function() {
-			console.log("connected to "+server+" mirror...");
+			//console.log("connected to "+server+" mirror...");
 			ftp.cwd("/"+dir,function(err, curr) {
-				console.log("move to "+ dir+", fetching list...");
+				//console.log("move to "+ dir+", fetching list...");
 				if (err) throw err;
 				ftp.list(function(err, list) {
 					if (err) throw err;
@@ -103,9 +169,13 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack)
 					
 					//sort & uniq
 					pack.pack.versions = sort_unique(pack.pack.versions);
-					console.log(pack.pack.versions);
+					console.log(pack.pack.name);
+// 					console.log(pack.pack.name+" : "+pack.pack.versions);
 					
 					ftp.end();
+					
+					if (callback != undefined)
+						callback(null,pack);
 				});
 			});
 		});
@@ -121,7 +191,7 @@ VersionFetcher.prototype.checkFile = function(pack,file)
 	var ret = regexp.exec(file);
 	if (ret != null)
 	{
-		console.log("Find version "+ret[1]);
+		//console.log("Find version "+ret[1]);
 		pack.pack.versions.push(ret[1]);
 	}
 }

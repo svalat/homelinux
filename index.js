@@ -45,12 +45,15 @@ if (command == "env")
 	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
 	packs.printList();
 } else if (command == "update-db") {
+	//gentoo db
 	var dbManager = new DbManager(prefix);
 	dbManager.fetchGentoo();
-} else if (command == "fetch-versions") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
+	//versions
 	var fetcher = new VersionFetcher();
-	fetcher.fetchVersions(pack);
+	fetcher.fetchAll(prefix,userConfig);
+} else if (command == "fetch-versions") {
+	var fetcher = new VersionFetcher();
+	fetcher.fetchAll(prefix,userConfig);
 } else if (command == "prefix-of") {
 	console.log(userConfig.config.prefix);
 } else if (command == "is-pack-installed") {

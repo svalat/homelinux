@@ -16,8 +16,14 @@ function gen()
 	echo "{"
 	find ./ -iname "*.json" | cut -d '/' -f 2-3 | while read line
 	do
-		line=$(echo $line | sed -e "s/\\.json//g")
-		echo "	\"$line\":true,"
+		case $line in
+			'cache.json'|'gentoo.json'|'versions.json')
+				;;
+			*)
+				line=$(echo $line | sed -e "s/\\.json//g")
+				echo "	\"$line\":true,"
+				;;
+		esac
 	done
 	echo "	\"__ignore_to_skip_last_comma__\":true"
 	echo "}"
