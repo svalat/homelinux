@@ -14,18 +14,20 @@ cd $HLPATH/../lib/homelinux/
 HELP="hl {COMMAND} [OPTIONS]
 
 Commands:
-	build-cache      : Rebuild the cache file to convert short 
-	                   package name to long names.
-	help             : Show this help message.
-	install          : Install the requested packages. Require package 
-	                   name as argument.
-	gen-package      : Pint generated package.
-	gen-full-package : Print fully generated package.
-	gen-install      : Generate install script to forward to bash.
-	update-db        : Sync the gentoo DB for unknown packages.
-	fetch-versions   : Fetch versions of given package (work only
-	                   for db packages.
-	env              : Setup the environement variable to load.
+	build-cache       : Rebuild the cache file to convert short 
+	                    package name to long names.
+	help              : Show this help message.
+	install           : Install the requested packages. Require package 
+	                    name as argument.
+	gen-package       : Pint generated package.
+	gen-full-package  : Print fully generated package.
+	gen-install       : Generate install script to forward to bash.
+	update-db         : Sync the gentoo DB for unknown packages.
+	fetch-versions    : Fetch versions of given package (work only
+	                    for db packages.
+	env               : Setup the environement variable to load.
+	is-pack-installed : Check if the given package is installed or not.
+	prefix-of         : Return the prefix where the package is installed or empty if not.
 "
 
 function yesno()

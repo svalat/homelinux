@@ -100,7 +100,7 @@ Prefix.prototype.searchInCache = function(packageName)
 	{
 		return packageName;
 	} else if (list.length == 1) {
-		console.error("Ok, simple name converted to : "+list[0]);
+		//console.error("Ok, simple name converted to : "+list[0]);
 		return list[0];
 	} else {
 		console.error("Failed to find your package, multiple match : "+list.concat(','));
@@ -126,7 +126,7 @@ Prefix.prototype.loadPackage = function(packageName)
 		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";
 	if (fs.existsSync(fname))
 	{
-		console.error("loading "+fname);
+		//console.error("loading "+fname);
 		var content = fs.readFileSync(fname);
 		var json = JSON.parse(content);
 		p = json;

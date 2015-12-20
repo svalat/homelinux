@@ -53,6 +53,15 @@ if (command == "env")
 	fetcher.fetchVersions(pack);
 } else if (command == "prefix-of") {
 	console.log(userConfig.config.prefix);
+} else if (command == "is-pack-installed") {
+	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
+	if (pack.isInstalled() == false)
+	{
+		console.log(process.argv[3]+" not installed");
+		process.exit(1);
+	} else {
+		console.log(process.argv[3]+" installed");
+	}
 } else {
 	console.error("Invalid command : '"+userConfig,command+"', please check --help|-h");
 }
