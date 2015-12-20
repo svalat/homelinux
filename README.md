@@ -45,6 +45,7 @@ Now you can load the configuration into your `~/.bashrc` :
 
 Before usage you need to create the cache with :
 
+	hl update-db
 	hl build-cache
 
 Basic usage
