@@ -1,5 +1,5 @@
 {
-	"prefix":"$HOME/usr",
+	"prefix":"/home/USER/usr",
 	"host":"debian8",
 	"modules": [],
 	"python": "2.7"
