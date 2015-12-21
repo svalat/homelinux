@@ -78,6 +78,94 @@ PackageBuilder.prototype.loadInherit = function(pack)
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.selectVSpecific = function()
+{
+	var version = this.getVersion();
+	this.vspecific = [];
+	if (this.pack.vspecific != undefined)
+	{
+		for (var i in this.pack.vspecific)
+		{
+			if (VersionHelper.filterVersion(this.pack,i,version))
+				this.vspecific.push(this.pack.vspecific[i]);
+		}
+	}
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.mergeSubArrays = function(orig,addition)
+{
+	if (addition == undefined)
+		return orig;
+
+	//copy
+	var final = {};
+	for (var i in orig)
+		final[i] = orig[i].slice(0);//to clone
+	
+	//merge
+	for (var i in addition)
+	{
+		if (final[i] == undefined)
+			final[i] = addition[i];
+		else
+			final[i] = final[i].concat(addition[i]);
+	}
+	
+	return final;
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getProperty = function(name)
+{
+	var ref = this.pack[name];
+	var mode = 'replace';
+	
+	//select mode
+	switch(name)
+	{
+		case 'useflags':
+			mode = 'merge-arrays';
+			break;
+		case 'configure':
+			mode = 'merge-sub-arrays';
+			break;
+		case 'deps':
+			mode = 'merge-arrays';
+			break;
+		default:
+			mode = 'replace';
+			break;
+	}
+	
+	//apply
+	var final = ref;
+	for (var i in this.vspecific)
+	{
+		var vspecific = this.vspecific[i];
+		if (vspecific[name])
+		{
+			switch(mode)
+			{
+				case 'replace':
+					final = vspecific[name];
+					break;
+				case 'merge-arrays':
+					final = final.concat(vspecific[name]);
+					break;
+				case 'merge-sub-arrays':
+					final = this.mergeSubArrays(final,vspecific[name]);
+					break;
+				default:
+					throw 'Invalid mode '+mode;
+			}
+		}
+	}
+	
+	return final;
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.hasUseFlags = function(value)
 {
 	//if not use flags defined, default is enable
@@ -85,7 +173,7 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 		return true;
 
 	//get global use flag
-	var local = this.pack.useflags;
+	var local = this.getProperty('useflags');
 	var global = this.prefix.config.useflags[""];
 	var pack = this.prefix.config.useflags[this.pack.name];
 	
@@ -128,10 +216,11 @@ PackageBuilder.prototype.applyUseFlags = function(value)
 PackageBuilder.prototype.buildOptions = function()
 {
 	var opts = [];
-	for (var i in this.pack.configure)
+	var configure = this.getProperty('configure');
+	for (var i in configure)
 		if (this.applyUseFlags(i))
-			for (var j in this.pack.configure[i])
-				opts.push(this.pack.configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable').replace('$with',this.hasUseFlags(i)?'with':'without'))
+			for (var j in configure[i])
+				opts.push(configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable').replace('$with',this.hasUseFlags(i)?'with':'without'))
 	
 	return opts.join(' ');
 }
@@ -199,10 +288,36 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 	if (this.hints == undefined)
 		return;
 	
-	var missing = [];
-// 	console.log(this.hints);
-// 	for (var i in this.hints)
-// 		console.error("Need to check "+this.hints[i].iuse);
+	var err = [];
+	console.log(this.hints);
+	if (this.hints != undefined)
+	{
+		for (var i in this.hints)
+		{
+			console.error("Check iuse for "+this.pack.name);
+			if (this.hints[i].iuse != undefined)
+			{
+				var flags = this.hints[i].iuse.replace('[','').replace(']','').split(',');
+				for (var i in flags)
+				{
+					var f = flags[i];
+					console.error("Check "+f);
+					if (f[0] == '-' && this.hasUseFlags(f.substring(1)))
+						err.push(f);
+					else if (f[0] == '+' && !this.hasUseFlags(f.substring(1)))
+						err.push(f);
+					else if (!this.hasUseFlags(f))
+						err.push(f);
+				}
+			}
+		}
+	}
+	
+	if (err.length > 0)
+	{
+		console.error("Package "+this.pack.name+" has some missing useflags properties to match dependencies : "+err);
+		process.exit(1);
+	}
 }
 
 /*******************  FUNCTION  *********************/

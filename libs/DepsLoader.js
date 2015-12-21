@@ -60,11 +60,12 @@ DepsLoader.prototype.needLoadDep = function(dep)
 DepsLoader.prototype.loadDeps = function(pack)
 {
 	this.sched.push(pack.pack.name);
-	if (pack.pack.deps != undefined)
+	var deps = pack.getProperty('deps');
+	if (deps != undefined)
 	{
-		for (var j in pack.pack.deps)
+		for (var j in deps)
 		{
-			var dep = this.needLoadDep(pack.pack.deps[j])
+			var dep = this.needLoadDep(deps[j])
 			
 			if (dep.use == null || pack.hasUseFlags(dep.use))
 			{
@@ -100,6 +101,7 @@ DepsLoader.prototype.searchVersions = function()
 	{
 		this.packages[i].checkUseFlagHints();
 		this.packages[i].applyVersionHints();
+		this.packages[i].selectVSpecific();
 	}
 }
 
@@ -133,9 +135,9 @@ DepsLoader.prototype.printList = function()
 	{
 		var p = this.packages[this.sched[i]];
 		if (p.pack.present != undefined)
-			console.log(this.sched[i]+"-"+p.getVersion()+" ["+p.pack.present+"]");
+			console.log(this.sched[i]+":"+p.getSlot(p.getVersion())+"-"+p.getVersion()+" ["+p.pack.present+"]");
 		else
-			console.log(this.sched[i]+"-"+p.getVersion());
+			console.log(this.sched[i]+":"+p.getSlot(p.getVersion())+"-"+p.getVersion());
 	}
 	console.log("-----------------------INSTALLED--------------------------");
 	for (var i in this.packages)

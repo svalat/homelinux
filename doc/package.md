@@ -38,7 +38,7 @@ Example
 			"make",
 			"gcc > 3.4 < 4.8 ! 4.5.8",
 			"install = 4.5",
-			"curses? curses:4[+shell,-gui] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+"
+			"curses? curses:4[+shell,-gui,lst] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+"
 		],
 		"host": {
 			"default": true,
