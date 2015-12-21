@@ -124,4 +124,19 @@ you might want to use `default` and override the required steps.
  * *slots* : You can provide a list of values or regular expression with capture to extract part of the 
  package version and generate a slot name. It helps to install mulitple version of the package limiting
  the checking to a sub-part of the version numbers.
+
+About version filtering
+-----------------------
+
+On various part of the file you can filter version, the syntax is (do not add spaces between operator and value) :
+
+ * `~REGEXP`
+ * `>VERSION`
+ * `>=VERSION`
+ * `<VERSION`
+ * `<=VERSION`
+ * `!VERSION`
+ * `=VERSION`
+ * `:SLOT`
  
+Remark that it is defined as a string and spaces between groups of operator and values are replaced by AND operator.
