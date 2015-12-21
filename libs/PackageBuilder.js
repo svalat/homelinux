@@ -376,14 +376,21 @@ PackageBuilder.prototype.genScript = function()
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getVersion = function()
 {
+	var ret;
 	if (this.pack.version != undefined)
-		return this.pack.version;
+		ret = this.pack.version;
 	else if (this.prefix.config.versions != undefined && this.prefix.config.versions[this.pack.name] != undefined)
-		this.prefix.config.versions[this.pack.name];
+		ret = this.prefix.config.versions[this.pack.name];
 	else if (this.prefix.versions[this.pack.name] != undefined)
-		return this.prefix.versions[this.pack.name][this.prefix.versions[this.pack.name].length-1];
+		ret = this.prefix.versions[this.pack.name][this.prefix.versions[this.pack.name].length-1];
 	else
-		return this.pack.versions[this.pack.versions.length-1];
+		ret = this.pack.versions[this.pack.versions.length-1];
+	if (ret == undefined)
+	{
+		console.error(this.hints);
+		throw "Fail to find version for package "+this.pack.name+" dep requirement might be too strict and eliminate all possibilities !";
+	}
+	return ret;
 }
 
 /*******************  FUNCTION  *********************/
