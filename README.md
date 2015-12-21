@@ -10,6 +10,13 @@ The main use case if a user (or developper) running into a non root environnemen
 to install into the system. Thanks to HomeLinux you can handle the installation of the source package by checking the dependencies
 available on the current system and automatically installing the missing one.
 
+The goal is to provide a quick access to the latest version available for all packaging without regarding on the stability.
+It make HomeLinux an interesting tool to test usage of all up-to-date version of packages together to find new build issues.
+
+Another usage of HomeLinux can be for HPC datacenters to build quicly some fixed prefix to provide new version to the userse without
+changing the operating system. Thanks to HomeLinux it is easier to build a new prefix with updated version in another directory
+and making the user moving slowly to new versions.
+
 Pre-requist
 -----------
 

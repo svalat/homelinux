@@ -111,6 +111,7 @@ DepsLoader.prototype.buildSched = function()
 	for (var i in s)
 		if (sched.indexOf(s[i]) == -1)
 			sched.push(s[i]);
+	this.sched = sched;
 }
 
 /*******************  FUNCTION  *********************/
