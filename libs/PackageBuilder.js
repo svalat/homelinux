@@ -10,7 +10,7 @@
 var jso = require('json-override');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
-var compareVersion = require('compare-version');
+var VersionHelper = require('./VersionHelper');
 
 /*********************  CLASS  **********************/
 function PackageBuilder(prefix,userConfig,packageName,inherit)
@@ -162,20 +162,7 @@ PackageBuilder.prototype.getPatchList = function(version)
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getSlot = function(version)
 {
-	//search slot
-	if (this.pack.slots != undefined)
-	{
-		for (var i in this.pack.slots)
-		{
-			var regexp = new RegExp(this.pack.slots[i]);
-			var ret = regexp.exec(version);
-			if (ret != null)
-				return ret[1];
-		}
-	}
-
-	//no slot
-	return '0';
+	return VersionHelper.getSlot(this.pack,version);
 }
 
 /*******************  FUNCTION  *********************/
@@ -192,102 +179,17 @@ PackageBuilder.prototype.isInstalled = function()
 }
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.applyVersionOp = function(op,version)
-{
-	var cnt = 1;
-	var operator = op[0];
-	if (op[1] == '=')
-	{
-		cnt++;
-		operator += '=';
-	}
-	var operand = op.substring(cnt);
-	
-	var ret;
-	switch(operator)
-	{
-		case '<=':
-			var tmp = compareVersion(version,operand);
-			return (tmp == 0 || tmp == -1);
-			break;
-		case '<':
-			ret = (compareVersion(version,operand) == -1);
-			break;
-		case '<=':
-			var tmp = compareVersion(version,operand);
-			return (tmp == 0 || tmp == 1);
-			break;
-		case '>':
-			ret = (compareVersion(version,operand) == 1);
-			break;
-		case '=':
-			ret = (compareVersion(version,operand) == 0);
-			break;
-		case '!':
-			ret = (compareVersion(version,operand) != 0);
-			break;
-		case '~':
-			var regexp = new RegExp(operand);
-			return regexp.test(version);
-			break;
-		default:
-			throw "Invalid operator "+ operator;
-			break;
-	}
-	
-	//console.error("Apply "+operator +" on "+operand+" and "+version+" => "+ret);
-	return ret;
-}
-
-/*******************  FUNCTION  *********************/
-PackageBuilder.prototype.filterVersions = function(list,rules)
-{
-	if (rules == undefined)
-		return list;
-	
-	//split and trim
-	var rulesArray = rules.split(' ');
-	for (var j in rulesArray)
-		rulesArray[j] = rulesArray[j].trim();
-	
-	var ret = [];
-	for (var i in list)
-	{
-		var operator = '';
-		var operand = '';
-		var status = true;
-		for (var j in rulesArray)
-		{
-			if (rulesArray[j] != '')
-			{
-				if (!this.applyVersionOp(rulesArray[j],list[i]))
-				{
-					status = false;
-					break;
-				}
-			}
-		}
-		if (status)
-			ret.push(list[i]);
-	}
-	
-	return ret;
-}
-
-/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.applyVersionHints = function()
 {
 	if (this.hints == undefined)
 		return;
-	
-	
-	
+
 	for (var i in this.hints)
 	{
 		if (this.prefix.versions[this.pack.name] != undefined)
-			this.prefix.versions[this.pack.name] = this.filterVersions(this.prefix.versions[this.pack.name],this.hints[i].version);
+			this.prefix.versions[this.pack.name] = VersionHelper.filterVersions(this.hints[i].version,this.prefix.versions[this.pack.name]);
 		if (this.pack.versions != undefined)
-			return this.pack.versions = this.filterVersions(this.pack.versions,this.hints[i].version);
+			return this.pack.versions = VersionHelper.filterVersions(this.hints[i].version,this.pack.versions);
 	}
 }
 
