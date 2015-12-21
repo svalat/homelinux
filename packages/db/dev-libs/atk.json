@@ -1,0 +1,36 @@
+{
+	"name": "dev-libs/atk",
+	"homepage": "https://wiki.gnome.org/Accessibility",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.18.0" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://git.gnome.org/browse/atk",
+		"regexp": "atk-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "ATK_$(echo ${VERSION} | sed -e 's/\\./_/g')",
+	"urls" : [
+		"https://git.gnome.org/browse/atk/snapshot/ATK_$(echo ${VERSION} | sed -e 's/\\./_/g').tar.xz"
+	],
+	"deps": [
+		"dev-util/gtk-doc",
+		"sys-devel/libtool",
+		"sys-devel/automake",
+		"sys-devel/autoconf"
+	],
+	"configure": {
+		"": [
+			"$(hl_with glib dev-cpp/glib)"
+		]
+	},
+	"steps": {
+		"configure": [ "hl_configure_autotools_autogen" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "atk" ]
+	}
+}

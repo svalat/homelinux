@@ -128,6 +128,8 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 			this.fetchFromGentoo(pack,callback);
 		else if (mode == 'http-gnome-cache')
 			this.fetchFromGnomeCache(pack,callback);
+		else if (mode == 'none')
+			callback();
 		else
 			throw "Invalid vfetcher "+mode+", please use ftp, http or gentoo !";
 	} catch (e) {

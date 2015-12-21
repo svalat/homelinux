@@ -1,0 +1,27 @@
+{
+	"name": "dev-libs/libatomic_ops",
+	"homepage": "https://github.com/ivmai/libatomic_ops/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"7.4.2" 
+	],
+	"vfetcher": {
+		"mode": "none",
+		"url": "",
+		"regexp": "gc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "libatomic_ops-libatomic_ops-$(echo $VERSION | sed -e 's/\\./_/g')",
+	"urls" : [
+		"https://github.com/ivmai/libatomic_ops/archive/libatomic_ops-$(echo $VERSION | sed -e 's/\\./_/g').tar.gz"
+	],
+	"deps": [
+	],
+	"steps": {
+		"configure": [ "hl_configure_autotools_autogen" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": false
+	}
+}

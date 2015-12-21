@@ -1,0 +1,26 @@
+{
+	"name": "sci-libs/gsl",
+	"homepage": "https://www.gnu.org/software/gsl/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.16" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "http://mirror0.babylon.network/gnu/gsl/",
+		"regexp": "^gsl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz$"
+	},
+	"md5" : {},
+	"subdir": "gsl-${VERSION}",
+	"urls" : [
+		"http://mirror0.babylon.network/gnu/gsl/gsl-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libgsl0-dev" ]
+	}
+}

@@ -92,6 +92,20 @@ You can use the given commands to install search or sync your repos :
 	hl gen-install gentoo/htop
 ```
 
+What it setup
+-------------
+
+Currently HomeLinux setup the environenement variables for you to fully configure the prefix : 
+
+ * `PATH`
+ * `LD_LIBRARY_PATH`
+ * `CPATH`
+ * `PERL5LIB`
+ * `PYTHONPATH`
+ * `PKG_CONFIG_PATH`
+ * `MANPATH`
+ * `MODULEPATH`
+
 Create packages
 ---------------
 

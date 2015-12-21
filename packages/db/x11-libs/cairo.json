@@ -23,7 +23,7 @@
 		"media-libs/freetype"
 	],
 	"configure": {
-		"": [ "--enable-ft" ]
+		"": [ "--enable-ft", "--enable-xlib", "--enable-tee", "--enable-xlib-xrender" ]
 	},
 	"host": {
 		"default": false,

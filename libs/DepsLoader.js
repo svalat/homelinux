@@ -72,7 +72,7 @@ DepsLoader.prototype.loadDeps = function(pack)
 				
 				if (this.packages[p.pack.name] != undefined) {
 					console.error(pack.pack.name + " already provided by host, not installed as deps");
-					if (this.packages[p.pack.name].pack.present != 'already-installed' && this.packages[p.pack.name].present != 'use-host')
+					if (this.packages[p.pack.name].pack.present != 'already-installed' && this.packages[p.pack.name].pack.present != 'use-host')
 						this.loadDeps(p);
 				} else {
 					this.packages[p.pack.name] = p;

@@ -1,0 +1,39 @@
+{
+	"name": "media-libs/fontconfig",
+	"homepage": "http://fontconfig.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.11.94" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.freedesktop.org/software/fontconfig/release/",
+		"regexp": "fontconfig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "fontconfig-${VERSION}",
+	"urls" : [
+		"http://www.freedesktop.org/software/fontconfig/release/fontconfig-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/expat",
+		"media-libs/freetype",
+		"virtual/pkgconfig",
+		"doc? app-text/docbook-sgml-dtd",
+		"doc? app-text/docbook-sgml-utils[jadetex]"
+	],
+	"configure": {
+		"": [
+			"--enable-docs",
+			"--localstatedir=${PREFIX}/var",
+			"--with-default-fonts=${PREFIX}/usr/share/fonts",
+			"--with-add-fonts=${PREFIX}/usr/local/share/fonts,/usr/share/fonts",
+			"--with-templatedir=${PREFIX}/etc/fonts/conf.avail"
+		],
+		"doc": [ "--$enable-doc", "--$enable-docbook" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "fontconfig" ]
+	}
+}

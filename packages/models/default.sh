@@ -259,7 +259,7 @@ function hl_configure_auto()
 function hl_configure_autotools_autogen()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
-	run ./autogen.sh
+	run ./autogen.sh --prefix=$PREFIX $BUILD_OPTIONS
 	hl_configure_autotools
 }
 

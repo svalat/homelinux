@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index 7e4142b..2881823 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -144,7 +144,7 @@ AC_ARG_WITH(glib,
+ 	[AS_HELP_STRING([--with-glib=@<:@yes/no/auto@:>@],
+ 			[Use glib @<:@default=auto@:>@])],,
+ 	[with_glib=auto])
+-have_glib=false
++have_glib=true
+ GLIB_DEPS="glib-2.0 >= 2.16"
+ AC_SUBST(GLIB_DEPS)
+ if test "x$with_glib" = "xyes" -o "x$with_glib" = "xauto"; then
+@@ -317,7 +317,7 @@ AC_ARG_WITH(freetype,
+ 	[AS_HELP_STRING([--with-freetype=@<:@yes/no/auto@:>@],
+ 			[Use the FreeType library @<:@default=auto@:>@])],,
+ 	[with_freetype=auto])
+-have_freetype=false
++have_freetype=true
+ FREETYPE_DEPS="freetype2 >= 12.0.6"
+ AC_SUBST(FREETYPE_DEPS)
+ if test "x$with_freetype" = "xyes" -o "x$with_freetype" = "xauto"; then

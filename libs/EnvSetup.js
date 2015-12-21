@@ -19,6 +19,7 @@ function EnvSetup(userConfig)
 		'PERL5LIB':process.env.PATH,
 		'PKG_CONFIG_PATH':process.env.PATH,
 		'MODULEPATH':process.env.MODULEPATH,
+		'PYTHONPATH':process.env.PYTHONPATH
 	};
 }
 

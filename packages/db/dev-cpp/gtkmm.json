@@ -1,0 +1,26 @@
+{
+	"name": "dev-cpp/gtkmm",
+	"homepage": "http://www.gtkmm.org",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.24.4" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/gtkmm/cache.json",
+		"regexp": "^gtkmm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "gtkmm-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/pub/gnome/sources/gtkmm/$(echo $VERSION | cut -d '.' -f 1-2)/gtkmm-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-cpp/pangomm",
+		"x11-libs/gtk+"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libgtkmm-2.4-dev" ]
+	}
+}

@@ -16,12 +16,19 @@
 		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/inkscape-${VERSION}.tar.bz2"
 	],
 	"deps": [
+		"app-text/poppler[cairo]",
 		"dev-util/intltool",
 		"sys-devel/gettext",
 		"dev-util/pkgconfig",
 		"media-libs/freetype",
 		"dev-cpp/cairomm",
-		"dev-cpp/glibmm"
+		"dev-cpp/glibmm",
+		"sci-libs/gsl",
+		"dev-libs/bohem-gc",
+		"dev-libs/libxml2",
+		"dev-libs/libxslt",
+		"x11-libs/pango",
+		"dev-cpp/gtkmm"
 	],
 	"configure": {
 		"": [ "--disable-lcms" ]

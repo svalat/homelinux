@@ -1,0 +1,27 @@
+{
+	"name": "dev-util/gtk-doc",
+	"homepage": "http://www.gtk.org/gtk-doc/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.24" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "https://download.gnome.org/sources/gtk-doc//cache.json",
+		"regexp": "gtk-doc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
+	},
+	"md5" : {},
+	"subdir": "gtk-doc-$VERSION",
+	"urls" : [
+		"https://download.gnome.org/sources/gtk-doc/$(echo $VERSION | cut -d '.' -f 1-2)/gtk-doc-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-util/itstool"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "gtk-doc-tools" ]
+	}
+}
