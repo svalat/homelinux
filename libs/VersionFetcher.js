@@ -21,6 +21,16 @@ function VersionFetcher()
 }
 
 /*******************  FUNCTION  *********************/
+VersionFetcher.prototype.saveAll = function(prefix,packs)
+{
+	var out = {};
+	for (var i in packs)
+		out[packs[i].pack.name] = packs[i].pack.versions;
+	console.log("Writing share/homelinux/packages/db/versions.json...");
+	fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
+}
+
+/*******************  FUNCTION  *********************/
 VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 {
 	this.gentooDb = require(prefix.getFile('/share/homelinux/packages/db/gentoo.json'));;
@@ -52,24 +62,14 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 	batch.on('progress', function(e) {
 		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
 		if (e.complete == e.total - 1)
-		{
-			var out = {};
-			for (var i in packs)
-				out[packs[i].pack.name] = packs[i].pack.versions;
-			console.log("Writing share/homelinux/packages/db/versions.json...");
-			fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
-		}
+			self.saveAll(prefix,packs);
 	});
 	
 	batch.end(function(err,datas){
 		if (err == null)
 		{
 			console.log("Finished without errors");
-			var out = {};
-			for (var i in packs)
-				out[packs[i].pack.name] = packs[i].pack.versions;
-			console.log("Writing share/homelinux/packages/db/versions.json...");
-			fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
+			self.saveAll(prefix,packs);
 		} else {
 			console.log("Get error : "+err);
 		}
