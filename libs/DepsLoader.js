@@ -34,7 +34,23 @@ function DepsLoader(prefix,userConfig,packageList)
 }
 
 /*******************  FUNCTION  *********************/
-DepsLoader.prototype
+DepsLoader.prototype.needLoadDep = function(dep)
+{
+	if (dep.indexOf('?') == -1)
+	{
+		var regexp = new RegExp("([0-9a-zA-Z_/-]+)( .+)?");
+		var ret = regexp.exec(dep);
+		if (ret == null)
+			throw "Invalid format";
+		return {name:ret[1],use:null};
+	} else {
+		var regexp = new RegExp("([a-zA-Z0-9-_]+)\\? ([0-9a-zA-Z_/-]+)( .+)?");
+		var ret = regexp.exec(dep);
+		if (ret == null)
+			throw "Invalid format";
+		return {name:ret[2],use:ret[1]};
+	}
+}
 
 /*******************  FUNCTION  *********************/
 DepsLoader.prototype.loadDeps = function(pack)
@@ -44,20 +60,25 @@ DepsLoader.prototype.loadDeps = function(pack)
 	{
 		for (var j in pack.pack.deps)
 		{
-			var p = new PackageBuilder(this.prefix,this.userConfig,pack.pack.deps[j]);
-			if (this.packages[p.pack.name] != undefined) {
-				console.error(pack.pack.name + " already provided by host, not installed as deps");
-			} else if (p.isInstalled()) {
-				p.pack.present = 'already-installed';
-				this.packages[p.pack.name] = p;
-			} else if (this.presentOnSystem(p)) {
-				p.pack.present = 'use-host';
-				this.packages[p.pack.name] = p;
-			} else if (this.packages[p.pack.name] == undefined) {
-				this.packages[p.pack.name] = p;
-				this.loadDeps(p);
-			} else {
-				console.error(pack.pack.name + " already provided by host, not installed as deps");
+			var dep = this.needLoadDep(pack.pack.deps[j])
+			
+			if (dep.use == null || pack.hasUseFlags(dep.use))
+			{
+				var p = new PackageBuilder(this.prefix,this.userConfig,dep.name);
+				if (this.packages[p.pack.name] != undefined) {
+					console.error(pack.pack.name + " already provided by host, not installed as deps");
+				} else if (p.isInstalled()) {
+					p.pack.present = 'already-installed';
+					this.packages[p.pack.name] = p;
+				} else if (this.presentOnSystem(p)) {
+					p.pack.present = 'use-host';
+					this.packages[p.pack.name] = p;
+				} else if (this.packages[p.pack.name] == undefined) {
+					this.packages[p.pack.name] = p;
+					this.loadDeps(p);
+				} else {
+					console.error(pack.pack.name + " already provided by host, not installed as deps");
+				}
 			}
 		}
 	}

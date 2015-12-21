@@ -78,13 +78,20 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 		return true;
 
 	//get global use flag
+	var local = this.pack.useflags;
 	var global = this.prefix.config.useflags[""];
 	var pack = this.prefix.config.useflags[this.pack.name];
 	
-	//apply global
+	//apply local
 	var status = false;
+	if (local != undefined && (local.indexOf(value) != -1 || local.indexOf('+'+value) != -1))
+		status = true;
+	
+	//apply global
 	if (global != undefined && (global.indexOf(value) != -1 || global.indexOf('+'+value) != -1))
 		status = true;
+	else if (global != undefined && global.indexOf('-'+value) != -1)
+		status = false;
 	
 	//apply package
 	if (pack != undefined && (pack.indexOf(value) != -1 || pack.indexOf('+'+value) != -1))

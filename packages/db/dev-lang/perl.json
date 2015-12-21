@@ -1,0 +1,30 @@
+{
+	"name": "dev-lang/perl",
+	"homepage": "https://www.perl.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"5.20.3" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.cpan.org/src/README.html",
+		"regexp": "^perl-([0-9]+\\.[0-9]+\\.[0-9]+).tar.gz$"
+	},
+	"md5" : {},
+	"subdir": "perl-${VERSION}",
+	"urls" : [
+		"http://www.cpan.org/src/5.0/perl-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"steps": {
+		"configure": [
+			"run_sh cd ${HL_TEMP}/${SUBDIR}",
+			"run sh Configure -de -Dprefix=${PREFIX}"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "perl" ]
+	}
+}

@@ -38,7 +38,7 @@ Example
 			"make",
 			"gcc > 3.4 < 4.8 ! 4.5.8",
 			"install = 4.5",
-			"curses[+shell,-gui] > 3.4 < 4.8 ! 4.5.8"
+			"curses? curses:4[+shell,-gui] > 3.4 < 4.8 ! 4.5.8"
 		],
 		"host": {
 			"default": true,
@@ -72,7 +72,8 @@ Example
 		"slots": [
 			"^([0-9]+\\.[0-9]+)"
 		]
-		"conflict": [ "nodejs-bin" ]
+		"conflict": [ "nodejs-bin" ],
+		"useflags": [ "-debug", "+expat" ]
 	}
 ```
 

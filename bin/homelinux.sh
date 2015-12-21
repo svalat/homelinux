@@ -59,7 +59,10 @@ case "$1" in
 		shift 1
 		node index.js install-ls "$@"
 		yesno
-		node index.js gen-install "$@" | bash
+		fname=$(tempfile)
+		node index.js gen-install "$@" > $fname
+		bash $fname
+		rm $fname
 		;;
 	"env")
 		node index.js env

@@ -83,7 +83,15 @@ function run_sh()
 
 function hl_with()
 {
-	echo "--with-$1=$HL_PREFIX"
+	if [ "$1" = "with" ]; then
+		shift 1
+		echo "--with-$1=$HL_PREFIX"
+	elif [ "$1" = "without" ]; then
+		shift 1
+		echo "--without-$1=$HL_PREFIX"
+	else
+		echo "--with-$1=$HL_PREFIX"
+	fi
 }
 
 #setup temps

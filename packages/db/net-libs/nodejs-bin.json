@@ -1,5 +1,5 @@
 {
-	"name": "net-libs/nodejs",
+	"name": "net-libs/nodejs-bin",
 	"homepage": "https://nodejs.org",
 	"inherit": "models/autotools",
 	"versions": [ 

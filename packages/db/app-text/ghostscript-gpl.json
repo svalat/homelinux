@@ -1,0 +1,24 @@
+{
+	"name": "app-text/ghostscript-gpl",
+	"homepage": "http://ghostscript.com/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"9.18"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ghostscript.com/Releases.html",
+		"regexp": "GPL Ghostscript ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "ghostscript-${VERSION}",
+	"urls" : [
+		"http://downloads.ghostscript.com/public/ghostscript-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "ghostscript" ]
+	}
+}

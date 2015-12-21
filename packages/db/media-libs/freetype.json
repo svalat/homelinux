@@ -1,0 +1,26 @@
+{
+	"name": "media-libs/freetype",
+	"homepage": "http://www.freetype.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.6.2" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.savannah.gnu.org/releases/freetype/",
+		"regexp": "freetype-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "freetype-${VERSION}",
+	"urls" : [
+		"http://download.savannah.gnu.org/releases/freetype//freetype-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libfreetype6","libfreetype6-dev" ]
+	}
+}
