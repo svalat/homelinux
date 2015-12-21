@@ -21,7 +21,10 @@ function DepsLoader(prefix,userConfig,packageList)
 	for (var i in packageList)
 	{
 		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
-		this.packages[p.pack.name] = p;
+		if (this.packages[p.pack.name] == undefined)
+			this.packages[p.pack.name] = p;
+		else
+			p = this.packages[p.pack.name];
 		if (this.presentOnSystem(p))
 			p.pack.present = 'override-system';
 		if (p.isInstalled())
@@ -31,6 +34,7 @@ function DepsLoader(prefix,userConfig,packageList)
 	
 	//sched
 	this.buildSched();
+	this.searchVersions();
 }
 
 /*******************  FUNCTION  *********************/
@@ -38,17 +42,17 @@ DepsLoader.prototype.needLoadDep = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
-		var regexp = new RegExp("([0-9a-zA-Z+_/-]+)( .+)?");
+		var regexp = new RegExp("([0-9a-zA-Z+_/-]+)(\\[[0-9A-Za-z_+,-]+\\])?( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
-			throw "Invalid format";
-		return {name:ret[1],use:null};
+			throw "Invalid format "+dep;
+		return {name:ret[1],use:null,iuse:ret[2],version:ret[3]};
 	} else {
-		var regexp = new RegExp("([a-zA-Z0-9-_+]+)\\? ([0-9a-zA-Z_/-]+)( .+)?");
+		var regexp = new RegExp("([a-zA-Z0-9-_+]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z_+,-]+\\])?( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
-			throw "Invalid format";
-		return {name:ret[2],use:ret[1]};
+			throw "Invalid format "+dep;
+		return {name:ret[2],use:ret[1],iuse:ret[3],version:ret[4]};
 	}
 }
 
@@ -65,22 +69,37 @@ DepsLoader.prototype.loadDeps = function(pack)
 			if (dep.use == null || pack.hasUseFlags(dep.use))
 			{
 				var p = new PackageBuilder(this.prefix,this.userConfig,dep.name);
+				
 				if (this.packages[p.pack.name] != undefined) {
 					console.error(pack.pack.name + " already provided by host, not installed as deps");
-				} else if (p.isInstalled()) {
-					p.pack.present = 'already-installed';
-					this.packages[p.pack.name] = p;
-				} else if (this.presentOnSystem(p)) {
-					p.pack.present = 'use-host';
-					this.packages[p.pack.name] = p;
-				} else if (this.packages[p.pack.name] == undefined) {
-					this.packages[p.pack.name] = p;
-					this.loadDeps(p);
+					if (this.packages[p.pack.name].pack.present != 'already-installed' && this.packages[p.pack.name].present != 'use-host')
+						this.loadDeps(p);
 				} else {
-					console.error(pack.pack.name + " already provided by host, not installed as deps");
+					this.packages[p.pack.name] = p;
+					if (p.isInstalled())
+						p.pack.present = 'already-installed';
+					else if (this.presentOnSystem(p))
+						p.pack.present = 'use-host';
+					else
+						this.loadDeps(p);
 				}
+				
+				//apply vhints
+				if (this.packages[p.pack.name].hints == undefined)
+					this.packages[p.pack.name].hints = [];
+				this.packages[p.pack.name].hints.push(dep);
 			}
 		}
+	}
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.searchVersions = function()
+{
+	for (var i in this.packages)
+	{
+		this.packages[i].checkUseFlagHints();
+		this.packages[i].applyVersionHints();
 	}
 }
 
@@ -161,7 +180,7 @@ DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 	{
 		try {
 			//console.error("Check with dpkg "+h[i]);
-			var res = child_process.execSync('dpkg -s '+h[i]);
+			var res = child_process.execSync('dpkg -s '+h[i]+' 2> /dev/null');
 		} catch (e) {
 			return false;
 		}

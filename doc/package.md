@@ -38,7 +38,7 @@ Example
 			"make",
 			"gcc > 3.4 < 4.8 ! 4.5.8",
 			"install = 4.5",
-			"curses? curses:4[+shell,-gui] > 3.4 < 4.8 ! 4.5.8"
+			"curses? curses:4[+shell,-gui] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+"
 		],
 		"host": {
 			"default": true,
@@ -61,7 +61,7 @@ Example
 					"": [ "--enable-bugfix" ]
 				}
 			},
-			"> 4.2 < 4.8": {
+			">3.4 <4.8 !4.5.8 ~4\\.5\\.[0-9]+": {
 				"configure": {
 					"": [ "!--enable-bugfix" ]
 				}
@@ -70,11 +70,15 @@ Example
 		"steps": {
 			"test": []
 		},
-		"slots": [
-			"^([0-9]+\\.[0-9]+)"
-		]
+		"slots": {
+			"~": "~^([0-9]+\\.[0-9]+)",
+			"2.5": ">=2.5.0 <=2.6.0"
+		}
 		"conflict": [ "nodejs-bin" ],
-		"useflags": [ "-debug", "+expat" ]
+		"useflags": [ "-debug", "+expat" ],
+		"warn": [
+			"Some warning to print (NOT YET SUPPORTED)"
+		]
 	}
 ```
 

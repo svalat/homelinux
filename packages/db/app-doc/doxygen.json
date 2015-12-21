@@ -15,8 +15,11 @@
 	"urls" : [
 		"ftp://ftp.stack.nl/pub/users/dimitri/doxygen-${VERSION}.src.tar.gz"
 	],
+	"warn": [
+		"Remove flex 2.6.0 when new versions comes"
+	],
 	"deps": [
-		"sys-devel/flex",
+		"sys-devel/flex <2.6.0",
 		"app-text/ghostscript-gpl",
 		"dev-lang/perl",
 		"media-libs/libpng",
@@ -34,11 +37,11 @@
 		"debian8": [ "doxygen" ]
 	},
 	"configure": {
-		"+debug": [ "--debug" ],
-		"-debug": [ "--release" ],
-		"+doxysearch": [ "--with-doxysearch" ],
-		"+qt4": [ "--with-doxywizard" ],
-		"+sqlite": [ "--with-sqlite3" ]
+		"+debug": [ "-DCMAKE_BUILD_TYPE=Debug" ],
+		"-debug": [ "-DCMAKE_BUILD_TYPE=Release" ],
+		"doxysearch": [ "$(hl_cmake_with $with doxysearch)" ],
+		"qt4": [ "$(hl_cmake_with $with doxywizard)" ],
+		"sqlite": [ "$(hl_cmake_with $with sqlite3)" ]
 	},
 	"useflags": [
 		"-libiconv",

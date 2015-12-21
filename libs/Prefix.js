@@ -152,7 +152,7 @@ Prefix.prototype.loadPackage = function(packageName)
 	
 	//load path
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
-	console.error(fname);
+	//console.error(fname);
 	var p;
 	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
 		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";

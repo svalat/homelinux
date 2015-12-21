@@ -82,6 +82,20 @@ function run_sh()
 	"$@"
 }
 
+function hl_cmake_with()
+{
+	if [ "$1" = "with" ]; then
+		shift 1
+		echo "-DWITH_$1=ON"
+	elif [ "$1" = "without" ]; then
+		shift 1
+		echo "-DWITH_$1=OFF"
+	else
+		echo "-DWITH_$1=ON"
+	fi
+}
+
+
 function hl_with()
 {
 	if [ "$1" = "with" ]; then
