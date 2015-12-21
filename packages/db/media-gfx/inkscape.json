@@ -1,0 +1,33 @@
+{
+	"name": "media-gfx/inkscape",
+	"homepage": "http://www.inkscape.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.91" 
+	],
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
+		"regexp": "^inkscape-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2$"
+	},
+	"md5" : {},
+	"subdir": "inkscape-${VERSION}",
+	"urls" : [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/inkscape-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-util/intltool",
+		"sys-devel/gettext",
+		"dev-util/pkgconfig",
+		"media-libs/freetype",
+		"dev-cpp/cairomm",
+		"dev-cpp/glibmm"
+	],
+	"configure": {
+		"": [ "--disable-lcms" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "inkscape" ]
+	}
+}

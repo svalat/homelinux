@@ -23,6 +23,13 @@ function EnvSetup(userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+EnvSetup.prototype.enableCCache = function()
+{
+	if (this.userConfig.config.ccache)
+		this.prepend('PATH',this.userConfig.config.prefix + "/bin/ccache-links");
+}
+
+/*******************  FUNCTION  *********************/
 EnvSetup.prototype.prepend = function(varname,value,sep)
 {
 	//select

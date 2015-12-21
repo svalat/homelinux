@@ -12,6 +12,7 @@
 #HL_PACKAGES : Path to homelinux packages directory
 #HL_MAKEOPTS : Options for make
 #HL_PREFIX : the prefix in use
+#HL_HOMECACHE : Enable usage of homecache in ~/.homelinux/cache to avoid redownloading if removing prefix
 #NAME : name of packaged (used to build tmp dir)
 #SHORT_NAME: base name of the package
 #VERSION : version of package to install
@@ -120,24 +121,53 @@ function hl_github_download()
 
 function hl_download_internal()
 {
+	#get filename
 	case "${url}" in
 		http://*|ftp://*|https://*|sftp://*)
 			ARCHIVE=$(basename ${url})
-			run wget -c "${url}" || return 1
 			;;
 		github://*/*)
 			ARCHIVE=$SHORT_NAME-$VERSION.tar.gz
+			;;
+		sourceforge://*/*)
+			ARCHIVE=$(basename ${url})
+			;;
+		*)
+			die "Invalid url type : $url"
+			;;
+	esac
+
+	#cache
+	if [ "$HL_HOMECACHE" = 'true' ] && [ -f $HOME/.homelinux/cache/$ARCHIVE ] ; then
+		ln -sf $HOME/.homelinux/cache/$ARCHIVE $ARCHIVE
+		return
+	fi
+	
+	#download
+	case "${url}" in
+		http://*|ftp://*|https://*|sftp://*)
+			run wget -c "${url}" || return 1
+			;;
+		github://*/*)
 			project=$(echo $url | cut -d '/' -f 3-4)
 			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || return 1 
 			;;
 		sourceforge://*/*)
-			ARCHIVE=$(basename ${url})
 			name=$(echo $url | cut -d '/' -f 3)
 			file=$(echo $url | cut -d '/' -f 4-)
 			surl="http://sourceforge.net/projects/$name/files/$file/download";
 			run wget -c -O ${ARCHIVE} "$surl" || return 1
 			;;
+		*)
+			die "Invalid url type : $url"
+			;;
 	esac
+	
+	#cache
+	if [ "$HL_HOMECACHE" = 'true' ]; then
+		run mkdir -p $HOME/.homelinux/cache
+		run cp $ARCHIVE $HOME/.homelinux/cache
+	fi
 }
 
 function hl_download()

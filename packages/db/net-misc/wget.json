@@ -17,7 +17,7 @@
 	],
 	"deps": [
 		"dev-util/pkgconfig",
-		"net-misc/gnutls"
+		"net-libs/gnutls"
 	],
 	"host": {
 		"default": false,

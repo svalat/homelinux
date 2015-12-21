@@ -1,0 +1,27 @@
+{
+	"name": "dev-cpp/glib",
+	"homepage": "http://www.gtkmm.org",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.47.3" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/glib/cache.json",
+		"regexp": "^glib-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "glib-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/pub/gnome/sources/glib/$(echo $VERSION | cut -d '.' -f 1-2)/glib-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-util/pkgconfig",
+		"dev-libs/libffi",
+		"sys-devel/gettext"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libglib2.0-dev" ]
+	}
+}

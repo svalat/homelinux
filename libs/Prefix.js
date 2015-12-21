@@ -152,6 +152,7 @@ Prefix.prototype.loadPackage = function(packageName)
 	
 	//load path
 	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
+	console.error(fname);
 	var p;
 	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
 		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";
@@ -221,7 +222,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 {
 	//build regexp
 	var version = qp.version == undefined ? '[0-9]+.[0-9]+.?[0-9]*' : qp.version;
-	var vregexp = new RegExp('^'+qp.name+"-("+version+").tar.(gz|bz2|bzip)$");
+	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").tar.(gz|bz2|bzip|xz|lz)$");
 	
 	//load gentoo db
 	if (this.gentooDb == undefined)
@@ -282,6 +283,14 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 			type: 'models/auto',
 			host: { 'default': false }
 		};
+		
+		//manage gentoo/YYY
+		if (packageName.split('/')[0] == 'gentoo')
+		{
+			console.error("Fallback automatically to gentoo based on package name");
+			qp.name = packageName.replace('gentoo/','');
+			qp.source = 'gentoo';
+		}
 		
 		//manage github/XXX/YYY
 		if (packageName.split('/')[0] == 'github')

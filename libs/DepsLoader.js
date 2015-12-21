@@ -38,13 +38,13 @@ DepsLoader.prototype.needLoadDep = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
-		var regexp = new RegExp("([0-9a-zA-Z_/-]+)( .+)?");
+		var regexp = new RegExp("([0-9a-zA-Z+_/-]+)( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format";
 		return {name:ret[1],use:null};
 	} else {
-		var regexp = new RegExp("([a-zA-Z0-9-_]+)\\? ([0-9a-zA-Z_/-]+)( .+)?");
+		var regexp = new RegExp("([a-zA-Z0-9-_+]+)\\? ([0-9a-zA-Z_/-]+)( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format";

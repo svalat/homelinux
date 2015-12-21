@@ -20,7 +20,8 @@ function UserConfig()
 		python: "2.7",
 		modules: [],
 		host: 'default',
-		temp: "/tmp/homelinux-"+process.env.USER
+		temp: "/tmp/homelinux-"+process.env.USER,
+		homecache: false
 	};
 	
 	//load

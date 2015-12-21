@@ -26,6 +26,7 @@ if (command == "env")
 {
 	var envSetup = new EnvSetup(userConfig);
 	prefix.fillEnv(envSetup);
+	envSetup.enableCCache();
 	envSetup.print();
 } else if (command == "install") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);

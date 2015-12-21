@@ -1,0 +1,34 @@
+{
+	"name": "net-ftp/lftp",
+	"homepage": "http://lftp.yar.ru/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.6.5" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/",
+		"regexp": "lftp-([0-9]+\\.[0-9]+\\.[0-9]+\\.?[0-9]*)\\.tar\\.gz"
+	},
+	"md5" : {},
+	"subdir": "lftp-${VERSION}",
+	"urls" : [
+		"ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/lftp-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/ncurses",
+		"sys-libs/readline",
+		"net-libs/gnutls"
+		
+	],
+	"configure": {
+		"": [
+			"$(hl_width readline sys-libs/readline)",
+			"LDFLAGS=-L$PREFIX/lib"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "lftp" ]
+	}
+}

@@ -77,17 +77,63 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
+{
+	var self = this;
+	var lst = pack.pack.vfetcher.url;
+	if (Array.isArray(lst) == false)
+		lst = [ lst ];
+
+	for (var i in lst)
+	{
+		//console.log(lst[i]);
+		request({
+			method: 'GET',
+			url: lst[i]
+		}, function(err, response, body) {
+			if (err) return console.error(err);
+
+			// Tell Cherrio to load the HTML
+			var json = JSON.parse(body);
+			var shortName = pack.getShortName();
+			pack.pack.versions = [];
+			if (json[0] == 4)
+				for (var i in json[1][shortName])
+					pack.pack.versions.push(i);
+			else
+				throw "Invaild format";
+			
+			//sort & uniq
+			pack.pack.versions = sort_unique(pack.pack.versions);
+			console.log(pack.pack.name);
+// 			console.log(pack.pack.name+" : "+pack.pack.versions);
+			
+			if (callback != undefined)
+				callback(null,pack);
+		});
+	}
+}
+
+/*******************  FUNCTION  *********************/
 VersionFetcher.prototype.fetchVersions = function(pack,callback)
 {
-	var mode = pack.pack.vfetcher.mode;
-	if (mode == 'ftp')
-		this.fetchVersionsFromFtp(pack,callback);
-	else if (mode == 'http-apache-list' || mode == 'http')
-		this.fetchVersionsFromApacheHttpList(pack,callback);
-	else if (mode == 'gentoo')
-		this.fetchFromGentoo(pack,callback);
-	else
-		throw "Invalid vfetcher "+mode+", please use ftp, http or gentoo !";
+	try {
+		console.log("Start to fetch "+pack.pack.name);
+		var mode = pack.pack.vfetcher.mode;
+		if (mode == 'ftp')
+			this.fetchVersionsFromFtp(pack,callback);
+		else if (mode == 'http-apache-list' || mode == 'http')
+			this.fetchVersionsFromApacheHttpList(pack,callback);
+		else if (mode == 'gentoo')
+			this.fetchFromGentoo(pack,callback);
+		else if (mode == 'http-gnome-cache')
+			this.fetchFromGnomeCache(pack,callback);
+		else
+			throw "Invalid vfetcher "+mode+", please use ftp, http or gentoo !";
+	} catch (e) {
+		console.error("Fail to fetch version of "+pack.pack.name+" e: "+e);
+		callback();
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -156,8 +202,12 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 	for (var j in lst)
 	{
 		//console.log(lst[j]);
-		var vregexp = new RegExp('^ftp://([a-z0-9\.]+)/(.+)');
+		var vregexp = new RegExp('^ftp://([a-z0-9-\.]+)/(.+)');
 		var ret = vregexp.exec(lst[j]);
+		
+		//error
+		if (ret == null)
+			throw "Fail to match FTP regexp with address "+lst[j];
 		
 		var server = ret[1];
 		var dir = ret[2];

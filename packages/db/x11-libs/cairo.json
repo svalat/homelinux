@@ -17,11 +17,13 @@
 		"http://cairographics.org/releases/cairo-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"dev-ruby/pkg-config",
+		"dev-util/pkgconfig",
 		"media-libs/libpng",
-		"x11-libs/pixman"
+		"x11-libs/pixman",
+		"media-libs/freetype"
 	],
 	"configure": {
+		"": [ "--enable-ft" ]
 	},
 	"host": {
 		"default": false,

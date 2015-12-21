@@ -53,6 +53,7 @@ Example
 			"debug": ["--$enable-debug"],
 			"+profile": ["--enable-profile"],
 			"-profile": ["--disable-profile"]
+			"+ssl & +openssl": ["--enable-profile"],
 		},
 		"vspecific": {
 			"4.2": {

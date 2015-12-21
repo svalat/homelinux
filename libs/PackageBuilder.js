@@ -20,6 +20,12 @@ function PackageBuilder(prefix,userConfig,packageName,inherit)
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getShortName = function()
+{
+	return this.pack.name.split('/').pop();
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.load = function(packageName,inherit)
 {
 	var pack = this.prefix.loadPackage(packageName);
@@ -197,11 +203,12 @@ PackageBuilder.prototype.genScript = function()
 	script.push("HL_PACKAGE=\""+this.prefix.getFile("share/homelinux/packages/")+"\"");
 	script.push("HL_MAKEOPTS=\""+this.prefix.config.compiler.MAKEOPTS+"\"");
 	script.push("HL_PREFIX=\""+this.prefix.prefix+"\"");
+	script.push("HL_HOMECACHE=\""+this.userConfig.config.homecache+"\"");
 	
 	//setup package variables
 	var version = this.getVersion();
 	script.push("NAME=\""+this.pack.name+"\"");
-	script.push("SHORT_NAME=\""+this.pack.name.split('/').pop()+"\"");
+	script.push("SHORT_NAME=\""+this.getShortName()+"\"");
 	script.push("VERSION=\""+version+"\"");
 	script.push("URLS=\""+this.pack.urls.join(' ')+"\"");
 	script.push("MD5=\""+this.pack.md5[version] != undefined?this.pack.md5[version]:''+"\"");

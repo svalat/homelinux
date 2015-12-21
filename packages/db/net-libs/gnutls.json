@@ -1,5 +1,5 @@
 {
-	"name": "net-misc/gnutls",
+	"name": "net-libs/gnutls",
 	"homepage": "http://www.gnutls.org/",
 	"inherit": "models/autotools",
 	"versions": [ 
@@ -24,7 +24,9 @@
 		"app-crypt/p11-kit"
 	],
 	"configure": {
-		"": [ "$(hl_with nettle dev-libs/nettle)", "$(hl_with gmp dev-libs/gmp)","$(hl_with libidn2 net-dns/libidn2)","$(hl_with unbound net-dns/unbound)","$(hl_with p11-kit app-crypt/p11-kit)", "LDFLAGS=-L$HL_PREFIX/lib" ]
+		"": [ 
+			"$(hl_with p11-kit app-crypt/p11-kit)", 
+			"LDFLAGS=-L$HL_PREFIX/lib" ]
 	},
 	"host": {
 		"default": false,

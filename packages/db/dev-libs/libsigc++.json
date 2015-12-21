@@ -1,0 +1,25 @@
+{
+	"name": "dev-libs/libsigc++",
+	"homepage": "https://www.gnu.org/software/libsigc++/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.6.2"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/libsigc++/2.6/",
+		"regexp": "libsigc\\+\\+-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "libsigc++-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/pub/GNOME/sources/libsigc++/2.6/libsigc++-${VERSION}.tar.xz"
+	],
+	"deps": [
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libsigc++-dev" ]
+	}
+}
