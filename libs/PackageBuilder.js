@@ -171,6 +171,16 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 	//if not use flags defined, default is enable
 	if (value == '')
 		return true;
+	
+	//if value contain &
+	if (value.indexOf('&') != -1)
+	{
+		var lst = value.split("&");
+		for (var i in lst)
+			if (!this.hasUseFlags(lst[i].trim()))
+				return false;
+		return true;
+	}
 
 	//get global use flag
 	var local = this.getProperty('useflags');
