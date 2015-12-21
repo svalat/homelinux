@@ -187,9 +187,9 @@ PackageBuilder.prototype.applyVersionHints = function()
 	for (var i in this.hints)
 	{
 		if (this.prefix.versions[this.pack.name] != undefined)
-			this.prefix.versions[this.pack.name] = VersionHelper.filterVersions(this.hints[i].version,this.prefix.versions[this.pack.name]);
+			this.prefix.versions[this.pack.name] = VersionHelper.filterVersions(this.pack,this.hints[i].version,this.prefix.versions[this.pack.name]);
 		if (this.pack.versions != undefined)
-			return this.pack.versions = VersionHelper.filterVersions(this.hints[i].version,this.pack.versions);
+			return this.pack.versions = VersionHelper.filterVersions(this.pack,this.hints[i].version,this.pack.versions);
 	}
 }
 

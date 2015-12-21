@@ -22,9 +22,9 @@
 		"dev-libs/mpfr",
 		"dev-libs/mpc"
 	],
-	"slots": [
-		"^([0-9]+\\.[0-9]+)"
-	],
+	"slots": {
+		"~":"^([0-9]+\\.[0-9]+)"
+	]},
 	"module": "gcc-${VERSION}",
 	"configure": {
 		"": [ "$(hl_with gmp dev-libs/gmp)","$(hl_with mpfr dev-libs/mpfr)","$(hl_with mpc dev-libs/mpc)","--disable-multilib","--enable-languages=c,c++,fortran" ]

@@ -20,8 +20,8 @@ VersionHelper.prototype.getSlot = function(pack,version)
 				if (ret != null)
 					return ret[1];
 			} else {
-				//TODO
-				throw 'TODO';
+				if (this.filterVersion(pack,pack.slots[i],version))
+					return i;
 			}
 		}
 	}
@@ -31,7 +31,7 @@ VersionHelper.prototype.getSlot = function(pack,version)
 }
 
 /*******************  FUNCTION  *********************/
-VersionHelper.prototype.applyVersionOp = function(op,version)
+VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 {
 	var cnt = 1;
 	var operator = op[0];
@@ -52,7 +52,7 @@ VersionHelper.prototype.applyVersionOp = function(op,version)
 		case '<':
 			ret = (compareVersion(version,operand) == -1);
 			break;
-		case '<=':
+		case '>=':
 			var tmp = compareVersion(version,operand);
 			return (tmp == 0 || tmp == 1);
 			break;
@@ -69,6 +69,11 @@ VersionHelper.prototype.applyVersionOp = function(op,version)
 			var regexp = new RegExp(operand);
 			return regexp.test(version);
 			break;
+		case ':':
+			var slot = this.getSlot(pack,version);
+			console.log(slot +"!="+operand);
+			return (slot == operand);
+			break;
 		default:
 			throw "Invalid operator "+ operator;
 			break;
@@ -79,7 +84,7 @@ VersionHelper.prototype.applyVersionOp = function(op,version)
 }
 
 /*******************  FUNCTION  *********************/
-VersionHelper.prototype.filterVersion = function(rules,version)
+VersionHelper.prototype.filterVersion = function(pack,rules,version)
 {
 	if (version == undefined)
 		return undefined;
@@ -96,7 +101,7 @@ VersionHelper.prototype.filterVersion = function(rules,version)
 	{
 		if (rulesArray[j] != '')
 		{
-			if (!this.applyVersionOp(rulesArray[j],version))
+			if (!this.applyVersionOp(pack,rulesArray[j],version))
 			{
 				status = false;
 				break;
@@ -108,14 +113,14 @@ VersionHelper.prototype.filterVersion = function(rules,version)
 }
 
 /*******************  FUNCTION  *********************/
-VersionHelper.prototype.filterVersions = function(rules,list)
+VersionHelper.prototype.filterVersions = function(pack,rules,list)
 {
 	if (rules == undefined)
 		return list;
 	
 	var ret = [];
 	for (var i in list)
-		if (this.filterVersion(rules,list[i]))
+		if (this.filterVersion(pack,rules,list[i]))
 			ret.push(list[i]);
 	
 	return ret;
