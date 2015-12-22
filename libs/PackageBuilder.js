@@ -98,7 +98,9 @@ PackageBuilder.prototype.selectVSpecific = function()
 		for (var i in this.pack.vspecific)
 		{
 			if (VersionHelper.filterVersion(this.pack,i,version))
+			{
 				this.vspecific.push(this.pack.vspecific[i]);
+			}
 		}
 	}
 }
@@ -358,10 +360,10 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 			if (this.hints[i].iuse != undefined)
 			{
 				var flags = this.hints[i].iuse.replace('[','').replace(']','').split(',');
-				for (var i in flags)
+				for (var j in flags)
 				{
-					var f = flags[i];
-					var info = f + " ("+this.hints[i].parent.pack.name+")";
+					var f = flags[j];
+					var info = f + " ("+this.hints[i].parent.getNameSlot()+")";
 					if (!this.hasUseFlags(f))
 						err.push(info);
 				}
@@ -374,6 +376,12 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 		console.error("Package "+this.pack.name+" has some missing useflags properties to match dependencies : "+err);
 		process.exit(1);
 	}
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getNameSlot = function()
+{
+	return this.pack.name+":"+this.getSlot(this.getVersion());
 }
 
 /*******************  FUNCTION  *********************/

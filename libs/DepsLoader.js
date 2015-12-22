@@ -18,27 +18,158 @@ function DepsLoader(prefix,userConfig,packageList)
 	this.hostsRefs = JSON.parse(content);
 	
 	//load packages
+	this.root = [];
+	this.packages = {};
 	for (var i in packageList)
 	{
-		var p = new PackageBuilder(prefix,userConfig,packageList[i]);
-		if (this.packages[p.pack.name] == undefined)
-			this.packages[p.pack.name] = p;
-		else
-			p = this.packages[p.pack.name];
+		var req = packageList[i]
+			.replace(':',' :')
+			.replace('<',' <')
+			.replace('<=',' <=')
+			.replace('>',' >')
+			.replace('>=',' >=')
+			.replace('=',' =')
+			.replace('!',' !')
+			.replace('~',' ~');
+		this.root.push(this.loadPackage(req,null,true));
+	}
+	
+	//apply vspecifiv recursivly
+	this.applyVSpecific();
+
+	//sched
+	this.buildSched();
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.applyVSpecific = function()
+{
+	console.log("Start specific");
+	for (var i in this.root)
+	{
+		if (this.root[i] != null)
+			this.applyVSpecificChild(this.root[i]);
+	}
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.applyVSpecificChild = function(p)
+{
+	if (p == null)
+		return;
+	
+	//TODO take care of reapplying the wall tree if introduce new deps
+	p.checkUseFlagHints();
+	p.applyVersionHints();
+	p.selectVSpecific();
+	this.loadPackageDeps(p);
+	if (p.pdeps != undefined)
+		for (var i in p.pdeps)
+		{
+			this.applyVSpecificChild(p.pdeps[i]);
+		}
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.applyVersionRules = function(pack,parent,infos)
+{
+	//replace #useflag with parent status
+	if (infos.iuse != undefined && parent != undefined)
+		infos.iuse = parent.replaceParentUseFlags(infos.iuse);
+	
+	//add to list
+	if (pack.hints == undefined)
+		pack.hints = {};
+	
+	//push and apply
+	if (parent == null)
+		parent = 'none';
+	else
+		parent = parent.getNameSlot();
+	pack.hints[parent] = infos;
+	
+	//apply
+	pack.checkUseFlagHints();
+	pack.applyVersionHints();
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.loadPackageDeps = function(p)
+{
+	var hasNewDeps = false;
+
+	if (p.pdeps == undefined)
+		p.pdeps = {};
+
+	var deps = p.getProperty('deps');
+	for (var i in deps)
+	{
+		if (p.pdeps[deps[i]] == undefined || p.pdeps[deps[i]] == null)
+		{
+			p.pdeps[deps[i]] = this.loadPackage(deps[i],p,false);
+			if (p.pdeps[deps[i]] != null)
+				hasNewDeps = true;
+		}
+	}
+			
+	return hasNewDeps;
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.loadPackage = function(request,parent,force)
+{
+	var needLoadDeps = true;
+	var infos = this.parseRequestString(request);
+	var name = infos.name;
+	infos.parent = parent;
+	
+	//if useflag say to not load, skip it
+	if (parent != null && infos.use != null && !parent.hasUseFlags(infos.use))
+		return null;
+	
+	//load package if need
+	var p = new PackageBuilder(this.prefix,this.userConfig,name);
+	
+	//apply version rules
+	this.applyVersionRules(p,parent,infos);
+	
+	//check if already loaded (take in account selected slot)
+	if (this.packages[p.getNameSlot()] != undefined)
+	{
+		needLoadDeps = false;
+		//take the already loaded one and reapply version rules on it
+		p = this.packages[p.getNameSlot()];
+		this.applyVersionRules(p,parent,infos);
+	}
+	
+	//check status
+	if (force == true)
+	{
 		if (this.presentOnSystem(p))
 			p.pack.present = 'override-system';
 		if (p.isInstalled())
 			p.pack.present = 'reinstall';
-		this.loadDeps(p);
+	} else if (p.pack.present == undefined) {
+		if (p.isInstalled())
+			p.pack.present = 'already-installed';
+		else if (this.presentOnSystem(p))
+			p.pack.present = 'use-host';
+		else
+			p.pack.present = null;
 	}
 	
-	//sched
-	this.buildSched();
-	this.searchVersions();
+	//register into loaded DB
+	this.packages[p.getNameSlot()] = p;
+	
+	//load deps
+	if (needLoadDeps)
+		this.loadPackageDeps(p);
+	
+	return p;
 }
 
 /*******************  FUNCTION  *********************/
-DepsLoader.prototype.needLoadDep = function(dep)
+DepsLoader.prototype.parseRequestString = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
@@ -57,66 +188,32 @@ DepsLoader.prototype.needLoadDep = function(dep)
 }
 
 /*******************  FUNCTION  *********************/
-DepsLoader.prototype.loadDeps = function(pack)
-{
-	this.sched.push(pack.pack.name);
-	var deps = pack.getProperty('deps');
-	if (deps != undefined)
-	{
-		for (var j in deps)
-		{
-			var dep = this.needLoadDep(deps[j])
-			dep.parent = pack;
-			if (dep.iuse != undefined)
-				dep.iuse = pack.replaceParentUseFlags(dep.iuse);
-			
-			if (dep.use == null || pack.hasUseFlags(dep.use))
-			{
-				var p = new PackageBuilder(this.prefix,this.userConfig,dep.name);
-				
-				if (this.packages[p.pack.name] != undefined) {
-					console.error(pack.pack.name + " already provided by host, not installed as deps");
-					if (this.packages[p.pack.name].pack.present != 'already-installed' && this.packages[p.pack.name].pack.present != 'use-host')
-						this.loadDeps(p);
-				} else {
-					this.packages[p.pack.name] = p;
-					if (p.isInstalled())
-						p.pack.present = 'already-installed';
-					else if (this.presentOnSystem(p))
-						p.pack.present = 'use-host';
-					else
-						this.loadDeps(p);
-				}
-				
-				//apply vhints
-				if (this.packages[p.pack.name].hints == undefined)
-					this.packages[p.pack.name].hints = [];
-				this.packages[p.pack.name].hints.push(dep);
-			}
-		}
-	}
-}
-
-/*******************  FUNCTION  *********************/
-DepsLoader.prototype.searchVersions = function()
-{
-	for (var i in this.packages)
-	{
-		this.packages[i].checkUseFlagHints();
-		this.packages[i].applyVersionHints();
-		this.packages[i].selectVSpecific();
-	}
-}
-
-/*******************  FUNCTION  *********************/
 DepsLoader.prototype.buildSched = function()
 {
-	var s = this.sched.reverse();
-	var sched = [];
-	for (var i in s)
-		if (sched.indexOf(s[i]) == -1)
-			sched.push(s[i]);
-	this.sched = sched;
+	this.sched = [];
+	for (var i in this.root)
+		this.buildSchedChild(this.root[i]);
+	
+	//reverse for prio
+	var sched = this.sched.reverse();
+	
+	//make uniq
+	var endSched = [];
+	for (var i in sched)
+		if (endSched.indexOf(sched[i]) == -1)
+			endSched.push(sched[i]);
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.buildSchedChild = function(p)
+{
+	if (p.pack.present == undefined || p.pack.present == null || p.pack.present == 'override-system' || p.pack.present == 'reinstall')
+	{
+		this.sched.push(p.getNameSlot());
+		for (var i in p.pdeps)
+			if (p.pdeps[i] != null)
+				this.buildSchedChild(p.pdeps[i]);
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -137,10 +234,10 @@ DepsLoader.prototype.printList = function()
 	for (var i in this.sched)
 	{
 		var p = this.packages[this.sched[i]];
-		if (p.pack.present != undefined)
-			console.log(this.sched[i]+":"+p.getSlot(p.getVersion())+"-"+p.getVersion()+" ["+p.pack.present+"]");
+		if (p.pack.present != undefined && p.pack.present != null)
+			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.pack.present+"]");
 		else
-			console.log(this.sched[i]+":"+p.getSlot(p.getVersion())+"-"+p.getVersion());
+			console.log(p.getNameSlot()+"-"+p.getVersion());
 	}
 	console.log("-----------------------INSTALLED--------------------------");
 	for (var i in this.packages)

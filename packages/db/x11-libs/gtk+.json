@@ -23,5 +23,9 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libgtk+2.4-dev" ]
+	},
+	"slots": {
+		"2.4": "<3.0",
+		"3.0": ">=3.0"
 	}
 }
