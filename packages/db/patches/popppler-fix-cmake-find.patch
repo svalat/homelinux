@@ -1,0 +1,75 @@
+From b6023b9a7a648f2ac358b60f4d4ed8df36df9b35 Mon Sep 17 00:00:00 2001
+From: Sebastien Valat <sebastien.valat@gmail.com>
+Date: Tue, 22 Dec 2015 11:24:25 +0100
+Subject: [PATCH] Fix missing usage of GLIB_LIBRARY_DIRS, GTK3_LIBRARY_DIRS and
+ LIBOPENJPEG_LIBRARY_DIRS in cmake find_* modules for non /usr install
+
+---
+ cmake/modules/FindGLIB.cmake         | 18 +++++++++++++++++-
+ cmake/modules/FindGTK.cmake          | 20 ++++++++++++++++++--
+ cmake/modules/FindLIBOPENJPEG2.cmake | 22 ++++++++++++++++++++++
+ 3 files changed, 57 insertions(+), 3 deletions(-)
+
+diff --git a/cmake/modules/FindGLIB.cmake b/cmake/modules/FindGLIB.cmake
+index 35a9f9e..e506058 100644
+--- a/cmake/modules/FindGLIB.cmake
++++ b/cmake/modules/FindGLIB.cmake
+@@ -16,7 +16,23 @@ include(FindPackageHandleStandardArgs)
+ if (NOT WIN32)
+   find_package(PkgConfig REQUIRED)
+ 
+-  pkg_check_modules(GLIB2 "glib-2.0>=${GLIB_REQUIRED}" "gobject-2.0>=${GLIB_REQUIRED}" "gio-2.0>=${GLIB_REQUIRED}")
++  pkg_check_modules(_pc_glib "glib-2.0>=${GLIB_REQUIRED}" "gobject-2.0>=${GLIB_REQUIRED}" "gio-2.0>=${GLIB_REQUIRED}")
++  
++  #search full path of libs
++  if (_pc_glib_FOUND)
++    foreach(lib ${_pc_glib_LIBRARIES})
++      #clear cache
++      set(_glib_LIBRARY)
++    
++      #search full path with hints
++      find_library(_glib_LIBRARY ${lib}
++        HINTS ${_pc_glib_LIBRARY_DIRS}
++      )
++      
++      #merge in list
++      list(APPEND GLIB2_LIBRARIES ${_glib_LIBRARY})
++    endforeach(loop_var)
++  endif (_pc_glib_FOUND)
+ 
+   find_package_handle_standard_args(GLib DEFAULT_MSG GLIB2_LIBRARIES GLIB2_CFLAGS)
+ 
+diff --git a/cmake/modules/FindGTK.cmake b/cmake/modules/FindGTK.cmake
+index 10e2292..4a6e463 100644
+--- a/cmake/modules/FindGTK.cmake
++++ b/cmake/modules/FindGTK.cmake
+@@ -15,8 +15,24 @@ include(FindPackageHandleStandardArgs)
+ if (NOT WIN32)
+   find_package(PkgConfig REQUIRED)
+ 
+-  pkg_check_modules(GTK3 "gtk+-3.0>=3.8" "gdk-pixbuf-2.0")
++  pkg_check_modules(_pc_gtk3 "gtk+-3.0>=3.8" "gdk-pixbuf-2.0")
++  
++  #search full path of libs
++  if (_pc_gtk3_FOUND)
++    foreach(lib ${_pc_gtk3_LIBRARIES})
++      #clear cache
++      set(_glib_LIBRARY)
++    
++      #search full path with hints
++      find_library(_glib_LIBRARY ${lib}
++        HINTS ${_pc_gtk3_LIBRARY_DIRS}
++      )
++      
++      #merge in list
++      list(APPEND GTK3_LIBRARIES ${_glib_LIBRARY})
++    endforeach(loop_var)
++  endif (_pc_gtk3_FOUND)
+ 
+-  find_package_handle_standard_args(GTK DEFAULT_MSG GTK3_LIBRARIES GTK3_CFLAGS)
++  find_package_handle_standard_args(GLib DEFAULT_MSG GTK3_LIBRARIES GTK3_CFLAGS)
+ 
+ endif(NOT WIN32)
+-- 
+2.1.4
+

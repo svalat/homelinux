@@ -16,9 +16,58 @@
 		"http://downloads.ghostscript.com/public/ghostscript-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"-mindeps? app-text/libpaper",
+		"-mindeps? media-libs/fontconfig",
+		"-mindeps? media-libs/freetype",
+		"-mindeps? media-libs/jbig2dec",
+		"-mindeps? media-libs/lcms",
+		"-mindeps? media-libs/libpng",
+		"-mindeps? media-libs/tiff",
+		"-mindeps? sys-libs/zlib",
+		"-mindeps? virtual/jpeg",
+		"-mindeps? virtual/pkgconfig",
+		"-mindeps? app-text/poppler-data",
+		"-mindeps? media-fonts/urw-fonts",
+		"cups? net-print/cups",
+		"dbus? sys-apps/dbus",
+		"djvu? app-text/djvu",
+		"gtk? x11-libs/gtk",
+		"idn? net-dns/libidn",
+		"X? x11-libs/libXt",
+		"X? x11-libs/libXext"
 	],
+	"configure": {
+		"+gentoo": [
+			"--enable-shared",
+			"--enable-dynamic",
+			"--enable-freetype",
+			"--enable-fontconfig",
+			"--enable-openjpeg",
+			"--disable-compile-inits",
+			"--with-drivers=ALL",
+			"--with-ijs",
+			"--with-jbig2dec",
+			"--with-libpaper",
+			"--with-system-libtiff",
+			"--without-luratech"
+		],
+		"+cups": [ "--$enable-cups", "--$with-pdftoraster" ],
+		"+dbus": [ "--$enable-dbus" ],
+		"+gtk": [ "--$enable-gtk" ],
+		"+idn": [ "--$with-libidn" ],
+		"+X": [ "--$with-x" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "ghostscript" ]
-	}
+	},
+	"useflags": [
+		"-gentoo",
+		"-cups",
+		"-dbus",
+		"-djvu",
+		"-gtk",
+		"-idn",
+		"-X"
+	]
 }

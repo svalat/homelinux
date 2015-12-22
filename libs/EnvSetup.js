@@ -19,7 +19,9 @@ function EnvSetup(userConfig)
 		'PERL5LIB':process.env.PATH,
 		'PKG_CONFIG_PATH':process.env.PATH,
 		'MODULEPATH':process.env.MODULEPATH,
-		'PYTHONPATH':process.env.PYTHONPATH
+		'PYTHONPATH':process.env.PYTHONPATH,
+		'CMAKE_PREFIX_PATH':process.env.CMAKE_PREFIX_PATH,
+		'LD_RUN_PATH':process.env.LD_RUN_PATH,
 	};
 }
 
@@ -68,6 +70,11 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	this.prepend('PATH',prefix + "/bin");
 	this.prepend('LD_LIBRARY_PATH',prefix + "/lib");
 	this.prepend('LD_LIBRARY_PATH',prefix + "/lib64");
+	this.prepend('LD_RUN_PATH',prefix + "/lib");
+	this.prepend('LD_RUN_PATH',prefix + "/lib64");
+	
+	//CMAKE_PREFIX_PATH
+	this.prepend('CMAKE_PREFIX_PATH',prefix);
 	
 	//more advanced
 	this.prepend('MANPATH',prefix + "/share/man");

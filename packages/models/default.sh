@@ -82,6 +82,32 @@ function run_sh()
 	"$@"
 }
 
+function hl_cmake_find_package()
+{
+	if [ "$1" = "enable" ]; then
+		shift 1
+		echo "-DCMAKE_DISABLE_FIND_PACKAGE_$1=ON"
+	elif [ "$1" = "disable" ]; then
+		shift 1
+		echo "-DCMAKE_DISABLE_FIND_PACKAGE_$1=OFF"
+	else
+		echo "-DCMAKE_DISABLE_FIND_PACKAGE_$1=ON"
+	fi
+}
+
+function hl_cmake_enable()
+{
+	if [ "$1" = "enable" ]; then
+		shift 1
+		echo "-DENABLE_$1=ON"
+	elif [ "$1" = "disable" ]; then
+		shift 1
+		echo "-DENABLE_$1=OFF"
+	else
+		echo "-DENABLE_$1=ON"
+	fi
+}
+
 function hl_cmake_with()
 {
 	if [ "$1" = "with" ]; then

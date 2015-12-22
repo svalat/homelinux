@@ -72,13 +72,15 @@ Example
 		},
 		"slots": {
 			"~": "^([0-9]+\\.[0-9]+)",
-			"2.5": ">=2.5.0 <=2.6.0"
+			"2.5": ">=2.5.0 <2.6.0"
 		}
 		"conflict": [ "nodejs-bin" ],
-		"useflags": [ "-debug", "+expat" ],
+		"useflags": [ "-debug", "-expat" ],
+		"gentooUse": [ "+expat" ],
 		"warn": [
 			"Some warning to print (NOT YET SUPPORTED)"
-		]
+		],
+		"module": "gcc-${VERSION}"
 	}
 ```
 
@@ -124,6 +126,10 @@ you might want to use `default` and override the required steps.
  * *slots* : You can provide a list of values or regular expression with capture to extract part of the 
  package version and generate a slot name. It helps to install mulitple version of the package limiting
  the checking to a sub-part of the version numbers.
+ * *module* : If present, the package will be installed into PREFIX/Modules/installed/$MODULE_NAME and
+ a module configuration file will be setup.
+ * *gentooUse* : If gentoo enable some flags by default you can list them here, it will be enable
+ if `+gentoo` flag is enabled to produce a gentoo-like build.
 
 About version filtering
 -----------------------
@@ -140,3 +146,10 @@ On various part of the file you can filter version, the syntax is (do not add sp
  * `:SLOT`
  
 Remark that it is defined as a string and spaces between groups of operator and values are replaced by AND operator.
+
+About gentoo flag
+-----------------
+
+On each packages, try to use the `gentoo` it you add dependencies from the gentoo packages, it provide a nice
+way to generate the full build from gentoo tree but still keeping the default mode
+using less options as possible on the packages.

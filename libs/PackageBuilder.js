@@ -124,14 +124,13 @@ PackageBuilder.prototype.getProperty = function(name)
 	//select mode
 	switch(name)
 	{
+		case 'deps':
+		case 'patch':
 		case 'useflags':
 			mode = 'merge-arrays';
 			break;
 		case 'configure':
 			mode = 'merge-sub-arrays';
-			break;
-		case 'deps':
-			mode = 'merge-arrays';
 			break;
 		default:
 			mode = 'replace';
@@ -151,6 +150,8 @@ PackageBuilder.prototype.getProperty = function(name)
 					final = vspecific[name];
 					break;
 				case 'merge-arrays':
+					if (final == undefined)
+						final = [];
 					final = final.concat(vspecific[name]);
 					break;
 				case 'merge-sub-arrays':
@@ -230,7 +231,16 @@ PackageBuilder.prototype.buildOptions = function()
 	for (var i in configure)
 		if (this.applyUseFlags(i))
 			for (var j in configure[i])
-				opts.push(configure[i][j].replace('$enable',this.hasUseFlags(i)?'enable':'disable').replace('$with',this.hasUseFlags(i)?'with':'without'))
+			{
+				var config = configure[i][j]
+					.replace('$enable',this.hasUseFlags(i)?'enable':'disable')
+					.replace('$disable',this.hasUseFlags(i)?'disable':'enable')
+					.replace('$without',this.hasUseFlags(i)?'without':'with')
+					.replace('$with',this.hasUseFlags(i)?'with':'without')
+					.replace('$ON',this.hasUseFlags(i)?'ON':'OFF')
+					.replace('$OFF',this.hasUseFlags(i)?'OFF':'ON')
+				opts.push(config)
+			}
 	
 	return opts.join(' ');
 }
@@ -249,10 +259,11 @@ PackageBuilder.prototype.getPatchList = function(version)
 {
 	var final = [];
 	
-	if (this.pack.patch != undefined)
+	var patches = this.getProperty("patch");
+	if (patches != undefined)
 	{
-		for (var i in this.pack.patch)
-			final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+this.pack.patch[i]));
+		for (var i in patches)
+			final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+patches[i]));
 	}
 	
 	return final;
@@ -364,6 +375,7 @@ PackageBuilder.prototype.genScript = function()
 	
 	script.push('');
 	this.pack.version = version;
+	this.pack.slot = this.getSlot(version);
 	script.push("PACK_INSTALLED=\""+this.getPackInstalled(version)+"\"");
 	script.push("PACK_JSON=\""+JSON.stringify(this.pack,null,'\t').replace(/[\\]/g,'\\\\').replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
 	script.push('');

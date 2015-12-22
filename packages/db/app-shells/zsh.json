@@ -19,10 +19,37 @@
 		"ftp://ftp.zsh.org/zsh/old/zsh-${VERSION}.tar.gz"
 	],
 	"deps": [
-		
+		"sys-libs/ncurses",
+		"caps? sys-libs/libcap",
+		"pcre? dev-libs/libpcre",
+		"gdbm? sys-libs/gdbm"
 	],
+	"configure": {
+		"+gentoo": [ "--with-tcsetpgrp" ],
+		"debug": [
+			"--$enable-zsh-debug",
+			"--$enable-zsh-mem-debug",
+			"--$enable-zsh-mem-warning",
+			"--$enable-zsh-secure-free",
+			"--$enable-zsh-hash-debug"
+		],
+		"+maildir" : [ "--$enable-maildir-support" ],
+		"+pcre": [ "--$enable-pcre" ],
+		"+caps": [ "--$enable-cap" ],
+		"+unicode": [ "--$enable-multibyte" ],
+		"+gdbm": [ "--$enable-gdbm" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "zsh" ]
-	}
+	},
+	"useflags" : [
+		"-gentoo",
+		"-caps",
+		"-pcre",
+		"-gdbm",
+		"-debug",
+		"-maildir",
+		"-unicode"
+	]
 }

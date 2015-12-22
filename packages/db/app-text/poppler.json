@@ -1,7 +1,7 @@
 {
 	"name": "app-text/poppler",
 	"homepage": "http://poppler.freedesktop.org/",
-	"inherit": "models/autotools",
+	"inherit": "models/cmake",
 	"versions": [ 
 		"0.39.0"
 	],
@@ -16,10 +16,81 @@
 		"http://poppler.freedesktop.org/poppler-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"media-libs/fontconfig"
+		"media-libs/fontconfig",
+		"gentoo? media-libs/freetype",
+		"gentoo? sys-libs/zlib",
+		"cairo? dev-libs/glib",
+		"cairo? x11-libs/cairo",
+		"introspection? dev-libs/gobject-introspection",
+		"curl? net-misc/curl",
+		"jpeg? virtual/jpeg :0",
+		"jpeg2k? media-libs/openjpeg :2",
+		"lcms? media-libs/lcms :2",
+		"png? media-libs/libpng:0",
+		"qt4? dev-qt/qtcore :4",
+		"qt4? dev-qt/qtgui :4",
+		"qt5? dev-qt/qtcore :5",
+		"qt5? dev-qt/qtgui :5",
+		"qt5? dev-qt/qtxml :5",
+		"tiff? media-libs/tiff :0",
+		"gentoo? virtual/pkgconfig",
+		"cjk? app-text/poppler-data"
 	],
+	"vspecific": {
+		"<=0.39.0": {
+			"patch": [
+				"popppler-fix-cmake-find.patch"
+			]
+		}
+	},
+	"configure": {
+		"+gentoo": [
+			"-DBUILD_GTK_TESTS=OFF",
+			"-DBUILD_QT4_TESTS=OFF",
+			"-DBUILD_QT5_TESTS=OFF",
+			"-DBUILD_CPP_TESTS=OFF",
+			"-DENABLE_SPLASH=ON",
+			"-DENABLE_ZLIB=ON",
+			"-DENABLE_XPDF_HEADERS=ON"
+		],
+		"+curl": [ "-DENABLE_LIBCURL=$ON" ],
+		"+cxx":  [ "-DENABLE_CPP=$ON" ],
+		"+utils":  [ "-DENABLE_UTILS=$ON" ],
+		"+cairo":  [ "-DWITH_CAIRO=$ON", "-DWITH_GLIB=$ON" ],
+		"+introspection":  [ "-DWITH_GObjectIntrospection=$ON" ],
+		"+jpeg":  [ "-DWITH_JPEG=$ON" ],
+		"+png":  [ "-DWITH_PNG=$ON" ],
+		"+qt4":  [ "-DWITH_QT4=$ON" ],
+		"+tiff":  [ "-DWITH_TIFF=$ON" ],
+		"qt5":  [ "-DCMAKE_DISABLE_FIND_PACKAGE_Qt5Core=$OFF" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "libpoppler-dev" ]
-	}
+	},
+	"useflags": [
+		"-gentoo",
+		"+cairo",
+		"-cjk",
+		"-curl",
+		"-cxx",
+		"-debug",
+		"-doc",
+		"-introspection",
+		"-jpeg",
+		"-jpeg2k",
+		"-lcms",
+		"-png",
+		"-qt4",
+		"-qt5",
+		"-tiff",
+		"-utils"
+	],
+	"gentooUse": [
+		"+introspection",
+		"+jpeg",
+		"+jpeg2k",
+		"+lcms",
+		"+utils"
+	]
 }

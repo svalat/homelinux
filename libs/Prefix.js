@@ -364,7 +364,10 @@ Prefix.prototype.listInstalled = function()
 		{
 			var content = fs.readFileSync(files[i]);
 			var p = JSON.parse(content);
-			console.log(p.name+"-"+p.version);
+			if (p.slot != '0' && p.slot != undefined)
+				console.log(p.name+":"+p.slot+"-"+p.version);
+			else
+				console.log(p.name+"-"+p.version);
 		}
 	})
 }

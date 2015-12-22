@@ -99,12 +99,14 @@ Currently HomeLinux setup the environenement variables for you to fully configur
 
  * `PATH`
  * `LD_LIBRARY_PATH`
+ * `LD_RUN_PATH`
  * `CPATH`
  * `PERL5LIB`
  * `PYTHONPATH`
  * `PKG_CONFIG_PATH`
  * `MANPATH`
  * `MODULEPATH`
+ * `CMAKE_PREFIX_PATH`
 
 Create packages
 ---------------

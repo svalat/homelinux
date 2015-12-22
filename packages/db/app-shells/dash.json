@@ -16,10 +16,22 @@
 		"http://gondor.apana.org.au/~herbert/dash/files/dash-${VERSION}.tar.gz"
 	],
 	"deps": [
-		
+		"virtual/pkgconfig",
+		"libedit? dev-libs/libedit"
 	],
+	"configure": {
+		"+gentoo": [
+			"--enable-fnmatch",
+			"--disable-lineno"
+		],
+		"libedit": [ "--$with-libedit" ]
+	},
 	"host": {
 		"default": true,
 		"debian8": [ "dash" ]
-	}
+	},
+	"useflags": [ 
+		"-gentoo",
+		"-libedit"
+	]
 }

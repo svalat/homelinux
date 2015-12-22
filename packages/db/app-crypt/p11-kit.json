@@ -16,14 +16,14 @@
 		"http://p11-glue.freedesktop.org/releases/p11-kit-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"libffi? dev-libs/libffi",
 		"ans1? dev-libs/libtasn1",
+		"libffi? dev-libs/libffi",
 		"trust? app-misc/ca-certificates",
-		"dev-util/pkgconfig"
+		"virtual/pkgconfig"
 	],
 	"configure": {
-		"libffi": [ "$(hl_with $with libffi dev-libs/libffi)" ],
-		"asn1": [ "$(hl_with $with libtasn1 dev-libs/libtasn1)" ],
+		"+libffi": [ "$(hl_with $with libffi dev-libs/libffi)" ],
+		"+asn1": [ "$(hl_with $with libtasn1 dev-libs/libtasn1)" ],
 		"debug": [ "--$enable-debug" ],
 		"+trust": [ "--$enable-trust", "--$enable-trust-module", "$(hl_with $with trust-paths ${PREFIX}/etc/ssl/certs/ca-certificates.crt)" ]
 	},

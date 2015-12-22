@@ -16,10 +16,27 @@
 		"ftp://ftp.cwru.edu/pub/bash/bash-${VERSION}.tar.gz"
 	],
 	"deps": [
-		
+		"sys-libs/ncurses",
+		"readline? sys-libs/readline",
+		"nls? virtual/libintl"
 	],
 	"host": {
 		"default": true,
 		"debian8": [ "bash" ]
+	},
+	"useflags": [
+		"-gentoo",
+		"-readline",
+		"-nls",
+		"-afs",
+		"-net",
+		"-mem-scramble"
+	],
+	"configure": {
+		"+gentoo": [ "--with-curses", "--disable-profiling" ],
+		"+afs": [ "--$with-afs" ],
+		"+net": [ "--$enable-net-redirections" ],
+		"+mem-scramble": [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
+		"+readline": [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ]
 	}
 }

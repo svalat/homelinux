@@ -28,8 +28,8 @@
 		"dot? media-libs/freetype",
 		"doxysearch? dev-libs/xapian",
 		"latex? app-text/texlive[extra]",
-		"qt4? dev-qt/qtgui:4",
-		"sqlite? dev-db/sqlite:3"
+		"qt4? dev-qt/qtgui :4",
+		"sqlite? dev-db/sqlite :3"
 		
 	],
 	"host": {
