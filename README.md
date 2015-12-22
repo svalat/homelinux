@@ -81,9 +81,10 @@ You can use the given commands to install search or sync your repos :
 	hl update-db
 	
 	#install package
-	hl install app-shells/bash
-	hl install gentoo/htop
-	hl install github/svalat/svUnitTest
+	hl install bash                      # use name, automatic search db
+	hl install app-shells/bash           # force subdir in gentoo way
+	hl install gentoo/htop               # use the gentoo archive (nodeps)
+	hl install github/svalat/svUnitTest  # from github repos, use last release
 	
 	#will search automatically in db, quickpackages and gentoo db
 	hl install htop
