@@ -50,7 +50,7 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 	
 	//fetch all
 	var batch = new Batch();
-	batch.concurrency(4);
+	batch.concurrency(16);
 	
 	var self = this;
 	packs.forEach(function(p) {
@@ -61,8 +61,6 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 
 	batch.on('progress', function(e) {
 		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
-		if (e.complete == e.total - 1)
-			self.saveAll(prefix,packs);
 	});
 	
 	batch.end(function(err,datas){
@@ -84,6 +82,7 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 	if (Array.isArray(lst) == false)
 		lst = [ lst ];
 
+	var cnt = 0;
 	for (var i in lst)
 	{
 		//console.log(lst[i]);
@@ -108,7 +107,7 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 			console.log(pack.pack.name);
 // 			console.log(pack.pack.name+" : "+pack.pack.versions);
 			
-			if (callback != undefined)
+			if (callback != undefined && ++cnt == lst.length)
 				callback(null,pack);
 		});
 	}
@@ -129,12 +128,12 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 		else if (mode == 'http-gnome-cache')
 			this.fetchFromGnomeCache(pack,callback);
 		else if (mode == 'none')
-			callback();
+			callback(null);
 		else
 			throw "Invalid vfetcher "+mode+", please use ftp, http or gentoo !";
 	} catch (e) {
 		console.error("Fail to fetch version of "+pack.pack.name+" e: "+e);
-		callback();
+		callback(null);
 	}
 }
 
@@ -145,6 +144,7 @@ VersionFetcher.prototype.fetchFromGentoo = function(pack,callback)
 	{
 		this.checkFile(pack,this.gentooDb[i]);
 	}
+	callback(null);
 }
 
 /*******************  FUNCTION  *********************/
@@ -163,6 +163,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 	if (Array.isArray(lst) == false)
 		lst = [ lst ];
 
+	var cnt = 0;
 	for (var i in lst)
 	{
 		//console.log(lst[i]);
@@ -185,7 +186,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 			console.log(pack.pack.name);
 // 			console.log(pack.pack.name+" : "+pack.pack.versions);
 			
-			if (callback != undefined)
+			if (callback != undefined && ++cnt == lst.length)
 				callback(null,pack);
 		});
 	}
@@ -201,6 +202,7 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 	if (Array.isArray(lst) == false)
 		lst = [ lst ];
 	
+	var cnt = 0;
 	for (var j in lst)
 	{
 		//console.log(lst[j]);
@@ -216,33 +218,33 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 		
 		try{
 		
-		ftp.on('ready', function() {
-			//console.log("connected to "+server+" mirror...");
-			ftp.cwd("/"+dir,function(err, curr) {
-				//console.log("move to "+ dir+", fetching list...");
-				if (err) throw err;
-				ftp.list(function(err, list) {
+			ftp.on('ready', function() {
+				//console.log("connected to "+server+" mirror...");
+				ftp.cwd("/"+dir,function(err, curr) {
+					//console.log("move to "+ dir+", fetching list...");
 					if (err) throw err;
-					for (var i in list)
-					{
-						//if (list[i].type == '-')
-						self.checkFile(pack,list[i].name);
-					}
-					
-					//sort & uniq
-					pack.pack.versions = sort_unique(pack.pack.versions);
-					console.log(pack.pack.name);
-// 					console.log(pack.pack.name+" : "+pack.pack.versions);
-					
-					ftp.end();
-					
-					if (callback != undefined)
-						callback(null,pack);
+					ftp.list(function(err, list) {
+						if (err) throw err;
+						for (var i in list)
+						{
+							//if (list[i].type == '-')
+							self.checkFile(pack,list[i].name);
+						}
+						
+						//sort & uniq
+						pack.pack.versions = sort_unique(pack.pack.versions);
+						console.log(pack.pack.name);
+	// 					console.log(pack.pack.name+" : "+pack.pack.versions);
+						
+						ftp.end();
+						
+						if (callback != undefined && ++cnt == lst.length)
+							callback(null,pack);
+					});
 				});
 			});
-		});
-		
-		ftp.connect({host: server});
+			
+			ftp.connect({host: server,connTimeout:100000,pasvTimeout:100000});
 		} catch (e) {
 			console.log("Get error on "+pack.pack.name);
 			callback();
