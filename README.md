@@ -2,7 +2,7 @@ HomeLinux
 =========
 
 
-What it is ?
+What is it ?
 ------------
 
 Homelinux is a simple package manager to handle installation of packages in your home directory by rebuilding them from sources.
@@ -13,9 +13,9 @@ available on the current system and automatically installing the missing one.
 The goal is to provide a quick access to the latest version available for all packaging without regarding on the stability.
 It make HomeLinux an interesting tool to test usage of all up-to-date version of packages together to find new build issues.
 
-Another usage of HomeLinux can be for HPC datacenters to build quicly some fixed prefix to provide new version to the userse without
+Another usage of HomeLinux can be for HPC datacenters to build quicly some fixed prefix to provide new version to the users without
 changing the operating system. Thanks to HomeLinux it is easier to build a new prefix with updated version in another directory
-and making the user moving slowly to new versions.
+and making the user moving slowly to new versions by chaning the prefix they inherit from for their home personal prefix.
 
 Features
 --------

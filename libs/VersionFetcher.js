@@ -50,7 +50,7 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 	
 	//fetch all
 	var batch = new Batch();
-	batch.concurrency(2);
+	batch.concurrency(4);
 	
 	var self = this;
 	packs.forEach(function(p) {

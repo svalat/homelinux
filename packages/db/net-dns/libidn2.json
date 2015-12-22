@@ -6,8 +6,8 @@
 		"0.10" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://alpha.gnu.org/gnu/libidn/",
+		"mode": "http",
+		"url": "http://alpha.gnu.org/gnu/libidn/",
 		"regexp": "libidn2-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},

@@ -41,7 +41,7 @@
 			"configure": {
 				"+gentoo": [
 					"-DSQLITE_ENABLE_API_ARMOR",
-					"-DSQLITE_ENABLE_COLUMN_METADATA",
+					"-DSQLITE_ENABLE_COLUMN_METADATA"
 				],
 				"+readline": [ "--$enable-readline" ]
 			}
