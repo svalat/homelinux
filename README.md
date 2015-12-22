@@ -30,6 +30,7 @@ It is inspirated from gentoo package manager and import most of its semantic.
  * Check host system package to not rebuild the whole tree if not necessary
  (can support multiple system if compatibility name list is provided).
  * Inheritance between prefix (Not yet finished)
+ * Support of module
 
 Pre-requist
 -----------
