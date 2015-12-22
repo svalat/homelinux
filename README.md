@@ -41,7 +41,7 @@ than required.
 The only dependencies are `nodejs`, `npm` and the necessary to download and build basic packages (`tar`,`wget`,`gcc`, `make`...).
 
 CAUTION, you need a recent vesion of `nodejs` otherwise homelinux silently fail to detect the
-system packages dur to lack of `child_process.execSync()`.
+system packages due to lack of `child_process.execSync()`.
 
 Installation
 ------------

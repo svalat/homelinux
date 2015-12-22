@@ -311,6 +311,15 @@ PackageBuilder.prototype.isInstalled = function()
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getVersionList = function()
+{
+	if (this.prefix.versions[this.pack.name] != undefined)
+		return this.prefix.versions[this.pack.name];
+	else
+		return this.prefix.versions[this.pack.name];
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.applyVersionHints = function()
 {
 	if (this.hints == undefined)

@@ -20,5 +20,31 @@
 	"host": {
 		"default": false,
 		"debian8": [ "sqlite" ]
+	},
+	"slots":{
+		"0": "<3000000",
+		"3": ">=3000000"
+	},
+	"vspecific": {
+		":3": {
+			"deps": [
+				"icu? dev-libs/icu :0",
+				"readline? sys-libs/readline :0",
+				"tcl? dev-lang/tcl :0",
+				"tools? dev-lang/tcl :0",
+				"doc? app-arch/unzip",
+				"tcl? app-arch/unzip",
+				"test? app-arch/unzip",
+				"test? dev-lang/tcl :0",
+				"tools? app-arch/unzip"
+			],
+			"configure": {
+				"+gentoo": [
+					"-DSQLITE_ENABLE_API_ARMOR",
+					"-DSQLITE_ENABLE_COLUMN_METADATA",
+				],
+				"+readline": [ "--$enable-readline" ]
+			}
+		}
 	}
 }

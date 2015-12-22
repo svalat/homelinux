@@ -11,6 +11,7 @@ var fs = require('fs');
 var jso = require('json-override');
 var httpreq = require('sync-request');
 var find = require('find');
+var PackageBuilder = require('./PackageBuilder');
 
 /*********************  CLASS  **********************/
 function Prefix(prefix) 
@@ -347,7 +348,10 @@ Prefix.prototype.search = function(name)
 	console.log("-------------------------PACKAGES---------------------------");
 	for (var i in cache)
 		if (i.indexOf(name) != -1)
-			console.log(i);
+		{
+			var p = new PackageBuilder(this,this.userConfig,i);
+			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.getVersionList().join(', ')+"]");
+		}
 	console.log("--------------------------GENTOO----------------------------");
 	this.gentooDb = require(this.getFile('/share/homelinux/packages/db/gentoo.json'));
 	for (var i in this.gentooDb)
