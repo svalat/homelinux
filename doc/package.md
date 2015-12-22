@@ -38,7 +38,7 @@ Example
 			"make",
 			"gcc > 3.4 < 4.8 ! 4.5.8",
 			"install = 4.5",
-			"curses? curses:4[+shell,-gui,lst] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+"
+			"curses? curses:4[+shell,-gui,lst,#requireIfParentHas] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+"
 		],
 		"host": {
 			"default": true,
@@ -153,3 +153,17 @@ About gentoo flag
 On each packages, try to use the `gentoo` it you add dependencies from the gentoo packages, it provide a nice
 way to generate the full build from gentoo tree but still keeping the default mode
 using less options as possible on the packages.
+
+Script and variables to build options
+-------------------------------------
+
+ * `--DENABLE_PROPERTY=$ON` : To setup ON or OFF depending on the useflag status for CMake.
+ * `--DENABLE_PROPERTY=$OFF` : To setup ON or OFF depending on the useflag status (opposite of) for CMake.
+ * `--$with-package` : Enable usage of package (replaced by with ou without depending on flag status).
+ * `--$without-package` : Enable usage of package (replaced by with ou without depending on opposite flag status).
+ * `--$enable-package` : Enable usage of package (replaced by with ou without depending on flag status).
+ * `--$disable-package` : Enable usage of package (replaced by with ou without depending on opposite flag status).
+ * `$(hl_option_if_config_has enable-debug)` : Search in configure if option is available, and if true, setup --${OPTION}).
+ * `$(hl_with $with sys-devel/cairo)` : Apply with or without and also add path to prefix of requested package as value.
+ * `--$with-cairo=$(hl_prefix sys-devel/cairo)` : Alternative to previous semantic.
+

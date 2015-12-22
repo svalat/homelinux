@@ -108,6 +108,14 @@ function hl_cmake_enable()
 	fi
 }
 
+function hl_option_if_config_has()
+{
+	cd $HL_TEMP/$SUBDIR
+	if grep -q "$1"; then
+		echo "--$1"
+	fi
+}
+
 function hl_cmake_with()
 {
 	if [ "$1" = "with" ]; then

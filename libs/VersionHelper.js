@@ -71,7 +71,7 @@ VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 			break;
 		case ':':
 			var slot = this.getSlot(pack,version);
-			console.log(slot +"!="+operand);
+			//console.log(slot +"!="+operand);
 			return (slot == operand);
 			break;
 		default:

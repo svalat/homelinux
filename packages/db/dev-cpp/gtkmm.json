@@ -1,7 +1,7 @@
 {
 	"name": "dev-cpp/gtkmm",
 	"homepage": "http://www.gtkmm.org",
-	"inherit": "models/autotools",
+	"inherit": "models/gnome2",
 	"versions": [ 
 		"2.24.4" 
 	],
@@ -17,10 +17,53 @@
 	],
 	"deps": [
 		"dev-cpp/pangomm",
-		"x11-libs/gtk+"
+		"gentoo? dev-cpp/glibmm",
+		"gentoo? x11-libs/gdk-pixbuf",
+		"gentoo? dev-cpp/atkmm",
+		"gentoo? dev-cpp/cairomm",
+		"gentoo? dev-libs/libsigc++",
+		"gentoo? virtual/pkgconfig",
+		"doc? media-gfx/graphviz",
+		"doc? dev-libs/libxslt",
+		"doc? app-doc/doxygen"
 	],
+	"configure":{
+		"": [ "CXXFLAGS=-std=c++11" ],
+		"+gentoo": [ "--enable-api-atkmm" ],
+		"+doc": [ "--$enable-documentation" ]
+	},
+	"vspecific":{
+		":2.4": {
+			"deps": [
+				"x11-libs/gtk+ :2.4"
+			]
+		},
+		":3.0": {
+			"deps": [
+				"x11-libs/gtk+ :3.0"
+			],
+			"useflags": [
+				"-aqua",
+				"-wayland",
+				"-X"
+			],
+			"configure": {
+				"+aqua": [ "--$enable-quartz-backend" ],
+				"+wayland": [ "--$enable-wayland-backend" ],
+				"+X": [ "--$enable-x11-backend" ]
+			}
+		}
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "libgtkmm-2.4-dev" ]
-	}
+	},
+	"slots": {
+		"2.4": "<3.0",
+		"3.0": ">=3.0"
+	},
+	"useflags": [
+		"-gentoo",
+		"-doc"
+	]
 }

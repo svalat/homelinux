@@ -1,7 +1,7 @@
 {
 	"name": "dev-cpp/glibmm",
 	"homepage": "http://www.gtkmm.org",
-	"inherit": "models/autotools",
+	"inherit": "models/gnome2",
 	"versions": [ 
 		"2.47.3" 
 	],
@@ -17,10 +17,22 @@
 	],
 	"deps": [
 		"dev-libs/libsigc++",
-		"dev-libs/glib"
+		"dev-libs/glib",
+		"gentoo? virtual/pkgconfig",
+		"doc? app-doc/doxygen"
 	],
+	"configure": {
+		"+debug": [ "--$enable-debug-refcounting" ],
+		"+doc": [ "--$enable-documentation" ],
+		"+gentoo": [ "--enable-deprecated-api" ]
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "libglibmm-2.4-dev" ]
-	}
+	},
+	"useflags": [
+		"-gentoo",
+		"-doc",
+		"-debug"
+	]
 }

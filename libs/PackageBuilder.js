@@ -68,6 +68,17 @@ PackageBuilder.prototype.loadInherit = function(pack)
 				else if (pack.steps != undefined)
 					parent.steps = pack.steps;
 			} else if ( i == 'inherit' ) {
+			} else if ( i == 'configure' ) {
+				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
+			} else if ( i == 'deps' ) {
+				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
+			} else if ( i == 'useflags' ) {
+				if (parent[i] != undefined)
+					parent[i] = parent[i].concat(pack[i]);
+				else
+					parent[i] = pack[i];
+				//TODO do proper marge
+				parent[i] = parent[i].filter(function(value,index,self) {return self.indexOf(value) === index;});
 			} else {
 				parent[i] = mergeEntry(parent[i],pack[i]);
 			}
@@ -182,6 +193,12 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 				return false;
 		return true;
 	}
+	
+	//check +-
+	var invert = false;
+	if (value[0] == '-')
+		invert = true;
+	value = value.replace(/[-+]/g,'');
 
 	//get global use flag
 	var local = this.getProperty('useflags');
@@ -205,7 +222,10 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 	else if (pack != undefined && pack.indexOf('-'+value) != -1)
 		status = false;
 
-	return status;
+	if (invert)
+		return !status;
+	else
+		return status;
 }
 
 /*******************  FUNCTION  *********************/
@@ -304,31 +324,46 @@ PackageBuilder.prototype.applyVersionHints = function()
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.replaceParentUseFlags = function(flags)
+{
+	var flags = flags.replace('[','').replace(']','').split(',');
+	
+	var ret = [];
+	for (var i in flags)
+	{
+		if (flags[i].indexOf('#') != -1)
+		{
+			var flag = flags[i].replace(/[+#-]/g,'');
+			if (this.hasUseFlags(flag))
+				ret.push('+'+flag);
+		} else if (flags[i] != '') {
+			ret.push(flags[i]);
+		}
+	}
+	
+	return '['+ret.join(',')+']';
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.checkUseFlagHints = function()
 {
 	if (this.hints == undefined)
 		return;
 	
 	var err = [];
-	console.log(this.hints);
 	if (this.hints != undefined)
 	{
 		for (var i in this.hints)
 		{
-			console.error("Check iuse for "+this.pack.name);
 			if (this.hints[i].iuse != undefined)
 			{
 				var flags = this.hints[i].iuse.replace('[','').replace(']','').split(',');
 				for (var i in flags)
 				{
 					var f = flags[i];
-					console.error("Check "+f);
-					if (f[0] == '-' && this.hasUseFlags(f.substring(1)))
-						err.push(f);
-					else if (f[0] == '+' && !this.hasUseFlags(f.substring(1)))
-						err.push(f);
-					else if (!this.hasUseFlags(f))
-						err.push(f);
+					var info = f + " ("+this.hints[i].parent.pack.name+")";
+					if (!this.hasUseFlags(f))
+						err.push(info);
 				}
 			}
 		}

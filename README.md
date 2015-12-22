@@ -17,6 +17,19 @@ Another usage of HomeLinux can be for HPC datacenters to build quicly some fixed
 changing the operating system. Thanks to HomeLinux it is easier to build a new prefix with updated version in another directory
 and making the user moving slowly to new versions.
 
+Features
+--------
+
+It is inspirated from gentoo package manager and import most of its semantic.
+
+ * Automatic download of sources
+ * Automatic update of version DB
+ * Package dependencies
+ * Useflags
+ * Package slots
+ * Check host system package to not rebuild the whole tree if not necessary
+ (can support multiple system if compatibility name list is provided).
+
 Pre-requist
 -----------
 

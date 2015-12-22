@@ -1,0 +1,23 @@
+{
+	"name": "hl-template-gnome2",
+	"deps": [
+	],
+	"inherit": "models/autotools",
+	"useflags": [
+		"-debug",
+		"-gentoo",
+		"-doc"
+	],
+	"configure": {
+		"+debug": [ "--enable-debug" ],
+		"+doc": [ "$(hl_option_if_config_has enable-gtk-doc)" ],
+		"+gentoo": [
+			"$(hl_option_if_config_has disable-maintainer-mode)",
+			"$(hl_option_if_config_has disable-scrollkeeper)",
+			"$(hl_option_if_config_has disable-silent-rules)",
+			"$(hl_option_if_config_has disable-schemas-install)",
+			"$(hl_option_if_config_has disable-schemas-compile)",
+			"$(hl_option_if_config_has enable-compile-warnings=minimum)"
+		]
+	}
+}

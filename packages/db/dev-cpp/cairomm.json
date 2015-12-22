@@ -1,7 +1,7 @@
 {
 	"name": "dev-cpp/cairomm",
 	"homepage": "http://cairographics.org/cairomm",
-	"inherit": "models/autotools",
+	"inherit": "models/gnome2",
 	"versions": [ 
 		"1.12.0" 
 	],
@@ -15,12 +15,25 @@
 	"urls" : [
 		"http://cairographics.org/releases/cairomm-${VERSION}.tar.gz"
 	],
+	"configure": {
+		"+gentoo": [ "--disable-tests" ],
+		"+doc" : [ "--$enable-documentation" ]
+	},
 	"deps": [
-		"x11-libs/cairo",
-		"dev-libs/libsigc++"
+		"x11-libs/cairo[#svg]",
+		"dev-libs/libsigc++",
+		"gentoo? virtual/pkgconfig",
+		"doc? app-doc/doxygen",
+		"doc? dev-libs/libxslt",
+		"doc? media-gfx/graphviz"
 	],
 	"host": {
 		"default": false,
 		"debian8": [ "libcairomm-1.0-dev" ]
-	}
+	},
+	"useflags": [
+		"-gentoo",
+		"-doc",
+		"-svg"
+	]
 }

@@ -42,13 +42,13 @@ DepsLoader.prototype.needLoadDep = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
-		var regexp = new RegExp("([0-9a-zA-Z+_/&-]+)(\\[[0-9A-Za-z_+,-]+\\])?( .+)?");
+		var regexp = new RegExp("([0-9a-zA-Z+_/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format "+dep;
 		return {name:ret[1],use:null,iuse:ret[2],version:ret[3]};
 	} else {
-		var regexp = new RegExp("([a-zA-Z0-9-&_+]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z_+,-]+\\])?( .+)?");
+		var regexp = new RegExp("([a-zA-Z0-9-&_+]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?( .+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format "+dep;
@@ -66,6 +66,9 @@ DepsLoader.prototype.loadDeps = function(pack)
 		for (var j in deps)
 		{
 			var dep = this.needLoadDep(deps[j])
+			dep.parent = pack;
+			if (dep.iuse != undefined)
+				dep.iuse = pack.replaceParentUseFlags(dep.iuse);
 			
 			if (dep.use == null || pack.hasUseFlags(dep.use))
 			{
