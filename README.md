@@ -29,6 +29,7 @@ It is inspirated from gentoo package manager and import most of its semantic.
  * Package slots
  * Check host system package to not rebuild the whole tree if not necessary
  (can support multiple system if compatibility name list is provided).
+ * Inheritance between prefix (Not yet finished)
 
 Pre-requist
 -----------
@@ -38,6 +39,9 @@ platform except that it will not autodetect the presence of native packages. In 
 than required.
 
 The only dependencies are `nodejs`, `npm` and the necessary to download and build basic packages (`tar`,`wget`,`gcc`, `make`...).
+
+CAUTION, you need a recent vesion of `nodejs` otherwise homelinux silently fail to detect the
+system packages dur to lack of `child_process.execSync()`.
 
 Installation
 ------------
