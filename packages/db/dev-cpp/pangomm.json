@@ -17,6 +17,8 @@
 	],
 	"deps": [
 		"x11-libs/pango",
+		"dev-cpp/glibmm",
+		"dev-cpp/cairomm",
 		"gentoo? virtual/pkgconfig",
 		"doc? media-gfx/graphviz",
 		"doc? dev-libs/libxslt",

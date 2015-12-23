@@ -20,7 +20,8 @@
 		"dev-util/pkgconfig",
 		"media-libs/libpng",
 		"x11-libs/pixman",
-		"media-libs/freetype"
+		"media-libs/freetype",
+		"media-libs/fontconfig"
 	],
 	"configure": {
 		"": [ "--enable-ft", "--enable-xlib", "--enable-tee", "--enable-xlib-xrender" ]

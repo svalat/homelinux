@@ -25,7 +25,6 @@ gentoo/dbus gentoo/libxml2
 gentoo/gitg gentoo/glib gentoo/gtk+-2 gentoo/gtksourceview gentoo/gsettings-desktop-schemas gentoo/libglade
 gentoo/gtk+ gentoo/cairo gentoo/glib gentoo/atk gentoo/pango gentoo/gdk-pixbuf
 gentoo/gtkmm gentoo/pangomm gentoo/atkmm
-gentoo/atkmm gentoo/glibmm
 gentoo/pangomm gentoo/glibmm gentoo/cairomm gentoo/libsigc++
 gentoo/apr-util gentoo/apr
 gentoo/phonon gentoo/automoc4
@@ -82,3 +81,4 @@ gentoo/icon-naming-utils gentoo/XML-Simple
 gentoo/gnome-keyring gentoo/libgcrypt gentoo/libtasn1
 gentoo/libgcrypt gentoo/libgpg-error
 gentoo/libxslt gentoo/libxml2
+gentoo/libXau gentoo/xproto

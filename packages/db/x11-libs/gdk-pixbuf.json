@@ -6,18 +6,23 @@
 		"2.32.3" 
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://git.gnome.org/browse/gdk-pixbuf",
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/mirror/gnome.org/sources/gdk-pixbuf/cache.json",
 		"regexp": "gdk-pixbuf-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},
 	"subdir": "gdk-pixbuf-$VERSION",
 	"urls" : [
-		"https://git.gnome.org/browse/gdk-pixbuf/snapshot/gdk-pixbuf-${VERSION}.tar.xz"
+		"http://ftp.gnome.org/mirror/gnome.org/sources/gdk-pixbuf/$(echo $VERSION | cut -d '.' -f 1-2)/gdk-pixbuf-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"media-libs/tiff",
-		"media-libs/jpeg"
+		"media-libs/jpeg",
+		"dev-util/gtk-doc",
+		"sys-devel/gettext",
+		"dev-libs/glib",
+		"virtual/pkgconfig",
+		"media-libs/libpng"
 	],
 	"configure": {
 		"": [ "$(hl_with tiff media-libs/tiff)", "LDFLAGS=-L$PREFIX/lib" ]
@@ -25,8 +30,5 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libgdk-pixbuf2.0-dev" ]
-	},
-	"steps": {
-		"configure": [ "hl_configure_autotools_autogen" ]
 	}
 }

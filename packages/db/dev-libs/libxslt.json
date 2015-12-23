@@ -16,6 +16,7 @@
 		"ftp://xmlsoft.org/libxslt/libxslt-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-libs/libxml2"
 	],
 	"configure": {
 	},

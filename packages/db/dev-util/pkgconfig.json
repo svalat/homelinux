@@ -20,5 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "pkg-config" ]
+	},
+	"configure": {
+		"": [ "--with-internal-glib" ]
 	}
 }

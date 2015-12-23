@@ -325,6 +325,8 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 {
 	var vregexp = this.getQuick('version','gentoo/'+qp.name);
 	if (vregexp == undefined)
+		var vregexp = this.getQuick('version',qp.name);
+	if (vregexp == undefined)
 		vregexp = '[0-9]+.[0-9]+.?[0-9]*';
 	
 	console.error(qp.name + " => "+vregexp);

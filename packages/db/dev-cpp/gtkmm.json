@@ -17,6 +17,7 @@
 	],
 	"deps": [
 		"dev-cpp/pangomm",
+		"gentoo/atkmm",
 		"gentoo? dev-cpp/glibmm",
 		"gentoo? x11-libs/gdk-pixbuf",
 		"gentoo? dev-cpp/atkmm",

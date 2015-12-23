@@ -1,5 +1,5 @@
 {
-	"name": "dev-cpp/glib",
+	"name": "dev-libs/glib",
 	"homepage": "http://www.gtkmm.org",
 	"inherit": "models/autotools",
 	"versions": [ 

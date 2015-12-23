@@ -17,7 +17,9 @@
 	],
 	"deps": [
 		"dev-libs/atk",
-		"x11-libs/gdk-pixbuf"
+		"x11-libs/gdk-pixbuf",
+		"x11-libs/pango",
+		"x11-libs/cairo"
 	],
 	"configure": {
 	},
