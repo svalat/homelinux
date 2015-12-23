@@ -44,7 +44,7 @@ function DepsLoader(prefix,userConfig,packageList)
 /*******************  FUNCTION  *********************/
 DepsLoader.prototype.applyVSpecific = function()
 {
-	console.log("Start specific");
+	//console.log("Start specific");
 	for (var i in this.root)
 	{
 		if (this.root[i] != null)
@@ -262,7 +262,11 @@ DepsLoader.prototype.presentOnSystemDefault = function(p)
 /*******************  FUNCTION  *********************/
 DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 {
-	var h = p.pack.host['debian8'];
+	var h = [];
+	
+	//package one
+	if (p.pack.host != undefined)
+		h = p.pack.host['debian8'];
 
 	//load from separate file
 	if (this.hostsRefs[p.pack.name] != undefined)

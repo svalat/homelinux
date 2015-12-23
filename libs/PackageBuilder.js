@@ -35,6 +35,25 @@ PackageBuilder.prototype.load = function(packageName,inherit)
 		this.pack = this.loadInherit(pack);
 	else
 		this.pack = pack;
+
+	//add quickdeps
+	var deps = this.prefix.getQuick('deps',this.pack.name);
+	if (this.pack.deps == undefined)
+		this.pack.deps = deps;
+	else
+		this.pack.deps = this.pack.deps.concat(deps);
+	
+	//add quick config
+	var config = this.prefix.getQuick('config',this.pack.name);
+	if (this.pack.configure == undefined)
+	{
+		this.pack.configure = {};
+		this.pack.configure[''] = config;
+	} else if (this.pack.configure[''] == undefined) {
+		this.pack.configure[''] = config;
+	} else {
+		this.pack.configure[''] = this.pack.configure[''].concat(config);
+	}
 }
 
 /*******************  FUNCTION  *********************/

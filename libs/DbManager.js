@@ -50,7 +50,7 @@ DbManager.prototype.saveGentooDb = function(list)
 		if (list[i].type == '-')
 			files.push(list[i].name);
 	}
-	fs.writeFileSync(this.prefix.getFile('/share/homelinux/packages/db/gentoo.json'),JSON.stringify(files));
+	fs.writeFileSync(this.prefix.getFile('/share/homelinux/packages/gentoo.json'),JSON.stringify(files));
 	console.log("Gentoo DB saved");
 }
 

@@ -3,17 +3,17 @@
 	"homepage": "http://www.freedesktop.org/wiki/Software/pkg-config/",
 	"inherit": "models/autotools",
 	"versions": [ 
-		"0.18" 
+		"0.29" 
 	],
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://pkgconfig.freedesktop.org/releases/",
-		"regexp": "pkgconfig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"regexp": "pkg-config-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
-	"subdir": "pkgconfig-${VERSION}",
+	"subdir": "pkg-config-${VERSION}",
 	"urls" : [
-		"http://pkgconfig.freedesktop.org/releases/pkgconfig-${VERSION}.tar.gz"
+		"http://pkgconfig.freedesktop.org/releases/pkg-config-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

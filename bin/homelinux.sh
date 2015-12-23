@@ -59,7 +59,7 @@ case "$1" in
 		shift 1
 		node index.js install-ls "$@"
 		yesno
-		fname=$(tempfile)
+		fname=$(tempfile -p homelinux)
 		node index.js gen-install "$@" > $fname
 		bash $fname
 		rm $fname

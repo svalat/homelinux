@@ -16,6 +16,14 @@
 		"http://www.cpan.org/src/5.0/perl-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"berkdb? sys-libs/db",
+		"gdbm? sys-libs/gdbm",
+		"gentoo? app-arch/bzip2",
+		"gentoo? sys-libs/zlib",
+		"gentoo? app-admin/perl-cleaner",
+		"gentoo? virtual/perl-File-Temp",
+		"gentoo? virtual/perl-Data-Dumper",
+		"gentoo? virtual/perl-Test-Harness"
 	],
 	"steps": {
 		"configure": [
@@ -26,5 +34,10 @@
 	"host": {
 		"default": false,
 		"debian8": [ "perl" ]
-	}
+	},
+	"useflags": [	
+		"-gentoo",
+		"-berkdb",
+		"-gdbm"
+	]
 }

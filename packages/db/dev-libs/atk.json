@@ -1,36 +1,40 @@
 {
 	"name": "dev-libs/atk",
 	"homepage": "https://wiki.gnome.org/Accessibility",
-	"inherit": "models/autotools",
+	"inherit": "models/gnome2",
 	"versions": [ 
 		"2.18.0" 
 	],
 	"vfetcher": {
-		"mode": "http-apache-list",
-		"url": "https://git.gnome.org/browse/atk",
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/mirror/gnome.org/sources/atk/cache.json",
 		"regexp": "atk-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},
-	"subdir": "ATK_$(echo ${VERSION} | sed -e 's/\\./_/g')",
+	"subdir": "atk-${VERSION}",
 	"urls" : [
-		"https://git.gnome.org/browse/atk/snapshot/ATK_$(echo ${VERSION} | sed -e 's/\\./_/g').tar.xz"
+		"http://ftp.gnome.org/mirror/gnome.org/sources/atk/$(echo $VERSION | cut -d '.' -f 1-2)/atk-${VERSION}.tar.xz"
 	],
 	"deps": [
+		"dev-libs/glib",
 		"dev-util/gtk-doc",
 		"sys-devel/libtool",
 		"sys-devel/automake",
-		"sys-devel/autoconf"
+		"sys-devel/autoconf",
+		"introspection? dev-libs/gobject-introspection",
+		"dev-lang/perl",
+		"virtual/pkgconfig",
+		"nls? sys-devel/gettext"
 	],
 	"configure": {
-		"": [
-			"$(hl_with glib dev-cpp/glib)"
-		]
-	},
-	"steps": {
-		"configure": [ "hl_configure_autotools_autogen" ]
+		"introspection": [ "--$enable-introspection" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "atk" ]
-	}
+	},
+	"useflags": [
+		"-introspection",
+		"-nls"
+	]
 }

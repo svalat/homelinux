@@ -131,6 +131,13 @@ you might want to use `default` and override the required steps.
  a module configuration file will be setup.
  * *gentooUse* : If gentoo enable some flags by default you can list them here, it will be enable
  if `+gentoo` flag is enabled to produce a gentoo-like build.
+ 
+About commands
+--------------
+
+When you provide some commands into the `step` part, try to prefix them by
+`run` or `run_sh`, it will print the command and prefix the output with the
+package name.
 
 About version filtering
 -----------------------

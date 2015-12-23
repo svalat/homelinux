@@ -1,0 +1,26 @@
+{
+	"name": "media-libs/tiff",
+	"homepage": "http://www.remotesensing.org/libtiff/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.0.6" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.osgeo.org/libtiff/",
+		"regexp": "tiff-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "tiff-${VERSION}",
+	"urls" : [
+		"http://download.osgeo.org/libtiff/tiff-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libtiff5-dev" ]
+	}
+}

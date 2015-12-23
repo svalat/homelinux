@@ -67,6 +67,14 @@ function short_name()
 	esac
 }
 
+function run_nocheck()
+{
+	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
+	set +e
+	eval "$@" 2>&1 | sed -e "s#^#$STEPINFO #" || return
+	set -e
+}
+
 function run()
 {
 	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
@@ -290,6 +298,13 @@ function hl_configure_auto()
 	fi
 }
 
+function hl_configure_autotools_autogen_nocheck()
+{
+	run_sh cd $HL_TEMP/$SUBDIR
+	run_nocheck ./autogen.sh
+	hl_configure_autotools
+}
+
 function hl_configure_autotools_autogen()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
@@ -306,8 +321,8 @@ function hl_configure_autotools()
 function hl_configure_cmake()
 {
 	run_sh cd $HL_TEMP/$SUBDIR
-	run mkdir build
-	run_sh cd build
+	run mkdir cmakebuild
+	run_sh cd cmakebuild
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
 }
 

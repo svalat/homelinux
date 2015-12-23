@@ -1,0 +1,32 @@
+{
+	"gentoo/inkscape": [
+		"gentoo/intltool",
+		"gentoo/freetype",
+		"dev-util/pkgconfig",
+		"gentoo/lcms",
+		"bohem-gc",
+		"gentoo/cairo",
+		"gentoo/cairomm",
+		"gentoo/glib",
+		"gentoo/glibmm",
+		"gentoo/gsl",
+		"gentoo/libxml2",
+		"gentoo/libxslt",
+		"gentoo/pango"
+	],
+	"gentoo/cairo": [
+		"gentoo/freetype",
+		"gentoo/fontconfig",
+		"gentoo/libpng",
+		"gentoo/pixman"
+	],
+	"gentoo/cairomm": [
+		"gentoo/libsigc++"
+	],
+	"gentoo/fontconfig": [
+		"gentoo/libxml2"
+	],
+	"gentoo/kdiff3": [
+		"gentoo/qt-everywhere-opensource-src"
+	]
+}

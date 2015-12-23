@@ -16,9 +16,16 @@
 		"sourceforge://tcl/Tcl/${VERSION}/tcl${VERSION}-src.tar.gz"
 	],
 	"deps": [
+		"gentoo? sys-libs/zlib"
 	],
 	"host": {
 		"default": false,
 		"debian8": [ "tcl8.6", "tcl8.6-dev" ]
-	}
+	},
+	"configure": {
+		"+debug": [ "--$enable-symbols" ],
+		"+threads": [ "--$enable-threads" ]
+	},
+	"useflags": [ "-gentoo", "-debug", "-threads" ],
+	"gentooUse": [ "+threads" ]
 }

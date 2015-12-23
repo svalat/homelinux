@@ -84,6 +84,13 @@ VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 }
 
 /*******************  FUNCTION  *********************/
+VersionHelper.prototype.sortUniqVersions = function(arr) {
+	return arr.sort(compareVersion).filter(function(el,i,a) {
+		return (i==a.indexOf(el));
+	});
+}
+
+/*******************  FUNCTION  *********************/
 VersionHelper.prototype.filterVersion = function(pack,rules,version)
 {
 	if (version == undefined)

@@ -12,6 +12,7 @@ var jso = require('json-override');
 var httpreq = require('sync-request');
 var find = require('find');
 var PackageBuilder = require('./PackageBuilder');
+var VersionHelper = require('./VersionHelper');
 
 /*********************  CLASS  **********************/
 function Prefix(prefix) 
@@ -101,6 +102,39 @@ Prefix.prototype.getVersions = function()
 	}
 	
 	return this.versions;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.getQuick = function(part,name)
+{
+	if (part == 'deps')
+	{
+		if (this.quickdeps == undefined)
+		{
+			var fname = this.getFile('share/homelinux/packages/quickdeps.json');
+			var content = fs.readFileSync(fname);
+			this.quickdeps = JSON.parse(content);
+		}
+		
+		if (this.quickdeps[name] == undefined)
+			return [];
+		else
+			return this.quickdeps[name];
+	} else if (part == 'config') {
+		if (this.quickconfig == undefined)
+		{
+			var fname = this.getFile('share/homelinux/packages/quickconfig.json');
+			var content = fs.readFileSync(fname);
+			this.quickconfig = JSON.parse(content);
+		}
+		
+		if (this.quickconfig[name] == undefined)
+			return [];
+		else
+			return this.quickconfig[name];
+	} else {
+		throw "Invalid part : "+part;
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -219,6 +253,57 @@ Prefix.prototype.buildGithubPackage = function(qp)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.buildUrlsQuickPackage = function(qp)
+{
+	//build regexp
+	var version = qp.version == undefined ? '[0-9]+.[0-9]+.?[0-9]*' : qp.version;
+	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").tar.(gz|bz2|bzip|xz|lz)$");
+	
+	//load gentoo db
+	if (this.urlsDb == undefined)
+		this.urlsDb = require(this.getFile('/share/homelinux/packages/urls.json'));
+	
+	//serach in gentoo list
+	var finalv;
+	var v = [];
+	var ext
+	for (var i in this.urlsDb)
+	{
+		var fname = this.urlsDb[i].split('/').pop();
+		if (vregexp.test(fname))
+		{
+			var ret = vregexp.exec(fname);
+			v.push(ret[1]);
+			finalv = ret[1];
+			ext = ret[2];
+		}
+	}
+	
+	//sort
+	v = VersionHelper.sortUniqVersions(v);
+	
+	//error
+	if (finalv == undefined)
+	{
+		return undefined;
+	} else {
+		//setup
+		qp.version = v;
+		qp.url = [];
+		var self = this;
+		['bz2','xz','gz','zip'].forEach(function(ext) {
+			qp.url.push( "ftp://"+self.config.gentoo.server
+				+ ":"+self.config.gentoo.port
+				+ "/"+self.config.gentoo.distfiles
+				+ "/"+qp.name+"-${VERSION}.tar."+ext);
+		});
+		qp.name = "urls/"+qp.name;
+		
+		return qp;
+	}
+}
+
+/*******************  FUNCTION  *********************/
 Prefix.prototype.buildGentooQuickPackage = function(qp)
 {
 	//build regexp
@@ -227,7 +312,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	
 	//load gentoo db
 	if (this.gentooDb == undefined)
-		this.gentooDb = require(this.getFile('/share/homelinux/packages/db/gentoo.json'));
+		this.gentooDb = require(this.getFile('/share/homelinux/packages/gentoo.json'));
 	
 	//serach in gentoo list
 	var finalv;
@@ -244,6 +329,9 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 		}
 	}
 	
+	//sort
+	v = VersionHelper.sortUniqVersions(v);
+	
 	//error
 	if (finalv == undefined)
 	{
@@ -251,10 +339,14 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	} else {
 		//setup
 		qp.version = v;
-		qp.url = "ftp://"+this.config.gentoo.server
-			+ ":"+this.config.gentoo.port
-			+ "/"+this.config.gentoo.distfiles
-			+ "/"+qp.name+"-${VERSION}.tar."+ext;
+		qp.url = [];
+		var self = this;
+		['bz2','xz','gz','zip'].forEach(function(ext) {
+			qp.url.push( "ftp://"+self.config.gentoo.server
+				+ ":"+self.config.gentoo.port
+				+ "/"+self.config.gentoo.distfiles
+				+ "/"+qp.name+"-${VERSION}.tar."+ext);
+		});
 		qp.name = "gentoo/"+qp.name;
 		
 		return qp;
@@ -300,6 +392,14 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 			qp.name = packageName.replace('github/','');
 			qp.source = 'github';
 		}
+		
+		//manage urls/YYYY
+		if (packageName.split('/')[0] == 'urls')
+		{
+			console.error("Fallback automatically to url based on package name");
+			qp.name = packageName.replace('urls/','');
+			qp.source = 'urls';
+		}
 	}
 	
 	//if is gentoo source
@@ -307,13 +407,28 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		qp = this.buildGentooQuickPackage(qp);
 	else if (qp.source == 'github')
 		qp = this.buildGithubPackage(qp);
+	else if (qp.source == 'urls')
+		qp = this.buildUrlsQuickPackage(qp);
 	else
 		throw "Unexpected qp.source !"
-		
+
+	//if auto & undef try urls
+	if (qp == undefined && auto ==true)
+	{
+		console.error("Can't find package "+packageName+" in gentoo, try urls");
+		qp = {
+			name: packageName,
+			source: 'urls',
+			type: 'models/auto',
+			host: { 'default': false }
+		};
+		qp = this.buildGithubPackage(qp);
+	}
+
 	//if auto & undef try github
 	if (qp == undefined && auto ==true)
 	{
-		console.error("Can't find package "+packageName+" in gentoo, try github");
+		console.error("Can't find package "+packageName+" in urls, try github");
 		qp = {
 			name: packageName,
 			source: 'github',
@@ -329,7 +444,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		"inherit": qp.type == undefined ? 'models/auto' : qp.type,
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
 		"subdir" : qp.name.split('/').pop()+"-${VERSION}",
-		"urls": [ qp.url ],
+		"urls": Array.isArray(qp.url)? qp.url : [ qp.url ],
 		"deps": qp.deps == undefined ? [] : qp.deps ,
 		"host": qp.host,
 		"configure": qp.configure == undefined ? [] : { "":qp.configure },
@@ -353,10 +468,15 @@ Prefix.prototype.search = function(name)
 			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.getVersionList().join(', ')+"]");
 		}
 	console.log("--------------------------GENTOO----------------------------");
-	this.gentooDb = require(this.getFile('/share/homelinux/packages/db/gentoo.json'));
+	this.gentooDb = require(this.getFile('/share/homelinux/packages/gentoo.json'));
 	for (var i in this.gentooDb)
 		if (this.gentooDb[i].indexOf(name) != -1)
 			console.log("gentoo/"+this.gentooDb[i]);
+	console.log("----------------------------URLS----------------------------");
+	this.urlsDb = require(this.getFile('/share/homelinux/packages/urls.json'));
+	for (var i in this.urlsDb)
+		if (this.urlsDb[i].indexOf(name) != -1)
+			console.log("urls/"+this.urlsDb[i].split('/').pop());
 	console.log("------------------------------------------------------------");
 }
 

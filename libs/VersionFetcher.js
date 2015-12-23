@@ -33,7 +33,7 @@ VersionFetcher.prototype.saveAll = function(prefix,packs)
 /*******************  FUNCTION  *********************/
 VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 {
-	this.gentooDb = require(prefix.getFile('/share/homelinux/packages/db/gentoo.json'));;
+	this.gentooDb = require(prefix.getFile('/share/homelinux/packages/gentoo.json'));;
 	
 	//load all
 	var packs = [];

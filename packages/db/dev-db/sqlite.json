@@ -40,10 +40,12 @@
 			],
 			"configure": {
 				"+gentoo": [
-					"-DSQLITE_ENABLE_API_ARMOR",
-					"-DSQLITE_ENABLE_COLUMN_METADATA"
+					"--enable-threadsafe",
+					"--enable-fts5",
+					"CXXFLAGS=-DSQLITE_ENABLE_API_ARMOR\\ -DSQLITE_ENABLE_COLUMN_METADATA\\ -DSQLITE_ENABLE_DBSTAT_VTAB\\ -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS\\ -DSQLITE_ENABLE_FTS4\\ -DSQLITE_ENABLE_JSON1\\ -DSQLITE_ENABLE_RBU\\ -DSQLITE_ENABLE_RTREE\\ -DSQLITE_ENABLE_STMT_SCANSTATUS\\ -DSQLITE_ENABLE_UNLOCK_NOTIFY\\ -DSQLITE_SOUNDEX"
 				],
-				"+readline": [ "--$enable-readline" ]
+				"+readline": [ "--$enable-readline" ],
+				"+debug": [ "--$enable-debug" ]
 			}
 		}
 	}

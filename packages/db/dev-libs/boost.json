@@ -1,0 +1,31 @@
+{
+	"name": "dev-libs/boost",
+	"homepage": "http://www.boost.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.60.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/boost/files/boost/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "boost_$(echo ${VERSION} | sed -e 's/\\./_/g')",
+	"urls" : [
+		"sourceforge://boost/boost/${VERSION}/boost_$(echo ${VERSION} | sed -e 's/\\./_/g').tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libboost-dev" ]
+	},
+	"steps": {
+		"configure": [
+			"run ./bootstrap.sh --prefix=$PREFIX"
+		],
+		"build": [ "run ./b2 --prefix=$PREFIX -j 8" ],
+		"install": [ "run ./b2 install  --prefix=$PREFIX" ]
+	}
+}

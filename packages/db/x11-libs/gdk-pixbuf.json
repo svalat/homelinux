@@ -1,0 +1,32 @@
+{
+	"name": "x11-libs/gdk-pixbuf",
+	"homepage": "https://git.gnome.org/browse/gdk-pixbuf",
+	"inherit": "models/gnome2",
+	"versions": [ 
+		"2.32.3" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://git.gnome.org/browse/gdk-pixbuf",
+		"regexp": "gdk-pixbuf-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "gdk-pixbuf-$VERSION",
+	"urls" : [
+		"https://git.gnome.org/browse/gdk-pixbuf/snapshot/gdk-pixbuf-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"media-libs/tiff",
+		"media-libs/jpeg"
+	],
+	"configure": {
+		"": [ "$(hl_with tiff media-libs/tiff)", "LDFLAGS=-L$PREFIX/lib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libgdk-pixbuf2.0-dev" ]
+	},
+	"steps": {
+		"configure": [ "hl_configure_autotools_autogen" ]
+	}
+}

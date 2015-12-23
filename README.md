@@ -55,7 +55,8 @@ Then, install and create your prefix with make command :
 
 	make install PREFIX=$HOME/usr
 
-Then configure your prefix if needed by editing :
+Then configure your prefix if needed by editing the file. You can find documentation about the 
+configuration into [doc/config.md](doc/config.md).
 
 	nano $HOME/usr/homelinux.json
 
@@ -134,7 +135,8 @@ Currently HomeLinux setup the environenement variables for you to fully configur
 Create packages
 ---------------
 
-To create package, check [doc/package.md](doc/package.md).
+To create package, check [doc/package.md](doc/package.md). If you don't want to provide full packages but just want to use
+as most as possible the default options, you can use the quick package approach defined into [doc/quickpackage.md](doc/quickpackage.md).
 
 Licence
 -------

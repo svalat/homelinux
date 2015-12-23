@@ -1,0 +1,3 @@
+{
+	"gentoo/qt-everywhere-opensource-src": [ "-confirm-license", "-opensource" , "-release" ]
+}

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-gnome-cache",
 		"url": "http://ftp.gnome.org/pub/GNOME/sources/gtk+/cache.json",
-		"regexp": "gtk+-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
+		"regexp": "gtk\\+-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
 	},
 	"md5" : {},
 	"subdir": "gtk+-$VERSION",
@@ -16,7 +16,8 @@
 		"http://ftp.gnome.org/pub/GNOME/sources/gtk+/$(echo $VERSION | cut -d '.' -f 1-2)/gtk+-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"dev-libs/atk"
+		"dev-libs/atk",
+		"x11-libs/gdk-pixbuf"
 	],
 	"configure": {
 	},
@@ -25,7 +26,7 @@
 		"debian8": [ "libgtk+2.4-dev" ]
 	},
 	"slots": {
-		"2.4": "<3.0",
+		"2.4": "<2.90",
 		"3.0": ">=3.0"
 	}
 }
