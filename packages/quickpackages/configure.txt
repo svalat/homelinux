@@ -1,0 +1,27 @@
+gentoo/mpfr --with-gmp=$(hl_prefix gentoo/gmp)
+gentoo/mpc --with-gmp=$(hl_prefix gentoo/gmp) --with-mpfr=$(hl_prefix gentoo/mpfr)
+gentoo/gcc --with-gmp=$(hl_prefix gentoo/gmp) --with-mpfr=$(hl_prefix gentoo/mpfr) --disable-multilib --enable-languages=c,c++
+gentoo/subversion --disable-mod-activation
+gentoo/apr-util --with-apr=$(hl_prefix gentoo/apr)
+gentoo/dbus --with-xml=libxml LDFLAGS=-L$(hl_prefix gentoo/libxml2)/lib CFLAGS=-I$(hl_prefix gentoo/libxml2)/include
+gentoo/dbus-glib LDFLAGS=-L$(hl_prefix gentoo/glib)/lib CFLAGS=-I$(hl_prefix gentoo/glib)/include
+gentoo/cairo --enable-xml
+gentoo/gnuplot --disable-wxwidgets
+gentoo/XML-Parser EXPATLIBPATH=$(hl_prefix gentoo/expat)/lib EXPATINCPATH=$(hl_prefix gentoo/expat)/include
+gentoo/inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
+gentoo/gdk-pixbuf --without-libtiff --with-jpeg=$(hl_prefix gentoo/jpegsrc) LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
+gentoo/gtk+ --x-libraries=${PREFIX}/lib --x-includes=${PREFIX}/include/X11 LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include/X11
+gentoo/mpich2 F90=gfortran F70=gfortran
+gentoo/gitg CFLAGS=-O1
+gentoo/git --with-curl=$(hl_prefix gentoo/curl) --with-expat=$(hl_prefix gentoo/expat)
+gentoo/vte --disable-Bsymbolic
+gentoo/Python --enable-shared
+gentoo/xine-ui --disable-lirc
+gentoo/ffmpeg --enable-postproc --enable-gpl --enable-shared
+gentoo/libgnome --disable-canberra
+gentoo/kdebase-workspace -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${PREFIX}/lib -DCMAKE_EXE_LINKER_FLAGS="-L${PREFIX}/lib"
+gentoo/svUnitTest -DDISABLE_UNIT_TESTS=yes -DCMAKE_BUILD_TYPE=release
+gentoo/kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=$(hl_prefix gentoo/docbook-xml)/share/docbook-xml/ -DDOCBOOKXSL_DIR=$(hl_prefix gentoo/docbook-xsl)/share/docbook-xsl
+gentoo/openssl shared threads zlib
+gentoo/poppler --enable-xpdf-headers
+gentoo/gimp --without-libtiff --disable-python

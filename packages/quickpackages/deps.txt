@@ -1,0 +1,84 @@
+gentoo/mpfr gentoo/gmp
+gentoo/git gentoo/curl
+gentoo/mpc gentoo/mpfr gentoo/gmp
+gentoo/gcc gentoo/gmp gentoo/mpfr gentoo/mpc gentoo/binutils gentoo/libtool
+gentoo/doxygen gentoo/graphviz
+gentoo/automake gentoo/autoconf
+gentoo/subversion gentoo/apr gentoo/apr-util gentoo/sqlite
+gentoo/nemiver gentoo/boost gentoo/sqlite gentoo/GConf gentoo/dbus gentoo/dbus-glib gentoo/libgtop gentoo/glibmm gentoo/gnome-doc-utils gentoo/gtkmm gentoo/gtksourceviewmm gentoo/vte
+gentoo/libgtksourceviewmm gentoo/pangomm
+gentoo/GConf gentoo/glib gentoo/ORBit2 gentoo/libxml2 gentoo/dbus-glib
+gentoo/ORBit2 gentoo/libIDL
+gentoo/dbus-glib gentoo/expat
+gentoo/fontconfig gentoo/libxml2
+gentoo/cairo gentoo/libpng gentoo/pixman gentoo/libsvg gentoo/poppler gentoo/fontconfig gentoo/freetype gentoo/glib
+gentoo/XML-Parser gentoo/expat
+gentoo/intltool gentoo/XML-Parser
+gentoo/inkscape gentoo/intltool gentoo/gc gentoo/libxslt gentoo/gtkmm gentoo/gsl gentoo/boost gentoo/lcms2 gentoo/poppler
+gentoo/pango gentoo/glib gentoo/cairo
+gentoo/gnuplot gentoo/cairo gentoo/PDFlib-Lite
+gentoo/glib gentoo/gettext
+gentoo/glibmm gentoo/glib gentoo/libsigc++
+gentoo/gdk-pixbuf gentoo/glib
+gentoo/dbus-glib gentoo/dbus
+gentoo/dbus gentoo/libxml2
+gentoo/gitg gentoo/glib gentoo/gtk+-2 gentoo/gtksourceview gentoo/gsettings-desktop-schemas gentoo/libglade
+gentoo/gtk+ gentoo/cairo gentoo/glib gentoo/atk gentoo/pango gentoo/gdk-pixbuf
+gentoo/gtkmm gentoo/pangomm gentoo/atkmm
+gentoo/atkmm gentoo/glibmm
+gentoo/pangomm gentoo/glibmm gentoo/cairomm gentoo/libsigc++
+gentoo/apr-util gentoo/apr
+gentoo/phonon gentoo/automoc4
+gentoo/libdbusmenu-qt gentoo/qjson gentoo/qt4
+gentoo/strigi gentoo/bzip2
+gentoo/git gentoo/curl gentoo/expat
+gentoo/libpng gentoo/xz
+gentoo/geany gentoo/XML-Parser gentoo/gtk+
+gentoo/gnome-doc-utils gentoo/scrollkeeper
+gentoo/vte gentoo/binutils gentoo/gtk+
+gentoo/gtksourceviewmm gentoo/gtkmm gentoo/gtksourceview
+gentoo/gdk-pixbuf gentoo/glib
+gentoo/gcalctool gentoo/intltool gentoo/gnome-doc-utils gentoo/libxslt gentoo/libxml2
+gentoo/dia gentoo/glib gentoo/gtk+ gentoo/pango gentoo/libxml2 gentoo/atk gentoo/libxslt gentoo/libart_lgpl gentoo/intltool gentoo/docbook-xsl
+gentoo/docbook-xsl gentoo/docbook-xml gentoo/sgml-common
+gentoo/mplayer gentoo/yasm gentoo/xine-ui
+gentoo/xine-ui gentoo/xine-lib gentoo/curl gentoo/libXt
+gentoo/xine-lib gentoo/ffmpeg
+gentoo/pygtk gentoo/pygobject
+gentoo/pygobject gentoo/gobject-introspection gentoo/glib gentoo/pycairo
+gentoo/gobject-introspection gentoo/libffi
+gentoo/libbonoboui gentoo/libbonobo gentoo/libgnome gentoo/activation gentoo/libgnomecanvas
+gentoo/libgnome gentoo/gnome-vfs gentoo/libbonobo
+gentoo/libcanberra gentoo/libvorbis
+gentoo/libvorbis gentoo/libogg
+gentoo/kdevelop gentoo/kdevplatform gentoo/kdebase-workspace
+gentoo/kdebase-workspace gentoo/qimageblitz gentoo/libxkbfile gentoo/libpng gentoo/libXcomposite gentoo/libXrandr gentoo/libXdamage gentoo/libXcursor gentoo/kdelibs
+gentoo/libXcomposite gentoo/compositeproto gentoo/libXfixes
+gentoo/libXfixes gentoo/fixesproto gentoo/xextproto
+gentoo/libXdamage gentoo/damageproto
+gentoo/libXrandr gentoo/randrproto
+gentoo/libXcursor gentoo/libXfixes
+gentoo/indent gentoo/texi2html
+gentoo/kdebase gentoo/kdelibs gentoo/oxygen-icons
+gentoo/valgrind gentoo/boost
+gentoo/kdesdk gentoo/kdelibs gentoo/graphviz
+gentoo/kdev-xtest gentoo/veritas gentoo/kdevelop
+gentoo/wine gentoo/flex
+gentoo/acl gentoo/attr
+gentoo/gkrellm gentoo/gtk+
+gentoo/glibc gentoo/binutils gentoo/libtool
+gentoo/kdelibs gentoo/pcre gentoo/qt4 gentoo/automoc4 gentoo/phonon gentoo/strigi gentoo/attica gentoo/giflib gentoo/aspell gentoo/libdbusmenu-qt gentoo/docbook-xsl gentoo/shared-mime-info gentoo/soprano gentoo/libxslt
+gentoo/soprano gentoo/qt4
+gentoo/kdiff3 gentoo/qt4 gentoo/diffutils
+gentoo/sgml-common gentoo/automake gentoo/autoconf
+gentoo/poppler gentoo/gdk-pixbuf
+gentoo/gimp gentoo/babl gentoo/tiff gentoo/gegl
+gentoo/kdegraphics gentoo/libkdcraw
+gentoo/shared-mime-info gentoo/intltool
+gentoo/kchmviewer gentoo/chmlib
+gentoo/evince gentoo/gnome-icon-theme gentoo/gnome-keyring
+gentoo/gnome-icon-theme gentoo/icon-naming-utils
+gentoo/icon-naming-utils gentoo/XML-Simple
+gentoo/gnome-keyring gentoo/libgcrypt gentoo/libtasn1
+gentoo/libgcrypt gentoo/libgpg-error
+gentoo/libxslt gentoo/libxml2

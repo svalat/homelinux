@@ -105,16 +105,29 @@ Prefix.prototype.getVersions = function()
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.loadQuickFile = function(part)
+{
+	var fname = this.getFile('share/homelinux/packages/quickpackages/'+part+'.txt');
+	var content = fs.readFileSync(fname);
+	var lines = content.toString().split('\n');
+	
+	var ret = {};
+	for (var i in lines)
+	{
+		var infos = lines[i].split(' ');
+		ret[infos[0]] = infos.slice(1);
+	}
+	
+	return ret;
+}
+
+/*******************  FUNCTION  *********************/
 Prefix.prototype.getQuick = function(part,name)
 {
 	if (part == 'deps')
 	{
 		if (this.quickdeps == undefined)
-		{
-			var fname = this.getFile('share/homelinux/packages/quickdeps.json');
-			var content = fs.readFileSync(fname);
-			this.quickdeps = JSON.parse(content);
-		}
+			this.quickdeps = this.loadQuickFile('deps');
 		
 		if (this.quickdeps[name] == undefined)
 			return [];
@@ -122,16 +135,20 @@ Prefix.prototype.getQuick = function(part,name)
 			return this.quickdeps[name];
 	} else if (part == 'config') {
 		if (this.quickconfig == undefined)
-		{
-			var fname = this.getFile('share/homelinux/packages/quickconfig.json');
-			var content = fs.readFileSync(fname);
-			this.quickconfig = JSON.parse(content);
-		}
+			this.quickconfig = this.loadQuickFile('configure');
 		
 		if (this.quickconfig[name] == undefined)
 			return [];
 		else
 			return this.quickconfig[name];
+	} else if (part == 'version') {
+		if (this.quickversion == undefined)
+			this.quickversion = this.loadQuickFile('version');
+		
+		if (this.quickversion[name] == undefined)
+			return undefined;
+		else
+			return this.quickversion[name][0];
 	} else {
 		throw "Invalid part : "+part;
 	}
@@ -306,8 +323,14 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 /*******************  FUNCTION  *********************/
 Prefix.prototype.buildGentooQuickPackage = function(qp)
 {
+	var vregexp = this.getQuick('version','gentoo/'+qp.name);
+	if (vregexp == undefined)
+		vregexp = '[0-9]+.[0-9]+.?[0-9]*';
+	
+	console.error(qp.name + " => "+vregexp);
+	
 	//build regexp
-	var version = qp.version == undefined ? '[0-9]+.[0-9]+.?[0-9]*' : qp.version;
+	var version = qp.version == undefined ? vregexp : qp.version;
 	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").tar.(gz|bz2|bzip|xz|lz)$");
 	
 	//load gentoo db

@@ -11,10 +11,10 @@ solutions :
 
 This is called quickpackage as it try to build automatically a package from a minimal information list.
 Anyway in some cases you need to provide some dependencies. You can add them by hand on the command but
-you can also fill the file into share/homelinux/quickdeps.json to automate the process. Fill free
+you can also fill the file into share/homelinux/quickpackages/deps.txt to automate the process. Fill free
 to contribute to the content of this file.
 
-You might also need to add some options to your package, you can use share/homelinux/quickconfig.json.
+You might also need to add some options to your package, you can use share/homelinux/quickpackages/config.txt.
 If you want to share your changes, try to add only required options, not optional one.
 
 Another solution is to provide a more complete description but still simple into quickpackages.json but
