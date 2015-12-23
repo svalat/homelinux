@@ -31,6 +31,7 @@ It is inspirated from gentoo package manager and import most of its semantic.
  (can support multiple system if compatibility name list is provided).
  * Inheritance between prefix (Not yet finished)
  * Support of module
+ * Build packages in parallel (experimental)
 
 Pre-requist
 -----------
