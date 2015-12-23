@@ -202,6 +202,7 @@ DepsLoader.prototype.buildSched = function()
 	for (var i in sched)
 		if (endSched.indexOf(sched[i]) == -1)
 			endSched.push(sched[i]);
+	this.sched = endSched;
 }
 
 /*******************  FUNCTION  *********************/
@@ -306,6 +307,80 @@ DepsLoader.prototype.presentOnSystem = function(p)
 	} else {
 		throw "Unsupposed host system to check deps, please use default in that case !";
 	}
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.genParallelMalefile = function(tmpdir)
+{
+	var mk = [];
+	
+	//all
+	var all = [];
+	for (var i in this.sched)
+		all.push(this.sched[i].replace(/[/:]/g,'_'));
+	mk.push("all: "+all.join(' '));
+	mk.push('');
+	
+	for (var i in this.sched)
+	{
+		var step = this.sched[i].replace(/[/:]/g,'_');
+		var makenotif = "$PWD/"+step+"hl-is-default-build.notify";
+		mk.push(step+":");
+		mk.push("	@bash "+step+".sh hl_start");
+		mk.push("	@bash "+step+".sh hl_prebuid");
+		mk.push("	@bash "+step+".sh hl_build "+makenotif);
+		mk.push("	@if test -f "+makenotif+"; then make -C `cat "+makenotif+"` fi");
+		mk.push("	@bash "+step+".sh hl_postbuild");
+		mk.push("	@bash "+step+".sh hl_finish");
+		mk.push("");
+	}
+	
+	//deps
+	for (var i in this.sched)
+	{
+		var step = this.sched[i].replace(/[/:]/g,'_');
+		var deps = [];
+		var pname = this.sched[i];
+		var p = this.packages[pname];
+		for (var j in p.pdeps)
+			if (p.pdeps[j] != null && p.pdeps[j] != undefined && this.sched.indexOf(p.pdeps[j].getNameSlot()) != -1)
+				deps.push(p.pdeps[j].getNameSlot().replace(/[/:]/g,'_'));
+		mk.push(step+": "+deps.join(' '));
+	}
+	mk.push("");
+	
+	//PHONY
+	var deps = [];
+	for (var i in this.sched)
+	{
+		var step = this.sched[i].replace(/[/:]/g,'_');
+		deps.push(step);
+	}
+	mk.push(".PHONY: "+deps.join(' '));
+	
+	//join
+	mk = mk.join('\n');
+	
+	//if file
+	if (tmpdir != undefined)
+		fs.writeFileSync(tmpdir+"/Makefile",mk);
+	
+	return mk;
+}
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.genParallelScripts = function(tmpdir)
+{
+	for (var i in this.sched)
+	{
+		var step = this.sched[i].replace(/[/:]/g,'_');
+		var ret = "#!/bin/bash\n\n";
+		ret += "HL_TOT_PACK="+this.sched.length+"\n";
+		ret += "HL_CUR_PACK="+i+"\n\n";
+		ret += this.packages[this.sched[i]].genScript() + "\n\n####################################################\n\n";
+		fs.writeFileSync(tmpdir+"/"+step+".sh",ret);
+	}
+	return ret;
 }
 
 module.exports = DepsLoader;

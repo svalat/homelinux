@@ -65,6 +65,17 @@ case "$1" in
 		bash $fname
 		rm $fname
 		;;
+	"pinstall")
+		shift 1
+		node index.js install-ls "$@"
+		yesno
+		tmpdir=$(mktemp -d)
+		node index.js pinstall "$tmpdir" "$@"
+		make -j8 -C $tmpdir
+		if [ ! -z "$tmpdir" ]; then
+			rm -rfv $tmpdir
+		fi
+		;;
 	"env")
 		node index.js env
 		module 1>/dev/null 2>/dev/null || echo ". $(node index.js prefix-of sys-cluster/modules)/Modules/current/init/$(basename $SHELL)"

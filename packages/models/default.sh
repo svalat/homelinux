@@ -35,10 +35,21 @@ if [ -z "${HL_TEMP}" ]; then HL_TEMP=/tmp/homelinux-${USER}; fi
 #inc
 HL_CUR_PACK=$(($HL_CUR_PACK + 1))
 
+function setup_vars()
+{
+	STEPINFO="${COLOR_DGRAY}[${HL_CUR_PACK}/${HL_TOT_PACK}][$NAME-$VERSION]${COLOR_STD}"
+	HL_TEMP=${HL_TEMP}/${SHORT_NAME}-${VERSION}
+	DISTFILES="$PREFIX/share/homelinux/distfiles"
+	HL_BUILDDIR=$HL_TEMP/$SUBDIR
+	HL_PACKDIR=$HL_TEMP/$SUBDIR
+	if [ -f $HL_PACKDIR/touch hl-is-cmake.notify ]; then
+		HL_BUILDDIR=$HL_BUILDDIR/cmakebuild
+	fi
+}
+
 #start stop message
 function start_stop()
 {
-	STEPINFO="${COLOR_DGRAY}[${HL_CUR_PACK}/${HL_TOT_PACK}][$NAME-$VERSION]${COLOR_STD}"
 	echo "$STEPINFO ${COLOR_GREEN}>>>>> $@ <<<<<${COLOR_STD}"
 }
 
@@ -118,7 +129,7 @@ function hl_cmake_enable()
 
 function hl_option_if_config_has()
 {
-	cd $HL_TEMP/$SUBDIR
+	cd $HL_PACKDIR
 	if grep -q "$1"; then
 		echo "--$1"
 	fi
@@ -155,7 +166,6 @@ function hl_with()
 function hl_setup_tmp_dir()
 {
 	#setup final
-	HL_TEMP=${HL_TEMP}/${SHORT_NAME}-${VERSION}
 	run rm -rf ${HL_TEMP}
 	run mkdir -p ${HL_TEMP}
 	run_sh cd ${HL_TEMP}
@@ -163,7 +173,6 @@ function hl_setup_tmp_dir()
 
 function hl_github_download()
 {
-	DISTFILES="$PREFIX/share/homelinux/distfiles"
 	DIR=$PWD
 	run mkdir -p $DISTFILES
 	run_sh cd $DISTFILES
@@ -228,7 +237,6 @@ function hl_download_internal()
 
 function hl_download()
 {
-	DISTFILES="$PREFIX/share/homelinux/distfiles"
 	DIR=$PWD
 	run mkdir -p $DISTFILES
 	run_sh cd $DISTFILES
@@ -267,7 +275,7 @@ function hl_extract()
 
 function hl_patch()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_PACKDIR
 	for p in $PATCHES
 	do
 		run patch -p1 -i $p
@@ -286,7 +294,7 @@ function hl_prefix()
 
 function hl_configure_auto()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_PACKDIR
 	if [ -f CMakeLists.txt ]; then
 		hl_configure_cmake
 	elif [ -f configure ]; then
@@ -300,27 +308,28 @@ function hl_configure_auto()
 
 function hl_configure_autotools_autogen_nocheck()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_PACKDIR
 	run_nocheck ./autogen.sh
 	hl_configure_autotools
 }
 
 function hl_configure_autotools_autogen()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_PACKDIR
 	run ./autogen.sh --prefix=$PREFIX $BUILD_OPTIONS
 	hl_configure_autotools
 }
 
 function hl_configure_autotools()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_PACKDIR
 	run ./configure --prefix=$PREFIX $BUILD_OPTIONS
 }
 
 function hl_configure_cmake()
 {
-	run_sh cd $HL_TEMP/$SUBDIR
+	run_sh cd $HL_BUILDDIR
+	run ${HL_PACKDIR}/touch hl-is-cmake.notify
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
@@ -328,7 +337,15 @@ function hl_configure_cmake()
 
 function hl_build()
 {
-	run make ${HL_MAKEOPTS}
+	#if has arg, this is due to call for parallel install
+	#in that cas, just create hl-pmake.notify to say that
+	#wa can to the command into the makefile itself to keep
+	#parallelism management
+	if [ ! -z "$1" ]; then
+		echo $HL_BUILDDIR > "$1"
+	else
+		run make ${HL_MAKEOPTS}
+	fi
 }
 
 function hl_test()
@@ -392,4 +409,16 @@ function hl_pack_finish()
 {
 	run mkdir -p $HL_PREFIX/share/homelinux/install-db
 	echo "$PACK_JSON" > $PACK_INSTALLED
+}
+
+function hl_start()
+{
+	start_stop "Start $NAME-$VERSION"
+	hl_setup_tmp_dir
+}
+
+function hl_stop()
+{
+	hl_pack_finish
+	start_stop "Finish $NAME-$VERSION"
 }

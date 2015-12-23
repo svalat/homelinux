@@ -413,7 +413,7 @@ PackageBuilder.prototype.getNameSlot = function()
 }
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.genScript = function()
+PackageBuilder.prototype.genScript = function(usePinstall)
 {
 	//header
 	var script = [];
@@ -472,13 +472,20 @@ PackageBuilder.prototype.genScript = function()
 		script.push("}");
 	}
 	
-	//run
-	script.push("set -e");
-	script.push("start_stop Start $NAME-$VERSION");
-	script.push("hl_setup_tmp_dir");
-	script.push("hl_pack_main")
-	script.push("hl_pack_finish")
-	script.push("start_stop Finish $NAME-$VERSION");
+	if (usePinstall)
+	{
+		//for parallel install, the caller say which step to call via args
+		script.push("set -e");
+		script.push("setup_vars");
+		script.push("eval \"$@\"");
+	} else {
+		//run
+		script.push("set -e");
+		script.push("setup_vars");
+		script.push("hl_start");
+		script.push("hl_pack_main")
+		script.push("hl_stop");
+	}
 	
 	return script.join('\n');
 }

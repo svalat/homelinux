@@ -18,15 +18,16 @@
 		"manifest": [ "hl_manifest" ],
 		"clean": [ "hl_clean" ],
 		"module": [ "hl_module" ],
-		"main" : [
+		"prebuild": [
 			"@download",
 			"@check",
 			"@preinstall",
 			"@extract",
 			"@patch",
 			"@prepare",
-			"@configure",
-			"@build",
+			"@configure"
+		],
+		"postbuild": [
 			"@test",
 			"@install",
 			"@manifest",
@@ -34,6 +35,11 @@
 			"@module",
 			"@postinstall",
 			"@clean"
+		],
+		"main" : [
+			"@prebuild",
+			"@build",
+			"@postbuild"
 		]
 	}
 }

@@ -239,7 +239,12 @@ Prefix.prototype.loadPackage = function(packageName)
 	{
 		//console.error("loading "+fname);
 		var content = fs.readFileSync(fname);
-		var json = JSON.parse(content);
+		try {
+			var json = JSON.parse(content);
+		} catch (e) {
+			console.error("Failed to load "+fname);
+			throw e;
+		}
 		p = json;
 	} else {
 		p = this.buildQuickPackage(packageName);
