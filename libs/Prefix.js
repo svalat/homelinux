@@ -125,7 +125,7 @@ Prefix.prototype.loadQuickFile = function(part)
 }
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.getQuick = function(part,name)
+Prefix.prototype.getQuick = function(part,name,defaultValue)
 {
 	if (part == 'deps')
 	{
@@ -149,9 +149,33 @@ Prefix.prototype.getQuick = function(part,name)
 			this.quickversion = this.loadQuickFile('version');
 		
 		if (this.quickversion[name] == undefined)
-			return undefined;
+			return defaultValue;
 		else
 			return this.quickversion[name][0];
+	} else if (part == 'module') {
+		if (this.quickmodule == undefined)
+			this.quickmodule = this.loadQuickFile('module');
+		
+		if (this.quickmodule[name] == undefined)
+			return defaultValue;
+		else
+			return this.quickmodule[name][0];
+	} else if (part == 'type') {
+		if (this.quicktype == undefined)
+			this.quicktype = this.loadQuickFile('type');
+		
+		if (this.quicktype[name] == undefined)
+			return defaultValue;
+		else
+			return this.quicktype[name][0];
+	} else if (part == 'subdir') {
+		if (this.quicksubdir == undefined)
+			this.quicksubdir = this.loadQuickFile('subdir');
+		
+		if (this.quicksubdir[name] == undefined)
+			return defaultValue;
+		else
+			return this.quicksubdir[name][0];
 	} else {
 		throw "Invalid part : "+part;
 	}
@@ -469,16 +493,17 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	//build package
 	var pack = {
 		"name": qp.name,
-		"inherit": qp.type == undefined ? 'models/auto' : qp.type,
+		"inherit": this.getQuick('type',qp.name,qp.type == undefined ? 'models/auto' : qp.type),
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
-		"subdir" : qp.name.split('/').pop()+"-${VERSION}",
+		"subdir" : this.getQuick('subdir',qp.name,qp.name.split('/').pop()+"-${VERSION}"),
 		"urls": Array.isArray(qp.url)? qp.url : [ qp.url ],
 		"deps": qp.deps == undefined ? [] : qp.deps ,
 		"host": qp.host,
 		"configure": qp.configure == undefined ? [] : { "":qp.configure },
 		"provide": qp.provide,
 		"md5": {},
-		"steps": qp.steps
+		"steps": qp.steps,
+		"module": this.getQuick('module',qp.name)
 	};
 	
 	return pack;
