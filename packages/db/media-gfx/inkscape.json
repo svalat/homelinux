@@ -16,7 +16,7 @@
 		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/inkscape-${VERSION}.tar.bz2"
 	],
 	"deps": [
-		"app-text/poppler[cairo]",
+		"app-text/poppler[cairo,xpdf]",
 		"dev-util/intltool",
 		"sys-devel/gettext",
 		"dev-util/pkgconfig",
@@ -43,7 +43,7 @@
 		"dev-libs/boost"
 	],
 	"configure": {
-		"": [ "--disable-lcms" ]
+		"": [ "--disable-lcms", "CPPFLAGS=-std=c++11" ]
 	},
 	"host": {
 		"default": false,

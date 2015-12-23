@@ -51,7 +51,9 @@
 			"-DBUILD_CPP_TESTS=OFF",
 			"-DENABLE_SPLASH=ON",
 			"-DENABLE_ZLIB=ON",
-			"-DENABLE_XPDF_HEADERS=ON"
+		],
+		"xpdf": [
+			"-DENABLE_XPDF_HEADERS=$ON"
 		],
 		"+curl": [ "-DENABLE_LIBCURL=$ON" ],
 		"+cxx":  [ "-DENABLE_CPP=$ON" ],
@@ -70,6 +72,7 @@
 	},
 	"useflags": [
 		"-gentoo",
+		"+xpdf",
 		"+cairo",
 		"-cjk",
 		"-curl",
