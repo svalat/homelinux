@@ -1,0 +1,28 @@
+{
+	"name": "app-arch/gzip",
+	"homepage": "https://www.gnu.org/software/gzip/gzip.html",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.6"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "http://ftp.gnu.org/gnu/gzip/",
+		"regexp": "^gzip-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "gzip-${VERSION}",
+	"urls" : [
+		"http://ftp.gnu.org/gnu/gzip/gzip-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "gzip" ]
+	},
+	"useflags": [ 
+	]
+}
