@@ -114,8 +114,11 @@ Prefix.prototype.loadQuickFile = function(part)
 	var ret = {};
 	for (var i in lines)
 	{
-		var infos = lines[i].split(' ');
-		ret[infos[0]] = infos.slice(1);
+		if (lines[i][0] != '#' && lines[i][0] != '')
+		{
+			var infos = lines[i].split(' ');
+			ret[infos[0]] = infos.slice(1);
+		}
 	}
 	
 	return ret;
@@ -518,6 +521,30 @@ Prefix.prototype.listInstalled = function()
 			else
 				console.log(p.name+"-"+p.version);
 		}
+	})
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.export = function(userConfig)
+{
+	var exp = {};
+	
+	//fill
+	exp['prefixConfig'] = this.config;
+	exp['userConfig'] = userConfig.config;
+	
+	//installed
+	var installed = {}
+	exp['installed'] = installed;
+	find.file(this.getFile("share/homelinux/install-db/"), function(files) {
+		for (var i in files)
+		{
+			var content = fs.readFileSync(files[i]);
+			var p = JSON.parse(content);
+			installed[p.name] = p.version;
+		}
+		
+		console.log(JSON.stringify(exp,null,'\t'));
 	})
 }
 

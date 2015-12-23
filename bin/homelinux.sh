@@ -30,6 +30,7 @@ Commands:
 	prefix-of         : Return the prefix where the package is installed or empty if not.
 	ls                : List installed packages.
 	search            : Search for matching packages in the available dbs.
+	export            : Export the current config and list of packages.
 "
 
 function yesno()

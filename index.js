@@ -74,6 +74,8 @@ if (command == "env")
 	prefix.listInstalled();
 } else if (command == 'search') {
 	prefix.search(process.argv[3]);
+} else if (command == 'export') {
+	prefix.export(userConfig);
 } else {
 	console.error("Invalid command : '"+userConfig,command+"', please check --help|-h");
 }
