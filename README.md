@@ -74,17 +74,17 @@ Now you can load the configuration into your `~/.bashrc` :
 
 	eval "`$HOME/usr/bin/hl env`"
 
+Before usage you need to create the cache with :
+
+	hl update-db
+	hl build-cache
+
 If you want to be able to uninstall the packages, make clean update or create bin packages,
 you need to install `stow` (or use the one from the system).
 
 	hl install stow
 	#Then enable usage of stow in config file of prefix
 	nano $HOME/usr/homelinux.json
-
-Before usage you need to create the cache with :
-
-	hl update-db
-	hl build-cache
 
 Basic usage
 -----------
