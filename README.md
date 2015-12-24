@@ -103,15 +103,14 @@ You can use the given commands to install search or sync your repos :
 	hl install app-shells/bash           # force subdir in gentoo way
 	hl install gentoo/htop               # use the gentoo archive (nodeps)
 	hl install github/svalat/svUnitTest  # from github repos, use last release
-	
-	#will search automatically in db, quickpackages and gentoo db
-	hl install htop
+	hl install urls/htop                 # Use from packages/urls.lst
 	
 	#you can force the vesion to install with
 	hl install htop=4.8   #exact version
 	hl install htop<4.8   #less than
 	hl install htop<=4.8  #less eq than
 	hl install 'htop!4.8' #no this one
+	hl install htop~4.8   #regexp
 	hl install htop:4     #slot based
 	
 	#search in avail packages
