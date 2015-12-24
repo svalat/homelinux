@@ -1,0 +1,79 @@
+{
+	"name": "app-arch/dpkg",
+	"homepage": "http://packages.qa.debian.org/dpkg",
+	"inherit": "models/autotools-autogen",
+	"versions": [ 
+		"1.18.3"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://anonscm.debian.org/cgit/dpkg/dpkg.git/refs/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "dpkg-${VERSION}",
+	"urls" : [
+		"git://anonscm.debian.org/dpkg/dpkg.git"
+	],
+	"deps": [
+		"sys-devel/gettext",
+		"sys-devel/flex",
+		"sys-libs/ncurses",
+		"virtual/pkgconfig",
+		"gentoo? dev-lang/perl",
+		"gentoo? dev-perl/TimeDate",
+		"gentoo? app-arch/xz-utils",
+		"bzip2? app-arch/bzip2",
+		"lzma? app-arch/xz-utils",
+		"selinux? sys-libs/libselinux",
+		"zlib? sys-libs/zlib-1.1.4",
+		"nls? app-text/po4a",
+		"nls? sys-devel/gettext",
+		"test? dev-perl/DateTime-Format-DateParse",
+		"test? dev-perl/IO-String",
+		"test? dev-perl/Test-Pod",
+		"test? virtual/perl-Test-Harness"
+	],
+	"configure": {
+		"": [
+			"LDFLAGS=-L$PREFIX/lib"
+		],
+		"+gentoo": [
+			"--disable-compiler-warnings",
+			"--disable-dselect",
+			"--disable-silent-rules",
+			"--disable-start-stop-daemon",
+			"--localstatedir=${PREFIX}/var"
+		],
+		"+nls": [ "--$enable-nls" ],
+		"+unicode": [ "--$enable-unicode" ],
+		"+update-alternatives": [ "--$enable-update-alternatives" ],
+		"+bzip2": [ "--with-bz2" ],
+		"+lzma": [ "--with-liblzma" ],
+		"+selinux": [ "--with-selinux" ],
+		"+zlib": [ "--with-zlib" ]
+		
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "dpkg" ]
+	},
+	"useflags": [ 
+		"-gentoo",
+		"-bzip2",
+		"-lzma",
+		"-selinux",
+		"-zlib",
+		"-nls",
+		"-test",
+		"-unicode",
+		"-update-alternatives"
+	],
+	"steps": {
+		"configure": [
+			"run autoupdate",
+			"run autoreconf -v -i",
+			"hl_configure_autotools"
+		]
+	}
+}

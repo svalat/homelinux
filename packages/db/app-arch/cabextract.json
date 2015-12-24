@@ -1,0 +1,30 @@
+{
+	"name": "app-arch/cabextract",
+	"homepage": "http://www.cabextract.org.uk/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.6"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.cabextract.org.uk/#download",
+		"regexp": "^Download cabextract ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) source"
+	},
+	"md5" : {},
+	"subdir": "cabextract-${VERSION}",
+	"urls" : [
+		"http://www.cabextract.org.uk/cabextract-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"extras? dev-lang/perl"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "cabextract" ]
+	},
+	"useflags": [ 
+		"-extra"
+	]
+}

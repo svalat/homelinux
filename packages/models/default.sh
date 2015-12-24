@@ -42,7 +42,7 @@ function setup_vars()
 	DISTFILES="$PREFIX/share/homelinux/distfiles"
 	HL_BUILDDIR=$HL_TEMP/$SUBDIR
 	HL_PACKDIR=$HL_TEMP/$SUBDIR
-	if [ -f $HL_PACKDIR/touch hl-is-cmake.notify ]; then
+	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then
 		HL_BUILDDIR=$HL_BUILDDIR/cmakebuild
 	fi
 }
@@ -84,6 +84,11 @@ function run_nocheck()
 	set +e
 	eval "$@" 2>&1 | sed -e "s#^#$STEPINFO #" || return
 	set -e
+}
+
+function run_echo()
+{
+	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
 }
 
 function run()
@@ -191,7 +196,7 @@ function hl_download_internal()
 		http://*|ftp://*|https://*|sftp://*)
 			ARCHIVE=$(basename ${url})
 			;;
-		github://*/*)
+		github://*/*|git://*)
 			ARCHIVE=$SHORT_NAME-$VERSION.tar.gz
 			;;
 		sourceforge://*/*)
@@ -212,6 +217,21 @@ function hl_download_internal()
 	case "${url}" in
 		http://*|ftp://*|https://*|sftp://*)
 			run wget -c "${url}" || return 1
+			;;
+		git://*)
+			DIR=$PWD
+			s=$(basename ${url} | sed -e 's/.git//g')
+			run_sh cd /tmp
+			if [ ! -d "$s" ]; then
+				run git clone ${url}
+			fi
+			run_sh cd $s
+			(run_echo git archive --format=tar --prefix=$SUBDIR/ ${VERSION} '>' $SHORT_NAME-$VERSION.tar && git archive --format=tar --prefix=$SUBDIR/ ${VERSION} > $SHORT_NAME-$VERSION.tar) \
+				|| (run_echo run git archive --format=tar --prefix=$SUBDIR/ v${VERSION} '>' $SHORT_NAME-$VERSION.tar && run git archive --format=tar --prefix=$SUBDIR/ v${VERSION} > $SHORT_NAME-$VERSION.tar)
+			run gzip $SHORT_NAME-$VERSION.tar
+			run mv $ARCHIVE $DISTFILES/$ARCHIVE
+			run_sh cd $DIR
+			run rm -rf /tmp/$s
 			;;
 		github://*/*)
 			project=$(echo $url | cut -d '/' -f 3-4)
@@ -316,7 +336,13 @@ function hl_configure_autotools_autogen_nocheck()
 function hl_configure_autotools_autogen()
 {
 	run_sh cd $HL_PACKDIR
-	run ./autogen.sh --prefix=$PREFIX $BUILD_OPTIONS
+	if [ -f ./autogen.sh ]; then
+		run ./autogen.sh --prefix=$PREFIX $BUILD_OPTIONS
+	else
+		run aclocal
+		run autoconf
+		run automake --add-missing
+	fi
 	hl_configure_autotools
 }
 
@@ -329,7 +355,7 @@ function hl_configure_autotools()
 function hl_configure_cmake()
 {
 	run_sh cd $HL_BUILDDIR
-	run ${HL_PACKDIR}/touch hl-is-cmake.notify
+	run touch ${HL_PACKDIR}/hl-is-cmake.notify
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
