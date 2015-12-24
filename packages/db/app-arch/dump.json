@@ -1,0 +1,57 @@
+{
+	"name": "app-arch/dump",
+	"homepage": "http://dump.sourceforge.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.4b44"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/dump/",
+		"regexp": "^([0-9]+\\.[0-9]+b[0-9]+)$"
+	},
+	"md5" : {},
+	"subdir": "dump-${VERSION}",
+	"urls" : [
+		"sourceforge://dump/dump/${VERSION}/dump-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"gentoo/e2fsprogs",
+		"gentoo? sys-fs/e2fsprogs",
+		"app-arch/bzip2",
+		"gentoo? sys-libs/zlib",
+		"ermt&-libressl? dev-libs/openssl:0",
+		"ermt&libressl? dev-libs/libressl",
+		"readline? sys-libs/readline:0",
+		"readline? sys-libs/ncurses",
+		"virtual/pkgconfig",
+		"gentoo? virtual/os-headers",
+		"static? sys-libs/ncurses[static-libs]"
+	],
+	"configure": {
+		"+gentoo": [
+			"--with-dumpdatespath=/etc/dumpdates",
+			"--with-{bin,man}owner=root",
+			"--with-{bin,man}grp=root",
+			"--enable-largefile"
+		],
+		"+selinux": [ "--$enable-transselinux" ],
+		"+ermt": [ "--$enable-ermt" ],
+		"+static": [ "--$enable-static" ],
+		"+readline": [ "--$enable-readline" ],
+		"+debug": [ "--$enable-debug" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "dump" ]
+	},
+	"useflags": [ 
+		"-gentoo",
+		"-ermt",
+		"-readline",
+		"-libressl",
+		"-static",
+		"-debug",
+		"-selinux"
+	]
+}

@@ -62,7 +62,7 @@ It contains :
  * *prefix* : Define the list of prefix to load as root prefix, they will 
  automatically load their inherited ones.
  * *host* : Define the current host you are using to define the way to detect 
- the system packages. Check list of available hosts into `share/homelinux/hosts`.
+ the system packages. Check list of available hosts into `homelinux/hosts`.
  * *modules* : List of modules to automatically load while setting env.
  * *python* : Version of python to use.
  * *homecache* : Enable usage of `~/.homelinux/cache` to store packages. It is

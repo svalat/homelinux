@@ -68,6 +68,7 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	
 	//basic
 	this.prepend('PATH',prefix + "/bin");
+	this.prepend('PATH',prefix + "/sbin");
 	this.prepend('LD_LIBRARY_PATH',prefix + "/lib");
 	this.prepend('LD_LIBRARY_PATH',prefix + "/lib64");
 	this.prepend('LD_RUN_PATH',prefix + "/lib");

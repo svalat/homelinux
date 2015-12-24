@@ -8,7 +8,7 @@
 ######################################################
 set -e
 HLPATH=$(dirname $0)
-cd $HLPATH/../share/homelinux/packages/db
+cd $HLPATH/../homelinux/packages/db
 #cd $HLPATH/../packages/db
 
 function gen()
@@ -29,5 +29,5 @@ function gen()
 	echo "}"
 }
 
-echo "Generate $HLPATH/../share/homelinux/packages/db/cache.json"
-gen > $HLPATH/../share/homelinux/packages/db/cache.json
+echo "Generate $HLPATH/../homelinux/packages/db/cache.json"
+gen > $HLPATH/../homelinux/packages/db/cache.json

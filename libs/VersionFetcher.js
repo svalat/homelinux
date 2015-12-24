@@ -26,14 +26,14 @@ VersionFetcher.prototype.saveAll = function(prefix,packs)
 	var out = {};
 	for (var i in packs)
 		out[packs[i].pack.name] = packs[i].pack.versions;
-	console.log("Writing share/homelinux/packages/db/versions.json...");
-	fs.writeFileSync(prefix.getFile("/share/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
+	console.log("Writing homelinux/packages/db/versions.json...");
+	fs.writeFileSync(prefix.getFile("/homelinux/packages/db/versions.json"),JSON.stringify(out,null,'\t'))
 }
 
 /*******************  FUNCTION  *********************/
 VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 {
-	this.gentooDb = require(prefix.getFile('/share/homelinux/packages/gentoo.json'));;
+	this.gentooDb = require(prefix.getFile('/homelinux/packages/gentoo.json'));;
 	
 	//load all
 	var packs = [];

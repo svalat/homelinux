@@ -304,7 +304,7 @@ PackageBuilder.prototype.getPatchList = function(version)
 	if (patches != undefined)
 	{
 		for (var i in patches)
-			final.push(this.prefix.getFile('share/homelinux/packages/db/patches/'+patches[i]));
+			final.push(this.prefix.getFile('homelinux/packages/db/patches/'+patches[i]));
 	}
 	
 	return final;
@@ -319,7 +319,7 @@ PackageBuilder.prototype.getSlot = function(version)
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPackInstalled = function(version)
 {
-	return this.prefix.getFile("/share/homelinux/install-db/"+this.pack.name.replace(/[/]/g,"_")+"-"+this.getSlot(version)+".json");
+	return this.prefix.getFile("/homelinux/install-db/"+this.pack.name.replace(/[/]/g,"_")+"-"+this.getSlot(version)+".json");
 }
 
 /*******************  FUNCTION  *********************/
@@ -418,11 +418,11 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	//header
 	var script = [];
 	script.push("#!/bin/bash")
-	script.push("source " + this.prefix.getFile("share/homelinux/packages/models/default.sh"));
+	script.push("source " + this.prefix.getFile("homelinux/packages/models/default.sh"));
 	
 	//setup variables HL
 	script.push("HL_TEMP=\""+this.userConfig.config.temp+"\"");
-	script.push("HL_PACKAGE=\""+this.prefix.getFile("share/homelinux/packages/")+"\"");
+	script.push("HL_PACKAGE=\""+this.prefix.getFile("homelinux/packages/")+"\"");
 	script.push("HL_MAKEOPTS=\""+this.prefix.config.compiler.MAKEOPTS+"\"");
 	script.push("HL_PREFIX=\""+this.prefix.prefix+"\"");
 	script.push("HL_HOMECACHE=\""+this.userConfig.config.homecache+"\"");

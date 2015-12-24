@@ -90,7 +90,7 @@ Prefix.prototype.getVersions = function()
 {
 	if (this.versions == undefined)
 	{
-		var fname = this.getFile('share/homelinux/packages/db/versions.json');
+		var fname = this.getFile('homelinux/packages/db/versions.json');
 		if (fs.existsSync(fname))
 		{
 			var content = fs.readFileSync(fname);
@@ -107,7 +107,7 @@ Prefix.prototype.getVersions = function()
 /*******************  FUNCTION  *********************/
 Prefix.prototype.loadQuickFile = function(part)
 {
-	var fname = this.getFile('share/homelinux/packages/quickpackages/'+part+'.txt');
+	var fname = this.getFile('homelinux/packages/quickpackages/'+part+'.txt');
 	var content = fs.readFileSync(fname);
 	var lines = content.toString().split('\n');
 	
@@ -186,7 +186,7 @@ Prefix.prototype.getCache = function()
 {
 	if (this.cache == undefined)
 	{
-		var fname = this.getFile('share/homelinux/packages/db/cache.json');
+		var fname = this.getFile('homelinux/packages/db/cache.json');
 		var content = fs.readFileSync(fname);
 		this.cache = JSON.parse(content);
 	}
@@ -230,21 +230,21 @@ Prefix.prototype.loadPackage = function(packageName)
 		packageName = this.searchInCache(packageName);
 	
 	//load path
-	var fname = this.prefix + "/share/homelinux/packages/db/"+packageName+".json";
+	var fname = this.prefix + "/homelinux/packages/db/"+packageName+".json";
 	//console.error(fname);
 	var p;
 	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
-		fname = this.prefix + "/share/homelinux/packages/"+packageName+".json";
+		fname = this.prefix + "/homelinux/packages/"+packageName+".json";
 	if (fs.existsSync(fname))
 	{
-		//console.error("loading "+fname);
+		console.error("Parsing "+fname);
 		var content = fs.readFileSync(fname);
-		try {
+// 		try {
 			var json = JSON.parse(content);
-		} catch (e) {
-			console.error("Failed to load "+fname);
-			throw e;
-		}
+// 		} catch (e) {
+// 			console.error("Failed to load "+fname);
+// 			throw e;
+// 		}
 		p = json;
 	} else {
 		p = this.buildQuickPackage(packageName);
@@ -310,7 +310,7 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 	
 	//load gentoo db
 	if (this.urlsDb == undefined)
-		this.urlsDb = require(this.getFile('/share/homelinux/packages/urls.json'));
+		this.urlsDb = require(this.getFile('/homelinux/packages/urls.json'));
 	
 	//serach in gentoo list
 	var finalv;
@@ -369,7 +369,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	
 	//load gentoo db
 	if (this.gentooDb == undefined)
-		this.gentooDb = require(this.getFile('/share/homelinux/packages/gentoo.json'));
+		this.gentooDb = require(this.getFile('/homelinux/packages/gentoo.json'));
 	
 	//serach in gentoo list
 	var finalv;
@@ -416,7 +416,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	//load quickpackage DB
 	if (this.quickdb == undefined)
 	{
-		var content = fs.readFileSync(this.getFile('/share/homelinux/packages/quickpackages.json'));
+		var content = fs.readFileSync(this.getFile('/homelinux/packages/quickpackages.json'));
 		this.quickdb = JSON.parse(content);
 	}
 	
@@ -526,12 +526,12 @@ Prefix.prototype.search = function(name)
 			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.getVersionList().join(', ')+"]");
 		}
 	console.log("--------------------------GENTOO----------------------------");
-	this.gentooDb = require(this.getFile('/share/homelinux/packages/gentoo.json'));
+	this.gentooDb = require(this.getFile('/homelinux/packages/gentoo.json'));
 	for (var i in this.gentooDb)
 		if (this.gentooDb[i].indexOf(name) != -1)
 			console.log("gentoo/"+this.gentooDb[i]);
 	console.log("----------------------------URLS----------------------------");
-	this.urlsDb = require(this.getFile('/share/homelinux/packages/urls.json'));
+	this.urlsDb = require(this.getFile('/homelinux/packages/urls.json'));
 	for (var i in this.urlsDb)
 		if (this.urlsDb[i].indexOf(name) != -1)
 			console.log("urls/"+this.urlsDb[i].split('/').pop());
@@ -541,7 +541,7 @@ Prefix.prototype.search = function(name)
 /*******************  FUNCTION  *********************/
 Prefix.prototype.listInstalled = function()
 {
-	find.file(this.getFile("share/homelinux/install-db/"), function(files) {
+	find.file(this.getFile("homelinux/install-db/"), function(files) {
 		for (var i in files)
 		{
 			var content = fs.readFileSync(files[i]);
@@ -566,7 +566,7 @@ Prefix.prototype.export = function(userConfig)
 	//installed
 	var installed = {}
 	exp['installed'] = installed;
-	find.file(this.getFile("share/homelinux/install-db/"), function(files) {
+	find.file(this.getFile("homelinux/install-db/"), function(files) {
 		for (var i in files)
 		{
 			var content = fs.readFileSync(files[i]);

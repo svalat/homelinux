@@ -39,7 +39,7 @@ function setup_vars()
 {
 	STEPINFO="${COLOR_DGRAY}[${HL_CUR_PACK}/${HL_TOT_PACK}][$NAME-$VERSION]${COLOR_STD}"
 	HL_TEMP=${HL_TEMP}/${SHORT_NAME}-${VERSION}
-	DISTFILES="$PREFIX/share/homelinux/distfiles"
+	DISTFILES="$PREFIX/homelinux/distfiles"
 	HL_BUILDDIR=$HL_TEMP/$SUBDIR
 	HL_PACKDIR=$HL_TEMP/$SUBDIR
 	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then
@@ -387,9 +387,9 @@ function hl_install()
 function hl_manifest()
 {
 	echo "TODO"
-# 	run mkdir -p $PREFIX/share/homelinux/manifests/
+# 	run mkdir -p $PREFIX/homelinux/manifests/
 # 	run_sh pushd $HL_TEMP/install
-# 	run find -P > $($PREFIX/share/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
+# 	run find -P > $($PREFIX/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
 # 	run_sh popd
 }
 
@@ -433,7 +433,7 @@ function hl_clean()
 
 function hl_pack_finish()
 {
-	run mkdir -p $HL_PREFIX/share/homelinux/install-db
+	run mkdir -p $HL_PREFIX/homelinux/install-db
 	echo "$PACK_JSON" > $PACK_INSTALLED
 }
 

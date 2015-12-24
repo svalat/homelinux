@@ -21,8 +21,8 @@ install: check
 	cp bin/hl-build-cache.sh $(PREFIX)/bin/hl-build-cache
 	mkdir -p $(PREFIX)/lib/homelinux
 	cp -r index.js libs $(PREFIX)/lib/homelinux
-	mkdir -p $(PREFIX)/share/homelinux
-	cp -r packages $(PREFIX)/share/homelinux
+	mkdir -p $(PREFIX)/homelinux
+	cp -r packages $(PREFIX)/homelinux
 	cp -r node_modules $(PREFIX)/lib/homelinux
 	
 

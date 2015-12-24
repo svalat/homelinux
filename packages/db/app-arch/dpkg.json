@@ -48,10 +48,10 @@
 		"+nls": [ "--$enable-nls" ],
 		"+unicode": [ "--$enable-unicode" ],
 		"+update-alternatives": [ "--$enable-update-alternatives" ],
-		"+bzip2": [ "--with-bz2" ],
-		"+lzma": [ "--with-liblzma" ],
-		"+selinux": [ "--with-selinux" ],
-		"+zlib": [ "--with-zlib" ]
+		"+bzip2": [ "--$with-bz2" ],
+		"+lzma": [ "--$with-liblzma" ],
+		"+selinux": [ "--$with-selinux" ],
+		"+zlib": [ "--$with-zlib" ]
 		
 	},
 	"host": {

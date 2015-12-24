@@ -13,7 +13,7 @@ function DepsLoader(prefix,userConfig,packageList)
 	
 		
 	//lost host
-	var fname = prefix.getFile('share/homelinux/packages/hosts/'+userConfig.config.host+".json");
+	var fname = prefix.getFile('homelinux/packages/hosts/'+userConfig.config.host+".json");
 	var content = fs.readFileSync(fname);
 	this.hostsRefs = JSON.parse(content);
 	
