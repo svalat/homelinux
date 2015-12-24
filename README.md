@@ -45,6 +45,10 @@ The only dependencies are `nodejs`, `npm` and the necessary to download and buil
 CAUTION, you need a recent vesion of `nodejs` otherwise homelinux silently fail to detect the
 system packages due to lack of `child_process.execSync()`.
 
+If you want to be able to uninstall the packages or make clean update with previous removal of the files, you might want to enable
+usage of GNU stow in the config file. You previously need to install `stow` in your system or into the prefix as a first package to
+be install with stow disabled.
+
 Installation
 ------------
 

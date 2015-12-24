@@ -417,8 +417,9 @@ EOF
 
 function hl_merge()
 {
-	echo "TODO"
-# 	run make install
+	if [ ! -z "$STOW_NAME" ]; then
+		run stow --dir=$HL_PREFIX/stow --target=$HL_PREFIX -S $STOW_NAME
+	fi
 }
 
 function hl_postinstall()

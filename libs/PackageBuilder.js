@@ -287,12 +287,23 @@ PackageBuilder.prototype.buildOptions = function()
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getStowName = function(version)
+{
+	return this.getNameSlot().replace(/[/:]/g,'_');
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPrefix = function(version)
 {
 	if (this.pack.module == undefined)
-		return this.prefix.prefix;
-	else
+	{
+		if (this.prefix.config.useGnuStow)
+			return this.prefix.prefix+"/stow/"+this.getStowName();
+		else
+			return this.prefix.prefix;
+	} else {
 		return this.prefix.prefix+"/Modules/installed/"+this.pack.module;
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -439,6 +450,8 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");
 	script.push("PATCHES=\""+this.getPatchList(version)+"\"");
 	script.push("SLOT=\""+this.getSlot(version)+"\"");
+	if (this.prefix.config.useGnuStow)
+		script.push("STOW_NAME=\""+this.getStowName()+"\"");
 	if (this.pack.module == undefined)
 		script.push("MODULE=\"\"");
 	else

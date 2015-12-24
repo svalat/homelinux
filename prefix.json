@@ -16,5 +16,6 @@
 		"server":"gentoo.mirrors.ovh.net",
 		"port": 21,
 		"distfiles": "gentoo-distfiles/distfiles/"
-	}
+	},
+	"useGnuStow": false
 }
