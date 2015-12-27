@@ -68,6 +68,19 @@ function yesno()
 }
 
 ######################################################
+function loadModule()
+{
+	#already avail
+	module 1>/dev/null 2>/dev/null && return 0
+	
+	#not provided by hl
+	hl prefix-of 'sys-app/modules' 1>/dev/null 2>/dev/null || return 0
+	
+	#ok really to it
+	echo ". $(node index.js prefix-of sys-cluster/modules)/Modules/current/init/$(basename $SHELL)"
+}
+
+######################################################
 case "$1" in
 	"build-cache")
 		hl-build-cache
@@ -97,7 +110,7 @@ case "$1" in
 		;;
 	"env")
 		node index.js env
-		module 1>/dev/null 2>/dev/null || echo ". $(node index.js prefix-of sys-cluster/modules)/Modules/current/init/$(basename $SHELL)"
+		loadModule
 		;;
 	*)
 		node index.js "$@"
