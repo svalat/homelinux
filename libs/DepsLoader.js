@@ -211,7 +211,7 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 		if (p.isInstalled())
 			p.pack.present = 'reinstall';
 	} else if (p.pack.present == undefined) {
-		if (p.isInstalled())
+		if (this.prefix.hasPackageInstalled(p))
 			p.pack.present = 'already-installed';
 		else if (this.presentOnSystem(p))
 			p.pack.present = 'use-host';

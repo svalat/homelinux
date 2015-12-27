@@ -583,4 +583,40 @@ Prefix.prototype.export = function(userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.hasPackageInstalled = function(p,prefix)
+{
+	if (prefix == undefined)
+		prefix = this.prefix;
+	
+	if (p.isInstalled(this.prefix)) 
+	{
+		return true;
+	} else {
+		for (var i in this.inherit)
+			if (p.isInstalled(this.inherit[i]))
+				return true;
+	}
+	
+	return false;
+}
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.getPrefixOf = function(p, prefix)
+{
+	if (prefix == undefined)
+		prefix = this.prefix;
+	
+	if (p.isInstalled(this.prefix)) 
+	{
+		return prefix;
+	} else {
+		for (var i in this.inherit)
+			if (p.isInstalled(this.inherit[i]))
+				return prefix;
+	}
+	
+	return null;
+}
+
+/*******************  FUNCTION  *********************/
 module.exports = Prefix;

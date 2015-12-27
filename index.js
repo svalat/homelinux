@@ -80,6 +80,16 @@ if (command == "env")
 	prefix.search(process.argv[3]);
 } else if (command == 'export') {
 	prefix.export(userConfig);
+} else if (command == 'prefix-of') {
+	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
+	var pref = prefix.getPrefixOf(pack);
+	if (pref != null)
+	{
+		console.log(pref.prefix);
+	} else {
+		console.error("Failed to find package "+pack.getNameSlot());
+		process.exit(1);
+	}
 } else {
 	console.error("Invalid command : '"+userConfig,command+"', please check --help|-h");
 }

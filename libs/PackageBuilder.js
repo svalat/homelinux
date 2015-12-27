@@ -328,15 +328,18 @@ PackageBuilder.prototype.getSlot = function(version)
 }
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.getPackInstalled = function(version)
+PackageBuilder.prototype.getPackInstalled = function(version,prefix)
 {
-	return this.prefix.getFile("/homelinux/install-db/"+this.pack.name.replace(/[/]/g,"_")+"-"+this.getSlot(version)+".json");
+	if (prefix == undefined)
+		return this.prefix.getFile("/homelinux/install-db/"+this.getStowName()+".json");
+	else
+		return prefix.getFile("/homelinux/install-db/"+this.getStowName()+".json");
 }
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.isInstalled = function()
+PackageBuilder.prototype.isInstalled = function(prefix)
 {
-	var fname = this.getPackInstalled(this.getVersion());
+	var fname = this.getPackInstalled(this.getVersion(),prefix);
 	return fs.existsSync(fname);
 }
 

@@ -309,7 +309,7 @@ function hl_configure()
 
 function hl_prefix()
 {
-	echo $HL_PREFIX
+	hl prefix-of $1 || exit 1
 }
 
 function hl_configure_auto()
