@@ -311,8 +311,8 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 	//load gentoo db
 	if (this.urlsDb == undefined)
 	{
-		var content = fs.readFileSync('/homelinux/packages/urls.lst'));
-		this.urlsDb = content.spli('\n');
+		var content = fs.readFileSync(this.getFile('/homelinux/packages/urls.lst'));
+		this.urlsDb = content.split('\n');
 	}
 	
 	//serach in gentoo list
@@ -534,7 +534,7 @@ Prefix.prototype.search = function(name)
 		if (this.gentooDb[i].indexOf(name) != -1)
 			console.log("gentoo/"+this.gentooDb[i]);
 	console.log("----------------------------URLS----------------------------");
-	var content = fs.readFileSync('/homelinux/packages/urls.lst'));
+	var content = fs.readFileSync(this.getFile('/homelinux/packages/urls.lst'));
 	this.urlsDb = content.spli('\n');
 	for (var i in this.urlsDb)
 		if (this.urlsDb[i].indexOf(name) != -1)

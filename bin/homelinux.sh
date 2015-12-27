@@ -7,10 +7,20 @@
 #           Authors : Sebastien Valat                #
 ######################################################
 
+######################################################
+# Main wrapper script which is used to call all the 
+# HomeLinux functions
+# It mostly call the nodejs script with the required
+# arguement.
+# This script also prepare some status which are simpler
+# to manage in shell script than in JS.
+
+######################################################
 set -e
 HLPATH=$(dirname $0)
 cd $HLPATH/../lib/homelinux/
 
+######################################################
 HELP="hl {COMMAND} [OPTIONS]
 
 Commands:
@@ -36,6 +46,10 @@ Commands:
 	export            : Export the current config and list of packages.
 "
 
+######################################################
+# Used to ask question to user before continuing.
+# Args :
+#  - $@ : QUestion to ask to user, as string.
 function yesno()
 {
 	rep='?'
@@ -52,6 +66,7 @@ function yesno()
 	fi
 }
 
+######################################################
 case "$1" in
 	"build-cache")
 		hl-build-cache

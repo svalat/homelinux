@@ -6,11 +6,21 @@
 #           Licence : BSD                            #
 #           Authors : Sebastien Valat                #
 ######################################################
+
+######################################################
+# Build cache simply build the homelinux/db/cache.json file
+# which avoid to use ls/find to search list of available packages
+
+######################################################
+#Setup vars
 set -e
 HLPATH=$(dirname $0)
 cd $HLPATH/../homelinux/packages/db
 #cd $HLPATH/../packages/db
 
+######################################################
+# Call the generator function, the datas will be generated
+# in output using JSON format.
 function gen()
 {
 	echo "{"
@@ -29,5 +39,6 @@ function gen()
 	echo "}"
 }
 
+######################################################
 echo "Generate $HLPATH/../homelinux/packages/db/cache.json"
 gen > $HLPATH/../homelinux/packages/db/cache.json

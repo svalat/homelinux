@@ -6,6 +6,13 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * The DbManager class is used to load the external databases
+ * to search packages. Currently it only support the gentoo one
+ * and only fetch its main file list;
+**/
+
 /*********************  CONSTS  *********************/
 var FtpClient = require('ftp');
 var fs = require('fs');
@@ -17,6 +24,9 @@ function DbManager(prefix)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Fetch the gentoo distfiles/ file list to get all available packages.
+**/
 DbManager.prototype.fetchGentoo = function(callback)
 {
 	var ftp = new FtpClient()
@@ -41,6 +51,9 @@ DbManager.prototype.fetchGentoo = function(callback)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Save the gentoo DB into a local file.
+**/
 DbManager.prototype.saveGentooDb = function(list)
 {
 	console.log("Saving gentoo DB....");

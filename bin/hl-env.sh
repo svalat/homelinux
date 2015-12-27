@@ -7,6 +7,10 @@
 #           Authors : Sebastien Valat                #
 ######################################################
 
+######################################################
+# Used to setup the homelinux environnement variables.
+
+######################################################
 set -e
 HLPATH=$(dirname $0)
 cd $HLPATH/../lib/homelinux/

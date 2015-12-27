@@ -6,7 +6,18 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * This script in responsible of the management of the environnement setup
+ * mostly to build all the export variables.
+**/
+
 /*********************  CLASS  **********************/
+/**
+ * Init the EnvSetup class, mostly by loading the default values of each
+ * managed environnement variables.
+ * @param userConfig Define the user config class to use;
+**/
 function EnvSetup(userConfig)
 {
 	this.userConfig = userConfig;
@@ -26,6 +37,10 @@ function EnvSetup(userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Enable usage of ccache by adding its path to the global PATH in order
+ * to override the compiler commands.
+**/
 EnvSetup.prototype.enableCCache = function()
 {
 	if (this.userConfig.config.ccache)
@@ -33,6 +48,12 @@ EnvSetup.prototype.enableCCache = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Prepend a value to the given variable
+ * @param varname Name of the variable to prepend.
+ * @param value Value to prepend.
+ * @param sep separator to use (: if undefined)
+**/
 EnvSetup.prototype.prepend = function(varname,value,sep)
 {
 	//select
@@ -47,6 +68,9 @@ EnvSetup.prototype.prepend = function(varname,value,sep)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if a given array contain some values;
+**/
 function contains(arr,obj) {
     var i = arr.length;
     while (i--) {
@@ -58,6 +82,11 @@ function contains(arr,obj) {
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Add a new prefix to the environnement variable. This function setup all
+ * the variables managed by homelinux for the given prefix.
+ * @param prefix Path of the prefix to use.
+**/
 EnvSetup.prototype.addPrefix = function(prefix)
 {
 	//check if already loaded
@@ -97,6 +126,10 @@ EnvSetup.prototype.addPrefix = function(prefix)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Print the nevironenemnt variable setup (mostly export calls)
+ * to be used by shell scripts (bash/sh)
+**/
 EnvSetup.prototype.print = function()
 {
 	for (var i in this.vars)

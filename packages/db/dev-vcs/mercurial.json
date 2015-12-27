@@ -1,0 +1,41 @@
+{
+	"name": "dev-vcs/mercurial",
+	"homepage": "http://mercurial.selenic.com/",
+	"inherit": "models/python",
+	"versions": [ 
+		"3.6.2" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://www.mercurial-scm.org/release/",
+		"regexp": "mercurial-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "mercurial-${VERSION}",
+	"urls" : [
+		"https://www.mercurial-scm.org/release/mercurial-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"app-misc/ca-certificates",
+		"bugzilla? dev-python/mysql-python",
+		"gpg? app-crypt/gnupg",
+		"tk? dev-lang/tk",
+		"emacs? virtual/emacs",
+		"test? app-arch/unzip",
+		"test? dev-python/pygments"
+	],
+	"configure": {
+		
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "mercurial" ]
+	},
+	"useflags": [
+		"-bugzilla",
+		"-emacs",
+		"-gpg",
+		"-test",
+		"-tk"
+	]
+}

@@ -1,8 +1,34 @@
+/*****************************************************
+*           Project : HomeLinux                      *
+*           Version : 1.0.0                          *
+*           Date    : 12/2015                        *
+*           Licence : BSD                            *
+*           Authors : Sebastien Valat                *
+*****************************************************/
+
+/***********************  DOC  **********************/
+/**
+ * The dep loader class is responsible to load all the packages
+ * needed to build the requested list of root packages.
+ * It build a tree which is cut by checking the available packages
+ * on the host system, then build job list to build all the packages.
+ * It also apply some version filtering depending on the requirement
+ * of parent packages.
+**/
+
+/*********************** REQURE *********************/
 var PackageBuilder = require('./PackageBuilder');
 var child_process = require('child_process');
 var fs = require('fs');
 
 /*********************  CLASS  **********************/
+/**
+ * Build a package dep workspace
+ * @param prefix Prefix to use to build the packages (Prefix object).
+ * @param userConfig The user config object to use.
+ * @param packageList An array of string giving the list of packages
+ * to install
+**/
 function DepsLoader(prefix,userConfig,packageList)
 {
 	//load packages
@@ -11,7 +37,6 @@ function DepsLoader(prefix,userConfig,packageList)
 	this.packages = {};
 	this.sched = [];
 	
-		
 	//lost host
 	var fname = prefix.getFile('homelinux/packages/hosts/'+userConfig.config.host+".json");
 	var content = fs.readFileSync(fname);
@@ -42,6 +67,12 @@ function DepsLoader(prefix,userConfig,packageList)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Apply the vspecific entries from the packages depending on the 
+ * vesion which is selected. This function apply on the root package
+ * list requested by the user and recursivly call the other one
+ * for the deps.
+**/
 DepsLoader.prototype.applyVSpecific = function()
 {
 	//console.log("Start specific");
@@ -53,6 +84,12 @@ DepsLoader.prototype.applyVSpecific = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Same than applyVSpecific() but to be apply recursivly on the
+ * deps of given package.
+ * @parap p Apply on package p and then do recursive call on
+ * its dependencies.
+**/
 DepsLoader.prototype.applyVSpecificChild = function(p)
 {
 	if (p == null)
@@ -71,6 +108,12 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Apply the version requirement from parent on the given package.
+ * @param pack Define the package on which to filter the version to select.
+ * @param parent The parent package to know which verion rules to apply.
+ * @param infos Rules to apply
+**/
 DepsLoader.prototype.applyVersionRules = function(pack,parent,infos)
 {
 	//replace #useflag with parent status
@@ -94,6 +137,12 @@ DepsLoader.prototype.applyVersionRules = function(pack,parent,infos)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Looop on package dep list of the given package and then
+ * load them into the list of loaded packages.
+ * Also register them into the parent as child packages.
+ * @param p the parent package to consider.
+**/
 DepsLoader.prototype.loadPackageDeps = function(p)
 {
 	var hasNewDeps = false;
@@ -116,6 +165,18 @@ DepsLoader.prototype.loadPackageDeps = function(p)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load the requested package into the memory and load its deps.
+ * This function use a cache and do not load again a package
+ * already loaded. The cache is indexed by name and slot to ensure
+ * possibility to install multiple instances of the package with 
+ * different slots.
+ * @param request THe quest string from user. It can be a simple
+ * package name or up the the complete format : "dev-vcs/git[+debug] :3 =3.5"
+ * @parent The package of the package to attach of null if none (root package).
+ * @param force Define if we need to force the install of this package if
+ * it is already install of provided by the host system.
+**/
 DepsLoader.prototype.loadPackage = function(request,parent,force)
 {
 	var needLoadDeps = true;
@@ -169,6 +230,21 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Parse the question string and then convert it into a more usable
+ * struct for the rest of the app.
+ * @param dep Define the string to parse. The format can be on of those
+ * examples :
+ *    - git : Only simple name
+ *    - dev-vcs/git : Name with source (can be gentoo/, urls/....)
+ *    - dev-vcs/git[+debug,-gzip] : Force some useflags on the package
+ *    - dev-vcs/git <3.5 >2.5 : version hints
+ *    - dev-vcs/git =3.5.6 : Force specific vesrion
+ *    - dev-vcs/git :3 : Define the slot to be used.
+ *    - dev-vcs/git ~3.[0-9]+ : with regexp
+ *
+ * You can see doc directory to get more infos on the format.
+**/
 DepsLoader.prototype.parseRequestString = function(dep)
 {
 	if (dep.indexOf('?') == -1)
@@ -188,6 +264,11 @@ DepsLoader.prototype.parseRequestString = function(dep)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Build install scheduling by looping into the tree. The packages with
+ * less deps will be installed first then the others.
+ * This function only setup this.sched variable.
+**/
 DepsLoader.prototype.buildSched = function()
 {
 	this.sched = [];
@@ -206,6 +287,9 @@ DepsLoader.prototype.buildSched = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Same than buildSched but using reursive call to walk in the tree.
+**/
 DepsLoader.prototype.buildSchedChild = function(p)
 {
 	if (p.pack.present == undefined || p.pack.present == null || p.pack.present == 'override-system' || p.pack.present == 'reinstall')
@@ -218,6 +302,12 @@ DepsLoader.prototype.buildSchedChild = function(p)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Generate the inscall script my merging the install script of all
+ * the packages from sched list;
+ * This script must be forwarded to bash to be usd. This is done
+ * by the homelinux command.
+**/
 DepsLoader.prototype.genScript = function()
 {
 	var ret = "#!/bin/bash\n\n";
@@ -229,6 +319,10 @@ DepsLoader.prototype.genScript = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Print the list of packages to install and those who are not
+ * installed because already installed or provided by the host system.
+**/
 DepsLoader.prototype.printList = function()
 {
 	console.log("\n\n----------------------TO INSTALL--------------------------");
@@ -252,6 +346,11 @@ DepsLoader.prototype.printList = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if present by using the 'default' system, so only
+ * considering the host.default entry from the package.
+ * @param p Package to check.
+**/
 DepsLoader.prototype.presentOnSystemDefault = function(p)
 {
 	if (p.pack.host['default'] == undefined)
@@ -261,6 +360,13 @@ DepsLoader.prototype.presentOnSystemDefault = function(p)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if the package is installed into a Debian 8 host system.
+ * This funcction made the check by using the dpkg command.
+ * CAUTION, it require child_process.execSync from nodejs which
+ * is not provided on old versions.
+ * @param p package to check.
+**/
 DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 {
 	var h = [];
@@ -297,6 +403,10 @@ DepsLoader.prototype.presentOnSystemDebian8 = function(p)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if the given package is installed onto the system.
+ * This function is mostly a switch on the system type.
+**/
 DepsLoader.prototype.presentOnSystem = function(p)
 {
 	if (this.userConfig.config.host == 'default')
@@ -310,7 +420,14 @@ DepsLoader.prototype.presentOnSystem = function(p)
 }
 
 /*******************  FUNCTION  *********************/
-DepsLoader.prototype.genParallelMalefile = function(tmpdir)
+/**
+ * Generate the parallel makefile script to build all the requested packages
+ * in parallel mode. it mostly call all the childs script function per function
+ * and manage extraction of the Make subcommand to keep parallelism handling
+ * into the root makefile.
+ * @param tmpdir Temporary into which to write the Makefile.
+**/
+DepsLoader.prototype.genParallelMakefile = function(tmpdir)
 {
 	var mk = [];
 	
@@ -369,6 +486,12 @@ DepsLoader.prototype.genParallelMalefile = function(tmpdir)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Gen the paralell script to build all the requested pacjages. Compared to the
+ * genScript method we build a script in separate file per package.
+ * The scritp permit to call a step by passing arguement from the shell call.
+ * @param tmpdir Temporary directory to use to build the packages.
+**/
 DepsLoader.prototype.genParallelScripts = function(tmpdir)
 {
 	for (var i in this.sched)

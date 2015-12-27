@@ -326,6 +326,16 @@ function hl_configure_auto()
 	fi
 }
 
+function hl_configure_python()
+{
+	echo ">> Generate Makefile for installation <<"
+	echo "all:" > Makefile
+	echo "	python setup.py build ${OPTIONS}" >> Makefile
+	echo "" >> Makefile
+	echo "install:" >> Makefile
+	echo "	python setup.py install --prefix=${PREFIX}" >> Makefile
+}
+
 function hl_configure_autotools_autogen_nocheck()
 {
 	run_sh cd $HL_PACKDIR

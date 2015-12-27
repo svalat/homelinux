@@ -36,7 +36,7 @@ if (command == "env")
 } else if (command == "pinstall") {
 	var packs = new depsLoader(prefix,userConfig,process.argv.slice(4,process.argv.length));
 	packs.genParallelScripts(process.argv[3]);
-	console.log(packs.genParallelMalefile(process.argv[3]));
+	console.log(packs.genParallelMakefile(process.argv[3]));
 } else if (command == "gen-package") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	console.log(pack.origPack)
