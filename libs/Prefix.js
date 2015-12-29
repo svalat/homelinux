@@ -6,6 +6,11 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * Define and manage an Homelinux prefix.
+**/
+
 /********************  GLOBALS  *********************/
 var fs = require('fs');
 var jso = require('json-override');
@@ -15,22 +20,33 @@ var PackageBuilder = require('./PackageBuilder');
 var VersionHelper = require('./VersionHelper');
 
 /*********************  CLASS  **********************/
-function Prefix(prefix) 
+/**
+ * Prefix constructor. By default only load the given prefix configuration.
+ * @param prefixPath Define the path of the prefix to load.
+**/
+function Prefix(prefixPath) 
 {
-	this.load(prefix);
+	this.load(prefixPath);
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Print the prefix configuration.
+**/
 Prefix.prototype.print = function()
 {
 	console.log(this.config);
 }
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.load = function(prefix)
+/**
+ * Load the configuration of the given prefix.
+ * @param prefixPath Define the path of the prefix to load.
+**/
+Prefix.prototype.load = function(prefixPath)
 {
 	//setup
-	this.prefix = prefix;
+	this.prefix = prefixPath;
 	
 	//default
 	var defaultConfig = {
@@ -52,7 +68,7 @@ Prefix.prototype.load = function(prefix)
 	};
 	
 	//config path
-	var configfile = prefix + "/homelinux.json"
+	var configfile = prefixPath + "/homelinux.json"
 	if (fs.existsSync(configfile)) 
 	{ 
 		var config = require(configfile);
@@ -72,6 +88,10 @@ Prefix.prototype.load = function(prefix)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Loop under the inhertied prefix to fill the environnement variables.
+ * @param env Define the environnement setting object.
+**/
 Prefix.prototype.fillEnv = function(env)
 {
 	for (var i in this.inherit)
@@ -80,12 +100,19 @@ Prefix.prototype.fillEnv = function(env)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Return the full path of a file from prefix.
+**/
 Prefix.prototype.getFile = function(path)
 {
 	return this.prefix + "/" + path;
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load the version file DB and return it. This funcion to caching to it is directly
+ * return if already loaded.
+**/
 Prefix.prototype.getVersions = function()
 {
 	if (this.versions == undefined)
@@ -105,9 +132,14 @@ Prefix.prototype.getVersions = function()
 }
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.loadQuickFile = function(part)
+/**
+ * Load a file from quickpackages directory. It also make the splitting to convert
+ * it into JS objects and arrays.
+ * @param prop Name of the property to load (will be converted to prop.txt)
+**/
+Prefix.prototype.loadQuickFile = function(prop)
 {
-	var fname = this.getFile('homelinux/packages/quickpackages/'+part+'.txt');
+	var fname = this.getFile('homelinux/packages/quickpackages/'+prop+'.txt');
 	var content = fs.readFileSync(fname);
 	var lines = content.toString().split('\n');
 	
@@ -125,63 +157,73 @@ Prefix.prototype.loadQuickFile = function(part)
 }
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.getQuick = function(part,name,defaultValue)
+/**
+ * Get a property from quickpackages system.
+ * @param prop Define the property to read
+ * @param name Define the name of the package
+ * @param defaultValue Optional default value to apply if not present. Let to undefined by default.
+**/
+Prefix.prototype.getQuick = function(prop,packageName,defaultValue)
 {
-	if (part == 'deps')
+	if (prop == 'deps')
 	{
 		if (this.quickdeps == undefined)
 			this.quickdeps = this.loadQuickFile('deps');
 		
-		if (this.quickdeps[name] == undefined)
+		if (this.quickdeps[packageName] == undefined)
 			return [];
 		else
-			return this.quickdeps[name];
-	} else if (part == 'config') {
+			return this.quickdeps[packageName];
+	} else if (prop == 'config') {
 		if (this.quickconfig == undefined)
 			this.quickconfig = this.loadQuickFile('configure');
 		
-		if (this.quickconfig[name] == undefined)
+		if (this.quickconfig[packageName] == undefined)
 			return [];
 		else
-			return this.quickconfig[name];
-	} else if (part == 'version') {
+			return this.quickconfig[packageName];
+	} else if (prop == 'version') {
 		if (this.quickversion == undefined)
 			this.quickversion = this.loadQuickFile('version');
 		
-		if (this.quickversion[name] == undefined)
+		if (this.quickversion[packageName] == undefined)
 			return defaultValue;
 		else
-			return this.quickversion[name][0];
-	} else if (part == 'module') {
+			return this.quickversion[packageName][0];
+	} else if (prop == 'module') {
 		if (this.quickmodule == undefined)
 			this.quickmodule = this.loadQuickFile('module');
 		
-		if (this.quickmodule[name] == undefined)
+		if (this.quickmodule[packageName] == undefined)
 			return defaultValue;
 		else
-			return this.quickmodule[name][0];
-	} else if (part == 'type') {
+			return this.quickmodule[packageName][0];
+	} else if (prop == 'type') {
 		if (this.quicktype == undefined)
 			this.quicktype = this.loadQuickFile('type');
 		
-		if (this.quicktype[name] == undefined)
+		if (this.quicktype[packageName] == undefined)
 			return defaultValue;
 		else
-			return this.quicktype[name][0];
-	} else if (part == 'subdir') {
+			return this.quicktype[packageName][0];
+	} else if (prop == 'subdir') {
 		if (this.quicksubdir == undefined)
 			this.quicksubdir = this.loadQuickFile('subdir');
 		
-		if (this.quicksubdir[name] == undefined)
+		if (this.quicksubdir[packageName] == undefined)
 			return defaultValue;
 		else
-			return this.quicksubdir[name][0];
+			return this.quicksubdir[packageName][0];
 	} else {
-		throw "Invalid part : "+part;
+		throw "Invalid part : "+prop;
 	}
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load and return the cache list of available packages. It avoid to play with ls to serach
+ * them.
+**/
 Prefix.prototype.getCache = function()
 {
 	if (this.cache == undefined)
@@ -195,6 +237,12 @@ Prefix.prototype.getCache = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Search a given short package name (without directory) into the cache and return
+ * the full name. If multiple packages match, then it exit with a message reuesting
+ * the user to provide the extra directory.
+ * @param packageName Name of the package to search in the cache.
+**/
 Prefix.prototype.searchInCache = function(packageName)
 {
 	this.getCache();

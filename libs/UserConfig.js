@@ -6,11 +6,20 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * This class implement the userconfig system, its only a way to predefined
+ * the default values and overrite them with the config file.
+**/
+
 /********************  GLOBALS  *********************/
 var fs = require('fs'); 
 var jso = require('json-override');
 
 /*********************  CLASS  **********************/
+/**
+ * Load the user config file and override the default properties.
+**/
 function UserConfig()
 {
 	//default

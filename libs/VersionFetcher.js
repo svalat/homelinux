@@ -6,6 +6,12 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * This file provide the necessary tools to fetch the version list of each packaes by grabing the
+ * defined websites.
+**/
+
 /*********************  CONSTS  *********************/
 var FtpClient = require('ftp');
 var fs = require('fs');
@@ -21,6 +27,11 @@ function VersionFetcher()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Save the list of package version into the given prefix.
+ * @param prefix Prefix (object) in which to save the version list;
+ * @param packs List of packages to save.
+**/
 VersionFetcher.prototype.saveAll = function(prefix,packs)
 {
 	var out = {};
@@ -31,6 +42,11 @@ VersionFetcher.prototype.saveAll = function(prefix,packs)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Loop on all the packages defined into the given prefix and fetch their vesrion list.
+ * @param prefix Define the prefix object to use.
+ * @param userConfig Define the userconfig to use.
+**/
 VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 {
 	this.gentooDb = require(prefix.getFile('/homelinux/packages/gentoo.json'));;
@@ -75,6 +91,13 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * The gnome team provide a cache.json file into their archive folder, it is the simplest way
+ * to extract version list from their respository as they use a level of directories to 
+ * store the files and not provide them in a uniq one.
+ * @param pack Define the package for which to fetch the version;
+ * @param callback Callback to be called when the operation is finished. First parameter is err second is pack.
+**/
 VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 {
 	var self = this;
@@ -114,6 +137,11 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Fetch the list of versions for the geven package.
+ * @param pack Package to use
+ * @param clalback Callback to be called on finish. First param is err, second is pack.
+**/
 VersionFetcher.prototype.fetchVersions = function(pack,callback)
 {
 	try {
@@ -138,6 +166,12 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Fetch list of versions from gentoo distfile directory. As we already store it into
+ * a local json it is a simple loop on its content.
+ * @param pack Package to use
+ * @param clalback Callback to be called on finish. First param is err, second is pack.
+**/
 VersionFetcher.prototype.fetchFromGentoo = function(pack,callback)
 {
 	for (var i in this.gentooDb)
@@ -156,6 +190,13 @@ function sort_unique(arr) {
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Fetch an http page and search for all its internal links to check if their text
+ * property match the version regexp of the package. It was originaly written for
+ * apache directory list but finally also work fine on standard pages.
+ * @param pack Package to use
+ * @param clalback Callback to be called on finish. First param is err, second is pack.
+**/
 VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callback)
 {
 	var self = this;
@@ -193,6 +234,12 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Fetch the list of files from and FTP directory and apply the version regexp on
+ * them to extract version list.
+ * @param pack Package to use
+ * @param clalback Callback to be called on finish. First param is err, second is pack.
+**/
 VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 {
 	var ftp = new FtpClient()
@@ -253,6 +300,12 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if the given file match the regexp version from package, if it is true
+ * the verison is added to the version list of package.
+ * @param pack Define the package to use.
+ * @param file Define the file name to test.
+**/
 VersionFetcher.prototype.checkFile = function(pack,file)
 {
 	var regexp = new RegExp(pack.pack.vfetcher.regexp);
