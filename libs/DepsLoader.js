@@ -18,7 +18,7 @@
 
 /*********************** REQURE *********************/
 var PackageBuilder = require('./PackageBuilder');
-var child_process = require('child_process');
+var HostPkgChecker = require('./HostPkgChecker');
 var fs = require('fs');
 
 /*********************  CLASS  **********************/
@@ -41,6 +41,9 @@ function DepsLoader(prefix,userConfig,packageList)
 	var fname = prefix.getFile('homelinux/packages/hosts/'+userConfig.config.host+".json");
 	var content = fs.readFileSync(fname);
 	this.hostsRefs = JSON.parse(content);
+	
+	//host checker
+	this.hostPkgChecker = new HostPkgChecker(userConfig);
 	
 	//load packages
 	this.root = [];
@@ -206,14 +209,14 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 	//check status
 	if (force == true)
 	{
-		if (this.presentOnSystem(p))
+		if (this.hostPkgChecker.presentOnSystem(p))
 			p.pack.present = 'override-system';
 		if (p.isInstalled())
 			p.pack.present = 'reinstall';
 	} else if (p.pack.present == undefined) {
 		if (this.prefix.hasPackageInstalled(p))
 			p.pack.present = 'already-installed';
-		else if (this.presentOnSystem(p))
+		else if (this.hostPkgChecker.presentOnSystem(p))
 			p.pack.present = 'use-host';
 		else
 			p.pack.present = null;
@@ -343,80 +346,6 @@ DepsLoader.prototype.printList = function()
 		if (this.packages[i].pack.present == 'use-host')
 			console.log(this.packages[i].pack.name);
 	console.log("----------------------------------------------------------\n");
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Check if present by using the 'default' system, so only
- * considering the host.default entry from the package.
- * @param p Package to check.
-**/
-DepsLoader.prototype.presentOnSystemDefault = function(p)
-{
-	if (p.pack.host['default'] == undefined)
-		return false;
-	else
-		return p.pack.host['default'];
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Check if the package is installed into a Debian 8 host system.
- * This funcction made the check by using the dpkg command.
- * CAUTION, it require child_process.execSync from nodejs which
- * is not provided on old versions.
- * @param p package to check.
-**/
-DepsLoader.prototype.presentOnSystemDebian8 = function(p)
-{
-	var h = [];
-	
-	//package one
-	if (p.pack.host != undefined)
-		h = p.pack.host['debian8'];
-
-	//load from separate file
-	if (this.hostsRefs[p.pack.name] != undefined)
-		h = this.hostsRefs[p.pack.name];
-	
-	//not defined, consider not provided
-	if (h == undefined)
-		return false;
-	
-	//is not provided
-	if (h === false)
-		return false;
-	
-	//console.log("Check ncurses on host : "+h);
-	
-	//check in list
-	for (var i in h)
-	{
-		try {
-			//console.error("Check with dpkg "+h[i]);
-			var res = child_process.execSync('dpkg -s '+h[i]+' 2> /dev/null');
-		} catch (e) {
-			return false;
-		}
-	}
-	return true;
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Check if the given package is installed onto the system.
- * This function is mostly a switch on the system type.
-**/
-DepsLoader.prototype.presentOnSystem = function(p)
-{
-	if (this.userConfig.config.host == 'default')
-	{
-		return this.presentOnSystemDefault(p);
-	} else if (this.userConfig.config.host == 'debian8') {
-		return this.presentOnSystemDebian8(p);
-	} else {
-		throw "Unsupposed host system to check deps, please use default in that case !";
-	}
 }
 
 /*******************  FUNCTION  *********************/
