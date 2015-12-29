@@ -23,6 +23,7 @@
     "ftp": "^0.3.10",
     "json-override": "^0.2.0",
     "request": "^2.67.0",
-    "sync-request": "^2.1.0"
+    "sync-request": "^2.1.0",
+    "unit.js": "^2.0.0"
   }
 }

@@ -60,6 +60,7 @@ VersionHelper.prototype.getSlot = function(pack,version)
 **/
 VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 {
+	var tmp;
 	var cnt = 1;
 	var operator = op[0];
 	if (op[1] == '=')
@@ -73,15 +74,15 @@ VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 	switch(operator)
 	{
 		case '<=':
-			var tmp = compareVersion(version,operand);
-			return (tmp == 0 || tmp == -1);
+			tmp = compareVersion(version,operand);
+			ret = (tmp == 0 || tmp == -1);
 			break;
 		case '<':
 			ret = (compareVersion(version,operand) == -1);
 			break;
 		case '>=':
-			var tmp = compareVersion(version,operand);
-			return (tmp == 0 || tmp == 1);
+			tmp = compareVersion(version,operand);
+			ret = (tmp == 0 || tmp == 1);
 			break;
 		case '>':
 			ret = (compareVersion(version,operand) == 1);
@@ -94,21 +95,20 @@ VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 			break;
 		case '~':
 			var regexp = new RegExp(operand);
-			return regexp.test(version);
+			ret = regexp.test(version);
 			break;
 		case ':':
 			var slot = this.getSlot(pack,version);
 			//console.log(slot +"!="+operand);
-			return (slot == operand);
+			ret = (slot == operand);
 			break;
 		default:
 			throw "Invalid operator "+ operator;
-			break;
 	}
 	
 	//console.error("Apply "+operator +" on "+operand+" and "+version+" => "+ret);
 	return ret;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -119,7 +119,7 @@ VersionHelper.prototype.sortUniqVersions = function(arr) {
 	return arr.sort(compareVersion).filter(function(el,i,a) {
 		return (i==a.indexOf(el));
 	});
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
