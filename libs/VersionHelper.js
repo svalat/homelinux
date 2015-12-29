@@ -137,8 +137,6 @@ VersionHelper.prototype.filterVersion = function(pack,rules,version)
 	for (var j in rulesArray)
 		rulesArray[j] = rulesArray[j].trim();
 	
-	var operator = '';
-	var operand = '';
 	var status = true;
 	for (var j in rulesArray)
 	{
@@ -153,7 +151,7 @@ VersionHelper.prototype.filterVersion = function(pack,rules,version)
 	}
 	
 	return status;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
