@@ -77,7 +77,7 @@ function loadModule()
 	hl prefix-of 'sys-app/modules' 1>/dev/null 2>/dev/null || return 0
 	
 	#ok really to it
-	echo ". $(node index.js prefix-of sys-cluster/modules)/Modules/current/init/$(basename $SHELL)"
+	echo ". $(hl prefix-of sys-app/modules)/Modules/current/init/$(basename $SHELL)"
 }
 
 ######################################################

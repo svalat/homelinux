@@ -30,6 +30,38 @@ function Prefix(prefixPath)
 }
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.prefixOfPackage = function(userConfig,packageName)
+{
+	//load package to get full name if not already
+	if (packageName.indexOf('/') == -1)
+	{
+		var pack = new PackageBuilder(this,userConfig,packageName);
+		packageName = pack.pack.name;
+	}
+	
+	//search in install dir
+	var files = fs.readdirSync(this.getFile('/homelinux/install-db/'));
+	var fname = packageName.replace('/','_');
+	
+	//search
+	for (var i in files)
+	{
+		if (files[i].indexOf(fname) == 0)
+			return this;
+	}
+	
+	//search in inherited childs
+	for (var i in this.inherit)
+	{
+		var ret = this.inherit[i].prefixOfPackage(userConfig,packageName);
+		if (ret != null)
+			return ret;
+	}
+	
+	return null;
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Print the prefix configuration.
 **/
@@ -79,7 +111,7 @@ Prefix.prototype.load = function(prefixPath)
 	}
 	
 	//load inherited
-	this.inherits = [];
+	this.inherit = [];
 	for (var i in this.config.inherit)
 		this.inherit.push(new Prefix(i));
 	

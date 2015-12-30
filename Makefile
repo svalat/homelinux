@@ -24,6 +24,8 @@ install: check
 	mkdir -p $(PREFIX)/homelinux
 	cp -r packages $(PREFIX)/homelinux
 	cp -r node_modules $(PREFIX)/lib/homelinux
+	mkdir -p $(PREFIX)/homelinux/install-db
+	$(PREFIX)/bin/hl build-cache
 	
 
 .PHONY: check install

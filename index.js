@@ -64,7 +64,11 @@ if (command == "env")
 		console.log(pack.pack.versions);
 	});
 } else if (command == "prefix-of") {
-	console.log(userConfig.config.prefix);
+	var ret = prefix.prefixOfPackage(userConfig,process.argv[3]);
+	if (ret == null)
+		process.exit(1);
+	else
+		console.log(userConfig.config.prefix);
 } else if (command == "is-pack-installed") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	if (pack.isInstalled() == false)
