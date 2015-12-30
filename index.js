@@ -28,6 +28,18 @@ if (command == "env")
 	prefix.fillEnv(envSetup);
 	envSetup.enableCCache();
 	envSetup.print();
+} else if (command == "unenv") {
+	var envSetup = new EnvSetup(userConfig);
+	envSetup.removeExisting();
+	envSetup.print();
+} else if (command == "switch") {
+	var envSetup = new EnvSetup(userConfig);
+	envSetup.removeExisting();
+	//load new
+	var prefix = new Prefix(process.argv[3]);
+	prefix.fillEnv(envSetup);
+	envSetup.enableCCache();
+	envSetup.print();
 } else if (command == "install") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	//pack.printDebug();

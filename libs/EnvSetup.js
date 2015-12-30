@@ -33,6 +33,7 @@ function EnvSetup(userConfig)
 		'PYTHONPATH':process.env.PYTHONPATH,
 		'CMAKE_PREFIX_PATH':process.env.CMAKE_PREFIX_PATH,
 		'LD_RUN_PATH':process.env.LD_RUN_PATH,
+		'HL_PREFIX_PATH':process.env.HL_PREFIX_PATH,
 	};
 }
 
@@ -123,6 +124,53 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	
 	//module
 	this.prepend('MODULEPATH',prefix + "/Modules/modulefiles");
+	
+	//hl
+	this.prepend('HL_PREFIX_PATH',prefix);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Remove removeExisting paths for the given variable
+**/
+EnvSetup.prototype.removeExistingForVar = function(varname,separator)
+{
+	//get list of active prefix
+	var lst = this.vars.HL_PREFIX_PATH.split(':');
+	
+	if (separator == undefined)
+		separator = ':';
+	
+	//remove
+	var values = this.vars[varname].split(separator);
+	var out = [];
+	for (var i in values)
+	{
+		var status = true;
+		for (var j in lst)
+			if (values[i].indexOf(lst[j]+"/") == 0 || values[i] == lst[j])
+				status = false;
+		if (status)
+			out.push(values[i]);
+	}
+	
+	this.vars[varname] = out.join(separator);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Remove the existing paths from homelinux
+**/
+EnvSetup.prototype.removeExisting = function()
+{
+	for (var i in this.vars)
+		this.removeExistingForVar(i,':');
+}
+
+/*******************  FUNCTION  *********************/
+EnvSetup.prototype.switch = function(userConfig,prefix)
+{
+	//
 }
 
 /*******************  FUNCTION  *********************/

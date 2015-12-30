@@ -39,6 +39,8 @@ Commands:
 	fetch-versions    : Fetch versions of given package (work only
 	                    for db packages.
 	env               : Setup the environement variable to load.
+	unenv             : Reset the environnement variables by removing the homelinux entries.
+	switch            : Switch the environnement variables to the given prefix.
 	is-pack-installed : Check if the given package is installed or not.
 	prefix-of         : Return the prefix where the package is installed or empty if not.
 	ls                : List installed packages.

@@ -86,6 +86,11 @@ you need to install `stow` (or use the one from the system).
 	#Then enable usage of stow in config file of prefix
 	nano $HOME/usr/homelinux.json
 
+If you use inheritance and want to install a package into an inherited prefix, you need to switch
+to this prefix first to make it as active prefix.
+
+	eval "`hl switch $HOME/usrbase`"
+
 Basic usage
 -----------
 
