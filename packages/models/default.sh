@@ -39,7 +39,7 @@ function setup_vars()
 {
 	STEPINFO="${COLOR_DGRAY}[${HL_CUR_PACK}/${HL_TOT_PACK}][$NAME-$VERSION]${COLOR_STD}"
 	HL_TEMP=${HL_TEMP}/${SHORT_NAME}-${VERSION}
-	DISTFILES="$PREFIX/homelinux/distfiles"
+	DISTFILES="$HL_PREFIX/homelinux/distfiles"
 	HL_BUILDDIR=$HL_TEMP/$SUBDIR
 	HL_PACKDIR=$HL_TEMP/$SUBDIR
 	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then

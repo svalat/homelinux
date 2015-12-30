@@ -41,7 +41,7 @@ Prefix.prototype.prefixOfPackage = function(userConfig,packageName)
 	
 	//search in install dir
 	var files = fs.readdirSync(this.getFile('/homelinux/install-db/'));
-	var fname = packageName.replace('/','_');
+	var fname = packageName.replace(/[/]/g,'_');
 	
 	//search
 	for (var i in files)
@@ -668,7 +668,7 @@ Prefix.prototype.hasPackageInstalled = function(p,prefix)
 	if (prefix == undefined)
 		prefix = this.prefix;
 	
-	if (p.isInstalled(this.prefix)) 
+	if (p.isInstalled(this)) 
 	{
 		return true;
 	} else {

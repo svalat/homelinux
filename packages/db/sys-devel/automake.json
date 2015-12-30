@@ -16,6 +16,7 @@
 		"ftp://ftp.gnu.org/gnu/automake/automake-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"sys-devel/autoconf"
 	],
 	"host": {
 		"default": false,

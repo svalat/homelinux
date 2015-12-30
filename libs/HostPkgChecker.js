@@ -88,3 +88,5 @@ HostPkgChecker.prototype.presentOnSystem = function(p)
 		throw "Unsupposed host system to check deps, please use default in that case !";
 	}
 }
+
+module.exports = HostPkgChecker;

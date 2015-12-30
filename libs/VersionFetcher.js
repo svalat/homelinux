@@ -20,6 +20,7 @@ var cheerio = require('cheerio');
 var request = require('request');
 var Batch = require('batch')
 var PackageBuilder = require('./PackageBuilder');
+var httpreq = require('sync-request');
 
 /*********************  CLASS  **********************/
 function VersionFetcher()
@@ -155,6 +156,8 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 			this.fetchFromGentoo(pack,callback);
 		else if (mode == 'http-gnome-cache')
 			this.fetchFromGnomeCache(pack,callback);
+		else if (mode == 'github')
+			this.fetchVersionsFromGithub(pack,callback);
 		else if (mode == 'none')
 			callback(null);
 		else
@@ -187,6 +190,57 @@ function sort_unique(arr) {
 	return arr.sort(compareVersion).filter(function(el,i,a) {
 		return (i==a.indexOf(el));
 	});
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Fetch an http page and search for all its internal links to check if their text
+ * property match the version regexp of the package. It was originaly written for
+ * apache directory list but finally also work fine on standard pages.
+ * @param pack Package to use
+ * @param clalback Callback to be called on finish. First param is err, second is pack.
+**/
+VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
+{
+	var self = this;
+	var url = pack.pack.vfetcher.url.replace('github://','');
+	
+	var ret = httpreq('GET',"https://api.github.com/repos/"+url+"/releases/latest",
+		{
+			'headers': {
+				'user-agent': 'homelinux-user-agent'
+		}
+	});
+	
+	if (ret.statusCode == 200)
+	{
+		ret = JSON.parse(ret.getBody('utf8'));
+		if (ret.tag_name == undefined)
+			throw "Fail to find last release of package on github";
+		key = 'tag_name';
+	} else {
+		var ret = httpreq('GET',"https://api.github.com/repos/"+url+"/tags",
+			{
+				'headers': {
+					'user-agent': 'homelinux-user-agent'
+			}
+		});
+		if (ret.statusCode != 200)
+			throw 'Failed to search version on github !';
+		ret = JSON.parse(ret.getBody('utf8'));
+		key = 'name';
+	}
+	
+	//load
+	for (var i in ret)
+		this.checkFile(pack,ret[i][key]);
+	
+	//sort & uniq
+	pack.pack.versions = sort_unique(pack.pack.versions);
+	
+	//callback
+	if (callback != undefined)
+		callback(null,pack);
 }
 
 /*******************  FUNCTION  *********************/

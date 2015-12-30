@@ -8,6 +8,7 @@
 	},
 	"deps": [
 		"sys-devel/autoconf",
-		"sys-devel/automake"
+		"sys-devel/automake",
+		"sys-devel/libtool"
 	]
 }
