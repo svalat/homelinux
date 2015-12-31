@@ -85,7 +85,7 @@ function loadModule()
 ######################################################
 case "$1" in
 	"build-cache")
-		hl-build-cache
+		$(dirname $0)/hl-build-cache
 		;;
 	"help"|"--help"|"-h"|"")
 		echo "$HELP"

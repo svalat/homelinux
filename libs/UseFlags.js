@@ -22,6 +22,9 @@ function UseFlags()
 /*******************  FUNCTION  *********************/
 UseFlags.prototype.merge = function(values,additional,force)
 {
+    if (values == undefined)
+        values = [];
+    
     //merge
     if (additional != undefined)
         values = values.concat(additional);
@@ -73,10 +76,23 @@ UseFlags.prototype.status = function(list,flag)
 };
 
 /*******************  FUNCTION  *********************/
+UseFlags.prototype.getApplyStatus = function(list,flag)
+{
+    var status = this.apply(list,flag);
+    var name = flag.replace(/^[-+]/g,'');
+    if (status == null)
+        return "-"+name;
+    else if (status)
+        return (flag[0]=='+'?'+':'-')+name;
+    else
+        return (flag[0]=='-'?'+':'-')+name;
+};
+
+/*******************  FUNCTION  *********************/
 UseFlags.prototype.apply = function(list,flag)
 {
     //trivial
-    if (flag == '')
+    if (flag == '' || flag == '+')
         return true;
     
     //selcet mode
@@ -93,7 +109,7 @@ UseFlags.prototype.apply = function(list,flag)
     var status = this.status(list,flag);
     if (status == null)
     {
-        throw 'You try to apply a use flag which is never defined : '+flag;
+        throw 'You try to apply a use flag which is never defined : "'+flag+'"';
     } else if (mode == '') {
         if (status == '')
             return null;

@@ -29,5 +29,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libcairo2-dev" ]
-	}
+	},
+	"useflags": [
+		"-svg"
+	]
 }

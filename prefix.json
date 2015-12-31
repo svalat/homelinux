@@ -10,8 +10,9 @@
 	],
 	"versions": {
 	},
-	"useflags": [
-	],
+	"useflags": {
+		"": []
+	},
 	"gentoo" : {
 		"server":"gentoo.mirrors.ovh.net",
 		"port": 21,

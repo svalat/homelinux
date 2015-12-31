@@ -333,9 +333,9 @@ DepsLoader.prototype.printList = function()
 	{
 		var p = this.packages[this.sched[i]];
 		if (p.pack.present != undefined && p.pack.present != null)
-			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.pack.present+"]");
+			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.pack.present+"] "+p.getUseFlagStatusString());
 		else
-			console.log(p.getNameSlot()+"-"+p.getVersion());
+			console.log(p.getNameSlot()+"-"+p.getVersion()+" "+p.getUseFlagStatusString());
 	}
 	console.log("-----------------------INSTALLED--------------------------");
 	for (var i in this.packages)

@@ -200,72 +200,6 @@ PackageBuilder.prototype.getProperty = function(name)
 };
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.hasUseFlags = function(value)
-{
-	//if not use flags defined, default is enable
-	if (value == '')
-		return true;
-	
-	//if value contain &
-	if (value.indexOf('&') != -1)
-	{
-		var lst = value.split("&");
-		for (var i in lst)
-			if (!this.hasUseFlags(lst[i].trim()))
-				return false;
-		return true;
-	}
-	
-	//check +-
-	var invert = false;
-	if (value[0] == '-')
-		invert = true;
-	value = value.replace(/^[-+]/g,'');
-
-	//get global use flag
-	var local = this.getProperty('useflags');
-	var global = this.prefix.config.useflags[""];
-	var pack = this.prefix.config.useflags[this.pack.name];
-	
-	//apply local
-	var status = false;
-	if (local != undefined && (local.indexOf(value) != -1 || local.indexOf('+'+value) != -1))
-		status = true;
-	
-	//apply global
-	if (global != undefined && (global.indexOf(value) != -1 || global.indexOf('+'+value) != -1))
-		status = true;
-	else if (global != undefined && global.indexOf('-'+value) != -1)
-		status = false;
-	
-	//apply package
-	if (pack != undefined && (pack.indexOf(value) != -1 || pack.indexOf('+'+value) != -1))
-		status = true;
-	else if (pack != undefined && pack.indexOf('-'+value) != -1)
-		status = false;
-
-	if (invert)
-		return !status;
-	else
-		return status;
-};
-
-/*******************  FUNCTION  *********************/
-PackageBuilder.prototype.applyUseFlags = function(value)
-{
-	if (value == '')
-	{
-		return true;
-	} else if (value[0] == '+') {
-		return this.hasUseFlags(value.substring(1,value.length));
-	} else if (value[0] == '-') {
-		return !this.hasUseFlags(value.substring(1,value.length));
-	} else {
-		 return true;
-	}
-};
-
-/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.buildUseFlagList = function()
 {
 	//get global use flag
@@ -390,9 +324,23 @@ PackageBuilder.prototype.applyVersionHints = function()
 };
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getUseFlagStatusString = function()
+{
+	this.buildUseFlagList();
+	var flags = this.getProperty('useflags');
+	var ret = [];
+	for (var i in flags)
+		ret.push(UseFlags.getApplyStatus(this.useflags,flags[i]));
+		
+	return ret.join(', ');
+};
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.replaceParentUseFlags = function(flags)
 {
-	var flags = flags.replace('[','').replace(']','').split(',');
+	flags = flags.replace('[','').replace(']','').split(',');
+	
+	this.buildUseFlagList();
 	
 	var ret = [];
 	for (var i in flags)
@@ -400,8 +348,9 @@ PackageBuilder.prototype.replaceParentUseFlags = function(flags)
 		if (flags[i].indexOf('#') != -1)
 		{
 			var flag = flags[i].replace(/[+#-]/g,'');
-			if (this.hasUseFlags(flag))
-				ret.push('+'+flag);
+			var status = UseFlags.status(this.useflags,flag);
+			if (status != '')
+				ret.push(status+flag);
 		} else if (flags[i] != '') {
 			ret.push(flags[i]);
 		}
@@ -415,6 +364,9 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 {
 	if (this.hints == undefined)
 		return;
+		
+	//load use flags
+	this.buildUseFlagList();
 	
 	var err = [];
 	if (this.hints != undefined)
@@ -427,8 +379,11 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 				for (var j in flags)
 				{
 					var f = flags[j];
+					if (f[0] != '+' && f[0] != '-')
+						f = '+'+f;
 					var info = f + " ("+this.hints[i].parent.getNameSlot()+")";
-					if (!this.hasUseFlags(f))
+					var status = UseFlags.apply(this.useflags,f);
+					if (status == null || status == false)
 						err.push(info);
 				}
 			}
@@ -564,7 +519,7 @@ PackageBuilder.prototype.install = function()
 	child.stderr.pipe(process.stderr);
 	child.stdin.write(this.genScript()+"\n\n\n");
 	child.stdin.end();
-}
+};
 
 /*******************  FUNCTION  *********************/
 module.exports = PackageBuilder;
