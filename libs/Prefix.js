@@ -59,7 +59,7 @@ Prefix.prototype.prefixOfPackage = function(userConfig,packageName)
 	}
 	
 	return null;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -68,7 +68,7 @@ Prefix.prototype.prefixOfPackage = function(userConfig,packageName)
 Prefix.prototype.print = function()
 {
 	console.log(this.config);
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -100,7 +100,7 @@ Prefix.prototype.load = function(prefixPath)
 	};
 	
 	//config path
-	var configfile = prefixPath + "/homelinux.json"
+	var configfile = prefixPath + "/homelinux.json";
 	if (fs.existsSync(configfile)) 
 	{ 
 		var config = require(configfile);
@@ -117,7 +117,7 @@ Prefix.prototype.load = function(prefixPath)
 	
 	//load version
 	this.getVersions();
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -129,7 +129,7 @@ Prefix.prototype.fillEnv = function(env)
 	for (var i in this.inherit)
 		this.inherit[i].fillEnv(env);
 	env.addPrefix(this.prefix);
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -138,7 +138,7 @@ Prefix.prototype.fillEnv = function(env)
 Prefix.prototype.getFile = function(path)
 {
 	return this.prefix + "/" + path;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -161,7 +161,7 @@ Prefix.prototype.getVersions = function()
 	}
 	
 	return this.versions;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -186,7 +186,7 @@ Prefix.prototype.loadQuickFile = function(prop)
 	}
 	
 	return ret;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -249,7 +249,7 @@ Prefix.prototype.getQuick = function(prop,packageName,defaultValue)
 	} else {
 		throw "Invalid part : "+prop;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -266,7 +266,7 @@ Prefix.prototype.getCache = function()
 	}
 	
 	return this.cache;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -292,18 +292,18 @@ Prefix.prototype.searchInCache = function(packageName)
 	} else if (list.length == 1) {
 		//console.error("Ok, simple name converted to : "+list[0]);
 		return list[0];
-	} else {
+	} else {
 		console.error("Failed to find your package, multiple match : "+list.concat(','));
 		process.exit(1);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.loadPackage = function(packageName)
 {
 	//extract version
 	var version = packageName.split('@')[1];
-	var packageName = packageName.split('@')[0];
+	packageName = packageName.split('@')[0];
 	
 	//if has no / search in db first before fallback
 	if (packageName.indexOf('/') == -1)
@@ -334,7 +334,7 @@ Prefix.prototype.loadPackage = function(packageName)
 	p.version = version;
 	
 	return p;
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.buildGithubPackage = function(qp)
@@ -379,7 +379,7 @@ Prefix.prototype.buildGithubPackage = function(qp)
 
 		return qp;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.buildUrlsQuickPackage = function(qp)
@@ -398,7 +398,7 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 	//serach in gentoo list
 	var finalv;
 	var v = [];
-	var ext
+	var ext;
 	for (var i in this.urlsDb)
 	{
 		var fname = this.urlsDb[i].split('/').pop();
@@ -433,7 +433,7 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 		
 		return qp;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.buildGentooQuickPackage = function(qp)
@@ -457,7 +457,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	//serach in gentoo list
 	var finalv;
 	var v = [];
-	var ext
+	var ext;
 	for (var i in this.gentooDb)
 	{
 		if (vregexp.test(this.gentooDb[i]))
@@ -491,7 +491,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 		
 		return qp;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.buildQuickPackage = function(packageName)
@@ -595,7 +595,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	};
 	
 	return pack;
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.search = function(name)
@@ -620,7 +620,7 @@ Prefix.prototype.search = function(name)
 		if (this.urlsDb[i].indexOf(name) != -1)
 			console.log("urls/"+this.urlsDb[i].split('/').pop());
 	console.log("------------------------------------------------------------");
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.listInstalled = function()
@@ -635,8 +635,8 @@ Prefix.prototype.listInstalled = function()
 			else
 				console.log(p.name+"-"+p.version);
 		}
-	})
-}
+	});
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.export = function(userConfig)
@@ -648,7 +648,7 @@ Prefix.prototype.export = function(userConfig)
 	exp['userConfig'] = userConfig.config;
 	
 	//installed
-	var installed = {}
+	var installed = {};
 	exp['installed'] = installed;
 	find.file(this.getFile("homelinux/install-db/"), function(files) {
 		for (var i in files)
@@ -659,8 +659,8 @@ Prefix.prototype.export = function(userConfig)
 		}
 		
 		console.log(JSON.stringify(exp,null,'\t'));
-	})
-}
+	});
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.hasPackageInstalled = function(p,prefix)
@@ -678,7 +678,7 @@ Prefix.prototype.hasPackageInstalled = function(p,prefix)
 	}
 	
 	return false;
-}
+};
 
 /*******************  FUNCTION  *********************/
 Prefix.prototype.getPrefixOf = function(p, prefix)
@@ -696,7 +696,7 @@ Prefix.prototype.getPrefixOf = function(p, prefix)
 	}
 	
 	return null;
-}
+};
 
 /*******************  FUNCTION  *********************/
 module.exports = Prefix;

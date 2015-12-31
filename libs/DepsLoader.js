@@ -84,7 +84,7 @@ DepsLoader.prototype.applyVSpecific = function()
 		if (this.root[i] != null)
 			this.applyVSpecificChild(this.root[i]);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -108,7 +108,7 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 		{
 			this.applyVSpecificChild(p.pdeps[i]);
 		}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -137,7 +137,7 @@ DepsLoader.prototype.applyVersionRules = function(pack,parent,infos)
 	//apply
 	pack.checkUseFlagHints();
 	pack.applyVersionHints();
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -165,7 +165,7 @@ DepsLoader.prototype.loadPackageDeps = function(p)
 	}
 			
 	return hasNewDeps;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -230,7 +230,7 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 		this.loadPackageDeps(p);
 	
 	return p;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -264,7 +264,7 @@ DepsLoader.prototype.parseRequestString = function(dep)
 			throw "Invalid format "+dep;
 		return {name:ret[2],use:ret[1],iuse:ret[3],version:ret[4]};
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -287,7 +287,7 @@ DepsLoader.prototype.buildSched = function()
 		if (endSched.indexOf(sched[i]) == -1)
 			endSched.push(sched[i]);
 	this.sched = endSched;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -302,7 +302,7 @@ DepsLoader.prototype.buildSchedChild = function(p)
 			if (p.pdeps[i] != null)
 				this.buildSchedChild(p.pdeps[i]);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -319,7 +319,7 @@ DepsLoader.prototype.genScript = function()
 	for (var i in this.sched)
 		ret += this.packages[this.sched[i]].genScript() + "\n\n####################################################\n\n";
 	return ret;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -346,7 +346,7 @@ DepsLoader.prototype.printList = function()
 		if (this.packages[i].pack.present == 'use-host')
 			console.log(this.packages[i].pack.name);
 	console.log("----------------------------------------------------------\n");
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -412,7 +412,7 @@ DepsLoader.prototype.genParallelMakefile = function(tmpdir)
 		fs.writeFileSync(tmpdir+"/Makefile",mk);
 	
 	return mk;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -433,6 +433,6 @@ DepsLoader.prototype.genParallelScripts = function(tmpdir)
 		fs.writeFileSync(tmpdir+"/"+step+".sh",ret);
 	}
 	return ret;
-}
+};
 
 module.exports = DepsLoader;

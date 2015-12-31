@@ -46,7 +46,7 @@ EnvSetup.prototype.enableCCache = function()
 {
 	if (this.userConfig.config.ccache)
 		this.prepend('PATH',this.userConfig.config.prefix + "/bin/ccache-links");
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -66,7 +66,7 @@ EnvSetup.prototype.prepend = function(varname,value,sep)
 		this.vars[varname] = value + sep + this.vars[varname];
 	else
 		this.vars[varname] = value;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -127,7 +127,7 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	
 	//hl
 	this.prepend('HL_PREFIX_PATH',prefix);
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -155,7 +155,7 @@ EnvSetup.prototype.removeExistingForVar = function(varname,separator)
 	}
 	
 	this.vars[varname] = out.join(separator);
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -165,13 +165,13 @@ EnvSetup.prototype.removeExisting = function()
 {
 	for (var i in this.vars)
 		this.removeExistingForVar(i,':');
-}
+};
 
 /*******************  FUNCTION  *********************/
 EnvSetup.prototype.switch = function(userConfig,prefix)
 {
 	//
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -182,7 +182,7 @@ EnvSetup.prototype.print = function()
 {
 	for (var i in this.vars)
 		console.log("export "+i+"="+this.vars[i]+"");
-}
+};
 
 /*******************  FUNCTION  *********************/
 module.exports = EnvSetup;

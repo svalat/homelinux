@@ -25,7 +25,7 @@ function PackageBuilder(prefix,userConfig,packageName,inherit)
 PackageBuilder.prototype.getShortName = function()
 {
 	return this.pack.name.split('/').pop();
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.load = function(packageName,inherit)
@@ -55,7 +55,7 @@ PackageBuilder.prototype.load = function(packageName,inherit)
 	} else {
 		this.pack.configure[''] = this.pack.configure[''].concat(config);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 function mergeEntry(parent,child)
@@ -106,7 +106,7 @@ PackageBuilder.prototype.loadInherit = function(pack)
 			
 		return this.loadInherit(parent);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.selectVSpecific = function()
@@ -123,7 +123,7 @@ PackageBuilder.prototype.selectVSpecific = function()
 			}
 		}
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.mergeSubArrays = function(orig,addition)
@@ -146,7 +146,7 @@ PackageBuilder.prototype.mergeSubArrays = function(orig,addition)
 	}
 	
 	return final;
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getProperty = function(name)
@@ -197,7 +197,7 @@ PackageBuilder.prototype.getProperty = function(name)
 	}
 	
 	return final;
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.hasUseFlags = function(value)
@@ -248,7 +248,7 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 		return !status;
 	else
 		return status;
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.applyUseFlags = function(value)
@@ -263,7 +263,7 @@ PackageBuilder.prototype.applyUseFlags = function(value)
 	} else {
 		 return true;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.buildUseFlagList = function()
@@ -276,7 +276,7 @@ PackageBuilder.prototype.buildUseFlagList = function()
 	//merge
 	this.useflags = UseFlags.merge(global,pack,true);
 	this.useflags = UseFlags.merge(local,this.useflags);
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.buildOptions = function()
@@ -312,7 +312,7 @@ PackageBuilder.prototype.buildOptions = function()
 PackageBuilder.prototype.getStowName = function(version)
 {
 	return this.getNameSlot().replace(/[/:]/g,'_');
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPrefix = function(version)
@@ -326,7 +326,7 @@ PackageBuilder.prototype.getPrefix = function(version)
 	} else {
 		return this.prefix.prefix+"/Modules/installed/"+this.pack.module;
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPatchList = function(version)
@@ -341,13 +341,13 @@ PackageBuilder.prototype.getPatchList = function(version)
 	}
 	
 	return final;
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getSlot = function(version)
 {
 	return VersionHelper.getSlot(this.pack,version);
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getPackInstalled = function(version,prefix)
@@ -356,14 +356,14 @@ PackageBuilder.prototype.getPackInstalled = function(version,prefix)
 		return this.prefix.getFile("/homelinux/install-db/"+this.getStowName()+".json");
 	else
 		return prefix.getFile("/homelinux/install-db/"+this.getStowName()+".json");
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.isInstalled = function(prefix)
 {
 	var fname = this.getPackInstalled(this.getVersion(),prefix);
 	return fs.existsSync(fname);
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getVersionList = function()
@@ -372,7 +372,7 @@ PackageBuilder.prototype.getVersionList = function()
 		return this.prefix.versions[this.pack.name];
 	else
 		return this.prefix.versions[this.pack.name];
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.applyVersionHints = function()
@@ -387,7 +387,7 @@ PackageBuilder.prototype.applyVersionHints = function()
 		if (this.pack.versions != undefined)
 			return this.pack.versions = VersionHelper.filterVersions(this.pack,this.hints[i].version,this.pack.versions);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.replaceParentUseFlags = function(flags)
@@ -408,7 +408,7 @@ PackageBuilder.prototype.replaceParentUseFlags = function(flags)
 	}
 	
 	return '['+ret.join(',')+']';
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.checkUseFlagHints = function()
@@ -440,13 +440,13 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 		console.error("Package "+this.pack.name+" has some missing useflags properties to match dependencies : "+err);
 		process.exit(1);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getNameSlot = function()
 {
 	return this.pack.name+":"+this.getSlot(this.getVersion());
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.genScript = function(usePinstall)
@@ -521,12 +521,12 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 		script.push("set -e");
 		script.push("setup_vars");
 		script.push("hl_start");
-		script.push("hl_pack_main")
+		script.push("hl_pack_main");
 		script.push("hl_stop");
 	}
 	
 	return script.join('\n');
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getVersion = function()
@@ -546,18 +546,18 @@ PackageBuilder.prototype.getVersion = function()
 		throw "Fail to find version for package "+this.pack.name+" dep requirement might be too strict and eliminate all possibilities !";
 	}
 	return ret;
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.printDebug = function()
 {
 	console.log(this.pack);
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.install = function()
 {
-	child = spawn('bash');
+	var child = spawn('bash');
 	
 	//child.stdin.setEncoding('utf-8');
 	child.stdout.pipe(process.stdout);

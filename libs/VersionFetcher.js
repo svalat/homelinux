@@ -166,7 +166,7 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 		console.error("Fail to fetch version of "+pack.pack.name+" e: "+e);
 		callback(null);
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -182,7 +182,7 @@ VersionFetcher.prototype.fetchFromGentoo = function(pack,callback)
 		this.checkFile(pack,this.gentooDb[i]);
 	}
 	callback(null);
-}
+};
 
 /*******************  FUNCTION  *********************/
 //from http://stackoverflow.com/questions/4833651/javascript-array-sort-and-unique
@@ -212,6 +212,7 @@ VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
 		}
 	});
 	
+	var key;
 	if (ret.statusCode == 200)
 	{
 		ret = JSON.parse(ret.getBody('utf8'));
@@ -219,7 +220,7 @@ VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
 			throw "Fail to find last release of package on github";
 		key = 'tag_name';
 	} else {
-		var ret = httpreq('GET',"https://api.github.com/repos/"+url+"/tags",
+		ret = httpreq('GET',"https://api.github.com/repos/"+url+"/tags",
 			{
 				'headers': {
 					'user-agent': 'homelinux-user-agent'
@@ -241,7 +242,7 @@ VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
 	//callback
 	if (callback != undefined)
 		callback(null,pack);
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -285,7 +286,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 				callback(null,pack);
 		});
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -296,7 +297,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 **/
 VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 {
-	var ftp = new FtpClient()
+	var ftp = new FtpClient();
 	var self = this;
 	
 	var lst = pack.pack.vfetcher.url;
@@ -351,7 +352,7 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 			callback();
 		}
 	}
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -369,6 +370,6 @@ VersionFetcher.prototype.checkFile = function(pack,file)
 		//console.log("Find version "+ret[1]);
 		pack.pack.versions.push(ret[1]);
 	}
-}
+};
 
 module.exports = VersionFetcher;

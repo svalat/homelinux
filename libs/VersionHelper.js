@@ -48,7 +48,7 @@ VersionHelper.prototype.getSlot = function(pack,version)
 
 	//no slot
 	return '0';
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -171,7 +171,7 @@ VersionHelper.prototype.filterVersions = function(pack,rules,list)
 			ret.push(list[i]);
 	
 	return ret;
-}
+};
 
 /*********************  CONSTS  *********************/
 module.exports = new VersionHelper();

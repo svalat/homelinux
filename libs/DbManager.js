@@ -29,7 +29,7 @@ function DbManager(prefix)
 **/
 DbManager.prototype.fetchGentoo = function(callback)
 {
-	var ftp = new FtpClient()
+	var ftp = new FtpClient();
 	var self = this;
 	
 	ftp.on('ready', function() {
@@ -48,7 +48,7 @@ DbManager.prototype.fetchGentoo = function(callback)
 	});
 	
 	ftp.connect({host: this.prefix.config.gentoo.server, port:this.prefix.config.gentoo.port});
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -65,7 +65,7 @@ DbManager.prototype.saveGentooDb = function(list)
 	}
 	fs.writeFileSync(this.prefix.getFile('/homelinux/packages/gentoo.json'),JSON.stringify(files));
 	console.log("Gentoo DB saved");
-}
+};
 
 /*********************  CONSTS  *********************/
 module.exports = DbManager;

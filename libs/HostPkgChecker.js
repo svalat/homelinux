@@ -70,7 +70,7 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 		}
 	}
 	return true;
-}
+};
 
 /*******************  FUNCTION  *********************/
 /**
@@ -87,6 +87,6 @@ HostPkgChecker.prototype.presentOnSystem = function(p)
 	} else {
 		throw "Unsupposed host system to check deps, please use default in that case !";
 	}
-}
+};
 
 module.exports = HostPkgChecker;
