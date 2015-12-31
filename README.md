@@ -154,6 +154,16 @@ Create packages
 To create package, check [doc/package.md](doc/package.md). If you don't want to provide full packages but just want to use
 as most as possible the default options, you can use the quick package approach defined into [doc/quickpackage.md](doc/quickpackage.md).
 
+Run unit tests
+--------------
+
+HomeLinux provide some internal unit tests which can by run with mocha :
+
+```sh
+	npm install mocha
+	./node_modules/.bin/mocha ./tests
+```
+
 Licence
 -------
 

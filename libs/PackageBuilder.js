@@ -11,6 +11,7 @@ var jso = require('json-override');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var VersionHelper = require('./VersionHelper');
+var UseFlags = require('./UseFlags');
 
 /*********************  CLASS  **********************/
 function PackageBuilder(prefix,userConfig,packageName,inherit)
@@ -219,7 +220,7 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 	var invert = false;
 	if (value[0] == '-')
 		invert = true;
-	value = value.replace(/[-+]/g,'');
+	value = value.replace(/^[-+]/g,'');
 
 	//get global use flag
 	var local = this.getProperty('useflags');
@@ -265,26 +266,47 @@ PackageBuilder.prototype.applyUseFlags = function(value)
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.buildUseFlagList = function()
+{
+	//get global use flag
+	var local = this.getProperty('useflags');
+	var global = this.prefix.config.useflags[""];
+	var pack = this.prefix.config.useflags[this.pack.name];
+	
+	//merge
+	this.useflags = UseFlags.merge(global,pack,true);
+	this.useflags = UseFlags.merge(local,this.useflags);
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.buildOptions = function()
 {
 	var opts = [];
 	var configure = this.getProperty('configure');
+	
+	//build
+	this.buildUseFlagList();
+	
+	//options
 	for (var i in configure)
-		if (this.applyUseFlags(i))
+	{
+		var status = UseFlags.apply(this.useflags,i);
+		if (status != null)
 			for (var j in configure[i])
 			{
 				var config = configure[i][j]
-					.replace('$enable',this.hasUseFlags(i)?'enable':'disable')
-					.replace('$disable',this.hasUseFlags(i)?'disable':'enable')
-					.replace('$without',this.hasUseFlags(i)?'without':'with')
-					.replace('$with',this.hasUseFlags(i)?'with':'without')
-					.replace('$ON',this.hasUseFlags(i)?'ON':'OFF')
-					.replace('$OFF',this.hasUseFlags(i)?'OFF':'ON')
-				opts.push(config)
+					.replace('$enable',status?'enable':'disable')
+					.replace('$disable',status?'disable':'enable')
+					.replace('$without',status?'without':'with')
+					.replace('$with',status?'with':'without')
+					.replace('$ON',status?'ON':'OFF')
+					.replace('$OFF',status?'OFF':'ON');
+				opts.push(config);
 			}
+	}
 	
 	return opts.join(' ');
-}
+};
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getStowName = function(version)
