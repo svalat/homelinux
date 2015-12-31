@@ -35,5 +35,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "fontconfig" ]
-	}
+	},
+	"useflags": [
+		"-doc"
+	]
 }

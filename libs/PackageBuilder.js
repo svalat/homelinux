@@ -200,6 +200,35 @@ PackageBuilder.prototype.getProperty = function(name)
 };
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.hasUseFlags = function(value)
+{
+	//if not use flags defined, default is enable
+	if (value == '')
+		return true;
+	
+	//if value contain &
+	if (value.indexOf('&') != -1)
+	{
+		var lst = value.split("&");
+		for (var i in lst)
+			if (!this.hasUseFlags(lst[i].trim()))
+				return false;
+		return true;
+	}
+	
+	//force +- def
+	if (value[0] != '-' && value[0] != "+")
+		value = '+'+value;
+	
+	//run check
+	try {
+		return UseFlags.apply(this.useflags,value);
+	} catch(e) {
+		throw "On package "+this.getNameSlot()+" : "+e;
+	}
+};
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.buildUseFlagList = function()
 {
 	//get global use flag
