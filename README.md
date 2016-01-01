@@ -127,6 +127,9 @@ You can use the given commands to install search or sync your repos :
 	#list installed packages
 	hl ls
 	
+	#uninstall htop (only if you enable stow support in prefix config)
+	hl unstinall htop
+	
 	#Whatch generated quickpackages
 	hl gen-package gentoo/htop
 	hl gen-full-package gentoo/htop
