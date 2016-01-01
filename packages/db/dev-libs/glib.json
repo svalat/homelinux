@@ -23,5 +23,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libglib2.0-dev" ]
+	},
+	"slots": {
+		"2": ">=2.0"
 	}
 }

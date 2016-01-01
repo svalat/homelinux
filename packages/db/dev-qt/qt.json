@@ -1,0 +1,36 @@
+{
+	"name": "dev-qt/qt",
+	"homepage": "https://www.qt.io/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.8.6" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.qt.io/archive/qt/4.8/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
+	},
+	"md5" : {},
+	"subdir": "qt-everywhere-opensource-src-${VERSION}",
+	"urls" : [
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	       "": [ "-opensource",
+	            "-release",
+	            "-confirm-license"
+	           ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "qt4" ]
+	},
+	"use" : [
+	    
+	],
+	"slots": {
+        "~": "^^([0-9]+).[0-9]+"
+	}
+}
