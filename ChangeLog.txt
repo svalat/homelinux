@@ -1,0 +1,21 @@
+######################################################
+#           Project : HomeLinux                      #
+#           Version : 1.0.0                          #
+#           Date    : 12/2015                        #
+#           Licence : BSD                            #
+#           Authors : Sebastien Valat                #
+######################################################
+
+Version 1.0.0 (January 1, 2016)
+
+ * First available version
+ * Automatic download of sources
+ * Automatic update of version DB
+ * Package dependencies
+ * Useflags
+ * Package slots
+ * Check host system package to not rebuild the whole tree if not necessary
+ (can support multiple system if compatibility name list is provided).
+ * Inheritance between prefix (Not yet finished)
+ * Support of module
+ * Build packages in parallel (experimental)
