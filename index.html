@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Homelinux by svalat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Homelinux</h1>
+      <h2 class="project-tagline">A simple source package manager like gentoo but for for your home directory. It also take in account the packages present on your system to not recompile everything. It support import of sources from gentoo, github and custom URLs.</h2>
+      <a href="https://github.com/svalat/homelinux" class="btn">View on GitHub</a>
+      <a href="https://github.com/svalat/homelinux/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/svalat/homelinux/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="homelinux" class="anchor" href="#homelinux" aria-hidden="true"><span class="octicon octicon-link"></span></a>HomeLinux</h1>
+
+<h2>
+<a id="what-is-it-" class="anchor" href="#what-is-it-" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is it ?</h2>
+
+<p>Homelinux is a simple package manager to handle installation of packages in your home directory by rebuilding them from sources.
+The main use case if a user (or developper) running into a non root environnement and needs some extra-package he can't or don't want
+to install into the system. Thanks to HomeLinux you can handle the installation of the source package by checking the dependencies
+available on the current system and automatically installing the missing one.</p>
+
+<p>The goal is to provide a quick access to the latest version available for all packaging without regarding on the stability.
+It make HomeLinux an interesting tool to test usage of all up-to-date version of packages together to find new build issues.</p>
+
+<p>Another usage of HomeLinux can be for HPC datacenters to build quicly some fixed prefix to provide new version to the users without
+changing the operating system. Thanks to HomeLinux it is easier to build a new prefix with updated version in another directory
+and making the user moving slowly to new versions by chaning the prefix they inherit from for their home personal prefix.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>It is inspirated from gentoo package manager and import most of its semantic.</p>
+
+<ul>
+<li>Automatic download of sources</li>
+<li>Automatic update of version DB</li>
+<li>Package dependencies</li>
+<li>Useflags</li>
+<li>Package slots</li>
+<li>Check host system package to not rebuild the whole tree if not necessary
+(can support multiple system if compatibility name list is provided).</li>
+<li>Inheritance between prefix (Not yet finished)</li>
+<li>Support of module</li>
+<li>Build packages in parallel (experimental)</li>
+</ul>
+
+<h2>
+<a id="pre-requist" class="anchor" href="#pre-requist" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pre-requist</h2>
+
+<p>Homelinux is currently configured to be used on top of debian8 but there is no strict restiction which limit it's usage on other
+platform except that it will not autodetect the presence of native packages. In this case it will tend to rebuild more packages
+than required.</p>
+
+<p>The only dependencies are <code>nodejs</code>, <code>npm</code> and the necessary to download and build basic packages (<code>tar</code>,<code>wget</code>,<code>gcc</code>, <code>make</code>...).</p>
+
+<p>CAUTION, you need a recent vesion of <code>nodejs</code> otherwise homelinux silently fail to detect the
+system packages due to lack of <code>child_process.execSync()</code>.</p>
+
+<p>If you want to be able to uninstall the packages or make clean update with previous removal of the files, you might want to enable
+usage of GNU stow in the config file. You previously need to install <code>stow</code> in your system or into the prefix as a first package to
+be install with stow disabled.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>First fetch the NPM dependencies :</p>
+
+<pre><code>npm install
+</code></pre>
+
+<p>Then, install and create your prefix with make command :</p>
+
+<pre><code>make install PREFIX=$HOME/usr
+</code></pre>
+
+<p>Then configure your prefix if needed by editing the file. You can find documentation about the 
+configuration into <a href="doc/config.md">doc/config.md</a>.</p>
+
+<pre><code>nano $HOME/usr/homelinux.json
+</code></pre>
+
+<p>You can also setup global user configuration by copying <code>userconf.json</code> :</p>
+
+<pre><code>cp userconf.json ~/.homelinux.json
+nano ~/.homelinux.json
+</code></pre>
+
+<p>Now you can load the configuration into your <code>~/.bashrc</code> :</p>
+
+<pre><code>eval "`$HOME/usr/bin/hl env`"
+</code></pre>
+
+<p>Before usage you need to create the cache with :</p>
+
+<pre><code>hl update-db
+hl build-cache
+</code></pre>
+
+<p>If you want to be able to uninstall the packages, make clean update or create bin packages,
+you need to install <code>stow</code> (or use the one from the system).</p>
+
+<pre><code>hl install stow
+#Then enable usage of stow in config file of prefix
+nano $HOME/usr/homelinux.json
+</code></pre>
+
+<p>If you use inheritance and want to install a package into an inherited prefix, you need to switch
+to this prefix first to make it as active prefix.</p>
+
+<pre><code>eval "`hl switch $HOME/usrbase`"
+</code></pre>
+
+<h2>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h2>
+
+<p>You can use the given commands to install search or sync your repos :</p>
+
+<div class="highlight highlight-source-shell"><pre>    <span class="pl-c">#provide environnement variables</span>
+    hl env
+
+    <span class="pl-c">#update your package DB (fetch gentoo...)</span>
+    hl update-db
+
+    <span class="pl-c">#install package</span>
+    hl install bash                      <span class="pl-c"># use name, automatic search db</span>
+    hl install app-shells/bash           <span class="pl-c"># force subdir in gentoo way</span>
+    hl install gentoo/htop               <span class="pl-c"># use the gentoo archive (nodeps)</span>
+    hl install github/svalat/svUnitTest  <span class="pl-c"># from github repos, use last release</span>
+    hl install urls/htop                 <span class="pl-c"># Use from packages/urls.lst</span>
+
+    <span class="pl-c">#you can force the vesion to install with</span>
+    hl install htop=4.8   <span class="pl-c">#exact version</span>
+    hl install htop<span class="pl-k">&lt;</span>4.8   <span class="pl-c">#less than</span>
+    hl install htop<span class="pl-k">&lt;</span>=4.8  <span class="pl-c">#less eq than</span>
+    hl install <span class="pl-s"><span class="pl-pds">'</span>htop!4.8<span class="pl-pds">'</span></span> <span class="pl-c">#no this one</span>
+    hl install htop~4.8   <span class="pl-c">#regexpn allow all 4.8.X, take last avail</span>
+    hl install htop:4     <span class="pl-c">#slot based</span>
+
+    <span class="pl-c">#search in avail packages</span>
+    hl search htop
+
+    <span class="pl-c">#list installed packages</span>
+    hl ls
+
+    <span class="pl-c">#Whatch generated quickpackages</span>
+    hl gen-package gentoo/htop
+    hl gen-full-package gentoo/htop
+
+    <span class="pl-c">#whatch generated install script</span>
+    hl gen-install gentoo/htop</pre></div>
+
+<h2>
+<a id="what-it-setup" class="anchor" href="#what-it-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>What it setup</h2>
+
+<p>Currently HomeLinux setup the environenement variables for you to fully configure the prefix : </p>
+
+<ul>
+<li><code>PATH</code></li>
+<li><code>LD_LIBRARY_PATH</code></li>
+<li><code>LD_RUN_PATH</code></li>
+<li><code>CPATH</code></li>
+<li><code>PERL5LIB</code></li>
+<li><code>PYTHONPATH</code></li>
+<li><code>PKG_CONFIG_PATH</code></li>
+<li><code>MANPATH</code></li>
+<li><code>MODULEPATH</code></li>
+<li><code>CMAKE_PREFIX_PATH</code></li>
+</ul>
+
+<h2>
+<a id="create-packages" class="anchor" href="#create-packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create packages</h2>
+
+<p>To create package, check <a href="doc/package.md">doc/package.md</a>. If you don't want to provide full packages but just want to use
+as most as possible the default options, you can use the quick package approach defined into <a href="doc/quickpackage.md">doc/quickpackage.md</a>.</p>
+
+<h2>
+<a id="run-unit-tests" class="anchor" href="#run-unit-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run unit tests</h2>
+
+<p>HomeLinux provide some internal unit tests which can by run with mocha :</p>
+
+<div class="highlight highlight-source-shell"><pre>    npm install mocha
+    ./node_modules/.bin/mocha ./tests</pre></div>
+
+<h2>
+<a id="licence" class="anchor" href="#licence" aria-hidden="true"><span class="octicon octicon-link"></span></a>Licence</h2>
+
+<p>HomeLinux is distributed under BSD licence and currently mainly developped by
+Sébastien Valat.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/svalat/homelinux">Homelinux</a> is maintained by <a href="https://github.com/svalat">svalat</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-66328786-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
