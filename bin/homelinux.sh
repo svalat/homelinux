@@ -32,6 +32,8 @@ Commands:
 	pinstall          : Same than install but building multiple packages at same time
 	                    CAUITION, it is likely to fail if the dep-tree is not strict enougth.
 	                    We recommend to enable the +gentoo flag to use this build mode.
+	uninstall         : Uninstall the given packages (only if you enable usage of GNU stow in 
+	                    prefix config).
 	gen-package       : Pint generated package.
 	gen-full-package  : Print fully generated package.
 	gen-install       : Generate install script to forward to bash.
