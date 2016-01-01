@@ -332,7 +332,17 @@ PackageBuilder.prototype.getPackInstalled = function(version,prefix)
 PackageBuilder.prototype.isInstalled = function(prefix)
 {
 	var fname = this.getPackInstalled(this.getVersion(),prefix);
-	return fs.existsSync(fname);
+	if (fs.existsSync(fname))
+		return true;
+		
+	//search in inherited
+	if (prefix == undefined)
+		prefix = this.prefix;
+	for (var i in prefix.inherit)
+		if (this.installed(prefix.inherit[i]))
+			return true;
+			
+	return false;
 };
 
 /*******************  FUNCTION  *********************/
