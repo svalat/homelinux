@@ -13,10 +13,9 @@
     <section class="page-header">
       <h1 class="project-name">Homelinux</h1>
       <h2 class="project-tagline">A simple source package manager like gentoo but for for your home directory. It also take in account the packages present on your system to not recompile everything. It support import of sources from gentoo, github and custom URLs.</h2>
-      <h2 class="project-tagline">Last version is 1.0.0</h2>
       <a href="https://github.com/svalat/homelinux" class="btn">View on GitHub</a>
-      <a href="https://github.com/svalat/homelinux/archive/v1.0.0.zip" class="btn">Download .zip</a>
-      <a href="https://github.com/svalat/homelinux/archive/v1.0.0.tar.gz" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/svalat/homelinux/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/svalat/homelinux/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -86,7 +85,7 @@ be install with stow disabled.</p>
 </code></pre>
 
 <p>Then configure your prefix if needed by editing the file. You can find documentation about the 
-configuration into <a href="https://github.com/svalat/homelinux/tree/master/doc/config.md">doc/config.md</a>.</p>
+configuration into <a href="doc/config.md">doc/config.md</a>.</p>
 
 <pre><code>nano $HOME/usr/homelinux.json
 </code></pre>
@@ -140,6 +139,9 @@ to this prefix first to make it as active prefix.</p>
     hl install github/svalat/svUnitTest  <span class="pl-c"># from github repos, use last release</span>
     hl install urls/htop                 <span class="pl-c"># Use from packages/urls.lst</span>
 
+    <span class="pl-c">#for non HL packages (gentooo, github...) you can provide some deps</span>
+    <span class="pl-c">#infos and conf options into homelinux/packages/quickpackages/, see examples.</span>
+
     <span class="pl-c">#you can force the vesion to install with</span>
     hl install htop=4.8   <span class="pl-c">#exact version</span>
     hl install htop<span class="pl-k">&lt;</span>4.8   <span class="pl-c">#less than</span>
@@ -182,8 +184,8 @@ to this prefix first to make it as active prefix.</p>
 <h2>
 <a id="create-packages" class="anchor" href="#create-packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create packages</h2>
 
-<p>To create package, check <a href="https://github.com/svalat/homelinux/tree/master/doc/package.md">doc/package.md</a>. If you don't want to provide full packages but just want to use
-as most as possible the default options, you can use the quick package approach defined into <a href="https://github.com/svalat/homelinux/tree/master/doc/quickpackage.md">doc/quickpackage.md</a>.</p>
+<p>To create package, check <a href="doc/package.md">doc/package.md</a>. If you don't want to provide full packages but just want to use
+as most as possible the default options, you can use the quick package approach defined into <a href="doc/quickpackage.md">doc/quickpackage.md</a>.</p>
 
 <h2>
 <a id="run-unit-tests" class="anchor" href="#run-unit-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run unit tests</h2>
