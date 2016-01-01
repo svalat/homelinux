@@ -92,7 +92,7 @@ UseFlags.prototype.getApplyStatus = function(list,flag)
 UseFlags.prototype.apply = function(list,flag)
 {
     //trivial
-    if (flag == '' || flag == '+')
+    if (flag == '' || flag == '+' || flag == 'always' || flag == '+always')
         return true;
     
     //selcet mode

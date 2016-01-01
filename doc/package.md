@@ -156,6 +156,54 @@ On various part of the file you can filter version, the syntax is (do not add sp
  
 Remark that it is defined as a string and spaces between groups of operator and values are replaced by AND operator.
 
+About useflags
+--------------
+
+The flag system of HomeLinux is directly inpirated from the Gentoo one. As a user you can setup the use flags you want
+int `PREFIX/homelinux.json`. You can setup the default flags by filling key `all`. You can setup `+svg` or `svg` to enable 
+usage of SVG in packages. You need to use `-svg` to disable. Similarly you can setup specific useflags per packages
+by using the full package name as key. Example :
+
+```json
+	{
+		"useflags": {
+			"all": [ "+svg", "pdf", "-debug" ],
+			"sys-devel/gcc": [ "+debug" ]
+		}
+	}
+```
+
+The useflags are used in packages into two parts, for dependencies and for configure options. You also need to declare
+the useflag list used by package and provide their default values.
+Here an example :
+
+```json
+	{
+		"useflags": [ "svg", "debug", "+png", "-jpeg" ],
+		"configure": {
+			"always": [ "--enable-print" ],
+			"+svg": [ "--enable-svg" ],
+			"-jpeg" : [ "--disable-jpeg" ],
+			"debug" : [ "--$enable-debug" ],
+			"png & jpeg": [ "--$enable-png" ]
+		},
+		"deps": [
+			"sys-devel/gcc",
+			"svg? dev-libs/libsvg",
+			"png? dev-libs/libpng"
+		]
+	}
+```
+
+Here, in configure, the useflags can be listed as :
+
+ * `always` or empty are applied in any case.
+ * `+svg` is applied only if svg flag is enabled.
+ * `-jpeg` is applied only if jpeg flag is disabled.
+ * `debug` is applied if flag is enabled or disabled. Depending on the status the $enable value is replaced by the 
+ required state. If debug is not enable or disable the line is skiped.
+ * You can use the `&` close to match multiple flags. Caution, or semantic is not provided.
+
 About gentoo flag
 -----------------
 

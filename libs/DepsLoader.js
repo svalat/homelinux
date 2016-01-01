@@ -188,7 +188,7 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 	infos.parent = parent;
 	
 	//if useflag say to not load, skip it
-	if (parent != null && infos.use != null && !parent.hasUseFlags(infos.use))
+	if (parent != null && infos.use != null && !parent.hasUseFlags(infos.use,false))
 		return null;
 	
 	//load package if need

@@ -200,11 +200,14 @@ PackageBuilder.prototype.getProperty = function(name)
 };
 
 /*******************  FUNCTION  *********************/
-PackageBuilder.prototype.hasUseFlags = function(value)
+PackageBuilder.prototype.hasUseFlags = function(value,onNull)
 {
 	//if not use flags defined, default is enable
 	if (value == '')
 		return true;
+		
+	if (onNull == undefined)
+		onNull = null;
 	
 	//if value contain &
 	if (value.indexOf('&') != -1)
@@ -222,7 +225,11 @@ PackageBuilder.prototype.hasUseFlags = function(value)
 	
 	//run check
 	try {
-		return UseFlags.apply(this.useflags,value);
+		var ret = UseFlags.apply(this.useflags,value);
+		if (ret == null)
+			return onNull;
+		else
+			return ret;
 	} catch(e) {
 		throw "On package "+this.getNameSlot()+" : "+e;
 	}
@@ -233,7 +240,7 @@ PackageBuilder.prototype.buildUseFlagList = function()
 {
 	//get global use flag
 	var local = this.getProperty('useflags');
-	var global = this.prefix.config.useflags[""];
+	var global = this.prefix.config.useflags["all"];
 	var pack = this.prefix.config.useflags[this.pack.name];
 	
 	//merge

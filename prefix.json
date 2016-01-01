@@ -11,7 +11,7 @@
 	"versions": {
 	},
 	"useflags": {
-		"": []
+		"all": []
 	},
 	"gentoo" : {
 		"server":"gentoo.mirrors.ovh.net",
