@@ -110,6 +110,9 @@ You can use the given commands to install search or sync your repos :
 	hl install github/svalat/svUnitTest  # from github repos, use last release
 	hl install urls/htop                 # Use from packages/urls.lst
 	
+	#for non HL packages (gentooo, github...) you can provide some deps
+	#infos and conf options into homelinux/packages/quickpackages/, see examples.
+	
 	#you can force the vesion to install with
 	hl install htop=4.8   #exact version
 	hl install htop<4.8   #less than
