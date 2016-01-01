@@ -48,9 +48,9 @@
 		    "-no-phonon",
 		    "-no-svg",
 		    "-no-xmlpatterns"
-		]
+		],
 	    "webkit": [ "--$enable-webkit" ]
-	}
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "assistant" ]

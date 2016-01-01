@@ -21,6 +21,7 @@
 #SUBDIR : the directory into archive
 #PREFIX : The target prefix to install on
 #BUILD_OPTIONS : The options to pass to configure
+#STOW_NAME : Name of stow subdir if enabled, empty if not
 
 #colors
 COLOR_RED=$(echo -e "\e[31m")

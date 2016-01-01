@@ -6,7 +6,7 @@
 		"1.16" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
+		"mode": "http",
 		"url": "http://mirror0.babylon.network/gnu/gsl/",
 		"regexp": "^gsl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz$"
 	},

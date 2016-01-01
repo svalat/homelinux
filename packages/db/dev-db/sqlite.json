@@ -33,7 +33,7 @@
 			"doc",
 			"test",
 			"tools"
-	]
+	],
 	"vspecific": {
 		":3": {
 			"deps": [

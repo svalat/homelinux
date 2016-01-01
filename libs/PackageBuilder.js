@@ -478,6 +478,8 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("SLOT=\""+this.getSlot(version)+"\"");
 	if (this.prefix.config.useGnuStow)
 		script.push("STOW_NAME=\""+this.getStowName()+"\"");
+	else
+		script.push("STOW_NAME=''");
 	if (this.pack.module == undefined)
 		script.push("MODULE=\"\"");
 	else
