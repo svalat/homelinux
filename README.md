@@ -115,7 +115,7 @@ You can use the given commands to install search or sync your repos :
 	hl install htop<4.8   #less than
 	hl install htop<=4.8  #less eq than
 	hl install 'htop!4.8' #no this one
-	hl install htop~4.8   #regexp
+	hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
 	hl install htop:4     #slot based
 	
 	#search in avail packages
