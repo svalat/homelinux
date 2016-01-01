@@ -311,13 +311,13 @@ DepsLoader.prototype.buildSchedChild = function(p)
  * This script must be forwarded to bash to be usd. This is done
  * by the homelinux command.
 **/
-DepsLoader.prototype.genScript = function()
+DepsLoader.prototype.genScript = function(usePinstall)
 {
 	var ret = "#!/bin/bash\n\n";
 	ret += "HL_TOT_PACK="+this.sched.length+"\n";
 	ret += "HL_CUR_PACK=0\n\n";
 	for (var i in this.sched)
-		ret += this.packages[this.sched[i]].genScript() + "\n\n####################################################\n\n";
+		ret += this.packages[this.sched[i]].genScript(usePinstall) + "\n\n####################################################\n\n";
 	return ret;
 };
 

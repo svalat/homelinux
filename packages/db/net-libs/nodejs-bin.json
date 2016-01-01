@@ -28,6 +28,7 @@
 		"build": [],
 		"install" : [ 
 			"run_sh cd $HL_TEMP/$SUBDIR",
+			"run mkdir -p $PREFIX",
 			"run cp -r ./bin ./include ./lib ./share $PREFIX" 
 		]
 	}

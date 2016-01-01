@@ -110,6 +110,15 @@ case "$1" in
 			rm -rfv $tmpdir
 		fi
 		;;
+	"uninstall")
+		shift 1
+		echo "You will uninstall $@"
+		yesno
+		fname=$(tempfile -p homelinux)
+		node index.js gen-uninstall "$@" > $fname
+		bash $fname hl_uninstall
+		rm $fname
+		;;
 	"env")
 		node index.js env
 		loadModule

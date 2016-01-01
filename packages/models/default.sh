@@ -433,6 +433,20 @@ function hl_merge()
 	fi
 }
 
+function hl_uninstall()
+{
+	#TODO: need to check if used at install time on package
+	if [ -z "$STOW_NAME" ]; then die "Cannot uninstall packages if stow is not enabled, check prefix config file."; fi
+	
+	#remove from stow
+	run stow --dir=$HL_PREFIX/stow --target=$HL_PREFIX -D $STOW_NAME
+	
+	#delete
+	if [ ! -z "$PREFIX" ]; then
+		run rm -rfd "$PREFIX"
+	fi
+}
+
 function hl_postinstall()
 {
 	echo "Nothing to do"

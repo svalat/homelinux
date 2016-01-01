@@ -61,6 +61,9 @@ if (command == "env")
 } else if (command == "install-ls") {
 	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
 	packs.printList();
+} else if (command == "gen-uninstall") {
+	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
+	console.log(packs.genScript(true))
 } else if (command == "update-db") {
 	//gentoo db
 	var dbManager = new DbManager(prefix);

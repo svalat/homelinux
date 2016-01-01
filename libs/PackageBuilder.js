@@ -281,7 +281,10 @@ PackageBuilder.prototype.buildOptions = function()
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getStowName = function(version)
 {
-	return this.getNameSlot().replace(/[/:]/g,'_');
+	if (this.getShortName() != 'stow')
+		return this.getNameSlot().replace(/[/:]/g,'_');
+	else
+		return "";
 };
 
 /*******************  FUNCTION  *********************/
@@ -289,7 +292,7 @@ PackageBuilder.prototype.getPrefix = function(version)
 {
 	if (this.pack.module == undefined)
 	{
-		if (this.prefix.config.useGnuStow)
+		if (this.prefix.config.useGnuStow && this.getShortName() != 'stow')
 			return this.prefix.prefix+"/stow/"+this.getStowName();
 		else
 			return this.prefix.prefix;
