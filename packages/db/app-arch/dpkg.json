@@ -58,7 +58,7 @@
 		"default": false,
 		"debian8": [ "dpkg" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-gentoo",
 		"-bzip2",
 		"-lzma",

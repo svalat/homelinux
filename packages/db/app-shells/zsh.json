@@ -43,7 +43,7 @@
 		"default": false,
 		"debian8": [ "zsh" ]
 	},
-	"useflags" : [
+	"use" : [
 		"-gentoo",
 		"-caps",
 		"-pcre",

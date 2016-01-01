@@ -41,7 +41,7 @@
 		"default": false,
 		"debian8": [ "libharfbuzz-dev" ]
 	},
-	"useflags": [
+	"use": [
 		"+glib",
 		"+truetype"
 	]

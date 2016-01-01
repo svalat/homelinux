@@ -33,7 +33,7 @@
 		"default": false,
 		"debian8": [ "atk" ]
 	},
-	"useflags": [
+	"use": [
 		"-introspection",
 		"-nls"
 	]

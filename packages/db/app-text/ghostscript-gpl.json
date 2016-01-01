@@ -61,7 +61,7 @@
 		"default": false,
 		"debian8": [ "ghostscript" ]
 	},
-	"useflags": [
+	"use": [
 		"-gentoo",
 		"-cups",
 		"-dbus",

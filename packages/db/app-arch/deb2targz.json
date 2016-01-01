@@ -22,7 +22,7 @@
 		"default": false,
 		"debian8": [ "deb2targz" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-extra"
 	],
 	"steps": {

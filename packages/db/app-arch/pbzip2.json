@@ -23,7 +23,7 @@
 		"default": false,
 		"debian8": [ "pbzip2" ]
 	},
-	"useflags": [ 
+	"use": [ 
 	],
 	"steps": {
 		"configure": [],

@@ -30,7 +30,7 @@
 		"default": true,
 		"debian8": [ "dash" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-gentoo",
 		"-libedit"
 	]

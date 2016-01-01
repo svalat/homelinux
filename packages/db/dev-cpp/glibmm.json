@@ -30,7 +30,7 @@
 		"default": false,
 		"debian8": [ "libglibmm-2.4-dev" ]
 	},
-	"useflags": [
+	"use": [
 		"-gentoo",
 		"-doc",
 		"-debug"

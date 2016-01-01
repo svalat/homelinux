@@ -43,7 +43,7 @@
 		"qt4": [ "$(hl_cmake_with $with doxywizard)" ],
 		"sqlite": [ "$(hl_cmake_with $with sqlite3)" ]
 	},
-	"useflags": [
+	"use": [
 		"-libiconv",
 		"-dot",
 		"-doxysearch",

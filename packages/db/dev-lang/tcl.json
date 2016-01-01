@@ -26,6 +26,6 @@
 		"+debug": [ "--$enable-symbols" ],
 		"+threads": [ "--$enable-threads" ]
 	},
-	"useflags": [ "-gentoo", "-debug", "-threads" ],
+	"use": [ "-gentoo", "-debug", "-threads" ],
 	"gentooUse": [ "+threads" ]
 }

@@ -92,7 +92,7 @@ PackageBuilder.prototype.loadInherit = function(pack)
 				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
 			} else if ( i == 'deps' ) {
 				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
-			} else if ( i == 'useflags' ) {
+			} else if ( i == 'use' ) {
 				if (parent[i] != undefined)
 					parent[i] = parent[i].concat(pack[i]);
 				else
@@ -159,7 +159,7 @@ PackageBuilder.prototype.getProperty = function(name)
 	{
 		case 'deps':
 		case 'patch':
-		case 'useflags':
+		case 'use':
 			mode = 'merge-arrays';
 			break;
 		case 'configure':
@@ -225,7 +225,7 @@ PackageBuilder.prototype.hasUseFlags = function(value,onNull)
 	
 	//run check
 	try {
-		var ret = UseFlags.apply(this.useflags,value);
+		var ret = UseFlags.apply(this.use,value);
 		if (ret == null)
 			return onNull;
 		else
@@ -239,13 +239,13 @@ PackageBuilder.prototype.hasUseFlags = function(value,onNull)
 PackageBuilder.prototype.buildUseFlagList = function()
 {
 	//get global use flag
-	var local = this.getProperty('useflags');
-	var global = this.prefix.config.useflags["all"];
-	var pack = this.prefix.config.useflags[this.pack.name];
+	var local = this.getProperty('use');
+	var global = this.prefix.config.use["all"];
+	var pack = this.prefix.config.use[this.pack.name];
 	
 	//merge
-	this.useflags = UseFlags.merge(global,pack,true);
-	this.useflags = UseFlags.merge(local,this.useflags);
+	this.use = UseFlags.merge(global,pack,true);
+	this.use = UseFlags.merge(local,this.use);
 };
 
 /*******************  FUNCTION  *********************/
@@ -260,7 +260,7 @@ PackageBuilder.prototype.buildOptions = function()
 	//options
 	for (var i in configure)
 	{
-		var status = UseFlags.apply(this.useflags,i);
+		var status = UseFlags.apply(this.use,i);
 		if (status != null)
 			for (var j in configure[i])
 			{
@@ -363,10 +363,10 @@ PackageBuilder.prototype.applyVersionHints = function()
 PackageBuilder.prototype.getUseFlagStatusString = function()
 {
 	this.buildUseFlagList();
-	var flags = this.getProperty('useflags');
+	var flags = this.getProperty('use');
 	var ret = [];
 	for (var i in flags)
-		ret.push(UseFlags.getApplyStatus(this.useflags,flags[i]));
+		ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
 		
 	return ret.join(', ');
 };
@@ -384,7 +384,7 @@ PackageBuilder.prototype.replaceParentUseFlags = function(flags)
 		if (flags[i].indexOf('#') != -1)
 		{
 			var flag = flags[i].replace(/[+#-]/g,'');
-			var status = UseFlags.status(this.useflags,flag);
+			var status = UseFlags.status(this.use,flag);
 			if (status != '')
 				ret.push(status+flag);
 		} else if (flags[i] != '') {
@@ -418,7 +418,7 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 					if (f[0] != '+' && f[0] != '-')
 						f = '+'+f;
 					var info = f + " ("+this.hints[i].parent.getNameSlot()+")";
-					var status = UseFlags.apply(this.useflags,f);
+					var status = UseFlags.apply(this.use,f);
 					if (status == null || status == false)
 						err.push(info);
 				}
@@ -428,7 +428,7 @@ PackageBuilder.prototype.checkUseFlagHints = function()
 	
 	if (err.length > 0)
 	{
-		console.error("Package "+this.pack.name+" has some missing useflags properties to match dependencies : "+err);
+		console.error("Package "+this.pack.name+" has some missing use flags properties to match dependencies : "+err);
 		process.exit(1);
 	}
 };

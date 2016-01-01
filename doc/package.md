@@ -75,7 +75,7 @@ Example
 			"2.5": ">=2.5.0 <2.6.0"
 		}
 		"conflict": [ "nodejs-bin" ],
-		"useflags": [ "-debug", "-expat" ],
+		"use": [ "-debug", "-expat" ],
 		"gentooUse": [ "+expat" ],
 		"warn": [
 			"Some warning to print (NOT YET SUPPORTED)"
@@ -156,30 +156,30 @@ On various part of the file you can filter version, the syntax is (do not add sp
  
 Remark that it is defined as a string and spaces between groups of operator and values are replaced by AND operator.
 
-About useflags
+About use
 --------------
 
 The flag system of HomeLinux is directly inpirated from the Gentoo one. As a user you can setup the use flags you want
 int `PREFIX/homelinux.json`. You can setup the default flags by filling key `all`. You can setup `+svg` or `svg` to enable 
-usage of SVG in packages. You need to use `-svg` to disable. Similarly you can setup specific useflags per packages
+usage of SVG in packages. You need to use `-svg` to disable. Similarly you can setup specific use per packages
 by using the full package name as key. Example :
 
 ```json
 	{
-		"useflags": {
+		"use": {
 			"all": [ "+svg", "pdf", "-debug" ],
 			"sys-devel/gcc": [ "+debug" ]
 		}
 	}
 ```
 
-The useflags are used in packages into two parts, for dependencies and for configure options. You also need to declare
+The use are used in packages into two parts, for dependencies and for configure options. You also need to declare
 the useflag list used by package and provide their default values.
 Here an example :
 
 ```json
 	{
-		"useflags": [ "svg", "debug", "+png", "-jpeg" ],
+		"use": [ "svg", "debug", "+png", "-jpeg" ],
 		"configure": {
 			"always": [ "--enable-print" ],
 			"+svg": [ "--enable-svg" ],
@@ -195,7 +195,7 @@ Here an example :
 	}
 ```
 
-Here, in configure, the useflags can be listed as :
+Here, in configure, the use can be listed as :
 
  * `always` or empty are applied in any case.
  * `+svg` is applied only if svg flag is enabled.

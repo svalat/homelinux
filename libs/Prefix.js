@@ -90,7 +90,7 @@ Prefix.prototype.load = function(prefixPath)
 		},
 		"versions": {
 		},
-		"useflags": {
+		"use": {
 		},
 		"gentoo" : {
 			"server":"gentoo.mirrors.ovh.net",

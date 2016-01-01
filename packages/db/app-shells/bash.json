@@ -24,7 +24,7 @@
 		"default": true,
 		"debian8": [ "bash" ]
 	},
-	"useflags": [
+	"use": [
 		"-gentoo",
 		"-readline",
 		"-nls",

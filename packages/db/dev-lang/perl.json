@@ -35,9 +35,9 @@
 		"default": false,
 		"debian8": [ "perl" ]
 	},
-	"useflags": [	
-		"-gentoo",
-		"-berkdb",
-		"-gdbm"
+	"use": [	
+		"gentoo",
+		"berkdb",
+		"gdbm"
 	]
 }

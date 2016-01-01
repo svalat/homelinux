@@ -15,7 +15,7 @@ It might contain :
  * *compiler* : compiler option to transmit to configure or cmake script. it
  contain `MAKEOPTS`, `CFLAGS` and `CXXFLAGS`.
  * *versions* : Force version for some packages.
- * *useflags* : Use flags to use for the prefix. If some use flags don't match
+ * *use* : Use flags to use for the prefix. If some use flags don't match
  with the inherited prefix it will induce a rebuild of the reltated packages.
  * *gentoo* : Configure the gentoo mirror to use for quickpackage fallback.
  
@@ -38,7 +38,7 @@ Here an example :
 			"app-shell/bash": "~2.4",
 			"app-shell/dash": ">2.5 <2.6"
 		},
-		"useflags": [
+		"use": [
 			"+gentoo",
 			"+debug",
 			"-doc"

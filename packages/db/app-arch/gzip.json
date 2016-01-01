@@ -23,6 +23,6 @@
 		"default": false,
 		"debian8": [ "gzip" ]
 	},
-	"useflags": [ 
+	"use": [ 
 	]
 }

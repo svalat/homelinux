@@ -36,7 +36,7 @@
 		"default": false,
 		"debian8": [ "fontconfig" ]
 	},
-	"useflags": [
+	"use": [
 		"-doc"
 	]
 }

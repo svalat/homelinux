@@ -31,7 +31,7 @@
 		"default": false,
 		"debian8": [ "libcairomm-1.0-dev" ]
 	},
-	"useflags": [
+	"use": [
 		"-gentoo",
 		"-doc",
 		"-svg"

@@ -3,7 +3,7 @@
 	"deps": [
 	],
 	"inherit": "models/autotools",
-	"useflags": [
+	"use": [
 		"-debug",
 		"-gentoo",
 		"-doc"

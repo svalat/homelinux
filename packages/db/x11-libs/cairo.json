@@ -17,20 +17,75 @@
 		"http://cairographics.org/releases/cairo-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"dev-util/pkgconfig",
-		"media-libs/libpng",
+		"virtual/pkgconfig",
+		"media-libs/libpng :0",
 		"x11-libs/pixman",
-		"media-libs/freetype",
-		"media-libs/fontconfig"
+		"media-libs/freetype :2",
+		"media-libs/fontconfig",
+		"gentoo? sys-devel/libtool",
+		"gentoo? dev-libs/lzo",
+		"gentoo? sys-libs/binutils-libs",
+		"gentoo? sys-libs/zlib",
+		"directfb? dev-libs/DirectFB",
+		"gles2? media-libs/mesa[gles2]",
+		"glib? dev-libs/glib :2",
+		"opengl? media-libs/mesa[egl]",
+		"X? x11-libs/libXrender",
+		"X? x11-libs/libXext",
+		"X? x11-libs/libX11",
+		"xcb? x11-libs/libxcb",
+		"X? x11-proto/renderproto"
 	],
 	"configure": {
-		"": [ "--enable-ft", "--enable-xlib", "--enable-tee", "--enable-xlib-xrender" ]
+		"": [ 
+			"--enable-ft", 
+			"--enable-xlib", 
+			"--enable-tee", 
+			"--enable-xlib-xrender" 
+		],
+		"gentoo" : [
+			"--enable-ft",
+			"--enable-pdf",
+			"--enable-png",
+			"--enable-ps",
+			"--disable-drm",
+			"--disable-gallium",
+			"--disable-qt",
+			"--disable-vg"
+		],
+		"X": [ "--$enable-x", "--$enable-tee", "--$enable-xlib", "--$enable-xlib-xrender" ],
+		"aqua": [ "--$enable-quartz", "--$enable-quartz-image" ],
+		"debug": [ "--$enable-test-surfaces" ],
+		"directfb": [ "--$enable-directfb" ],
+		"gles2": [ "--$enable-glesv2" ],
+		"glib": [ "--$enable-gobject" ],
+		"opengl": [ "--$enable-gl" ],
+		"static-libs": [ "--$enable-static" ],
+		"svg": [ "--$enable-svg" ],
+		"valgrind": [ "--$enable-valgrind" ],
+		"xcb": [ "--$enable-xcb", "--enable-xcb-shm" ],
+		"xlib-xcb": [ "--$enable-xlib-xcb" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "libcairo2-dev" ]
 	},
-	"useflags": [
-		"-svg"
+	"use": [
+		"X",
+		"aqua",
+		"debug",
+		"directfb",
+		"gles2",
+		"+glib",
+		"opengl",
+		"static-libs",
+		"-svg",
+		"valgrind",
+		"xcb",
+		"xlib-xcb",
+		"-gentoo"
+	],
+	"gentooUse" : [
+		"+svg"
 	]
 }

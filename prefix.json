@@ -10,7 +10,7 @@
 	],
 	"versions": {
 	},
-	"useflags": {
+	"use": {
 		"all": []
 	},
 	"gentoo" : {

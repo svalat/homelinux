@@ -24,7 +24,7 @@
 		"default": false,
 		"debian8": [ "cabextract" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-extra"
 	]
 }

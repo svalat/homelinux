@@ -22,5 +22,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libfreetype6","libfreetype6-dev" ]
+	},
+	"slots": {
+		"2": ">2.0"
 	}
 }

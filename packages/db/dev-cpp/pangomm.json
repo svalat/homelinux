@@ -28,14 +28,12 @@
 		"" : [
 			"CFLAGS=-I${PREFIX}/include/freetype2",
 			"CXXFLAGS=-I${PREFIX}/include/freetype2"
-		]
+		],
+		"+doc": [ "--$enable-documentation" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "libpangomm-1.4-dev" ]
 	},
-	"useflags": [ "-doc", "-gentoo" ],
-	"configure": {
-		"+doc": [ "--$enable-documentation" ]
-	}
+	"use": [ "-doc", "-gentoo" ]
 }

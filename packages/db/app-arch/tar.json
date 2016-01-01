@@ -32,7 +32,7 @@
 		"default": false,
 		"debian8": [ "tar" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-gentoo",
 		"-acl",
 		"-selinux",

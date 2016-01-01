@@ -70,7 +70,7 @@
 		"default": false,
 		"debian8": [ "libpoppler-dev" ]
 	},
-	"useflags": [
+	"use": [
 		"-gentoo",
 		"+xpdf",
 		"+cairo",

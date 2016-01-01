@@ -31,5 +31,5 @@
 		"default": false,
 		"debian8": [ "p11-kit" ]
 	},
-	"useflags": [ "+asn1", "+libffi", "-debug", "-trust" ]
+	"use": [ "+asn1", "+libffi", "-debug", "-trust" ]
 }

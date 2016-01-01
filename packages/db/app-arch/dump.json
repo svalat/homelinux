@@ -45,7 +45,7 @@
 		"default": false,
 		"debian8": [ "dump" ]
 	},
-	"useflags": [ 
+	"use": [ 
 		"-gentoo",
 		"-ermt",
 		"-readline",
