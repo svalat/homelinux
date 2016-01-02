@@ -8,11 +8,17 @@
 
 /********************  GLOBALS  *********************/
 var child_process = require('child_process');
+var fs = require('fs');
 
 /*******************  FUNCTION  *********************/
-function HostPkgChecker(userConfig)
+function HostPkgChecker(userConfig,prefix)
 {
     this.userConfig = userConfig;
+    
+    //lost host
+	var fname = prefix.getFile('homelinux/packages/hosts/'+userConfig.config.host+".json");
+	var content = fs.readFileSync(fname);
+	this.hostsRefs = JSON.parse(content);
 }
 
 /*******************  FUNCTION  *********************/

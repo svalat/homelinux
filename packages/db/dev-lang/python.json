@@ -1,0 +1,30 @@
+{
+	"name": "dev-lang/python",
+	"homepage": "https://www.python.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.5.1" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.python.org/downloads/",
+		"regexp": "^Python ([0-9]+\\.[0-9]+\\.[0-9]+)$"
+	},
+	"md5" : {},
+	"subdir": "Python-${VERSION}",
+	"urls" : [
+		"https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "python" ]
+	},
+	"use": [	
+	],
+	"slots": {
+	    "3": ">=3.0",
+	    "2": ">=2.0 <3.0"
+	}
+}

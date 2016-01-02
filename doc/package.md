@@ -80,7 +80,10 @@ Example
 		"warn": [
 			"Some warning to print (NOT YET SUPPORTED)"
 		],
-		"module": "gcc-${VERSION}"
+		"module": "gcc-${VERSION}",
+		"vars": {
+			"PYTHON_SLOT": "3"
+		}
 	}
 ```
 
@@ -132,6 +135,8 @@ you might want to use `default` and override the required steps.
  a module configuration file will be setup.
  * *gentooUse* : If gentoo enable some flags by default you can list them here, it will be enable
  if `+gentoo` flag is enabled to produce a gentoo-like build.
+ * *vars* : Used to define some extra variables which can be used by the command used to build the package,
+ in the example code, it define the python version to use to install a python module.
  
 About commands
 --------------

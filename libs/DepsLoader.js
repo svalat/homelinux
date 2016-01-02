@@ -37,13 +37,8 @@ function DepsLoader(prefix,userConfig,packageList)
 	this.packages = {};
 	this.sched = [];
 	
-	//lost host
-	var fname = prefix.getFile('homelinux/packages/hosts/'+userConfig.config.host+".json");
-	var content = fs.readFileSync(fname);
-	this.hostsRefs = JSON.parse(content);
-	
 	//host checker
-	this.hostPkgChecker = new HostPkgChecker(userConfig);
+	this.hostPkgChecker = new HostPkgChecker(userConfig,prefix);
 	
 	//load packages
 	this.root = [];

@@ -85,6 +85,24 @@ function loadModule()
 }
 
 ######################################################
+function hlPyEnvSetup()
+{
+	mkdir -p $1/hl-py-env-bins
+	for p in $(echo $PATH | sed -e 's/:/ /g')
+	do
+		for e in $p/*
+		do
+			case $e in
+				*/python*|*/pip*)
+					echo "Update $e link"
+					ln -sf ../hl-py-env $1/hl-py-env-bins/$(basename $e)
+					;;
+			esac
+		done
+	done
+}
+
+######################################################
 case "$1" in
 	"build-cache")
 		$(dirname $0)/hl-build-cache
@@ -120,6 +138,9 @@ case "$1" in
 		node index.js gen-uninstall "$@" > $fname
 		bash $fname hl_uninstall
 		rm $fname
+		;;
+	"update-py-env")
+		hlPyEnvSetup $(dirname $0)
 		;;
 	"env")
 		node index.js env

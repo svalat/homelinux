@@ -46,6 +46,7 @@ function setup_vars()
 	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then
 		HL_BUILDDIR=$HL_BUILDDIR/cmakebuild
 	fi
+	hl_pack_extra_vars
 }
 
 #start stop message
@@ -279,7 +280,7 @@ function hl_check()
 function hl_extract()
 {
 	case $ARCHIVE in
-		*.tar.gz)
+		*.tar.gz|*.tgz)
 			run tar -xzf $DISTFILES/$ARCHIVE
 			;;
 		*.tar.bz2)
@@ -333,10 +334,10 @@ function hl_configure_python()
 {
 	echo ">> Generate Makefile for installation <<"
 	echo "all:" > Makefile
-	echo "	python setup.py build ${OPTIONS}" >> Makefile
+	echo "	python${PYTHON_SLOT} setup.py build ${OPTIONS}" >> Makefile
 	echo "" >> Makefile
 	echo "install:" >> Makefile
-	echo "	python setup.py install --prefix=${PREFIX}" >> Makefile
+	echo "	python${PYTHON_SLOT} setup.py install --prefix=${PREFIX}" >> Makefile
 }
 
 function hl_configure_autotools_autogen_nocheck()

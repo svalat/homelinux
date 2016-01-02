@@ -495,6 +495,14 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("PACK_JSON=\""+JSON.stringify(this.pack,null,'\t').replace(/[\\]/g,'\\\\').replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
 	script.push('');
 	
+	//vars
+	script.push("function hl_pack_extra_vars()");
+	script.push("{");
+	for (var i in this.pack.vars)
+		script.push("	"+i+"='"+this.pack.vars[i]+"'");
+	script.push("");
+	script.push("}");
+	
 	//gen functions
 	for (var i in this.pack.steps)
 	{

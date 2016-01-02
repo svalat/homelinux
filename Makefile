@@ -18,6 +18,7 @@ install: check
 	cp bin/homelinux.sh $(PREFIX)/bin/homelinux
 	cp bin/homelinux.sh $(PREFIX)/bin/hl
 	cp bin/hl-env.sh $(PREFIX)/bin/hl-env
+	cp bin/hl-py-env.sh $(PREFIX)/bin/hl-py-env
 	cp bin/hl-build-cache.sh $(PREFIX)/bin/hl-build-cache
 	mkdir -p $(PREFIX)/lib/homelinux
 	cp -r index.js libs $(PREFIX)/lib/homelinux

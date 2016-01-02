@@ -6,6 +6,8 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+var child_process = require('child_process');
+
 /***********************  DOC  **********************/
 /**
  * This script in responsible of the management of the environnement setup
@@ -46,6 +48,16 @@ EnvSetup.prototype.enableCCache = function()
 {
 	if (this.userConfig.config.ccache)
 		this.prepend('PATH',this.userConfig.config.prefix + "/bin/ccache-links");
+};
+
+/*******************  FUNCTION  *********************/
+/**
+ * Enable usage of hl-py-env wrapper
+**/
+EnvSetup.prototype.enablePyEnv = function()
+{
+	if (this.userConfig.config.pyEnv)
+		this.prepend('PATH',this.userConfig.config.prefix + "/bin/hl-py-env-bins");
 };
 
 /*******************  FUNCTION  *********************/
@@ -120,7 +132,8 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	this.prepend('PKG_CONFIG_PATH',prefix + "/share/pkgconfig");
 	
 	//python
-	this.prepend('PYTHONPATH',prefix + "/lib/python"+this.userConfig.config.python+"/site-packages/");
+	var pv = child_process.execSync("python --version 2>&1 | cut -d ' ' -f 2 | cut -d '.' -f 1-2").toString().trim();
+	this.prepend('PYTHONPATH',prefix + "/lib/python"+pv+"/site-packages/");
 	
 	//module
 	this.prepend('MODULEPATH',prefix + "/Modules/modulefiles");

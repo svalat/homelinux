@@ -16,6 +16,7 @@
 		"https://github.com/retext-project/retext/archive/${VERSION}.tar.gz"
 	],
 	"deps": [
+			"dev-lang/python :3"
 	],
 	"host": {
 		"default": false,
@@ -26,5 +27,8 @@
 	},
 	"use": [
         
-	]
+	],
+	"vars": {
+		"PYTHON_SLOT": "3"
+	}
 }

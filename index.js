@@ -27,6 +27,7 @@ if (command == "env")
 	var envSetup = new EnvSetup(userConfig);
 	prefix.fillEnv(envSetup);
 	envSetup.enableCCache();
+	envSetup.enablePyEnv();
 	envSetup.print();
 } else if (command == "unenv") {
 	var envSetup = new EnvSetup(userConfig);
