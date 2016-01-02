@@ -81,7 +81,7 @@ UseFlags.prototype.getApplyStatus = function(list,flag)
     var status = this.apply(list,flag);
     var name = flag.replace(/^[-+]/g,'');
     if (status == null)
-        return "-"+name;
+        return name;
     else if (status)
         return (flag[0]=='+'?'+':'-')+name;
     else

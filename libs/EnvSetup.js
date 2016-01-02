@@ -40,6 +40,16 @@ function EnvSetup(userConfig)
 }
 
 /*******************  FUNCTION  *********************/
+EnvSetup.prototype.loadModules = function(load)
+{
+	for (var i in this.userConfig.config.modules)
+		if (load == undefined || load == true)
+			console.log("module load "+this.userConfig.config.modules[i]);
+		else
+			console.log("module unload "+this.userConfig.config.modules[i]);
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Enable usage of ccache by adding its path to the global PATH in order
  * to override the compiler commands.

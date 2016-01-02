@@ -26,12 +26,14 @@ if (command == "env")
 {
 	var envSetup = new EnvSetup(userConfig);
 	prefix.fillEnv(envSetup);
+	envSetup.print();
+	envSetup.loadModules(true);
 	envSetup.enableCCache();
 	envSetup.enablePyEnv();
-	envSetup.print();
 } else if (command == "unenv") {
 	var envSetup = new EnvSetup(userConfig);
 	envSetup.removeExisting();
+	envSetup.loadModules(false);
 	envSetup.print();
 } else if (command == "switch") {
 	var envSetup = new EnvSetup(userConfig);

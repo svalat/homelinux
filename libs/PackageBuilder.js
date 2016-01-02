@@ -381,7 +381,7 @@ PackageBuilder.prototype.getUseFlagStatusString = function()
 	for (var i in flags)
 		ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
 		
-	return ret.join(', ');
+	return ret.join(' ');
 };
 
 /*******************  FUNCTION  *********************/
@@ -479,6 +479,7 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");
 	script.push("PATCHES=\""+this.getPatchList(version)+"\"");
 	script.push("SLOT=\""+this.getSlot(version)+"\"");
+	script.push("USE=\""+this.getUseFlagStatusString()+"\"");
 	if (this.prefix.config.useGnuStow)
 		script.push("STOW_NAME=\""+this.getStowName()+"\"");
 	else
