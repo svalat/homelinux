@@ -322,6 +322,8 @@ function hl_configure_auto()
 		hl_configure_autotools
 	elif [ -f autogen.sh ]; then
 		hl_configure_autotools_autogen
+	elif [ -f setup.py ]; then
+		hl_configure_python
 	else
 		die "Unknown package type, cannot detect automatically !"
 	fi
