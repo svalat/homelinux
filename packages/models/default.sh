@@ -448,6 +448,9 @@ function hl_uninstall()
 	if [ ! -z "$PREFIX" ]; then
 		run rm -rfd "$PREFIX"
 	fi
+	
+	#remove package descr
+	run rm $PACK_INSTALLED
 }
 
 function hl_postinstall()
