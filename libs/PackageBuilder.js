@@ -260,7 +260,11 @@ PackageBuilder.prototype.buildOptions = function()
 	//options
 	for (var i in configure)
 	{
-		var status = UseFlags.apply(this.use,i);
+		try {
+			var status = UseFlags.apply(this.use,i);
+		} catch(e) {
+			throw "On package "+this.getNameSlot()+", get error : "+e;
+		}
 		if (status != null)
 			for (var j in configure[i])
 			{
@@ -501,8 +505,9 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("{");
 	for (var i in this.pack.vars)
 		script.push("	"+i+"='"+this.pack.vars[i]+"'");
-	script.push("");
+	script.push("	info 'local vars'");
 	script.push("}");
+	script.push("");
 	
 	//gen functions
 	for (var i in this.pack.steps)

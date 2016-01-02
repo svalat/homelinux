@@ -18,10 +18,13 @@
 	"deps": [
 	],
 	"configure": {
-		"": [ "--without-python" ]
+		"python": [ "--$with-python" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "libxml2-dev" ]
-	}
+	},
+	"use": [
+		"python"
+	]
 }

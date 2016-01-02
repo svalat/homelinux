@@ -279,7 +279,7 @@ Prefix.prototype.searchInCache = function(packageName)
 {
 	this.getCache();
 	
-	var regexp = new RegExp("/"+packageName+"$");
+	var regexp = new RegExp("/"+packageName.replace('+','\\+')+"$");
 	
 	var list = [];
 	for (var i in this.cache)
@@ -615,7 +615,7 @@ Prefix.prototype.search = function(name)
 			console.log("gentoo/"+this.gentooDb[i]);
 	console.log("----------------------------URLS----------------------------");
 	var content = fs.readFileSync(this.getFile('/homelinux/packages/urls.lst'));
-	this.urlsDb = content.spli('\n');
+	this.urlsDb = content.toString().split('\n');
 	for (var i in this.urlsDb)
 		if (this.urlsDb[i].indexOf(name) != -1)
 			console.log("urls/"+this.urlsDb[i].split('/').pop());

@@ -16,6 +16,7 @@
 		"http://files.itstool.org/itstool/itstool-${VERSION}.tar.bz2"
 	],
 	"deps": [
+		"dev-libs/libxml2[python]"
 	],
 	"configure": {
 	},

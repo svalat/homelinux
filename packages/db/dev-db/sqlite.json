@@ -55,7 +55,17 @@
 				],
 				"+readline": [ "--$enable-readline" ],
 				"+debug": [ "--$enable-debug" ]
-			}
+			},
+			"use" : [
+				"gentoo",
+				"icu",
+				"readline",
+				"tcl",
+				"doc",
+				"tools",
+				"test",
+				"debug"
+			]
 		}
 	}
 }

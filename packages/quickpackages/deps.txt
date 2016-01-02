@@ -68,4 +68,6 @@ gentoo/libxslt libxml2
 gentoo/libXau xproto
 gentoo/wine flex
 gentoo/flex bison
+gentoo/gource freetype pcre
+gentoo/pcre cmake
 #################################### FOR USER ######################################

@@ -37,6 +37,13 @@ function EnvSetup(userConfig)
 		'LD_RUN_PATH':process.env.LD_RUN_PATH,
 		'HL_PREFIX_PATH':process.env.HL_PREFIX_PATH,
 	};
+	
+	if (this.vars.PKG_CONFIG_PATH == "")
+	{
+		//pkg-config
+		this.prepend('PKG_CONFIG_PATH',"/usr/lib/pkgconfig");
+		this.prepend('PKG_CONFIG_PATH',"/usr/share/pkgconfig");
+	}
 }
 
 /*******************  FUNCTION  *********************/

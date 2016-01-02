@@ -368,6 +368,7 @@ function hl_configure_autotools()
 
 function hl_configure_cmake()
 {
+	run mkdir -p $HL_BUILDDIR
 	run_sh cd $HL_BUILDDIR
 	run touch ${HL_PACKDIR}/hl-is-cmake.notify
 	run mkdir cmakebuild
