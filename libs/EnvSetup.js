@@ -149,7 +149,9 @@ EnvSetup.prototype.addPrefix = function(prefix)
 	this.prepend('PKG_CONFIG_PATH',prefix + "/share/pkgconfig");
 	
 	//python
-	var pv = child_process.execSync("python --version 2>&1 | cut -d ' ' -f 2 | cut -d '.' -f 1-2").toString().trim();
+	var pv = "2.7";
+	if (child_process.execSync != undefined)
+		pv = child_process.execSync("python --version 2>&1 | cut -d ' ' -f 2 | cut -d '.' -f 1-2").toString().trim();
 	this.prepend('PYTHONPATH',prefix + "/lib/python"+pv+"/site-packages/");
 	
 	//module

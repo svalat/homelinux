@@ -1,0 +1,1 @@
+gentoo/SDL sdl-1.2-xdata.patch

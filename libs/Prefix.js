@@ -206,6 +206,14 @@ Prefix.prototype.getQuick = function(prop,packageName,defaultValue)
 			return [];
 		else
 			return this.quickdeps[packageName];
+	} else if (prop == 'patch') {
+		if (this.quickpatch == undefined)
+			this.quickpatch = this.loadQuickFile('patch');
+		
+		if (this.quickpatch[packageName] == undefined)
+			return [];
+		else
+			return this.quickpatch[packageName];
 	} else if (prop == 'config') {
 		if (this.quickconfig == undefined)
 			this.quickconfig = this.loadQuickFile('configure');
@@ -386,7 +394,7 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 {
 	//build regexp
 	var version = qp.version == undefined ? '[0-9]+.[0-9]+.?[0-9]*' : qp.version;
-	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").tar.(gz|bz2|bzip|xz|lz)$");
+	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)$");
 	
 	//load gentoo db
 	if (this.urlsDb == undefined)
@@ -423,11 +431,11 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 		qp.version = v;
 		qp.url = [];
 		var self = this;
-		['bz2','xz','gz','zip'].forEach(function(ext) {
+		['tar.bz2','tar.xz','tar.gz','zip','tgz'].forEach(function(ext) {
 			qp.url.push( "ftp://"+self.config.gentoo.server
 				+ ":"+self.config.gentoo.port
 				+ "/"+self.config.gentoo.distfiles
-				+ "/"+qp.name+"-${VERSION}.tar."+ext);
+				+ "/"+qp.name+"-${VERSION}."+ext);
 		});
 		qp.name = "urls/"+qp.name;
 		
@@ -448,7 +456,7 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 	
 	//build regexp
 	var version = qp.version == undefined ? vregexp : qp.version;
-	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").tar.(gz|bz2|bzip|xz|lz)$");
+	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)$");
 	
 	//load gentoo db
 	if (this.gentooDb == undefined)
@@ -481,11 +489,11 @@ Prefix.prototype.buildGentooQuickPackage = function(qp)
 		qp.version = v;
 		qp.url = [];
 		var self = this;
-		['bz2','xz','gz','zip'].forEach(function(ext) {
+		['tar.bz2','tar.xz','tar.gz','zip','tgz'].forEach(function(ext) {
 			qp.url.push( "ftp://"+self.config.gentoo.server
 				+ ":"+self.config.gentoo.port
 				+ "/"+self.config.gentoo.distfiles
-				+ "/"+qp.name+"-${VERSION}.tar."+ext);
+				+ "/"+qp.name+"-${VERSION}."+ext);
 		});
 		qp.name = "gentoo/"+qp.name;
 		
@@ -585,7 +593,8 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
 		"subdir" : this.getQuick('subdir',qp.name,qp.name.split('/').pop()+"-${VERSION}"),
 		"urls": Array.isArray(qp.url)? qp.url : [ qp.url ],
-		"deps": qp.deps == undefined ? [] : qp.deps ,
+		"deps": qp.deps == undefined ? this.getQuick('deps',qp.name,[]) : this.getQuick('deps',qp.name,[]).concat(qp.deps) ,
+		"patch": this.getQuick('patch',qp.name,[]), 
 		"host": qp.host,
 		"configure": qp.configure == undefined ? [] : { "":qp.configure },
 		"provide": qp.provide,
@@ -631,9 +640,9 @@ Prefix.prototype.listInstalled = function()
 			var content = fs.readFileSync(files[i]);
 			var p = JSON.parse(content);
 			if (p.slot != '0' && p.slot != undefined)
-				console.log(p.name+":"+p.slot+"-"+p.version);
+				console.log(p.name+":"+p.slot+" "+p.version);
 			else
-				console.log(p.name+"-"+p.version);
+				console.log(p.name+" "+p.version);
 		}
 	});
 };

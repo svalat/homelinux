@@ -42,7 +42,6 @@ gentoo/libXrandr randrproto
 gentoo/libXcursor libXfixes
 gentoo/indent texi2html
 gentoo/kdebase kdelibs oxygen-icons
-gentoo/valgrind boost
 gentoo/kdesdk kdelibs graphviz
 gentoo/kdev-xtest veritas kdevelop
 gentoo/acl attr
@@ -68,6 +67,10 @@ gentoo/libxslt libxml2
 gentoo/libXau xproto
 gentoo/wine flex
 gentoo/flex bison
-gentoo/gource freetype pcre
+gentoo/gource freetype pcre glew glu SDL~1.2 SDL_image
 gentoo/pcre cmake
+gentoo/mesa glproto dri2proto dri3proto presentproto libxcb libxshmfence xextproto
+gentoo/glproto libdrm
+gentoo/libdrm libpthread-stubs libpciaccess
+gentoo/libxcb xcb-proto libXau
 #################################### FOR USER ######################################

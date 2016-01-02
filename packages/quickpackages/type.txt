@@ -1,1 +1,2 @@
 gentoo/gcc models/autotools
+gentoo/pcre models/autotools
