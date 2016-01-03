@@ -58,7 +58,6 @@ gentoo/gnome-keyring libgcrypt libtasn1
 gentoo/libgcrypt libgpg-error
 ############################### FROM HOMELINUX 1.0.0 ###############################
 gentoo/libXau xproto dev-util/pkgconfig
-gentoo/wine flex freetype libX11 fontconfig libXcursor libXext libXrandr libXi libXxf86vm alsa-lib
 gentoo/xorg-server pixman libdrm glproto mesa
 gentoo/libXxf86vm libXext xf86vidmodeproto
 gentoo/libX11 libxcb xtrans xproto xf86bigfontproto inputproto kbproto xextproto

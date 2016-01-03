@@ -109,7 +109,8 @@
 		"X": [ "--$with-x" ],
 		"xcomposite": [ "--$with-xcomposite" ],
 		"xinerama" : [ "--$with-xinerama" ],
-		"xml": [ "--$with-xml", "--$with-xslt" ]
+		"xml": [ "--$with-xml", "--$with-xslt" ],
+		"+pulseaudio": [ "--with-pulse" ]
 	},
 	"host": {
 		"default": false,
