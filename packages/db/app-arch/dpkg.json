@@ -45,13 +45,13 @@
 			"--disable-start-stop-daemon",
 			"--localstatedir=${PREFIX}/var"
 		],
-		"+nls": [ "--$enable-nls" ],
-		"+unicode": [ "--$enable-unicode" ],
-		"+update-alternatives": [ "--$enable-update-alternatives" ],
-		"+bzip2": [ "--$with-bz2" ],
-		"+lzma": [ "--$with-liblzma" ],
-		"+selinux": [ "--$with-selinux" ],
-		"+zlib": [ "--$with-zlib" ]
+		"nls": [ "--$enable-nls" ],
+		"unicode": [ "--$enable-unicode" ],
+		"update-alternatives": [ "--$enable-update-alternatives" ],
+		"bzip2": [ "--$with-bz2" ],
+		"lzma": [ "--$with-liblzma" ],
+		"selinux": [ "--$with-selinux" ],
+		"zlib": [ "--$with-zlib" ]
 		
 	},
 	"host": {
@@ -59,15 +59,15 @@
 		"debian8": [ "dpkg" ]
 	},
 	"use": [ 
-		"-gentoo",
-		"-bzip2",
-		"-lzma",
-		"-selinux",
-		"-zlib",
-		"-nls",
-		"-test",
-		"-unicode",
-		"-update-alternatives"
+		"gentoo",
+		"bzip2",
+		"lzma",
+		"selinux",
+		"zlib",
+		"nls",
+		"test",
+		"unicode",
+		"update-alternatives"
 	],
 	"steps": {
 		"configure": [

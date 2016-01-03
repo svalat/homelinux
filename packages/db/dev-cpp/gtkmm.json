@@ -31,7 +31,7 @@
 	"configure":{
 		"": [ "CXXFLAGS=-std=c++11" ],
 		"+gentoo": [ "--enable-api-atkmm" ],
-		"+doc": [ "--$enable-documentation" ]
+		"doc": [ "--$enable-documentation" ]
 	},
 	"vspecific":{
 		":2.4": {
@@ -44,14 +44,14 @@
 				"x11-libs/gtk+ :3.0"
 			],
 			"use": [
-				"-aqua",
-				"-wayland",
-				"-X"
+				"aqua",
+				"wayland",
+				"X"
 			],
 			"configure": {
-				"+aqua": [ "--$enable-quartz-backend" ],
-				"+wayland": [ "--$enable-wayland-backend" ],
-				"+X": [ "--$enable-x11-backend" ]
+				"aqua": [ "--$enable-quartz-backend" ],
+				"wayland": [ "--$enable-wayland-backend" ],
+				"X": [ "--$enable-x11-backend" ]
 			}
 		}
 	},
@@ -64,7 +64,7 @@
 		"3.0": ">=3.0"
 	},
 	"use": [
-		"-gentoo",
-		"-doc"
+		"gentoo",
+		"doc"
 	]
 }

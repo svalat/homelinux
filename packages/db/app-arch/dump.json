@@ -35,23 +35,26 @@
 			"--with-{bin,man}grp=root",
 			"--enable-largefile"
 		],
-		"+selinux": [ "--$enable-transselinux" ],
-		"+ermt": [ "--$enable-ermt" ],
-		"+static": [ "--$enable-static" ],
-		"+readline": [ "--$enable-readline" ],
-		"+debug": [ "--$enable-debug" ]
+		"selinux": [ "--$enable-transselinux" ],
+		"ermt": [ "--$enable-ermt" ],
+		"static": [ "--$enable-static" ],
+		"readline": [ "--$enable-readline" ],
+		"debug": [ "--$enable-debug" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "dump" ]
 	},
 	"use": [ 
-		"-gentoo",
-		"-ermt",
-		"-readline",
-		"-libressl",
-		"-static",
-		"-debug",
-		"-selinux"
+		"gentoo",
+		"ermt",
+		"readline",
+		"libressl",
+		"static",
+		"debug",
+		"selinux"
+	],
+	"warn": [
+		"Not working on Debian8"
 	]
 }

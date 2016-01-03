@@ -519,7 +519,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 		auto = true;
 		console.error("Can't find package "+packageName+" in DB not QuickDB, try to build from gentoo with defaults");
 		qp = {
-			name: packageName,
+			name: packageName.split('/').pop(),
 			source: 'gentoo',
 			type: 'models/auto',
 			host: { 'default': false }

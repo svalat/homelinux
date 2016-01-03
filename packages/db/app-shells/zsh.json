@@ -33,23 +33,23 @@
 			"--$enable-zsh-secure-free",
 			"--$enable-zsh-hash-debug"
 		],
-		"+maildir" : [ "--$enable-maildir-support" ],
-		"+pcre": [ "--$enable-pcre" ],
-		"+caps": [ "--$enable-cap" ],
-		"+unicode": [ "--$enable-multibyte" ],
-		"+gdbm": [ "--$enable-gdbm" ]
+		"maildir" : [ "--$enable-maildir-support" ],
+		"pcre": [ "--$enable-pcre" ],
+		"caps": [ "--$enable-cap" ],
+		"unicode": [ "--$enable-multibyte" ],
+		"gdbm": [ "--$enable-gdbm" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "zsh" ]
 	},
 	"use" : [
-		"-gentoo",
-		"-caps",
-		"-pcre",
-		"-gdbm",
-		"-debug",
-		"-maildir",
-		"-unicode"
+		"gentoo",
+		"caps",
+		"pcre",
+		"gdbm",
+		"debug",
+		"maildir",
+		"unicode"
 	]
 }

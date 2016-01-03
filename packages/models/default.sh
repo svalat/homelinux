@@ -22,6 +22,8 @@
 #PREFIX : The target prefix to install on
 #BUILD_OPTIONS : The options to pass to configure
 #STOW_NAME : Name of stow subdir if enabled, empty if not
+#PYTHON_VERSION : Current version of python in use (eg: 2.7)
+#PYTHON_PACKAGE_DIR: Directory where to install python modules
 
 #colors
 COLOR_RED=$(echo -e "\e[31m")
@@ -43,6 +45,8 @@ function setup_vars()
 	DISTFILES="$HL_PREFIX/homelinux/distfiles"
 	HL_BUILDDIR=$HL_TEMP/$SUBDIR
 	HL_PACKDIR=$HL_TEMP/$SUBDIR
+	PYTHON_VERSION=$(python --version 2>&1 | cut -d ' ' -f 2 | cut -d '.' -f 1-2)
+	PYTHON_PACKAGE_DIR=${PREFIX}/lib/python${PYTHON_VERSION}/site-packages/
 	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then
 		HL_BUILDDIR=$HL_BUILDDIR/cmakebuild
 	fi
@@ -325,9 +329,16 @@ function hl_configure_auto()
 		hl_configure_autotools_autogen
 	elif [ -f setup.py ]; then
 		hl_configure_python
+	elif [ -f Makefile.PL ]; then
+		hl_configure_perl
 	else
 		die "Unknown package type, cannot detect automatically !"
 	fi
+}
+
+function hl_configure_perl()
+{
+	run perl Makefile.PL PREFIX=${PREFIX} ${OPTIONS}
 }
 
 function hl_configure_python()

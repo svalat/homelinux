@@ -22,7 +22,7 @@
 	"deps": [
 		"x11-libs/cairo[#svg]",
 		"dev-libs/libsigc++",
-		"gentoo? virtual/pkgconfig",
+		"virtual/pkgconfig",
 		"doc? app-doc/doxygen",
 		"doc? dev-libs/libxslt",
 		"doc? media-gfx/graphviz"
@@ -32,9 +32,9 @@
 		"debian8": [ "libcairomm-1.0-dev" ]
 	},
 	"use": [
-		"-gentoo",
-		"-doc",
-		"-svg"
+		"gentoo",
+		"doc",
+		"svg"
 	],
 	"gentooUse": [ "+svg" ]
 }

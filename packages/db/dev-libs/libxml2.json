@@ -19,7 +19,13 @@
 		"python? dev-lang/python"
 	],
 	"configure": {
-		"python": [ "--$with-python" ]
+		"python": [ 
+			"--$with-python"
+		],
+		"+python":[	
+			"--without-docbook",
+			"--with-python-install-dir=${PYTHON_PACKAGE_DIR}"
+		]
 	},
 	"host": {
 		"default": false,

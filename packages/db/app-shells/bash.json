@@ -25,18 +25,18 @@
 		"debian8": [ "bash" ]
 	},
 	"use": [
-		"-gentoo",
-		"-readline",
-		"-nls",
-		"-afs",
-		"-net",
-		"-mem-scramble"
+		"gentoo",
+		"readline",
+		"ls",
+		"afs",
+		"net",
+		"mem-scramble"
 	],
 	"configure": {
 		"+gentoo": [ "--with-curses", "--disable-profiling" ],
-		"+afs": [ "--$with-afs" ],
-		"+net": [ "--$enable-net-redirections" ],
-		"+mem-scramble": [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
-		"+readline": [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ]
+		"afs": [ "--$with-afs" ],
+		"net": [ "--$enable-net-redirections" ],
+		"mem-scramble": [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
+		"readline": [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ]
 	}
 }

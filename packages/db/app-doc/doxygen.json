@@ -44,12 +44,12 @@
 		"sqlite": [ "$(hl_cmake_with $with sqlite3)" ]
 	},
 	"use": [
-		"-libiconv",
-		"-dot",
-		"-doxysearch",
-		"-latex",
-		"-qt4",
-		"-sqlite",
-		"-debug"
+		"libiconv",
+		"dot",
+		"doxysearch",
+		"latex",
+		"qt4",
+		"sqlite",
+		"debug"
 	]
 }

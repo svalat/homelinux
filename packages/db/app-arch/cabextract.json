@@ -25,6 +25,6 @@
 		"debian8": [ "cabextract" ]
 	},
 	"use": [ 
-		"-extras"
+		"extras"
 	]
 }

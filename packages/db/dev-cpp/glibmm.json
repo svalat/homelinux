@@ -22,8 +22,8 @@
 		"doc? app-doc/doxygen"
 	],
 	"configure": {
-		"+debug": [ "--$enable-debug-refcounting" ],
-		"+doc": [ "--$enable-documentation" ],
+		"debug": [ "--$enable-debug-refcounting" ],
+		"doc": [ "--$enable-documentation" ],
 		"+gentoo": [ "--enable-deprecated-api" ]
 	},
 	"host": {
@@ -31,8 +31,8 @@
 		"debian8": [ "libglibmm-2.4-dev" ]
 	},
 	"use": [
-		"-gentoo",
-		"-doc",
-		"-debug"
+		"gentoo",
+		"doc",
+		"debug"
 	]
 }

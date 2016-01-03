@@ -51,23 +51,23 @@
 			"--with-system-libtiff",
 			"--without-luratech"
 		],
-		"+cups": [ "--$enable-cups", "--$with-pdftoraster" ],
-		"+dbus": [ "--$enable-dbus" ],
-		"+gtk": [ "--$enable-gtk" ],
-		"+idn": [ "--$with-libidn" ],
-		"+X": [ "--$with-x" ]
+		"cups": [ "--$enable-cups", "--$with-pdftoraster" ],
+		"dbus": [ "--$enable-dbus" ],
+		"gtk": [ "--$enable-gtk" ],
+		"idn": [ "--$with-libidn" ],
+		"X": [ "--$with-x" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "ghostscript" ]
 	},
 	"use": [
-		"-gentoo",
-		"-cups",
-		"-dbus",
-		"-djvu",
-		"-gtk",
-		"-idn",
-		"-X"
+		"gentoo",
+		"cups",
+		"dbus",
+		"djvu",
+		"gtk",
+		"idn",
+		"X"
 	]
 }

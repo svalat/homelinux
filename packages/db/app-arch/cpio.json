@@ -18,11 +18,13 @@
 	"deps": [
 	],
 	"configure": {
+		"nls": [ "--$enable-nls" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "cpio" ]
 	},
 	"use": [ 
+		"nls"
 	]
 }

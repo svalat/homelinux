@@ -31,7 +31,7 @@
 		"debian8": [ "dash" ]
 	},
 	"use": [ 
-		"-gentoo",
-		"-libedit"
+		"gentoo",
+		"libedit"
 	]
 }

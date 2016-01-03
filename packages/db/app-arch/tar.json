@@ -23,20 +23,20 @@
 	],
 	"configure": {
 		"+gentoo": [ "--enable-backup-scripts" ],
-		"+acl": [ "--$enable-posix-acks" ],
-		"+nls": [ "--$enable-nls" ],
-		"+selinux": [ "--$enable-selinux" ],
-		"+xattr": [ "--$enable-xattrs" ]
+		"acl": [ "--$enable-posix-acks" ],
+		"nls": [ "--$enable-nls" ],
+		"elinux": [ "--$enable-selinux" ],
+		"xattr": [ "--$enable-xattrs" ]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "tar" ]
 	},
 	"use": [ 
-		"-gentoo",
-		"-acl",
-		"-selinux",
-		"-nls",
-		"-xattr"
+		"gentoo",
+		"acl",
+		"selinux",
+		"nls",
+		"xattr"
 	]
 }

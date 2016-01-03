@@ -23,7 +23,7 @@
 		"debian8": [ "deb2targz" ]
 	},
 	"use": [ 
-		"-extra"
+		"extra"
 	],
 	"steps": {
 		"extract": [ ],
