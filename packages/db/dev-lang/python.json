@@ -18,11 +18,14 @@
 	"deps": [
 	],
 	"host": {
-		"default": false,
-		"debian8": [ "python" ]
+		"default": true,
+		"debian8": [ "python", "python-dev" ]
 	},
 	"use": [	
 	],
+	"configure": {
+		"": [ "--enable-shared" ]
+	},
 	"slots": {
 	    "3": ">=3.0",
 	    "2": ">=2.0 <3.0"

@@ -16,6 +16,7 @@
 		"ftp://xmlsoft.org/libxml2/libxml2-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"python? dev-lang/python"
 	],
 	"configure": {
 		"python": [ "--$with-python" ]

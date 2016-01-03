@@ -247,13 +247,13 @@ DepsLoader.prototype.parseRequestString = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
-		var regexp = new RegExp("([0-9a-zA-Z+_/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?(.+)?");
+		var regexp = new RegExp("([0-9a-zA-Z+_/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format "+dep;
 		return {name:ret[1],use:null,iuse:ret[2],version:ret[3]};
 	} else {
-		var regexp = new RegExp("([a-zA-Z0-9-&_+]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?(.+)?");
+		var regexp = new RegExp("([a-zA-Z0-9-&_+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw "Invalid format "+dep;

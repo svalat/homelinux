@@ -60,6 +60,7 @@ VersionHelper.prototype.getSlot = function(pack,version)
 **/
 VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 {
+	op=op.replace('@','');
 	var tmp;
 	var cnt = 1;
 	var operator = op[0];

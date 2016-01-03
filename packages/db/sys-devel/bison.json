@@ -16,6 +16,7 @@
 		"ftp://ftp.gnu.org/gnu/bison/bison-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"gentoo/m4"
 	],
 	"host": {
 		"default": false,

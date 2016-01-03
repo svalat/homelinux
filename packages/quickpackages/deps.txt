@@ -1,6 +1,5 @@
 ############################ FROM svhomelinux (V0) ################################
 gentoo/mpfr gmp
-gentoo/git curl
 gentoo/mpc mpfr gmp
 gentoo/gcc gmp mpfr mpc binutils libtool
 gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm gtksourceviewmm vte
@@ -23,9 +22,6 @@ gentoo/gtksourceviewmm gtkmm gtksourceview
 gentoo/gcalctool intltool gnome-doc-utils libxslt libxml2
 gentoo/dia glib gtk+ pango libxml2 atk libxslt libart_lgpl intltool docbook-xsl
 gentoo/docbook-xsl docbook-xml sgml-common
-gentoo/mplayer yasm xine-ui
-gentoo/xine-ui xine-lib curl libXt
-gentoo/xine-lib ffmpeg
 gentoo/pygtk pygobject
 gentoo/pygobject gobject-introspection glib pycairo
 gentoo/gobject-introspection libffi
@@ -38,7 +34,6 @@ gentoo/kdebase-workspace qimageblitz libxkbfile libpng libXcomposite libXrandr l
 gentoo/libXcomposite compositeproto libXfixes
 gentoo/libXfixes fixesproto xextproto
 gentoo/libXdamage damageproto
-gentoo/libXrandr randrproto
 gentoo/libXcursor libXfixes
 gentoo/indent texi2html
 gentoo/kdebase kdelibs oxygen-icons
@@ -63,14 +58,19 @@ gentoo/icon-naming-utils XML-Simple
 gentoo/gnome-keyring libgcrypt libtasn1
 gentoo/libgcrypt libgpg-error
 ############################### FROM HOMELINUX 1.0.0 ###############################
-gentoo/libxslt libxml2
-gentoo/libXau xproto
-gentoo/wine flex
+gentoo/libXau xproto dev-util/pkgconfig
+gentoo/wine flex freetype libX11 fontconfig libXcursor libXext libXrandr libXi libXxf86vm alsa-lib
+gentoo/xorg-server pixman libdrm glproto mesa
+gentoo/libXxf86vm libXext xf86vidmodeproto
+gentoo/libX11 libxcb xtrans xproto xf86bigfontproto inputproto kbproto xextproto
+gentoo/libXi libXfixes
+gentoo/libXrandr libXrender randrproto
+gentoo/libXrender renderproto
 gentoo/flex bison
-gentoo/gource freetype pcre glew glu SDL~1.2 SDL_image
+gentoo/gource freetype pcre glew glu SDL@~1.2 SDL_image
 gentoo/pcre cmake
-gentoo/mesa glproto dri2proto dri3proto presentproto libxcb libxshmfence xextproto
+gentoo/mesa glproto dri2proto dri3proto presentproto libxcb libxshmfence xextproto libXdamage libomxil-bellagio
 gentoo/glproto libdrm
 gentoo/libdrm libpthread-stubs libpciaccess
-gentoo/libxcb xcb-proto libXau
+gentoo/libxcb xcb-proto libXau libpthread-stubs
 #################################### FOR USER ######################################

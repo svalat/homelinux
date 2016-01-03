@@ -6,27 +6,29 @@
 #           Authors : Sebastien Valat                #
 ######################################################
 
+DEST=$(DESTDIR)/$(PREFIX)
+
 all:
 
 check:
-	@if test -z "$(PREFIX)"; then echo "ERROR : Please provide PREFIX as parameter to setup install directory"; exit 1; fi
+	@if test -z "$(DEST)"; then echo "ERROR : Please provide PREFIX as parameter to setup install directory"; exit 1; fi
 
 install: check
-	mkdir -p $(PREFIX)
-	cp prefix.json $(PREFIX)/homelinux.json
-	mkdir -p $(PREFIX)/bin
-	cp bin/homelinux.sh $(PREFIX)/bin/homelinux
-	cp bin/homelinux.sh $(PREFIX)/bin/hl
-	cp bin/hl-env.sh $(PREFIX)/bin/hl-env
-	cp bin/hl-py-env.sh $(PREFIX)/bin/hl-py-env
-	cp bin/hl-build-cache.sh $(PREFIX)/bin/hl-build-cache
-	mkdir -p $(PREFIX)/lib/homelinux
-	cp -r index.js libs $(PREFIX)/lib/homelinux
-	mkdir -p $(PREFIX)/homelinux
-	cp -r packages $(PREFIX)/homelinux
-	cp -r node_modules $(PREFIX)/lib/homelinux
-	mkdir -p $(PREFIX)/homelinux/install-db
-	$(PREFIX)/bin/hl build-cache
+	mkdir -p $(DEST)
+	cp prefix.json $(DEST)/homelinux.json
+	mkdir -p $(DEST)/bin
+	cp bin/homelinux.sh $(DEST)/bin/homelinux
+	cp bin/homelinux.sh $(DEST)/bin/hl
+	cp bin/hl-env.sh $(DEST)/bin/hl-env
+	cp bin/hl-py-env.sh $(DEST)/bin/hl-py-env
+	cp bin/hl-build-cache.sh $(DEST)/bin/hl-build-cache
+	mkdir -p $(DEST)/lib/homelinux
+	cp -r index.js libs $(DEST)/lib/homelinux
+	mkdir -p $(DEST)/homelinux
+	cp -r packages $(DEST)/homelinux
+	cp -r node_modules $(DEST)/lib/homelinux
+	mkdir -p $(DEST)/homelinux/install-db
+	$(DEST)/bin/hl build-cache
 	
 
 .PHONY: check install

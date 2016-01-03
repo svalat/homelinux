@@ -2,19 +2,11 @@
 gentoo/mpfr --with-gmp=$(hl_prefix gentoo/gmp)
 gentoo/mpc --with-gmp=$(hl_prefix gentoo/gmp) --with-mpfr=$(hl_prefix gentoo/mpfr)
 gentoo/gcc --with-gmp=$(hl_prefix gentoo/gmp) --with-mpfr=$(hl_prefix gentoo/mpfr) --disable-multilib --enable-languages=c,c++
-gentoo/subversion --disable-mod-activation
-gentoo/apr-util --with-apr=$(hl_prefix gentoo/apr)
 gentoo/dbus --with-xml=libxml LDFLAGS=-L$(hl_prefix gentoo/libxml2)/lib CFLAGS=-I$(hl_prefix gentoo/libxml2)/include
 gentoo/dbus-glib LDFLAGS=-L$(hl_prefix gentoo/glib)/lib CFLAGS=-I$(hl_prefix gentoo/glib)/include
-gentoo/cairo --enable-xml
-gentoo/gnuplot --disable-wxwidgets
 gentoo/XML-Parser EXPATLIBPATH=$(hl_prefix gentoo/expat)/lib EXPATINCPATH=$(hl_prefix gentoo/expat)/include
-gentoo/inkscape LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include --disable-lcms
-gentoo/gdk-pixbuf --without-libtiff --with-jpeg=$(hl_prefix gentoo/jpegsrc) LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include
-gentoo/gtk+ --x-libraries=${PREFIX}/lib --x-includes=${PREFIX}/include/X11 LDFLAGS=-L${PREFIX}/lib CFLAGS=-I${PREFIX}/include/X11
 gentoo/mpich2 F90=gfortran F70=gfortran
 gentoo/gitg CFLAGS=-O1
-gentoo/git --with-curl=$(hl_prefix gentoo/curl) --with-expat=$(hl_prefix gentoo/expat)
 gentoo/vte --disable-Bsymbolic
 gentoo/Python --enable-shared
 gentoo/xine-ui --disable-lirc
@@ -27,6 +19,6 @@ gentoo/openssl shared threads zlib
 gentoo/poppler --enable-xpdf-headers
 gentoo/gimp --without-libtiff --disable-python
 ############################### FROM HOMELINUX 1.0.0 ###############################
-gentoo/wine --enable-win64
+gentoo/wine --enable-win64 LDFLAGS=-L$(PREFIX)/lib
 gentoo/gegl LDFLAGS=-L$PREFIX/lib
 #################################### FOR USER ######################################

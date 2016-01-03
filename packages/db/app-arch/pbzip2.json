@@ -16,6 +16,7 @@
 		"https://launchpad.net/pbzip2/$(echo ${VERSION} | cut -d '.' -f 1-2)/${VERSION}/+download/pbzip2-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"app-arch/bzip2"
 	],
 	"configure": {
 	},
