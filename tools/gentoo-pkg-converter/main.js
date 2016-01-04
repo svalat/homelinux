@@ -31,7 +31,7 @@ child_process.execSync('./ebuild-extractor.sh config '+fname);
 var parts = {
 	home: child_process.execSync('./ebuild-extractor.sh home '+fname).toString().trim(),
 	deps: child_process.execSync('./ebuild-extractor.sh deps '+fname).toString(),
-	config: fs.readFileSync('/tmp/hl_config.txt').toString().trim(),
+	config: fs.readFileSync('/tmp/hl_pkg_convert_conf.txt').toString().trim(),
 	use: child_process.execSync('./ebuild-extractor.sh use '+fname).toString().trim()
 };
 

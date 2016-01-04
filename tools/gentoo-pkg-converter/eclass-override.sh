@@ -12,7 +12,7 @@ function tc-export()
 
 econf()
 {
-	echo "$@"
+	echo "$@" > /tmp/hl_pkg_convert_conf.txt
 }
 
 emake()
