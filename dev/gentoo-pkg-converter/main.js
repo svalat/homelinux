@@ -20,7 +20,9 @@ var url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/"+pack;
 
 //write to file
 // var fname = "/tmp/hl-gentoo-pack-to-convert.ebuild"
-var fname = "portage-stable/"+pack;
+//var fname = "portage-stable/"+pack;
+var fname = pack;
+pack = pack.replace('portage-stable/','');
 //console.log(" + Save to temp : "+fname);
 // fs.writeFileSync(fname,genpack);
 var genpack = fs.readFileSync(fname);

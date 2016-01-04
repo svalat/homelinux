@@ -90,6 +90,21 @@ einfo()
 	ignore
 }
 
+best_version()
+{
+	ignore
+}
+
+db_ver_to_slot()
+{
+	ignore
+}
+
+tc-getCC()
+{
+	ignore
+}
+
 inherit()
 {
 	ignore
@@ -106,6 +121,16 @@ multilib_native_use_enable()
 }
 
 strip-unsupported-flags()
+{
+	ignore
+}
+
+tc-is-static-only()
+{
+	ignore
+}
+
+db_findver()
 {
 	ignore
 }
