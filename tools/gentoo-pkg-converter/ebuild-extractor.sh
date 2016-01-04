@@ -2,57 +2,37 @@
 
 PV=1.0.0
 ABI=amd64
+MULTILIB_USEDEP=""
 
-ignore()
-{
-	echo > /dev/null
-}
+PORTAGE_BIN_PATH=$PWD/portage/bin
 
-function tc-export()
-{
-	ignore
-}
+export PATH=$PWD/sandbox:$PATH
 
-econf()
-{
-	echo "$@"
-}
-
-emake()
-{
-	ignore
-}
-
-use_with()
-{
-	if [ -z "$2" ]; then
-		echo "@with@$1@$1"
-	else
-		echo "@with@$1@$2"
-	fi
-}
-
-use_enable()
-{
-	if [ -z "$2" ]; then
-		echo "@enable@$1@$1"
-	else
-		echo "@enable@$1@$2"
-	fi
-}
-
-use()
-{
-	return 0
-}
+if [ ! -d portage-stable ]; then
+	git clone git@github.com:coreos/portage-stable.git
+	git clone git@github.com:gentoo/portage.git
+fi
 
 inherit()
 {
-	ignore
+	for i in "$@"
+	do
+		source eclass-override.sh
+		source portage-stable/eclass/$i.eclass
+		source eclass-override.sh
+	done
 }
 
+source eclass-override.sh
+# source $PORTAGE_BIN_PATH/ebuild.sh
+
 #load file
-source "$2"
+if [ ! -z "$2" ]; then
+	source "$2"
+fi
+
+#override
+source eclass-override.sh
 
 #run
 case "$1" in
@@ -64,7 +44,7 @@ case "$1" in
 		echo "$RDEPEND"
 		;;
 	'config')
-		multilib_src_configure
+		src_configure
 		;;
 	'use')
 		echo $IUSE

@@ -15,6 +15,6 @@
   "author": "Sébastien Valat",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "request-sync": "^1.0.0"
+    "sync-request": "^2.1.0"
   }
 }

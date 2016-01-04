@@ -1,4 +1,4 @@
-var request = require('request-sync');
+var request = require('sync-request');
 var fs = require('fs');
 var child_process = require('child_process');
 
@@ -9,26 +9,29 @@ var pack = process.argv[2];
 //fetch url
 var url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/"+pack;
 //console.log(" + Fetch : "+url);
-// var rep = request(url);
+var rep = request('GET',url);
 
 //check error
-// if (rep.statusCode != 200)
-// 	throw "Invalid status : "+rep.statusCode;
+if (rep.statusCode != 200)
+	throw "Invalid status : "+rep.statusCode;
 
 //extract value
-// var genpack = rep.body.toString();
+var genpack = rep.body.toString();
 
 //write to file
 var fname = "/tmp/hl-gentoo-pack-to-convert.ebuild"
 //console.log(" + Save to temp : "+fname);
-// fs.writeFileSync(fname,genpack);
-genpack = fs.readFileSync(fname);
+fs.writeFileSync(fname,genpack);
+
+//run
+child_process.execSync('./ebuild-extractor.sh checkout-portage');
+child_process.execSync('./ebuild-extractor.sh config '+fname);
 
 //extarct parts
 var parts = {
 	home: child_process.execSync('./ebuild-extractor.sh home '+fname).toString().trim(),
 	deps: child_process.execSync('./ebuild-extractor.sh deps '+fname).toString(),
-	config: child_process.execSync('./ebuild-extractor.sh config '+fname).toString().trim(),
+	config: fs.readFileSync('/tmp/hl_config.txt').toString().trim(),
 	use: child_process.execSync('./ebuild-extractor.sh use '+fname).toString().trim()
 };
 
