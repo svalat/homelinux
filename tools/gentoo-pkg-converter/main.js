@@ -76,7 +76,7 @@ function convertDepName(dep)
 		.replace('[]','')
 		.trim()
 		.replace(/:$/,'')
-		.replace(/[0-9]+\\.[0-9]+(\\.[0-9]+)*/,'');
+		.replace(/-[0-9]+\.[0-9]+(\.[0-9]+)*(-r[0-9]+)?/g,'');
 }
 
 function convertDeps(depString)
