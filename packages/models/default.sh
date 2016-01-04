@@ -164,12 +164,12 @@ function hl_with()
 {
 	if [ "$1" = "with" ]; then
 		shift 1
-		echo "--with-$1=$HL_PREFIX"
+		echo "--with-$1=$(hl_prefix $2)"
 	elif [ "$1" = "without" ]; then
 		shift 1
-		echo "--without-$1=$HL_PREFIX"
+		echo "--without-$1=$(hl_prefix $2)"
 	else
-		echo "--with-$1=$HL_PREFIX"
+		echo "--with-$1=$(hl_prefix $2)"
 	fi
 }
 

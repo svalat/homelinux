@@ -97,29 +97,29 @@ into `homelinux/quickackages`. You can setup :
  * subdir to define the directory inside the archive if non standard.
  * patch if you want to apply some patches.
 
- Host checking
- -------------
+Host checking
+-------------
  
- HomeLinux can check if a package is available into the host it is running on. It break the dependency tree to not
- install packages which are already available in the system. You can force the installation by adding the package
- name to your command line if needed.
+HomeLinux can check if a package is available into the host it is running on. It break the dependency tree to not
+install packages which are already available in the system. You can force the installation by adding the package
+name to your command line if needed.
  
- To run it need to know the corresponding name for the distribution you are using. It can be found into `host` section
- of packages or into `packages/hosts` subdirectory.
+To run it need to know the corresponding name for the distribution you are using. It can be found into `host` section
+of packages or into `packages/hosts` subdirectory.
  
- Parallel build
- --------------
+Parallel build
+--------------
  
- HomeLinux support parallelisation of configure, downloading and build to get best performance of your machine. It is based
- on the `make` tool to handle the task management and define the full dependency tree. You need to ensure that the packages
- you are building have strict dependency defintion otherwise you will get some crash due to lack of required packages.
+HomeLinux support parallelisation of configure, downloading and build to get best performance of your machine. It is based
+on the `make` tool to handle the task management and define the full dependency tree. You need to ensure that the packages
+you are building have strict dependency defintion otherwise you will get some crash due to lack of required packages.
  
- It is a good way to enforce dep checking. You can use it by calling `pinstall` instead of `install`.
+It is a good way to enforce dep checking. You can use it by calling `pinstall` instead of `install`.
  
- Package inheritance
- -------------------
+Package inheritance
+-------------------
  
- For the internal packages. A package ca inherit from a model (or another package). In that case it will extend the already
- available dependencies, use flags, configure options, slots.... You can also override the building steps to provide you own
- commands.
+For the internal packages. A package ca inherit from a model (or another package). In that case it will extend the already
+available dependencies, use flags, configure options, slots.... You can also override the building steps to provide you own
+commands.
  

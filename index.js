@@ -84,9 +84,12 @@ if (command == "env")
 } else if (command == "prefix-of") {
 	var ret = prefix.prefixOfPackage(userConfig,process.argv[3]);
 	if (ret == null)
+	{
+		console.log("/usr");
 		process.exit(1);
-	else
+	} else {
 		console.log(userConfig.config.prefix);
+	}
 } else if (command == "is-pack-installed") {
 	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
 	if (pack.isInstalled() == false)
