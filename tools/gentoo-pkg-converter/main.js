@@ -51,7 +51,10 @@ for (var i in config)
 	if (config[i][0] == '@')
 	{
 		var args = config[i].split('@');
-		pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]);
+		if (args[1] == 'with' && args[4] != undefined)
+			pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]+"="+args[4]);
+		else
+			pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]);
 	} else {
 		pushIf(cfg,'',config[i]);
 	}

@@ -25,7 +25,7 @@ use_with()
 	if [ -z "$2" ]; then
 		echo "@with@$1@$1"
 	else
-		echo "@with@$1@$2"
+		echo "@with@$1@$2@$3"
 	fi
 }
 
