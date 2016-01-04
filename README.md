@@ -138,6 +138,8 @@ You can use the given commands to install search or sync your repos :
 	hl gen-install gentoo/htop
 ```
 
+You can find more information about HomeLinux concepts into [concepts](doc/concepts.md).
+
 What it setup
 -------------
 
