@@ -1,5 +1,5 @@
 {
-	"name": "sys-libs/ncurses",
+	"name": "sys-libs/ncursesw",
 	"homepage": "https://www.gnu.org/software/ncurses/",
 	"inherit": "models/autotools",
 	"versions": [ 
@@ -19,9 +19,10 @@
 		
 	],
 	"configure": {
+		"": [ "--enable-widec" ]
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libncurses5-dev" ]
+		"debian8": [ "libncursesw5-dev" ]
 	}
 }

@@ -9,19 +9,21 @@ var pack = process.argv[2];
 //fetch url
 var url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/"+pack;
 //console.log(" + Fetch : "+url);
-var rep = request('GET',url);
+// var rep = request('GET',url);
 
 //check error
-if (rep.statusCode != 200)
-	throw "Invalid status : "+rep.statusCode;
+// if (rep.statusCode != 200)
+// 	throw "Invalid status : "+rep.statusCode;
 
 //extract value
-var genpack = rep.body.toString();
+// var genpack = rep.body.toString();
 
 //write to file
-var fname = "/tmp/hl-gentoo-pack-to-convert.ebuild"
+// var fname = "/tmp/hl-gentoo-pack-to-convert.ebuild"
+var fname = "portage-stable/"+pack;
 //console.log(" + Save to temp : "+fname);
-fs.writeFileSync(fname,genpack);
+// fs.writeFileSync(fname,genpack);
+var genpack = fs.readFileSync(fname);
 
 //run
 child_process.execSync('./ebuild-extractor.sh checkout-portage');
@@ -119,7 +121,7 @@ function convertDeps(depString)
 	{
 		if (i == '')
 		{
-			final.concat(res[i]);
+			final = final.concat(res[i]);
 		} else {
 			for (var j in res[i])
 				final.push(i+"? "+res[i][j]);

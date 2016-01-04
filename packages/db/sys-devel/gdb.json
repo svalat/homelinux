@@ -1,0 +1,87 @@
+{
+	"name": "sys-devel/gdb",
+	"homepage": "http://sourceware.org/gdb/",
+	"versions": [
+		"7.10.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/gdb/",
+		"regexp": "gdb-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "gdb-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/gdb/gdb-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"client? sys-libs/ncurses :0",
+		"client? sys-libs/readline :0",
+		"client? virtual/yacc",
+		"client&expat? dev-libs/expat",
+		"client&lzma? app-arch/xz-utils",
+		"client&zlib? sys-libs/zlib",
+		"app-arch/xz-utils",
+		"client&test? dev-util/dejagnu",
+		"client&nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--disable-werror",
+			"--disable-binutils",
+			"--disable-etc",
+			"--disable-gas",
+			"--disable-gold",
+			"--disable-gprof",
+			"--disable-ld",
+			"--enable-64-bit-bfd",
+			"--disable-install-libbfd",
+			"--disable-install-libiberty",
+			"--without-guile",
+			"--disable-readline",
+			"--with-system-readline",
+			"--enable-targets=all"
+		],
+		"gentoo": [
+			"--with-separate-debug-dir=$PREFIX/usr/lib/debug"
+		],
+		"server": [
+			"--$enable-gdbserver"
+		],
+		"expat": [
+			"--$with-expat"
+		],
+		"lzma": [
+			"--$with-lzma"
+		],
+		"nls": [
+			"--$enable-nls"
+		],
+		"python": [
+			"--$with-python"
+		],
+		"zlib": [
+			"--$with-zlib"
+		]
+	},
+	"use": [
+		"+client",
+		"expat",
+		"lzma",
+		"multitarget",
+		"nls",
+		"+python",
+		"+server",
+		"test",
+		"vanilla",
+		"zlib",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gdb"
+		]
+	}
+}

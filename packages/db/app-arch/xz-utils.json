@@ -1,0 +1,55 @@
+{
+	"name": "app-arch/xz-utils",
+	"homepage": "http://tukaani.org/xz/",
+	"versions": [
+		"5.2.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://tukaani.org/xz/",
+		"regexp": "xz-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xz-${VERSION}",
+	"urls": [
+		"http://tukaani.org/xz/xz-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"gentooNot? app-arch/lzma",
+		"gentooNot? app-arch/lzma-utils",
+		"gentooNot? app-arch/p7zip"
+	],
+	"configure": {
+		"nls": [
+			"--$enable-nls"
+		],
+		"threads": [
+			"--$enable-threads"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"": [
+			"--disable-xz",
+			"--disable-xzdec",
+			"--disable-lzmadec",
+			"--disable-lzmainfo",
+			"--disable-lzma-links",
+			"--disable-scripts"
+		]
+	},
+	"use": [
+		"elibc_FreeBSD",
+		"nls",
+		"static-libs",
+		"+threads",
+		"gentooNot"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xz-utils"
+		]
+	}
+}

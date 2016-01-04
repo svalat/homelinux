@@ -9,11 +9,6 @@ PORTAGE_BIN_PATH=$PWD/portage/bin
 export PATH=$PWD/sandbox:$PATH
 S=$PWD/sandbox/
 
-if [ ! -d portage-stable ]; then
-	git clone git@github.com:coreos/portage-stable.git
-	git clone git@github.com:gentoo/portage.git
-fi
-
 inherit()
 {
 	for i in "$@"
@@ -45,7 +40,7 @@ case "$1" in
 		echo "$RDEPEND"
 		;;
 	'config')
-		src_configure || multilib_src_configure
+		src_configure || multilib_src_configure || ignore
 		;;
 	'use')
 		echo $IUSE

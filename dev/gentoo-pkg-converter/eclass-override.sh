@@ -90,4 +90,24 @@ einfo()
 	ignore
 }
 
+inherit()
+{
+	ignore
+}
+
+gnome2_src_configure()
+{
+	econf "$@"
+}
+
+multilib_native_use_enable()
+{
+	ignore
+}
+
+strip-unsupported-flags()
+{
+	ignore
+}
+
 MULTILIB_USEDEP=""
