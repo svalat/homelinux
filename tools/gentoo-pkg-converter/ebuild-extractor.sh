@@ -45,7 +45,7 @@ case "$1" in
 		echo "$RDEPEND"
 		;;
 	'config')
-		src_configure
+		src_configure || multilib_src_configure
 		;;
 	'use')
 		echo $IUSE

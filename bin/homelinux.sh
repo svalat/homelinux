@@ -114,7 +114,7 @@ case "$1" in
 		shift 1
 		node index.js install-ls "$@"
 		yesno
-		fname=$(tempfile -p homelinux)
+		fname=$(mktemp)
 		node index.js gen-install "$@" > $fname
 		bash $fname
 		rm $fname
@@ -134,7 +134,7 @@ case "$1" in
 		shift 1
 		echo "You will uninstall $@"
 		yesno
-		fname=$(tempfile -p homelinux)
+		fname=$(mktemp)
 		node index.js gen-uninstall "$@" > $fname
 		bash $fname hl_uninstall
 		rm $fname

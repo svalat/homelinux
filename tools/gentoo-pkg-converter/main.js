@@ -111,22 +111,35 @@ function convertDeps(depString)
 		}
 	}
 	
-	return res;
+	var final = [];
+	for (var i in res)
+	{
+		if (i == '')
+		{
+			final.concat(res[i]);
+		} else {
+			for (var j in res[i])
+				final.push(i+"? "+res[i][j]);
+		}
+	}
+	
+	return final;
 }
 
 //final
 var final = {
 	name: getPackNameInfo(pack).name,
+	homepage: parts.home,
 	versions: [ getPackNameInfo(pack).version ],
 	inherit: "models/autotools",
 	vfetcher: {
 			mode: "http",
-			url: "",
+			url: "XXXXXXX",
 			regexp: getPackNameInfo(pack).shortName+"-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	md5: {},
 	subdir: getPackNameInfo(pack).shortName+"-${VERSION}",
-	urls: [ "http://XXXXXX/"+getPackNameInfo(pack).shortName+"-${VERSION}.tar.bz2" ],
+	urls: [ "XXXXXX/"+getPackNameInfo(pack).shortName+"-${VERSION}.tar.bz2" ],
 	deps: convertDeps(parts.deps),
 	configure: cfg,
 	use: parts.use.split(' '),
