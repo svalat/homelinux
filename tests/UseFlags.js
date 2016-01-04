@@ -50,18 +50,18 @@ describe("UseFlags.apply",function() {
     it("case-1",function() {
         test.bool(UseFlags.apply(["+svg","-debug","png"],"+svg")).isTrue();
         test.bool(UseFlags.apply(["+svg","-debug","png"],"svg")).isTrue();
-        test.bool(UseFlags.apply(["+svg","-debug","png"],"-svg")).isFalse();
+        test.value(UseFlags.apply(["+svg","-debug","png"],"-svg")).isNull();
     });
     
     it("case-2",function() {
-        test.bool(UseFlags.apply(["+svg","-debug","png"],"+debug")).isFalse();
+        test.value(UseFlags.apply(["+svg","-debug","png"],"+debug")).isNull();
         test.bool(UseFlags.apply(["+svg","-debug","png"],"debug")).isFalse();
         test.bool(UseFlags.apply(["+svg","-debug","png"],"-debug")).isTrue();
     });
     
     it("case-3",function() {
-        test.bool(UseFlags.apply(["+svg","-debug","png"],"+png")).isFalse();
+        test.value(UseFlags.apply(["+svg","-debug","png"],"+png")).isNull();
         test.value(UseFlags.apply(["+svg","-debug","png"],"png")).isNull();
-        test.bool(UseFlags.apply(["+svg","-debug","png"],"-png")).isFalse();
+        test.value(UseFlags.apply(["+svg","-debug","png"],"-png")).isNull();
     });
 });

@@ -44,7 +44,7 @@
 		"gsm? media-sound/gsm",
 		"jpeg? virtual/jpeg",
 		"ldap? net-nds/openldap",
-		"lcms? media-libs/lcms2",
+		"lcms? media-libs/lcms",
 		"mp3? media-sound/mpg123",
 		"netapi? net-fs/samba",
 		"nls? sys-devel/gettext",
@@ -110,7 +110,7 @@
 		"xcomposite": [ "--$with-xcomposite" ],
 		"xinerama" : [ "--$with-xinerama" ],
 		"xml": [ "--$with-xml", "--$with-xslt" ],
-		"+pulseaudio": [ "--with-pulse" ]
+		"+pulseaudio": [ "--$with-pulse" ]
 	},
 	"host": {
 		"default": false,

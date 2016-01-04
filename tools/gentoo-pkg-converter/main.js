@@ -37,10 +37,13 @@ var parts = {
 
 function pushIf(array,key,value)
 {
-	if (array[key] == undefined)
-		array[key] = [];
-	if (array[key].indexOf(value) == -1)
-		array[key].push(value);
+	if (value != "")
+	{
+		if (array[key] == undefined)
+			array[key] = [];
+		if (array[key].indexOf(value) == -1)
+			array[key].push(value);
+	}
 }
 
 //gen configure

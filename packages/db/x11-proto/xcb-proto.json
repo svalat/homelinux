@@ -1,0 +1,31 @@
+{
+	"name": "x11-proto/xcb-proto",
+	"homepage": "http://xcb.freedesktop.org/",
+	"versions": [
+		"1.11"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xcb.freedesktop.org/dist/",
+		"regexp": "xcb-proto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xcb-proto-${VERSION}",
+	"urls": [
+		"http://xcb.freedesktop.org/dist/xcb-proto-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libxml2"
+	],
+	"configure": {
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xcb-proto"
+		]
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"name": "x11-lib/xtrans",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.3.5"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "xtrans-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xtrans-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/xtrans-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"": [ "--without-fop" ]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xtrans-dev"
+		]
+	}
+}

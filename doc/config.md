@@ -69,3 +69,6 @@ It contains :
  usefull for developper to not redownload the archives if you remove the prefix
  to restart with a fresh version to check package dependencies.
  * *ccache* : Enable loading of ccache paths.
+ * *pyEnv* : Enable python wrappers which automatically setup the good PYTHONPATH
+ depending on the python version you call. It wrap all the python and pip commands
+ with a bash script.

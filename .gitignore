@@ -1,3 +1,5 @@
 **/node_modules
 /Vagrantfile
 /.vagrant
+**/gentoo-pkg-converter/portage-stable
+**/gentoo-pkg-converter/portage

@@ -17,7 +17,6 @@
 	],
 	"deps": [
 		"gentoo/e2fsprogs",
-		"gentoo? sys-fs/e2fsprogs",
 		"app-arch/bzip2",
 		"gentoo? sys-libs/zlib",
 		"ermt&-libressl? dev-libs/openssl:0",

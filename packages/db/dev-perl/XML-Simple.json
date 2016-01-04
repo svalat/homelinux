@@ -1,0 +1,34 @@
+{
+	"name": "dev-libs/XML-Simple",
+	"homepage": "http://search.cpan.org/dist/XML-Simpl/",
+	"inherit": "models/perl",
+	"versions": [ 
+		"2.22" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/GRANTM/",
+		"regexp": "^XML-Simple-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "XML-Simple-${VERSION}",
+	"urls" : [
+		"http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-Simple-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"gentoo? virtual/perl-Storable",
+		"dev-perl/XML-SAX",
+		"dev-perl/XML-LibXML",
+		"dev-perl/XML-NamespaceSupport",
+		"dev-perl/XML-Parser"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libxml-simple-perl" ]
+	},
+	"use": [
+		"gentoo"
+	]
+}

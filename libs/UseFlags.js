@@ -124,7 +124,7 @@ UseFlags.prototype.apply = function(list,flag)
     } else if (mode == '-' && status == "-") {
         return true;
     } else {
-        return false;
+        return null;
     }
 };
 

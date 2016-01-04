@@ -13,6 +13,8 @@
 	"use": {
 		"all": []
 	},
+	"modules": {
+	},
 	"gentoo" : {
 		"server":"gentoo.mirrors.ovh.net",
 		"port": 21,

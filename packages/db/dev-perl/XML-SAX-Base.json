@@ -1,0 +1,28 @@
+{
+	"name": "dev-libs/XML-SAX-Base",
+	"homepage": "http://search.cpan.org/dist/XML-SAX-Base/",
+	"inherit": "models/perl",
+	"versions": [ 
+		"1.08" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/GRANTM/",
+		"regexp": "^XML-SAX-Base-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "XML-SAX-Base-${VERSION}",
+	"urls" : [
+		"http://search.cpan.org/CPAN/authors/id/G/GR/GRANTM/XML-SAX-Base-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libxml-sax-base-perl" ]
+	},
+	"use": [
+	]
+}
