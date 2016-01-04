@@ -7,6 +7,7 @@ MULTILIB_USEDEP=""
 PORTAGE_BIN_PATH=$PWD/portage/bin
 
 export PATH=$PWD/sandbox:$PATH
+S=$PWD/sandbox/
 
 if [ ! -d portage-stable ]; then
 	git clone git@github.com:coreos/portage-stable.git

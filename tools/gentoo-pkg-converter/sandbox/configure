@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "$@" > /tmp/hl_pkg_convert_conf.txt
+
