@@ -16,19 +16,54 @@
 		"http://ftp.gnome.org/mirror/gnome.org/sources/gdk-pixbuf/$(echo $VERSION | cut -d '.' -f 1-2)/gdk-pixbuf-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"media-libs/tiff",
-		"media-libs/jpeg",
-		"dev-util/gtk-doc",
+		"dev-libs/glib:2",
+		"media-libs/libpng:0",
+		"TODO? dev-util/gtk-doc-am",
 		"sys-devel/gettext",
-		"dev-libs/glib",
 		"virtual/pkgconfig",
-		"media-libs/libpng"
+		"introspection? dev-libs/gobject-introspection",
+		"jpeg? virtual/jpeg:0",
+		"jpeg2k? media-libs/jasper",
+		"tiff? media-libs/tiff:0",
+		"X? x11-libs/libX11"
 	],
 	"configure": {
-		"": [ "$(hl_with tiff media-libs/tiff)", "LDFLAGS=-L$PREFIX/lib" ]
+		"+debug": [
+			"--enable-debug=yes"
+		],
+		"jpeg": [
+			"--$with-libjpeg=$(hl_prefix virtual/jpeg:0)"
+		],
+		"jpeg2k": [
+			"--$with-libjasper=$(hl_prefix media-libs/jasper)"
+		],
+		"tiff": [
+			"--$with-libtiff=$(hl_prefix media-libs/tiff:0)"
+		],
+		"X": [
+			"--$with-x11=$(hl_prefix x11-libs/libX11)"
+		],
+		"": [
+			"--with-libpng=$(hl_prefix media-libs/libpng)",
+			"LDFLAGS=-L$PREFIX/lib"
+		]
 	},
 	"host": {
 		"default": false,
 		"debian8": [ "libgdk-pixbuf2.0-dev" ]
+	},
+	"use": [
+		"X",
+		"debug",
+		"+introspection",
+		"jpeg",
+		"jpeg2k",
+		"tiff",
+		"test",
+		"-TODO"
+	],
+	"slots": {
+		"2": ">=2.0 <3.0",
+		"3": ">3.0"
 	}
 }

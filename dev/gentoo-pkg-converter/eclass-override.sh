@@ -20,6 +20,16 @@ emake()
 	ignore
 }
 
+usex()
+{
+	if [ ! -z "$2" ]; then
+		echo "@on@+$1@$2@$4"
+	fi
+	if [ ! -z "$3" ]; then
+		echo "@on@-$1@$3@$5"
+	fi
+}
+
 use_with()
 {
 	if [ -z "$2" ]; then
@@ -131,6 +141,11 @@ tc-is-static-only()
 }
 
 db_findver()
+{
+	ignore
+}
+
+multilib_is_native_abi()
 {
 	ignore
 }

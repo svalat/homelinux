@@ -255,7 +255,7 @@ Prefix.prototype.getQuick = function(prop,packageName,defaultValue)
 		else
 			return this.quicksubdir[packageName][0];
 	} else {
-		throw "Invalid part : "+prop;
+		throw new Error("Invalid part : "+prop);
 	}
 };
 
@@ -359,7 +359,7 @@ Prefix.prototype.buildGithubPackage = function(qp)
 	{
 		ret = JSON.parse(ret.getBody('utf8'));
 		if (ret.tag_name == undefined)
-			throw "Fail to find last release of package on github";
+			throw new Error("Fail to find last release of package on github");
 		
 		//gen
 		qp.version = ret.tag_name.replace('v','');
@@ -376,7 +376,7 @@ Prefix.prototype.buildGithubPackage = function(qp)
 			}
 		});
 		if (ret.statusCode != 200)
-			throw 'Failed to search version on github !';
+			throw new Error('Failed to search version on github !');
 		ret = JSON.parse(ret.getBody('utf8'));
 		
 		//gen
@@ -558,7 +558,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	else if (qp.source == 'urls')
 		qp = this.buildUrlsQuickPackage(qp);
 	else
-		throw "Unexpected qp.source !"
+		throw new Error("Unexpected qp.source !")
 
 	//if auto & undef try urls
 	if (qp == undefined && auto ==true)

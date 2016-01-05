@@ -74,4 +74,6 @@ gentoo/libdrm libpthread-stubs libpciaccess
 gentoo/libxcb xcb-proto libXau libpthread-stubs
 gentoo/udisks libgudev
 gentoo/libgudev udev
+gentoo/libmng lcms
+gentoo/gobject-introspection glib:2
 #################################### FOR USER ######################################

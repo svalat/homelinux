@@ -58,10 +58,15 @@ for (var i in config)
 	if (config[i][0] == '@')
 	{
 		var args = config[i].split('@');
-		if (args[1] == 'with' && args[4] != undefined)
-			pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]+"="+args[4]);
-		else
-			pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]);
+		if (args[1] == 'with' || args[1] == 'enable')
+		{
+			if (args[1] == 'with' && args[4] != undefined)
+				pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]+"="+args[4]);
+			else
+				pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]);
+		} else if (args[1] == 'on') {
+			pushIf(cfg,args[2],args[3]);
+		}
 	} else {
 		pushIf(cfg,'',config[i]);
 	}
@@ -69,7 +74,7 @@ for (var i in config)
 
 function getPackNameInfo(pack)
 {
-	var regexp = new RegExp("^([a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([0-9.]+)(-r[0-9]+)?.ebuild$");
+	var regexp = new RegExp("^([a-zA-Z0-9_-]+/[a-zA-Z0-9_+-]+)/([a-zA-Z0-9_+-]+)-([0-9.]+)(-r[0-9]+)?.ebuild$");
 	var res = regexp.exec(pack);
 	if (res == null)
 		throw "Invalid package name "+pack;
@@ -96,14 +101,14 @@ function convertDeps(depString)
 	var state = [];
 	
 	var regexpUseFilter = new RegExp("^([a-zA-Z0-9_-]+)\\? \\((.+)\\)$");
-	var regexpOpen = new RegExp("^([a-zA-Z10-9_-]+)\\? \\($");
+	var regexpOpen = new RegExp("^(!?[a-zA-Z10-9_-]+)\\? \\($");
 	var regexpClose = new RegExp("^\\)$");
 	
 	for (var i in deps)
 	{
 		var d = deps[i].trim();
 		if (regexpOpen.test(d)) {
-			state.push(regexpOpen.exec(d)[1]);
+			state.push(regexpOpen.exec(d)[1].replace('!','-'));
 		} else if (regexpClose.test(d)) {
 			state.pop();
 		} else if (regexpUseFilter.test(d)) {

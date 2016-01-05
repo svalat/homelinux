@@ -255,7 +255,7 @@ PackageBuilder.prototype.buildOptions = function()
 	var configure = this.getProperty('configure');
 	
 	//build
-	this.buildUseFlagList();
+// 	this.buildUseFlagList();
 	
 	//options
 	for (var i in configure)

@@ -34,7 +34,8 @@
 		"debian8": [ "atk" ]
 	},
 	"use": [
-		"-introspection",
-		"-nls"
+		"+introspection",
+		"nls",
+		"test"
 	]
 }

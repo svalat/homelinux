@@ -91,7 +91,7 @@ HostPkgChecker.prototype.presentOnSystem = function(p)
 	} else if (this.userConfig.config.host == 'debian8') {
 		return this.presentOnSystemDebian8(p);
 	} else {
-		throw "Unsupposed host system to check deps, please use default in that case !";
+		throw new Error("Unsupposed host system to check deps, please use default in that case !");
 	}
 };
 
