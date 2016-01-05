@@ -21,6 +21,7 @@ var request = require('request');
 var Batch = require('batch')
 var PackageBuilder = require('./PackageBuilder');
 var httpreq = require('sync-request');
+// var async = require('async');
 
 /*********************  CLASS  **********************/
 function VersionFetcher()
@@ -73,6 +74,21 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 			packs.push(new PackageBuilder(prefix,userConfig,p,false));
 		}
 	}
+	
+	//keep this commented, this is usefull to detect double callback calls
+	//which are not detected by batch
+	/*var self = this;
+	async.each(packs, function(p, done) {
+		self.fetchVersions(p,done);
+	}, function(err) {
+		if( err ) {
+			console.log("Get error : "+err);
+		} else {
+			console.log("Finished without errors");
+			self.saveAll(prefix,packs);
+		}
+	});
+	return;*/
 	
 	//fetch all
 	var batch = new Batch();
@@ -270,6 +286,7 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 	if (Array.isArray(lst) == false)
 		lst = [ lst ];
 
+
 	var cnt = 0;
 	for (var i in lst)
 	{
@@ -278,23 +295,26 @@ VersionFetcher.prototype.fetchVersionsFromApacheHttpList = function(pack,callbac
 			method: 'GET',
 			url: lst[i]
 		}, function(err, response, body) {
-			if (err) return console.error(err);
-
-			// Tell Cherrio to load the HTML
-			$ = cheerio.load(body);
-			$('a').each(function() {
-					var href = $(this).text();
-					//console.log(href);
-					self.checkFile(pack,href);
-			});
-			
-			//sort & uniq
-			pack.pack.versions = sort_unique(pack.pack.versions);
-			console.log(pack.pack.name);
-// 			console.log(pack.pack.name+" : "+pack.pack.versions);
-			
-			if (callback != undefined && ++cnt == lst.length)
-				callback(null,pack);
+			if (err) 
+			{
+				handleError(callback,new Error("Get error for "+pack.pack.name+" : "+err));
+			} else {
+				// Tell Cherrio to load the HTML
+				$ = cheerio.load(body);
+				$('a').each(function() {
+						var href = $(this).text();
+						//console.log(href);
+						self.checkFile(pack,href);
+				});
+				
+				//sort & uniq
+				pack.pack.versions = sort_unique(pack.pack.versions);
+				console.log(pack.pack.name);
+	// 			console.log(pack.pack.name+" : "+pack.pack.versions);
+				
+				if (callback != undefined && ++cnt == lst.length)
+					callback(null,pack);
+			}
 		});
 	}
 };
