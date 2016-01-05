@@ -193,13 +193,13 @@ HomeLinuxManager.prototype.listInstalled = function()
 /*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.search = function(packName)
 {
-	this.homelinux.prefix.search(process.argv[3]);
+	this.homelinux.search(packName);
 }
 
 /*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.export = function()
 {
-	this.homelinux.prefix.export(this.homelinux.userConfig);
+	this.homelinux.export();
 }
 
 /********************  GLOBALS  *********************/

@@ -25,6 +25,7 @@ function HomeLinux(hlPrefix)
 	this.hlPrefix = hlPrefix;
 	this.userConfig = new UserConfig();
 	this.prefix = new Prefix(this.userConfig,this.userConfig.config.prefix);
+	this.mainPrefix = this.prefix;
 }
 
 /*******************  FUNCTION  *********************/
@@ -44,7 +45,7 @@ HomeLinux.prototype.getHLFile = function(fname)
 **/
 HomeLinux.prototype.getPrefixFile = function(fname)
 {
-	return this.prefix.prefix+"/homelinux/"+fname;
+	return this.mainPrefix.prefix+"/homelinux/"+fname;
 }
 
 /*******************  FUNCTION  *********************/
@@ -57,6 +58,7 @@ HomeLinux.prototype.fillEnv = function(envSetup)
 HomeLinux.prototype.switchPrefix = function(targetPrefix)
 {
 	this.prefix = new Prefix(this.userConfig,targetPrefix);
+	this.mainPrefix = this.prefix;
 }
 
 /*******************  FUNCTION  *********************/
@@ -74,6 +76,18 @@ HomeLinux.prototype.listInstalled = function(parentPrefix)
 			inherit.listInstalled();
 		}
 	}
+}
+
+/*******************  FUNCTION  *********************/
+HomeLinux.prototype.search = function(packName)
+{
+	this.mainPrefix.search(packName);
+}
+
+/*******************  FUNCTION  *********************/
+HomeLinux.prototype.export = function()
+{
+	this.prefix.export(this.userConfig);
 }
 
 /********************  GLOBALS  *********************/
