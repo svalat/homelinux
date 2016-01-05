@@ -49,11 +49,17 @@ function EnvSetup(userConfig)
 /*******************  FUNCTION  *********************/
 EnvSetup.prototype.loadModules = function(load)
 {
-	for (var i in this.userConfig.config.modules)
+	//get list
+	var modules = this.userConfig.getModules();
+	
+	//loop
+	for (var i in modules)
+	{
 		if (load == undefined || load == true)
-			console.log("module load "+this.userConfig.config.modules[i]);
+			console.log("module load "+modules[i]);
 		else
-			console.log("module unload "+this.userConfig.config.modules[i]);
+			console.log("module unload "+modules[i]);
+	}
 }
 
 /*******************  FUNCTION  *********************/

@@ -47,6 +47,12 @@ function UserConfig()
 }
 
 /*******************  FUNCTION  *********************/
+UserConfig.prototype.getModules = function ()
+{
+	return this.config.modules;
+}
+
+/*******************  FUNCTION  *********************/
 UserConfig.prototype.print = function()
 {
 	console.log(this.config);

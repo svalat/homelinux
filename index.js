@@ -6,115 +6,70 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
-var UserConfig = require('./libs/UserConfig');
-var Prefix = require('./libs/Prefix');
-var EnvSetup = require('./libs/EnvSetup');
-var PackageBuilder = require('./libs/PackageBuilder');
-var DbManager = require('./libs/DbManager');
-var VersionFetcher = require('./libs/VersionFetcher');
-var depsLoader = require('./libs/DepsLoader');
+var HomeLinuxManager = require('./libs/HomeLinuxManager');
 
-var userConfig = new UserConfig();
-// userConfig.print();
+//load homelinux configs
+var hlManager = new HomeLinuxManager();
+var homelinux = hlManager.homelinux;
 
-var prefix = new Prefix(userConfig,userConfig.config.prefix);
-// prefix.print();
-
+//extract command
 var command = process.argv[2];
 
-if (command == "env")
+//apply
+switch(command)
 {
-	var envSetup = new EnvSetup(userConfig);
-	prefix.fillEnv(envSetup);
-	envSetup.print();
-	envSetup.loadModules(true);
-	envSetup.enableCCache();
-	envSetup.enablePyEnv();
-} else if (command == "unenv") {
-	var envSetup = new EnvSetup(userConfig);
-	envSetup.removeExisting();
-	envSetup.loadModules(false);
-	envSetup.print();
-} else if (command == "switch") {
-	var envSetup = new EnvSetup(userConfig);
-	envSetup.removeExisting();
-	//load new
-	var prefix = new Prefix(process.argv[3]);
-	prefix.fillEnv(envSetup);
-	envSetup.enableCCache();
-	envSetup.print();
-} else if (command == "install") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	//pack.printDebug();
-	pack.install();
-	//console.log(pack.genScript())
-} else if (command == "pinstall") {
-	var packs = new depsLoader(prefix,userConfig,process.argv.slice(4,process.argv.length));
-	packs.genParallelScripts(process.argv[3]);
-	console.log(packs.genParallelMakefile(process.argv[3]));
-} else if (command == "gen-package") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	console.log(pack.origPack)
-} else if (command == "gen-full-package") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	console.log(pack.pack)
-} else if (command == "gen-install") {
-	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
-	console.log(packs.genScript())
-} else if (command == "install-ls") {
-	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
-	packs.printList();
-} else if (command == "gen-uninstall") {
-	var packs = new depsLoader(prefix,userConfig,process.argv.slice(3,process.argv.length));
-	console.log(packs.genScript(true))
-} else if (command == "update-db") {
-	//gentoo db
-	var dbManager = new DbManager(prefix);
-	dbManager.fetchGentoo(function() {
-		//versions
-		var fetcher = new VersionFetcher();
-		fetcher.fetchAll(prefix,userConfig);
-	});
-} else if (command == "fetch-versions") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3],false);
-	var fetcher = new VersionFetcher();
-	fetcher.fetchVersions(pack,function(){
-		console.log(pack.pack.versions);
-	});
-} else if (command == "prefix-of") {
-	var ret = prefix.prefixOfPackage(userConfig,process.argv[3]);
-	if (ret == null)
-	{
-		console.log("/usr");
-		process.exit(1);
-	} else {
-		console.log(userConfig.config.prefix);
-	}
-} else if (command == "is-pack-installed") {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	if (pack.isInstalled() == false)
-	{
-		console.log(process.argv[3]+" not installed");
-		process.exit(1);
-	} else {
-		console.log(process.argv[3]+" installed");
-	}
-} else if (command == 'ls') {
-	prefix.listInstalled();
-} else if (command == 'search') {
-	prefix.search(process.argv[3]);
-} else if (command == 'export') {
-	prefix.export(userConfig);
-} else if (command == 'prefix-of') {
-	var pack = new PackageBuilder(prefix,userConfig,process.argv[3]);
-	var pref = prefix.getPrefixOf(pack);
-	if (pref != null)
-	{
-		console.log(pref.prefix);
-	} else {
-		console.error("Failed to find package "+pack.getNameSlot());
-		process.exit(1);
-	}
-} else {
-	console.error("Invalid command : '"+userConfig,command+"', please check --help|-h");
+	case 'env':
+		hlManager.printEnvSetup();
+		break;
+	case 'unenv':
+		hlManager.printUnsetEnv();
+		break;
+	case 'switch':
+		hlManager.printSwitchPrefix(process.argv[3]);
+		break;
+	case 'install':
+		hlManager.installOnPackage(process.argv[3]);
+		break;
+	case 'pinstall':
+		hlManager.printParalelInstallMakefile(process.argv[3],process.argv.slice(4,process.argv.length));
+		break;
+	case 'gen-package':
+		hlManager.printPackage(process.argv[3]);
+		break;
+	case 'gen-full-package':
+		hlManager.printFullPackage(process.argv[3]);
+		break;
+	case 'gen-install':
+		hlManager.printInstallScript(process.argv.slice(3,process.argv.length));
+		break;
+	case 'install-ls':
+		hlManager.printInstallList(process.argv.slice(3,process.argv.length));
+		break;
+	case 'gen-uninstall':
+		hlManager.printUninstallScript(process.argv.slice(3,process.argv.length));
+		break;
+	case 'update-db':
+		hlManager.updateDb();
+		break;
+	case 'fetch-versions':
+		hlManager.printFetchedVersions(process.argv[3]);
+		break;
+	case 'prefix-of':
+		hlManager.printPrefixOf(process.argv[3]);
+		break;
+	case 'is-pack-installed':
+		hlManager.testPackInstalled(process.argv[3]);
+		break;
+	case 'ls':
+		hlManager.listInstalled();
+		break;
+	case 'search':
+		hlManager.search(process.argv[3]);
+		break;
+	case 'export':
+		hlManager.export();
+		break;
+	default:
+		console.error("Invalid command : '"+homelinux.userConfig,command+"', please check --help|-h");
+		break;
 }

@@ -125,6 +125,12 @@ Prefix.prototype.load = function(prefixPath)
 };
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.getInheritPrefixes = function()
+{
+	return thus.inherit;
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Loop under the inhertied prefix to fill the environnement variables.
  * @param env Define the environnement setting object.
