@@ -49,6 +49,8 @@ Commands:
 	search            : Search for matching packages in the available dbs.
 	export            : Export the current config and list of packages.
 	prefix-of         : Provide the path of the prefix of requested package.
+	jump              : Start a shell configured for the hl prefix. You
+	                    can optionally provide a command to run into this shell.
 "
 
 ######################################################
@@ -103,6 +105,18 @@ function hlPyEnvSetup()
 }
 
 ######################################################
+function setHlEnv()
+{
+	eval "$($HLPATH/hl env)"
+}
+
+######################################################
+#If env is not set, we load it to be sure to get PKG_CONFIG, CPATH....
+if [ -z "$HL_PREFIX_PATH" ] && [ "$1" != "env" ]; then
+	setHlEnv
+fi
+
+######################################################
 case "$1" in
 	"build-cache")
 		$(dirname $0)/hl-build-cache
@@ -145,6 +159,16 @@ case "$1" in
 	"env")
 		node index.js env
 		loadModule
+		;;
+	"jump")
+		shift 1
+		if [ ! -z "$*" ]; then
+			"$@"
+			exit $?
+		else
+			$SHELL
+			exit $?
+		fi
 		;;
 	*)
 		node index.js "$@"

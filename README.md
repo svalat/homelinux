@@ -74,6 +74,12 @@ Now you can load the configuration into your `~/.bashrc` :
 
 	eval "`$HOME/usr/bin/hl env`"
 
+If you don't want HomeLinux to interfer with your default environenement, you can
+jump to the HomeLinux sessions with :
+
+	$HOME/usr/bin/hl jump          #start a shell with HL env
+	$HOME/usr/bin/hl jump firefox  #run the HL firefix (if installed).
+
 Before usage you need to create the cache with :
 
 	hl update-db
@@ -129,6 +135,14 @@ You can use the given commands to install search or sync your repos :
 	
 	#uninstall htop (only if you enable stow support in prefix config)
 	hl unstinall htop
+	
+	#Jump into the HL env
+	hl jump
+	
+	#Run a command from hl env (without setting the global env)
+	#You can use alias to export HL commands to your shell
+	#without setting the full HL env
+	hl jump gcc-5.2
 	
 	#Whatch generated quickpackages
 	hl gen-package gentoo/htop

@@ -113,10 +113,7 @@ Prefix.prototype.load = function(prefixPath)
 	
 	//override by user
 	if (this.userConfig.config.prefixOverride != undefined && this.userConfig.config.prefixOverride[prefixPath] != undefined)
-	{
 		this.config = jso(this.config,this.userConfig.config.prefixOverride[prefixPath]);
-		console.log(this.config);
-	}
 	
 	//load inherited
 	this.inherit = [];
