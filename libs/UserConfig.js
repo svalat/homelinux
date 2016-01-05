@@ -24,7 +24,7 @@ function UserConfig()
 {
 	//default
 	var defaultConfig = {
-		prefix: process.env.HOME + "/usr",
+		prefix: "HL_DEFAULT_PREFIX",
 		host: "default",
 		python: "2.7",
 		modules: [],

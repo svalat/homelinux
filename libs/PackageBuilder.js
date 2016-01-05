@@ -394,6 +394,8 @@ PackageBuilder.prototype.getUseFlagStatusList = function()
 		if (this.pack.hiddenUse == undefined || this.pack.hiddenUse.indexOf(UseFlags.getFlagName(flags[i])) == -1)
 			ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
 	}
+
+	return ret;
 };
 
 /*******************  FUNCTION  *********************/

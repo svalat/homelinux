@@ -24,6 +24,7 @@ install: check
 	cp bin/hl-build-cache.sh $(DEST)/bin/hl-build-cache
 	mkdir -p $(DEST)/lib/homelinux
 	cp -r index.js libs $(DEST)/lib/homelinux
+	sed -i $(DEST)/lib/homelinux/libs/UserConfig.js -e "s#HL_DEFAULT_PREFIX#${PREFIX}#g"
 	mkdir -p $(DEST)/homelinux
 	cp -r packages $(DEST)/homelinux
 	cp -r node_modules $(DEST)/lib/homelinux
