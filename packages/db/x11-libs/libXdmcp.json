@@ -1,0 +1,39 @@
+{
+	"name": "x11-libs/libXdmcp",
+	"homepage": "",
+	"versions": [
+		"1.1.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXdmcp-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXdmcp-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXdmcp-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libbsd",
+		"x11-proto/xproto"
+	],
+	"configure": {
+		"test": [
+			"--$enable-default-make-check"
+		],
+		"": [
+			"--disable-update-mimedb"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxdmcp-dev"
+		]
+	}
+}

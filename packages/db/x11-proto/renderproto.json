@@ -1,0 +1,33 @@
+{
+	"name": "x11-proto/renderproto",
+	"homepage": "",
+	"versions": [
+		"0.11.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "XXXXhttp://xorg.freedesktop.org/releases/individual/protoXXX",
+		"regexp": "renderproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "renderproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/prot/renderproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-render-dev"
+		]
+	}
+}

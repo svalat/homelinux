@@ -1,0 +1,46 @@
+{
+	"name": "x11-libs/libX11",
+	"homepage": "",
+	"versions": [
+		"1.6.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/xcb/lib/",
+		"regexp": "libX11-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libX11-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/xcb/lib/libX11-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libxcb",
+		"x11-libs/xtrans",
+		"x11-proto/xproto",
+		"x11-proto/xf86bigfontproto",
+		"x11-proto/inputproto",
+		"x11-proto/kbproto",
+		"x11-proto/xextproto",
+		"test? dev-lang/perl"
+	],
+	"configure": {
+		"test": [
+			"--$enable-default-make-check"
+		],
+		"": [
+			"--disable-update-mimedb"
+		]
+	},
+	"use": [
+		"ipv6",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libx11-dev"
+		]
+	}
+}

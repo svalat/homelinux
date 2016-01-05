@@ -1,0 +1,36 @@
+{
+	"name": "media-fonts/font-util",
+	"homepage": "",
+	"versions": [
+		"1.3.1"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/font/",
+		"regexp": "font-util-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "font-util-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/font/font-util-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"test": [
+			"--$enable-default-make-check"
+		],
+		"": [
+			"--disable-update-mimedb"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xfont-utils"
+		]
+	}
+}
