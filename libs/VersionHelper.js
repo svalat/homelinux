@@ -104,7 +104,7 @@ VersionHelper.prototype.applyVersionOp = function(pack,op,version)
 			ret = (slot == operand);
 			break;
 		default:
-			throw "Invalid operator "+ operator+" in "+op+" of package "+pack.name;
+			throw new Error("Invalid operator "+ operator+" in "+op+" of package "+pack.name);
 	}
 	
 	//console.error("Apply "+operator +" on "+operand+" and "+version+" => "+ret);

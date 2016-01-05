@@ -20,6 +20,15 @@ function UseFlags()
 }
 
 /*******************  FUNCTION  *********************/
+UseFlags.prototype.getFlagName = function(flag)
+{
+	if (flag[0] == '+' || flag[0] == '-')
+		return flag.slice(1);
+	else
+		return flag;
+}
+
+/*******************  FUNCTION  *********************/
 UseFlags.prototype.merge = function(values,additional,force)
 {
 	if (values == undefined)

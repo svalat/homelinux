@@ -47,5 +47,14 @@
 		"xorg-video-driver",
 		"xorg-dri",
 		"xorg-doc"
+	],
+	"hiddenUse": [
+		"xorg-util-macro",
+		"xorg-font-util",
+		"xorg-font",
+		"xorg-input-driver",
+		"xorg-video-driver",
+		"xorg-dri",
+		"xorg-doc"
 	]
 }

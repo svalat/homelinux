@@ -384,7 +384,10 @@ PackageBuilder.prototype.getUseFlagStatusString = function()
 	var flags = this.getProperty('use');
 	var ret = [];
 	for (var i in flags)
-		ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
+	{
+		if (this.pack.hiddenUse == undefined || this.pack.hiddenUse.indexOf(UseFlags.getFlagName(flags[i])) == -1)
+			ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
+	}
 		
 	return ret.join(' ');
 };
