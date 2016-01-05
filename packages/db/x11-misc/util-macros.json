@@ -4,7 +4,7 @@
 	"versions": [
 		"1.19.0"
 	],
-	"inherit": "models/xorg-2",
+	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://xorg.freedesktop.org/releases/individual/util/",
@@ -25,7 +25,7 @@
 		]
 	},
 	"use": [
-		""
+		"test"
 	],
 	"host": {
 		"default": false,

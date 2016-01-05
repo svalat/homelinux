@@ -93,6 +93,14 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 	if (p == null)
 		return;
 	
+	//loop detection
+	if (p.loopChecker == undefined)
+		p.loopChecker = 0;
+	else
+		p.loopChecker++;
+	if (p.loopChecker > 500)
+		throw "Seems infinit loop in package "+p.getNameSlot();
+	
 	//TODO take care of reapplying the wall tree if introduce new deps
 	p.checkUseFlagHints();
 	p.applyVersionHints();
@@ -101,7 +109,11 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 	if (p.pdeps != undefined)
 		for (var i in p.pdeps)
 		{
-			this.applyVSpecificChild(p.pdeps[i]);
+			try {
+				this.applyVSpecificChild(p.pdeps[i]);
+			} catch(e) {
+				throw e+"\ncalled by "+p.getNameSlot()+" -> "+p.pdeps[i].getNameSlot();
+			}
 		}
 };
 

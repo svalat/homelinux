@@ -25,7 +25,8 @@
 		]
 	},
 	"use": [
-		""
+		"-xorg-font-util",
+		"test"
 	],
 	"host": {
 		"default": false,

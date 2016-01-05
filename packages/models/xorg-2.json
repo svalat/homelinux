@@ -46,7 +46,8 @@
 		"xorg-input-driver",
 		"xorg-video-driver",
 		"xorg-dri",
-		"xorg-doc"
+		"xorg-doc",
+		"test"
 	],
 	"hiddenUse": [
 		"xorg-util-macro",

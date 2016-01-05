@@ -22,7 +22,7 @@
 		]
 	},
 	"use": [
-		""
+		"static-libs"
 	],
 	"host": {
 		"default": false,

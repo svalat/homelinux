@@ -31,7 +31,8 @@
 	},
 	"use": [
 		"selinux",
-		"xkb"
+		"xkb",
+		"test"
 	],
 	"host": {
 		"default": false,

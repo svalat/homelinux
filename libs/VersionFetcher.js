@@ -43,6 +43,15 @@ VersionFetcher.prototype.saveAll = function(prefix,packs)
 }
 
 /*******************  FUNCTION  *********************/
+function handleError(callback,error)
+{
+	if (callback == undefined)
+		throw error;
+	else
+		callback(error);
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Loop on all the packages defined into the given prefix and fetch their vesrion list.
  * @param prefix Define the prefix object to use.
@@ -124,7 +133,7 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 				for (var i in json[1][shortName])
 					pack.pack.versions.push(i);
 			else
-				throw new Error("Invaild format");
+				handleError(callback,new Error("Invaild format"));
 			
 			//sort & uniq
 			pack.pack.versions = sort_unique(pack.pack.versions);
@@ -148,20 +157,22 @@ VersionFetcher.prototype.fetchVersions = function(pack,callback)
 	try {
 		console.log("Start to fetch "+pack.pack.name);
 		var mode = pack.pack.vfetcher.mode;
-		if (mode == 'ftp')
+		if (mode == 'ftp') {
 			this.fetchVersionsFromFtp(pack,callback);
-		else if (mode == 'http-apache-list' || mode == 'http')
+		} else if (mode == 'http-apache-list' || mode == 'http') {
 			this.fetchVersionsFromApacheHttpList(pack,callback);
-		else if (mode == 'gentoo')
+		} else if (mode == 'gentoo') {
 			this.fetchFromGentoo(pack,callback);
-		else if (mode == 'http-gnome-cache')
+		} else if (mode == 'http-gnome-cache') {
 			this.fetchFromGnomeCache(pack,callback);
-		else if (mode == 'github')
+		} else if (mode == 'github') {
 			this.fetchVersionsFromGithub(pack,callback);
-		else if (mode == 'none')
-			callback(null);
-		else
-			throw new Error("Invalid vfetcher "+mode+", please use ftp, http or gentoo !");
+		} else if (mode == 'none') {
+			if (callback!= undefined) 
+				callback(null);
+		} else {
+			handleError(callback,new Error("Invalid vfetcher "+mode+", please use ftp, http or gentoo !"));
+		}
 	} catch (e) {
 		console.error("Fail to fetch version of "+pack.pack.name+" e: "+e);
 		callback(null);
@@ -217,7 +228,7 @@ VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
 	{
 		ret = JSON.parse(ret.getBody('utf8'));
 		if (ret.tag_name == undefined)
-			throw new Error("Fail to find last release of package on github");
+			handleError(callback,new Error("Fail to find last release of package on github"));
 		key = 'tag_name';
 	} else {
 		ret = httpreq('GET',"https://api.github.com/repos/"+url+"/tags",
@@ -227,7 +238,7 @@ VersionFetcher.prototype.fetchVersionsFromGithub = function(pack,callback)
 			}
 		});
 		if (ret.statusCode != 200)
-			throw new Error('Failed to search version on github !');
+			handleError(callback,new Error('Failed to search version on github !'));
 		ret = JSON.parse(ret.getBody('utf8'));
 		key = 'name';
 	}
@@ -313,7 +324,7 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 		
 		//error
 		if (ret == null)
-			throw new Error("Fail to match FTP regexp with address "+lst[j]);
+			handleError(callback,new Error("Fail to match FTP regexp with address "+lst[j]));
 		
 		var server = ret[1];
 		var dir = ret[2];
@@ -324,9 +335,9 @@ VersionFetcher.prototype.fetchVersionsFromFtp = function(pack,callback)
 				//console.log("connected to "+server+" mirror...");
 				ftp.cwd("/"+dir,function(err, curr) {
 					//console.log("move to "+ dir+", fetching list...");
-					if (err) throw err;
+					if (err) handleError(callback,err);
 					ftp.list(function(err, list) {
-						if (err) throw err;
+						if (err) handleError(callback,err);
 						for (var i in list)
 						{
 							//if (list[i].type == '-')

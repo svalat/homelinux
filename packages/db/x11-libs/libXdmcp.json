@@ -28,7 +28,7 @@
 		]
 	},
 	"use": [
-		""
+		"test"
 	],
 	"host": {
 		"default": false,

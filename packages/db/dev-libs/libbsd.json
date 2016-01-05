@@ -13,7 +13,8 @@
 	"md5": {},
 	"subdir": "libbsd-${VERSION}",
 	"urls": [
-		"http://libbsd.freedesktop.org/releases/libbsd-${VERSION}.tar.bz2"
+		"http://libbsd.freedesktop.org/releases/libbsd-${VERSION}.tar.gz",
+		"http://libbsd.freedesktop.org/releases/libbsd-${VERSION}.tar.xz"
 	],
 	"deps": [],
 	"configure": {
