@@ -274,7 +274,8 @@ PackageBuilder.prototype.buildOptions = function()
 					.replace('$without',status?'without':'with')
 					.replace('$with',status?'with':'without')
 					.replace('$ON',status?'ON':'OFF')
-					.replace('$OFF',status?'OFF':'ON');
+					.replace('$OFF',status?'OFF':'ON')
+					.replace('-$no-',status?'-':'-no-');//for QT
 				opts.push(config);
 			}
 	}
