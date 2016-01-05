@@ -380,6 +380,12 @@ PackageBuilder.prototype.applyVersionHints = function()
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getUseFlagStatusString = function()
 {
+	return this.getUseFlagStatusList().join(' ');
+}
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getUseFlagStatusList = function()
+{
 	this.buildUseFlagList();
 	var flags = this.getProperty('use');
 	var ret = [];
@@ -388,8 +394,6 @@ PackageBuilder.prototype.getUseFlagStatusString = function()
 		if (this.pack.hiddenUse == undefined || this.pack.hiddenUse.indexOf(UseFlags.getFlagName(flags[i])) == -1)
 			ret.push(UseFlags.getApplyStatus(this.use,flags[i]));
 	}
-		
-	return ret.join(' ');
 };
 
 /*******************  FUNCTION  *********************/
@@ -500,6 +504,7 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push('');
 	this.pack.version = version;
 	this.pack.slot = this.getSlot(version);
+	this.pack.installUse = this.getUseFlagStatusList();
 	script.push("PACK_INSTALLED=\""+this.getPackInstalled(version)+"\"");
 	script.push("PACK_JSON=\""+JSON.stringify(this.pack,null,'\t').replace(/[\\]/g,'\\\\').replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
 	script.push('');
