@@ -24,8 +24,9 @@ var VersionHelper = require('./VersionHelper');
  * Prefix constructor. By default only load the given prefix configuration.
  * @param prefixPath Define the path of the prefix to load.
 **/
-function Prefix(prefixPath) 
+function Prefix(userConfig,prefixPath) 
 {
+	this.userConfig = userConfig;
 	this.load(prefixPath);
 }
 
@@ -110,10 +111,17 @@ Prefix.prototype.load = function(prefixPath)
 		this.config = defaultConfig;
 	}
 	
+	//override by user
+	if (this.userConfig.config.prefixOverride != undefined && this.userConfig.config.prefixOverride[prefixPath] != undefined)
+	{
+		this.config = jso(this.config,this.userConfig.config.prefixOverride[prefixPath]);
+		console.log(this.config);
+	}
+	
 	//load inherited
 	this.inherit = [];
 	for (var i in this.config.inherit)
-		this.inherit.push(new Prefix(i));
+		this.inherit.push(new Prefix(this.userConfig,i));
 	
 	//load version
 	this.getVersions();

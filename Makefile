@@ -15,7 +15,7 @@ check:
 
 install: check
 	mkdir -p $(DEST)
-	cp prefix.json $(DEST)/homelinux.json
+	test -f $(DEST)/homelinux.json || cp prefix.json $(DEST)/homelinux.json
 	mkdir -p $(DEST)/bin
 	cp bin/homelinux.sh $(DEST)/bin/homelinux
 	cp bin/homelinux.sh $(DEST)/bin/hl

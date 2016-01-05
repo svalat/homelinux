@@ -17,7 +17,7 @@ var depsLoader = require('./libs/DepsLoader');
 var userConfig = new UserConfig();
 // userConfig.print();
 
-var prefix = new Prefix(userConfig.config.prefix);
+var prefix = new Prefix(userConfig,userConfig.config.prefix);
 // prefix.print();
 
 var command = process.argv[2];

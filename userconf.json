@@ -4,5 +4,6 @@
 	"modules": [],
 	"homecache": false,
 	"ccache": false,
-	"pyEnv": true
+	"pyEnv": true,
+	"prefixOverride": {}
 }

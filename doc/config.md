@@ -72,3 +72,7 @@ It contains :
  * *pyEnv* : Enable python wrappers which automatically setup the good PYTHONPATH
  depending on the python version you call. It wrap all the python and pip commands
  with a bash script.
+ * *prefixOverride* : You can override some prefix config from the user config.
+ It is usefull for package developpers who remove their prefix to restart from clean
+ state. Add a key named with the path of your prefix and provide any prefix config entries.
+

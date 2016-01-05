@@ -37,7 +37,8 @@ function UserConfig()
 	var filename = process.env.HOME + "/.homelinux.json"
 	if (fs.existsSync(filename)) 
 	{ 
-		var config = require(filename);
+		var content = fs.readFileSync(filename);
+		var config = JSON.parse(content);
 		this.config = jso(defaultConfig,config);
 	} else {
 		console.error("No config file ~/.homelinux.json, using default values !");
