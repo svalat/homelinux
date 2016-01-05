@@ -99,7 +99,7 @@
 		"3": ">=3.0"
 	},
 	"use": [
-		"aqua",
+		"-aqua",
 		"cups",
 		"examples",
 		"+introspection",

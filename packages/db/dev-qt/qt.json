@@ -44,11 +44,11 @@
 		"gtkstyle? x11-libs/cairo",
 		"gtkstyle? x11-libs/gtk+ :2",
 		"egl? media-libs/mesa[egl]",
-		"nas? media-libs/nas"
+		"nas? media-libs/nas",
 		"opengl? x11-libs/libX11",
 		"opengl? x11-libs/libXrender",
 		"opengl? virtual/opengl",
-		"openvg? media-libs/mesa[egl,openvg]"
+		"openvg? media-libs/mesa[egl,openvg]",
 		"phonon&-equa? media-libs/gstreamer",
 		"phonon&-equa? media-plugins/gst-plugins-meta"
 	],

@@ -229,3 +229,18 @@ Script and variables to build options
  * `$(hl_with $with sys-devel/cairo)` : Apply with or without and also add path to prefix of requested package as value.
  * `--$with-cairo=$(hl_prefix sys-devel/cairo)` : Alternative to previous semantic.
 
+ Quicly convert Gentoo packages
+ ------------------------------
+ 
+ You can find an helper script to convert gentoo packages into HL packages,
+ at least for the dependencies, useflags and some config options. Please
+ check what it provide and fill the missing field. Also check :
+ 
+  * the host compatibility name which is choose only based to the name of the package.
+  * The inheritance which it let to default value. But you need to setup kde, gnome2...
+  by yourself.
+  * Check the dependencies which might have some mistakes. The `!` tag for
+  incompatibility checking is not yet supported to replace them by `-TODO`.
+ 
+ You can find the script into `dev/gentoo-pkg-converter`.
+ 

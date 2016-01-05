@@ -125,14 +125,14 @@ HomeLinuxManager.prototype.printInstallList = function(packageList)
 /*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.printInstallScript = function(packageList)
 {
-	var packs = new depsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);
+	var packs = new DepsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);
 	console.log(packs.genScript())
 }
 
 /*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.printUninstallScript = function(packageList)
 {
-	var packs = new depsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);
+	var packs = new DepsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);
 	console.log(packs.genScript(true))
 }
 
@@ -140,11 +140,12 @@ HomeLinuxManager.prototype.printUninstallScript = function(packageList)
 HomeLinuxManager.prototype.updateDb = function()
 {
 	//gentoo db
-	var dbManager = new DbManager(this.homelinux.prefix);
+	var dbManager = new DbManager(this.homelinux.mainPrefix);
+	var self = this;
 	dbManager.fetchGentoo(function() {
 		//versions
 		var fetcher = new VersionFetcher();
-		fetcher.fetchAll(this.homelinux.prefix,this.homelinux.userConfig);
+		fetcher.fetchAll(self.homelinux.mainPrefix,self.homelinux.userConfig);
 	});
 }
 
