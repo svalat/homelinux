@@ -6,6 +6,16 @@
 #           Authors : Sebastien Valat                #
 ######################################################
 
+Version 1.1.0-dev
+
+ * Add hl jump
+ * Add python wrapper to setup PYTHON_PATH automatically
+ * Bugfix uninstall
+ * Manage module default loading in hl env
+ * Improve flag management
+ * Helper tool to convert gentoo packages
+ * More packages : QT4, X11, GDB, CGDB, valgrind, wine...
+
 Version 1.0.0 (January 1, 2016)
 
  * First available version
