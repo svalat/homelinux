@@ -172,8 +172,8 @@ HomeLinux provide some internal unit tests which can by run with mocha :
 	./node_modules/.bin/mocha ./tests
 ```
 
-Outils similaire
-----------------
+Similar tools
+-------------
 
 If I miss some interesting tools here, please notify me.
 
