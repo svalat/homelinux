@@ -1,0 +1,29 @@
+{
+	"name": "x11-proto/xf86driproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"2.1.1"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "xf86driproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xf86driproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/xf86driproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-xf86dri-dev"
+		]
+	}
+}

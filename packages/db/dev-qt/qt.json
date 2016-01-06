@@ -25,7 +25,7 @@
 		"tiff? media-libs/tiff",
 		"mng? media-libs/libmng",
 		"ssl? dev-libs/openssl",
-		"icu? ( dev-libs/icu",
+		"icu? dev-libs/icu",
 		"cups? net-print/cups",
 		"iconv? virtual/libiconv",
 		"dbus? sys-apps/dbus",

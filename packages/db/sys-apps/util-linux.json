@@ -1,0 +1,85 @@
+{
+	"name": "sys-apps/util-linux",
+	"homepage": "https://www.kernel.org/pub/linux/utils/util-linux/",
+	"versions": [
+		"2.27"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.kernel.org/pub/linux/utils/util-linux/",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "util-linux-${VERSION}",
+	"urls": [
+		"https://www.kernel.org/pub/linux/utils/util-linux/v${VERSION}/util-linux-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"caps? sys-libs/libcap-ng",
+		"cramfs? sys-libs/zlib",
+		"ncurses? sys-libs/ncurses:0[#unicode]",
+		"pam? sys-libs/pam",
+		"selinux? sys-libs/libselinux",
+		"slang? sys-libs/slang",
+		"systemd? sys-apps/systemd",
+		"udev? virtual/libudev",
+		"virtual/pkgconfig",
+		"nls? sys-devel/gettext",
+		"test? sys-devel/bc"
+	],
+	"configure": {
+		"": [
+			"--enable-fs-paths-extra=/usr/sbin:/bin:/usr/bin:$PREFIX/sbin:$PREFIX/bin",
+			"--enable-agetty",
+			"--with-bashcompletiondir=",
+			"--enable-bash-completion",
+			"--disable-chfn-chsh",
+			"--with-ncurses=",
+			"--disable-login",
+			"--disable-nologin",
+			"--enable-partx",
+			"--enable-raw",
+			"--enable-rename",
+			"--disable-reset",
+			"--enable-schedutils",
+			"--disable-su",
+			"--with-systemdsystemunitdir=",
+			"--disable-tls"
+		],
+		"kill": [
+			"--$enable-kill"
+		],
+		"selinux": [
+			"--$with-selinux"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"caps",
+		"+cramfs",
+		"fdformat",
+		"kill",
+		"ncurses",
+		"nls",
+		"pam",
+		"python",
+		"selinux",
+		"slang",
+		"static-libs",
+		"+suid",
+		"systemd",
+		"test",
+		"tty-helpers",
+		"udev",
+		"unicode"
+	],
+	"host": {
+		"default": true,
+		"debian8": [
+			"util-linux"
+		]
+	}
+}

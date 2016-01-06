@@ -1,0 +1,32 @@
+{
+	"name": "x11-libs/libICE",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.0.9"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libICE-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libICE-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libICE-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/xtrans",
+		"x11-proto/xproto"
+	],
+	"configure": {},
+	"use": [
+		"ipv6"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libice-dev"
+		]
+	}
+}

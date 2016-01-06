@@ -1,0 +1,29 @@
+{
+	"name": "x11-proto/dri3proto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.0"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "dri3proto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "dri3proto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/dri3proto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-dri3-dev"
+		]
+	}
+}

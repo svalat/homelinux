@@ -1,0 +1,36 @@
+{
+	"name": "x11-libs/libSM",
+	"homepage": "http://xorg.freedesktop.org",
+	"versions": [
+		"1.2.2"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libSM-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libSM-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libSM-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libICE",
+		"x11-libs/xtrans",
+		"x11-proto/xproto",
+		"uuid? sys-apps/util-linux"
+	],
+	"configure": {},
+	"use": [
+		"doc",
+		"ipv6",
+		"+uuid"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libsm-dev"
+		]
+	}
+}
