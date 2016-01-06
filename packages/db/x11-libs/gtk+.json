@@ -29,6 +29,7 @@
 		"virtual/pkgconfig",
 		"cups? net-print/cups",
 		"introspection? dev-libs/gobject-introspection",
+		"media-libs/libepoxy",
 		"-aqua? x11-libs/cairo[X]",
 		"-aqua? x11-libs/gdk-pixbuf[X] :2",
 		"-aqua? x11-libs/libXrender",

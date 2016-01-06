@@ -103,6 +103,7 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 
 	batch.on('progress', function(e) {
 		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
+		self.saveAll(prefix,packs);
 	});
 	
 	batch.end(function(err,datas){
@@ -139,7 +140,8 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 			method: 'GET',
 			url: lst[i]
 		}, function(err, response, body) {
-			if (err) return console.error(err);
+			if (err) 
+				handleError(callback,err);
 
 			// Tell Cherrio to load the HTML
 			var json = JSON.parse(body);
