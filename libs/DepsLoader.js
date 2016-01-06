@@ -20,6 +20,7 @@
 var PackageBuilder = require('./PackageBuilder');
 var HostPkgChecker = require('./HostPkgChecker');
 var fs = require('fs');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 /**
@@ -335,24 +336,24 @@ DepsLoader.prototype.genScript = function(usePinstall)
 **/
 DepsLoader.prototype.printList = function()
 {
-	console.log("\n\n----------------------TO INSTALL--------------------------");
+	console.log("\n\n----------------------TO INSTALL--------------------------".yellow);
 	for (var i in this.sched)
 	{
 		var p = this.packages[this.sched[i]];
 		if (p.pack.present != undefined && p.pack.present != null)
-			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.pack.present+"] "+p.getUseFlagStatusString());
+			console.log(colors.green(p.getNameSlot()+"-"+p.getVersion())+" ["+p.pack.present.red+"] USE=\""+p.getUseFlagStatusString().cyan+'"');
 		else
-			console.log(p.getNameSlot()+"-"+p.getVersion()+" "+p.getUseFlagStatusString());
+			console.log(colors.green(p.getNameSlot()+"-"+p.getVersion())+" USE=\""+p.getUseFlagStatusString().cyan+'"');
 	}
-	console.log("-----------------------INSTALLED--------------------------");
+	console.log("-----------------------INSTALLED--------------------------".yellow);
 	for (var i in this.packages)
 		if (this.packages[i].pack.present == 'already-installed')
-			console.log(this.packages[i].pack.name);
-	console.log("----------------------REUSE HOST--------------------------");
+			console.log(this.packages[i].pack.name.magenta);
+	console.log("----------------------REUSE HOST--------------------------".yellow);
 	for (var i in this.packages)
 		if (this.packages[i].pack.present == 'use-host')
-			console.log(this.packages[i].pack.name);
-	console.log("----------------------------------------------------------\n");
+			console.log(this.packages[i].pack.name.magenta);
+	console.log("----------------------------------------------------------\n".yellow);
 };
 
 /*******************  FUNCTION  *********************/

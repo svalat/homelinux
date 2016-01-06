@@ -9,6 +9,7 @@
 /********************  GLOBALS  *********************/
 var UserConfig = require('./UserConfig');
 var Prefix = require('./Prefix');
+var colors = require('colors');
 
 /***********************  DOC  **********************/
 /**
@@ -64,16 +65,22 @@ HomeLinux.prototype.switchPrefix = function(targetPrefix)
 /*******************  FUNCTION  *********************/
 HomeLinux.prototype.listInstalled = function(parentPrefix)
 {
+	var self = this;
 	if (parentPrefix == undefined)
 	{
-		console.log("================ "+this.prefix.prefix+" =================");
-		this.prefix.listInstalled();
+		this.prefix.listInstalled(function(value){
+			console.log(colors.yellow("================ "+self.prefix.prefix+" ================="));
+			console.log(value);
+		});
 	} else {
 		var inherit = this.prefix.getInheritPrefixes();
 		for (var i in inherit)
 		{
-			console.log("================ "+inherit.prefix+" =================");
-			inherit.listInstalled();
+			
+			inherit.listInstalled(function(value) {
+				console.log(colors.yellow("================ "+inherit.prefix+" ================="));
+				console.log(value);
+			});
 		}
 	}
 }

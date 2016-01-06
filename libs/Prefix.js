@@ -18,6 +18,7 @@ var httpreq = require('sync-request');
 var find = require('find');
 var PackageBuilder = require('./PackageBuilder');
 var VersionHelper = require('./VersionHelper');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 /**
@@ -336,7 +337,7 @@ Prefix.prototype.loadPackage = function(packageName)
 		fname = this.prefix + "/homelinux/packages/"+packageName+".json";
 	if (fs.existsSync(fname))
 	{
-		console.error("Parsing "+fname);
+		//console.error("Parsing "+fname);
 		var content = fs.readFileSync(fname);
 // 		try {
 			var json = JSON.parse(content);
@@ -643,18 +644,20 @@ Prefix.prototype.search = function(name)
 };
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.listInstalled = function()
+Prefix.prototype.listInstalled = function(callback)
 {
 	find.file(this.getFile("homelinux/install-db/"), function(files) {
+		var ret = [];
 		for (var i in files)
 		{
 			var content = fs.readFileSync(files[i]);
 			var p = JSON.parse(content);
 			if (p.slot != '0' && p.slot != undefined)
-				console.log(p.name+":"+p.slot+" "+p.version);
+				ret.push(colors.green(p.name+":"+p.slot)+" "+p.version.cyan);
 			else
-				console.log(p.name+" "+p.version);
+				ret.push(p.name.green+" "+p.version.cyan);
 		}
+		callback(ret.join('\n'));
 	});
 };
 
