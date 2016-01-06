@@ -1,0 +1,34 @@
+{
+	"name": "x11-libs/libXdamage",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.1.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXdamage-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXdamage-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXdamage-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libXfixes",
+		"x11-proto/damageproto",
+		"x11-proto/xproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxdamage-dev"
+		]
+	}
+}

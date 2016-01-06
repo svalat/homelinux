@@ -12,6 +12,7 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 var VersionHelper = require('./VersionHelper');
 var UseFlags = require('./UseFlags');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 function PackageBuilder(prefix,userConfig,packageName,inherit)
@@ -359,7 +360,7 @@ PackageBuilder.prototype.getVersionList = function()
 	if (this.prefix.versions[this.pack.name] != undefined)
 		return this.prefix.versions[this.pack.name];
 	else
-		return this.prefix.versions[this.pack.name];
+		return this.pack.versions;
 };
 
 /*******************  FUNCTION  *********************/
@@ -376,6 +377,23 @@ PackageBuilder.prototype.applyVersionHints = function()
 			return this.pack.versions = VersionHelper.filterVersions(this.pack,this.hints[i].version,this.pack.versions);
 	}
 };
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.getUseFlagStatusColoredString = function()
+{
+	var out = [];
+	var tmp = this.getUseFlagStatusList().sort();
+	for (var i in tmp)
+	{
+		if (tmp[i][0] == '+')
+			out.push(tmp[i].cyan);
+		else if (tmp[i][0] == '-')
+			out.push(tmp[i].red);
+		else
+			out.push(tmp[i].blue);
+	}
+	return out.join(' ');
+}
 
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.getUseFlagStatusString = function()

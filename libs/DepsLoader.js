@@ -99,7 +99,7 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 		p.loopChecker = 0;
 	else
 		p.loopChecker++;
-	if (p.loopChecker > 500)
+	if (p.loopChecker > 1500)
 		throw "Seems infinit loop in package "+p.getNameSlot();
 	
 	//TODO take care of reapplying the wall tree if introduce new deps
@@ -341,9 +341,9 @@ DepsLoader.prototype.printList = function()
 	{
 		var p = this.packages[this.sched[i]];
 		if (p.pack.present != undefined && p.pack.present != null)
-			console.log(colors.green(p.getNameSlot()+"-"+p.getVersion())+" ["+p.pack.present.red+"] USE=\""+p.getUseFlagStatusString().cyan+'"');
+			console.log(colors.green(p.getNameSlot())+"-"+colors.magenta(p.getVersion())+" ["+p.pack.present.red+"] USE=\""+p.getUseFlagStatusColoredString().cyan+'"');
 		else
-			console.log(colors.green(p.getNameSlot()+"-"+p.getVersion())+" USE=\""+p.getUseFlagStatusString().cyan+'"');
+			console.log(colors.green(p.getNameSlot())+"-"+colors.magenta(p.getVersion())+" USE=\""+p.getUseFlagStatusColoredString().cyan+'"');
 	}
 	console.log("-----------------------INSTALLED--------------------------".yellow);
 	for (var i in this.packages)

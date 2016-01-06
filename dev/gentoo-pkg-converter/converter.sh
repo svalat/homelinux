@@ -41,9 +41,13 @@ less $fname
 node main.js "$fname" | less
 
 ######################################################
+echo "=========================================================="
+node main.js "$fname"
+echo "=========================================================="
 yesno "Is it OK (Y/n)"
 
 ######################################################
 pdir=$(dirname $1)
 mkdir -p ../../packages/db/$pdir
 node main.js "$fname" > ../../packages/db/$1.json
+kate ../../packages/db/$1.json

@@ -19,7 +19,8 @@
 		"dev-libs/libpthread-stubs",
 		"x11-libs/libXau",
 		"x11-libs/libXdmcp",
-		"dev-libs/libxslt"
+		"dev-libs/libxslt",
+		"x11-proto/xcb-proto"
 	],
 	"configure": {
 		"test": [

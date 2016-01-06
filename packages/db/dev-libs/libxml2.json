@@ -23,8 +23,7 @@
 			"--$with-python"
 		],
 		"+python":[	
-			"--without-docbook",
-			"--with-python-install-dir=${PYTHON_PACKAGE_DIR}"
+			"--without-docbook"
 		]
 	},
 	"host": {

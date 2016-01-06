@@ -1,6 +1,6 @@
 {
 	"name": "x11-libs/libXft",
-	"homepage": "",
+	"homepage": "http://xorg.freedesktop.org/",
 	"versions": [
 		"2.3.2"
 	],

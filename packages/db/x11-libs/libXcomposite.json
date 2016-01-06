@@ -1,0 +1,34 @@
+{
+	"name": "x11-libs/libXcomposite",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"0.4.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXcomposite-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXcomposite-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXcomposite-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libXfixes",
+		"x11-proto/compositeproto",
+		"x11-proto/xproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxcomposite-dev"
+		]
+	}
+}

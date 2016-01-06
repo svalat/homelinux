@@ -1,0 +1,29 @@
+{
+	"name": "x11-proto/compositeproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"0.4.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "compositeproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "compositeproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/compositeproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-composite-dev"
+		]
+	}
+}
