@@ -113,7 +113,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "qt4" ]
+		"debian8": [ "libqt4-dev" ]
 	},
 	"use" : [
 		"-aqua",

@@ -40,6 +40,7 @@ case "$1" in
 		echo "$RDEPEND"
 		;;
 	'config')
+		echo > /tmp/hl_pkg_convert_conf.txt
 		src_configure || multilib_src_configure || ignore
 		;;
 	'use')

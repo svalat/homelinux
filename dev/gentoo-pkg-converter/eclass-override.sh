@@ -48,6 +48,26 @@ use_enable()
 	fi
 }
 
+cmake-utils_use_with()
+{
+	flag=$1
+	value=$2
+	if [ -z "$value" ]; then
+		value=$(echo $flag | awk '{print toupper($0)}')
+	fi
+	echo "@on@${flag}@-DWITH_${value}=\$ON"
+}
+
+cmake-utils_use_has()
+{
+	flag=$1
+	value=$2
+	if [ -z "$value" ]; then
+		value=$(echo $flag | awk '{print toupper($0)}')
+	fi
+	echo "@on@${flag}@-DHAVE_${value}=\$ON"
+}
+
 has() {
 	local needle=$1
 	shift
@@ -148,6 +168,11 @@ db_findver()
 multilib_is_native_abi()
 {
 	ignore
+}
+
+kde4-base_src_configure()
+{
+	echo "${mycmakeargs[*]}" > /tmp/hl_pkg_convert_conf.txt
 }
 
 MULTILIB_USEDEP=""

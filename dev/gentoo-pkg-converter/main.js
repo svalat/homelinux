@@ -65,7 +65,12 @@ for (var i in config)
 			else
 				pushIf(cfg,args[2],"--$"+args[1]+"-"+args[3]);
 		} else if (args[1] == 'on') {
-			pushIf(cfg,args[2],args[3]);
+			if (args[4] != undefined)
+				pushIf(cfg,args[2],args[3]+args[4]);
+			else
+				pushIf(cfg,args[2],args[3]);
+		} else {
+			pushIf(cfg,'',config[i]);
 		}
 	} else {
 		pushIf(cfg,'',config[i]);
