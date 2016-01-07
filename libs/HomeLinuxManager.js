@@ -137,6 +137,13 @@ HomeLinuxManager.prototype.printUninstallScript = function(packageList)
 }
 
 /*******************  FUNCTION  *********************/
+HomeLinuxManager.prototype.updateCache = function()
+{
+	var self = this;
+	this.homelinux.prefix.updateCache(function(err) {});
+}
+
+/*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.updateDb = function()
 {
 	var self = this;

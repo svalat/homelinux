@@ -29,7 +29,7 @@ install: check
 	cp -r packages $(DEST)/homelinux
 	cp -r node_modules $(DEST)/lib/homelinux
 	mkdir -p $(DEST)/homelinux/install-db
-	$(DEST)/bin/hl build-cache
+	$(DEST)/bin/hl update-cache
 	
 
 .PHONY: check install

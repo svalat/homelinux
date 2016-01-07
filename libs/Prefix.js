@@ -84,6 +84,34 @@ Prefix.prototype.print = function()
 };
 
 /*******************  FUNCTION  *********************/
+Prefix.prototype.updateCache = function(callback)
+{
+	//fetch all
+	var batch = new Batch();
+	batch.concurrency(2);
+	
+	var self = this;
+	this.providerList.forEach(function(prov) {
+		batch.push(function(done) {
+			console.log(prov);
+			self.provider[prov].updateCache(done);
+		});
+	});
+
+	batch.on('progress', function(e) {
+		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
+	});
+	
+	batch.end(function(err,datas){
+		if (err == null)
+			console.log("Finished without errors");
+		else
+			console.log("Get error : "+err);
+		callback(err);
+	});
+}
+
+/*******************  FUNCTION  *********************/
 Prefix.prototype.updateDb = function(callback)
 {
 	//fetch all

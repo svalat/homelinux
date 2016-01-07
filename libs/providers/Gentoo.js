@@ -17,7 +17,17 @@ function Gentoo(prefix)
 	this.prefix = prefix;
 	this.quickPackage = prefix.quickPackage;
 	this.config = prefix.config.gentoo;
-	this.gentooDb = require(this.prefix.getFile('/homelinux/packages/gentoo.json'));
+
+	//load cache
+	var fname = this.prefix.getFile('/homelinux/packages/gentoo.json');
+	if (fs.existsSync(fname))
+	{
+		var content = fs.readFileSync(fname);
+		this.gentooDb = JSON.parse(content);
+	} else {
+		this.cache = {};
+		console.error("No gentoo list file available, consider to call 'hl update-db' at least once".yellow);
+	}
 }
 
 /*******************  FUNCTION  *********************/
@@ -86,6 +96,13 @@ Gentoo.prototype.getPackage = function(packageName)
 		//finish
 		return this.quickPackage.genFullPackage(qp);
 	}
+}
+
+/*******************  FUNCTION  *********************/
+Gentoo.prototype.updateCache = function(callback)
+{
+	//nothing to do
+	callback();
 }
 
 /*******************  FUNCTION  *********************/

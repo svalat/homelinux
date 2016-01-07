@@ -8,6 +8,8 @@
 
 /********************  GLOBALS  *********************/
 var fs = require('fs');
+var find = require('find');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 function HomeLinuxProvider(prefix)
@@ -16,8 +18,20 @@ function HomeLinuxProvider(prefix)
 	
 	//load cache
 	var fname = this.prefix.getFile('homelinux/packages/db/cache.json');
-	var content = fs.readFileSync(fname);
-	this.cache = JSON.parse(content);
+	if (fs.existsSync(fname))
+	{
+		var content = fs.readFileSync(fname);
+		this.cache = JSON.parse(content);
+	} else {
+		this.cache = {};
+		console.error("No cache file available, consider to call 'hl update-cache' at least once".yellow);
+	}
+}
+
+/*******************  FUNCTION  *********************/
+HomeLinuxProvider.prototype.getCache = function()
+{
+	return this.cache;
 }
 
 /*******************  FUNCTION  *********************/
@@ -55,6 +69,30 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 	} else {
 		return undefined;
 	}
+}
+
+/*******************  FUNCTION  *********************/
+HomeLinuxProvider.prototype.updateCache = function(callback)
+{
+	var regexp = new RegExp("([A-Za-z0-9_-]+)/[A-Za-z0-9+_-]+\\.json");
+	var self = this;
+	var path = this.prefix.getFile("homelinux/packages/db");
+	find.file(path, function(files) {
+		var final = {};
+		
+		for (var i in files)
+		{
+			var file = files[i].replace(path+'/','').replace('.json','');
+			var res = regexp.exec(files[i]);
+			if (res != null && res[1] != 'models')
+				final[file] = true;
+		}
+		fs.writeFileSync(self.prefix.getFile("homelinux/packages/db/cache.json"),JSON.stringify(final,null,'\t'));
+		callback();
+	}).error(function(err) {
+		console.error(err.red);
+		callback(err);
+	});
 }
 
 /*******************  FUNCTION  *********************/

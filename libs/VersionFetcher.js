@@ -64,7 +64,7 @@ VersionFetcher.prototype.fetchAll = function(prefix,userConfig)
 	
 	//load all
 	var packs = [];
-	var cache = prefix.getCache();
+	var cache = prefix.provider.homelinux.getCache();
 	console.log("Loading packages....");
 	for (var p in cache)
 	{

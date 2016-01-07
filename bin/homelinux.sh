@@ -17,6 +17,8 @@
 
 ######################################################
 set -e
+
+######################################################
 HLPATH=$(dirname $0)
 cd $HLPATH/../lib/homelinux/
 
@@ -118,8 +120,8 @@ fi
 
 ######################################################
 case "$1" in
-	"build-cache")
-		$(dirname $0)/hl-build-cache
+	"update-cache")
+		node index.js update-cache
 		;;
 	"help"|"--help"|"-h"|"")
 		echo "$HELP"

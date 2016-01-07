@@ -50,6 +50,9 @@ switch(command)
 		break;
 	case 'update-db':
 		hlManager.updateDb();
+		//break; don't break, we also do update-cache
+	case 'update-cache':
+		hlManager.updateCache();
 		break;
 	case 'fetch-versions':
 		hlManager.printFetchedVersions(process.argv[3]);
