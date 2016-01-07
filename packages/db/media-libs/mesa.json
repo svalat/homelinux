@@ -6,14 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "XXXXXXX",
-		"regexp": "mesa-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "ftp",
+		"url": "ftp://ftp.freedesktop.org/pub/mesa/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
 	},
 	"md5": {},
 	"subdir": "mesa-${VERSION}",
 	"urls": [
-		"XXXXXX/mesa-${VERSION}.tar.bz2"
+		"ftp://ftp.freedesktop.org/pub/mesa/${VERSION}/mesa-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/expat",

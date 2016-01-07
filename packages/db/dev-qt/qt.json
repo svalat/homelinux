@@ -7,13 +7,24 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://download.qt.io/archive/qt/4.8/",
+		"url": [ 
+			"http://download.qt.io/archive/qt/4.0/",
+			"http://download.qt.io/archive/qt/4.1/",
+			"http://download.qt.io/archive/qt/4.2/",
+			"http://download.qt.io/archive/qt/4.3/",
+			"http://download.qt.io/archive/qt/4.4/",
+			"http://download.qt.io/archive/qt/4.5/",
+			"http://download.qt.io/archive/qt/4.6/",
+			"http://download.qt.io/archive/qt/4.7/",
+			"http://download.qt.io/archive/qt/4.8/"
+		],
 		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
 	},
 	"md5" : {},
 	"subdir": "qt-everywhere-opensource-src-${VERSION}",
 	"urls" : [
-		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz"
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz",
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sqlite? dev-db/sqlite",
@@ -38,7 +49,7 @@
 		"-aqua? x11-libs/libXrandr",
 		"-aqua? x11-libs/libXrender",
 		"-aqua? x11-libs/libXext",
-		"-aqua? x11-apps/xinput",
+		"-aqua&xinput? x11-apps/xinput",
 		"xv? x11-libs/libXv",
 		"glib? dev-libs/glib :2",
 		"gtkstyle? x11-libs/cairo",
@@ -78,7 +89,6 @@
 		"multimedia": [ "-$no-multimedia" ],
 		"audio-backend": [ "-$no-audio-backend" ],
 		"phonon": [ "-$no-phonon", "-$no-phonon-backend" ],
-		"svg": [ "-$no-svg" ],
 		"webkit": [ "-$no-webkit" ],
 		"webkit&debug": [ "-webkit-debug" ],
 		"script": [ "-$no-javascript", "-$no-jit-script", "-$no-scripttools" ],
@@ -105,9 +115,9 @@
 			"-$no-xrandr",
 			"-$no-xrender", 
 			"-$no-mitshm",
-			"-$no-xinput",
 			"-$no-xkb" 
 		],
+		"-aqua&xinput": [ "-$no-xinput" ],
 		"xinerama": [ "-$no-xinerama" ],
 		"glib": [ "-$no-glib" ]
 	},
@@ -147,9 +157,17 @@
 		"mng",
 		"tiff",
 		"xv",
-		"icu"
+		"icu",
+		"xinput"
 	],
 	"slots": {
         "~": "^([0-9]+).[0-9]+"
+	},
+	"vspecific": {
+		":4": {
+			"configure": {
+				"svg": [ "-$no-svg" ]
+			}
+		}
 	}
 }

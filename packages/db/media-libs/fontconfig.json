@@ -34,7 +34,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "fontconfig" ]
+		"debian8": [ "fontconfig", "libfontconfig1-dev" ]
 	},
 	"use": [
 		"-doc"
