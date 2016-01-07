@@ -99,7 +99,6 @@ HomeLinuxProvider.prototype.updateCache = function(callback)
 HomeLinuxProvider.prototype.updateDb = function(callback)
 {
 	//TODO
-	console.log("Nothing to do");
 	callback();
 }
 

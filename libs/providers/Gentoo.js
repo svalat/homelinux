@@ -73,7 +73,7 @@ Gentoo.prototype.getPackage = function(packageName)
 	v = VersionHelper.sortUniqVersions(v);
 	
 	//error
-	if (finalv == undefined)
+	if (v.length == 0)
 	{
 		return undefined;
 	} else {

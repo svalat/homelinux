@@ -14,16 +14,18 @@
 /********************  GLOBALS  *********************/
 var fs = require('fs');
 var jso = require('json-override');
-var httpreq = require('sync-request');
 var find = require('find');
 var PackageBuilder = require('./PackageBuilder');
 var VersionHelper = require('./VersionHelper');
 var colors = require('colors');
 var QuickPackage = require('./QuickPackage');
 var Batch = require('batch');
+var colors = require('colors');
 //providers
 var Gentoo = require('./providers/Gentoo');
 var HomeLinux = require('./providers/HomeLinux');
+var Urls = require('./providers/Urls');
+var Github = require('./providers/Github');
 
 /*********************  CLASS  **********************/
 /**
@@ -37,9 +39,11 @@ function Prefix(userConfig,prefixPath)
 	this.quickPackage = new QuickPackage(this);
 	this.provider = {
 		homelinux: new HomeLinux(this),
-		gentoo: new Gentoo(this)
+		gentoo: new Gentoo(this),
+		urls: new Urls(this),
+		github: new Github(this)
 	};
-	this.providerList = [ "homelinux", "gentoo" ];
+	this.providerList = [ "homelinux", "gentoo", "urls", "github" ];
 }
 
 /*******************  FUNCTION  *********************/
@@ -93,7 +97,6 @@ Prefix.prototype.updateCache = function(callback)
 	var self = this;
 	this.providerList.forEach(function(prov) {
 		batch.push(function(done) {
-			console.log(prov);
 			self.provider[prov].updateCache(done);
 		});
 	});
@@ -121,7 +124,6 @@ Prefix.prototype.updateDb = function(callback)
 	var self = this;
 	this.providerList.forEach(function(prov) {
 		batch.push(function(done) {
-			console.log(prov);
 			self.provider[prov].updateDb(done);
 		});
 	});
@@ -296,216 +298,15 @@ Prefix.prototype.loadPackage = function(packageName)
 	
 	//otherwise fallback in default mode (TODO remove)
 	if (p == undefined)
-		p = this.buildQuickPackage(packageName);
+	{
+		console.error(colors.red("Fail to find package "+packageName));
+		process.exit(1);
+	}
 	
 	//setup version
 	p.version = version;
 	
 	return p;
-};
-
-/*******************  FUNCTION  *********************/
-Prefix.prototype.buildGithubPackage = function(qp)
-{
-	console.error("Search "+qp.name+" on github");
-	var ret = httpreq('GET',"https://api.github.com/repos/"+qp.name+"/releases/latest",
-		{
-			'headers': {
-				'user-agent': 'homelinux-user-agent'
-		}
-	});
-
-	if (ret.statusCode == 200)
-	{
-		ret = JSON.parse(ret.getBody('utf8'));
-		if (ret.tag_name == undefined)
-			throw new Error("Fail to find last release of package on github");
-		
-		//gen
-		qp.version = ret.tag_name.replace('v','');
-		qp.url = "https://github.com/"+qp.name+"/archive/"+ret.tag_name+".tar.gz";
-		qp.steps = { "download": [ "hl_github_download" ] };
-		qp.name = "github/"+qp.name.split('/').pop();
-
-		return qp;
-	} else {
-		var ret = httpreq('GET',"https://api.github.com/repos/"+qp.name+"/tags",
-			{
-				'headers': {
-					'user-agent': 'homelinux-user-agent'
-			}
-		});
-		if (ret.statusCode != 200)
-			throw new Error('Failed to search version on github !');
-		ret = JSON.parse(ret.getBody('utf8'));
-		
-		//gen
-		qp.version = ret[0].name.replace('v','');
-		qp.url = "https://github.com/"+qp.name+"/archive/"+ret[0].name+".tar.gz";
-		qp.steps = { "download": [ "hl_github_download" ] };
-		qp.name = "github/"+qp.name.split('/').pop();
-
-		return qp;
-	}
-};
-
-/*******************  FUNCTION  *********************/
-Prefix.prototype.buildUrlsQuickPackage = function(qp)
-{
-	//build regexp
-	var version = qp.version == undefined ? '[0-9]+.[0-9]+.?[0-9]*' : qp.version;
-	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)$");
-	
-	//load gentoo db
-	if (this.urlsDb == undefined)
-	{
-		var content = fs.readFileSync(this.getFile('/homelinux/packages/urls.lst'));
-		this.urlsDb = content.split('\n');
-	}
-	
-	//serach in gentoo list
-	var finalv;
-	var v = [];
-	var ext;
-	for (var i in this.urlsDb)
-	{
-		var fname = this.urlsDb[i].split('/').pop();
-		if (vregexp.test(fname))
-		{
-			var ret = vregexp.exec(fname);
-			v.push(ret[1]);
-			finalv = ret[1];
-			ext = ret[2];
-		}
-	}
-	
-	//sort
-	v = VersionHelper.sortUniqVersions(v);
-	
-	//error
-	if (finalv == undefined)
-	{
-		return undefined;
-	} else {
-		//setup
-		qp.version = v;
-		qp.url = [];
-		var self = this;
-		['tar.bz2','tar.xz','tar.gz','zip','tgz'].forEach(function(ext) {
-			qp.url.push( "ftp://"+self.config.gentoo.server
-				+ ":"+self.config.gentoo.port
-				+ "/"+self.config.gentoo.distfiles
-				+ "/"+qp.name+"-${VERSION}."+ext);
-		});
-		qp.name = "urls/"+qp.name;
-		
-		return qp;
-	}
-};
-
-/*******************  FUNCTION  *********************/
-Prefix.prototype.buildQuickPackage = function(packageName)
-{
-	//load quickpackage DB
-	if (this.quickdb == undefined)
-	{
-		var content = fs.readFileSync(this.getFile('/homelinux/packages/quickpackages.json'));
-		this.quickdb = JSON.parse(content);
-	}
-	
-	//if not has entry
-	var qp = this.quickdb[packageName];
-	var auto = false;
-	if (qp == undefined)
-	{
-		auto = true;
-		console.error("Can't find package "+packageName+" in DB not QuickDB, try to build from gentoo with defaults");
-		qp = {
-			name: packageName.split('/').pop(),
-			source: 'gentoo',
-			type: 'models/auto',
-			host: { 'default': false }
-		};
-		
-		//manage gentoo/YYY
-		if (packageName.split('/')[0] == 'gentoo')
-		{
-			console.error("Fallback automatically to gentoo based on package name");
-			qp.name = packageName.replace('gentoo/','');
-			qp.source = 'gentoo';
-		}
-		
-		//manage github/XXX/YYY
-		if (packageName.split('/')[0] == 'github')
-		{
-			console.error("Fallback automatically to github based on package name");
-			qp.name = packageName.replace('github/','');
-			qp.source = 'github';
-		}
-		
-		//manage urls/YYYY
-		if (packageName.split('/')[0] == 'urls')
-		{
-			console.error("Fallback automatically to url based on package name");
-			qp.name = packageName.replace('urls/','');
-			qp.source = 'urls';
-		}
-	}
-	
-	//if is gentoo source
-	if (qp.source == 'gentoo' || qp.source == undefined)
-		throw "Must not append here now";
-	else if (qp.source == 'github')
-		qp = this.buildGithubPackage(qp);
-	else if (qp.source == 'urls')
-		qp = this.buildUrlsQuickPackage(qp);
-	else
-		throw new Error("Unexpected qp.source !")
-
-	//if auto & undef try urls
-	if (qp == undefined && auto ==true)
-	{
-		console.error("Can't find package "+packageName+" in gentoo, try urls");
-		qp = {
-			name: packageName,
-			source: 'urls',
-			type: 'models/auto',
-			host: { 'default': false }
-		};
-		qp = this.buildGithubPackage(qp);
-	}
-
-	//if auto & undef try github
-	if (qp == undefined && auto ==true)
-	{
-		console.error("Can't find package "+packageName+" in urls, try github");
-		qp = {
-			name: packageName,
-			source: 'github',
-			type: 'models/auto',
-			host: { 'default': false }
-		};
-		qp = this.buildGithubPackage(qp);
-	}
-	
-	//build package
-	var pack = {
-		"name": qp.name,
-		"inherit": this.getQuick('type',qp.name,qp.type == undefined ? 'models/auto' : qp.type),
-		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
-		"subdir" : this.getQuick('subdir',qp.name,qp.name.split('/').pop()+"-${VERSION}"),
-		"urls": Array.isArray(qp.url)? qp.url : [ qp.url ],
-		"deps": qp.deps == undefined ? this.getQuick('deps',qp.name,[]) : this.getQuick('deps',qp.name,[]).concat(qp.deps) ,
-		"patch": this.getQuick('patch',qp.name,[]), 
-		"host": qp.host,
-		"configure": qp.configure == undefined ? [] : { "":qp.configure },
-		"provide": qp.provide,
-		"md5": {},
-		"steps": qp.steps,
-		"module": this.getQuick('module',qp.name)
-	};
-	
-	return pack;
 };
 
 /*******************  FUNCTION  *********************/
