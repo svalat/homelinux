@@ -49,6 +49,20 @@ If you want to be able to uninstall the packages or make clean update with previ
 usage of GNU stow in the config file. You previously need to install `stow` in your system or into the prefix as a first package to
 be install with stow disabled.
 
+About X libraries
+-----------------
+
+HomeLinux build part his dependency tree from Gentoo so in principle it can build a full
+XLibs stack to build graphical packages. But it is likely to get compilation errors and
+version mismatching with your system. Hence, it is recommended to at least install
+the X, mesa and OpenGL developpement libraries if you want to compile graphical
+programs.
+
+On debian it might be recommended to install some dependencies which are likely to fail
+in HomeLinux :
+
+	sudo apt-get install mesa-common-dev mesa-utils libx11-dev libx11-xcb-dev
+
 Installation
 ------------
 

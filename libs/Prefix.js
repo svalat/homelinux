@@ -19,6 +19,11 @@ var find = require('find');
 var PackageBuilder = require('./PackageBuilder');
 var VersionHelper = require('./VersionHelper');
 var colors = require('colors');
+var QuickPackage = require('./QuickPackage');
+var Batch = require('batch');
+//providers
+var Gentoo = require('./providers/Gentoo');
+var HomeLinux = require('./providers/HomeLinux');
 
 /*********************  CLASS  **********************/
 /**
@@ -29,6 +34,12 @@ function Prefix(userConfig,prefixPath)
 {
 	this.userConfig = userConfig;
 	this.load(prefixPath);
+	this.quickPackage = new QuickPackage(this);
+	this.provider = {
+		homelinux: new HomeLinux(this),
+		gentoo: new Gentoo(this)
+	};
+	this.providerList = [ "homelinux", "gentoo" ];
 }
 
 /*******************  FUNCTION  *********************/
@@ -71,6 +82,34 @@ Prefix.prototype.print = function()
 {
 	console.log(this.config);
 };
+
+/*******************  FUNCTION  *********************/
+Prefix.prototype.updateDb = function(callback)
+{
+	//fetch all
+	var batch = new Batch();
+	batch.concurrency(2);
+	
+	var self = this;
+	this.providerList.forEach(function(prov) {
+		batch.push(function(done) {
+			console.log(prov);
+			self.provider[prov].updateDb(done);
+		});
+	});
+
+	batch.on('progress', function(e) {
+		console.log("Progress : "+e.complete+"/"+e.total+" ["+e.percent+"%]");
+	});
+	
+	batch.end(function(err,datas){
+		if (err == null)
+			console.log("Finished without errors");
+		else
+			console.log("Get error : "+err);
+		callback(err);
+	});
+}
 
 /*******************  FUNCTION  *********************/
 /**
@@ -209,113 +248,7 @@ Prefix.prototype.loadQuickFile = function(prop)
 **/
 Prefix.prototype.getQuick = function(prop,packageName,defaultValue)
 {
-	if (prop == 'deps')
-	{
-		if (this.quickdeps == undefined)
-			this.quickdeps = this.loadQuickFile('deps');
-		
-		if (this.quickdeps[packageName] == undefined)
-			return [];
-		else
-			return this.quickdeps[packageName];
-	} else if (prop == 'patch') {
-		if (this.quickpatch == undefined)
-			this.quickpatch = this.loadQuickFile('patch');
-		
-		if (this.quickpatch[packageName] == undefined)
-			return [];
-		else
-			return this.quickpatch[packageName];
-	} else if (prop == 'config') {
-		if (this.quickconfig == undefined)
-			this.quickconfig = this.loadQuickFile('configure');
-		
-		if (this.quickconfig[packageName] == undefined)
-			return [];
-		else
-			return this.quickconfig[packageName];
-	} else if (prop == 'version') {
-		if (this.quickversion == undefined)
-			this.quickversion = this.loadQuickFile('version');
-		
-		if (this.quickversion[packageName] == undefined)
-			return defaultValue;
-		else
-			return this.quickversion[packageName][0];
-	} else if (prop == 'module') {
-		if (this.quickmodule == undefined)
-			this.quickmodule = this.loadQuickFile('module');
-		
-		if (this.quickmodule[packageName] == undefined)
-			return defaultValue;
-		else
-			return this.quickmodule[packageName][0];
-	} else if (prop == 'type') {
-		if (this.quicktype == undefined)
-			this.quicktype = this.loadQuickFile('type');
-		
-		if (this.quicktype[packageName] == undefined)
-			return defaultValue;
-		else
-			return this.quicktype[packageName][0];
-	} else if (prop == 'subdir') {
-		if (this.quicksubdir == undefined)
-			this.quicksubdir = this.loadQuickFile('subdir');
-		
-		if (this.quicksubdir[packageName] == undefined)
-			return defaultValue;
-		else
-			return this.quicksubdir[packageName][0];
-	} else {
-		throw new Error("Invalid part : "+prop);
-	}
-};
-
-/*******************  FUNCTION  *********************/
-/**
- * Load and return the cache list of available packages. It avoid to play with ls to serach
- * them.
-**/
-Prefix.prototype.getCache = function()
-{
-	if (this.cache == undefined)
-	{
-		var fname = this.getFile('homelinux/packages/db/cache.json');
-		var content = fs.readFileSync(fname);
-		this.cache = JSON.parse(content);
-	}
-	
-	return this.cache;
-};
-
-/*******************  FUNCTION  *********************/
-/**
- * Search a given short package name (without directory) into the cache and return
- * the full name. If multiple packages match, then it exit with a message reuesting
- * the user to provide the extra directory.
- * @param packageName Name of the package to search in the cache.
-**/
-Prefix.prototype.searchInCache = function(packageName)
-{
-	this.getCache();
-	
-	var regexp = new RegExp("/"+packageName.replace('+','\\+')+"$");
-	
-	var list = [];
-	for (var i in this.cache)
-		if (regexp.test(i))
-			list.push(i);
-	
-	if (list.length == 0)
-	{
-		return packageName;
-	} else if (list.length == 1) {
-		//console.error("Ok, simple name converted to : "+list[0]);
-		return list[0];
-	} else {
-		console.error("Failed to find your package, multiple match : "+list.concat(','));
-		process.exit(1);
-	}
+	return this.quickPackage.getQuickInfo(prop,packageName,defaultValue);
 };
 
 /*******************  FUNCTION  *********************/
@@ -325,30 +258,17 @@ Prefix.prototype.loadPackage = function(packageName)
 	var version = packageName.split('@')[1];
 	packageName = packageName.split('@')[0];
 	
-	//if has no / search in db first before fallback
-	if (packageName.indexOf('/') == -1)
-		packageName = this.searchInCache(packageName);
-	
-	//load path
-	var fname = this.prefix + "/homelinux/packages/db/"+packageName+".json";
-	//console.error(fname);
-	var p;
-	if (fs.existsSync(fname) == false && packageName.indexOf('models/') == 0)
-		fname = this.prefix + "/homelinux/packages/"+packageName+".json";
-	if (fs.existsSync(fname))
+	//apply providers
+	for (var i in this.providerList)
 	{
-		//console.error("Parsing "+fname);
-		var content = fs.readFileSync(fname);
-// 		try {
-			var json = JSON.parse(content);
-// 		} catch (e) {
-// 			console.error("Failed to load "+fname);
-// 			throw e;
-// 		}
-		p = json;
-	} else {
-		p = this.buildQuickPackage(packageName);
+		p = this.provider[this.providerList[i]].getPackage(packageName);
+		if (p != undefined)
+			break;
 	}
+	
+	//otherwise fallback in default mode (TODO remove)
+	if (p == undefined)
+		p = this.buildQuickPackage(packageName);
 	
 	//setup version
 	p.version = version;
@@ -456,64 +376,6 @@ Prefix.prototype.buildUrlsQuickPackage = function(qp)
 };
 
 /*******************  FUNCTION  *********************/
-Prefix.prototype.buildGentooQuickPackage = function(qp)
-{
-	var vregexp = this.getQuick('version','gentoo/'+qp.name);
-	if (vregexp == undefined)
-		var vregexp = this.getQuick('version',qp.name);
-	if (vregexp == undefined)
-		vregexp = '[0-9]+.[0-9]+.?[0-9]*';
-	
-	console.error(qp.name + " => "+vregexp);
-	
-	//build regexp
-	var version = qp.version == undefined ? vregexp : qp.version;
-	var vregexp = new RegExp('^'+qp.name.replace(/[+]/g,"\\+")+"-("+version+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)$");
-	
-	//load gentoo db
-	if (this.gentooDb == undefined)
-		this.gentooDb = require(this.getFile('/homelinux/packages/gentoo.json'));
-	
-	//serach in gentoo list
-	var finalv;
-	var v = [];
-	var ext;
-	for (var i in this.gentooDb)
-	{
-		if (vregexp.test(this.gentooDb[i]))
-		{
-			var ret = vregexp.exec(this.gentooDb[i]);
-			v.push(ret[1]);
-			finalv = ret[1];
-			ext = ret[2];
-		}
-	}
-	
-	//sort
-	v = VersionHelper.sortUniqVersions(v);
-	
-	//error
-	if (finalv == undefined)
-	{
-		return undefined;
-	} else {
-		//setup
-		qp.version = v;
-		qp.url = [];
-		var self = this;
-		['tar.bz2','tar.xz','tar.gz','zip','tgz'].forEach(function(ext) {
-			qp.url.push( "ftp://"+self.config.gentoo.server
-				+ ":"+self.config.gentoo.port
-				+ "/"+self.config.gentoo.distfiles
-				+ "/"+qp.name+"-${VERSION}."+ext);
-		});
-		qp.name = "gentoo/"+qp.name;
-		
-		return qp;
-	}
-};
-
-/*******************  FUNCTION  *********************/
 Prefix.prototype.buildQuickPackage = function(packageName)
 {
 	//load quickpackage DB
@@ -564,7 +426,7 @@ Prefix.prototype.buildQuickPackage = function(packageName)
 	
 	//if is gentoo source
 	if (qp.source == 'gentoo' || qp.source == undefined)
-		qp = this.buildGentooQuickPackage(qp);
+		throw "Must not append here now";
 	else if (qp.source == 'github')
 		qp = this.buildGithubPackage(qp);
 	else if (qp.source == 'urls')

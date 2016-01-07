@@ -97,5 +97,11 @@ HomeLinux.prototype.export = function()
 	this.prefix.export(this.userConfig);
 }
 
+/*******************  FUNCTION  *********************/
+HomeLinux.prototype.getQuick = function(prop,packageName,defaultValue)
+{
+	return this.prefix.getQuick(prop,packageName,defaultValue);
+}
+
 /********************  GLOBALS  *********************/
 module.exports = HomeLinux;

@@ -139,10 +139,9 @@ HomeLinuxManager.prototype.printUninstallScript = function(packageList)
 /*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.updateDb = function()
 {
-	//gentoo db
-	var dbManager = new DbManager(this.homelinux.mainPrefix);
 	var self = this;
-	dbManager.fetchGentoo(function() {
+	//gentoo db
+	this.homelinux.prefix.updateDb(function(err) {
 		//versions
 		var fetcher = new VersionFetcher();
 		fetcher.fetchAll(self.homelinux.mainPrefix,self.homelinux.userConfig);
