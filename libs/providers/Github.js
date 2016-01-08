@@ -33,6 +33,18 @@ Github.prototype.updateDb = function(callback)
 }
 
 /*******************  FUNCTION  *********************/
+Github.prototype.getName = function()
+{
+	return "Github";
+}
+
+/*******************  FUNCTION  *********************/
+Github.prototype.search = function()
+{
+	return "";
+}
+
+/*******************  FUNCTION  *********************/
 Github.prototype.getPackage = function(packageName)
 {
 	//build names

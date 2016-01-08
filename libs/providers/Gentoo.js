@@ -10,6 +10,7 @@
 var VersionHelper = require('../VersionHelper');
 var FtpClient = require('ftp');
 var fs = require('fs');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 function Gentoo(prefix)
@@ -17,7 +18,15 @@ function Gentoo(prefix)
 	this.prefix = prefix;
 	this.quickPackage = prefix.quickPackage;
 	this.config = prefix.config.gentoo;
+}
 
+/*******************  FUNCTION  *********************/
+Gentoo.prototype.getDb = function()
+{
+	//already loaded
+	if (this.gentooDb != undefined)
+		return this.gentooDb;
+	
 	//load cache
 	var fname = this.prefix.getFile('/homelinux/packages/gentoo.json');
 	if (fs.existsSync(fname))
@@ -28,6 +37,25 @@ function Gentoo(prefix)
 		this.cache = {};
 		console.error("No gentoo list file available, consider to call 'hl update-db' at least once".yellow);
 	}
+	
+	//return
+	return this.gentooDb;
+}
+
+/*******************  FUNCTION  *********************/
+Gentoo.prototype.search = function(name)
+{
+	var out = [];
+	for (var i in this.db)
+		if (this.db[i].indexOf(name) != -1)
+			out.push(colors.magenta("gentoo/"+this.db[i]));
+	return out.join('\n');
+}
+
+/*******************  FUNCTION  *********************/
+Gentoo.prototype.getName = function()
+{
+	return "Gentoo";
 }
 
 /*******************  FUNCTION  *********************/
@@ -58,11 +86,12 @@ Gentoo.prototype.getPackage = function(packageName)
 	var finalv;
 	var v = [];
 	var ext;
-	for (var i in this.gentooDb)
+	var db = this.getDb();
+	for (var i in db)
 	{
-		if (vregexp.test(this.gentooDb[i]))
+		if (vregexp.test(db[i]))
 		{
-			var ret = vregexp.exec(this.gentooDb[i]);
+			var ret = vregexp.exec(db[i]);
 			v.push(ret[1]);
 			finalv = ret[1];
 			ext = ret[2];

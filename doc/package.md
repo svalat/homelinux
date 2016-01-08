@@ -6,6 +6,17 @@ This document provide synthetic documentation on how to write your own packages.
 Example
 -------
 
+Remark that the mandatory fields are only :
+
+ * name
+ * homepage (not used by homelinux, but better to get it)
+ * versions
+ * vfetcher (and all its content)
+ * subdir
+ * urls
+ 
+All the orther entries are optional.
+
 ```json
 	{
 		"name": "app-shells/bash",

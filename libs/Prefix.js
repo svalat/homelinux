@@ -26,6 +26,7 @@ var Gentoo = require('./providers/Gentoo');
 var HomeLinux = require('./providers/HomeLinux');
 var Urls = require('./providers/Urls');
 var Github = require('./providers/Github');
+var Models = require('./providers/Models');
 
 /*********************  CLASS  **********************/
 /**
@@ -38,12 +39,13 @@ function Prefix(userConfig,prefixPath)
 	this.load(prefixPath);
 	this.quickPackage = new QuickPackage(this);
 	this.provider = {
+		models: new Models(this),
 		homelinux: new HomeLinux(this),
 		gentoo: new Gentoo(this),
 		urls: new Urls(this),
 		github: new Github(this)
 	};
-	this.providerList = [ "homelinux", "gentoo", "urls", "github" ];
+	this.providerList = [ "models", "homelinux", "gentoo", "urls", "github" ];
 }
 
 /*******************  FUNCTION  *********************/
@@ -312,26 +314,15 @@ Prefix.prototype.loadPackage = function(packageName)
 /*******************  FUNCTION  *********************/
 Prefix.prototype.search = function(name)
 {
-	var cache = this.getCache();
-	console.log("-------------------------PACKAGES---------------------------");
-	for (var i in cache)
-		if (i.indexOf(name) != -1)
+	for (var i in this.providerList)
+	{
+		if (this.providerList[i] != 'models')
 		{
-			var p = new PackageBuilder(this,this.userConfig,i);
-			console.log(p.getNameSlot()+"-"+p.getVersion()+" ["+p.getVersionList().join(', ')+"]");
+			var provider = this.provider[this.providerList[i]];
+			console.log("------------------------- "+provider.getName()+" ---------------------------");
+			console.log(provider.search(name));
 		}
-	console.log("--------------------------GENTOO----------------------------");
-	this.gentooDb = require(this.getFile('/homelinux/packages/gentoo.json'));
-	for (var i in this.gentooDb)
-		if (this.gentooDb[i].indexOf(name) != -1)
-			console.log("gentoo/"+this.gentooDb[i]);
-	console.log("----------------------------URLS----------------------------");
-	var content = fs.readFileSync(this.getFile('/homelinux/packages/urls.lst'));
-	this.urlsDb = content.toString().split('\n');
-	for (var i in this.urlsDb)
-		if (this.urlsDb[i].indexOf(name) != -1)
-			console.log("urls/"+this.urlsDb[i].split('/').pop());
-	console.log("------------------------------------------------------------");
+	}
 };
 
 /*******************  FUNCTION  *********************/

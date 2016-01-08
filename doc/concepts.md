@@ -97,6 +97,16 @@ into `homelinux/quickackages`. You can setup :
  * subdir to define the directory inside the archive if non standard.
  * patch if you want to apply some patches.
 
+Package provider
+----------------
+
+The quickpackage system is bases on multiple providers, currently homelinux support checked in order :
+
+ * Homelinux (this is the default package database to search on).
+ * Gentoo, use the `distfile` directory from gentoo mirrors to find the source package and last available version.
+ * Urls, use an url list file.
+ * Github, search on gitbhub to find the sources and last version (based on tags).
+ 
 Host checking
 -------------
  
@@ -122,4 +132,3 @@ Package inheritance
 For the internal packages. A package ca inherit from a model (or another package). In that case it will extend the already
 available dependencies, use flags, configure options, slots.... You can also override the building steps to provide you own
 commands.
- 

@@ -9,6 +9,7 @@
 /********************  GLOBALS  *********************/
 var fs = require('fs');
 var VersionHelper = require('../VersionHelper');
+var colors = require('colors');
 
 /*********************  CLASS  **********************/
 function Urls(prefix)
@@ -34,6 +35,22 @@ Urls.prototype.updateDb = function(callback)
 {
 	//TODO
 	callback();
+}
+
+/*******************  FUNCTION  *********************/
+Urls.prototype.getName = function()
+{
+	return "Urls";
+}
+
+/*******************  FUNCTION  *********************/
+Urls.prototype.search = function(name)
+{
+	var out = [];
+	for (var i in this.db)
+		if (this.db[i].indexOf(name) != -1)
+			out.push(colors.magenta("urls/"+this.db[i].split('/').pop()));
+	return out.join('\n');
 }
 
 /*******************  FUNCTION  *********************/

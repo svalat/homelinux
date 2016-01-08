@@ -10,11 +10,19 @@
 var fs = require('fs');
 var find = require('find');
 var colors = require('colors');
+var PackageBuilder = require('../PackageBuilder');
 
 /*********************  CLASS  **********************/
 function HomeLinuxProvider(prefix)
 {
 	this.prefix = prefix;
+}
+
+/*******************  FUNCTION  *********************/
+HomeLinuxProvider.prototype.getCache = function()
+{
+	if (this.cache != undefined)
+		return this.cache;
 	
 	//load cache
 	var fname = this.prefix.getFile('homelinux/packages/db/cache.json');
@@ -26,12 +34,15 @@ function HomeLinuxProvider(prefix)
 		this.cache = {};
 		console.error("No cache file available, consider to call 'hl update-cache' at least once".yellow);
 	}
+	
+	//return
+	return this.cache;
 }
 
 /*******************  FUNCTION  *********************/
-HomeLinuxProvider.prototype.getCache = function()
+HomeLinuxProvider.prototype.getName = function()
 {
-	return this.cache;
+	return "HomeLinux";
 }
 
 /*******************  FUNCTION  *********************/
@@ -49,11 +60,14 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 	
 	//search in cache
 	if (shortName.indexOf('/') == -1)
+	{
 		shortName = this.searchInCache(shortName);
+		packageName = 'hl/'+shortName;
+	}
 	
 	//load path
 	var fname = this.prefix.getFile("/homelinux/packages/db/"+shortName+".json");
-	console.error(fname);
+	//console.error(fname);
 	if (fs.existsSync(fname))
 	{
 		//console.error("Parsing "+fname);
@@ -65,6 +79,14 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 // 			console.error("Failed to load "+fname);
 // 			throw e;
 // 		}
+		
+		//apply versions
+		var versions = this.prefix.getVersions();
+		if (versions[packageName] != undefined)
+		{
+			json.versions = versions[packageName];
+		}
+		
 		return json;
 	} else {
 		return undefined;
@@ -114,7 +136,8 @@ HomeLinuxProvider.prototype.searchInCache = function(packageName)
 	var regexp = new RegExp("/"+packageName.replace('+','\\+')+"$");
 	
 	var list = [];
-	for (var i in this.cache)
+	var cache = this.getCache();
+	for (var i in cache)
 		if (regexp.test(i))
 			list.push(i);
 	
@@ -129,5 +152,22 @@ HomeLinuxProvider.prototype.searchInCache = function(packageName)
 		process.exit(1);
 	}
 };
+
+/*******************  FUNCTION  *********************/
+HomeLinuxProvider.prototype.search = function(name)
+{
+	var out = [];
+	var cache = this.getCache();
+	for (var i in cache)
+	{
+		if (i.indexOf(name) != -1)
+		{
+			var p = new PackageBuilder(this.prefix,this.prefix.userConfig,i);
+			out.push(p.getNameSlot().green+"-"+p.getVersion().cyan+" ["+p.getVersionList().reverse().slice(0,10).join(', ').blue+"]");
+		}
+	}
+	
+	return out.join('\n');
+}
 
 module.exports = HomeLinuxProvider;
