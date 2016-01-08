@@ -490,7 +490,7 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	//header
 	var script = [];
 	script.push("#!/bin/bash")
-	script.push("source " + this.prefix.getFile("homelinux/packages/db/scripts/default.sh"));
+	script.push("source " + this.prefix.getFile("homelinux/packages/models/scripts/default.sh"));
 	
 	//setup variables HL
 	script.push("HL_TEMP=\""+this.userConfig.config.temp+"\"");

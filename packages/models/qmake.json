@@ -1,0 +1,9 @@
+{
+	"name": "hl-template-qmake",
+	"deps": [
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ "hl_configure_qmake" ]
+	}
+}

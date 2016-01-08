@@ -331,6 +331,8 @@ function hl_configure_auto()
 		hl_configure_python
 	elif [ -f Makefile.PL ]; then
 		hl_configure_perl
+	elif [ ! -z "$(ls *.pro)" ]; then
+		hl_configure_qmake
 	else
 		die "Unknown package type, cannot detect automatically !"
 	fi
@@ -385,6 +387,11 @@ function hl_configure_cmake()
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+}
+
+function hl_configure_qmake()
+{
+	run qmake -set prefix $PREFIX $BUILD_OPTIONS
 }
 
 function hl_build()
