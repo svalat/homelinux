@@ -30,7 +30,8 @@
 		"ls",
 		"afs",
 		"net",
-		"mem-scramble"
+		"mem-scramble",
+		"nls"
 	],
 	"configure": {
 		"+gentoo": [ "--with-curses", "--disable-profiling" ],

@@ -1,0 +1,56 @@
+{
+	"name": "media-libs/phonon",
+	"homepage": "https://projects.kde.org/projects/kdesupport/phonon",
+	"versions": [
+		"9999"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/phonon/",
+		"regexp": "phonon-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "phonon-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/phonon/phonon-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"virtual/pkgconfig",
+		"qt4? dev-qt/qt :4",
+		"qt4? dev-util/automoc4",
+		"qt4&designer? dev-qt/designer :4",
+		"qt5? dev-qt/qt :5",
+		"qt5&designer? dev-qt/designer:5",
+		"pulseaudio? dev-libs/glib :2",
+		"pulseaudio? media-sound/pulseaudio[glib]",
+		"zeitgeist? dev-libs/libqzeitgeist"
+	],
+	"configure": {
+		"": [
+			"-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT=TRUE",
+			"-DQT_QMAKE_EXECUTABLE=/qmake"
+		],
+		"pulseaudio": [
+			"-DWITH_GLIB2=$ON",
+			"-DWITH_PulseAudio=$ON"
+		]
+	},
+	"use": [
+		"aqua",
+		"debug",
+		"designer",
+		"gstreamer",
+		"pulseaudio",
+		"+qt4",
+		"qt5",
+		"+vlc",
+		"zeitgeist"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"phonon"
+		]
+	}
+}

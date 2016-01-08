@@ -79,7 +79,7 @@ for (var i in config)
 
 function getPackNameInfo(pack)
 {
-	var regexp = new RegExp("^([a-zA-Z0-9_-]+/[a-zA-Z0-9_+-]+)/([a-zA-Z0-9_+-]+)-([0-9.]+)(-r[0-9]+)?.ebuild$");
+	var regexp = new RegExp("^([a-zA-Z0-9_-]+/[a-zA-Z0-9_+-]+)/([a-zA-Z0-9_+-]+)-([0-9.]+)(.*)?.ebuild$");
 	var res = regexp.exec(pack);
 	if (res == null)
 		throw "Invalid package name "+pack;

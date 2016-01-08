@@ -300,10 +300,7 @@ Prefix.prototype.loadPackage = function(packageName)
 	
 	//otherwise fallback in default mode (TODO remove)
 	if (p == undefined)
-	{
-		console.error(colors.red("Fail to find package "+packageName));
-		process.exit(1);
-	}
+		throw new Error(colors.red("Fail to find package "+packageName));
 	
 	//setup version
 	p.version = version;

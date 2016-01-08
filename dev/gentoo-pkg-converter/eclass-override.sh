@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set +e
+
 ignore()
 {
 	echo > /dev/null
@@ -56,6 +58,26 @@ cmake-utils_use_with()
 		value=$(echo $flag | awk '{print toupper($0)}')
 	fi
 	echo "@on@${flag}@-DWITH_${value}=\$ON"
+}
+
+cmake-utils_use_enable()
+{
+	flag=$1
+	value=$2
+	if [ -z "$value" ]; then
+		value=$(echo $flag | awk '{print toupper($0)}')
+	fi
+	echo "@on@${flag}@-DENABLE_${value}=\$ON"
+}
+
+cmake-utils_use_find_package()
+{
+	flag=$1
+	value=$2
+	if [ -z "$value" ]; then
+		value=$(echo $flag | awk '{print toupper($0)}')
+	fi
+	echo "@on@${flag}@-DCMAKE_DISABLE_FIND_PACKAGE_Lib${value}=\$OFF"
 }
 
 cmake-utils_use_has()
@@ -167,7 +189,14 @@ db_findver()
 
 multilib_is_native_abi()
 {
-	ignore
+	return 1
+}
+
+alias cd=true
+
+cmake-utils_src_configure()
+{
+	echo "${mycmakeargs[*]}" > /tmp/hl_pkg_convert_conf.txt
 }
 
 kde4-base_src_configure()

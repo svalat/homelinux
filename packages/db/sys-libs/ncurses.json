@@ -1,27 +1,43 @@
 {
 	"name": "sys-libs/ncurses",
-	"homepage": "https://www.gnu.org/software/ncurses/",
-	"inherit": "models/autotools",
-	"versions": [ 
+	"homepage": "https://www.gnu.org/software/ncurses/ http://dickey.his.com/ncurses/",
+	"versions": [
 		"6.0"
 	],
+	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
+		"mode": "http",
 		"url": "ftp://ftp.gnu.org/pub/gnu/ncurses/",
-		"regexp": "ncurses-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"regexp": "ncurses-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
-	"md5" : {},
+	"md5": {},
 	"subdir": "ncurses-${VERSION}",
-	"urls" : [
-		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
+	"urls": [
+		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2"
 	],
 	"deps": [
-		
+		"gpm? sys-libs/gpm"
 	],
-	"configure": {
-	},
+	"configure": {},
+	"use": [
+		"ada",
+		"+cxx",
+		"debug",
+		"doc",
+		"gpm",
+		"minimal",
+		"profile",
+		"static-libs",
+		"test",
+		"threads",
+		"tinfo",
+		"trace",
+		"unicode"
+	],
 	"host": {
 		"default": false,
-		"debian8": [ "libncurses5-dev" ]
+		"debian8": [
+			"libncurses-dev"
+		]
 	}
 }

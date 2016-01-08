@@ -1,0 +1,25 @@
+{
+	"name": "virtual/jpeg",
+	"homepage": "NONE",
+	"inherit": "models/virtual",
+	"versions": [ 
+		"0.1" 
+	],
+	"vfetcher": {
+		"mode": "none",
+		"url": "none",
+		"regexp": "none"
+	},
+	"md5" : {},
+	"subdir": "none",
+	"urls" : [
+		"none"
+	],
+	"deps": [
+		"media-libs/jpeg"
+	],
+	"host": {
+		"default": false,
+		"debian8": false
+	}
+}

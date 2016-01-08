@@ -29,7 +29,11 @@ HomeLinuxProvider.prototype.getCache = function()
 	if (fs.existsSync(fname))
 	{
 		var content = fs.readFileSync(fname);
-		this.cache = JSON.parse(content);
+		try {
+			this.cache = JSON.parse(content);
+		} catch(e) {
+			throw new Error("Failed to parse "+fname+" : "+JSON.stringify(e));
+		}
 	} else {
 		this.cache = {};
 		console.error("No cache file available, consider to call 'hl update-cache' at least once".yellow);
@@ -76,8 +80,8 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 			var json = JSON.parse(content);
 			json.name = packageName;
 // 		} catch (e) {
-// 			console.error("Failed to load "+fname);
-// 			throw e;
+// 			var err = JSONLint(content);
+// 			throw new Error(colors.red("Failed to load "+fname+" : "+err.error+" at "+err.line+":"+err.character));
 // 		}
 		
 		//apply versions

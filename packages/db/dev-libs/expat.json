@@ -20,5 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libexpat1-dev" ]
+	},
+	"slots": {
+		"~": "^([0-9]+)"
 	}
 }

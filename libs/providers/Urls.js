@@ -62,7 +62,7 @@ Urls.prototype.getPackage = function(packageName)
 	{
 		shortName = packageName.replace('urls/','');
 	} else {
-		shortName = packageName;
+		shortName = packageName.split('/').pop();
 		packageName = 'urls/'+packageName;
 	}
 	

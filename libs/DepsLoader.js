@@ -99,7 +99,7 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 		p.loopChecker = 0;
 	else
 		p.loopChecker++;
-	if (p.loopChecker > 1500)
+	if (p.loopChecker > 100)
 		throw "Seems infinit loop in package "+p.getNameSlot();
 	
 	//TODO take care of reapplying the wall tree if introduce new deps
@@ -116,6 +116,8 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 				throw e+"\ncalled by "+p.getNameSlot()+" -> "+p.pdeps[i].getNameSlot();
 			}
 		}
+		
+	p.loopChecker--;
 };
 
 /*******************  FUNCTION  *********************/
@@ -143,8 +145,13 @@ DepsLoader.prototype.applyVersionRules = function(pack,parent,infos)
 	pack.hints[parent] = infos;
 	
 	//apply
-	pack.checkUseFlagHints();
-	pack.applyVersionHints();
+	try {
+		pack.checkUseFlagHints();
+		pack.applyVersionHints();
+	} catch (e) {
+		console.error(colors.red("Get failure on package "+pack.getNameSlot()+" : "+e));
+		process.exit(1);
+	}
 };
 
 /*******************  FUNCTION  *********************/
@@ -200,7 +207,12 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 		return null;
 	
 	//load package if need
-	var p = new PackageBuilder(this.prefix,this.userConfig,name);
+// 	try {
+		var p = new PackageBuilder(this.prefix,this.userConfig,name);
+// 	} catch (e) {
+// 		console.error(colors.red("Failed to find dependency of "+parent.getNameSlot()+". ")+e);
+// 		process.exit(1);
+// 	}
 	
 	//apply version rules
 	this.applyVersionRules(p,parent,infos);

@@ -430,7 +430,7 @@ PackageBuilder.prototype.replaceParentUseFlags = function(flags)
 		{
 			var flag = flags[i].replace(/[+#-]/g,'');
 			var status = UseFlags.status(this.use,flag);
-			if (status != '')
+			if (status != null && status != '')
 				ret.push(status+flag);
 		} else if (flags[i] != '') {
 			ret.push(flags[i]);

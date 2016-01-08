@@ -1,0 +1,36 @@
+{
+	"name": "dev-libs/libattica",
+	"homepage": "https://www.kde.org/",
+	"versions": [
+		"0.4.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/attica/",
+		"regexp": "attica-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "attica-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/attica/attica-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-qt/qt :4"
+	],
+	"configure": {
+		"": [
+			"-DQT4_BUILD=true"
+		]
+	},
+	"use": [
+		"debug",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libattica-dev"
+		]
+	}
+}

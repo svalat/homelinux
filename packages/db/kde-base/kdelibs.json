@@ -1,0 +1,192 @@
+{
+	"name": "kde-base/kdelibs",
+	"homepage": "",
+	"versions": [
+		"4.14.8"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/4.14.3/src/",
+		"regexp": "kdelibs-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "kdelibs-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/4.14.3/src/kdelibs-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"app-misc/strigi",
+		"app-text/docbook-xml-dtd",
+		"app-text/docbook-xsl-stylesheets",
+		"dev-libs/libattica",
+		"dev-libs/libdbusmenu-qt[#qt4]",
+		"dev-libs/libpcre[unicode]",
+		"dev-libs/libxml2",
+		"dev-libs/libxslt",
+		"media-libs/fontconfig",
+		"media-libs/freetype :2",
+		"media-libs/giflib",
+		"media-libs/libpng :0",
+		"media-libs/phonon[qt4]",
+		"sys-libs/zlib",
+		"virtual/jpeg:0",
+		"x11-misc/shared-mime-info",
+		"app-crypt/gnupg",
+		"TODO? app-misc/ca-certificates",
+		"sys-apps/dbus[X]",
+		"acl? virtual/acl",
+		"alsa? media-libs/alsa-lib",
+		"-aqua? x11-libs/libICE",
+		"-aqua? x11-libs/libSM",
+		"-aqua? x11-libs/libX11",
+		"-aqua? x11-libs/libXau",
+		"-aqua? x11-libs/libXcursor",
+		"-aqua? x11-libs/libXdmcp",
+		"-aqua? x11-libs/libXext",
+		"-aqua? x11-libs/libXfixes",
+		"-aqua? x11-libs/libXft",
+		"-aqua? x11-libs/libXpm",
+		"-aqua? x11-libs/libXrender",
+		"-aqua? x11-libs/libXScrnSaver",
+		"-aqua? x11-libs/libXtst",
+		"-aqua? x11-apps/iceauth",
+		"-aqua? x11-apps/rgb",
+		"-aqua? x11-misc/xdg-utils",
+		"-aqua&-kernel_SunOS? sys-libs/libutempter",
+		"-aqua&-kernel_SunOS? sys-freebsd/freebsd-lib",
+		"bzip2? app-arch/bzip2",
+		"crypt? app-crypt/qca:2[#qt4]",
+		"fam? virtual/fam",
+		"jpeg2k? media-libs/jasper",
+		"kerberos? virtual/krb5",
+		"openexr? media-libs/openexr",
+		"openexr? media-libs/ilmbase",
+		"policykit? sys-auth/polkit-qt[#qt4]",
+		"spell? app-text/enchant",
+		"ssl? dev-libs/openssl :0",
+		"udev? virtual/udev",
+		"udev? app-misc/media-player-info",
+		"zeroconf? net-dns/avahi[mdnsresponder-compat]",
+		"doc? app-doc/doxygen",
+		"nls? virtual/libintl",
+		"-aqua&udisks? sys-fs/udisks",
+		"-aqua&upower? sys-power/upower"
+	],
+	"configure": {
+		"": [
+			"-DWITH_HSPELL=OFF",
+			"-DWITH_ASPELL=OFF",
+			"-DWITH_DNSSD=OFF",
+			"-DKDE_DEFAULT_HOME=.kde4",
+			"-DKAUTH_BACKEND=POLKITQT-1",
+			"-DBUILD_libkactivities=OFF",
+			"-DWITH_Soprano=OFF",
+			"-DWITH_SharedDesktopOntologies=OFF"
+		],
+		"cpu_flags_x86_3dnow": [
+			"-DHAVE_X86_3DNOW=$ON"
+		],
+		"altivec": [
+			"-DHAVE_PPC_ALTIVEC=$ON"
+		],
+		"cpu_flags_x86_mmx": [
+			"-DHAVE_X86_MMX=$ON"
+		],
+		"cpu_flags_x86_sse": [
+			"-DHAVE_X86_SSE=$ON"
+		],
+		"cpu_flags_x86_sse2": [
+			"-DHAVE_X86_SSE2=$ON"
+		],
+		"acl": [
+			"-DWITH_ACL=$ON"
+		],
+		"alsa": [
+			"-DWITH_ALSA=$ON"
+		],
+		"bzip2": [
+			"-DWITH_BZip2=$ON"
+		],
+		"crypt": [
+			"-DWITH_QCA2=$ON"
+		],
+		"fam": [
+			"-DWITH_FAM=$ON"
+		],
+		"jpeg2k": [
+			"-DWITH_Jasper=$ON"
+		],
+		"kerberos": [
+			"-DWITH_GSSAPI=$ON"
+		],
+		"lzma": [
+			"-DWITH_LibLZMA=$ON"
+		],
+		"nls": [
+			"-DWITH_Libintl=$ON"
+		],
+		"openexr": [
+			"-DWITH_OpenEXR=$ON"
+		],
+		"opengl": [
+			"-DWITH_OpenGL=$ON"
+		],
+		"policykit": [
+			"-DWITH_PolkitQt-1=$ON"
+		],
+		"spell": [
+			"-DWITH_ENCHANT=$ON"
+		],
+		"ssl": [
+			"-DWITH_OpenSSL=$ON"
+		],
+		"udev": [
+			"-DWITH_UDev=$ON"
+		],
+		"udisks": [
+			"-DWITH_SOLID_UDISKS2=$ON"
+		],
+		"zeroconf": [
+			"-DWITH_Avahi=$ON"
+		]
+	},
+	"use": [
+		"-aqua",
+		"-kernel_SunOS",
+		"cpu_flags_x86_3dnow",
+		"acl",
+		"alsa",
+		"altivec",
+		"+bzip2",
+		"+crypt",
+		"debug",
+		"doc",
+		"fam",
+		"jpeg2k",
+		"kerberos",
+		"lzma",
+		"cpu_flags_x86_mmx",
+		"nls",
+		"openexr",
+		"+policykit",
+		"spell",
+		"cpu_flags_x86_sse",
+		"cpu_flags_x86_sse2",
+		"ssl",
+		"+udev",
+		"+udisks",
+		"+upower",
+		"zeroconf",
+		"-TODO"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"kdelibs"
+		]
+	},
+	"slots": {
+		"~": "^([0-9]+)"
+	}
+}

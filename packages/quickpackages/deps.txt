@@ -13,7 +13,7 @@ gentoo/dbus-glib dbus
 gentoo/dbus libxml2
 gentoo/gitg glib gtk+-2 gtksourceview gsettings-desktop-schemas libglade
 gentoo/phonon automoc4
-gentoo/libdbusmenu-qt qjson qt4
+gentoo/libdbusmenu-qt qjson qt:4
 gentoo/strigi bzip2
 gentoo/geany XML-Parser gtk+
 gentoo/gnome-doc-utils scrollkeeper
@@ -41,9 +41,9 @@ gentoo/kdev-xtest veritas kdevelop
 gentoo/acl attr
 gentoo/gkrellm gtk+
 gentoo/glibc binutils libtool
-gentoo/kdelibs pcre qt4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano libxslt
-gentoo/soprano qt4
-gentoo/kdiff3 qt4 diffutils
+gentoo/kdelibs pcre qt:4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano libxslt
+gentoo/soprano qt:4
+gentoo/kdiff3 qt:4 diffutils
 gentoo/sgml-common automake autoconf
 gentoo/poppler gdk-pixbuf
 gentoo/gimp babl tiff gegl

@@ -46,9 +46,10 @@ Gentoo.prototype.getDb = function()
 Gentoo.prototype.search = function(name)
 {
 	var out = [];
-	for (var i in this.db)
-		if (this.db[i].indexOf(name) != -1)
-			out.push(colors.magenta("gentoo/"+this.db[i]));
+	var db = this.getDb();
+	for (var i in db)
+		if (db[i].indexOf(name) != -1)
+			out.push(colors.magenta("gentoo/"+db[i]));
 	return out.join('\n');
 }
 
@@ -67,8 +68,8 @@ Gentoo.prototype.getPackage = function(packageName)
 	{
 		shortName = packageName.replace('gentoo/','');
 	} else {
-		shortName = packageName;
-		packageName = 'gentoo/'+packageName;
+		shortName = packageName.split('/').pop();
+		packageName = 'gentoo/'+shortName;
 	}
 	
 	//get quick infos

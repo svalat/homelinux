@@ -1,0 +1,39 @@
+{
+	"name": "app-text/xmlto",
+	"homepage": "https://fedorahosted.org/xmlto/",
+	"versions": [
+		"0.0.28"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://fedorahosted.org/releases/x/m/xmlto/",
+		"regexp": "xmlto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xmlto-${VERSION}",
+	"urls": [
+		"https://fedorahosted.org/releases/x/m/xmlto/xmlto-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-text/docbook-xsl-stylesheets",
+		"app-text/docbook-xml-dtd",
+		"app-shells/bash :0",
+		"dev-libs/libxslt",
+		"sys-apps/sed",
+		"text? www-client/lynx",
+		"latex? app-text/passivetex",
+		"latex? dev-tex/xmltex"
+	],
+	"configure": {},
+	"use": [
+		"latex",
+		"text"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xmlto"
+		]
+	}
+}
