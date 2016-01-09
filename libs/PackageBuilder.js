@@ -122,7 +122,7 @@ PackageBuilder.prototype.merge = function(first,second)
 			second[i] = this.mergeSubArrays(second[i],first[i]);
 		} else if ( i == 'scripts' ) {
 			second[i] = this.mergeSubArrays(second[i],first[i]);
-		} else if ( i == 'use' ) {
+		} else if ( i == 'use' || i == 'scripts' ) {
 			if (second[i] != undefined)
 				second[i] = second[i].concat(first[i]);
 			else
@@ -536,8 +536,6 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	//header
 	var script = [];
 	script.push("#!/bin/bash")
-	for (var i in this.pack.scripts)
-		script.push("source " + this.prefix.getFile("homelinux/packages/"+this.pack.scripts[i]));
 	
 	//setup variables HL
 	script.push("HL_TEMP=\""+this.userConfig.config.temp+"\"");
@@ -575,6 +573,10 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	this.pack.installUse = this.getUseFlagStatusList();
 	script.push("PACK_INSTALLED=\""+this.getPackInstalled(version)+"\"");
 	script.push("PACK_JSON=\""+JSON.stringify(this.pack,null,'\t').replace(/[\\]/g,'\\\\').replace(/"/g,'\\"').replace(/[$]/g,'\\$')+"\"");
+	script.push('');
+	
+	for (var i in this.pack.scripts)
+		script.push("source " + this.prefix.getFile("homelinux/packages/"+this.pack.scripts[i]));
 	script.push('');
 	
 	//vars

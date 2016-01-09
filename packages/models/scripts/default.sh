@@ -482,6 +482,7 @@ function hl_postinstall()
 
 function hl_clean()
 {
+	cd
 	run rm -rfd "$HL_TEMP"
 }
 

@@ -13,12 +13,15 @@
 	"md5": {},
 	"subdir": "ncurses-${VERSION}",
 	"urls": [
-		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2"
+		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2", 
+		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"gpm? sys-libs/gpm"
 	],
-	"configure": {},
+	"configure": {
+		"": [ "--with-shared" ]
+	},
 	"use": [
 		"ada",
 		"+cxx",

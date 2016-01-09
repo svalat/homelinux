@@ -166,10 +166,15 @@ VersionHelper.prototype.filterVersions = function(pack,rules,list)
 	if (rules == undefined)
 		return list;
 	
+	var last = list[list.length-1];
+	
 	var ret = [];
 	for (var i in list)
 		if (this.filterVersion(pack,rules,list[i]))
 			ret.push(list[i]);
+		
+	if (ret.length == 0)
+		throw new Error("Version filter is too strict for "+pack.name+", version before filtering is : "+last+" and filter is "+rules+", list is "+list);
 	
 	return ret;
 };

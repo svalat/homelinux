@@ -19,7 +19,7 @@
 		
 	],
 	"configure": {
-		"": [ "--enable-widec" ]
+		"": [ "--enable-widec", "--with-shared" ]
 	},
 	"host": {
 		"default": false,

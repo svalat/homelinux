@@ -13,7 +13,7 @@
 	"md5" : {},
 	"subdir": "sqlite-autoconf-${VERSION}",
 	"urls" : [
-		"https://www.sqlite.org/2015/sqlite-autoconf-${VERSION}.tar.gz"
+		"https://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],
@@ -32,7 +32,9 @@
 			"tools",
 			"doc",
 			"test",
-			"tools"
+			"tools",
+			"gentoo",
+			"debug"
 	],
 	"vspecific": {
 		":3": {
