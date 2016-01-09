@@ -343,14 +343,14 @@ function hl_configure_auto()
 
 function hl_configure_perl()
 {
-	run perl Makefile.PL PREFIX=${PREFIX} ${OPTIONS}
+	run perl Makefile.PL PREFIX=${PREFIX} $BUILD_OPTIONS
 }
 
 function hl_configure_python()
 {
 	echo ">> Generate Makefile for installation <<"
 	echo "all:" > Makefile
-	echo "	python${PYTHON_SLOT} setup.py build ${OPTIONS}" >> Makefile
+	echo "	python${PYTHON_SLOT} setup.py build $BUILD_OPTIONS" >> Makefile
 	echo "" >> Makefile
 	echo "install:" >> Makefile
 	echo "	python${PYTHON_SLOT} setup.py install --prefix=${PREFIX}" >> Makefile

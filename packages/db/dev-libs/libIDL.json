@@ -1,0 +1,35 @@
+{
+	"name": "dev-libs/libIDL",
+	"homepage": "https://www.gnome.org/",
+	"versions": [
+		"0.8.14"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "https://download.gnome.org/sources/libIDL/cache.json",
+		"regexp": "libIDL-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libIDL-${VERSION}",
+	"urls": [
+		"https://download.gnome.org/sources/libIDL/${SVERSION}/libIDL-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/glib :2",
+		"sys-devel/flex",
+		"virtual/yacc",
+		"virtual/pkgconfig"
+	],
+	"configure": {
+		"": [ "--disable-static" ]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libIDL"
+		]
+	}
+}

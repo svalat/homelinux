@@ -59,7 +59,7 @@
 		"xv? x11-libs/libXv",
 		"glib? dev-libs/glib :2",
 		"gtkstyle? x11-libs/cairo",
-		"gtkstyle? x11-libs/gtk+ :2.4,
+		"gtkstyle? x11-libs/gtk+ :2.4",
 		"egl? media-libs/mesa[egl]",
 		"nas? media-libs/nas",
 		"opengl? x11-libs/libX11",

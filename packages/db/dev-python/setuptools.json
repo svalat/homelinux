@@ -1,0 +1,38 @@
+{
+	"name": "dev-python/setuptools",
+	"homepage": "https://pypi.python.org/pypi/setuptools",
+	"versions": [
+		"19.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://pypi.python.org/pypi/setuptools",
+		"regexp": "setuptools-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "setuptools-${VERSION}",
+	"urls": [
+		"https://pypi.python.org/pypi/setuptools/setuptools-$VERSION.tar.gz"
+	],
+	"deps": [
+		"test? dev-python/pytest"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"steps": {
+		"configure": [],
+		"build": [],
+		"install": [
+			"run python setup.py install --prefix=$PREFIX"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"setuptools"
+		]
+	}
+}

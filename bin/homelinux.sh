@@ -50,7 +50,6 @@ Commands:
 	ls                : List installed packages.
 	search            : Search for matching packages in the available dbs.
 	export            : Export the current config and list of packages.
-	prefix-of         : Provide the path of the prefix of requested package.
 	jump              : Start a shell configured for the hl prefix. You
 	                    can optionally provide a command to run into this shell.
 "

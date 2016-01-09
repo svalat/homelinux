@@ -204,4 +204,9 @@ kde4-base_src_configure()
 	echo "${mycmakeargs[*]}" > /tmp/hl_pkg_convert_conf.txt
 }
 
+gnome2_src_configure()
+{
+	echo "$@" > /tmp/hl_pkg_convert_conf.txt
+}
+
 MULTILIB_USEDEP=""

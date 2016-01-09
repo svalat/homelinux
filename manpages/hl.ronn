@@ -1,0 +1,211 @@
+hld(1) -- HomeLinux main utility
+================================
+
+## SYNOPSIS
+
+`hl` {command} [packages]
+
+## DESCRIPTION
+
+HomeLinux is a package manager for you HOME dirctory. It handle installation of sources packages
+downloaded from internet and manage the dependencies like a Gentoo system for the pre-defined
+packages.
+
+The `hl` command is the main utility provided by HomeLinux and is used to install, list, update,
+and manage your prefix.
+
+HomeLinux is configured by a user file `~/.homelinux.json` which is documented into homelinux.json(5)
+and a prefix config `PREFIX/homelinux.json` which is documented into homelinux.json(5).
+
+## USER COMMANDS
+
+The `hl` utility support the given commands for users. 
+
+ * `help` :
+   Show help message with available sub commands.
+ * `env` : 
+   Print the environnement variable to setup. You must call it in your
+   terminal or `~/.bashrc` to setup the HomeLinux environnement.
+ * `unenv` : 
+   Unset the HomeLinux environnement.
+ * `switch {prefix}`: 
+   Unset the current environnement and setup a new one for the
+   prefix passed as parameter.
+ * `export` : 
+   Export the current environnement. It contain : the user and prefix configuration
+   and the list of installed packages wit versions.
+ * `jump [command]` : 
+   Start a shell with the HomeLinux environnement setup or launche the command
+   inside HomeLinux environnement. It is usefull if you don't want to globaly
+   setup the HomeLinux environnement.
+
+For database management :
+
+ * `build-cache` :
+   Rebuild the internal caches.
+ * `update-db`:
+   Update the internal databases to get last versions of packages. It refersh
+   the internal database and fetch the gentoo distfile list for quickpackage system.
+ 
+For package management :
+
+ * `install {package_list}` :
+   Install the packages passed as argument.
+ * `pinstall {package}` :
+   Same as install but try to build many packages in parallel to go faster.
+   It require a strict well defined dependencies between packages. This
+   function is currently experimental and likely to fail.
+ * `uninstall {package}` :
+   Uninstall the given package. It work only if you enable usage of GNU
+   `stow` in the prefix config file.
+ * `is-pack-installed {package}`: Check if the given package is installed
+   or not.
+ * `prefix-of` :
+   Return the prefix of the given package. /usr if not installed in HomeLinux
+   environnement.
+ * `search {name}` :
+   Search list of packages containing the given name in all HomeLinux databases.
+
+## PACKAGE DEVELOPPER COMMANDS
+
+ * `gen-package` :
+   Check the generated package, mostly to help debugging the quickpackage
+   system.
+ * `gen-full-package` :
+   Same as `gen-package` but also apply package inheritance before printing.
+ * `fetch-versions` :
+   Fetch the versions from given package and print. It helps debugging the
+   `vfetcher` entry of packages.
+ * `gen-install` :
+   Print the shell script used to build the package.
+
+## ENVIRONMENT
+
+HomeLinux will setup the environnement variables :
+
+ * `PATH`
+ * `LD_LIBRARY_PATH`
+ * `LD_RUN_PATH`
+ * `CPATH`
+ * `PERL5LIB`
+ * `PYTHONPATH`
+ * `PKG_CONFIG_PATH`
+ * `MANPATH`
+ * `MODULEPATH`
+ * `CMAKE_PREFIX_PATH`
+ * `HL_PREFIX_PATH`
+ 
+## USAGE EXAMPLE
+
+```sh
+	#provide environnement variables
+	hl env
+	
+	#update your package DB (fetch gentoo...)
+	hl update-db
+	
+	#install package
+	hl install bash                      # use name, automatic search db
+	hl install app-shells/bash           # force subdir in gentoo way
+	hl install gentoo/htop               # use the gentoo archive (nodeps)
+	hl install github/svalat/svUnitTest  # from github repos, use last release
+	hl install urls/htop                 # Use from packages/urls.lst
+	
+	#for non HL packages (gentooo, github...) you can provide some deps
+	#infos and conf options into homelinux/packages/quickpackages/, see examples.
+	
+	#you can force the vesion to install with
+	hl install htop=4.8   #exact version
+	hl install htop<4.8   #less than
+	hl install htop<=4.8  #less eq than
+	hl install 'htop!4.8' #no this one
+	hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
+	hl install htop:4     #slot based
+	
+	#search in avail packages
+	hl search htop
+	
+	#list installed packages
+	hl ls
+	
+	#uninstall htop (only if you enable stow support in prefix config)
+	hl unstinall htop
+	
+	#Jump into the HL env
+	hl jump
+	
+	#Run a command from hl env (without setting the global env)
+	#You can use alias to export HL commands to your shell
+	#without setting the full HL env
+	hl jump gcc-5.2
+	
+	#Whatch generated quickpackages
+	hl gen-package gentoo/htop
+	hl gen-full-package gentoo/htop
+	
+	#whatch generated install script
+	hl gen-install gentoo/htop
+```
+
+## PACKAGE PROVIDERS
+
+HomeLinux support multiple package providers. The default one is the internal
+database :
+
+ * `hl/{directory}/{packageName}`:
+   refers to the HomeLinux package database.
+ * `gentoo/{name}`: 
+   refers to the gentoo distfile archives which are automatically
+   installed if no packages matched into the HomeLinux database.
+ * `urls/{name}`:
+   is similar to `gentoo/` but using a custom url list into
+   `homelinux/packages/urls.txt`
+ * `github/{user}/{project}`:
+   refers to packages from GitHub. HomeLinux will
+   auotomatically search the last vesrion using the GitHub release system
+   or available tags.
+   
+## QUICKPACKAGE SYSTEM
+
+HomeLinux provide a quickpackage system to automatically generate packages
+for applications not already explicitly managed by the internal database.
+All the packages from gentoo, urls and github are based on this system.
+You can take on look on package documentation in hl-packages(5), to get a better understanding
+on how HomeLinux handle packages.
+
+You can provide some informations to tune those packages by playing with
+the files into `homelinux/packages/quickpackage`:
+
+ * `config.txt`: 
+   provides a list of option to use on configure step.
+ * `deps.txt`: 
+   provides list of dependencies to install. Prefer to only
+   give the package name and not forcing the provider so HomeLinux will
+   automaticlly choose the best one. But provide the full name for the
+   entry description (first column).
+ * `module.txt`: 
+   ask to HomeLinux to install the package into the given subdiretory
+   in Module subdir and to register it into module. It permit to use multiple
+   version of the same package and to choose which one to use.
+ * `patch.txt`: 
+   you can provide a list of patch to applies. The paches must be placed
+   into the `db/patches` directory.
+ * `subdir.txt`: 
+   define the name of the archive subdirectory to build the sources.
+ * `type.txt`:
+   define the type of package to inherit from. By default it use `auto`
+   which tries to autimatically detect the build system of the sources.
+ * `version.txt`:
+   define the version number to use or the vesion regexp to apply to search
+   in Gentoo distfile list and urls.
+
+Remark that you can use the quickpackages to extend the dependency list and to enable
+module on HomeLinux packages.
+
+## VERSION
+
+   This is the manpage of HomeLinux version 1.1.0-dev.
+
+## SEE ALSO
+
+homelinux.json(5), hl-packages(5)

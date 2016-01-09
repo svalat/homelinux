@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>hld(1) - HomeLinux main utility</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#USER-COMMANDS">USER COMMANDS</a>
+    <a href="#PACKAGE-DEVELOPPER-COMMANDS">PACKAGE DEVELOPPER COMMANDS</a>
+    <a href="#ENVIRONMENT">ENVIRONMENT</a>
+    <a href="#USAGE-EXAMPLE">USAGE EXAMPLE</a>
+    <a href="#PACKAGE-PROVIDERS">PACKAGE PROVIDERS</a>
+    <a href="#QUICKPACKAGE-SYSTEM">QUICKPACKAGE SYSTEM</a>
+    <a href="#VERSION">VERSION</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>hld(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>hld(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>hld</code> - <span class="man-whatis">HomeLinux main utility</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>hl</code> {command} [packages]</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>HomeLinux is a package manager for you HOME dirctory. It handle installation of sources packages
+downloaded from internet and manage the dependencies like a Gentoo system for the pre-defined
+packages.</p>
+
+<p>The <code>hl</code> command is the main utility provided by HomeLinux and is used to install, list, update,
+and manage your prefix.</p>
+
+<p>HomeLinux is configured by a user file <code>~/.homelinux.json</code> which is documented into <span class="man-ref">homelinux.json<span class="s">(5)</span></span>
+and a prefix config <code>PREFIX/homelinux.json</code> which is documented into <span class="man-ref">homelinux.json<span class="s">(5)</span></span>.</p>
+
+<h2 id="USER-COMMANDS">USER COMMANDS</h2>
+
+<p>The <code>hl</code> utility support the given commands for users.</p>
+
+<dl>
+<dt class="flush"><code>help</code> </dt><dd>Show help message with available sub commands.</dd>
+<dt class="flush"><code>env</code> </dt><dd>Print the environnement variable to setup. You must call it in your
+terminal or <code>~/.bashrc</code> to setup the HomeLinux environnement.</dd>
+<dt class="flush"><code>unenv</code> </dt><dd>Unset the HomeLinux environnement.</dd>
+<dt><code>switch {prefix}</code></dt><dd>Unset the current environnement and setup a new one for the
+prefix passed as parameter.</dd>
+<dt class="flush"><code>export</code> </dt><dd>Export the current environnement. It contain : the user and prefix configuration
+and the list of installed packages wit versions.</dd>
+<dt><code>jump [command]</code> </dt><dd>Start a shell with the HomeLinux environnement setup or launche the command
+inside HomeLinux environnement. It is usefull if you don't want to globaly
+setup the HomeLinux environnement.</dd>
+</dl>
+
+
+<p>For database management :</p>
+
+<dl>
+<dt><code>build-cache</code> </dt><dd>Rebuild the internal caches.</dd>
+<dt><code>update-db</code></dt><dd>Update the internal databases to get last versions of packages. It refersh
+the internal database and fetch the gentoo distfile list for quickpackage system.</dd>
+</dl>
+
+
+<p>For package management :</p>
+
+<ul>
+<li><code>install {package_list}</code> :
+Install the packages passed as argument.</li>
+<li><code>pinstall {package}</code> :
+Same as install but try to build many packages in parallel to go faster.
+It require a strict well defined dependencies between packages. This
+function is currently experimental and likely to fail.</li>
+<li><code>uninstall {package}</code> :
+Uninstall the given package. It work only if you enable usage of GNU
+<code>stow</code> in the prefix config file.</li>
+<li><code>is-pack-installed {package}</code>: Check if the given package is installed
+or not.</li>
+<li><code>prefix-of</code> :
+Return the prefix of the given package. /usr if not installed in HomeLinux
+environnement.</li>
+<li><code>search {name}</code> :
+Search list of packages containing the given name in all HomeLinux databases.</li>
+</ul>
+
+
+<h2 id="PACKAGE-DEVELOPPER-COMMANDS">PACKAGE DEVELOPPER COMMANDS</h2>
+
+<dl>
+<dt><code>gen-package</code> </dt><dd>Check the generated package, mostly to help debugging the quickpackage
+system.</dd>
+<dt><code>gen-full-package</code> </dt><dd>Same as <code>gen-package</code> but also apply package inheritance before printing.</dd>
+<dt><code>fetch-versions</code> </dt><dd>Fetch the versions from given package and print. It helps debugging the
+<code>vfetcher</code> entry of packages.</dd>
+<dt><code>gen-install</code> </dt><dd>Print the shell script used to build the package.</dd>
+</dl>
+
+
+<h2 id="ENVIRONMENT">ENVIRONMENT</h2>
+
+<p>HomeLinux will setup the environnement variables :</p>
+
+<ul>
+<li><code>PATH</code></li>
+<li><code>LD_LIBRARY_PATH</code></li>
+<li><code>LD_RUN_PATH</code></li>
+<li><code>CPATH</code></li>
+<li><code>PERL5LIB</code></li>
+<li><code>PYTHONPATH</code></li>
+<li><code>PKG_CONFIG_PATH</code></li>
+<li><code>MANPATH</code></li>
+<li><code>MODULEPATH</code></li>
+<li><code>CMAKE_PREFIX_PATH</code></li>
+<li><code>HL_PREFIX_PATH</code></li>
+</ul>
+
+
+<h2 id="USAGE-EXAMPLE">USAGE EXAMPLE</h2>
+
+<pre><code class="sh">    #provide environnement variables
+    hl env
+
+    #update your package DB (fetch gentoo...)
+    hl update-db
+
+    #install package
+    hl install bash                      # use name, automatic search db
+    hl install app-shells/bash           # force subdir in gentoo way
+    hl install gentoo/htop               # use the gentoo archive (nodeps)
+    hl install github/svalat/svUnitTest  # from github repos, use last release
+    hl install urls/htop                 # Use from packages/urls.lst
+
+    #for non HL packages (gentooo, github...) you can provide some deps
+    #infos and conf options into homelinux/packages/quickpackages/, see examples.
+
+    #you can force the vesion to install with
+    hl install htop=4.8   #exact version
+    hl install htop&lt;4.8   #less than
+    hl install htop&lt;=4.8  #less eq than
+    hl install 'htop!4.8' #no this one
+    hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
+    hl install htop:4     #slot based
+
+    #search in avail packages
+    hl search htop
+
+    #list installed packages
+    hl ls
+
+    #uninstall htop (only if you enable stow support in prefix config)
+    hl unstinall htop
+
+    #Jump into the HL env
+    hl jump
+
+    #Run a command from hl env (without setting the global env)
+    #You can use alias to export HL commands to your shell
+    #without setting the full HL env
+    hl jump gcc-5.2
+
+    #Whatch generated quickpackages
+    hl gen-package gentoo/htop
+    hl gen-full-package gentoo/htop
+
+    #whatch generated install script
+    hl gen-install gentoo/htop
+</code></pre>
+
+<h2 id="PACKAGE-PROVIDERS">PACKAGE PROVIDERS</h2>
+
+<p>HomeLinux support multiple package providers. The default one is the internal
+database :</p>
+
+<dl>
+<dt><code>hl/{directory}/{packageName}</code></dt><dd>refers to the HomeLinux package database.</dd>
+<dt><code>gentoo/{name}</code></dt><dd>refers to the gentoo distfile archives which are automatically
+installed if no packages matched into the HomeLinux database.</dd>
+<dt><code>urls/{name}</code></dt><dd>is similar to <code>gentoo/</code> but using a custom url list into
+<code>homelinux/packages/urls.txt</code></dd>
+<dt><code>github/{user}/{project}</code></dt><dd>refers to packages from GitHub. HomeLinux will
+auotomatically search the last vesrion using the GitHub release system
+or available tags.</dd>
+</dl>
+
+
+<h2 id="QUICKPACKAGE-SYSTEM">QUICKPACKAGE SYSTEM</h2>
+
+<p>HomeLinux provide a quickpackage system to automatically generate packages
+for applications not already explicitly managed by the internal database.
+All the packages from gentoo, urls and github are based on this system.
+You can take on look on package documentation in <span class="man-ref">hl-packages<span class="s">(5)</span></span>, to get a better understanding
+on how HomeLinux handle packages.</p>
+
+<p>You can provide some informations to tune those packages by playing with
+the files into <code>homelinux/packages/quickpackage</code>:</p>
+
+<dl>
+<dt><code>config.txt</code></dt><dd>provides a list of option to use on configure step.</dd>
+<dt><code>deps.txt</code></dt><dd>provides list of dependencies to install. Prefer to only
+give the package name and not forcing the provider so HomeLinux will
+automaticlly choose the best one. But provide the full name for the
+entry description (first column).</dd>
+<dt><code>module.txt</code></dt><dd>ask to HomeLinux to install the package into the given subdiretory
+in Module subdir and to register it into module. It permit to use multiple
+version of the same package and to choose which one to use.</dd>
+<dt><code>patch.txt</code></dt><dd>you can provide a list of patch to applies. The paches must be placed
+into the <code>db/patches</code> directory.</dd>
+<dt><code>subdir.txt</code></dt><dd>define the name of the archive subdirectory to build the sources.</dd>
+<dt><code>type.txt</code></dt><dd>define the type of package to inherit from. By default it use <code>auto</code>
+which tries to autimatically detect the build system of the sources.</dd>
+<dt><code>version.txt</code></dt><dd>define the version number to use or the vesion regexp to apply to search
+in Gentoo distfile list and urls.</dd>
+</dl>
+
+
+<p>Remark that you can use the quickpackages to extend the dependency list and to enable
+module on HomeLinux packages.</p>
+
+<h2 id="VERSION">VERSION</h2>
+
+<p>   This is the manpage of HomeLinux version 1.1.0-dev.</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p><span class="man-ref">homelinux.json<span class="s">(5)</span></span>, <span class="man-ref">hl-packages<span class="s">(5)</span></span></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>January 2016</li>
+    <li class='tr'>hld(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>
