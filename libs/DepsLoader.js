@@ -60,6 +60,9 @@ function DepsLoader(prefix,userConfig,packageList)
 	
 	//apply vspecifiv recursivly
 	this.applyVSpecific();
+	
+	//check installed
+	this.checkStatus();
 
 	//sched
 	this.buildSched();
@@ -225,22 +228,9 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 		p = this.packages[p.getNameSlot()];
 		this.applyVersionRules(p,parent,infos);
 	}
-	
-	//check status
-	if (force == true)
-	{
-		if (this.hostPkgChecker.presentOnSystem(p))
-			p.pack.present = 'override-system';
-		if (p.isInstalled())
-			p.pack.present = 'reinstall';
-	} else if (p.pack.present == undefined) {
-		if (this.prefix.hasPackageInstalled(p))
-			p.pack.present = 'already-installed';
-		else if (this.hostPkgChecker.presentOnSystem(p))
-			p.pack.present = 'use-host';
-		else
-			p.pack.present = null;
-	}
+
+	//for check status
+	p.force = force;
 	
 	//register into loaded DB
 	this.packages[p.getNameSlot()] = p;
@@ -251,6 +241,32 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 	
 	return p;
 };
+
+/*******************  FUNCTION  *********************/
+DepsLoader.prototype.checkStatus = function()
+{
+	for (var i in this.packages)
+	{
+		//get package
+		var p = this.packages[i];
+		
+		//check status
+		if (p.force == true)
+		{
+			if (this.hostPkgChecker.presentOnSystem(p))
+				p.pack.present = 'override-system';
+			if (p.isInstalled())
+				p.pack.present = 'reinstall';
+		} else if (p.pack.present == undefined) {
+			if (this.prefix.hasPackageInstalled(p))
+				p.pack.present = 'already-installed';
+			else if (this.hostPkgChecker.presentOnSystem(p))
+				p.pack.present = 'use-host';
+			else
+				p.pack.present = null;
+		}
+	}
+}
 
 /*******************  FUNCTION  *********************/
 /**

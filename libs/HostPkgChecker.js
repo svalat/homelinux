@@ -55,6 +55,13 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 	if (this.hostsRefs[p.pack.name] != undefined)
 		h = this.hostsRefs[p.pack.name];
 	
+	//replace with soft
+	for (var i in h)
+	{
+		h[i] = h[i].replace('${SLOT}',p.getSlot(p.getVersion()));
+		h[i] = h[i].replace('${VERSION}',p.getVersion());
+	}
+	
 	//not defined, consider not provided
 	if (h == undefined)
 		return false;
