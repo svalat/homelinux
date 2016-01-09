@@ -21,6 +21,8 @@ It might contain :
  * *packageOverride* : You can ovveride some package entries if needed for example to quicly
  patch the installation procedure if you encounter some issues. You can override all the
  entries you want. If you want to apply on a specific version use the *vspecific* sub entry.
+ * *providers*, you can change the priority of the providers to use for quickpackage building.
+ By default : "homelinux", "gentoo", "urls", "github".
  
 Here an example :
 

@@ -45,7 +45,10 @@ function Prefix(userConfig,prefixPath)
 		urls: new Urls(this),
 		github: new Github(this)
 	};
-	this.providerList = [ "models", "homelinux", "gentoo", "urls", "github" ];
+	if (this.config.providers != undefined)
+		this.providerList = [ "models" ].concat(this.config.providers);
+	else
+		this.providerList = [ "models", "homelinux", "gentoo", "urls", "github" ];
 }
 
 /*******************  FUNCTION  *********************/
