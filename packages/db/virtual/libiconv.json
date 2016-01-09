@@ -15,6 +15,9 @@
 	"deps": [
 		"dev-libs/libiconv"
 	],
+	"urls" : [
+		"none"
+	],
 	"configure": {},
 	"use": [
 	],

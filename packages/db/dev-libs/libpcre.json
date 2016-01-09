@@ -11,9 +11,9 @@
 		"regexp": "libpcre-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "libpcre-${VERSION}",
+	"subdir": "pcre-${VERSION}",
 	"urls": [
-		"ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/libpcre-${VERSION}.tar.bz2"
+		"ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"bzip2? app-arch/bzip2",
@@ -25,12 +25,11 @@
 	],
 	"configure": {
 		"": [
-			"--with-match-limit-recursion=@on@+recursion-limit@8192@",
 			"--enable-pcre8",
 			"--enable-shared"
 		],
 		"-recursion-limit": [
-			"MATCH_LIMIT"
+			"--with-match-limit-recursion=8192"
 		],
 		"cxx": [
 			"--$enable-cpp"

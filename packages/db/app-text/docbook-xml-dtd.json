@@ -6,14 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "gentoo",
 		"url": "XXXXXXX",
-		"regexp": "docbook-xml-dtd-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "docbook-xml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "docbook-xml-dtd-${VERSION}",
+	"subdir": "./",
 	"urls": [
-		"XXXXXX/docbook-xml-dtd-${VERSION}.tar.bz2"
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/docbook-xml-${VERSION}.zip"
 	],
 	"deps": [
 		"app-arch/unzip",
@@ -25,6 +25,16 @@
 	"use": [
 		""
 	],
+	"steps": {
+		"configure": [],
+		"build": [],
+		"install": [
+				"run mkdir -p ${PREFIX}/share/docbook-xml/",
+				"run cp -r -v * ${PREFIX}/share/docbook-xml/",
+				"run rm -f ${PREFIX}/share/docbook-xml/README",
+				"run rm -f ${PREFIX}/share/docbook-xml/ChangeLog"
+		]
+	},
 	"host": {
 		"default": false,
 		"debian8": [

@@ -2,7 +2,7 @@
 	"name": "kde-base/kdelibs",
 	"homepage": "",
 	"versions": [
-		"4.14.8"
+		"4.14.3"
 	],
 	"inherit": "models/cmake",
 	"vfetcher": {
@@ -152,6 +152,7 @@
 		]
 	},
 	"use": [
+		"opengl",
 		"-aqua",
 		"-kernel_SunOS",
 		"cpu_flags_x86_3dnow",

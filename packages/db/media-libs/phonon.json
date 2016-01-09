@@ -2,18 +2,18 @@
 	"name": "media-libs/phonon",
 	"homepage": "https://projects.kde.org/projects/kdesupport/phonon",
 	"versions": [
-		"9999"
+		"4.8.3"
 	],
-	"inherit": "models/autotools",
+	"inherit": "models/cmake",
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.kde.org/stable/phonon/",
-		"regexp": "phonon-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "phonon-${VERSION}",
 	"urls": [
-		"http://download.kde.org/stable/phonon/phonon-${VERSION}.tar.bz2"
+		"http://download.kde.org/stable/phonon/${VERSION}/src//phonon-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"virtual/pkgconfig",
@@ -50,7 +50,7 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"phonon"
+			"phonon", "libphonon-dev"
 		]
 	}
 }

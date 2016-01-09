@@ -23,10 +23,8 @@
 	],
 	"steps": {
 		"configure": [
-			"echo 'all:' > Makefile",
-			"echo 'install:' > Makefile",
-			"echo \"\\tmkdir -p ${PREFIX}/share/docbook-xsl/\" >> Makefile",
-			"echo \"\\tcp -r -v * ${PREFIX}/share/docbook-xsl/\" >> Makefile"
+			"run mkdir -p ${PREFIX}/share/docbook-xsl/",
+			"run cp -r -v * ${PREFIX}/share/docbook-xsl/"
 		],
 		"postinstall": [
 			"run install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"

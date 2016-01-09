@@ -120,7 +120,7 @@ Gentoo.prototype.getPackage = function(packageName)
 			qp.url.push( "ftp://"+self.config.server
 				+ ":"+self.config.port
 				+ "/"+self.config.distfiles
-				+ "/"+qp.name+"-${VERSION}."+ext);
+				+ "/"+shortName+"-${VERSION}."+ext);
 		});
 		
 		//finish

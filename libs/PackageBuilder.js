@@ -93,6 +93,8 @@ PackageBuilder.prototype.loadInherit = function(pack)
 				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
 			} else if ( i == 'deps' ) {
 				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
+			} else if ( i == 'scripts' ) {
+				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
 			} else if ( i == 'use' ) {
 				if (parent[i] != undefined)
 					parent[i] = parent[i].concat(pack[i]);
@@ -487,10 +489,15 @@ PackageBuilder.prototype.getNameSlot = function()
 /*******************  FUNCTION  *********************/
 PackageBuilder.prototype.genScript = function(usePinstall)
 {
+	//checking
+	if (this.pack.urls == undefined)
+		throw new Error("Fail to get URLS for package "+this.getNameSlot());
+	
 	//header
 	var script = [];
 	script.push("#!/bin/bash")
-	script.push("source " + this.prefix.getFile("homelinux/packages/models/scripts/default.sh"));
+	for (var i in this.pack.scripts)
+		script.push("source " + this.prefix.getFile("homelinux/packages/"+this.pack.scripts[i]));
 	
 	//setup variables HL
 	script.push("HL_TEMP=\""+this.userConfig.config.temp+"\"");

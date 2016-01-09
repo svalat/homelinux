@@ -4,7 +4,7 @@
 	"versions": [
 		"0.4.2"
 	],
-	"inherit": "models/autotools",
+	"inherit": "models/cmake",
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.kde.org/stable/attica/",

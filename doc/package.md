@@ -94,7 +94,8 @@ All the orther entries are optional.
 		"module": "gcc-${VERSION}",
 		"vars": {
 			"PYTHON_SLOT": "3"
-		}
+		},
+		"scripts": [ "models/scripts/default.sh" ]
 	}
 ```
 
@@ -148,6 +149,8 @@ you might want to use `default` and override the required steps.
  if `+gentoo` flag is enabled to produce a gentoo-like build.
  * *vars* : Used to define some extra variables which can be used by the command used to build the package,
  in the example code, it define the python version to use to install a python module.
+ * *scripts* : Load a bash script library of functions in addition to the existing one. The path must
+ be relative to `homelinux/packages` subdirectory.
  
 About commands
 --------------

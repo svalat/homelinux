@@ -4,16 +4,16 @@
 	"versions": [
 		"0.7.8"
 	],
-	"inherit": "models/autotools",
+	"inherit": "models/cmake",
 	"vfetcher": {
-		"mode": "none",
+		"mode": "gentoo",
 		"url": "git://anongit.kde.org/strigi",
-		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"regexp": "strigi-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
 	},
 	"md5": {},
 	"subdir": "strigi-${VERSION}",
 	"urls": [
-		"git://anongit.kde.org/strigi"
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/strigi-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"app-arch/bzip2",
@@ -68,15 +68,15 @@
 		]
 	},
 	"use": [
-		"clucene",
+		"-clucene",
 		"+dbus",
 		"debug",
-		"exif",
-		"fam",
-		"ffmpeg",
+		"-exif",
+		"-fam",
+		"-ffmpeg",
 		"+inotify",
-		"libav",
-		"log",
+		"-libav",
+		"-log",
 		"+qt4",
 		"test"
 	],

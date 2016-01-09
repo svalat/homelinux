@@ -232,8 +232,8 @@ function hl_download_internal()
 				run git clone ${url}
 			fi
 			run_sh cd $s
-			(run_echo git archive --format=tar --prefix=$SUBDIR/ ${VERSION} '>' $SHORT_NAME-$VERSION.tar && git archive --format=tar --prefix=$SUBDIR/ ${VERSION} > $SHORT_NAME-$VERSION.tar) \
-				|| (run_echo run git archive --format=tar --prefix=$SUBDIR/ v${VERSION} '>' $SHORT_NAME-$VERSION.tar && run git archive --format=tar --prefix=$SUBDIR/ v${VERSION} > $SHORT_NAME-$VERSION.tar)
+			(run_echo git archive --format=tar --prefix=$SUBDIR/ v${VERSION} '>' $SHORT_NAME-$VERSION.tar && git archive --format=tar --prefix=$SUBDIR/ ${VERSION} > v$SHORT_NAME-$VERSION.tar) \
+				|| (run_echo run git archive --format=tar --prefix=$SUBDIR/ ${VERSION} '>' $SHORT_NAME-$VERSION.tar && run git archive --format=tar --prefix=$SUBDIR/ ${VERSION} > $SHORT_NAME-$VERSION.tar)
 			run gzip $SHORT_NAME-$VERSION.tar
 			run mv $ARCHIVE $DISTFILES/$ARCHIVE
 			run_sh cd $DIR
@@ -292,6 +292,9 @@ function hl_extract()
 			;;
 		*.tar.xz)
 			run tar -xJf $DISTFILES/$ARCHIVE
+			;;
+		*.zip)
+			run unzip $DISTFILES/$ARCHIVE
 			;;
 		*)
 			die "Unmanaged archive format : $ARCHIVE"

@@ -21,7 +21,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "bzip2" ]
+		"debian8": [ "bzip2", "libbz2-dev" ]
 	},
 	"use": [ 
 	],
