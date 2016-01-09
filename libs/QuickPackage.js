@@ -115,7 +115,7 @@ QuickPackage.prototype.genFullPackage = function(qp)
 		"name": qp.name,
 		"inherit": this.getQuickInfo('type',qp.name,qp.type == undefined ? 'models/auto' : qp.type),
 		"versions": Array.isArray(qp.version)? qp.version: [ qp.version ],
-		"subdir" : this.getQuickInfo('subdir',qp.name,qp.name.split('/').pop()+"-${VERSION}"),
+		"subdir" : qp.subdir != undefined? qp.subdir : this.getQuickInfo('subdir',qp.name,qp.name.split('/').pop()+"-${VERSION}"),
 		"urls": Array.isArray(qp.url)? qp.url : [ qp.url ],
 		"deps": qp.deps == undefined ? this.getQuickInfo('deps',qp.name,[]) : this.getQuickInfo('deps',qp.name,[]).concat(qp.deps) ,
 		"patch": this.getQuickInfo('patch',qp.name,[]), 

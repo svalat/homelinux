@@ -109,7 +109,8 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 	p.checkUseFlagHints();
 	p.applyVersionHints();
 	p.selectVSpecific();
-	this.loadPackageDeps(p);
+// 	if (!this.hostPkgChecker.presentOnSystem(p))
+// 		this.loadPackageDeps(p);
 	if (p.pdeps != undefined)
 		for (var i in p.pdeps)
 		{
@@ -228,15 +229,26 @@ DepsLoader.prototype.loadPackage = function(request,parent,force)
 		p = this.packages[p.getNameSlot()];
 		this.applyVersionRules(p,parent,infos);
 	}
+	
+	//if present on system don't load deps
+	//might be required for debian provider
+	/*if (needLoadDeps && this.hostPkgChecker.presentOnSystem(p))
+	{
+		console.error(p.getNameSlot()+" is present, don't load deps");
+		needLoadDeps = false;
+	} else {
+		console.error(p.getNameSlot()+" not present : "+p.pack.host.debian8);
+	}*/
 
 	//for check status
-	p.force = force;
+	if (force)
+		p.force = force;
 	
 	//register into loaded DB
 	this.packages[p.getNameSlot()] = p;
 	
 	//load deps
-	if (needLoadDeps)
+	if (needLoadDeps || force)
 		this.loadPackageDeps(p);
 	
 	return p;
@@ -288,13 +300,13 @@ DepsLoader.prototype.parseRequestString = function(dep)
 {
 	if (dep.indexOf('?') == -1)
 	{
-		var regexp = new RegExp("([0-9a-zA-Z+_/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
+		var regexp = new RegExp("([0-9a-zA-Z+._/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw new Error("Invalid format "+dep);
 		return {name:ret[1],use:null,iuse:ret[2],version:ret[3]};
 	} else {
-		var regexp = new RegExp("([a-zA-Z0-9-&_+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
+		var regexp = new RegExp("([a-zA-Z0-9-&._+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
 		var ret = regexp.exec(dep);
 		if (ret == null)
 			throw new Error("Invalid format "+dep);

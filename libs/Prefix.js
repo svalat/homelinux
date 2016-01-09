@@ -27,6 +27,7 @@ var HomeLinux = require('./providers/HomeLinux');
 var Urls = require('./providers/Urls');
 var Github = require('./providers/Github');
 var Models = require('./providers/Models');
+var Debian = require('./providers/Debian');
 
 /*********************  CLASS  **********************/
 /**
@@ -39,6 +40,7 @@ function Prefix(userConfig,prefixPath)
 	this.load(prefixPath);
 	this.quickPackage = new QuickPackage(this);
 	this.provider = {
+		debian: new Debian(this),
 		models: new Models(this),
 		homelinux: new HomeLinux(this),
 		gentoo: new Gentoo(this),
@@ -49,6 +51,7 @@ function Prefix(userConfig,prefixPath)
 		this.providerList = [ "models" ].concat(this.config.providers);
 	else
 		this.providerList = [ "models", "homelinux", "gentoo", "urls", "github" ];
+		//this.providerList = [ "models", "debian" ];// [ "models", "homelinux", "gentoo", "urls", "github" ];
 }
 
 /*******************  FUNCTION  *********************/
