@@ -9,11 +9,13 @@
 /********************  GLOBALS  *********************/
 var fs = require('fs');
 var PackageBuilder = require('../PackageBuilder');
+var clone = require('clone');
 
 /*********************  CLASS  **********************/
 function Models(prefix)
 {
 	this.prefix = prefix;
+	this.cache = {};
 }
 
 /*******************  FUNCTION  *********************/
@@ -32,6 +34,10 @@ Models.prototype.getPackage = function(packageName)
 	//load path
 	var fname = this.prefix.getFile("/homelinux/packages/"+packageName+".json");
 	
+	//check in cache
+	if (this.cache[packageName] != undefined)
+		return clone(this.cache[packageName]);
+	
 	//console.error(fname);
 	if (fs.existsSync(fname))
 	{
@@ -43,7 +49,8 @@ Models.prototype.getPackage = function(packageName)
 // 			console.error("Failed to load "+fname);
 // 			throw e;
 // 		}
-			
+		
+		this.cache[packageName] = clone(json);
 		return json;
 	} else {
 		return undefined;

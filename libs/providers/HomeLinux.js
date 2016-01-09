@@ -11,11 +11,13 @@ var fs = require('fs');
 var find = require('find');
 var colors = require('colors');
 var PackageBuilder = require('../PackageBuilder');
+var clone = require('clone');
 
 /*********************  CLASS  **********************/
 function HomeLinuxProvider(prefix)
 {
 	this.prefix = prefix;
+	this.pcache = {};
 }
 
 /*******************  FUNCTION  *********************/
@@ -69,6 +71,10 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 		packageName = 'hl/'+shortName;
 	}
 	
+	//check in cache
+	if (this.pcache[packageName] != undefined)
+		return clone(this.pcache[packageName]);
+	
 	//load path
 	var fname = this.prefix.getFile("/homelinux/packages/db/"+shortName+".json");
 	//console.error(fname);
@@ -91,6 +97,7 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 			json.versions = versions[packageName];
 		}
 		
+		this.pcache[packageName] = clone(json);
 		return json;
 	} else {
 		return undefined;
