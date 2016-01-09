@@ -2,8 +2,6 @@
 gentoo/mpfr gmp
 gentoo/mpc mpfr gmp
 gentoo/gcc gmp mpfr mpc binutils libtool
-gentoo/GConf glib ORBit2 libxml2 dbus-glib
-gentoo/ORBit2 libIDL
 gentoo/dbus-glib expat
 gentoo/XML-Parser expat
 gentoo/intltool XML-Parser
@@ -22,8 +20,6 @@ gentoo/docbook-xsl docbook-xml sgml-common
 gentoo/pygtk pygobject
 gentoo/pygobject gobject-introspection glib pycairo
 gentoo/gobject-introspection libffi
-gentoo/libbonoboui libbonobo libgnome activation libgnomecanvas
-gentoo/libgnome gnome-vfs libbonobo
 gentoo/libcanberra libvorbis
 gentoo/libvorbis libogg
 gentoo/kdevelop kdevplatform kdebase-workspace
@@ -75,6 +71,13 @@ gentoo/libmng lcms
 gentoo/gobject-introspection glib:2
 gentoo/meld intltool itstool
 #################################### FOR USER ######################################
-gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm:2.4 gtksourceviewmm vte
+gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm@:3 gtksourceviewmm vte
 gentoo/libgtksourceviewmm pangomm
-gentoo/gtksourceviewmm gtkmm:2.4 gtksourceview
+gentoo/gtksourceviewmm gtkmm@:3 gtksourceview
+gentoo/GConf glib ORBit2 libxml2 dbus-glib
+gentoo/ORBit2 libIDL
+gentoo/at-spi2-atk at-spi
+gentoo/at-spi libbonobo
+gentoo/libbonoboui libbonobo libgnome activation libgnomecanvas
+gentoo/libgnome gnome-vfs libbonobo
+gentoo/libbonobo popt

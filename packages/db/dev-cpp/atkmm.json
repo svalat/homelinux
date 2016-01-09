@@ -13,7 +13,8 @@
 	"md5": {},
 	"subdir": "atkmm-${VERSION}",
 	"urls": [
-		"http://ftp.gnome.org/pub/gnome/sources/atkmm/$(echo $VERSION | cut -d '.' -f 1-2)/atkmm-${VERSION}.tar.bz2"
+		"http://ftp.gnome.org/pub/gnome/sources/atkmm/$SVERSION/atkmm-${VERSION}.tar.bz2",
+		"http://ftp.gnome.org/pub/gnome/sources/atkmm/$SVERSION/atkmm-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-cpp/glibmm:2[#doc]",

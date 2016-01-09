@@ -63,7 +63,7 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 	}
 	
 	//not defined, consider not provided
-	if (h == undefined)
+	if (h == undefined || h == 'undefined' || h.length == 0)
 		return false;
 	
 	//is not provided

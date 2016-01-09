@@ -108,5 +108,16 @@
 		"vim-syntax",
 		"xinerama",
 		"-TODO"
-	]
+	],
+	"vspecific": {
+		":3": {
+			"deps": [
+				"app-accessibility/at-spi2-atk"
+			],
+			"host": {
+				"default": false,
+				"debian8": [ "libgtk+3.0-dev" ]
+			}
+		}
+	}
 }
