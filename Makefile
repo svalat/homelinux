@@ -30,6 +30,9 @@ install: check
 	cp -r node_modules $(DEST)/lib/homelinux
 	mkdir -p $(DEST)/homelinux/install-db
 	$(DEST)/bin/hl update-cache
+	mkdir -p $(DEST)/share/man/man1
+	mkdir -p $(DEST)/share/man/man5
+	cp manpages/hl.1.bz2 $(DEST)/share/man/man1
 	
 
 .PHONY: check install

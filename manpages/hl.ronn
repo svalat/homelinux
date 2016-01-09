@@ -1,5 +1,5 @@
-hld(1) -- HomeLinux main utility
-================================
+hl(1) -- HomeLinux main utility
+===============================
 
 ## SYNOPSIS
 
