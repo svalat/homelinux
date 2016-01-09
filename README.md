@@ -183,6 +183,25 @@ Currently HomeLinux setup the environenement variables for you to fully configur
  * `MANPATH`
  * `MODULEPATH`
  * `CMAKE_PREFIX_PATH`
+ 
+Providers
+---------
+
+Homelinux use multiple sources to find packages, which are called providers. You can change in which order they are used
+or skip somes by editing you prefix config file and setting up the `providers` field. The most interesting change
+is the priority of debian versus gentoo depending on which distribution your prefer as fallback for non HomeLinux packages.
+
+```json
+	{
+		"providers": [
+			"homelinux", 
+			"gentoo", 
+			"debian", 
+			"urls", 
+			"github"
+		],
+	}
+```
 
 Create packages
 ---------------
