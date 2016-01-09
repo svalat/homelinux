@@ -18,6 +18,9 @@ It might contain :
  * *use* : Use flags to use for the prefix. If some use flags don't match
  with the inherited prefix it will induce a rebuild of the reltated packages.
  * *gentoo* : Configure the gentoo mirror to use for quickpackage fallback.
+ * *packageOverride* : You can ovveride some package entries if needed for example to quicly
+ patch the installation procedure if you encounter some issues. You can override all the
+ entries you want. If you want to apply on a specific version use the *vspecific* sub entry.
  
 Here an example :
 
@@ -47,6 +50,11 @@ Here an example :
 			"server":"gentoo.mirrors.ovh.net",
 			"port": 21,
 			"distfiles": "gentoo-distfiles/distfiles/"
+		},
+		"packageOverride": {
+			"gentoo/kdiff3": {
+				"module": "kdiff3-$SVERSION"
+			}
 		}
 	}
 ```
@@ -75,4 +83,7 @@ It contains :
  * *prefixOverride* : You can override some prefix config from the user config.
  It is usefull for package developpers who remove their prefix to restart from clean
  state. Add a key named with the path of your prefix and provide any prefix config entries.
+ * *packageOverride* : You can ovveride some package entries if needed for example to quicly
+ patch the installation procedure if you encounter some issues. You can override all the
+ entries you want. If you want to apply on a specific version use the *vspecific* sub entry.
 

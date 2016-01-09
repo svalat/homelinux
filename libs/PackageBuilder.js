@@ -56,7 +56,34 @@ PackageBuilder.prototype.load = function(packageName,inherit)
 	} else {
 		this.pack.configure[''] = this.pack.configure[''].concat(config);
 	}
+	
+	//add quick module
+	var module = this.prefix.getQuick('module',this.pack.name);
+	if (this.pack.module == undefined)
+		this.pack.module = module;
+	
+	//override from config
+	if (this.prefix.config.packagesOverride != undefined)
+	{
+		var prefixConfig = this.prefix.config.packagesOverride[this.pack.name];
+		if (prefixConfig != undefined)
+			this.pack = this.override(this.pack,prefixConfig);
+	}
+	
+	//override from config
+	if (this.userConfig.config.packagesOverride != undefined)
+	{
+		var prefixConfig = this.userConfig.config.packagesOverride[this.pack.name];
+		if (prefixConfig != undefined)
+			this.pack = this.override(this.pack,prefixConfig);
+	}
 };
+
+/*******************  FUNCTION  *********************/
+PackageBuilder.prototype.override = function(pack,config)
+{
+	return this.merge(config,pack);
+}
 
 /*******************  FUNCTION  *********************/
 function mergeEntry(parent,child)
@@ -68,6 +95,49 @@ function mergeEntry(parent,child)
 }
 
 /*******************  FUNCTION  *********************/
+PackageBuilder.prototype.merge = function(first,second)
+{
+	var lst = {};
+	for (var i in first)
+		lst[i] = true;
+	for (var i in second)
+		lst[i] = true;
+	
+	//merge
+	for (var i in lst)
+	{
+		if (i == 'deps')
+		{
+			if (first.deps != undefined)
+				second.deps = first.deps.concat(second.deps);
+		} else if (i == 'steps') {
+			if (second.steps != undefined && first.steps != undefined)
+				second.steps = jso(second.steps,first.steps);
+			else if (first.steps != undefined)
+				second.steps = first.steps;
+		} else if ( i == 'inherit' ) {
+		} else if ( i == 'configure' ) {
+			second[i] = this.mergeSubArrays(second[i],first[i]);
+		} else if ( i == 'deps' ) {
+			second[i] = this.mergeSubArrays(second[i],first[i]);
+		} else if ( i == 'scripts' ) {
+			second[i] = this.mergeSubArrays(second[i],first[i]);
+		} else if ( i == 'use' ) {
+			if (second[i] != undefined)
+				second[i] = second[i].concat(first[i]);
+			else
+				second[i] = first[i];
+			//TODO do proper marge
+			second[i] = second[i].filter(function(value,index,self) {return self.indexOf(value) === index;});
+		} else {
+			second[i] = mergeEntry(second[i],first[i]);
+		}
+	}
+	
+	return second;
+}
+
+/*******************  FUNCTION  *********************/
 PackageBuilder.prototype.loadInherit = function(pack)
 {
 	if (pack.inherit == undefined || pack.inherit == '')
@@ -76,37 +146,7 @@ PackageBuilder.prototype.loadInherit = function(pack)
 	} else {
 		//load
 		var parent = this.prefix.loadPackage(pack.inherit);
-		
-		//merge
-		for (var i in pack)
-		{
-			if (i == 'deps')
-			{
-				parent.deps = pack.deps.concat(parent.deps);
-			} else if (i == 'steps') {
-				if (parent.steps != undefined && pack.steps != undefined)
-					parent.steps = jso(parent.steps,pack.steps);
-				else if (pack.steps != undefined)
-					parent.steps = pack.steps;
-			} else if ( i == 'inherit' ) {
-			} else if ( i == 'configure' ) {
-				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
-			} else if ( i == 'deps' ) {
-				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
-			} else if ( i == 'scripts' ) {
-				parent[i] = this.mergeSubArrays(parent[i],pack[i]);
-			} else if ( i == 'use' ) {
-				if (parent[i] != undefined)
-					parent[i] = parent[i].concat(pack[i]);
-				else
-					parent[i] = pack[i];
-				//TODO do proper marge
-				parent[i] = parent[i].filter(function(value,index,self) {return self.indexOf(value) === index;});
-			} else {
-				parent[i] = mergeEntry(parent[i],pack[i]);
-			}
-		}
-			
+		pack = this.merge(pack,parent);
 		return this.loadInherit(parent);
 	}
 };
@@ -511,6 +551,7 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("NAME=\""+this.pack.name+"\"");
 	script.push("SHORT_NAME=\""+this.getShortName()+"\"");
 	script.push("VERSION=\""+version+"\"");
+	script.push("SVERSION=\"$(echo $VERSION | cut -d '.' -f 1-2)\"");
 	script.push("URLS=\""+this.pack.urls.join(' ')+"\"");
 	script.push("MD5=\""+this.pack.md5[version] != undefined?this.pack.md5[version]:''+"\"");
 	script.push("SUBDIR=\""+this.pack.subdir+"\"");

@@ -5,5 +5,7 @@
 	"homecache": false,
 	"ccache": false,
 	"pyEnv": true,
-	"prefixOverride": {}
+	"prefixOverride": {},
+	"packagesOverride": {
+	},
 }

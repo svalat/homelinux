@@ -173,6 +173,11 @@
 		":4": {
 			"configure": {
 				"svg": [ "-$no-svg" ]
+			},
+			"steps": {
+				"postinstalle": [
+					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
+				]
 			}
 		}
 	}

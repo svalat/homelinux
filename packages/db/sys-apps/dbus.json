@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "dbus-${VERSION}",
 	"urls": [
-		"http://dbus.freedesktop.org/releases/dbus/dbus-${VERSION}.tar.bz2"
+		"http://dbus.freedesktop.org/releases/dbus/dbus-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/expat :2",
@@ -76,7 +76,9 @@
 		"static-libs",
 		"systemd",
 		"test",
-		"X"
+		"X",
+		"+kernel_linux",
+		"kernel_FreeBSD"
 	],
 	"host": {
 		"default": false,
