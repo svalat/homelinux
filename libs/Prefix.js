@@ -50,8 +50,9 @@ function Prefix(userConfig,prefixPath)
 	if (this.config.providers != undefined)
 		this.providerList = [ "models" ].concat(this.config.providers);
 	else
-		this.providerList = [ "models", "homelinux", "gentoo", "urls", "github" ];
-		//this.providerList = [ "models", "debian" ];// [ "models", "homelinux", "gentoo", "urls", "github" ];
+		this.providerList = [ "models", "homelinux", "gentoo", "debian", "urls", "github" ];
+	//order for getch
+	this.fetchProviderList = [ "gentoo", "debian", "homelinux" ];
 }
 
 /*******************  FUNCTION  *********************/
@@ -127,10 +128,10 @@ Prefix.prototype.updateDb = function(callback)
 {
 	//fetch all
 	var batch = new Batch();
-	batch.concurrency(2);
+	batch.concurrency(1);
 	
 	var self = this;
-	this.providerList.forEach(function(prov) {
+	this.fetchProviderList.forEach(function(prov) {
 		batch.push(function(done) {
 			self.provider[prov].updateDb(done);
 		});
@@ -296,12 +297,19 @@ Prefix.prototype.loadPackage = function(packageName)
 	var version = packageName.split('@')[1];
 	packageName = packageName.split('@')[0];
 	
-	//apply providers
-	for (var i in this.providerList)
+	var provider = packageName.split('/')[0];
+	var p;
+	if (this.provider[provider] != undefined)
 	{
-		p = this.provider[this.providerList[i]].getPackage(packageName);
-		if (p != undefined)
-			break;
+		p = this.provider[provider].getPackage(packageName);
+	} else {
+		//apply providers
+		for (var i in this.providerList)
+		{
+			p = this.provider[this.providerList[i]].getPackage(packageName);
+			if (p != undefined)
+				break;
+		}
 	}
 	
 	//otherwise fallback in default mode (TODO remove)

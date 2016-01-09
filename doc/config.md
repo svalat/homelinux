@@ -22,7 +22,7 @@ It might contain :
  patch the installation procedure if you encounter some issues. You can override all the
  entries you want. If you want to apply on a specific version use the *vspecific* sub entry.
  * *providers*, you can change the priority of the providers to use for quickpackage building.
- By default : "homelinux", "gentoo", "urls", "github".
+ By default : "homelinux", "gentoo", "debian", "urls", "github".
  
 Here an example :
 
@@ -57,7 +57,14 @@ Here an example :
 			"gentoo/kdiff3": {
 				"module": "kdiff3-$SVERSION"
 			}
-		}
+		},
+		"providers": [
+			"homelinux", 
+			"gentoo", 
+			"debian", 
+			"urls", 
+			"github"
+		]
 	}
 ```
 

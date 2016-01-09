@@ -117,7 +117,7 @@ HomeLinuxProvider.prototype.updateCache = function(callback)
 		{
 			var file = files[i].replace(path+'/','').replace('.json','');
 			var res = regexp.exec(files[i]);
-			if (res != null && res[1] != 'models')
+			if (res != null && res[1] != 'models' && file != 'version')
 				final[file] = true;
 		}
 		fs.writeFileSync(self.prefix.getFile("homelinux/packages/db/cache.json"),JSON.stringify(final,null,'\t'));

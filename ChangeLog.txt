@@ -14,7 +14,9 @@ Version 1.1.0-dev
  * Manage module default loading in hl env
  * Improve flag management
  * Helper tool to convert gentoo packages
- * More packages : QT4, X11, GDB, CGDB, valgrind, wine...
+ * More packages : QT4, X11, GDB, CGDB, valgrind, wine, kdelibs...
+ * Add support for debian provider (without deps)
+ * Add manpages
 
 Version 1.0.0 (January 1, 2016)
 

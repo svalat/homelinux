@@ -109,7 +109,8 @@ Debian.prototype.getPackage = function(packageName)
 	}
 	
 	//search in sub packages
-	if (pack == undefined && shortName.indexOf('-dev') != -1)
+	//to fix eg libpng10-dev which is in real linpng-dev or linpng10
+	/*if (pack == undefined && shortName.indexOf('-dev') != -1)
 	{
 		for (var i in db)
 		{
@@ -120,7 +121,7 @@ Debian.prototype.getPackage = function(packageName)
 				break;
 			}
 		}
-	}
+	}*/
 	
 	//not found
 	if (pack == undefined)
@@ -134,7 +135,7 @@ Debian.prototype.getPackage = function(packageName)
 		name: packageName,
 		host: {
 			"default":false,
-			"debian8": [ shortName ]
+			"debian8": pack.packages
 		}
 	};
 	
@@ -151,20 +152,21 @@ Debian.prototype.getPackage = function(packageName)
 	for (var i in deps)
 	{
 		var name = deps[i].split(' ')[0];
-		if (name != 'debhelper' && name.indexOf('dh-') != 0 && name.indexOf('dpkg') != 0 && name.indexOf('autotools') != 0 && baseList.indexOf(name) == -1)
-			finalDeps.push(name);
-// 		for (var j in db)
-// 		{
-// 			if (db[j].packages.indexOf(name) != -1)
-// 			{
-// 				name = deps[i].replace(name,j).split(' ')[0];
-// 				if (name != 'debhelper' && name.indexOf('dh-') != 0 && name.indexOf('dpkg') != 0 && name.indexOf('autotools') != 0 && baseList.indexOf(name) == -1)
-// 					finalDeps.push(name);
-// 			}
-// 		}
+		//if (name != 'debhelper' && name.indexOf('dh-') != 0 && name.indexOf('dpkg') != 0 && name.indexOf('autotools') != 0 && baseList.indexOf(name) == -1)
+		//	finalDeps.push(name);
+		for (var j in db)
+		{
+			if (db[j].packages.indexOf(name) != -1)
+			{
+				name = deps[i].replace(name,j).split(' ')[0];
+				if (name != 'debhelper' && name.indexOf('dh-') != 0 && name.indexOf('dpkg') != 0 && name.indexOf('autotools') != 0 && baseList.indexOf(name) == -1)
+					finalDeps.push(name);
+			}
+		}
 	}
 
-	qp.deps = finalDeps;
+	//currently don't use deps
+	//qp.deps = finalDeps;
 	
 	console.error("Install package "+qp.name);
 	return this.quickPackage.genFullPackage(qp);
@@ -183,54 +185,61 @@ Debian.prototype.updateCache = function(callback)
 **/
 Debian.prototype.updateDb = function(callback)
 {
-	console.log("Fetching DB...");
-	try{
-		var content = child_process.execSync("curl http://ftp2.fr.debian.org/debian/dists/jessie/main/source/Sources.xz | xz -d",{maxBuffer:(200*1024*1024)});
-		content = content.toString().split('\n');
-	} catch(e) {
-		console.error("Fail to load debian DB : "+e);
-		process.exit(1);
-	}
-	
-	var state = {};
-	var cur = '';
 	var db =  {};
-	
-	console.log("Parsing DB...");
-	for (var i in content)
+
+	for (var i in this.config.repos)
 	{
-		var line = content[i];
-		if (line.trim() == '')
+		var repo = this.config.repos[i];
+		console.log("Fetching DB... "+repo);
+	
+		try{
+			var content = child_process.execSync("curl "+repo+"/source/Sources.xz | xz -d",{maxBuffer:(200*1024*1024)});
+			content = content.toString().split('\n');
+		} catch(e) {
+			console.error("Fail to load debian DB : "+e);
+			continue;
+		}
+		
+		var state = {};
+		var cur = '';
+		
+		console.log("Parsing DB...");
+		for (var i in content)
 		{
-			//build
-			db[state.Package] = {
-				name: state.Package,
-				version: state.Version.split('-')[0],
-				deps: state['Build-Depends'],
-				homepage: state.Homepage,
-				packages: state.Binary.split(', '),
-				dir: state.Directory,
-				section: state.Section
-			};
-			
-			//fill
-			//for (var j in state['Package-List'])
-			//	db[state.Package].packages.push(state['Package-List'][j][0]);
-		} else if (line[0] == ' ') {
-			if (Array.isArray(state[cur]))
-				state[cur].push(line.split(' ').slice(1));
-		} else {
-			var infos = line.split(':');
-			cur = infos[0];
-			if (infos[1] == undefined || infos[1] == '' || infos[1] == ' ')
-				state[cur] = [];
-			else
-				state[cur] = infos[1].trim();
+			var line = content[i];
+			if (line.trim() == '')
+			{
+				//build
+				db[state.Package] = {
+					name: state.Package,
+					version: state.Version.split('-')[0],
+					deps: state['Build-Depends'],
+					homepage: state.Homepage,
+					packages: state.Binary.split(', '),
+					dir: state.Directory,
+					section: state.Section
+				};
+				
+				//fill
+				//for (var j in state['Package-List'])
+				//	db[state.Package].packages.push(state['Package-List'][j][0]);
+			} else if (line[0] == ' ') {
+				if (Array.isArray(state[cur]))
+					state[cur].push(line.split(' ').slice(1));
+			} else {
+				var infos = line.split(':');
+				cur = infos[0];
+				if (infos[1] == undefined || infos[1] == '' || infos[1] == ' ')
+					state[cur] = [];
+				else
+					state[cur] = infos[1].trim();
+			}
 		}
 	}
 
 	this.saveDb(db);
 	this.db = db;
+	callback();
 };
 
 /*******************  FUNCTION  *********************/
