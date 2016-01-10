@@ -1,0 +1,134 @@
+homelinux.json(5) -- HomeLinux config files
+===========================================
+
+## PREFIX CONFIG FILE
+
+Each HomeLinux prefix must have his own config file which are names ``PREFIX/homelinux.json`.
+It follow the file structure :
+
+```json
+	{
+		"inherit": [
+			"/home/me/usr-shell-only"
+		],
+		"compiler": {
+			"MAKEOPTS":"-j8",
+			"CFLAGS":"-O3 -march=native",
+			"CXXFLAGS":"$CFLAGS"
+		},
+		"override": [
+			"app-shell/bash"
+		],
+		"versions": {
+			"app-shell/bash": "~2.4",
+			"app-shell/dash": ">2.5 <2.6"
+		},
+		"use": [
+			"+gentoo",
+			"+debug",
+			"-doc"
+		],
+		"gentoo" : {
+			"server":"gentoo.mirrors.ovh.net",
+			"port": 21,
+			"distfiles": "gentoo-distfiles/distfiles/"
+		},
+		"packageOverride": {
+			"gentoo/kdiff3": {
+				"module": "kdiff3-$SVERSION"
+			}
+		},
+		"providers": [
+			"homelinux", 
+			"gentoo", 
+			"debian", 
+			"urls", 
+			"github"
+		]
+	}
+```
+
+With the descrived entries :
+
+ * `ìnherit` : 
+   Permit to inherit from a list of other HomeLinux prefix. It permit to not rebuild 
+   the packages they provide.
+ * `compiler`:
+   Permit to setup some compiler flags to be used by packages.
+ * `override` :
+   A list of packages which must be rebuild even if they are already provided by
+   a inherited prefix or by the host system.
+ * `version` :
+   Permit to force usage of specific version for the given packages.
+ * `use` : 
+   Useflags to enable feature on package building. You can use `+flag` or `flag` to enable
+   the feature or `-flag` to disable it.
+ * `gentoo` :
+   Configure the gentoo server to be used to fetch the Gentoo distfile file list.
+ * `packageOverride` :
+   To be used to overide some packages informations directly from the prefix config file.
+   You can use any key available in packages.
+ * `providers` :
+   HomeLinux support source package fetching from multiple source for non pre-defined 
+   HomeLinux packages. It permit HomeLinux to be at least in position to fetch most of 
+   the existing packaged. With this option you can select the priority in which to try 
+   to find packages depending on your preference. The more interesting change is to 
+   choose to first look on Gentoo or Debian repository for unknown packages.
+
+## USER CONFIG FILE
+
+HomeLinux is also configured by the user session with a file stored into `~/.homelinux.json` 
+with the given format :
+
+```json
+    {
+    	"prefix":"/home/USER/usr",
+    	"host":"debian8",
+    	"modules": [],
+    	"homecache": false,
+    	"ccache": false,
+    	"pyEnv": true,
+    	"prefixOverride": {
+    	    "/home/me/usr": {
+    	        "use": [ "+debug", "-X" ]
+    	    }
+    	},
+    	"packagesOverride": {
+    	    "dev-cpp/gtkmm": {
+    	        "configure": {
+    	            "": [ "--enable-shared" ]
+    	        }
+    	    }
+    	},
+    }
+
+```
+
+You can use the given keys :
+
+ * `prefix` :
+   Define the main prefix to use.
+ * `host` :
+   Define the current host you are using for existing package detection.
+ * `homecache` :
+   This is more for package developper. It copies the sources archives into
+   `~/.homelinux/cache` to not redownload them if you erase your prefix.
+   It is usefull if you want to restart from fresh prefix to test your package
+   dependency tree.
+ * `ccache` :
+   Enable usage of ccache for get faster rebuilding of packages (also for package
+   developper).
+ * `pyEnv` : 
+   Enable usage of python wrapper to automatically switch PYTHONPATH depending
+   on the python version you are calling.
+ * `prefixOverride` : 
+   For package developper mostly. It permit to override or completly configure
+   your prefix from the user config file. Usefull if you erase your prefix to
+   rebuild it.
+ * `packageOverride` : 
+   As for the prefix config file, you can override some package entries from this
+   part of the config file.
+
+## SEE ALSO
+
+hl(1), hl-packages(5)

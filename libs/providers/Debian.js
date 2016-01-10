@@ -6,6 +6,14 @@
 *           Authors : Sebastien Valat                *
 *****************************************************/
 
+/***********************  DOC  **********************/
+/**
+ * Aimed at providing access to the Debian package source repository.
+ * Currently it does not support the depenency as we need to cut the dependency
+ * tree to not finish with an infinite number of packages to install.
+ * And it seems not trivial to be done.
+**/
+
 /********************  GLOBALS  *********************/
 var VersionHelper = require('../VersionHelper');
 var fs = require('fs');
@@ -13,6 +21,10 @@ var colors = require('colors');
 var child_process = require('child_process');
 
 /*********************  CONSTS  *********************/
+/**
+ * (Currently unused). List of packages to consider available to cut the
+ * depenency try.
+**/
 var baseList = [
 	"autoconf",
 	"automake",
@@ -26,6 +38,10 @@ var baseList = [
 ]
 
 /*********************  CLASS  **********************/
+/**
+ * Constructor of the Devian provider.
+ * @param prefix Reference to the prefix, used to access the DB file.
+**/
 function Debian(prefix)
 {
 	this.prefix = prefix;
@@ -34,6 +50,9 @@ function Debian(prefix)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Lazy load of the Debian DB file.
+**/
 Debian.prototype.getDb = function()
 {
 	//already loaded
@@ -56,23 +75,38 @@ Debian.prototype.getDb = function()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Search the list of packages maching the given name.
+ * @return Return a string with the list of packages.
+**/
 Debian.prototype.search = function(name)
 {
 	var out = [];
 	var db = this.getDb();
+	name = name.toLowerCase();
 	for (var i in db)
-		if (i.indexOf(name) != -1)
+		if (i.toLowerCase().indexOf(name) != -1)
 			out.push(colors.magenta("debian/"+i));
 	return out.join('\n');
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Return the name of the current provider.
+**/
 Debian.prototype.getName = function()
 {
 	return "Debian";
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Sarch into the Debian DB and build a quickpakage for the given Name.
+ * If not found, return undefined.
+ * @param packageName Name of the package to search. Could be 'name', 
+ * 'debian/name' of 'something/name'. The last one is used for fallback
+ * of HomeLinux unknown packages.
+**/
 Debian.prototype.getPackage = function(packageName)
 {
 	//build names

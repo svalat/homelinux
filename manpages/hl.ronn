@@ -14,8 +14,8 @@ packages.
 The `hl` command is the main utility provided by HomeLinux and is used to install, list, update,
 and manage your prefix.
 
-HomeLinux is configured by a user file `~/.homelinux.json` which is documented into homelinux.json(5)
-and a prefix config `PREFIX/homelinux.json` which is documented into homelinux.json(5).
+HomeLinux is configured by a user file `~/.homelinux.json` which is documented into hl-config(5)
+and a prefix config `PREFIX/homelinux.json` which is documented into hl-config(5).
 
 ## USER COMMANDS
 
@@ -208,4 +208,4 @@ module on HomeLinux packages.
 
 ## SEE ALSO
 
-homelinux.json(5), hl-packages(5)
+hl-config(5), hl-packages(5)

@@ -20,6 +20,11 @@ function UseFlags()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Exctract the flags name removine the enable/disable symbol.
+ * So, ``+flag` and `-flag` becomes `flag`.
+ * @param flag string to convert
+**/
 UseFlags.prototype.getFlagName = function(flag)
 {
 	if (flag[0] == '+' || flag[0] == '-')
@@ -29,6 +34,14 @@ UseFlags.prototype.getFlagName = function(flag)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Merge two list of use flags by removing the double definition.
+ * It also manage the status changing if `+flags` follow `-flag` or
+ * invert.
+ * @param values Define the initial list of flags
+ * @param additional Define the list of flags to add.
+ * @param force Force usage of `+` and `-`.
+**/
 UseFlags.prototype.merge = function(values,additional,force)
 {
 	if (values == undefined)
@@ -63,6 +76,12 @@ UseFlags.prototype.merge = function(values,additional,force)
 };
 
 /*******************  FUNCTION  *********************/
+/**
+ * Return the stats for the given flag. The status is returned
+ * as `+` for enable, `-` for disable and empty string for undefined.
+ * @param list List of flag status.
+ * @param flag Flag to test (without any `+` and `-`, only flag name).
+**/
 UseFlags.prototype.status = function(list,flag)
 {
 	var status = null;
@@ -85,6 +104,11 @@ UseFlags.prototype.status = function(list,flag)
 };
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check if the flag request need to be applied or not (for configure and deps).
+ * @param list List of defined flags status.
+ * @param flag Flag string potentially with `+` or `-`. `-` will invert the return value.
+**/
 UseFlags.prototype.getApplyStatus = function(list,flag)
 {
 	var status = this.apply(list,flag);
@@ -98,6 +122,12 @@ UseFlags.prototype.getApplyStatus = function(list,flag)
 };
 
 /*******************  FUNCTION  *********************/
+/**
+ * Similary to getApplyStatus but manage `&` operator between multiple flags
+ * and return `true`, `false` of `null` instead of a string.
+ * @param list List of defined flags status.
+ * @param flag Flag string potentially with `+` or `-`. `-` will invert the return value.
+**/
 UseFlags.prototype.apply = function(list,flag)
 {
 	//trivial
