@@ -77,14 +77,11 @@ function yesno()
 ######################################################
 function loadModule()
 {
-	#already avail
-	module 1>/dev/null 2>/dev/null && return 0
-	
 	#not provided by hl
-	hl prefix-of 'sys-app/modules' 1>/dev/null 2>/dev/null || return 0
+	node index.js prefix-of 'sys-app/modules' 1>/dev/null 2>/dev/null || return 0
 	
 	#ok really to it
-	echo ". $(hl prefix-of sys-app/modules)/Modules/current/init/$(basename $SHELL)"
+	echo ". $(node index.js prefix-of sys-app/modules)/Modules/current/init/$(basename $SHELL)"
 }
 
 ######################################################
@@ -113,7 +110,7 @@ function setHlEnv()
 
 ######################################################
 #If env is not set, we load it to be sure to get PKG_CONFIG, CPATH....
-if [ -z "$HL_PREFIX_PATH" ] && [ "$1" != "env" ]; then
+if [ -z "$HL_PREFIX_PATH" ] && [ "$1" != "env" ] && [ "$1" != "update-cache" ]; then
 	setHlEnv
 fi
 
@@ -159,10 +156,11 @@ case "$1" in
 		;;
 	"env")
 		node index.js env
-		loadModule
+		module 1>/dev/null 2>/dev/null || loadModule
 		;;
 	"jump")
 		shift 1
+		setHlEnv
 		if [ ! -z "$*" ]; then
 			"$@"
 			exit $?
