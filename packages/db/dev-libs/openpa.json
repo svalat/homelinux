@@ -1,0 +1,24 @@
+{
+	"name": "dev-libs/openpa",
+	"homepage": "http://trac.mpich.org/projects/openpa/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.0.4" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://trac.mpich.org/projects/openpa/wiki/Downloads#no1",
+		"regexp": "openpa-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "openpa-${VERSION}",
+	"urls" : [
+		"http://trac.mpich.org/projects/openpa/raw-attachment/wiki/Downloads/openpa-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "openpa" ]
+	}
+}

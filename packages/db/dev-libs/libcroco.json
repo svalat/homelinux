@@ -1,0 +1,38 @@
+{
+	"name": "dev-libs/libcroco",
+	"homepage": "https://git.gnome.org/browse/libcroco/",
+	"versions": [
+		"0.6.9"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://git.gnome.org/browse/libcroco/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "libcroco-${VERSION}",
+	"urls": [
+		"https://git.gnome.org/browse/libcroco/snapshot/libcroco-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"dev-libs/libxml2",
+		"dev-util/gtk-doc",
+		"virtual/pkgconfig"
+	],
+	"configure": {
+		"": [
+			"--disable-static"
+		]
+	},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libcroco"
+		]
+	}
+}

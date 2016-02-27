@@ -28,11 +28,7 @@
 		"selinux? sys-libs/libselinux",
 		"zlib? sys-libs/zlib-1.1.4",
 		"nls? app-text/po4a",
-		"nls? sys-devel/gettext",
-		"test? dev-perl/DateTime-Format-DateParse",
-		"test? dev-perl/IO-String",
-		"test? dev-perl/Test-Pod",
-		"test? virtual/perl-Test-Harness"
+		"nls? sys-devel/gettext"
 	],
 	"configure": {
 		"": [
@@ -65,7 +61,6 @@
 		"selinux",
 		"zlib",
 		"nls",
-		"test",
 		"unicode",
 		"update-alternatives"
 	],

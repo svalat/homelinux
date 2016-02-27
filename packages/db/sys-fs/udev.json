@@ -1,0 +1,78 @@
+{
+	"name": "sys-fs/udev",
+	"homepage": "http://www.freedesktop.org/wiki/Software/systemd",
+	"versions": [
+		"221"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.freedesktop.org/software/systemd/",
+		"regexp": "systemd-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "systemd-${VERSION}",
+	"urls": [
+		"http://www.freedesktop.org/software/systemd/systemd-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"sys-apps/util-linux",
+		"sys-libs/libcap",
+		"dev-util/gperf",
+		"dev-util/intltool",
+		"sys-apps/coreutils",
+		"TODO? virtual/os-headers",
+		"virtual/pkgconfig",
+		"sys-devel/make",
+		"TODO? sys-kernel/linux-headers",
+		"app-text/docbook-xml-dtd",
+		"app-text/docbook-xml-dtd",
+		"app-text/docbook-xsl-stylesheets",
+		"dev-libs/libxslt",
+		"acl? sys-apps/acl",
+		"kmod? sys-apps/kmod-16",
+		"selinux? sys-libs/libselinux"
+	],
+	"configure": {
+		"": [
+			"--disable-nls",
+			"--disable-dbus",
+			"--disable-xkbcommon",
+			"--disable-seccomp",
+			"--disable-xz",
+			"--disable-lz4",
+			"--disable-pam",
+			"--disable-gcrypt",
+			"--disable-audit",
+			"--disable-libcryptsetup",
+			"--disable-qrencode",
+			"--disable-microhttpd",
+			"--disable-gnuefi",
+			"--disable-gnutls",
+			"--disable-libcurl",
+			"--disable-libidn",
+			"--disable-quotacheck",
+			"--disable-logind",
+			"--disable-polkit",
+			"--disable-myhostname",
+			"--disable-manpages",
+			"--enable-split-usr",
+			"--without-python",
+			"--disable-elfutils"
+		]
+	},
+	"use": [
+		"acl",
+		"kmod",
+		"selinux",
+		"static-libs",
+		"-TODO"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"udev",
+			"libudev-dev"
+		]
+	}
+}

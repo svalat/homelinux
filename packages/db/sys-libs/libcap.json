@@ -1,0 +1,35 @@
+{
+	"name": "sys-libs/libcap",
+	"homepage": "http://www.friedhoff.org/posixfilecaps.html",
+	"versions": [
+		"2.24"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "XXXXXXX",
+		"regexp": "libcap-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libcap-${VERSION}",
+	"urls": [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/libcap-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"sys-apps/attr",
+		"TODO? sys-kernel/linux-headers",
+		"pam? virtual/pam"
+	],
+	"configure": {},
+	"use": [
+		"pam",
+		"static-libs",
+		"-TODO"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libcap-dev"
+		]
+	}
+}

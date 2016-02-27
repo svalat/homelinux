@@ -16,6 +16,7 @@
 		"sourceforge://kdiff3/kdiff3/${VERSION}/kdiff3-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"kde4? kde-base/kdelibs :4",
 		"kde4? dev-qt/qt :4",
 		"sys-devel/gettext",
 		"sys-apps/diffutils"

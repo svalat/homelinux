@@ -59,11 +59,8 @@ function Prefix(userConfig,prefixPath)
 Prefix.prototype.prefixOfPackage = function(userConfig,packageName)
 {
 	//load package to get full name if not already
-	if (packageName.indexOf('/') == -1)
-	{
-		var pack = new PackageBuilder(this,userConfig,packageName);
-		packageName = pack.pack.name;
-	}
+	var pack = new PackageBuilder(this,userConfig,packageName);
+	packageName = pack.pack.name;
 	
 	//search in install dir
 	var files = fs.readdirSync(this.getFile('/homelinux/install-db/'));

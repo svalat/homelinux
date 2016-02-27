@@ -1,7 +1,7 @@
 {
 	"name": "sys-cluster/libfabric",
 	"homepage": "http://ofiwg.github.io/libfabric/",
-	"inherit": "models/autotools-autogen",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"1.1.1" 
 	],

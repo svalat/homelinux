@@ -47,8 +47,9 @@ Gentoo.prototype.search = function(name)
 {
 	var out = [];
 	var db = this.getDb();
+	name = name.toLowerCase();
 	for (var i in db)
-		if (db[i].indexOf(name) != -1)
+		if (db[i].toLowerCase().indexOf(name) != -1)
 			out.push(colors.magenta("gentoo/"+db[i]));
 	return out.join('\n');
 }
@@ -111,7 +112,11 @@ Gentoo.prototype.getPackage = function(packageName)
 		var qp = {
 			version: v,
 			url: [],
-			name: packageName
+			name: packageName,
+			host: {
+				default:false,
+				debian8: [ shortName+"-dev" ]
+			}
 		};
 
 		//fill versions

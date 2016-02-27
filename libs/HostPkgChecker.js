@@ -29,7 +29,9 @@ function HostPkgChecker(userConfig,prefix)
 **/
 HostPkgChecker.prototype.presentOnSystemDefault = function(p)
 {
-	if (p.pack.host['default'] == undefined)
+	if (p.pack.host == undefined)
+		return false;
+	else if (p.pack.host['default'] == undefined)
 		return false;
 	else
 		return p.pack.host['default'];

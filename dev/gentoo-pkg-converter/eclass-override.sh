@@ -80,6 +80,16 @@ cmake-utils_use_find_package()
 	echo "@on@${flag}@-DCMAKE_DISABLE_FIND_PACKAGE_Lib${value}=\$OFF"
 }
 
+cmake-utils_use_build()
+{
+	flag=$1
+	value=$2
+	if [ -z "$value" ]; then
+		value=$(echo $flag | awk '{print toupper($0)}')
+	fi
+	echo "@on@${flag}@-DBUILD_${value}=\$ON"
+}
+
 cmake-utils_use_has()
 {
 	flag=$1
@@ -88,6 +98,18 @@ cmake-utils_use_has()
 		value=$(echo $flag | awk '{print toupper($0)}')
 	fi
 	echo "@on@${flag}@-DHAVE_${value}=\$ON"
+}
+
+add_kdeapps_dep()
+{
+	dir=$(ls portage-stable/*/$1/*.ebuild | tail | xargs dirname | xargs dirname | xargs basename)
+	echo $dir/$1
+}
+
+add_kdebase_dep()
+{
+	dir=$(ls portage-stable/*/$1/*.ebuild | tail | xargs dirname | xargs dirname | xargs basename)
+	echo $dir/$1
 }
 
 has() {

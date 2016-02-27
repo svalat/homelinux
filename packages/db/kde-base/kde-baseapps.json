@@ -1,0 +1,28 @@
+{
+	"name": "kde-base/kde-baseapps",
+	"homepage": "",
+	"versions": [
+		"4.14.3"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "kde-baseapps-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/$VERSION/src/kde-baseapps-${VERSION}.tar.xz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "TODO" ]
+	}
+}

@@ -241,7 +241,7 @@ function hl_download_internal()
 			;;
 		github://*/*)
 			project=$(echo $url | cut -d '/' -f 3-4)
-			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || return 1 
+			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${VERSION}.tar.gz" || return 1 
 			;;
 		sourceforge://*/*)
 			name=$(echo $url | cut -d '/' -f 3)

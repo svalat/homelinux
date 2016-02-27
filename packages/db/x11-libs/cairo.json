@@ -24,7 +24,7 @@
 		"media-libs/fontconfig",
 		"gentoo? sys-devel/libtool",
 		"gentoo? dev-libs/lzo",
-		"gentoo? sys-libs/binutils-libs",
+		"gentoo? sys-libs/binutils",
 		"gentoo? sys-libs/zlib",
 		"directfb? dev-libs/DirectFB",
 		"gles2? media-libs/mesa[gles2]",
@@ -83,7 +83,7 @@
 		"valgrind",
 		"xcb",
 		"xlib-xcb",
-		"-gentoo"
+		"+gentoo"
 	],
 	"gentooUse" : [
 		"+svg"

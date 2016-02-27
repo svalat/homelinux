@@ -117,7 +117,7 @@ HomeLinuxProvider.prototype.updateCache = function(callback)
 		{
 			var file = files[i].replace(path+'/','').replace('.json','');
 			var res = regexp.exec(files[i]);
-			if (res != null && res[1] != 'models' && file != 'version')
+			if (res != null && res[1] != 'models' && file != 'versions')
 				final[file] = true;
 		}
 		fs.writeFileSync(self.prefix.getFile("homelinux/packages/db/cache.json"),JSON.stringify(final,null,'\t'));
@@ -169,9 +169,10 @@ HomeLinuxProvider.prototype.search = function(name)
 {
 	var out = [];
 	var cache = this.getCache();
+	name = name.toLowerCase();
 	for (var i in cache)
 	{
-		if (i.indexOf(name) != -1)
+		if (i.toLowerCase().indexOf(name) != -1)
 		{
 			var p = new PackageBuilder(this.prefix,this.prefix.userConfig,i);
 			out.push(p.getNameSlot().green+"-"+p.getVersion().cyan+" ["+p.getVersionList().reverse().slice(0,10).join(', ').blue+"]");

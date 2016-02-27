@@ -78,10 +78,10 @@ function yesno()
 function loadModule()
 {
 	#not provided by hl
-	node index.js prefix-of 'sys-app/modules' 1>/dev/null 2>/dev/null || return 0
+	node index.js prefix-of 'sys-apps/modules' 1>/dev/null 2>/dev/null || return 0
 	
 	#ok really to it
-	echo ". $(node index.js prefix-of sys-app/modules)/Modules/current/init/$(basename $SHELL)"
+	echo ". $(node index.js prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)"
 }
 
 ######################################################

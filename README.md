@@ -61,7 +61,7 @@ programs.
 On debian it might be recommended to install some dependencies which are likely to fail
 in HomeLinux :
 
-	sudo apt-get install mesa-common-dev mesa-utils libx11-dev libx11-xcb-dev
+	sudo apt-get install mesa-common-dev mesa-utils libx11-dev libx11-xcb-dev libudev-dev
 
 Installation
 ------------
@@ -183,6 +183,7 @@ Currently HomeLinux setup the environenement variables for you to fully configur
  * `MANPATH`
  * `MODULEPATH`
  * `CMAKE_PREFIX_PATH`
+ * `HL_PREFIX_PATH`
  
 Providers
 ---------

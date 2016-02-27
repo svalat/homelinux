@@ -70,6 +70,8 @@ gentoo/libgudev udev
 gentoo/libmng lcms
 gentoo/gobject-introspection glib:2
 gentoo/meld intltool itstool
+gentoo/librsvg gdk-pixbuf glib gio pango cairo libcroco
+gentoo/libcroco glib
 #################################### FOR USER ######################################
 gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm@:3 gtksourceviewmm vte
 gentoo/libgtksourceviewmm pangomm
@@ -81,3 +83,5 @@ gentoo/at-spi libbonobo
 gentoo/libbonoboui libbonobo libgnome activation libgnomecanvas
 gentoo/libgnome gnome-vfs libbonobo
 gentoo/libbonobo popt
+gentoo/upower glib:2
+gentoo/polkit-qt polkit
