@@ -1,27 +1,142 @@
 {
 	"name": "sci-visualization/gnuplot",
 	"homepage": "http://www.gnuplot.info/",
-	"inherit": "models/autotools",
-	"versions": [ 
-		"5.0.1" 
+	"versions": [
+		"5.0.3"
 	],
+	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://sourceforge.net/projects/gnuplot/files/gnuplot/",
-		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"url": "https://sourceforge.net/projects/gnuplot/files/gnuplot/",
+		"regexp": "^([0-9]+\\.[0-9]+(\\.[0-9]+)?(\\.[0-9]+)?)$"
 	},
-	"md5" : {},
+	"md5": {},
 	"subdir": "gnuplot-${VERSION}",
-	"urls" : [
+	"urls": [
 		"sourceforge://gnuplot/gnuplot/${VERSION}/gnuplot-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"cairo? x11-libs/cairo",
+		"cairo? x11-libs/pango",
+		"cairo&gd? media-libs/gd:2[png]",
+		"cairo&ggi? media-libs/libggi",
+		"cairo&latex? virtual/latex-base",
+		"cairo&latex&lua? dev-tex/pgf",
+		"+TODO&cairo&latex&lua? dev-texlive/texlive-latexrecommended",
+		"cairo&latex&lua&qt4? dev-qt/qtcore:4",
+		"cairo&latex&lua&qt4? dev-qt/qtgui:4",
+		"cairo&latex&lua&qt4? dev-qt/qtsvg:4",
+		"cairo&latex&lua&libcaca? media-libs/libcaca",
+		"cairo&latex&lua&lua? dev-lang/lua:0",
+		"cairo&latex&lua&readline? sys-libs/readline:0",
+		"cairo&latex&lua&libcerf? sci-libs/libcerf",
+		"cairo&latex&lua&svga? media-libs/svgalib",
+		"cairo&latex&lua&wxwidgets? x11-libs/wxGTK:3.0[X]",
+		"cairo&latex&lua&wxwidgets? x11-libs/cairo",
+		"cairo&latex&lua&wxwidgets? x11-libs/pango",
+		"cairo&latex&lua&wxwidgets? x11-libs/gtk+:2 )",
+		"cairo&latex&lua&wxwidgets? virtual/pkgconfig",
+		"cairo&latex&lua&wxwidgets&X? x11-libs/libXaw",
+		"cairo&latex&lua&wxwidgets&doc? virtual/latex-base",
+		"cairo&latex&lua&wxwidgets&doc? dev-texlive/texlive-latexextra",
+		"cairo&latex&lua&wxwidgets&doc? app-text/ghostscript-gpl",
+		"cairo&latex&lua&wxwidgets&doc&cairo? x11-libs/cairo",
+		"cairo&latex&lua&wxwidgets&doc&cairo? x11-libs/pango",
+		"cairo&latex&lua&wxwidgets&doc&cairo&gd? media-libs/gd:2[png]",
+		"cairo&latex&lua&wxwidgets&doc&cairo&ggi? media-libs/libggi",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex? virtual/latex-base",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua? dev-tex/pgf",
+		"+TODO&cairo&latex&lua&wxwidgets&doc&cairo&latex&lua? dev-texlive/texlive-latexrecommended-2008-r2",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&qt4? dev-qt/qtcore:4",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&qt4? dev-qt/qtgui:4",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&qt4? dev-qt/qtsvg:4",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&libcaca? media-libs/libcaca",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&lua? dev-lang/lua:0",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&readline? sys-libs/readline:0",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&libcerf? sci-libs/libcerf",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&svga? media-libs/svgalib",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&wxwidgets? x11-libs/wxGTK:3.0[X]",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&wxwidgets? x11-libs/cairo",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&wxwidgets? x11-libs/pango",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&wxwidgets? x11-libs/gtk+:2",
+		"cairo&latex&lua&wxwidgets&doc&cairo&latex&lua&wxwidgets&X? x11-libs/libXaw"
 	],
 	"configure": {
-		"": [ "$(hl_with cairo x11-libs/cairo)" ]
+		"": [
+			"--without-pdf",
+			"--with-texdir=/usr/share/texmf-site/tex/latex/",
+			"--enable-stats",
+			"DIST_CONTACT=https://bugs.gentoo.org/",
+			"EMACS=no"
+		],
+		"-readline": [
+			"builtin"
+		],
+		"bitmap": [
+			"--$with-bitmap-terminals="
+		],
+		"cairo": [
+			"--$with-cairo"
+		],
+		"compat": [
+			"--$enable-backwards-compatibility"
+		],
+		"doc": [
+			"--$with-tutorial="
+		],
+		"gd": [
+			"--$with-gd"
+		],
+		"ggi": [
+			"--$with-ggi=/usr/",
+			"--$with-xmi=/usr/"
+		],
+		"libcaca": [
+			"--$with-caca=/usr/"
+		],
+		"libcerf": [
+			"--$with-libcerf"
+		],
+		"lua": [
+			"--$with-lua"
+		],
+		"svga": [
+			"--$with-linux-vga="
+		],
+		"X": [
+			"--$with-x="
+		],
+		"qt4": [
+			"--$with-qt=qt4"
+		],
+		"wxwidgets": [
+			"--$enable-wxwidgets"
+		]
 	},
+	"use": [
+		"aqua",
+		"bitmap",
+		"cairo",
+		"compat",
+		"doc",
+		"examples",
+		"+gd",
+		"ggi",
+		"latex",
+		"libcaca",
+		"libcerf",
+		"lua",
+		"qt4",
+		"readline",
+		"svga",
+		"wxwidgets",
+		"X",
+		"-TODO"
+	],
 	"host": {
 		"default": false,
-		"debian8": [ "gnuplot" ]
+		"debian8": [
+			"gnuplot"
+		]
 	}
 }
