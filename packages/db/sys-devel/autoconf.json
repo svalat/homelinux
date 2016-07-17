@@ -16,6 +16,7 @@
 		"ftp://ftp.gnu.org/gnu/autoconf/autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"sys-devel/m4"
 	],
 	"host": {
 		"default": false,

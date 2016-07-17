@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "ftp",
-		"url": "ftp://mirror0.babylon.network/gnu/mpc/",
+		"url": "ftp://ftp.gnu.org/gnu/mpc/",
 		"regexp": "mpc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "mpc-${VERSION}",
 	"urls" : [
-		"ftp://mirror0.babylon.network/gnu/mpc/mpc-${VERSION}.tar.gz"
+		"ftp://ftp.gnu.org/gnu/mpc/mpc-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/gmp",

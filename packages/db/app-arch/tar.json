@@ -37,6 +37,7 @@
 		"acl",
 		"selinux",
 		"nls",
-		"xattr"
+		"xattr",
+		"elinux"
 	]
 }

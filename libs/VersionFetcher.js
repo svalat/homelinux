@@ -49,7 +49,8 @@ function handleError(callback,error)
 	if (callback == undefined)
 		throw error;
 	else
-		callback(error);
+		callback();
+		//callback(error);
 }
 
 /*******************  FUNCTION  *********************/

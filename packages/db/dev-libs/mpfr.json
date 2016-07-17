@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "ftp",
-		"url": "ftp://mirror0.babylon.network/gnu/mpfr/",
+		"url": "ftp://ftp.gnu.org/gnu/mpfr/",
 		"regexp": "mpfr-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
 	},
 	"md5" : {},
 	"subdir": "mpfr-${VERSION}",
 	"urls" : [
-		"ftp://mirror0.babylon.network/gnu/mpfr/mpfr-${VERSION}.tar.bz2"
+		"ftp://ftp.gnu.org/gnu/mpfr/mpfr-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"dev-libs/gmp"

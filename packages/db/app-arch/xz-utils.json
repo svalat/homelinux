@@ -16,9 +16,9 @@
 		"http://tukaani.org/xz/xz-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"gentooNot? app-arch/lzma",
-		"gentooNot? app-arch/lzma-utils",
-		"gentooNot? app-arch/p7zip"
+		"app-arch/lzma",
+		"app-arch/lzma-utils",
+		"app-arch/p7zip"
 	],
 	"configure": {
 		"nls": [
@@ -43,8 +43,7 @@
 		"elibc_FreeBSD",
 		"nls",
 		"static-libs",
-		"+threads",
-		"gentooNot"
+		"+threads"
 	],
 	"host": {
 		"default": false,
