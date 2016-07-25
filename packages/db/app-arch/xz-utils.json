@@ -17,7 +17,6 @@
 	],
 	"deps": [
 		"app-arch/lzma",
-		"app-arch/lzma-utils",
 		"app-arch/p7zip"
 	],
 	"configure": {

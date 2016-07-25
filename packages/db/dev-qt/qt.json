@@ -95,8 +95,8 @@
 		"multimedia": [ "-$no-multimedia" ],
 		"audio-backend": [ "-$no-audio-backend" ],
 		"phonon": [ "-$no-phonon", "-$no-phonon-backend" ],
-		"webkit": [ "-$no-webkit" ],
-		"webkit&debug": [ "-webkit-debug" ],
+		"webkit&FIXME": [ "-$no-webkit" ],
+		"webkit&debug&FIXME": [ "-webkit-debug" ],
 		"script": [ "-$no-javascript", "-$no-jit-script", "-$no-scripttools" ],
 		"nis": [ "-$no-nis" ],
 		"cups": [ "-$no-cups" ],
@@ -132,6 +132,7 @@
 		"debian8": [ "libqt4-dev" ]
 	},
 	"use" : [
+		"FIXME",
 		"-aqua",
 		"-debug",
 		"-static",
