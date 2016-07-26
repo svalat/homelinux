@@ -29,12 +29,12 @@ function HostPkgChecker(userConfig,prefix)
 **/
 HostPkgChecker.prototype.presentOnSystemDefault = function(p)
 {
-	if (p.pack.host == undefined)
+	if (p.pack.getProperty('host') == undefined)
 		return false;
-	else if (p.pack.host['default'] == undefined)
+	else if (p.pack.getProperty('host')['default'] == undefined)
 		return false;
 	else
-		return p.pack.host['default'];
+		return p.pack.getProperty('host')['default'];
 }
 
 /*******************  FUNCTION  *********************/
@@ -50,8 +50,8 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 	var h = [];
 	
 	//package one
-	if (p.pack.host != undefined)
-		h = p.pack.host['debian8'];
+	if (p.pack.getProperty('host') != undefined)
+		h = p.pack.getProperty('host')['debian8'];
 
 	//load from separate file
 	if (this.hostsRefs[p.pack.name] != undefined)
@@ -89,6 +89,56 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 
 /*******************  FUNCTION  *********************/
 /**
+ * Check if the package is installed into a Centos7 host system.
+ * This function made the check by using the dpkg command.
+ * CAUTION, it require child_process.execSync from nodejs which
+ * is not provided on old versions.
+ * @param p package to check.
+**/
+HostPkgChecker.prototype.presentOnSystemCentos7 = function(p)
+{
+	var h = [];
+	
+	//package one
+	if (p.pack.getProperty('host') != undefined)
+		h = p.pack.getProperty('host')['centos7'];
+
+	//load from separate file
+	if (this.hostsRefs[p.pack.name] != undefined)
+		h = this.hostsRefs[p.pack.name];
+	
+	//replace with soft
+	for (var i in h)
+	{
+		h[i] = h[i].replace('${SLOT}',p.getSlot(p.getVersion()));
+		h[i] = h[i].replace('${VERSION}',p.getVersion());
+	}
+	
+	//not defined, consider not provided
+	if (h == undefined || h == 'undefined' || h.length == 0)
+		return false;
+	
+	//is not provided
+	if (h === false)
+		return false;
+	
+	//console.log("Check ncurses on host : "+h);
+	
+	//check in list
+	for (var i in h)
+	{
+		try {
+			//console.error("Check with dpkg "+h[i]);
+			var res = child_process.execSync('rpm -V '+h[i]+' 2> /dev/null');
+		} catch (e) {
+			return false;
+		}
+	}
+	return true;
+}
+
+/*******************  FUNCTION  *********************/
+/**
  * Check if the given package is installed onto the system.
  * This function is mostly a switch on the system type.
 **/
@@ -99,6 +149,8 @@ HostPkgChecker.prototype.presentOnSystem = function(p)
 		return this.presentOnSystemDefault(p);
 	} else if (this.userConfig.config.host == 'debian8') {
 		return this.presentOnSystemDebian8(p);
+	} else if (this.userConfig.config.host == 'centos7') {
+		return this.presentOnSystemCentos7(p);
 	} else {
 		throw new Error("Unsupposed host system to check deps, please use default in that case !");
 	}

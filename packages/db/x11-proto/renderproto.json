@@ -28,6 +28,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-render-dev"
-		]
+		], 
+		"centos7": [ "libXrender-devel" ]
 	}
 }

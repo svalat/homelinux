@@ -114,7 +114,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "wine" ]
+		"debian8": [ "wine" ],
+		"centos7": [ "wine" ]
 	},
 	"use": [
 		"gentoo",

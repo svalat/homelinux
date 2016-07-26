@@ -23,6 +23,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "unbound-dev" ]
+		"debian8": [ "unbound-dev" ],
+		"centos7": [ "unbound", "unbound-devel" ]
 	}
 }

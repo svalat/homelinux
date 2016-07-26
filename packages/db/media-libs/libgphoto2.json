@@ -133,6 +133,7 @@
 		"default": false,
 		"debian8": [
 			"libgphoto2"
-		]
+		], 
+		"centos7": [ "libgphoto2", "libgphoto2-devel" ]
 	}
 }

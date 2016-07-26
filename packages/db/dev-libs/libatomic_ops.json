@@ -22,6 +22,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": false
+		"debian8": false,
+		"centos7": [ "libatomic", "libatomic_ops-devel" ]
 	}
 }

@@ -76,6 +76,7 @@
 		"default": false,
 		"debian8": [
 			"lynx"
-		]
+		],
+		"centos7": [ "lynx" ]
 	}
 }

@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"unzip"
-		]
+		],
+		"centos7": [ "unzip" ]
 	}
 }

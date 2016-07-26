@@ -30,6 +30,7 @@
 		"default": false,
 		"debian8": [
 			"libIDL"
-		]
+		],
+		"centos7": [ "libIDL", "libIDL-devel" ]
 	}
 }

@@ -185,6 +185,9 @@
 		"default": false,
 		"debian8": [
 			"kdelibs4-dev"
+		],
+		"centos7": [
+			"kdelibs", "kdelibs-devel"
 		]
 	},
 	"slots": {

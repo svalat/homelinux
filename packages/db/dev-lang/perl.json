@@ -33,7 +33,8 @@
 	},
 	"host": {
 		"default": true,
-		"debian8": [ "perl" ]
+		"debian8": [ "perl" ],
+		"centos7": [ "perl" ]
 	},
 	"use": [	
 		"gentoo",

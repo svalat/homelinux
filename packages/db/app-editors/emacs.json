@@ -187,6 +187,7 @@
 		"default": false,
 		"debian8": [
 			"emacs"
-		]
+		],
+		"centos7": [ "emacs" ]
 	}
 }

@@ -24,6 +24,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-randr-dev"
-		]
+		],
+		"centos7": [ "libXrandr-devel" ]
 	}
 }

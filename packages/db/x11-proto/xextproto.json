@@ -27,6 +27,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-xext-dev"
-		]
+		], 
+		"centos7": [ "libXext-devel" ]
 	}
 }

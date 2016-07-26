@@ -23,6 +23,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "apr" ]
+		"debian8": [ "apr" ],
+		"centos7": [ "apr" ]
 	}
 }

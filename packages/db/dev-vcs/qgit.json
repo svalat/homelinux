@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"qgit"
-		]
+		],
+		"centos7": [ "qgit" ]
 	}
 }

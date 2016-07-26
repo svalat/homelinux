@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"libxdamage-dev"
-		]
+		],
+		"centos7": [ "libXdamage", "libXdamage-devel" ]
 	}
 }

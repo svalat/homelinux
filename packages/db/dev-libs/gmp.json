@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "libgmp-dev" ]
+		"debian8": [ "libgmp-dev" ],
+		"centos7": [ "gmp", "gmp-devel" ]
 	}
 }

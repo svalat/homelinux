@@ -28,7 +28,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libxml2-dev" ]
+		"debian8": [ "libxml2-dev" ],
+		"centos7": [ "libxml2", "libxml2-devel" ]
 	},
 	"use": [
 		"python"

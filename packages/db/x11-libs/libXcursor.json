@@ -28,6 +28,7 @@
 		"default": false,
 		"debian8": [
 			"libxcursor-dev"
-		]
+		],
+		"centos7": [ "libXcursor", "libXcursor-devel" ]
 	}
 }

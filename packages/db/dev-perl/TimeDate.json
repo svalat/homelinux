@@ -23,6 +23,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "apr" ]
+		"debian8": [ "libtimedate-perl" ],
+		"centos7": [ "perl-TimeDate" ]
 	}
 }

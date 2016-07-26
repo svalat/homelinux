@@ -24,6 +24,7 @@
 		"default": false,
 		"debian8": [
 			"libpthread-stubs0-dev"
-		]
+		],
+		"centos7": false
 	}
 }

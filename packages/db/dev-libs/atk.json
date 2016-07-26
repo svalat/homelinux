@@ -31,7 +31,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "atk" ]
+		"debian8": [ "atk" ],
+		"centos7": [ "atk", "atk-devel" ]
 	},
 	"use": [
 		"+introspection",

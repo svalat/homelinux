@@ -30,6 +30,7 @@
 		"default": false,
 		"debian8": [
 			"libxxf86vm-dev"
-		]
+		],
+		"centos7": [ "libXxf86vm", "libXxf86vm-devel" ]
 	}
 }

@@ -30,6 +30,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "gnutls-bin" ]
+		"debian8": [ "gnutls-bin" ],
+		"centos7":  [ "gnutls", "gnutls-devel" ]
 	}
 }

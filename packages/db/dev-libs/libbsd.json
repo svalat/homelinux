@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"libbsd-dev"
-		]
+		],
+		"centos7": false
 	}
 }

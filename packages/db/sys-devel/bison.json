@@ -20,6 +20,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "bison" ]
+		"debian8": [ "bison" ],
+		"centos7": [ "bison", "bison-devel" ]
 	}
 }

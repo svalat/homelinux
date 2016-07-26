@@ -30,7 +30,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "tar" ]
+		"debian8": [ "tar" ],
+		"centos7": [ "tar" ]
 	},
 	"use": [ 
 		"gentoo",

@@ -30,6 +30,7 @@
 		"default": false,
 		"debian8": [
 			"m4"
-		]
+		],
+		"centos7": [ "m4" ]
 	}
 }

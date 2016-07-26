@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "curl" ]
+		"debian8": [ "curl" ],
+		"centos7": [ "curl" ]
 	}
 }

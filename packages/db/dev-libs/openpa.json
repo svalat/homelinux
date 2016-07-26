@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "openpa" ]
+		"debian8": [ "openpa" ],
+		"centos7": false
 	}
 }

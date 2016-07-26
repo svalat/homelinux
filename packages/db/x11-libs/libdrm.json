@@ -38,6 +38,7 @@
 		"default": false,
 		"debian8": [
 			"libdrm-dev"
-		]
+		],
+		"centos7": [ "libdrm", "libdrm-devel" ]
 	}
 }

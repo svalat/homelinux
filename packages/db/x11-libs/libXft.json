@@ -37,6 +37,7 @@
 		"default": false,
 		"debian8": [
 			"libxft-dev"
-		]
+		],
+		"centos7": [ "libXft", "libXft-devel" ]
 	}
 }

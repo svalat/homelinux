@@ -19,7 +19,8 @@
 	],
 	"host": {
 		"default": true,
-		"debian8": [ "python", "python-dev" ]
+		"debian8": [ "python", "python-dev" ],
+		"centos7": [ "python", "python-devel" ]
 	},
 	"use": [	
 	],

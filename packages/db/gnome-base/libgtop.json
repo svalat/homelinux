@@ -38,6 +38,7 @@
 		"default": false,
 		"debian8": [
 			"libgtop2-dev"
-		]
+		],
+		"centos7": [ "libgtop2", "libgtop2-devel" ]
 	}
 }

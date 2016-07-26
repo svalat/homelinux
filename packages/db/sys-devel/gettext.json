@@ -20,6 +20,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "gettext" ]
+		"debian8": [ "gettext" ],
+		"centos7": [ "gettext", "gettext-devel" ]
 	}
 }

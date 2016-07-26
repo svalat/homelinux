@@ -24,6 +24,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "subversion" ]
+		"debian8": [ "subversion" ],
+		"centos7": [ "subversion" ]
 	}
 }

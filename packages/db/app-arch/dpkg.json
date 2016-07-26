@@ -54,7 +54,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "dpkg" ]
+		"debian8": [ "dpkg" ],
+		"centos7": false
 	},
 	"use": [ 
 		"gentoo",

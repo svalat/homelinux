@@ -80,6 +80,7 @@
 		"default": true,
 		"debian8": [
 			"util-linux"
-		]
+		],
+		"centos7": [ "util-linux" ]
 	}
 }

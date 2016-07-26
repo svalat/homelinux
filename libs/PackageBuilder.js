@@ -206,6 +206,7 @@ PackageBuilder.prototype.getProperty = function(name)
 			mode = 'merge-arrays';
 			break;
 		case 'configure':
+		case 'host':
 			mode = 'merge-sub-arrays';
 			break;
 		default:

@@ -30,6 +30,7 @@
 		"default": false,
 		"debian8": [
 			"libcap-dev"
-		]
+		],
+		"centos7": [ "libcap", "libcap-devel" ]
 	}
 }

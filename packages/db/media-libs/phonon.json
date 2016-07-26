@@ -51,6 +51,9 @@
 		"default": false,
 		"debian8": [
 			"phonon", "libphonon-dev"
+		],
+		"centos7": [
+			"phonon", "phonon-devel"
 		]
 	}
 }

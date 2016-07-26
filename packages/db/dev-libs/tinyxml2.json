@@ -32,6 +32,7 @@
 		"default": false,
 		"debian8": [
 			"tinyxml2"
-		]
+		],
+		"centos7": false
 	}
 }

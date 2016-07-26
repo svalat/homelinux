@@ -82,6 +82,7 @@
 		"default": false,
 		"debian8": [
 			"gdb"
-		]
+		], 
+		"centos7": "gdb"
 	}
 }

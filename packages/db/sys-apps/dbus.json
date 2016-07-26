@@ -84,6 +84,7 @@
 		"default": false,
 		"debian8": [
 			"dbus"
-		]
+		], 
+		"centos7": [ "dbus", "dbus-devel" ]
 	}
 }

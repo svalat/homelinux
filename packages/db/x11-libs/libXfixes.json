@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"libxfixes-dev"
-		]
+		],
+		"centos7": [ "libXfixes", "libXfixes-devel" ]
 	}
 }

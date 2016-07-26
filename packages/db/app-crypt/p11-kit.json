@@ -29,7 +29,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "p11-kit" ]
+		"debian8": [ "p11-kit" ],
+		"debian7": [ "p11-kit", "p11-kit-devel" ]
 	},
 	"use": [ "+asn1", "+libffi", "debug", "trust" ]
 }

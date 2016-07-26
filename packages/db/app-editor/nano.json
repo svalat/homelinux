@@ -25,7 +25,8 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "nano" ]
+		"debian8": [ "nano" ],
+		"centos7": [ "nano" ]
 	},
 	"configure": {
 			"-minimal": [

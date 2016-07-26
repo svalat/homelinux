@@ -20,7 +20,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "deb2targz" ]
+		"debian8": [ "deb2targz" ],
+		"centos7": false
 	},
 	"use": [ 
 		"extra"

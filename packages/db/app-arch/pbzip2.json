@@ -22,7 +22,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "pbzip2" ]
+		"debian8": [ "pbzip2" ],
+		"centos7": [ "pbzip2" ]
 	},
 	"use": [ 
 	],

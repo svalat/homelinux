@@ -22,6 +22,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "gtk-doc-tools" ]
+		"debian8": [ "gtk-doc-tools" ],
+		"centos7": [ "gtk-doc" ]
 	}
 }

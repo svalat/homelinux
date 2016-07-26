@@ -30,6 +30,9 @@
 		"default": false,
 		"debian8": [
 			"atkmm"
+		],
+		"centos7": [
+			"atkmm","atkmm-devel"
 		]
 	}
 }

@@ -21,6 +21,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libjpeg-dev" ]
+		"debian8": [ "libjpeg-dev" ],
+		"centos7": [ "libjpeg-turbo", "libjpeg-turbo-devel" ]
 	}
 }

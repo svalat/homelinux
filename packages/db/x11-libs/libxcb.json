@@ -39,6 +39,7 @@
 		"default": false,
 		"debian8": [
 			"libxcb-dev"
-		]
+		],
+		"centos7": [ "libxcb", "libxcb-devel", "xcb-util" ]
 	}
 }

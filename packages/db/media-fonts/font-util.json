@@ -32,6 +32,7 @@
 		"default": false,
 		"debian8": [
 			"xfont-utils"
-		]
+		], 
+		"centos7": [ "xorg-x11-font-utils" ]
 	}
 }

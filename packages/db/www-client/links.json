@@ -99,6 +99,7 @@
 		"default": false,
 		"debian8": [
 			"links"
-		]
+		],
+		"centos7": [ "links" ]
 	}
 }

@@ -34,6 +34,9 @@
 		"default": false,
 		"debian8": [
 			"xmlto"
+		],
+		"centos7": [
+			"xmlto"
 		]
 	}
 }

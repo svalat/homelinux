@@ -19,7 +19,8 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "libexpat1-dev" ]
+		"debian8": [ "libexpat1-dev" ],
+		"centos7": [ "expat", "expat-devel" ]
 	},
 	"slots": {
 		"~": "^([0-9]+)"

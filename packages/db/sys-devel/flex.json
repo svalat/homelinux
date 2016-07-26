@@ -20,6 +20,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "flex" ]
+		"debian8": [ "flex" ],
+		"centos7": [ "flex-devel" ]
 	}
 }

@@ -24,7 +24,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libxml-sax-perl" ]
+		"debian8": [ "libxml-sax-perl" ],
+		"centos7": [ "perl-XML-SAX" ]
 	},
 	"use": [
 	]

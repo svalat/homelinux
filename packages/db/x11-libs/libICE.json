@@ -27,6 +27,7 @@
 		"default": false,
 		"debian8": [
 			"libice-dev"
-		]
+		],
+		"centos7": [ "libICE", "libICE-devel" ]
 	}
 }

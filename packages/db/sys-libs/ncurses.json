@@ -41,6 +41,7 @@
 		"default": false,
 		"debian8": [
 			"libncurses-dev"
-		]
+		],
+		"centos7": [ "ncurses", "ncurses-devel" ]
 	}
 }

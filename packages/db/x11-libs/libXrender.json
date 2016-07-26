@@ -35,6 +35,7 @@
 		"default": false,
 		"debian8": [
 			"libxrender-dev"
-		]
+		],
+		"centos7": [ "libXrender", "libXrender-devel" ]
 	}
 }

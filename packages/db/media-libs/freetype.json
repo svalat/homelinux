@@ -21,7 +21,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libfreetype6","libfreetype6-dev" ]
+		"debian8": [ "libfreetype6","libfreetype6-dev" ],
+		"centos7": [ "freetype", "freetype-devel" ]
 	},
 	"slots": {
 		"2": ">2.0"

@@ -38,6 +38,9 @@
 		"default": false,
 		"debian8": [
 			"shared-mime-info"
+		],
+		"centos7": [
+			"shared-mime-info"
 		]
 	},
 	"vars": {

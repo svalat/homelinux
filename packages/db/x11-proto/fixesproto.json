@@ -26,6 +26,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-fixes-dev"
-		]
+		], 
+		"centos7": [ "libXfixes-devel" ]
 	}
 }

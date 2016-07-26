@@ -23,6 +23,7 @@
 	},
 	"host": {
 		"default": true,
-		"debian8": [ "libreadline-dev" ]
+		"debian8": [ "libreadline-dev" ],
+		"centos7": [ "readline", "readline-devel" ]
 	}
 }

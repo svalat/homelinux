@@ -21,6 +21,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libpng12-dev" ]
+		"debian8": [ "libpng12-dev" ],
+		"centos7": [ "libpng", "libpng-devel" ]
 	}
 }

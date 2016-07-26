@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "intltool" ]
+		"debian8": [ "intltool" ],
+		"centos7": [ "intltool" ]
 	}
 }

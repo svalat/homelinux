@@ -41,6 +41,7 @@
 		"default": false,
 		"debian8": [
 			"libdbusmenu-qt-dev"
-		]
+		],
+		"centos7": [ "libdbusmenu-qt", "libdbusmenu-qt-devel" ]
 	}
 }

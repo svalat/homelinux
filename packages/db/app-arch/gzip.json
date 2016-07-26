@@ -21,7 +21,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "gzip" ]
+		"debian8": [ "gzip" ],
+		"centos7": [ "gzip" ]
 	},
 	"use": [ 
 	]

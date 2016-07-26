@@ -20,6 +20,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "git" ]
+		"debian8": [ "git" ],
+		"centos7": [ "git" ]
 	}
 }

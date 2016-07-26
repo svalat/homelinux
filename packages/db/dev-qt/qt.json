@@ -171,6 +171,11 @@
         "~": "^([0-9]+).[0-9]+"
 	},
 	"vspecific": {
+		":3": {
+			"host": {
+				"centos7": [ "qt3", "qt3-devel" ]
+			}
+		},
 		":4": {
 			"configure": {
 				"svg": [ "-$no-svg" ]
@@ -179,6 +184,9 @@
 				"postinstalle": [
 					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
 				]
+			}, 
+			"host": {
+				"centos7": [ "qt", "qt-devel" ]
 			}
 		}
 	}

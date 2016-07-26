@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "cmake" ]
+		"debian8": [ "cmake" ],
+		"centos7": [ "cmake" ]
 	}
 }

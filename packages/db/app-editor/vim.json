@@ -36,7 +36,8 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "vim" ]
+		"debian8": [ "vim" ],
+		"centos7": [ "vim" ]
 	},
 	"configure": {
         "+minimal": [

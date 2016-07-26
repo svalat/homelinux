@@ -137,6 +137,7 @@
 		"default": false,
 		"debian8": [
 			"gnuplot"
-		]
+		],
+		"centos7": [ "gnuplot" ]
 	}
 }

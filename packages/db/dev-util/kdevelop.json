@@ -57,6 +57,7 @@
 		"default": false,
 		"debian8": [
 			"kdevelop"
-		]
+		],
+		"centos7": [ "kdevelop" ]
 	}
 }

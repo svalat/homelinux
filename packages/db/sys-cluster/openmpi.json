@@ -21,6 +21,7 @@
 	"module": "openmpi-${VERSION}",
 	"host": {
 		"default": false,
-		"debian8": [ "openmpi-bin" ]
+		"debian8": [ "openmpi-bin" ],
+		"centos7": [ "openmpi", "openmpi-devel" ]
 	}
 }

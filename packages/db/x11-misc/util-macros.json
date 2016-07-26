@@ -31,6 +31,7 @@
 		"default": false,
 		"debian8": [
 			"xutils-dev"
-		]
+		],
+		"centos7": [ "xorg-x11-util-macros" ]
 	}
 }

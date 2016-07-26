@@ -70,6 +70,7 @@
 		"default": false,
 		"debian8": [
 			"libpcre"
-		]
+		],
+		"centos7": [ "pcre", "pcre-devel" ]
 	}
 }

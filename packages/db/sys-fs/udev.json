@@ -73,6 +73,7 @@
 		"debian8": [
 			"udev",
 			"libudev-dev"
-		]
+		],
+		"centos7": [ "libgudev1", "libgudev1-devel" ]
 	}
 }

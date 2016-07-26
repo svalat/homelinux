@@ -93,7 +93,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libgtk+2.4-dev" ]
+		"debian8": [ "libgtk+2.4-dev" ], 
+		"centos7": [ "gtk2", "gtk2-devel" ]
 	},
 	"slots": {
 		"2.4": "<2.90",
@@ -116,7 +117,8 @@
 			],
 			"host": {
 				"default": false,
-				"debian8": [ "libgtk+3.0-dev" ]
+				"debian8": [ "libgtk+3.0-dev" ], 
+				"centos7": [ "gtk3", "gtk3-devel" ]
 			}
 		}
 	}

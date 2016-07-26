@@ -24,6 +24,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libmpc-dev" ]
+		"debian8": [ "libmpc-dev" ],
+		"centos7": [ "libmpc", "libmpc-devel" ]
 	}
 }

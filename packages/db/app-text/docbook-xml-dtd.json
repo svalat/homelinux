@@ -39,6 +39,7 @@
 		"default": false,
 		"debian8": [
 			"docbook-xml-dtd"
-		]
+		],
+		"centos7": [ "docbook-dtds" ]
 	}
 }

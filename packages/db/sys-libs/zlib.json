@@ -22,6 +22,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "zlib1g-dev" ]
+		"debian8": [ "zlib1g-dev" ],
+		"centos7": [ "zlib", "zlib-devel" ]
 	}
 }

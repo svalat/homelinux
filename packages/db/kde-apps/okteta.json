@@ -26,6 +26,7 @@
 		"default": false,
 		"debian8": [
 			"okteta"
-		]
+		],
+		"centos7": [ "oketa" ]
 	}
 }

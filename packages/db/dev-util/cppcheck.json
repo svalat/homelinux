@@ -34,6 +34,7 @@
 		"default": false,
 		"debian8": [
 			"cppcheck"
-		]
+		],
+		"centos7": [ "cppcheck" ]
 	}
 }

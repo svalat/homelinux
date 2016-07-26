@@ -25,6 +25,7 @@
 	],
 	"host": {
 		"default": true,
-		"debian8": [ "bash-completion" ]
+		"debian8": [ "bash-completion" ],
+		"centos7": [ "bash-completion" ]
 	}
 }

@@ -37,7 +37,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libpango1.0-dev" ]
+		"debian8": [ "libpango1.0-dev" ],
+		"centos7": [ "pango", "pango-devel" ]
 	},
 	"use": [
 			"X",

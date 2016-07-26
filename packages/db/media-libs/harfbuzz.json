@@ -39,7 +39,8 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "libharfbuzz-dev" ]
+		"debian8": [ "libharfbuzz-dev" ],
+		"centos7": [ "harfbuzz", "harfbuzz-devel" ]
 	},
 	"use": [
 		"+glib",

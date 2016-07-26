@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"libxinerama-dev"
-		]
+		],
+		"centos7": [ "libXinerama", "libXinerama-devel" ]
 	}
 }

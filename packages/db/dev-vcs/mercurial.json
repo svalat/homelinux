@@ -29,7 +29,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "mercurial" ]
+		"debian8": [ "mercurial" ],
+		"centos7": [ "mercurial" ]
 	},
 	"use": [
 		"-bugzilla",

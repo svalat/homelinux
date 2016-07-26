@@ -24,6 +24,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-dri3-dev"
-		]
+		],
+		"centos7": false
 	}
 }

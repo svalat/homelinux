@@ -20,7 +20,8 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "retext" ]
+		"debian8": [ "retext" ],
+		"centos7": false
 	},
 	"configure": {
         

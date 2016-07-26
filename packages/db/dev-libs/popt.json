@@ -38,6 +38,7 @@
 		"default": false,
 		"debian8": [
 			"libpopt-dev"
-		]
+		],
+		"centos7": [ "popt", "popt-devel" ]
 	}
 }

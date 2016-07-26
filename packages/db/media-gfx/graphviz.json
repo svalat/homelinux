@@ -19,6 +19,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "graphviz", "graphviz-dev" ]
+		"debian8": [ "graphviz", "graphviz-dev" ],
+		"centos7": [ "graphviz", "graphviz-devel" ]
 	}
 }

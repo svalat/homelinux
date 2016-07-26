@@ -29,6 +29,7 @@
 		"default": false,
 		"debian8": [
 			"libxcomposite-dev"
-		]
+		],
+		"centos7": [ "libXcomposite", "libXcomposite-devel" ]
 	}
 }

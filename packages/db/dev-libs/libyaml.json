@@ -27,6 +27,7 @@
 		"default": false,
 		"debian8": [
 			"libyaml"
-		]
+		],
+		"centos7": [ "libyaml", "libyaml-devel" ]
 	}
 }

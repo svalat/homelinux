@@ -90,7 +90,8 @@
 		"default": false,
 		"debian8": [
 			"glib"
-		]
+		],
+		"centos7": [ "glib2", "glib2-devel" ]
 	},
 	"slots": {
 		"2": ">=2.0"

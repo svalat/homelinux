@@ -42,7 +42,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "dump" ]
+		"debian8": [ "dump" ],
+		"centos7": [ "dump" ]
 	},
 	"use": [ 
 		"gentoo",

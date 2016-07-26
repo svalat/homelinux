@@ -25,6 +25,7 @@
 		"default": false,
 		"debian8": [
 			"xtrans-dev"
-		]
+		],
+		"centos7": [ "xorg-x11-xtrans-devel" ]
 	}
 }

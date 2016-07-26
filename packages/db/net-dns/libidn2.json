@@ -17,6 +17,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "libidn2-0-dev" ]
+		"debian8": [ "libidn2-0-dev" ],
+		"centos7": false
 	}
 }

@@ -22,7 +22,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "cpio" ]
+		"debian8": [ "cpio" ],
+		"centos7": [ "cpio" ]
 	},
 	"use": [ 
 		"nls"

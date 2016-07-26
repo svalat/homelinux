@@ -59,7 +59,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "ghostscript" ]
+		"debian8": [ "ghostscript" ],
+		"centos7": [ "ghostscript", "ghostscript-devel" ]
 	},
 	"use": [
 		"gentoo",

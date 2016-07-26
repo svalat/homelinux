@@ -48,6 +48,7 @@
 		"default": false,
 		"debian8": [
 			"xz-utils"
-		]
+		],
+		"centos7": [ "xz", "xz-libs", "xz-devel" ]
 	}
 }

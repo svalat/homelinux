@@ -24,7 +24,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libepoxy-dev" ]
+		"debian8": [ "libepoxy-dev" ],
+		"centos7": [ "libepoxy", "libepoxy-devel" ]
 	},
 	"use": [
 		"-TODO"

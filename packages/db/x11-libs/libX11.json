@@ -41,6 +41,7 @@
 		"default": false,
 		"debian8": [
 			"libx11-dev"
-		]
+		],
+		"centos7" : [ "libX11", "libX11-devel" ]
 	}
 }

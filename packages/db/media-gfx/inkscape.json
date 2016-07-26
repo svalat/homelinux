@@ -47,6 +47,7 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "inkscape" ]
+		"debian8": [ "inkscape" ],
+		"centos7": [ "inkscape" ]
 	}
 }

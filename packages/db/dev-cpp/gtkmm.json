@@ -37,7 +37,10 @@
 		":2.4": {
 			"deps": [
 				"x11-libs/gtk+ :2.4"
-			]
+			],
+			"host": {
+				"centos7": [ "gtkmm24", "gtkmm24-devel" ]
+			}
 		},
 		":3.0": {
 			"deps": [
@@ -52,6 +55,9 @@
 				"aqua": [ "--$enable-quartz-backend" ],
 				"wayland": [ "--$enable-wayland-backend" ],
 				"X": [ "--$enable-x11-backend" ]
+			},
+			"host": {
+				"centos7": [ "gtkmm30", "gtkmm30-devel" ]
 			}
 		}
 	},

@@ -46,6 +46,7 @@
 		"default": false,
 		"debian8": [
 			"gobject-introspection"
-		]
+		],
+		"centos7": [ "gobject-introspection", "gobject-introspection-devel" ]
 	}
 }

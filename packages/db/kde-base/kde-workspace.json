@@ -24,6 +24,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "TODO" ]
+		"debian8": [ "TODO" ],
+		"centos7": false
 	}
 }

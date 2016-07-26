@@ -26,6 +26,7 @@
 		"default": false,
 		"debian8": [
 			"libxshmfence-dev"
-		]
+		],
+		"centos7": [ "libxshmfence", "libxshmfence-devel" ]
 	}
 }

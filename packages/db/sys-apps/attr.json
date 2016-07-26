@@ -38,6 +38,7 @@
 		"default": false,
 		"debian8": [
 			"attr"
-		]
+		],
+		"centos7": [ "attr" ]
 	}
 }

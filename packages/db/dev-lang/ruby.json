@@ -72,6 +72,9 @@
 		"default": false,
 		"debian8": [
 			"ruby"
+		],
+		"centos7": [
+			"ruby"
 		]
 	}
 }

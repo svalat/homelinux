@@ -28,6 +28,7 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "ccache" ]
+		"debian8": [ "ccache" ],
+		"centos7": false
 	}
 }
