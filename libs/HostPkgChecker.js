@@ -29,12 +29,12 @@ function HostPkgChecker(userConfig,prefix)
 **/
 HostPkgChecker.prototype.presentOnSystemDefault = function(p)
 {
-	if (p.pack.getProperty('host') == undefined)
+	if (p.pack.host == undefined)
 		return false;
-	else if (p.pack.getProperty('host')['default'] == undefined)
+	else if (p.pack.host['default'] == undefined)
 		return false;
 	else
-		return p.pack.getProperty('host')['default'];
+		return p.pack.host['default'];
 }
 
 /*******************  FUNCTION  *********************/
@@ -50,8 +50,8 @@ HostPkgChecker.prototype.presentOnSystemDebian8 = function(p)
 	var h = [];
 	
 	//package one
-	if (p.pack.getProperty('host') != undefined)
-		h = p.pack.getProperty('host')['debian8'];
+	if (p.pack.host != undefined)
+		h = p.pack.host['debian8'];
 
 	//load from separate file
 	if (this.hostsRefs[p.pack.name] != undefined)
@@ -100,8 +100,8 @@ HostPkgChecker.prototype.presentOnSystemCentos7 = function(p)
 	var h = [];
 	
 	//package one
-	if (p.pack.getProperty('host') != undefined)
-		h = p.pack.getProperty('host')['centos7'];
+	if (p.pack.host != undefined)
+		h = p.pack.host['centos7'];
 
 	//load from separate file
 	if (this.hostsRefs[p.pack.name] != undefined)
