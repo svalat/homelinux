@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/gnu/gmp/",
+		"url": "ftp://ftp.gnu.org/gnu/gmp/",
 		"regexp": "gmp-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
 	},
 	"md5" : {},
 	"subdir": "gmp-${VERSION}",
 	"urls" : [
-		"ftp://ftp.gnu.org/gnu/gsl/gmp/gmp-${VERSION}.tar.bz2"
+		"ftp://ftp.gnu.org/gnu/gmp/gmp-${VERSION}.tar.bz2"
 	],
 	"deps": [
 	],

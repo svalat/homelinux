@@ -42,6 +42,9 @@ switch(command)
 	case 'gen-install':
 		hlManager.printInstallScript(process.argv.slice(3,process.argv.length));
 		break;
+	case 'gen-install-p':
+		hlManager.printInstallPScript(process.argv.slice(3,process.argv.length));
+		break;
 	case 'install-ls':
 		hlManager.printInstallList(process.argv.slice(3,process.argv.length));
 		break;

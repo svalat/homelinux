@@ -1,0 +1,46 @@
+{
+	"name": "app-arch/p7zip",
+	"homepage": "http://p7zip.sourceforge.net/",
+	"versions": [
+		"16.02"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/p7zip/files/p7zip/",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "p7zip_${VERSION}",
+	"urls": [
+		"sourceforge://p7zip/p7zip/${VERSION}/p7zip_16.02_src_all.tar.bz2"
+	],
+	"deps": [
+		"kde? x11-libs/wxGTK:3.0[X] kde-base/kdelibs",
+		"wxwidgets? x11-libs/wxGTK:3.0[X]",
+		"amd64? dev-lang/yasm",
+		"abi_x86_x32? dev-lang/yasm",
+		"x86? dev-lang/nasm"
+	],
+	"configure": {},
+	"use": [
+		"x86",
+		"amd64",
+		"doc",
+		"kde",
+		"rar",
+		"+pch",
+		"static",
+		"wxwidgets",
+		"abi_x86_x32"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"p7zip"
+		],
+		"centos7": [
+			"p7zip"
+		]
+	}
+}

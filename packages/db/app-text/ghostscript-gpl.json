@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ghostscript.com/Releases.html",
-		"regexp": "GPL Ghostscript ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"url": "http://www.ghostscript.com/download/",
+		"regexp": "Ghostscript ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "ghostscript-${VERSION}",
 	"urls" : [
-		"http://downloads.ghostscript.com/public/ghostscript-${VERSION}.tar.gz"
+		"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs$(echo ${VERSION} | sed -e 's/\\.//g')/ghostscript-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"-mindeps? app-text/libpaper",

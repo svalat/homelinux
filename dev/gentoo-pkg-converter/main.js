@@ -162,7 +162,8 @@ var final = {
 	use: parts.use.split(' '),
 	host: {
 		'default': false,
-		debian8: [ getPackNameInfo(pack).shortName ]
+		debian8: [ getPackNameInfo(pack).shortName ],
+		centos7: [ getPackNameInfo(pack).shortName ]
 	}
 }
 

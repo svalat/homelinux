@@ -130,6 +130,13 @@ HomeLinuxManager.prototype.printInstallScript = function(packageList)
 }
 
 /*******************  FUNCTION  *********************/
+HomeLinuxManager.prototype.printInstallPScript = function(packageList)
+{
+	var packs = new DepsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);
+	console.log(packs.genScript(true))
+}
+
+/*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.printUninstallScript = function(packageList)
 {
 	var packs = new DepsLoader(this.homelinux.prefix,this.homelinux.userConfig,packageList);

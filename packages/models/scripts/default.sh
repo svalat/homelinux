@@ -321,6 +321,14 @@ function hl_prefix()
 	hl prefix-of $1 || exit 1
 }
 
+function hl_extract_other_pack()
+{
+	pack=$1
+	hl gen-install-p $pack > __hl-pack__.sh
+	run bash __hl-pack__.sh hl_start
+	run bash __hl-pack__.sh hl_pack_prebuild
+}
+
 function hl_configure_auto()
 {
 	run_sh cd $HL_PACKDIR

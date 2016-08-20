@@ -11,9 +11,9 @@
 		"regexp": "unzip-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "unzip-${VERSION}",
+	"subdir": "unzip*",
 	"urls": [
-		"sourceforge://infozip/UnZip%206.x%20%28latest%29/UnZip%20${VERSION}/unzip$(echo ${VERSION} | sed -e 's/\\.//g').tar.gz2"
+		"sourceforge://infozip/UnZip%206.x%20%28latest%29/UnZip%20${VERSION}/unzip$(echo ${VERSION} | sed -e 's/\\.//g').tar.gz"
 	],
 	"deps": [
 		"bzip2? app-arch/bzip2",
