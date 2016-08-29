@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://download.savannah.gnu.org/releases/freetype/",
-		"regexp": "freetype-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"url": "https://sourceforge.net/projects/freetype/files/freetype2/",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "freetype-${VERSION}",
 	"urls" : [
-		"http://download.savannah.gnu.org/releases/freetype//freetype-${VERSION}.tar.gz"
+		"sourceforge://freetype/freetype2/${VERSION}/freetype-${VERSION}.tar.bz2"
 	],
 	"deps": [
 	],

@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "renderproto-${VERSION}",
 	"urls": [
-		"http://xorg.freedesktop.org/releases/individual/prot/renderproto-${VERSION}.tar.bz2"
+		"http://xorg.freedesktop.org/releases/individual/proto/renderproto-${VERSION}.tar.bz2"
 	],
 	"deps": [],
 	"configure": {

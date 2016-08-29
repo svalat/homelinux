@@ -31,6 +31,8 @@ install: check
 	mkdir -p $(DEST)/homelinux/install-db
 	mkdir -p $(DEST)/share/man/man1
 	mkdir -p $(DEST)/share/man/man5
+	mkdir -p $(DEST)/homelinux/compilers
+	cp compilers/* $(DEST)/homelinux/compilers
 	cp manpages/hl.1.bz2 $(DEST)/share/man/man1
 	cp manpages/hl-config.5.bz2 $(DEST)/share/man/man5
 	$(DEST)/bin/hl update-cache

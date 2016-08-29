@@ -70,7 +70,7 @@ EnvSetup.prototype.loadModules = function(load)
 EnvSetup.prototype.enableCCache = function()
 {
 	if (this.userConfig.config.ccache)
-		this.prepend('PATH',this.userConfig.config.prefix + "/bin/ccache-links");
+		console.log("export PATH="+this.userConfig.config.prefix + "/bin/ccache-links:$PATH");
 };
 
 /*******************  FUNCTION  *********************/
@@ -80,7 +80,7 @@ EnvSetup.prototype.enableCCache = function()
 EnvSetup.prototype.enablePyEnv = function()
 {
 	if (this.userConfig.config.pyEnv)
-		this.prepend('PATH',this.userConfig.config.prefix + "/bin/hl-py-env-bins");
+		console.log("export PATH="+this.userConfig.config.prefix + "/bin/hl-py-env-bins:$PATH");
 };
 
 /*******************  FUNCTION  *********************/

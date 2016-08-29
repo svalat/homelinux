@@ -1,0 +1,36 @@
+{
+	"name": "dev-libs/openssl",
+	"homepage": "https://www.openssl.org",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.0.1" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://www.openssl.org/source/",
+		"regexp": "openssl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "openssl-${VERSION}",
+	"urls" : [
+		"https://www.openssl.org/source/openssl-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"use": [
+	],
+	"configure": {
+		"": [
+		]
+	},
+	"steps": {
+		"configure": [
+			"./Configure --prefix=$HL_PREFIX linux-x86_64"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "openssl", "openssl-dev" ],
+		"centos7": [ "openssl", "openssl-devel" ]
+	}
+}

@@ -25,7 +25,7 @@
 	"use": [
 		"doc",
 		"ipv6",
-		"+uuid"
+		"uuid"
 	],
 	"host": {
 		"default": false,

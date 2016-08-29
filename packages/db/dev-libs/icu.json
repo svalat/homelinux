@@ -1,0 +1,51 @@
+{
+	"name": "dev-libs/icu",
+	"homepage": "http://www.icu-project.org/",
+	"versions": [
+		"57.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://site.icu-project.org/download",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "icu/source",
+	"urls": [
+		"http://download.icu-project.org/files/icu4c/57.1/icu4c-$(echo ${VERSION} | sed -e s/[.]/_/g)-src.tgz"
+	],
+	"deps": [
+		"virtual/pkgconfig",
+		"doc? app-doc/doxygen[dot]"
+	],
+	"configure": {
+		"": [
+			"--disable-renaming",
+			"--disable-samples"
+		],
+		"debug": [
+			"--$enable-debug"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"debug",
+		"doc",
+		"examples",
+		"static-libs"
+	],
+	"steps": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"icu", "icu-dev"
+		],
+		"centos7": [
+			"icu", "icu-devel"
+		]
+	}
+}

@@ -44,6 +44,8 @@ HomeLinuxManager.prototype.printEnvSetup = function(envSetup)
 	
 	//some extra features
 	envSetup.loadModules(true);
+
+	//feature
 	envSetup.enableCCache();
 	envSetup.enablePyEnv();
 }

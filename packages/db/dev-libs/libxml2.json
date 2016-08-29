@@ -16,11 +16,12 @@
 		"ftp://xmlsoft.org/libxml2/libxml2-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"python? dev-lang/python"
+		"python? dev-lang/python:2"
 	],
 	"configure": {
 		"python": [ 
-			"--$with-python"
+			"--$with-python=$(hl prefix-of python)",
+			"LDFLAGS=-L$(hl prefix-of python)/lib"
 		],
 		"+python":[	
 			"--without-docbook"
@@ -32,6 +33,6 @@
 		"centos7": [ "libxml2", "libxml2-devel" ]
 	},
 	"use": [
-		"python"
+		"+python"
 	]
 }
