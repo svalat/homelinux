@@ -1,0 +1,6 @@
+#!/bin/bash
+
+OPTS="-L$(echo "$HL_PREFIX_PATH" | sed -e "s#:#/lib -L#g")/lib"
+export PATH=${PATH#*:}
+$(basename $0) $OPTS "$@"
+exit $?
