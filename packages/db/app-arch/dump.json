@@ -43,7 +43,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "dump" ],
-		"centos7": [ "dump" ]
+		"centos7": [ "dump" ],
+		"gentoo": [ "app-arch/dump" ]
 	},
 	"use": [ 
 		"gentoo",

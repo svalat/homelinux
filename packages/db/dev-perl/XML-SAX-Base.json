@@ -22,7 +22,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libxml-sax-base-perl" ],
-		"centos7": [ "perl-XML-SAX-Base" ]
+		"centos7": [ "perl-XML-SAX-Base" ],
+		"gentoo": [ "dev-libs/XML-SAX-Base" ]
 	},
 	"use": [
 	]

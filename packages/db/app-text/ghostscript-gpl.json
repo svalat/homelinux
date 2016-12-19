@@ -60,7 +60,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "ghostscript" ],
-		"centos7": [ "ghostscript", "ghostscript-devel" ]
+		"centos7": [ "ghostscript", "ghostscript-devel" ],
+		"gentoo": [ "app-text/ghostscript-gpl" ]
 	},
 	"use": [
 		"gentoo",

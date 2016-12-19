@@ -34,6 +34,7 @@
 		],
 		"centos7": [
 			"xcb-util-errors", "xcb-util-errors-devel"
-		]
+		],
+		"gentoo": [ "x11-libs/xcb-util-errors" ]
 	}
 }

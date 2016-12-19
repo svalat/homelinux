@@ -138,7 +138,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libqt4-dev" ]
+		"debian8": [ "libqt4-dev" ],
+		"gentoo": [ "dev-qt/qt" ]
 	},
 	"use" : [
 		"FIXME",

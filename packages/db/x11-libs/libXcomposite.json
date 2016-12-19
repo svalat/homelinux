@@ -30,6 +30,7 @@
 		"debian8": [
 			"libxcomposite-dev"
 		],
-		"centos7": [ "libXcomposite", "libXcomposite-devel" ]
+		"centos7": [ "libXcomposite", "libXcomposite-devel" ],
+		"gentoo": [ "x11-libs/libXcomposite" ]
 	}
 }

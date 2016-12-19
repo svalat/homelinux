@@ -1,0 +1,42 @@
+{
+	"name": "app-arch/advancecomp",
+	"homepage": "http://advancemame.sourceforge.net/comp-readme.html",
+	"versions": [
+		"1.19"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/advancemame/files/advancecomp/",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "advancecomp-${VERSION}",
+	"urls": [
+		"sourceforge://advancemame/advancecomp/${VERSION}/advancecomp-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"app-arch/bzip2",
+		"sys-libs/zlib"
+	],
+	"configure": {
+		"+bzip2": [
+			"--enable-bzip2"
+		],
+		"test": [
+			"--$enable-valgrind"
+		]
+	},
+	"use": [
+		"bzip2",
+		"mng",
+		"png",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"advancecomp"
+		]
+	}
+}

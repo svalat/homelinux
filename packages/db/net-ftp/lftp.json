@@ -30,6 +30,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "lftp" ],
-		"centos7": [ "lftp" ]
+		"centos7": [ "lftp" ],
+		"gentoo": [ "net-ftp/lftp" ]
 	}
 }

@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "graphviz", "graphviz-dev" ],
-		"centos7": [ "graphviz", "graphviz-devel" ]
+		"centos7": [ "graphviz", "graphviz-devel" ],
+		"gentoo": [ "media-gfx/graphviz" ]
 	}
 }

@@ -74,6 +74,7 @@
 			"udev",
 			"libudev-dev"
 		],
-		"centos7": [ "libgudev1", "libgudev1-devel" ]
+		"centos7": [ "libgudev1", "libgudev1-devel" ],
+		"gentoo": [ "sys-fs/udev" ]
 	}
 }

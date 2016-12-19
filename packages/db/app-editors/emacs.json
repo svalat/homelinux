@@ -188,6 +188,7 @@
 		"debian8": [
 			"emacs"
 		],
-		"centos7": [ "emacs" ]
+		"centos7": [ "emacs" ],
+		"gentoo": [ "app-editors/emacs" ]
 	}
 }

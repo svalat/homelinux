@@ -69,7 +69,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libcairo2-dev" ],
-		"centos7": [ "cairo", "cairo-devel" ]
+		"centos7": [ "cairo", "cairo-devel" ],
+		"gentoo": [ "x11-libs/cairo" ]
 	},
 	"use": [
 		"X",

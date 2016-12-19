@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": false,
-		"centos7": false
+		"centos7": false,
+		"gentoo": false
 	}
 }

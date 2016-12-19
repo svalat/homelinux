@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "unbound-dev" ],
-		"centos7": [ "unbound", "unbound-devel" ]
+		"centos7": [ "unbound", "unbound-devel" ],
+		"gentoo": [ "net-dns/unbound" ]
 	}
 }

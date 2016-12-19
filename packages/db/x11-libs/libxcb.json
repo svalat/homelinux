@@ -40,6 +40,7 @@
 		"debian8": [
 			"libxcb-dev"
 		],
-		"centos7": [ "libxcb", "libxcb-devel", "xcb-util" ]
+		"centos7": [ "libxcb", "libxcb-devel", "xcb-util" ],
+		"gentoo": [ "x11-libs/libxcb" ]
 	}
 }

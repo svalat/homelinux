@@ -35,6 +35,7 @@
 		"debian8": [
 			"cppcheck"
 		],
-		"centos7": [ "cppcheck" ]
+		"centos7": [ "cppcheck" ],
+		"gentoo": [ "dev-util/cppcheck" ]
 	}
 }

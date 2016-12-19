@@ -20,8 +20,9 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "node" ],
-		"centos7": [ "node" ]
+		"debian8": [ "nodejs" ],
+		"centos7": [ "nodejs" ],
+		"gentoo": [ "net-libs/nodejs" ]
 	},
-	"conflict": [ "nodejs" ]
+	"conflict": [ "nodejs-bin" ]
 }

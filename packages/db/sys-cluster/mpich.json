@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "mpich" ],
-		"centos7": [ "mpich", "mpich-devel" ]
+		"centos7": [ "mpich", "mpich-devel" ],
+		"gentoo": [ "sys-cluster/mpich" ]
 	}
 }

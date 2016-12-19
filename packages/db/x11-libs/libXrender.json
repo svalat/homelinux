@@ -36,6 +36,7 @@
 		"debian8": [
 			"libxrender-dev"
 		],
-		"centos7": [ "libXrender", "libXrender-devel" ]
+		"centos7": [ "libXrender", "libXrender-devel" ],
+		"gentoo": [ "x11-libs/libXrender" ]
 	}
 }

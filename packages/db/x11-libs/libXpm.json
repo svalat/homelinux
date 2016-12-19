@@ -32,6 +32,7 @@
 		"debian8": [
 			"libXpm"
 		],
-		"centos7": [ "libXpm", "libXpm-devel" ]
+		"centos7": [ "libXpm", "libXpm-devel" ],
+		"gentoo": [ "x11-libs/libXpm" ]
 	}
 }

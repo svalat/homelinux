@@ -31,6 +31,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "gnutls-bin" ],
-		"centos7":  [ "gnutls", "gnutls-devel" ]
+		"centos7":  [ "gnutls", "gnutls-devel" ],
+		"gentoo": [ "net-libs/gnutls" ]
 	}
 }

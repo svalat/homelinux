@@ -28,6 +28,7 @@
 		"debian8": [
 			"libice-dev"
 		],
-		"centos7": [ "libICE", "libICE-devel" ]
+		"centos7": [ "libICE", "libICE-devel" ],
+		"gentoo": [ "x11-libs/libICE" ]
 	}
 }

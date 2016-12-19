@@ -28,6 +28,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "glew-utils" ],
-		"centos7": [ "glew", "glew-devel" ]
+		"centos7": [ "glew", "glew-devel" ],
+		"gentoo": [ "media-libs/glew" ]
 	}
 }

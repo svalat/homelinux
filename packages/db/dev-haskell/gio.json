@@ -33,6 +33,7 @@
 		"debian8": [
 			"gio"
 		],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "dev-haskell/gio" ]
 	}
 }

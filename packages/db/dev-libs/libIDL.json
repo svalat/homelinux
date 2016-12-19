@@ -31,6 +31,7 @@
 		"debian8": [
 			"libIDL"
 		],
-		"centos7": [ "libIDL", "libIDL-devel" ]
+		"centos7": [ "libIDL", "libIDL-devel" ],
+		"gentoo": [ "dev-libs/libIDL" ]
 	}
 }

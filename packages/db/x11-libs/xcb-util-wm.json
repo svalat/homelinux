@@ -33,6 +33,7 @@
 		],
 		"centos7": [
 			"xcb-util-wm", "xcb-util-wm-devel"
-		]
+		],
+		"gentoo": [ "x11-libs/xcb-util-wm" ]
 	}
 }

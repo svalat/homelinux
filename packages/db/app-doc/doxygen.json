@@ -35,7 +35,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "doxygen" ],
-		"centos7": [ "doxygen" ]
+		"centos7": [ "doxygen" ],
+		"gentoo": [ "app-doc/doxygen" ]
 	},
 	"configure": {
 		"+debug": [ "-DCMAKE_BUILD_TYPE=Debug" ],

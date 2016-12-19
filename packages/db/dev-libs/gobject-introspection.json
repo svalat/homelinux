@@ -47,6 +47,7 @@
 		"debian8": [
 			"gobject-introspection"
 		],
-		"centos7": [ "gobject-introspection", "gobject-introspection-devel" ]
+		"centos7": [ "gobject-introspection", "gobject-introspection-devel" ],
+		"gentoo": [ "dev-libs/gobject-introspection" ]
 	}
 }

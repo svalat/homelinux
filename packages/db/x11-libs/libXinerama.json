@@ -30,6 +30,7 @@
 		"debian8": [
 			"libxinerama-dev"
 		],
-		"centos7": [ "libXinerama", "libXinerama-devel" ]
+		"centos7": [ "libXinerama", "libXinerama-devel" ],
+		"gentoo": [ "x11-libs/libXinerama" ]
 	}
 }

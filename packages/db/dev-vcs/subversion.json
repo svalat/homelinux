@@ -25,6 +25,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "subversion" ],
-		"centos7": [ "subversion" ]
+		"centos7": [ "subversion" ],
+		"gentoo": [ "dev-vcs/subversion" ]
 	}
 }

@@ -27,6 +27,7 @@
 		"debian8": [
 			"libxau-dev"
 		],
-		"centos7": [ "libXau", "libXau-devel" ]
+		"centos7": [ "libXau", "libXau-devel" ],
+		"gentoo": [ "x11-lib/libXau" ]
 	}
 }

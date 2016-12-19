@@ -51,7 +51,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libgdk-pixbuf2.0-dev" ],
-		"centos7": [ "gdk-pixbuf2", "gdk-pixbuf2-devel" ]
+		"centos7": [ "gdk-pixbuf2", "gdk-pixbuf2-devel" ],
+		"gentoo": [ "x11-libs/gdk-pixbuf" ]
 	},
 	"use": [
 		"X",

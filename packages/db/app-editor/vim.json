@@ -37,7 +37,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "vim" ],
-		"centos7": [ "vim" ]
+		"centos7": [ "vim" ],
+		"gentoo": [ "app-editor/vim" ]
 	},
 	"configure": {
         "+minimal": [

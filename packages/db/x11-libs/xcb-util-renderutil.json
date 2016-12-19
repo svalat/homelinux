@@ -33,6 +33,7 @@
 		],
 		"centos7": [
 			"xcb-util-renderutil", "xcb-util-renderutil-devel"
-		]
+		],
+		"gentoo": [ "x11-libs/xcb-util-renderutil" ]
 	}
 }

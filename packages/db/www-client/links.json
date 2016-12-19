@@ -100,6 +100,7 @@
 		"debian8": [
 			"links"
 		],
-		"centos7": [ "links" ]
+		"centos7": [ "links" ],
+		"gentoo": [ "www-client/links" ]
 	}
 }

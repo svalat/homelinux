@@ -77,6 +77,7 @@
 		"debian8": [
 			"lynx"
 		],
-		"centos7": [ "lynx" ]
+		"centos7": [ "lynx" ],
+		"gentoo": [ "www-client/lynx" ]
 	}
 }

@@ -22,7 +22,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libxml-namespacesupport-perl" ],
-		"centos7": [ "perl-XML-NamespaceSupport" ]
+		"centos7": [ "perl-XML-NamespaceSupport" ],
+		"gentoo": [ "dev-libs/XML-NamespaceSupport" ]
 	},
 	"use": [
 	]

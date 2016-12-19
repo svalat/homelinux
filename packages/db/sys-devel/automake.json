@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "automake" ],
-		"centos7": [ "automake" ]
+		"centos7": [ "automake" ],
+		"gentoo": [ "sys-devel/automake" ]
 	}
 }

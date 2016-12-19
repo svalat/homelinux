@@ -32,6 +32,7 @@
 		"debian8": [
 			"libattica-dev"
 		],
-		"centos7": [ "attica", "attica-devel" ]
+		"centos7": [ "attica", "attica-devel" ],
+		"gentoo" : [ "dev-libs/libattica" ]
 	}
 }

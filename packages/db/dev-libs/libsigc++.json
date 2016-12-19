@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libsigc++-dev" ],
-		"gentos7": [ "libsigc++20", "libsigc++20-devel" ]
+		"gentos7": [ "libsigc++20", "libsigc++20-devel" ],
+		"gentoo": [ "dev-libs/libsigc++" ]
 	}
 }

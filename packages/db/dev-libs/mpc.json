@@ -25,6 +25,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libmpc-dev" ],
-		"centos7": [ "libmpc", "libmpc-devel" ]
+		"centos7": [ "libmpc", "libmpc-devel" ],
+		"gentoo": [ "dev-libs/mpc" ]
 	}
 }

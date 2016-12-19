@@ -21,7 +21,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "tcl8.6", "tcl8.6-dev" ],
-		"centos7": [ "tcl", "tcl-devel" ]
+		"centos7": [ "tcl", "tcl-devel" ],
+		"gentoo": [ "dev-lang/tcl" ]
 	},
 	"configure": {
 		"+debug": [ "--$enable-symbols" ],

@@ -20,7 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libexpat1-dev" ],
-		"centos7": [ "expat", "expat-devel" ]
+		"centos7": [ "expat", "expat-devel" ],
+		"gentoo": [ "dev-libs/expat" ]
 	},
 	"slots": {
 		"~": "^([0-9]+)"

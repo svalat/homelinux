@@ -23,7 +23,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libxml-parser-perl" ],
-		"centos7": [ "perl-XML-Parser" ]
+		"centos7": [ "perl-XML-Parser" ],
+		"gentoo" : [ "dev-libs/XML-Parser" ]
 	},
 	"use": [
 	]

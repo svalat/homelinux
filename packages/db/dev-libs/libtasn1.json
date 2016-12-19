@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libtasn1-6", "libtasn1-6-dev" ],
-		"centos7": [ "libtasn1", "libtasn1-devel" ]
+		"centos7": [ "libtasn1", "libtasn1-devel" ],
+		"gentoo": [ "dev-libs/libtasn1" ]
 	}
 }

@@ -31,7 +31,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "tar" ],
-		"centos7": [ "tar" ]
+		"centos7": [ "tar" ],
+		"gentoo": [ "app-arch/tar" ]
 	},
 	"use": [ 
 		"gentoo",

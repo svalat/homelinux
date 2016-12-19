@@ -27,6 +27,7 @@
 		"debian8": [
 			"okteta"
 		],
-		"centos7": [ "oketa" ]
+		"centos7": [ "oketa" ],
+		"gentoo": [ "kde-apps/okteta" ]
 	}
 }

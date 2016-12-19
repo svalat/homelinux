@@ -30,7 +30,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libcairomm-1.0-dev" ],
-		"centos7": [ "cairomm", "cairomm-devel" ]
+		"centos7": [ "cairomm", "cairomm-devel" ],
+		"gentoo":  [ "dev-cpp/cairomm" ]
 	},
 	"use": [
 		"gentoo",

@@ -23,6 +23,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libpixman-1-dev" ],
-		"centos7": [ "pixman", "pixman-devel" ]
+		"centos7": [ "pixman", "pixman-devel" ],
+		"gentoo": [ "x11-libs/pixman" ]
 	}
 }

@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "htop" ],
-		"centos7": [ "htop" ]
+		"centos7": [ "htop" ],
+		"gentoo": [ "sys-apps/htop" ]
 	}
 }

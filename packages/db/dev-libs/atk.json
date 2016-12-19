@@ -32,7 +32,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "atk" ],
-		"centos7": [ "atk", "atk-devel" ]
+		"centos7": [ "atk", "atk-devel" ],
+		"gentoo" : [ "dev-libs/atk" ]
 	},
 	"use": [
 		"+introspection",

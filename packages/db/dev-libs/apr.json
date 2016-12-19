@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "apr" ],
-		"centos7": [ "apr", "apt-devel" ]
+		"centos7": [ "apr", "apt-devel" ],
+		"gentoo": [ "dev-libs/apr" ]
 	}
 }

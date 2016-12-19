@@ -85,6 +85,7 @@
 		"debian8": [
 			"dbus"
 		], 
-		"centos7": [ "dbus", "dbus-devel" ]
+		"centos7": [ "dbus", "dbus-devel" ],
+		"gentoo": [ "sys-apps/dbus" ]
 	}
 }

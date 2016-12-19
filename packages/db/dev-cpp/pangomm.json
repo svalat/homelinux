@@ -34,7 +34,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libpangomm-1.4-dev" ],
-		"centos7": [ "pangomm", "pangomm-devel" ]
+		"centos7": [ "pangomm", "pangomm-devel" ],
+		"gentoo":  [ "dev-cpp/pangomm" ]
 	},
 	"use": [ "doc", "gentoo" ]
 }

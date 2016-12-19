@@ -33,6 +33,7 @@
 		"debian8": [
 			"tinyxml2"
 		],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "dev-libs/tinyxml2" ]
 	}
 }

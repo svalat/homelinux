@@ -28,6 +28,7 @@
 		"debian8": [
 			"x11proto-xext-dev"
 		], 
-		"centos7": [ "libXext-devel" ]
+		"centos7": [ "libXext-devel" ],
+		"gentoo": [ "x11-proto/xextproto" ]
 	}
 }

@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "valgrind" ],
-		"centos7": [ "valgrind" ]
+		"centos7": [ "valgrind" ],
+		"gentoo": [ "dev-util/valgrind" ]
 	}
 }

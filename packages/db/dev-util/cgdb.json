@@ -32,6 +32,7 @@
 		"debian8": [
 			"cgdb"
 		],
-		"centos7": [ "cgdb" ]
+		"centos7": [ "cgdb" ],
+		"gentoo": [ "dev-util/cgdb" ]
 	}
 }

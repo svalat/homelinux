@@ -27,6 +27,7 @@
 		],
 		"centos7": [
 			"lzma"
-		]
+		],
+		"gentoo": [ "app-arch/lzma" ]
 	}
 }

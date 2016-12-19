@@ -24,6 +24,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-xf86dri-dev"
-		]
+		],
+		"gentoo": [ "x11-proto/xf86driproto" ]
 	}
 }

@@ -30,7 +30,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "p11-kit" ],
-		"debian7": [ "p11-kit", "p11-kit-devel" ]
+		"debian7": [ "p11-kit", "p11-kit-devel" ],
+		"gentoo": [ "app-crypt/p11-kit" ]
 	},
 	"use": [ "+asn1", "+libffi", "debug", "trust" ]
 }

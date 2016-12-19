@@ -33,6 +33,7 @@
 		],
 		"centos7": [
 			"xcb-util", "xcb-util-devel"
-		]
+		],
+		"gentoo": [ "x11-libs/xcb-util" ]
 	}
 }

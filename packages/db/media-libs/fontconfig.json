@@ -35,7 +35,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "fontconfig", "libfontconfig1-dev" ],
-		"centos7": [ "fontconfig", "fontconfig-devel" ]
+		"centos7": [ "fontconfig", "fontconfig-devel" ],
+		"gentoo": [ "media-libs/fontconfig" ]
 	},
 	"use": [
 		"-doc"

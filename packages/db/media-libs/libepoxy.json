@@ -25,7 +25,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libepoxy-dev" ],
-		"centos7": [ "libepoxy", "libepoxy-devel" ]
+		"centos7": [ "libepoxy", "libepoxy-devel" ],
+		"gentoo": [ "media-libs/libepoxy" ]
 	},
 	"use": [
 		"-TODO"

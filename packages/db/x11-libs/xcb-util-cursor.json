@@ -35,6 +35,7 @@
 		],
 		"centos7": [
 			"xcb-util-cursor", "xcb-util-cursor-devel"
-		]
+		],
+		"gentoo": [ "x11-libs/xcb-util-cursor" ]
 	}
 }

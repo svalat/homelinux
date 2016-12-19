@@ -94,7 +94,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libgtk+2.4-dev" ], 
-		"centos7": [ "gtk2", "gtk2-devel" ]
+		"centos7": [ "gtk2", "gtk2-devel" ],
+		"gentoo": [ "x11-libs/gtk+" ]
 	},
 	"slots": {
 		"2.4": "<2.90",

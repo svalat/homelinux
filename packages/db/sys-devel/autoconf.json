@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "autoconf" ],
-		"centos7": [ "autoconf" ]
+		"centos7": [ "autoconf" ],
+		"gentoo": [ "sys-devel/autoconf" ]
 	}
 }

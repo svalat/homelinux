@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libtimedate-perl" ],
-		"centos7": [ "perl-TimeDate" ]
+		"centos7": [ "perl-TimeDate" ],
+		"gentoo": [ "dev-libs/TimeDate" ]
 	}
 }

@@ -63,7 +63,8 @@
 	},
 	"host": {
 		"default": false,
-		"debian8": [ "libgtkmm-2.4-dev" ]
+		"debian8": [ "libgtkmm-2.4-dev" ],
+		"gentoo" : [ "dev-cpp/gtkmm" ]
 	},
 	"slots": {
 		"2.4": "<2.90",

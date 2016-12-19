@@ -31,6 +31,7 @@
 		"debian8": [
 			"libxxf86vm-dev"
 		],
-		"centos7": [ "libXxf86vm", "libXxf86vm-devel" ]
+		"centos7": [ "libXxf86vm", "libXxf86vm-devel" ],
+		"gentoo": [ "x11-lib/libXxf86vm" ]
 	}
 }

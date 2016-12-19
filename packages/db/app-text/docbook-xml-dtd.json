@@ -40,6 +40,7 @@
 		"debian8": [
 			"docbook-xml-dtd"
 		],
-		"centos7": [ "docbook-dtds" ]
+		"centos7": [ "docbook-dtds" ],
+		"gentoo": [ "app-text/docbook-xml-dtd" ]
 	}
 }

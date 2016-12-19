@@ -33,6 +33,7 @@
 		],
 		"centos7": [
 			"atkmm","atkmm-devel"
-		]
+		],
+		"gentoo" : [ "dev-cpp/atkmm" ]
 	}
 }

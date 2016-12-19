@@ -40,7 +40,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libharfbuzz-dev" ],
-		"centos7": [ "harfbuzz", "harfbuzz-devel" ]
+		"centos7": [ "harfbuzz", "harfbuzz-devel" ],
+		"gentoo": [ "media-libs/harfbuzz" ]
 	},
 	"use": [
 		"+glib",

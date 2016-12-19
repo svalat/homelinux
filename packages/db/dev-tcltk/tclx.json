@@ -48,6 +48,7 @@
 		],
 		"centos7": [
 			"tclx", "tclx-devel"
-		]
+		],
+		"gentoo": [ "dev-tcltk/tclx" ]
 	}
 }

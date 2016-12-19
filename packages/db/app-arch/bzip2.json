@@ -22,7 +22,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "bzip2", "libbz2-dev" ],
-		"centos7": [ "bzip2", "bzip2-devel" ]
+		"centos7": [ "bzip2", "bzip2-devel" ],
+		"gentoo": [ "app-arch/bzip2" ]
 	},
 	"use": [ 
 	],

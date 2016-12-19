@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "openmpi-bin" ],
-		"centos7": [ "openmpi", "openmpi-devel" ]
+		"centos7": [ "openmpi", "openmpi-devel" ],
+		"gentoo": [ "sys-cluster/openmpi" ]
 	}
 }

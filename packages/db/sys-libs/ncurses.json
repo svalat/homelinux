@@ -42,6 +42,7 @@
 		"debian8": [
 			"libncurses-dev"
 		],
-		"centos7": [ "ncurses", "ncurses-devel" ]
+		"centos7": [ "ncurses", "ncurses-devel" ],
+		"gentoo": [ "sys-libs/ncurses" ]
 	}
 }

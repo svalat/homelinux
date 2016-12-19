@@ -29,6 +29,7 @@
 		"debian8": [
 			"libxext-dev"
 		],
-		"centos7": [ "libXext", "libXext-devel" ]
+		"centos7": [ "libXext", "libXext-devel" ],
+		"gentoo": [ "x11-lib/libXext" ]
 	}
 }

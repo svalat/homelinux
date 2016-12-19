@@ -69,7 +69,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libpoppler-dev" ],
-		"centos7": [ "poppler", "poppler-utils", "poppler-devel" ]
+		"centos7": [ "poppler", "poppler-utils", "poppler-devel" ],
+		"gentoo": [ "app-text/poppler" ]
 	},
 	"use": [
 		"gentoo",

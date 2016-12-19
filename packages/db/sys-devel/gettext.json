@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "gettext" ],
-		"centos7": [ "gettext", "gettext-devel" ]
+		"centos7": [ "gettext", "gettext-devel" ],
+		"gentoo": [ "sys-devel/gettext" ]
 	}
 }

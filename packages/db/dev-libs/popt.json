@@ -39,6 +39,7 @@
 		"debian8": [
 			"libpopt-dev"
 		],
-		"centos7": [ "popt", "popt-devel" ]
+		"centos7": [ "popt", "popt-devel" ],
+		"gentoo": [ "dev-libs/popt" ]
 	}
 }

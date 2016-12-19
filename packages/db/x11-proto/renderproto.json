@@ -29,6 +29,7 @@
 		"debian8": [
 			"x11proto-render-dev"
 		], 
-		"centos7": [ "libXrender-devel" ]
+		"centos7": [ "libXrender-devel" ],
+		"gentoo": ["x11-proto/renderproto"]
 	}
 }

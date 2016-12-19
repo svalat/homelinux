@@ -30,6 +30,7 @@
 		"debian8": [
 			"libxfixes-dev"
 		],
-		"centos7": [ "libXfixes", "libXfixes-devel" ]
+		"centos7": [ "libXfixes", "libXfixes-devel" ],
+		"gentoo": [ "x11-libs/libXfixes" ]
 	}
 }

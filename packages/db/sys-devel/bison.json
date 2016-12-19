@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "bison" ],
-		"centos7": [ "bison", "bison-devel" ]
+		"centos7": [ "bison", "bison-devel" ],
+		"gentoo": [ "sys-devel/bison" ]
 	}
 }

@@ -23,6 +23,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "itstool" ],
-		"centos7": [ "itstool" ]
+		"centos7": [ "itstool" ],
+		"gentoo": [ "dev-util/itstool" ]
 	}
 }

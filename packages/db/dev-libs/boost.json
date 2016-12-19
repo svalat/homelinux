@@ -20,7 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libboost-dev" ],
-		"centos7": [ "boost" ]
+		"centos7": [ "boost" ],
+		"gentoo": [ "dev-libs/boost" ]
 	},
 	"steps": {
 		"configure": [

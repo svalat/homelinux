@@ -39,6 +39,7 @@
 		"debian8": [
 			"attr"
 		],
-		"centos7": [ "attr" ]
+		"centos7": [ "attr" ],
+		"gentoo": [ "sys-apps/attr" ]
 	}
 }

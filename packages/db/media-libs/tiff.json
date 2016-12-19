@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libtiff5-dev" ],
-		"centos7": [ "libtiff", "libtiff-devel" ]
+		"centos7": [ "libtiff", "libtiff-devel" ],
+		"gentoo": [ "media-libs/tiff" ]
 	}
 }

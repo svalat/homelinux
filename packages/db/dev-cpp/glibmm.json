@@ -29,7 +29,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libglibmm-2.4-dev" ],
-		"centos7": [ "glibmm24", "glibmm24-devel" ]
+		"centos7": [ "glibmm24", "glibmm24-devel" ],
+		"gentoo" : [ "dev-cpp/glibmm" ]
 	},
 	"use": [
 		"gentoo",

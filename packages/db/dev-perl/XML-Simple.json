@@ -27,7 +27,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libxml-simple-perl" ],
-		"centos7": [ "perl-XML-Simple" ]
+		"centos7": [ "perl-XML-Simple" ],
+		"gentoo": [ "dev-libs/XML-Simple" ]
 	},
 	"use": [
 		"gentoo"

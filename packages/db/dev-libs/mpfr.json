@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libmpfr-dev" ],
-		"centos7": [ "libmpfr", "libmpfr-devel" ]
+		"centos7": [ "libmpfr", "libmpfr-devel" ],
+		"gentoo": [ "dev-libs/mpfr" ]
 	}
 }

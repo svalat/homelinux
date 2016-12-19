@@ -75,6 +75,7 @@
 		],
 		"centos7": [
 			"ruby"
-		]
+		],
+		"gentoo": [ "dev-lang/ruby" ]
 	}
 }

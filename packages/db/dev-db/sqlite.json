@@ -20,7 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "sqlite" ],
-		"centos7": [ "sqlite", "sqlite-devel" ]
+		"centos7": [ "sqlite", "sqlite-devel" ],
+		"gentoo": [ "dev-db/sqlite" ]
 	},
 	"slots":{
 		"0": "<3000000",

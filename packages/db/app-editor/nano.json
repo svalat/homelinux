@@ -26,7 +26,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "nano" ],
-		"centos7": [ "nano" ]
+		"centos7": [ "nano" ],
+		"gentoo": [ "app-editor/nano" ]
 	},
 	"configure": {
 			"-minimal": [

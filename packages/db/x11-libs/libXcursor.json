@@ -29,6 +29,7 @@
 		"debian8": [
 			"libxcursor-dev"
 		],
-		"centos7": [ "libXcursor", "libXcursor-devel" ]
+		"centos7": [ "libXcursor", "libXcursor-devel" ],
+		"gentoo": [ "x11-libs/libXcursor" ]
 	}
 }

@@ -30,6 +30,7 @@
 		"debian8": [
 			"libxdamage-dev"
 		],
-		"centos7": [ "libXdamage", "libXdamage-devel" ]
+		"centos7": [ "libXdamage", "libXdamage-devel" ],
+		"gentoo": [ "x11-libs/libXdamage" ]
 	}
 }

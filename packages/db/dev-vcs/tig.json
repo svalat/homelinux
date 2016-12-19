@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "tig" ],
-		"centos7": [ "tig" ]
+		"centos7": [ "tig" ],
+		"gentoo": [ "dev-vcs/tig" ]
 	}
 }

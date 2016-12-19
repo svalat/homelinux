@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "wget" ],
-		"centos7": [ "wget" ]
+		"centos7": [ "wget" ],
+		"gentoo": [ "net-misc/wget" ]
 	}
 }

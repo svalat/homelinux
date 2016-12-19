@@ -23,7 +23,8 @@
 	"host": {
 		"default": true,
 		"debian8": [ "bash" ],
-		"centos7": [ "bash" ]
+		"centos7": [ "bash" ],
+		"gentoo": [ "app-shells/bash" ]
 	},
 	"use": [
 		"gentoo",

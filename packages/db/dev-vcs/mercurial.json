@@ -30,7 +30,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "mercurial" ],
-		"centos7": [ "mercurial" ]
+		"centos7": [ "mercurial" ],
+		"gentoo": [ "dev-vcs/mercurial" ]
 	},
 	"use": [
 		"-bugzilla",

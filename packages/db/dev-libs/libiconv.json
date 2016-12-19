@@ -23,6 +23,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libiconv-hook1", "libiconv-hook-dev" ],
-		"centos7": [ "libiconv", "libiconv-devel" ]
+		"centos7": [ "libiconv", "libiconv-devel" ],
+		"gentoo": [ "dev-libs/libiconv" ]
 	}
 }

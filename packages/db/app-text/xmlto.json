@@ -37,6 +37,7 @@
 		],
 		"centos7": [
 			"xmlto"
-		]
+		],
+		"gentoo": [ "app-text/xmlto" ]
 	}
 }

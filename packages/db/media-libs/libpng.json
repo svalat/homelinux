@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libpng12-dev" ],
-		"centos7": [ "libpng", "libpng-devel" ]
+		"centos7": [ "libpng", "libpng-devel" ],
+		"gentoo": [ "media-libs/libpng" ]
 	}
 }

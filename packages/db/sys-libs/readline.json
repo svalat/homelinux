@@ -24,6 +24,7 @@
 	"host": {
 		"default": true,
 		"debian8": [ "libreadline-dev" ],
-		"centos7": [ "readline", "readline-devel" ]
+		"centos7": [ "readline", "readline-devel" ],
+		"gentoo": [ "sys-libs/readline" ]
 	}
 }

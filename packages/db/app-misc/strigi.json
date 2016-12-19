@@ -85,6 +85,7 @@
 		"debian8": [
 			"strigi"
 		],
-		"centos7": [ "strigi", "strigi-libs", "strigi-devel"]
+		"centos7": [ "strigi", "strigi-libs", "strigi-devel"],
+		"gentoo": [ "app-misc/strigi" ]
 	}
 }

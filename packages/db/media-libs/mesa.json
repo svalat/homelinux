@@ -175,6 +175,7 @@
 	"host": {
 		"default": true,
 		"debian8": true,
-		"centos7": false
+		"centos7": true,
+		"gentoo": [ "media-libs/mesa" ]
 	}
 }

@@ -34,7 +34,8 @@
 	"host": {
 		"default": true,
 		"debian8": [ "perl" ],
-		"centos7": [ "perl" ]
+		"centos7": [ "perl" ],
+		"gentoo": [ "dev-lang/perl" ]
 	},
 	"use": [	
 		"gentoo",

@@ -23,7 +23,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "cabextract" ],
-		"centos7": [ "cabextract" ]
+		"centos7": [ "cabextract" ],
+		"gentoo": [ "app-arch/cabextract" ]
 	},
 	"use": [ 
 		"extras"

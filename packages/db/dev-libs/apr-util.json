@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "apr" ],
-		"centos7": [ "apr" ]
+		"centos7": [ "apr" ],
+		"gentoo": [ "dev-libs/apr-util" ]
 	}
 }

@@ -138,6 +138,7 @@
 		"debian8": [
 			"gnuplot"
 		],
-		"centos7": [ "gnuplot" ]
+		"centos7": [ "gnuplot" ],
+		"gentoo": [ "sci-visualization/gnuplot" ]
 	}
 }

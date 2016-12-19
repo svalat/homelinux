@@ -23,6 +23,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libxslt1-dev" ],
-		"centos7": [ "libxslt", "libxslt-devel" ]
+		"centos7": [ "libxslt", "libxslt-devel" ],
+		"gentoo": [ "dev-libs/libxslt" ]
 	}
 }

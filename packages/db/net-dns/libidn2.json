@@ -18,6 +18,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libidn2-0-dev" ],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "net-dns/libidn2" ]
 	}
 }

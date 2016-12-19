@@ -58,6 +58,7 @@
 		],
 		"centos7": [
 			"tk", "tk-devel"
-		]
+		],
+		"gentoo": [ "dev-lang/tk" ]
 	}
 }

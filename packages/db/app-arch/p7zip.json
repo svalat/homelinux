@@ -41,6 +41,7 @@
 		],
 		"centos7": [
 			"p7zip"
-		]
+		],
+		"gentoo": [ "app-arch/p7zip" ]
 	}
 }

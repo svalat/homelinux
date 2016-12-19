@@ -32,6 +32,7 @@
 		"debian8": [
 			"xinput"
 		],
-		"centos7": true
+		"centos7": true,
+		"gentoo": [ "x11-apps/xinput" ]
 	}
 }

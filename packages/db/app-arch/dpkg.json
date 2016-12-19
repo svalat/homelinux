@@ -55,7 +55,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "dpkg" ],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "app-arch/dpkg" ]
 	},
 	"use": [ 
 		"gentoo",

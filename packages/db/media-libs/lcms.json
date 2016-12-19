@@ -55,6 +55,7 @@
 			"liblcms2-dev",
 			"liblcms2-utils"
 		],
-		"centos7": [ "lcms2", "lcms2-devel" ]
+		"centos7": [ "lcms2", "lcms2-devel" ],
+		"gentoo": [ "media-libs/lcms" ]
 	}
 }

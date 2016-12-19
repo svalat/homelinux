@@ -22,6 +22,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "hwloc" ],
-		"centos7": [ "hwloc", "hwloc-devel" ]
+		"centos7": [ "hwloc", "hwloc-devel" ],
+		"gentoo": [ "sys-apps/hwloc" ]
 	}
 }

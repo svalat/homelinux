@@ -32,6 +32,7 @@
 		"debian8": [
 			"libxi-dev"
 		],
-		"centos7": [ "libXi", "libXi-devel" ]
+		"centos7": [ "libXi", "libXi-devel" ],
+		"gentoo": [ "x11-libs/libXi" ]
 	}
 }

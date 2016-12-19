@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "openpa" ],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "dev-libs/openpa" ]
 	}
 }

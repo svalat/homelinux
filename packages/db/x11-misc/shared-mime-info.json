@@ -41,7 +41,8 @@
 		],
 		"centos7": [
 			"shared-mime-info"
-		]
+		],
+		"gentoo": [ "x11-misc/shared-mime-info" ]
 	},
 	"vars": {
 		"HL_MAKEOPTS": ""

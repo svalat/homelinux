@@ -91,7 +91,8 @@
 		"debian8": [
 			"glib"
 		],
-		"centos7": [ "glib2", "glib2-devel" ]
+		"centos7": [ "glib2", "glib2-devel" ],
+		"gentoo" : [ "dev-libs/glib" ]
 	},
 	"slots": {
 		"2": ">=2.0"

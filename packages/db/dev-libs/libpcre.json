@@ -71,6 +71,7 @@
 		"debian8": [
 			"libpcre"
 		],
-		"centos7": [ "pcre", "pcre-devel" ]
+		"centos7": [ "pcre", "pcre-devel" ],
+		"gentoo": [ "dev-libs/libpcre" ]
 	}
 }

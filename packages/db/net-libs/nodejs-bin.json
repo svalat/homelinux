@@ -20,8 +20,9 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "node" ],
-		"centos7": [ "node" ]
+		"debian8": false,
+		"centos7": false,
+		"gentoo":  false,
 	},
 	"conflict": [ "nodejs" ],
 	"steps": {

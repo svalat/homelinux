@@ -20,7 +20,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "pkg-config" ],
-		"centos7": [ "pkgconfig" ]
+		"centos7": [ "pkgconfig" ],
+		"gentoo": [ "dev-util/pkgconfig" ]
 	},
 	"configure": {
 		"": [ "--with-internal-glib" ]

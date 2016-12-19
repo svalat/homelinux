@@ -29,7 +29,8 @@
 	"host": {
 		"default": true,
 		"debian8": [ "dash" ],
-		"centos7": [ "dash" ]
+		"centos7": [ "dash" ],
+		"gentoo": [ "app-shells/dash" ]
 	},
 	"use": [ 
 		"gentoo",

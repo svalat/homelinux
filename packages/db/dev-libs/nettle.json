@@ -24,6 +24,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "nettle-bin", "nettle-dev" ],
-		"centos7": [ "nettle", "nettle-devel" ]
+		"centos7": [ "nettle", "nettle-devel" ],
+		"gentoo": [ "dev-libs/nettle" ]
 	}
 }

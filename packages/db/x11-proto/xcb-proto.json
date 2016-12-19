@@ -27,6 +27,7 @@
 		"debian8": [
 			"xcb-proto"
 		],
-		"centos7": [ "libxcb-devel" ]
+		"centos7": [ "libxcb-devel" ],
+		"gentoo": [ "x11-proto/xcb-proto" ]
 	}
 }

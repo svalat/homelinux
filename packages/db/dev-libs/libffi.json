@@ -20,6 +20,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "libffi-dev" ],
-		"centos7": [ "libffi", "libffi-devel" ]
+		"centos7": [ "libffi", "libffi-devel" ],
+		"gentoo": [ "dev-libs/libffi" ]
 	}
 }

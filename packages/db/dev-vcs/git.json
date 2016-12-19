@@ -21,6 +21,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "git" ],
-		"centos7": [ "git" ]
+		"centos7": [ "git" ],
+		"gentoo": [ "dev-vcs/git" ]
 	}
 }

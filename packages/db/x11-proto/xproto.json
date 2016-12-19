@@ -25,6 +25,7 @@
 		"default": false,
 		"debian8": [
 			"x11proto-core-dev"
-		]
+		],
+		"gentoo": [ "x11-proto/xproto" ]
 	}
 }

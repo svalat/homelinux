@@ -25,6 +25,7 @@
 		"debian8": [
 			"x11proto-dri3-dev"
 		],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "x11-proto/dri3proto" ]
 	}
 }

@@ -54,6 +54,7 @@
 		],
 		"centos7": [
 			"phonon", "phonon-devel"
-		]
+		],
+		"gentoo": [ "media-libs/phonon" ]
 	}
 }

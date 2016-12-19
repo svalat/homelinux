@@ -38,6 +38,7 @@
 		"debian8": [
 			"libxft-dev"
 		],
-		"centos7": [ "libXft", "libXft-devel" ]
+		"centos7": [ "libXft", "libXft-devel" ],
+		"gentoo": [ "x11-libs/libXft" ]
 	}
 }

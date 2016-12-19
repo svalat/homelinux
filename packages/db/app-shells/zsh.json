@@ -42,7 +42,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "zsh" ],
-		"centos7": [ "zsh" ]
+		"centos7": [ "zsh" ],
+		"gentoo": [ "app-shells/zsh" ]
 	},
 	"use" : [
 		"gentoo",

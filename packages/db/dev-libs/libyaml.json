@@ -28,6 +28,7 @@
 		"debian8": [
 			"libyaml"
 		],
-		"centos7": [ "libyaml", "libyaml-devel" ]
+		"centos7": [ "libyaml", "libyaml-devel" ],
+		"gentoo": [ "dev-libs/libyaml" ]
 	}
 }

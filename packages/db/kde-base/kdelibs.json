@@ -188,7 +188,8 @@
 		],
 		"centos7": [
 			"kdelibs", "kdelibs-devel"
-		]
+		],
+		"gentoo": [ "kde-base/kdelibs" ]
 	},
 	"slots": {
 		"~": "^([0-9]+)"

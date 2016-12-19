@@ -49,6 +49,7 @@
 		"debian8": [
 			"xz-utils"
 		],
-		"centos7": [ "xz", "xz-libs", "xz-devel" ]
+		"centos7": [ "xz", "xz-libs", "xz-devel" ],
+		"gentoo": [ "app-arch/xz-utils" ]
 	}
 }

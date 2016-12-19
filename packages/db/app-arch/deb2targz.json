@@ -21,7 +21,8 @@
 	"host": {
 		"default": false,
 		"debian8": [ "deb2targz" ],
-		"centos7": false
+		"centos7": false,
+		"gentoo": [ "app-arch/deb2targz" ]
 	},
 	"use": [ 
 		"extra"

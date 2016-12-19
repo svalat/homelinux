@@ -26,6 +26,7 @@
 		"debian8": [
 			"x11proto-xinerama-dev"
 		], 
-		"centos7": [ "libXinerama-devel" ]
+		"centos7": [ "libXinerama-devel" ],
+		"gentoo": [ "x11-proto/xineramaproto" ]
 	}
 }

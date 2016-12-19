@@ -46,6 +46,7 @@
 		],
 		"centos7": [
 			"icu", "icu-devel"
-		]
+		],
+		"gentoo": [ "dev-libs/icu" ]
 	}
 }
