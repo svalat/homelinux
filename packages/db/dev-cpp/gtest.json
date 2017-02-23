@@ -1,0 +1,38 @@
+{
+	"name": "dev-cpp/gtest",
+	"homepage": "https://github.com/google/googletest",
+	"versions": [
+		"1.8.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "github",
+		"url": "google/googletest",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "googletest-release-${VERSION}",
+	"urls": [
+		"github://google/googletest"
+	],
+	"deps": [
+		"app-arch/unzip"
+	],
+	"configure": {},
+	"use": [
+		"examples",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gtest"
+		],
+		"centos7": [
+			"gtest"
+		],
+		"gentoo": [
+			"dev-cpp/gtest"
+		]
+	}
+}

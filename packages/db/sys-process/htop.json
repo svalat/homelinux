@@ -1,5 +1,5 @@
 {
-	"name": "sys-apps/htop",
+	"name": "sys-process/htop",
 	"homepage": "http://hisham.hm/htop",
 	"inherit": "models/autotools",
 	"versions": [ 
@@ -25,6 +25,6 @@
 		"default": false,
 		"debian8": [ "htop" ],
 		"centos7": [ "htop" ],
-		"gentoo": [ "sys-apps/htop" ]
+		"gentoo": [ "sys-process/htop" ]
 	}
 }

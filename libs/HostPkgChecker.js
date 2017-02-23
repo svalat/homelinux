@@ -107,13 +107,6 @@ HostPkgChecker.prototype.presentOnSystemCentos7 = function(p)
 	if (this.hostsRefs[p.pack.name] != undefined)
 		h = this.hostsRefs[p.pack.name];
 	
-	//replace with soft
-	for (var i in h)
-	{
-		h[i] = h[i].replace('${SLOT}',p.getSlot(p.getVersion()));
-		h[i] = h[i].replace('${VERSION}',p.getVersion());
-	}
-	
 	//not defined, consider not provided
 	if (h == undefined || h == 'undefined' || h.length == 0)
 		return false;
@@ -121,7 +114,14 @@ HostPkgChecker.prototype.presentOnSystemCentos7 = function(p)
 	//is not provided
 	if (h === false)
 		return false;
-	
+
+    //replace with soft
+	for (var i in h)
+	{
+		h[i] = h[i].replace('${SLOT}',p.getSlot(p.getVersion()));
+		h[i] = h[i].replace('${VERSION}',p.getVersion());
+	}
+
 	//console.log("Check ncurses on host : "+h);
 	
 	//check in list
@@ -130,6 +130,71 @@ HostPkgChecker.prototype.presentOnSystemCentos7 = function(p)
 		try {
 			//console.error("Check with dpkg "+h[i]);
 			var res = child_process.execSync('rpm -V '+h[i]+' 2> /dev/null');
+		} catch (e) {
+			return false;
+		}
+	}
+	return true;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Check if the package is installed into a Centos7 host system.
+ * This function made the check by using the dpkg command.
+ * CAUTION, it require child_process.execSync from nodejs which
+ * is not provided on old versions.
+ * @param p package to check.
+**/
+HostPkgChecker.prototype.presentOnSystemGentoo = function(p)
+{
+	var h = [];
+    
+    //package one
+	if (p.pack.host != undefined)
+		h = p.pack.host['gentoo'];
+
+	//load from separate file
+	if (this.hostsRefs[p.pack.name] != undefined)
+		h = this.hostsRefs[p.pack.name];
+    
+	//not defined, consider not provided
+	if (h == undefined || h == 'undefined' || h.length == 0)
+		return false;
+	
+	//is not provided
+	if (h === false)
+		return false;
+    
+    //not defined, consider not provided
+	if (h == undefined || h == 'undefined' || h.length == 0)
+		return false;
+	
+	//is not provided
+	if (h === false)
+		return false;
+    
+    //replace with soft
+	for (var i in h)
+	{
+		h[i] = h[i].replace('${SLOT}',p.getSlot(p.getVersion()));
+		h[i] = h[i].replace('${VERSION}',p.getVersion());
+	}    
+	
+	for (var i in h)
+	{
+		try {
+			var found = false;
+			var reg = new RegExp(h[i]+"-.*");
+			var files = fs.readdirSync("/var/db/pkg/"+h[i].split('/')[0]);
+			if (files != false)
+			{
+				files.forEach(file => {
+					if (reg.exec(h[i].split('/')[0]+"/"+file))
+						found = true;
+				});
+			}
+			if (found == false)
+				return false;
 		} catch (e) {
 			return false;
 		}
@@ -151,6 +216,8 @@ HostPkgChecker.prototype.presentOnSystem = function(p)
 		return this.presentOnSystemDebian8(p);
 	} else if (this.userConfig.config.host == 'centos7') {
 		return this.presentOnSystemCentos7(p);
+	} else if (this.userConfig.config.host == 'gentoo') {
+		return this.presentOnSystemGentoo(p);
 	} else {
 		throw new Error("Unsupposed host system to check deps, please use default in that case !");
 	}

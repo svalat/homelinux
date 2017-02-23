@@ -37,6 +37,7 @@
 		"default": false,
 		"debian8": [
 			"advancecomp"
-		]
+		],
+		"gentoo": [ "app-arch/advancecomp" ]
 	}
 }

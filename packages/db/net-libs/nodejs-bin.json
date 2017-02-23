@@ -22,7 +22,7 @@
 		"default": false,
 		"debian8": false,
 		"centos7": false,
-		"gentoo":  false,
+		"gentoo":  false
 	},
 	"conflict": [ "nodejs" ],
 	"steps": {

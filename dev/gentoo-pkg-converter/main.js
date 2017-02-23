@@ -163,7 +163,8 @@ var final = {
 	host: {
 		'default': false,
 		debian8: [ getPackNameInfo(pack).shortName ],
-		centos7: [ getPackNameInfo(pack).shortName ]
+		centos7: [ getPackNameInfo(pack).shortName ],
+		gentoo: [ getPackNameInfo(pack).name ],
 	}
 }
 
