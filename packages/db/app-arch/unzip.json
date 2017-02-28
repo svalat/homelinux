@@ -32,5 +32,14 @@
 		],
 		"centos7": [ "unzip" ],
 		"gentoo": [ "app-arch/unzip" ]
+	},
+	"steps" : {
+		"configure": [
+			"run cp unix/Makefile .",
+			"run sed -i Makefile -e \"s#/usr/local#$PREFIX#g\""
+		],
+		"build": [
+			"run make linux_noasm"
+		]
 	}
 }

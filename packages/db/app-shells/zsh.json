@@ -14,9 +14,13 @@
 	"subdir": "zsh-${VERSION}",
 	"urls" : [
 		"http://www.zsh.org/pub/zsh-${VERSION}.tar.gz",
+		"http://www.zsh.org/pub/zsh-${VERSION}.tar.xz",
 		"http://www.zsh.org/pub/old/zsh-${VERSION}.tar.gz",
+		"http://www.zsh.org/pub/old/zsh-${VERSION}.tar.xz",
 		"ftp://ftp.zsh.org/zsh/zsh-${VERSION}.tar.gz",
-		"ftp://ftp.zsh.org/zsh/old/zsh-${VERSION}.tar.gz"
+		"ftp://ftp.zsh.org/zsh/zsh-${VERSION}.tar.xz",
+		"ftp://ftp.zsh.org/zsh/old/zsh-${VERSION}.tar.gz",
+		"ftp://ftp.zsh.org/zsh/old/zsh-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"sys-libs/ncurses",

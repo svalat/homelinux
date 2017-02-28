@@ -13,12 +13,12 @@
 	"md5": {},
 	"subdir": "emacs-${VERSION}",
 	"urls": [
-		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.bz2"
+		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.bz2",
+		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-libs/ncurses:0",
-		"app-emacs/emacs-common-gentoo[#games,#X]",
-		"net-libs/liblockfile",
+		"liblockfile? net-libs/liblockfile",
 		"virtual/pkgconfig",
 		"acl? virtual/acl",
 		"alsa? media-libs/alsa-lib",
@@ -68,7 +68,8 @@
 			"--with-sound=alsa",
 			"--with-x",
 			"--without-ns",
-			"--with-xft"
+			"--with-xft",
+			"--localstatedir=$PREFIX/var"
 		],
 		"+TODO": [
 			"--with-x-toolkit=@on@+gtk3@gtk3@"
@@ -143,6 +144,7 @@
 		]
 	},
 	"use": [
+		"liblockfile",
 		"acl",
 		"alsa",
 		"aqua",
