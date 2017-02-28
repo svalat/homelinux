@@ -296,6 +296,9 @@ function hl_extract()
 		*.zip)
 			run unzip $DISTFILES/$ARCHIVE
 			;;
+		*.7z)
+			run p7zip -d $DISTFILES/$ARCHIVE
+			;;
 		*)
 			die "Unmanaged archive format : $ARCHIVE"
 			;;

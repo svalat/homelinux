@@ -4,7 +4,7 @@
 	"versions": [
 		"16.02"
 	],
-	"inherit": "models/autotools",
+	"inherit": "models/default",
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://sourceforge.net/projects/p7zip/files/p7zip/",
@@ -34,6 +34,12 @@
 		"wxwidgets",
 		"abi_x86_x32"
 	],
+	"steps": {
+		"configure": [
+			"run sed -i install.sh -e s#DEST_HOME=/usr/local#DEST_HOME=$PREFIX#g",
+			"run sed -i makefile.common -e s#DEST_HOME=/usr/local#DEST_HOME=$PREFIX#g"
+		]
+	},
 	"host": {
 		"default": false,
 		"debian8": [

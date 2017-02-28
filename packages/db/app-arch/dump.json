@@ -57,5 +57,11 @@
 	],
 	"warn": [
 		"Not working on Debian8"
-	]
+	],
+	"steps": {
+		"configure": [
+			"export EXT2FS_LIBS='-lext2fs -lcom_err'",
+			"hl_configure_autotools"
+		]
+	}
 }

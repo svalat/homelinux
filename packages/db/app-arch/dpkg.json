@@ -69,10 +69,6 @@
 		"update-alternatives"
 	],
 	"steps": {
-		"configure": [
-			"run autoupdate",
-			"run autoreconf -v -i",
-			"hl_configure_autotools"
-		]
+		
 	}
 }
