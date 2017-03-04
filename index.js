@@ -60,6 +60,9 @@ switch(command)
 	case 'fetch-versions':
 		hlManager.printFetchedVersions(process.argv[3]);
 		break;
+	case 'versions':
+		hlManager.printVersions(process.argv[3]);
+		break;
 	case 'prefix-of':
 		hlManager.printPrefixOf(process.argv[3]);
 		break;

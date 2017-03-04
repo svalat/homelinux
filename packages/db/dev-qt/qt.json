@@ -24,7 +24,8 @@
 			"http://download.qt.io/archive/qt/5.4/",
 			"http://download.qt.io/archive/qt/5.5/",
 			"http://download.qt.io/archive/qt/5.6/",
-			"http://download.qt.io/archive/qt/5.7/"
+			"http://download.qt.io/archive/qt/5.7/",
+			"http://download.qt.io/archive/qt/5.8/"
 		],
 		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
 	},

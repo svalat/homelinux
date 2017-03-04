@@ -175,6 +175,13 @@ HomeLinuxManager.prototype.printFetchedVersions = function(packName)
 }
 
 /*******************  FUNCTION  *********************/
+HomeLinuxManager.prototype.printVersions = function(packName)
+{
+	var pack = new PackageBuilder(this.homelinux.prefix,this.homelinux.userConfig,packName,false);
+	console.log(pack.pack.versions);
+}
+
+/*******************  FUNCTION  *********************/
 HomeLinuxManager.prototype.printPrefixOf = function(packName)
 {
 	var ret = this.homelinux.prefix.prefixOfPackage(this.homelinux.userConfig,packName);

@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "ftp",
-		"url": "ftp://ftp.cwru.edu/pub/bash",
+		"url": "http://ftp.gnu.org/gnu/bash/",
 		"regexp": "bash-([0-9]+\\.[0-9]+).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "bash-${VERSION}",
 	"urls" : [
-		"ftp://ftp.cwru.edu/pub/bash/bash-${VERSION}.tar.gz"
+		"http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-libs/ncurses",

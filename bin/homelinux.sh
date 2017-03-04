@@ -40,6 +40,7 @@ Commands:
 	gen-full-package  : Print fully generated package.
 	gen-install       : Generate install script to forward to bash.
 	update-db         : Sync the gentoo DB for unknown packages.
+	versions          : Print the list of available version for the given package.
 	fetch-versions    : Fetch versions of given package (work only
 	                    for db packages.
 	env               : Setup the environement variable to load.
