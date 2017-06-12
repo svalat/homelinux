@@ -1,0 +1,43 @@
+{
+	"name": "dev-cpp/libxml++",
+	"homepage": "http://libxmlplusplus.sourceforge.net/",
+	"versions": [
+		"3.0.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/libxml++/cache.json",
+		"regexp": "libxml\\+\\+-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libxml++-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/GNOME/sources/libxml++/$(echo ${VERSION} | cut -f 1,2 -d .)/libxml++-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/libxml2",
+		"dev-cpp/glibmm",
+		"virtual/pkgconfig"
+	],
+	"configure": {
+		"doc": [
+			"--$enable-documentation"
+		]
+	},
+	"use": [
+		"doc"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxml++"
+		],
+		"centos7": [
+			"libxml++"
+		],
+		"gentoo": [
+			"dev-cpp/libxmlpp"
+		]
+	}
+}

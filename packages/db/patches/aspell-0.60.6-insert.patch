@@ -1,0 +1,43 @@
+From 36de5eb6b4f00c719d989e547b407c16b14f10d9 Mon Sep 17 00:00:00 2001
+From: Sebastien Valat <sebastien.valat@gmail.com>
+Date: Mon, 12 Jun 2017 20:02:19 +0200
+Subject: [PATCH] fixed
+
+---
+ common/hash.hpp   | 2 +-
+ common/vector.hpp | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/common/hash.hpp b/common/hash.hpp
+index bc451e0..27ede4c 100644
+--- a/common/hash.hpp
++++ b/common/hash.hpp
+@@ -318,7 +318,7 @@ namespace acommon {
+       : Base(s, Parms(h,e)) {}
+     data_type & operator[](const key_type & k) 
+     {
+-      return (*((insert(value_type(k, data_type()))).first)).second;
++      return (*((this->insert(value_type(k, data_type()))).first)).second;
+     }
+   };
+ 
+diff --git a/common/vector.hpp b/common/vector.hpp
+index 9cb6ab5..782e4b0 100644
+--- a/common/vector.hpp
++++ b/common/vector.hpp
+@@ -24,10 +24,10 @@ namespace acommon
+       this->push_back(t);
+     }
+     void append(const T * begin, unsigned int size) {
+-      insert(this->end(), begin, begin+size);
++      this->insert(this->end(), begin, begin+size);
+     }
+     void append(const T * begin, const T * end) {
+-      insert(this->end(), begin, end);
++      this->insert(this->end(), begin, end);
+     }
+     int alloc(int s) {
+       int pos = this->size();
+-- 
+2.13.0
+
