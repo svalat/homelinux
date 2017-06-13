@@ -212,6 +212,11 @@ function hl_download_internal()
 			die "Invalid url type : $url"
 			;;
 	esac
+	
+	#spacial case
+	if [ "$ARCHIVE" = "master.zip" ]; then
+		ARCHIVE=$SHORT_NAME-$VERSION.zip
+	fi
 
 	#cache
 	if [ "$HL_HOMECACHE" = 'true' ] && [ -f $HOME/.homelinux/cache/$ARCHIVE ] ; then
@@ -222,7 +227,7 @@ function hl_download_internal()
 	#download
 	case "${url}" in
 		http://*|ftp://*|https://*|sftp://*)
-			run wget -c "${url}" || return 1
+			run wget -c "${url}" -O ${ARCHIVE} || return 1
 			;;
 		git://*)
 			DIR=$PWD
@@ -429,6 +434,24 @@ function hl_test()
 function hl_install()
 {
 	run make install
+}
+
+function hl_vim_plugin_cp()
+{
+	vimpath=$(ls ${HL_PREFIX}/share/vim/ | egrep "[0-9]+" | sort | tail -n 1)
+	run cp -r "$@" ${HL_PREFIX}/share/vim/$vimpath/plugin
+}
+
+function hl_vim_install()
+{
+	vimpath=$(ls ${HL_PREFIX}/share/vim/ | egrep "[0-9]+" | sort | tail -n 1)
+	run cp -r $HL_PACKDIR/* ${HL_PREFIX}/share/vim/$vimpath
+	
+# 	dir=$(basename ${HL_TEMP}/*)
+# 	for tmp in ${HL_PREFIX}/share/vim/$vimpath/$dir/autoload/*.vim
+# 	do
+# 		run ln -sf $tmp ${HL_PREFIX}/share/vim/$vimpath/
+# 	done
 }
 
 function hl_manifest()

@@ -1,0 +1,11 @@
+{
+	"name": "hl-template-perl",
+	"deps": [
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ ],
+		"build": [ ],
+		"install": [ "hl_vim_install" ]
+	}
+}

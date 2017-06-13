@@ -1,0 +1,38 @@
+{
+	"name": "app-vim/ackvim",
+	"homepage": "https://github.com/mileszs/ack.vim",
+	"versions": [
+		"1.0.9"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://mileszs/ack.vim",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "ack.vim-${VERSION}",
+	"urls": [
+		"github://mileszs/ack.vim"
+	],
+	"deps": [
+		"app-editor/vim",
+		"sys-apps/ack"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ackvim"
+		],
+		"centos7": [
+			"ackvim"
+		],
+		"gentoo": [
+			"app-vim/ackvim"
+		]
+	}
+}
