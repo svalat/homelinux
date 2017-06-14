@@ -1,0 +1,35 @@
+{
+	"name": "app-vim/nerdtree",
+	"homepage": "https://github.com/scrooloose/nerdtree",
+	"versions": [
+		"5.0.0"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://scrooloose/nerdtree",
+		"regexp": "nerdtree-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "nerdtree-${VERSION}",
+	"urls": [
+		"github://scrooloose/nerdtree"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"nerdtree"
+		],
+		"centos7": [
+			"nerdtree"
+		],
+		"gentoo": [
+			"app-vim/nerdtree"
+		]
+	}
+}

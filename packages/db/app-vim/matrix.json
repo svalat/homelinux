@@ -1,0 +1,44 @@
+{
+	"name": "app-vim/matrix",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=1189",
+	"versions": [
+		"1.10"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=1189",
+		"regexp": "matrix-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=18650"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O ${HL_TEMP}/matrix.vim"
+		],
+		"extract": [],
+		"install": [
+			"hl_vim_plugin_cp matrix.vim"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"matrix"
+		],
+		"centos7": [
+			"matrix"
+		],
+		"gentoo": [
+			"app-vim/matrix"
+		]
+	}
+}
