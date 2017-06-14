@@ -1,0 +1,47 @@
+{
+	"name": "sys-devel/lld",
+	"homepage": "http://llvm.org/",
+	"versions": [
+		"4.0.0"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://releases.llvm.org/",
+		"regexp": "lld-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "lld-${VERSION}",
+	"urls": [
+		"http://releases.llvm.org/${VERSION}/lld-${VERSION}.src.tar.xz"
+	],
+	"deps": [
+	],
+	"vspecific": {
+		":4.0": {
+			"deps": [
+				"sys-devel/llvm:4.0[lld]"
+			]
+		}
+	},
+	"configure": {
+	},
+	"use": [
+	],
+	"slots": {
+		"~": "^([0-9]+.[0-9]+).[0-9]+"
+	},
+	"module": "clang-${SLOT}",
+	"host": {
+		"default": false,
+		"debian8": [
+			"lld"
+		],
+		"centos7": [
+			"lld"
+		],
+		"gentoo": [
+			"sys-devel/lld"
+		]
+	}
+}

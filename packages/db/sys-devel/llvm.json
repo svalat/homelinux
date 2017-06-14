@@ -28,6 +28,11 @@
 		"kernel_Darwin? sys-libs/libcxx",
 		"doc? dev-python/sphinx"
 	],
+	"steps": {
+		"prepare": [
+			"if [ ! -z \"$(echo $USE | grep '+lld')\" ]; then run wget http://releases.llvm.org/${VERSION}/lld-${VERSION}.src.tar.xz -O ${HL_TEMP}/lld.tar.xz; run tar -xf ${HL_TEMP}/lld.tar.xz -C ${HL_TEMP}/${SUBDIR}/tools; fi"
+		]
+	},
 	"configure": {
 		"": [
 			
@@ -42,7 +47,8 @@
 		"ncurses",
 		"test",
 		"elibc_musl",
-		"kernel_Darwin"
+		"kernel_Darwin",
+		"lld"
 	],
 	"slots": {
 		"~": "^([0-9]+.[0-9]+).[0-9]+"

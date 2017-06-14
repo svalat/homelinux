@@ -1,0 +1,48 @@
+{
+	"name": "sys-devel/patch",
+	"homepage": "https://www.gnu.org/software/patch/patch.html",
+	"versions": [
+		"2.7.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/patch/",
+		"regexp": "patch-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "patch-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/patch/patch-${VERSION}.tar.bz2",
+		"http://ftp.gnu.org/gnu/patch/patch-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"xattr? sys-apps/attr",
+		"test? sys-apps/ed"
+	],
+	"configure": {
+		"xattr": [
+			"--$enable-xattr"
+		],
+		"": [
+			"--program-prefix=g"
+		]
+	},
+	"use": [
+		"static",
+		"test",
+		"xattr"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"patch"
+		],
+		"centos7": [
+			"patch"
+		],
+		"gentoo": [
+			"sys-devel/patch"
+		]
+	}
+}

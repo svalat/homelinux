@@ -116,9 +116,9 @@ UseFlags.prototype.getApplyStatus = function(list,flag)
 	if (status == null)
 		return name;
 	else if (status)
-		return (flag[0]=='+'?'+':'-')+name;
+		return (flag[0]!='-'?'+':'-')+name;
 	else
-		return (flag[0]=='-'?'+':'-')+name;
+		return (flag[0]!='+'?'-':'+')+name;
 };
 
 /*******************  FUNCTION  *********************/

@@ -406,6 +406,7 @@ function hl_configure_cmake()
 	run mkdir -p $HL_BUILDDIR
 	run_sh cd $HL_BUILDDIR
 	run touch ${HL_PACKDIR}/hl-is-cmake.notify
+	run rm -rfd cmakebuild
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
 	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
