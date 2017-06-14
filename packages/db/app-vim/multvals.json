@@ -1,0 +1,46 @@
+{
+	"name": "app-vim/multvals",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=171",
+	"versions": [
+		"3.10"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=171",
+		"regexp": "multvals-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=3582"
+	],
+	"deps": [
+		"app-arch/unzip"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O ${HL_TEMP}/multvals.vim"
+		],
+		"extract": [],
+		"install": [
+			"hl_vim_plugin_cp multvals.vim"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"multvals"
+		],
+		"centos7": [
+			"multvals"
+		],
+		"gentoo": [
+			"app-vim/multvals"
+		]
+	}
+}

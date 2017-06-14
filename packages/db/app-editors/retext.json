@@ -1,5 +1,5 @@
 {
-	"name": "app-editor/retext",
+	"name": "app-editors/retext",
 	"homepage": "https://github.com/retext-project/retext",
 	"inherit": "models/python",
 	"versions": [ 
@@ -22,7 +22,7 @@
 		"default": false,
 		"debian8": [ "retext" ],
 		"centos7": false,
-		"gentoo": [ "app-editor/retext" ]
+		"gentoo": [ "app-editors/retext" ]
 	},
 	"configure": {
         

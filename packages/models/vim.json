@@ -1,6 +1,7 @@
 {
 	"name": "hl-template-perl",
 	"deps": [
+		"app-editors/vim"
 	],
 	"inherit": "models/default",
 	"steps": {

@@ -16,7 +16,7 @@
 		"github://vim-airline/vim-airline"
 	],
 	"deps": [
-		"app-editor/vim"
+		"app-editors/vim"
 	],
 	"configure": {},
 	"use": [

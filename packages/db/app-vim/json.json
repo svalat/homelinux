@@ -16,7 +16,7 @@
 		"https://github.com/elzr/vim-json/archive/master.zip"
 	],
 	"deps": [
-		"app-editor/vim"
+		"app-editors/vim"
 	],
 	"configure": {},
 	"use": [

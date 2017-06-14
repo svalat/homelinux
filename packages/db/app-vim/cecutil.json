@@ -1,0 +1,35 @@
+{
+	"name": "app-vim/cecutil",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=1066",
+	"versions": [
+		"17"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=1066",
+		"regexp": "cecutil-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "cecutil-${VERSION}",
+	"urls": [
+		"http://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/cecutil-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"cecutil"
+		],
+		"centos7": [
+			"cecutil"
+		],
+		"gentoo": [
+			"app-vim/cecutil"
+		]
+	}
+}

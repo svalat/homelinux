@@ -1,0 +1,44 @@
+{
+	"name": "app-vim/emmet",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=2981 http://mattn.github.io/emmet-vim/ http://emmet.io/",
+	"versions": [
+		"0.85"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=2981",
+		"regexp": "emmet-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=23483"
+	],
+	"deps": [],
+	"configure": {},
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O emmet.zip"
+		],
+		"extract": [
+			"run unzip emmet.zip",
+			"run rm emmet.zip"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"emmet"
+		],
+		"centos7": [
+			"emmet"
+		],
+		"gentoo": [
+			"app-vim/emmet"
+		]
+	}
+}

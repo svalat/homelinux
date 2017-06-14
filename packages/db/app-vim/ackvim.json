@@ -16,7 +16,7 @@
 		"github://mileszs/ack.vim"
 	],
 	"deps": [
-		"app-editor/vim",
+		"app-editors/vim",
 		"sys-apps/ack"
 	],
 	"configure": {},

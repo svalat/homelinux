@@ -1,0 +1,36 @@
+{
+	"name": "app-vim/conque",
+	"homepage": "https://code.google.com/p/conque/",
+	"versions": [
+		"2.3"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://code.google.com/archive/p/conque/downloads",
+		"regexp": "conque_([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "conque_${VERSION}",
+	"urls": [
+		"https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/conque/conque_${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		"app-editors/vim[python]"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"conque"
+		],
+		"centos7": [
+			"conque"
+		],
+		"gentoo": [
+			"app-vim/conque"
+		]
+	}
+}

@@ -1,0 +1,37 @@
+{
+	"name": "app-vim/align",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=294",
+	"versions": [
+		"43"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=294",
+		"regexp": "align-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "align-${VERSION}",
+	"urls": [
+		"https://dev.gentoo.org/~radhermit/vim/align-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-vim/cecutil"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"align"
+		],
+		"centos7": [
+			"align"
+		],
+		"gentoo": [
+			"app-vim/align"
+		]
+	}
+}

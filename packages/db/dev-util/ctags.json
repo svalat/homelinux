@@ -1,0 +1,43 @@
+{
+	"name": "dev-util/ctags",
+	"homepage": "http://ctags.sourceforge.net",
+	"versions": [
+		"5.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/ctags/files/ctags/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "ctags-${VERSION}",
+	"urls": [
+		"sourceforge://ctags/ctags/${VERSION}/ctags-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+		"": [
+			"--with-posix-regex",
+			"--without-readlib",
+			"--disable-etags",
+			"--enable-tmpdir=/tmp"
+		]
+	},
+	"use": [
+		"ada"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ctags"
+		],
+		"centos7": [
+			"ctags"
+		],
+		"gentoo": [
+			"dev-util/ctags"
+		]
+	}
+}

@@ -1,0 +1,46 @@
+{
+	"name": "app-vim/genutils",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=197",
+	"versions": [
+		"2.5"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=197",
+		"regexp": "genutils-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=11399"
+	],
+	"deps": [
+		"app-arch/unzip"
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O genutils.zip"
+		],
+		"extract": [
+			"run unzip genutils.zip",
+			"run rm genutils.zip"
+		]
+	},
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"genutils"
+		],
+		"centos7": [
+			"genutils"
+		],
+		"gentoo": [
+			"app-vim/genutils"
+		]
+	}
+}

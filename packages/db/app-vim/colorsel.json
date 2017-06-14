@@ -1,0 +1,47 @@
+{
+	"name": "app-vim/colorsel",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=927",
+	"versions": [
+		"20100406"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=927",
+		"regexp": "colorsel-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=15488"
+	],
+	"deps": [
+		"app-arch/unzip",
+		"app-editors/vim"
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O colorsel.zip"
+		],
+		"extract": [
+			"run unzip colorsel.zip",
+			"run rm colorsel.zip"
+		]
+	},
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"colorsel"
+		],
+		"centos7": [
+			"colorsel"
+		],
+		"gentoo": [
+			"app-vim/colorsel"
+		]
+	}
+}

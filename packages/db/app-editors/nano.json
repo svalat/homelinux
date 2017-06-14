@@ -1,5 +1,5 @@
 {
-	"name": "app-editor/nano",
+	"name": "app-editors/nano",
 	"homepage": "http://www.nano-editor.org/",
 	"inherit": "models/autotools",
 	"versions": [ 
@@ -27,7 +27,7 @@
 		"default": false,
 		"debian8": [ "nano" ],
 		"centos7": [ "nano" ],
-		"gentoo": [ "app-editor/nano" ]
+		"gentoo": [ "app-editors/nano" ]
 	},
 	"configure": {
 			"-minimal": [
