@@ -1,0 +1,41 @@
+{
+	"name": "sys-apps/ed",
+	"homepage": "https://www.gnu.org/software/ed/",
+	"versions": [
+		"1.14.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://mirror.ibcp.fr/pub/gnu/ed/",
+		"regexp": "ed-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "ed-${VERSION}",
+	"urls": [
+		"http://mirror.ibcp.fr/pub/gnu/ed/ed-${VERSION}.tar.gz",
+		"http://mirror.ibcp.fr/pub/gnu/ed/ed-${VERSION}.tar.lz"
+	],
+	"deps": [
+		"sys-apps/texinfo"
+	],
+	"configure": {
+		"": [
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ed"
+		],
+		"centos7": [
+			"ed"
+		],
+		"gentoo": [
+			"sys-apps/ed"
+		]
+	}
+}

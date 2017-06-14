@@ -1,0 +1,38 @@
+{
+	"name": "dev-perl/Unicode-EastAsianWidth",
+	"homepage": "",
+	"versions": [
+		"1.33"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/AUDREYT/",
+		"regexp": "Unicode-EastAsianWidth-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "Unicode-EastAsianWidth-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/A/AU/AUDREYT/Unicode-EastAsianWidth-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"virtual/perl-File-Spec",
+		"virtual/perl-ExtUtils-MakeMaker"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Unicode-EastAsianWidth"
+		],
+		"centos7": [
+			"Unicode-EastAsianWidth"
+		],
+		"gentoo": [
+			"dev-perl/Unicode-EastAsianWidth"
+		]
+	}
+}

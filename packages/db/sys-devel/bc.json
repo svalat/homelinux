@@ -1,0 +1,49 @@
+{
+	"name": "sys-devel/bc",
+	"homepage": "https://www.gnu.org/software/bc/bc.html",
+	"versions": [
+		"1.07.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/bc/",
+		"regexp": "bc-([0-9]+\\.[0-9]+[a-z]).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "bc-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/bc/bc-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-apps/ed",
+		"sys-devel/flex",
+		"readline? sys-libs/readline",
+		"readline? sys-libs/ncurses"
+	],
+	"configure": {
+		"readline": [
+			"--$with-readline"
+		],
+		"": [
+			"--without-libedit"
+		]
+	},
+	"use": [
+		"libedit",
+		"readline",
+		"static"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"bc"
+		],
+		"centos7": [
+			"bc"
+		],
+		"gentoo": [
+			"sys-devel/bc"
+		]
+	}
+}

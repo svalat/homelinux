@@ -1,0 +1,55 @@
+{
+	"name": "sys-apps/texinfo",
+	"homepage": "https://www.gnu.org/software/texinfo/",
+	"versions": [
+		"6.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/texinfo/",
+		"regexp": "texinfo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "texinfo-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.bz2",
+		"http://ftp.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"sys-libs/ncurses",
+		"dev-lang/perl",
+		"dev-perl/libintl-perl",
+		"dev-perl/Unicode-EastAsianWidth",
+		"dev-perl/Text-Unidecode",
+		"app-arch/xz-utils",
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--with-external-libintl-perl",
+			"--with-external-Unicode-EastAsianWidth",
+			"--with-external-Text-Unidecode"
+		],
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"nls",
+		"static"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"texinfo"
+		],
+		"centos7": [
+			"texinfo"
+		],
+		"gentoo": [
+			"sys-apps/texinfo"
+		]
+	}
+}

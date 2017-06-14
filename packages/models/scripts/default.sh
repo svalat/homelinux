@@ -298,6 +298,9 @@ function hl_extract()
 		*.tar.xz)
 			run tar -xJf $DISTFILES/$ARCHIVE
 			;;
+		*.tar.lz)
+			run tar --lzip -xf $DISTFILES/$ARCHIVE
+			;;
 		*.zip)
 			run unzip $DISTFILES/$ARCHIVE
 			;;
