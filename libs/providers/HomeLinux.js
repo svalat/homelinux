@@ -80,7 +80,7 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 	//console.error(fname);
 	if (fs.existsSync(fname))
 	{
-		console.error("Parsing "+fname);
+		//console.error("Parsing "+fname);
 		var content = fs.readFileSync(fname);
 // 		try {
 			var json = JSON.parse(content);
@@ -172,7 +172,7 @@ HomeLinuxProvider.prototype.search = function(name)
 	name = name.toLowerCase();
 	for (var i in cache)
 	{
-		if (i.toLowerCase().indexOf(name) != -1)
+		if (i.indexOf("/") != -1 && i.toLowerCase().split('/')[1].indexOf(name) != -1)
 		{
 			var p = new PackageBuilder(this.prefix,this.prefix.userConfig,i);
 			out.push(p.getNameSlot().green+"-"+p.getVersion().cyan+" ["+p.getVersionList().reverse().slice(0,10).join(', ').blue+"]");

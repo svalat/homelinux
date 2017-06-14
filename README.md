@@ -220,6 +220,29 @@ HomeLinux provide some internal unit tests which can by run with mocha :
 	./node_modules/.bin/mocha ./tests
 ```
 
+About libxml2 and Python
+------------------------
+
+Libxml2 has a flag to enable python support which is required by some packages which can be enabled
+by editing PREFIX/homelinux.conf :
+
+```json
+{
+	"use": {
+		"all": [],
+		"hl/dev-libs/libxml2": ["python"]
+	}
+}
+```
+
+While proceeding like this you will encounter an issue as libxml will try to install the python
+plugin into your system python (/usr....) which of course fail as you are not root. The solution
+is to install python:2 into homelinux :
+
+```sh
+hl install python:2
+```
+
 Similar tools
 -------------
 

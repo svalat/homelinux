@@ -58,7 +58,7 @@
 		"static-libs",
 		"test",
 		"hppa",
-		"+python"
+		"python"
 	],
 	"host": {
 		"default": false,

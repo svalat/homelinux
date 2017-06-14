@@ -322,11 +322,12 @@ Prefix.prototype.loadPackage = function(packageName)
 /*******************  FUNCTION  *********************/
 Prefix.prototype.search = function(name)
 {
-	for (var i in this.providerList)
+	var reversed = this.providerList.slice().reverse();
+	for (var i in reversed)
 	{
-		if (this.providerList[i] != 'models')
+		if (reversed[i] != 'models')
 		{
-			var provider = this.provider[this.providerList[i]];
+			var provider = this.provider[reversed[i]];
 			console.log("------------------------- "+provider.getName()+" ---------------------------");
 			console.log(provider.search(name));
 		}

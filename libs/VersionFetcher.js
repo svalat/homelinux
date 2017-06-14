@@ -147,6 +147,8 @@ VersionFetcher.prototype.fetchFromGnomeCache = function(pack,callback)
 			// Tell Cherrio to load the HTML
 			var json = JSON.parse(body);
 			var shortName = pack.getShortName();
+			if (pack.pack.vfetcher.name != undefined)
+				shortName = pack.pack.vfetcher.name;
 			pack.pack.versions = [];
 			if (json[0] == 4)
 				for (var i in json[1][shortName])

@@ -7,13 +7,14 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http-gnome-cache",
-		"url": "https://download.gnome.org/sources/gtk-doc/cache.json",
-		"regexp": "gtk-doc-am-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"url": "https://download.gnome.org/sources/gtk-doc//cache.json",
+		"regexp": "gtk-doc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)",
+		"name": "gtk-doc"
 	},
 	"md5": {},
-	"subdir": "gtk-doc-am-${VERSION}",
+	"subdir": "gtk-doc-${VERSION}",
 	"urls": [
-		"https://download.gnome.org/sources/gtk-doc/${VERSINO}/gtk-doc-${VERSION}.tar.xz"
+		"https://download.gnome.org/sources/gtk-doc/${VERSION}/gtk-doc-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-lang/perl",

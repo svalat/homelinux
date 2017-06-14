@@ -13,7 +13,8 @@
 	"md5" : {},
 	"subdir": "Python-${VERSION}",
 	"urls" : [
-		"https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz"
+		"http://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz",
+		"http://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz"
 	],
 	"deps": [
 	],
