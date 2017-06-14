@@ -1,19 +1,19 @@
 {
 	"name": "sys-cluster/libfabric",
 	"homepage": "http://ofiwg.github.io/libfabric/",
-	"inherit": "models/autotools",
+	"inherit": "models/autotools-autogen",
 	"versions": [ 
-		"1.1.1" 
+		"1.4.2" 
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://downloads.openfabrics.org/downloads/ofi/",
+		"mode": "github",
+		"url": "github://ofiwg/libfabric/",
 		"regexp": "^libfabric-([0-9]+\\.[0-9]+\\.?[0-9]*).tar.gz$"
 	},
 	"md5" : {},
 	"subdir": "libfabric-${VERSION}",
 	"urls" : [
-		"http://downloads.openfabrics.org/downloads/ofi/libfabric-${VERSION}.tar.gz"
+		"github://ofiwg/libfabric/"
 	],
 	"deps": [
 		
