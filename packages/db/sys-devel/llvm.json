@@ -1,0 +1,63 @@
+{
+	"name": "sys-devel/llvm",
+	"homepage": "http://llvm.org/",
+	"versions": [
+		"4.0.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://releases.llvm.org/",
+		"regexp": "llvm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "llvm-${VERSION}.src",
+	"urls": [
+		"http://releases.llvm.org/${VERSION}/llvm-${VERSION}.src.tar.xz"
+	],
+	"deps": [
+		"sys-apps/modules",
+		"sys-libs/zlib",
+		"dev-lang/perl",
+		"gold? sys-devel/binutils",
+		"gold? sys-libs/binutils-libs",
+		"libedit? dev-libs/libedit:0",
+		"libffi? virtual/libffi:0",
+		"libffi? virtual/pkgconfig",
+		"ncurses? sys-libs/ncurses:0",
+		"kernel_Darwin? sys-libs/libcxx",
+		"doc? dev-python/sphinx"
+	],
+	"configure": {
+		"": [
+			
+		]
+	},
+	"use": [
+		"debug",
+		"doc",
+		"gold",
+		"libedit",
+		"+libffi",
+		"ncurses",
+		"test",
+		"elibc_musl",
+		"kernel_Darwin"
+	],
+	"slots": {
+		"~": "^([0-9]+.[0-9]+).[0-9]+"
+	},
+	"module": "clang-${SLOT}",
+	"host": {
+		"default": false,
+		"debian8": [
+			"llvm"
+		],
+		"centos7": [
+			"llvm"
+		],
+		"gentoo": [
+			"sys-devel/llvm"
+		]
+	}
+}

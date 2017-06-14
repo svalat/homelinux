@@ -43,7 +43,7 @@ PackageBuilder.prototype.load = function(packageName,inherit)
 	if (this.pack.deps == undefined)
 		this.pack.deps = deps;
 	else
-		this.pack.deps = this.pack.deps.concat(deps);
+		this.pack.deps = this.getProperty('deps').concat(deps);
 	
 	//add quick config
 	var config = this.prefix.getQuick('config',this.pack.name);
@@ -554,10 +554,10 @@ PackageBuilder.prototype.genScript = function(usePinstall)
 	script.push("URLS=\""+this.pack.urls.join(' ')+"\"");
 	script.push("MD5=\""+this.pack.md5[version] != undefined?this.pack.md5[version]:''+"\"");
 	script.push("SUBDIR=\""+this.pack.subdir+"\"");
+	script.push("SLOT=\""+this.getSlot(version)+"\"");
 	script.push("PREFIX=\""+this.getPrefix(version)+"\"");
 	script.push("BUILD_OPTIONS=\""+this.buildOptions()+"\"");
 	script.push("PATCHES=\""+this.getPatchList(version)+"\"");
-	script.push("SLOT=\""+this.getSlot(version)+"\"");
 	script.push("USE=\""+this.getUseFlagStatusString()+"\"");
 	if (this.prefix.config.useGnuStow)
 		script.push("STOW_NAME=\""+this.getStowName()+"\"");

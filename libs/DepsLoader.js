@@ -109,8 +109,8 @@ DepsLoader.prototype.applyVSpecificChild = function(p)
 	p.checkUseFlagHints();
 	p.applyVersionHints();
 	p.selectVSpecific();
-// 	if (!this.hostPkgChecker.presentOnSystem(p))
-// 		this.loadPackageDeps(p);
+ 	//if (!this.hostPkgChecker.presentOnSystem(p) || p.pack.present == 'override-system' || p.pack.present == 'reinstall')
+	this.loadPackageDeps(p);
 	if (p.pdeps != undefined)
 		for (var i in p.pdeps)
 		{
@@ -376,7 +376,15 @@ DepsLoader.prototype.genScript = function(usePinstall)
 **/
 DepsLoader.prototype.printList = function()
 {
-	console.log("\n\n----------------------TO INSTALL--------------------------".yellow);
+	console.log("----------------------REUSE HOST--------------------------".yellow);
+	for (var i in this.packages)
+		if (this.packages[i].pack.present == 'use-host')
+			console.log(this.packages[i].pack.name.magenta);
+	console.log("-----------------------INSTALLED--------------------------".yellow);
+	for (var i in this.packages)
+		if (this.packages[i].pack.present == 'already-installed')
+			console.log(this.packages[i].pack.name.magenta);
+	console.log("----------------------TO INSTALL--------------------------".yellow);
 	for (var i in this.sched)
 	{
 		var p = this.packages[this.sched[i]];
@@ -385,14 +393,6 @@ DepsLoader.prototype.printList = function()
 		else
 			console.log(colors.green(p.getNameSlot())+"-"+colors.magenta(p.getVersion())+" USE=\""+p.getUseFlagStatusColoredString().cyan+'"');
 	}
-	console.log("-----------------------INSTALLED--------------------------".yellow);
-	for (var i in this.packages)
-		if (this.packages[i].pack.present == 'already-installed')
-			console.log(this.packages[i].pack.name.magenta);
-	console.log("----------------------REUSE HOST--------------------------".yellow);
-	for (var i in this.packages)
-		if (this.packages[i].pack.present == 'use-host')
-			console.log(this.packages[i].pack.name.magenta);
 	console.log("----------------------------------------------------------\n".yellow);
 };
 
