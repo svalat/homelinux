@@ -1,0 +1,103 @@
+{
+	"name": "x11-terms/xterm",
+	"homepage": "http://invisible-island.net/xterm/",
+	"versions": [
+		"328"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://invisible-island.net/xterm/",
+		"regexp": "xterm-([0-9]+).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xterm-${VERSION}",
+	"urls": [
+		"ftp://invisible-island.net/xterm/xterm-${VERSION}.tgz"
+	],
+	"deps": [
+		"kernel_linux? sys-libs/libutempter",
+		"kernel_FreeBSD? sys-freebsd/freebsd-lib",
+		"kernel_FreeBSD? sys-libs/libutempter",
+		"sys-libs/ncurses",
+		"x11-apps/xmessage",
+		"x11-libs/libX11",
+		"x11-libs/libXaw",
+		"x11-libs/libXft",
+		"x11-libs/libxkbfile",
+		"x11-libs/libXmu",
+		"x11-libs/libXrender",
+		"x11-libs/libXt",
+		"virtual/pkgconfig",
+		"x11-proto/kbproto",
+		"x11-proto/xproto",
+		"gentoo-dep? media-fonts/font-misc-misc",
+		"x11-apps/rgb",
+		"unicode? x11-apps/luit",
+		"Xaw3d? x11-libs/libXaw3d",
+		"xinerama? x11-libs/libXinerama"
+	],
+	"configure": {
+		"gentoo": [
+			"--disable-full-tgetent",
+			"--disable-setuid",
+			"--disable-setgid",
+			"--with-utempter",
+			"--with-x",
+			"--disable-imake",
+			"--enable-256-color",
+			"--enable-broken-osc",
+			"--enable-broken-st",
+			"--enable-exec-xterm",
+			"--enable-i18n",
+			"--enable-load-vt-fonts",
+			"--enable-logging",
+			"--enable-wide-chars",
+			"--enable-dabbrev",
+			"--enable-warnings"
+		],
+		"Xaw3d": [
+			"--$with-Xaw3d"
+		],
+		"xinerama": [
+			"--$with-xinerama"
+		],
+		"truetype": [
+			"--$enable-freetype"
+		],
+		"openpty": [
+			"--$enable-openpty"
+		],
+		"toolbar": [
+			"--$enable-toolbar"
+		],
+		"unicode": [
+			"--$enable-mini-luit",
+			"--$enable-luit"
+		]
+	},
+	"use": [
+		"+gentoo",
+		"-gentoo-dep",
+		"+openpty",
+		"toolbar",
+		"truetype",
+		"unicode",
+		"Xaw3d",
+		"xinerama",
+		"kernel_linux",
+		"kernel_FreeBSD"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xterm"
+		],
+		"centos7": [
+			"xterm"
+		],
+		"gentoo": [
+			"x11-terms/xterm"
+		]
+	}
+}
