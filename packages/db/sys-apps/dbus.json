@@ -83,9 +83,9 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"dbus"
+			"dbus-dev"
 		], 
-		"centos7": [ "dbus", "dbus-devel" ],
+		"centos7": [ "dbus-devel" ],
 		"gentoo": [ "sys-apps/dbus" ]
 	}
 }

@@ -46,7 +46,8 @@
 	],
 	"configure": {
 		"": [
-			"--enable-stats"
+			"--enable-stats",
+			"LDFLAGS=\\\"-L$(hl prefix-of dev-libs/libiconv)/lib -liconv\\\""
 		],
 		"-readline": [
 			"builtin"

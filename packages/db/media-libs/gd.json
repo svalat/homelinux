@@ -22,7 +22,8 @@
 		"tiff? media-libs/tiff:0",
 		"truetype? media-libs/freetype",
 		"webp? media-libs/libwebp",
-		"xpm? x11-libs/libXpm x11-libs/libXt[]",
+		"xpm? x11-libs/libXpm",
+		"xpm? x11-libs/libXt",
 		"zlib? sys-libs/zlib",
 		"virtual/pkgconfig"
 	],

@@ -17,7 +17,7 @@
 	],
 	"deps": [
 		"virtual/jpeg",
-		"app-arch/lzma",
+		"app-arch/xz-utils",
 		"sys-libs/zlib"
 	],
 	"configure": {
@@ -26,8 +26,8 @@
 			"--with-zlib-lib-dir=$(hl prefix-of zlib)/lib",
 			"--with-jpeg-include-dir=$(hl prefix-of virtual/jpeg)/include",
 			"--with-jpeg-lib-dir=$(hl prefix-of virtual/jpeg)/lib",
-			"--with-lzma-include-dir=$(hl prefix-of lzma)/include",
-			"--with-lzma-lib-dir=$(hl prefix-of lzma)/lib"
+			"--with-lzma-include-dir=$(hl prefix-of app-arch/xz-utils)/include",
+			"--with-lzma-lib-dir=$(hl prefix-of app-arch/xz-utils)/lib"
 		],
 		"x": ["--$with-x"]
 	},

@@ -28,10 +28,10 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"libXmu"
+			"libXmu","libXmu-dev"
 		],
 		"centos7": [
-			"libXmu"
+			"libXmu","libXmu-devel"
 		],
 		"gentoo": [
 			"x11-libs/libXmu"

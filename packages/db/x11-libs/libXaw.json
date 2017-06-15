@@ -2,7 +2,7 @@
 	"name": "x11-libs/libXaw",
 	"homepage": "https://www.x.org",
 	"versions": [
-		"1.0.13"
+		"1.0.11"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

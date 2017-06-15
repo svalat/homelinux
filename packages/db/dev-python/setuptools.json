@@ -6,14 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://pypi.python.org/pypi/setuptools",
-		"regexp": "setuptools-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "github",
+		"url": "github://pypa/setuptools",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "setuptools-${VERSION}",
 	"urls": [
-		"https://pypi.python.org/pypi/setuptools/setuptools-$VERSION.tar.gz"
+		"github://pypa/setuptools"
 	],
 	"deps": [
 		"test? dev-python/pytest"
