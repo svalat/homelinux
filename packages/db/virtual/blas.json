@@ -1,0 +1,36 @@
+{
+	"name": "virtual/blas",
+	"homepage": "",
+	"versions": [
+		"3.7"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "none",
+		"regexp": "blas-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "blas-${VERSION}",
+	"urls": [
+		"XXXXXX/blas-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"sci-libs/blas-reference"
+	],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"blas"
+		],
+		"centos7": [
+			"blas"
+		],
+		"gentoo": [
+			"virtual/blas"
+		]
+	}
+}
