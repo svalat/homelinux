@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http-apache-list",
-		"url": "https://www.sqlite.org/download.html",
+		"url": "http://www.sqlite.org/download.html",
 		"regexp": "sqlite-autoconf-([0-9]+).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "sqlite-autoconf-${VERSION}",
 	"urls" : [
-		"https://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz"
+		"http://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],
