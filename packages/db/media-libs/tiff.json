@@ -28,8 +28,12 @@
 			"--with-jpeg-lib-dir=$(hl prefix-of virtual/jpeg)/lib",
 			"--with-lzma-include-dir=$(hl prefix-of lzma)/include",
 			"--with-lzma-lib-dir=$(hl prefix-of lzma)/lib"
-		]
+		],
+		"x": ["--$with-x"]
 	},
+	"use": [
+		"x"
+	],
 	"host": {
 		"default": false,
 		"debian8": [ "libtiff5-dev" ],

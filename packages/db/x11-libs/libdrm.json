@@ -2,7 +2,7 @@
 	"name": "x11-libs/libdrm",
 	"homepage": "http://dri.freedesktop.org/",
 	"versions": [
-		"9999"
+		"2.4.81"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

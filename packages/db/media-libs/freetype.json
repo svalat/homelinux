@@ -16,8 +16,22 @@
 		"sourceforge://freetype/freetype2/${VERSION}/freetype-${VERSION}.tar.bz2"
 	],
 	"deps": [
+		"zlib? sys-libs/zlib",
+		"bzip2? app-arch/bzip2",
+		"png? media-libs/libpng",
+		"harfbuzz? media-libs/harfbuzz"
+	],
+	"use": [
+		"bzip2",
+		"zlib",
+		"png",
+		"harfbuzz"
 	],
 	"configure": {
+		"bzip2": [ "--with-bzip2=$yes" ],
+		"zlib": [ "--with-zlib=$yes" ],
+		"png": [ "--with-png=$yes" ],
+		"harfbuzz": [ "--with-harfbuzz=$yes" ]
 	},
 	"host": {
 		"default": false,

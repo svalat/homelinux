@@ -152,7 +152,7 @@ var final = {
 	vfetcher: {
 			mode: "http",
 			url: "XXXXXXX",
-			regexp: getPackNameInfo(pack).shortName+"-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+			regexp: '^'+getPackNameInfo(pack).shortName+"-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
 	},
 	md5: {},
 	subdir: getPackNameInfo(pack).shortName+"-${VERSION}",

@@ -40,7 +40,7 @@ gentoo/kdiff3 qt:4 diffutils
 gentoo/sgml-common automake autoconf
 gentoo/poppler gdk-pixbuf
 gentoo/gimp babl tiff gegl
-gentoo/gegl babl json-glib jpeg
+gentoo/gegl babl json-glib virtual/jpeg
 gentoo/kdegraphics libkdcraw
 gentoo/shared-mime-info intltool
 gentoo/kchmviewer chmlib

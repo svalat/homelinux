@@ -317,6 +317,8 @@ PackageBuilder.prototype.buildOptions = function()
 					.replace('$disable',status?'disable':'enable')
 					.replace('$without',status?'without':'with')
 					.replace('$with',status?'with':'without')
+					.replace('$yes',status?'yes':'no')
+					.replace('$no',status?'no':'yes')
 					.replace('$ON',status?'ON':'OFF')
 					.replace('$OFF',status?'OFF':'ON')
 					.replace('-$no-',status?'-':'-no-');//for QT

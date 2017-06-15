@@ -28,7 +28,9 @@
 			"--localstatedir=${PREFIX}/var",
 			"--with-default-fonts=${PREFIX}/usr/share/fonts",
 			"--with-add-fonts=${PREFIX}/usr/local/share/fonts,/usr/share/fonts",
-			"--with-templatedir=${PREFIX}/etc/fonts/conf.avail"
+			"--with-templatedir=${PREFIX}/etc/fonts/conf.avail",
+			"--with-libiconv=$(hl prefix-of dev-libs/libiconv)",
+			"--with-expact=$(hl prefix-of expat)"
 		],
 		"doc": [ "--$enable-doc", "--$enable-docbook" ]
 	},

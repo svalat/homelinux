@@ -76,7 +76,7 @@
 			"--with-va-libdir=/usr//va/drivers",
 			"--with-clang-libdir=/usr/lib"
 		],
-		"!bindist": [
+		"bindist": [
 			"--$enable-texture-float"
 		],
 		"d3d9": [
@@ -106,7 +106,7 @@
 		"osmesa": [
 			"--$enable-osmesa"
 		],
-		"!udev": [
+		"udev": [
 			"--$enable-sysfs"
 		],
 		"llvm": [
