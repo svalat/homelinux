@@ -38,6 +38,10 @@
 		"xinerama? x11-libs/libXinerama"
 	],
 	"configure": {
+		"" : [
+			"CFLAGS=-I$(hl prefix-of ncurses)/include",
+			"LDFLAGS=-L$(hl prefix-of ncurses)/lib"
+		],
 		"gentoo": [
 			"--disable-full-tgetent",
 			"--disable-setuid",

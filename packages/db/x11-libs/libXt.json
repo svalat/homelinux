@@ -2,7 +2,7 @@
 	"name": "x11-libs/libXt",
 	"homepage": "https://www.x.org/wiki/",
 	"versions": [
-		"1.1.5"
+		"1.1.3"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

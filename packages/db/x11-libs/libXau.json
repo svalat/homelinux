@@ -2,7 +2,7 @@
 	"name": "x11-libs/libXau",
 	"homepage": "",
 	"versions": [
-		"1.0.8"
+		"1.0.7"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
@@ -25,10 +25,10 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"libXau"
+			"libXau", "libXau-dev"
 		],
 		"centos7": [
-			"libXau"
+			"libXau","libXau-devel"
 		],
 		"gentoo": [
 			"x11-libs/libXau"

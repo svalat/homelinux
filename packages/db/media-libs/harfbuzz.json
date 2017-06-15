@@ -17,7 +17,8 @@
 	],
 	"deps": [
 		"dev-libs/glib",
-		"media-libs/freetype"
+		"media-libs/freetype",
+		"dev-util/ragel"
 	],
 	"configure": {
 		"" : [ 
@@ -35,7 +36,6 @@
 		"configure": [ "hl_configure_autotools_autogen" ]
 	},
 	"patch": [
-		"harfbuzz-glib-freetype.patch"
 	],
 	"host": {
 		"default": false,

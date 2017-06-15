@@ -2,7 +2,7 @@
 	"name": "x11-libs/libxkbfile",
 	"homepage": "https://www.x.org/wiki/",
 	"versions": [
-		"1.0.9"
+		"1.0.8"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

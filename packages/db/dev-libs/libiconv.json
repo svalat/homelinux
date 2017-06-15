@@ -18,7 +18,6 @@
 	"deps": [
 	],
 	"patch": [
-		"libiconv-gets.patch"
 	],
 	"host": {
 		"default": false,

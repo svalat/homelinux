@@ -246,7 +246,11 @@ function hl_download_internal()
 			;;
 		github://*/*)
 			project=$(echo $url | cut -d '/' -f 3-4)
-			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${VERSION}.tar.gz" || run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/release-${VERSION}.tar.gz" || return 1 
+			run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/v${VERSION}.tar.gz" || \
+				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${VERSION}.tar.gz" || \
+				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${SHORT_NAME}-${VERSION}.tar.gz" || \
+				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/release-${VERSION}.tar.gz" || \
+				return 1 
 			;;
 		sourceforge://*/*)
 			name=$(echo $url | cut -d '/' -f 3)
@@ -305,7 +309,7 @@ function hl_extract()
 			run unzip $DISTFILES/$ARCHIVE
 			;;
 		*.7z)
-			run 7z x $DISTFILES/$ARCHIVE
+			run 7za x $DISTFILES/$ARCHIVE
 			;;
 		*)
 			die "Unmanaged archive format : $ARCHIVE"

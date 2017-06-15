@@ -68,9 +68,9 @@ gentoo/libxcb xcb-proto libXau libpthread-stubs
 gentoo/udisks libgudev
 gentoo/libgudev udev
 gentoo/libmng lcms
-gentoo/gobject-introspection glib:2
+gentoo/gobject-introspection glib
 gentoo/meld intltool itstool
-gentoo/librsvg gdk-pixbuf glib gio pango cairo libcroco
+gentoo/librsvg gdk-pixbuf glib pango cairo libcroco
 gentoo/libcroco glib
 #################################### FOR USER ######################################
 gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm@:3 gtksourceviewmm vte
@@ -85,3 +85,8 @@ gentoo/libgnome gnome-vfs libbonobo
 gentoo/libbonobo popt
 gentoo/upower glib:2
 gentoo/polkit-qt polkit
+gentoo/rgb util-macros xproto
+gentoo/lzo cmake
+gentoo/ragel colm
+gentoo/libXaw libXt libXmu
+gentoo/swig pcre

@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "glib-${VERSION}",
 	"urls": [
-		"http://ftp.gnome.org/pub/gnome/sources/glib/glib-${VERSION}.tar.xz"
+		"http://ftp.gnome.org/pub/gnome/sources/glib/$(echo ${VERSION} | cut -d '.' -f 1,2)/glib-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"virtual/libiconv",
@@ -49,6 +49,7 @@
 			"--disable-compile-warnings",
 			"--enable-man",
 			"--with-pcre=internal",
+			"--enable-libmount=no",
 			"LDFLAGS=-L$PREFIX/lib",
 			"CFLAGS=-I$PREFIX/include"
 		],

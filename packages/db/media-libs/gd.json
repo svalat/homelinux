@@ -1,0 +1,91 @@
+{
+	"name": "media-libs/gd",
+	"homepage": "http://libgd.org/",
+	"versions": [
+		"2.2.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://libgd/libgd",
+		"regexp": "gd-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libgd-gd-${VERSION}",
+	"urls": [
+		"github://libgd/libgd"
+	],
+	"deps": [
+		"fontconfig? media-libs/fontconfig",
+		"jpeg? virtual/jpeg-0-r2:0",
+		"png? media-libs/libpng:0",
+		"tiff? media-libs/tiff:0",
+		"truetype? media-libs/freetype",
+		"webp? media-libs/libwebp",
+		"xpm? x11-libs/libXpm x11-libs/libXt[]",
+		"zlib? sys-libs/zlib",
+		"virtual/pkgconfig"
+	],
+	"steps": {
+		"prepare": [
+			"run ./bootstrap.sh"
+		]
+	},
+	"configure": {
+		"": [
+			"--disable-werror",
+			"--without-x",
+			"--without-liq"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"fontconfig": [
+			"--$with-fontconfig"
+		],
+		"png": [
+			"--$with-png"
+		],
+		"tiff": [
+			"--$with-tiff"
+		],
+		"truetype": [
+			"--$with-freetype="
+		],
+		"jpeg": [
+			"--$with-jpeg"
+		],
+		"webp": [
+			"--$with-webp"
+		],
+		"xpm": [
+			"--$with-xpm"
+		],
+		"zlib": [
+			"--$with-zlib"
+		]
+	},
+	"use": [
+		"fontconfig",
+		"jpeg",
+		"png",
+		"static-libs",
+		"tiff",
+		"truetype",
+		"webp",
+		"xpm",
+		"zlib"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gd"
+		],
+		"centos7": [
+			"gd"
+		],
+		"gentoo": [
+			"media-libs/gd"
+		]
+	}
+}

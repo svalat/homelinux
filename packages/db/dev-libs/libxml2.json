@@ -26,7 +26,8 @@
 	],
 	"configure": {
 		"": [
-			"--with-html-subdir=/html"
+			"--with-html-subdir=/html",
+			"--exec-prefix=$PREFIX"
 		],
 		"python": [
 			"--$with-python"

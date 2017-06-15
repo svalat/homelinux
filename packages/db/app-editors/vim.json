@@ -40,6 +40,10 @@
 		"gentoo": [ "app-editors/vim" ]
 	},
 	"configure": {
+		"": [
+			"CFLAGS=-I$(hl prefix-of ncurses)/include",
+			"LDFLAGS=-L$(hl prefix-of ncurses)/lib"
+		],
 		"python": ["--$enable-pythoninterp"],
 		"acl" : [ "--$enable-acl" ],
 		"cscope": [ "--$enable-cscope" ],

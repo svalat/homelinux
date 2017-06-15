@@ -16,8 +16,14 @@
 		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/libpng-${VERSION}.tar.xz"
 	],
 	"deps": [
+		"sys-libs/zlib"
 	],
 	"configure": {
+		"": [
+			"CFLAGS=-I$(hl prefix-of sys-libs/zlib)/include",
+			"LDFLAGS=-L$(hl prefix-of sys-libs/zlib)/lib",		
+			"--with-zlib-prefix=$(hl prefix-of sys-libs/zlib)"
+		]
 	},
 	"host": {
 		"default": false,

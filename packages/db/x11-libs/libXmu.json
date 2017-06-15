@@ -2,7 +2,7 @@
 	"name": "x11-libs/libXmu",
 	"homepage": "https://www.x.org/wiki/",
 	"versions": [
-		"1.1.2"
+		"1.1.1"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

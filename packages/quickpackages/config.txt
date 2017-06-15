@@ -18,6 +18,7 @@ gentoo/kdelibs -DDOCBOOKXML_CURRENTDTD_DIR=$(hl_prefix gentoo/docbook-xml)/share
 gentoo/openssl shared threads zlib
 gentoo/poppler --enable-xpdf-headers
 gentoo/gimp --without-libtiff --disable-python
+gentoo/lzo -DCMAKE_C_FLAGS=-fPIC
 ############################### FROM HOMELINUX 1.0.0 ###############################
 gentoo/wine --enable-win64 LDFLAGS=-L$(PREFIX)/lib
 gentoo/gegl LDFLAGS=-L$PREFIX/lib

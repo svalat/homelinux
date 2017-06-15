@@ -17,10 +17,18 @@
 		"https://download.gnome.org/sources/gtk-doc/${VERSION}/gtk-doc-${VERSION}.tar.xz"
 	],
 	"deps": [
+		"sys-devel/autoconf",
 		"dev-lang/perl",
 		"virtual/pkgconfig"
 	],
 	"configure": {},
+	"steps": {
+		"configure":[],
+		"build":[],
+		"install":[
+			"run cp gtk-doc.m4 ${PREFIX}/share/aclocal"
+		]
+	},
 	"use": [
 		""
 	],

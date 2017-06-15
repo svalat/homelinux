@@ -40,5 +40,10 @@
 	},
 	"use": [
 		"-doc"
-	]
+	],
+	"steps": {
+		"prepare": [
+			"if [ $VERSION == '2.12.3' ]; then run rm src/fcobjshash.h src/fcobjshash.gperf; fi"
+		]
+	}
 }

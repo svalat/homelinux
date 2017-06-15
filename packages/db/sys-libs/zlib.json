@@ -13,7 +13,7 @@
 	"md5" : {},
 	"subdir": "zlib-${VERSION}",
 	"urls" : [
-		"http://zlib.net/zlib-${VERSION}.tar.gz"
+		"sourceforge://libpng/zlib/${VERSION}/zlib-${VERSION}.tar.gz"
 	],
 	"deps": [
 		

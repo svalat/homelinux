@@ -28,7 +28,7 @@
 		],
 		"build": [],
 		"postinstall": [
-			"run install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"
+			"run xmlcatalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"
 		]
 	},
 	"host": {

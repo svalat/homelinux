@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://cairographics.org/releases/",
-		"regexp": "cairo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
+		"regexp": "^cairo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)$"
 	},
 	"md5" : {},
 	"subdir": "cairo-${VERSION}",
@@ -24,7 +24,7 @@
 		"media-libs/fontconfig",
 		"gentoo? sys-devel/libtool",
 		"gentoo? dev-libs/lzo",
-		"gentoo? sys-libs/binutils",
+		"gentoo? sys-devel/binutils",
 		"gentoo? sys-libs/zlib",
 		"directfb? dev-libs/DirectFB",
 		"gles2? media-libs/mesa[gles2]",
@@ -41,7 +41,9 @@
 			"--enable-ft", 
 			"--enable-xlib", 
 			"--enable-tee", 
-			"--enable-xlib-xrender" 
+			"--enable-xlib-xrender",
+			"CFLAGS=-I$(hl prefix-of zlib)/include",
+			"LDFLAGS=-L$(hl prefix-of zlib)/lib"
 		],
 		"gentoo" : [
 			"--enable-ft",

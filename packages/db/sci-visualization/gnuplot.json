@@ -63,11 +63,7 @@
 	],
 	"configure": {
 		"": [
-			"--without-pdf",
-			"--with-texdir=/usr/share/texmf-site/tex/latex/",
-			"--enable-stats",
-			"DIST_CONTACT=https://bugs.gentoo.org/",
-			"EMACS=no"
+			"--enable-stats"
 		],
 		"-readline": [
 			"builtin"

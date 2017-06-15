@@ -16,17 +16,17 @@
 		"http://projects.haskell.org/gtk2hs/gio-${VERSION}.tar.bz2"
 	],
 	"deps": [
-		"dev-haskell/glib[#profile]",
+		"dev-haskell/glib",
 		"dev-haskell/mtl",
 		"dev-lang/ghc",
-		"dev-libs/glib:2",
+		"dev-libs/glib",
 		"dev-haskell/cabal",
 		"dev-haskell/gtk2hs-buildtools:0",
 		"virtual/pkgconfig"
 	],
 	"configure": {},
 	"use": [
-		""
+		"gentoo"
 	],
 	"host": {
 		"default": false,
