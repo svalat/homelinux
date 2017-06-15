@@ -20,7 +20,7 @@
 		"sys-apps/help2man"
 	],
 	"host": {
-		"default": false,
+		"default": true,
 		"debian8": [ "automake" ],
 		"centos7": [ "automake" ],
 		"gentoo": [ "sys-devel/automake" ]

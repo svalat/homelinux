@@ -34,17 +34,17 @@
 		"doc": [ "--$enable-documentation" ]
 	},
 	"vspecific":{
-		":2.4": {
+		":2": {
 			"deps": [
-				"x11-libs/gtk+ :2.4"
+				"x11-libs/gtk+ :2"
 			],
 			"host": {
 				"centos7": [ "gtkmm24", "gtkmm24-devel" ]
 			}
 		},
-		":3.0": {
+		":3": {
 			"deps": [
-				"x11-libs/gtk+ :3.0"
+				"x11-libs/gtk+ :3"
 			],
 			"use": [
 				"aqua",
@@ -67,7 +67,7 @@
 		"gentoo" : [ "dev-cpp/gtkmm" ]
 	},
 	"slots": {
-		"2.4": "<2.90",
+		"2": "<2.90",
 		"3": ">=2.90"
 	},
 	"use": [

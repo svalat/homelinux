@@ -1,0 +1,36 @@
+{
+	"name": "dev-perl/Thread-Queue",
+	"homepage": "http://search.cpan.org/~jdhedden/Thread-Queue-3.12/",
+	"versions": [
+		"3.12"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.cpan.org/authors/id/J/JD/JDHEDDEN/",
+		"regexp": "^Thread-Queue-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "Thread-Queue-${VERSION}",
+	"urls": [
+		"http://www.cpan.org/authors/id/J/JD/JDHEDDEN/Thread-Queue-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": true,
+		"debian8": [
+			"Thread-Queue"
+		],
+		"centos7": [
+			"Thread-Queue"
+		],
+		"gentoo": [
+			"dev-perl/Thread-Queue"
+		]
+	}
+}

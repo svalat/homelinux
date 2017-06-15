@@ -32,7 +32,7 @@
 		"-TODO"
 	],
 	"host": {
-		"default": false,
+		"default": true,
 		"debian8": [
 			"libtool"
 		], 

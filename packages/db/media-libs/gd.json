@@ -17,7 +17,7 @@
 	],
 	"deps": [
 		"fontconfig? media-libs/fontconfig",
-		"jpeg? virtual/jpeg-0-r2:0",
+		"jpeg? virtual/jpeg:0",
 		"png? media-libs/libpng:0",
 		"tiff? media-libs/tiff:0",
 		"truetype? media-libs/freetype",

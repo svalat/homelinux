@@ -7,15 +7,15 @@ gentoo/XML-Parser expat
 gentoo/intltool XML-Parser
 gentoo/dbus-glib dbus
 gentoo/dbus libxml2
-gentoo/gitg glib gtk+:2.4 gtksourceview gsettings-desktop-schemas libglade
+gentoo/gitg glib gtk+:2 gtksourceview gsettings-desktop-schemas libglade
 gentoo/phonon automoc4
 gentoo/libdbusmenu-qt qjson qt:4
 gentoo/strigi bzip2
-gentoo/geany XML-Parser gtk+:2.4
+gentoo/geany XML-Parser gtk+:2
 gentoo/gnome-doc-utils scrollkeeper
-gentoo/vte binutils gtk+:2.4
+gentoo/vte binutils gtk+:2
 gentoo/gcalctool intltool gnome-doc-utils libxslt libxml2
-gentoo/dia glib gtk+:2.4 pango libxml2 atk libxslt libart_lgpl intltool docbook-xsl
+gentoo/dia glib gtk+:2 pango libxml2 atk libxslt libart_lgpl intltool docbook-xsl
 gentoo/docbook-xsl docbook-xml sgml-common
 gentoo/pygtk pygobject
 gentoo/pygobject gobject-introspection glib pycairo
@@ -32,7 +32,7 @@ gentoo/kdebase kdelibs oxygen-icons
 gentoo/kdesdk kdelibs graphviz
 gentoo/kdev-xtest veritas kdevelop
 gentoo/acl attr
-gentoo/gkrellm gtk+:2.4
+gentoo/gkrellm gtk+:2
 gentoo/glibc binutils libtool
 gentoo/kdelibs pcre qt:4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano libxslt
 gentoo/soprano qt:4

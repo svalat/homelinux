@@ -21,7 +21,7 @@
 		"cameras_st2205? media-libs/gd",
 		"exif? media-libs/libexif",
 		"gd? media-libs/gd[jpeg,]",
-		"jpeg? virtual/jpeg-0-r2:0",
+		"jpeg? virtual/jpeg:0",
 		"serial? dev-libs/lockdev",
 		"doc? app-doc/doxygen"
 	],

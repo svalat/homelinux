@@ -36,7 +36,7 @@
 		]
 	},
 	"host": {
-		"default": false,
+		"default": true,
 		"debian8": [
 			"docbook-xml-dtd"
 		],

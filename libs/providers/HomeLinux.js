@@ -80,7 +80,7 @@ HomeLinuxProvider.prototype.getPackage = function(packageName)
 	//console.error(fname);
 	if (fs.existsSync(fname))
 	{
-		//console.error("Parsing "+fname);
+		console.error("Parsing "+fname);
 		var content = fs.readFileSync(fname);
 // 		try {
 			var json = JSON.parse(content);

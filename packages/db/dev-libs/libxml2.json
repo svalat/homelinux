@@ -18,6 +18,7 @@
 	"deps": [
 		"dev-util/gtk-doc-am",
 		"virtual/pkgconfig",
+		"python? dev-lang/python:2",
 		"sys-libs/zlib",
 		"hppa? sys-devel/binutils",
 		"icu? dev-libs/icu",
@@ -54,7 +55,7 @@
 		"icu",
 		"ipv6",
 		"lzma",
-		"python",
+		"-python",
 		"readline",
 		"static-libs",
 		"test",

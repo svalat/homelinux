@@ -16,8 +16,19 @@
 		"http://download.osgeo.org/libtiff/tiff-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"virtual/jpeg",
+		"app-arch/lzma",
+		"sys-libs/zlib"
 	],
 	"configure": {
+		"":[
+			"--with-zlib-include-dir=$(hl prefix-of zlib)/include",
+			"--with-zlib-lib-dir=$(hl prefix-of zlib)/lib",
+			"--with-jpeg-include-dir=$(hl prefix-of virtual/jpeg)/include",
+			"--with-jpeg-lib-dir=$(hl prefix-of virtual/jpeg)/lib",
+			"--with-lzma-include-dir=$(hl prefix-of lzma)/include",
+			"--with-lzma-lib-dir=$(hl prefix-of lzma)/lib"
+		]
 	},
 	"host": {
 		"default": false,

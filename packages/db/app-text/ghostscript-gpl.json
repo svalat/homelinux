@@ -31,7 +31,7 @@
 		"cups? net-print/cups",
 		"dbus? sys-apps/dbus",
 		"djvu? app-text/djvu",
-		"gtk? x11-libs/gtk",
+		"gtk? x11-libs/gtk+",
 		"idn? net-dns/libidn",
 		"X? x11-libs/libXt",
 		"X? x11-libs/libXext"

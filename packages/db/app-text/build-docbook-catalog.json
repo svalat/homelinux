@@ -30,7 +30,7 @@
 		]
 	},
 	"host": {
-		"default": false,
+		"default": true,
 		"debian8": [
 			"build-docbook-catalog"
 		],

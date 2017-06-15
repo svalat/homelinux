@@ -28,7 +28,7 @@
 	"steps": {
 		"configure": [
 			"run_sh cd ${HL_TEMP}/${SUBDIR}",
-			"run sh Configure -de -Dprefix=${PREFIX}"
+			"run sh Configure -de -Dprefix=${PREFIX} -Dusethreads"
 		]
 	},
 	"host": {

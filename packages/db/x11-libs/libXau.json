@@ -1,6 +1,6 @@
 {
 	"name": "x11-libs/libXau",
-	"homepage": "",
+	"homepage": "https://www.x.org",
 	"versions": [
 		"1.0.7"
 	],

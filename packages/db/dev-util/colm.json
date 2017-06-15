@@ -1,0 +1,34 @@
+{
+	"name": "dev-util/colm",
+	"homepage": "https://www.colm.net/open-source/colm/",
+	"versions": [
+		"0.13.0.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.colm.net/files/colm/",
+		"regexp": "colm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "colm-${VERSION}",
+	"urls": [
+		"https://www.colm.net/files/colm/colm-${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"colm"
+		],
+		"centos7": [
+			"colm"
+		],
+		"gentoo": [
+			"dev-util/colm"
+		]
+	}
+}

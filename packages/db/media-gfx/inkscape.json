@@ -28,7 +28,7 @@
 		"dev-libs/libxml2",
 		"dev-libs/libxslt",
 		"x11-libs/pango",
-		"dev-cpp/gtkmm :2.4",
+		"dev-cpp/gtkmm :2",
 		"x11-libs/libX11",
 		"x11-proto/xproto",
 		"x11-proto/xextproto",

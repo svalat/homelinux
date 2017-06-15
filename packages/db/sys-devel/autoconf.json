@@ -19,7 +19,7 @@
 		"sys-devel/m4"
 	],
 	"host": {
-		"default": false,
+		"default": true,
 		"debian8": [ "autoconf" ],
 		"centos7": [ "autoconf" ],
 		"gentoo": [ "sys-devel/autoconf" ]
