@@ -13,7 +13,15 @@
 	"md5" : {},
 	"subdir": "sqlite-autoconf-${VERSION}",
 	"urls" : [
-		"http://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz"
+		"http://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2017/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2018/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2019/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2020/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2021/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2022/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2023/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2024/sqlite-autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

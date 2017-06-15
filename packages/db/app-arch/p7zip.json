@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "p7zip_${VERSION}",
 	"urls": [
-		"sourceforge://p7zip/p7zip/${VERSION}/p7zip_16.02_src_all.tar.bz2"
+		"sourceforge://p7zip/p7zip/${VERSION}/p7zip_${VERSION}_src_all.tar.bz2"
 	],
 	"deps": [
 		"kde? x11-libs/wxGTK:3.0[X] kde-base/kdelibs",

@@ -305,7 +305,7 @@ function hl_extract()
 			run unzip $DISTFILES/$ARCHIVE
 			;;
 		*.7z)
-			run p7zip -d $DISTFILES/$ARCHIVE
+			run 7z x $DISTFILES/$ARCHIVE
 			;;
 		*)
 			die "Unmanaged archive format : $ARCHIVE"
@@ -362,7 +362,8 @@ function hl_configure_auto()
 
 function hl_configure_perl()
 {
-	run perl Makefile.PL PREFIX=${PREFIX} $BUILD_OPTIONS
+	#two types because we encoutered an issue on centos7
+	run perl Makefile.PL PREFIX=${PREFIX} $BUILD_OPTIONS || run perl Makefile.PL INSTALL_BASE=${PREFIX} $BUILD_OPTIONS
 }
 
 function hl_configure_python()

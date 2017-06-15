@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "icu/source",
 	"urls": [
-		"http://download.icu-project.org/files/icu4c/57.1/icu4c-$(echo ${VERSION} | sed -e s/[.]/_/g)-src.tgz"
+		"sourceforge://icu/ICU4C/${VERSION}/icu4c-$(echo ${VERSION} | sed -e s/[.]/_/g)-src.tgz"
 	],
 	"deps": [
 		"virtual/pkgconfig",

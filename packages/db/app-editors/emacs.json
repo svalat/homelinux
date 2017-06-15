@@ -57,7 +57,7 @@
 		"pax_kernel? sys-apps/paxctl"
 	],
 	"configure": {
-		"": [
+		"gentoo": [
 			"--program-suffix=-",
 			"--infodir=/usr/share/info/",
 			"--localstatedir=/var",
@@ -70,6 +70,15 @@
 			"--without-ns",
 			"--with-xft",
 			"--localstatedir=$PREFIX/var"
+		],
+		"+X": [
+			"--with-x"
+		],
+		"+xft": [
+			"--with-xft"
+		],
+		"+alsa": [
+			"--with-sound=alsa"
 		],
 		"+TODO": [
 			"--with-x-toolkit=@on@+gtk3@gtk3@"
@@ -183,6 +192,7 @@
 		"xft",
 		"+xpm",
 		"zlib",
+		"gentoo",
 		"-TODO"
 	],
 	"host": {

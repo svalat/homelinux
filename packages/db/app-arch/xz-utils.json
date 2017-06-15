@@ -30,12 +30,6 @@
 			"--$enable-static"
 		],
 		"": [
-			"--disable-xz",
-			"--disable-xzdec",
-			"--disable-lzmadec",
-			"--disable-lzmainfo",
-			"--disable-lzma-links",
-			"--disable-scripts"
 		]
 	},
 	"use": [

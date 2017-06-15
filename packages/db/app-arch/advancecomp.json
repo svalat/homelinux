@@ -35,6 +35,9 @@
 	],
 	"host": {
 		"default": false,
+		"centos7": [
+			"advancecomp"
+		],
 		"debian8": [
 			"advancecomp"
 		],

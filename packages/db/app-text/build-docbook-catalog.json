@@ -24,7 +24,9 @@
 	],
 	"steps": {
 		"configure": [
-			"run sed -e \"s#^EPREFIX.*#EPREFIX=$PREFIX#\" -i  Makefile"
+			"run sed -e \"s#^EPREFIX.*#EPREFIX=$PREFIX#\" -i  Makefile",
+			"run sed -e \"s#^PREFIX.*#PREFIX=$PREFIX#\" -i  Makefile",
+			"run sed -e 's/sbin/bin/g' -i Makefile"
 		]
 	},
 	"host": {

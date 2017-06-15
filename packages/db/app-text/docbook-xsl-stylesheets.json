@@ -11,7 +11,7 @@
 		"regexp": "docbook-xsl-stylesheets-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "docbook-xsl-stylesheets-${VERSION}",
+	"subdir": "docbook-xsl-${VERSION}",
 	"urls": [
 		"sourceforge://docbook/docbook-xsl/${VERSION}/docbook-xsl-${VERSION}.tar.bz2"
 	],
@@ -26,6 +26,7 @@
 			"run mkdir -p ${PREFIX}/share/docbook-xsl/",
 			"run cp -r -v * ${PREFIX}/share/docbook-xsl/"
 		],
+		"build": [],
 		"postinstall": [
 			"run install-catalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"
 		]
