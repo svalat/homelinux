@@ -1,13 +1,15 @@
 {
-	"general": {
-		"credits": 2,
-		"eventRailMaxDataSize": 2097152,
-		"eventMaxMetaSize": 2048,
-		"ruStoredEvents": 512,
-		"runTimeout": 10,
-		"mode": "PUSH"
-	},
-	"debug": {
-		"show": ["em","bu","ru"]
+	"prefix":"/home/USER/usr",
+	"host":"gentoo",
+	"modules": ["gcc-5.0", "openmpi"],
+	"homecache": true,
+	"ccache": true,
+	"pyEnv": false,
+	"packagesOverride": {
+		"hl/sys-devel/gcc": {
+			"configure": {
+				"": [ "--enable-debug" ]
+			}
+		}
 	}
 }

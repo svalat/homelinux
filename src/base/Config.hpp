@@ -15,15 +15,16 @@
 //std
 #include <string>
 #include <ctime>
+#include <vector>
 //from jsoncpp
-#ifdef HAVE_JSON_CPP
-	#include <json/json.h>
-#endif //HAVE_JSON_CPP
-
+#include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
+
+/********************* TYPES ************************/
+typedef std::vector<std::string> ModuleList;
 
 /********************  STRUCT  **********************/
 /**
@@ -31,6 +32,21 @@ namespace hl
 **/
 struct Config
 {
+    Config(void);
+    ~Config(void);
+    void loadDefault(void);
+    void load(std::string path = "");
+    void load(Json::Value & config);
+    void parseArgs(int argc, const char ** argv);
+    //vars
+    bool showDebugCat;
+    std::string prefix;
+    std::string host;
+    ModuleList modules;
+    bool ccache;
+    bool pyEnv;
+    bool homecache;
+    Json::Value packageOverride;
 };
 
 }
