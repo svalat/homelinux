@@ -38,6 +38,7 @@ endif (JSONCPP_FOUND)
 
 ######################################################
 include_directories(./)
+include_directories(../extern-deps/re2-2017-06-01)
 
 ######################################################
 set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
@@ -46,7 +47,7 @@ set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
 
 ######################################################
 if (JSONCPP_FOUND)
-	list(APPEND HOMELINUX_EXTERN_LIBS ${JSON_CPP_LIBRARY})
+	list(APPEND HOMELINUX_EXTERN_LIBS ${JSON_CPP_LIBRARY} re2 -lpthread)
 endif (JSONCPP_FOUND)
 
 ######################################################

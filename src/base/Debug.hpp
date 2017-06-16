@@ -76,7 +76,6 @@ class Debug : public FormattedMessage
 		static void showList(void);
 		static void setVerbosity(const std::string & value);
 		static const DebugCategoryMap* getCatMap( void );
-		static void setRank(int rank);
 	protected:
 		/** Category (only for DEBUG level), NULL otherwise. **/
 		const char * cat;

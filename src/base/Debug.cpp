@@ -55,7 +55,6 @@ namespace hl
 static DebugCategoryMap ref;
 DebugCategoryMap * Debug::catMap = &ref;
 int Debug::catMaxWidth = 0;
-int Debug::rank = -1;
 
 /*******************  FUNCTION  *********************/
 /**
@@ -96,12 +95,6 @@ Debug::Debug(const char* format, DebugLevel level, const char * category)
 }
 
 /*******************  FUNCTION  *********************/
-void Debug::setRank(int rank)
-{
-	Debug::rank = rank;
-}
-
-/*******************  FUNCTION  *********************/
 /**
  * Emit the message.
 **/
@@ -116,7 +109,7 @@ void Debug::end(void)
 			#ifndef NDEBUG
 				if (showCat(cat))
 				{
-					buf << cstLevelPrefix[level] << '[' << std::setw(3) << std::setfill('0') << rank << std::setfill(' ') <<  "] " << '[' << std::left << std::setw(catMaxWidth) << cat << "] " << *this << cstPostfix << std::endl;
+					buf << cstLevelPrefix[level] << '[' << std::left << std::setw(catMaxWidth) << cat << "] " << *this << cstPostfix << std::endl;
 					std::cout << buf.str();
 				}
 			#endif //NDEBUG
@@ -125,7 +118,7 @@ void Debug::end(void)
 		case MESSAGE_NORMAL:
 			///if (line != 0)
 			//	std::cout << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
-			buf << cstLevelPrefix[level] << '[' << std::setw(3) << std::setfill('0') << rank << std::setfill(' ') << "] " << *this << cstPostfix << std::endl;
+			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cout << buf.str();
 			break;
 		case MESSAGE_ASSERT:
@@ -134,7 +127,7 @@ void Debug::end(void)
 			#else
 				if (line != 0)
 					buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
-				buf << cstLevelPrefix[level] << '[' << std::setw(3) << std::setfill('0') << rank << std::setfill(' ') << "] " << *this << cstPostfix << std::endl;
+				buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 				std::cout << buf.str();
 				abort();
 			#endif
@@ -142,13 +135,13 @@ void Debug::end(void)
 		case MESSAGE_ERROR:
 			if (line != 0)
 				buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
-			buf << cstLevelPrefix[level] << '[' << std::setw(3) << std::setfill('0') << rank << std::setfill(' ') << "] " << *this << cstPostfix << std::endl;
+			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cerr << buf.str();
 			break;
 		case MESSAGE_FATAL:
 			if (line != 0)
 				buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
-			buf << cstLevelPrefix[level] << '[' << std::setw(3) << std::setfill('0') << rank << std::setfill(' ') << "] " << *this << cstPostfix << std::endl;
+			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cerr << buf.str();
 			abort();
 			break;

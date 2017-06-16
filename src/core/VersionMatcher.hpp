@@ -37,9 +37,11 @@ class VersionMatcher
         static VersionList sortList(const VersionList & list);
         static int compareVersion(const std::string & v1,const std::string & v2);
         static std::string fillNumber(const std::string & value,int pad = 16);
-    private:
-        bool applyVersionOperator(const std::string & op,const std::string version,const SlotDef & slots = gblSlotNone);
+        static std::string getSlot(const SlotDef & slots,const std::string & version);
+        static bool applyVersionOperator(const std::string & op,const std::string version,const SlotDef & slots = gblSlotNone);
+        static std::string regexpReplPoint(const std::string & value);
         void set(const std::string & rules);
+    private:
         VersionMatcherRuleList ruleList;
 };
 

@@ -10,6 +10,8 @@
 #include <map>
 #include <algorithm>
 #include <cstring>
+#include <regex>
+#include <re2/re2.h>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include "VersionMatcher.hpp"
@@ -33,9 +35,17 @@ VersionMatcher::VersionMatcher(const std::string & rules)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Apply all the selection rules on the given verison to check if it match.
+ * @parma version Define the version to match.
+ * @param slots Give definition of slots to filter with slot operator.
+**/
 bool VersionMatcher::match(const std::string & version,const SlotDef & slots)
 {
-    
+    for (auto & rule : ruleList)
+        if (applyVersionOperator(rule,version,slots) == false)
+            return false;
+    return true;
 }
 
 /*******************  FUNCTION  *********************/
@@ -53,7 +63,51 @@ VersionList VersionMatcher::sortList(const VersionList & list)
 /*******************  FUNCTION  *********************/
 bool VersionMatcher::applyVersionOperator(const std::string & op,const std::string version,const SlotDef & slots)
 {
+    //vars
+    int tmp;
+    int cnt = 1;
+    bool ret;
+    std::string oper;
+    oper += op[0];
     
+    //manage >= & <=
+    if (op[1] == '=')
+    {
+        cnt++;
+        oper+='=';
+    }
+    
+    //extract operarant
+    std::string operand = op.substr(cnt);
+    
+    //aplly operator
+    if (oper == "<=")
+    {
+        tmp = compareVersion(version,operand);
+        ret = (tmp == 0 || tmp == -1);
+    } else if (oper == "<") {
+        ret = (compareVersion(version,operand) == -1);
+    } else if (oper == ">=") {
+        tmp = compareVersion(version,operand);
+        ret = (tmp == 0 || tmp == 1);
+    } else if (oper == ">") {
+        ret = (compareVersion(version,operand) == 1);
+    } else if (oper == "=") {
+        ret = (compareVersion(version,operand) == 0);
+    } else if (oper == "!") {
+        ret = (compareVersion(version,operand) != 0);
+    } else if (oper == "~") {
+        std::regex reg(regexpReplPoint(operand)+".*");
+        ret = std::regex_match(version,reg);
+    } else if (oper == ":") {
+        std::string slot = getSlot(slots,version);
+        ret = (slot == operand);
+    } else {
+        HL_FATAL_ARG("Invalid operator %1 in %2 !").arg(oper).arg(op).end();
+    }
+
+	//console.error("Apply "+operator +" on "+operand+" and "+version+" => "+ret);
+	return ret;
 }
 
 /*******************  FUNCTION  *********************/
@@ -127,6 +181,52 @@ std::string VersionMatcher::fillNumber(const std::string & value,int pad)
     
     //aggregate
     return fillPre + value + fillPost;
+}
+
+/*******************  FUNCTION  *********************/
+std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & version)
+{
+    //loop
+    for (auto & it : slots)
+    {
+        if (it.first == "~")
+        {
+            //vars
+            std::regex reg;
+            std::smatch matches;
+            std::string extract;
+            std::string prepared = regexpReplPoint(it.second)+".*";
+            
+            //match & extract
+            if(RE2::FullMatch(version,prepared,&extract)) {
+                return extract;
+            } else {
+                HL_FATAL_ARG("Fail to match versoin to search slot, regexp is %1 and verison is %2")
+                    .arg(prepared)
+                    .arg(version)
+                    .end();
+            }
+        } else {
+            VersionMatcher matcher(it.second);
+            if (matcher.match(version))
+                return it.first;
+        }
+    }
+    
+    //not slot found
+    return "0";
+}
+
+/*******************  FUNCTION  *********************/
+std::string VersionMatcher::regexpReplPoint(const std::string & value)
+{
+    std::string res;
+    for (auto c : value)
+        if (c == '.')
+            res += "\\.";
+        else
+            res += c;
+    return res;
 }
 
 }

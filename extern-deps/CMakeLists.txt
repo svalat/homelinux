@@ -9,3 +9,4 @@
 ######################################################
 add_subdirectory(gmock-1.7.0)
 add_subdirectory(jsoncpp/dist)
+add_subdirectory(re2-2017-06-01)
