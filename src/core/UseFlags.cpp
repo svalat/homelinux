@@ -16,6 +16,22 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
+UseFlags::UseFlags(void)
+{
+    //nothing to do
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Constrcutor extring a list of flags to load
+ * @param flags List of flags to load, they can conatin +/- to set state.
+**/
+UseFlags::UseFlags(const std::string & flags)
+{
+    this->merge(flags);
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Exctract the flags name removine the enable/disable symbol.
  * So, `+flag` and `-flag` becomes `flag`.
@@ -31,140 +47,124 @@ std::string UseFlags::getFlagName(const std::string & flag)
 
 /*******************  FUNCTION  *********************/
 /**
- * Merge two list of use flags by removing the double definition.
- * It also manage the status changing if `+flags` follow `-flag` or
- * invert.
- * @param values Define the initial list of flags
- * @param additional Define the list of flags to add.
- * @param force Force usage of `+` and `-`.
+ * Add one flag
+ * @param flag flag to add, could contain + or - to enable or disable.
 **/
-std::string UseFlags::mergeString(const std::string & in1,const std::string & in2,bool force)
+void UseFlags::addOne(const std::string & flag)
+{
+    //get flag name (removing -/+)
+    std::string flagName = UseFlags::getFlagName(flag);
+    
+    //apply
+    if (flag[0] == '-')
+        stateMap[flagName] = FLAG_DISABLED;
+    else if (flag[0] == '+')
+        stateMap[flagName] = FLAG_ENABLED;
+    else if (stateMap.find(flagName) == stateMap.end())
+        stateMap[flagName] = FLAG_AUTO;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Add one flag
+ * @param flagName Name of flag to add (not starting by +/-)
+ * @param state State of flag to apply
+**/
+void UseFlags::addOne(const std::string & flagName,UseFlagState state)
+{
+    //apply
+    if (state == FLAG_DISABLED || state == FLAG_ENABLED)
+        stateMap[flagName] = state;
+    else if (stateMap.find(flagName) == stateMap.end())
+        stateMap[flagName] = FLAG_AUTO;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Replace all the AUTO flags to set them to the given state
+ * @param state Define the state to use to replace AUTO.
+**/
+void UseFlags::setAuto(UseFlagState state)
+{
+    //loop on all
+    for (auto & it : this->stateMap)
+        if (it.second == FLAG_AUTO)
+            it.second = state;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Convert the use flags to string only for the given state. This is used by toString
+ * to give the flags in order.
+ * @param out The string to complete (it will append)
+ * @param state State to filter
+ * @param force If force equal true, flas auto are set to enabled.
+**/
+void UseFlags::toStringByState(std::string & out,UseFlagState state,bool force)
+{
+    //loop on all
+    for (auto & it : this->stateMap) 
+    {
+        //filter
+        if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+        {
+            //space
+            if (out.empty() == false)
+                out += " ";
+            
+            //flag
+            if (state == FLAG_ENABLED) {
+                out += "+";
+                out += it.first;
+            } else if (state == FLAG_DISABLED) {
+                out += "-";
+                out += it.first;
+            } else if (state == FLAG_AUTO && force) {
+                out += "+";
+                out += it.first;
+            } else {
+                out += it.first;
+            }
+        }
+    }
+}
+
+/*******************  FUNCTION  *********************/
+std::string UseFlags::toString(bool force)
 {
     //var
-    FlagList lst;
-    
-    //merge
-    merge(lst,in1,in2,force);
-    
-    //convert
     std::string res;
-    res << lst;
     
-    //return
+    //enabled
+    toStringByState(res,FLAG_ENABLED,force);
+    toStringByState(res,FLAG_DISABLED,force);
+    if (!force)
+        toStringByState(res,FLAG_AUTO,false);
+    
+    //ret
     return res;
 }
 
 /*******************  FUNCTION  *********************/
 /**
- * Merge two list of use flags by removing the double definition.
- * It also manage the status changing if `+flags` follow `-flag` or
- * invert.
- * @param values Define the initial list of flags
- * @param additional Define the list of flags to add.
- * @param force Force usage of `+` and `-`.
+ * Merge the list of flags to the current state
 **/
-void UseFlags::merge(FlagList & out,const std::string & in1,const std::string & in2,bool force)
+UseFlags & UseFlags::merge(const std::string & flags)
 {
-    //var
-    FlagList lst1;
-    FlagList lst2;
-    
-    //convert
-    lst1 << in1 << in2;
-    
-    //call
-    merge(out,lst1,lst2,force);
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Merge two list of use flags by removing the double definition.
- * It also manage the status changing if `+flags` follow `-flag` or
- * invert.
- * @param values Define the initial list of flags
- * @param additional Define the list of flags to add.
- * @param force Force usage of `+` and `-`.
-**/
-void UseFlags::merge(FlagList & out,const FlagList & in1,const FlagList & in2,bool force)
-{
-    //clear
-    out.clear();
-    
-    //trivial
-    if (in1.empty() && in2.empty())
-        return;
-    
-    //concat
-    FlagList flags;
-    flags = in1;
-    flags.insert(flags.end(),in2.begin(),in2.end());
-    
-    //loop and build status list
-    std::map<std::string,const char*> status;
-    for (auto flag : flags)
-    {
-        //get name
-        std::string flagName = UseFlags::getFlagName(flag);
-        
-        //apply status
-        if (flag[0] == '-')
-            status[flagName] = "-";
-        else if (flag[0] == '+')
-            status[flagName] = "+";
-        else if (force)
-            status[flagName] = "+";
-        else if (status.find(flagName) == status.end())
-            status[flagName] = "";
-    }
-
-    //build list
-    for (auto it : status)
-        out.push_back(std::string(it.second)+it.first);
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Convert a flag list to string, usefull for unit testing.
- * @param str String to setup
- * @parma flags List of flags to convert.
-**/
-std::string & operator<<(std::string & str,const FlagList & flags)
-{
-    //apply
-    bool first = true;
-    for(auto flag : flags) 
-    {
-        if (first)
-            first = false;
-        else
-            str += ' ';
-        str += flag;
-    }
-    
-    //ret
-    return str;
-}
-
-/*******************  FUNCTION  *********************/
-/**
- * Stream a flag list in string format to flag list
-**/
-FlagList & operator<<(FlagList & flags,const std::string & value)
-{
-    //vars
+     //vars
     char buffer[1024];
     
     //read
     int cnt = 0;
-    for (int i = 0 ; i < value.size() ; i++)
+    for (int i = 0 ; i < flags.size() ; i++)
     {
-        if (value[i] == ' ' && cnt > 0)
+        if (flags[i] == ' ' && cnt > 0)
         {
             buffer[cnt] = '\0';
             cnt = 0;
-            flags.push_back(buffer);
-        } else if (value[i] != ' ') {
-            buffer[cnt++] = value[i];
+            addOne(buffer);
+        } else if (flags[i] != ' ') {
+            buffer[cnt++] = flags[i];
             assume(cnt < 1024,"Flag name is too large");
         }
     }
@@ -172,10 +172,18 @@ FlagList & operator<<(FlagList & flags,const std::string & value)
     //flush
     buffer[cnt] = '\0';
     if (cnt > 0)
-        flags.push_back(buffer);
+        addOne(buffer);
     
     //ret
-    return flags;
+    return *this;
+}
+
+/*******************  FUNCTION  *********************/
+UseFlags & UseFlags::merge(const UseFlags & flags)
+{
+    //loop
+    for (auto & it : stateMap)
+        addOne(it.first,it.second);
 }
 
 }

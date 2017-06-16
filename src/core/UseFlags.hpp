@@ -13,30 +13,43 @@
 //std
 #include <string>
 #include <list>
+#include <map>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
-    
-/********************* TYPES ************************/
-typedef std::list<std::string> FlagList;
 
-/********************  STRUCT  **********************/
-/**
- * Structure to store the configuration of HLPIPE.
-**/
-struct UseFlags
+/********************  ENUM  ************************/
+enum UseFlagState
 {
-    static std::string getFlagName(const std::string & flag);
-    static void merge(FlagList & out,const FlagList & in1,const FlagList & in2,bool force = false);
-    static void merge(FlagList & out,const std::string & in1,const std::string & in2,bool force = false);
-    static std::string mergeString(const std::string & in1,const std::string & in2,bool force = false);
-    static FlagList toFlagList(const std::string & value);
+    FLAG_ENABLED,
+    FLAG_DISABLED,
+    FLAG_AUTO
 };
 
-/*******************  FUNCTION  *********************/
-std::string & operator<<(std::string & str,const FlagList & flags);
-FlagList & operator<<(FlagList & flags,const std::string & value);
+/********************* TYPES ************************/
+typedef std::list<std::string> FlagList;
+typedef std::map<std::string,UseFlagState> UseFlagStateMap;
+
+/*********************  CLASS  **********************/
+class UseFlags
+{
+    public:
+        UseFlags(void);
+        UseFlags(const std::string & flags);
+        UseFlags & merge(const std::string & flags);
+        UseFlags & merge(const UseFlags & flags);
+        void setAuto(UseFlagState state = FLAG_ENABLED);
+        std::string toString(bool force = false);
+        //statics
+        static std::string getFlagName(const std::string & flag);
+    private:
+        void addOne(const std::string & flag);
+        void addOne(const std::string & flagName,UseFlagState state);
+        void toStringByState(std::string & out,UseFlagState state,bool force = false);
+    private:
+        UseFlagStateMap stateMap;
+};
 
 }
 

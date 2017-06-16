@@ -15,6 +15,19 @@
 using namespace hl;
 
 /*******************  FUNCTION  *********************/
+TEST(UseFlags,constructor_1)
+{
+    UseFlags flags;
+}
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,constructor_2)
+{
+    UseFlags flags("qt gtk");
+    EXPECT_EQ("gtk qt",flags.toString());
+}
+
+/*******************  FUNCTION  *********************/
 TEST(UseFlags,getFlagName)
 {
     EXPECT_EQ("qt",UseFlags::getFlagName("qt"));
@@ -23,30 +36,18 @@ TEST(UseFlags,getFlagName)
 }
 
 /*******************  FUNCTION  *********************/
-TEST(UseFlags,flagList_1)
+TEST(UseFlags,merge)
 {
-    FlagList flags;
-    flags << "+qt -gtk cairo  pango ";
-    std::string res;
-    res << flags;
-    EXPECT_EQ("+qt -gtk cairo pango",res);
+    UseFlags flags;
+    flags.merge("-gtk +qt  svg ");
+    flags.merge("kde");
+    EXPECT_EQ("+qt -gtk kde svg",flags.toString());
 }
 
 /*******************  FUNCTION  *********************/
-TEST(UseFlags,flagList_2)
+TEST(UseFlags,toString)
 {
-    FlagList flags;
-    flags << "+qt -gtk cairo  pango";
-    std::string res;
-    res << flags;
-    EXPECT_EQ("+qt -gtk cairo pango",res);
-}
-
-/*******************  FUNCTION  *********************/
-TEST(UserFlage,mergeString)
-{
-    EXPECT_EQ("gtk qt",UseFlags::mergeString("qt","gtk"));
-    EXPECT_EQ("+gtk +qt",UseFlags::mergeString("qt","gtk",true));
-    EXPECT_EQ("gtk qt",UseFlags::mergeString("qt gtk","gtk"));
-    EXPECT_EQ("-gtk +qt",UseFlags::mergeString("+qt +gtk","-gtk"));
+    UseFlags flags("-gtk +qt  svg ");
+    EXPECT_EQ("+qt -gtk svg",flags.toString());
+    EXPECT_EQ("+qt +svg -gtk",flags.toString(true));
 }
