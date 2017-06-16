@@ -192,7 +192,6 @@ std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & ve
         if (it.first == "~")
         {
             //vars
-            std::regex reg;
             std::smatch matches;
             std::string extract;
             std::string prepared = regexpReplPoint(it.second)+".*";
@@ -221,11 +220,18 @@ std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & ve
 std::string VersionMatcher::regexpReplPoint(const std::string & value)
 {
     std::string res;
+    bool lastIsProtect = false;
     for (auto c : value)
-        if (c == '.')
+    {
+        if (c == '.' && !lastIsProtect)
             res += "\\.";
         else
             res += c;
+        if (c == '\\')
+            lastIsProtect = true;
+        else
+            lastIsProtect = false;
+    }
     return res;
 }
 

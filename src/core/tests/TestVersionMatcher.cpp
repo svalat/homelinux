@@ -145,3 +145,15 @@ TEST(VersionMatcher,getSlot_2)
     ::testing::FLAGS_gtest_death_test_style = "threadsafe";
 	EXPECT_DEATH(VersionMatcher::getSlot(slots,"4"),"");
 }
+
+/*******************  FUNCTION  *********************/
+TEST(VersionMatcher,getSlot_3)
+{
+    SlotDef slots;
+    slots["~"] = "([0-9]+\\.[0-9]+)";
+    
+    EXPECT_EQ("3.1",VersionMatcher::getSlot(slots,"3.1"));
+    EXPECT_EQ("3.0",VersionMatcher::getSlot(slots,"3.0"));
+    EXPECT_EQ("3.9",VersionMatcher::getSlot(slots,"3.9.1"));
+    EXPECT_EQ("4.1",VersionMatcher::getSlot(slots,"4.1.8.6"));
+}
