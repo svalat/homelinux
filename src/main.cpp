@@ -22,6 +22,6 @@ using namespace std;
 /*******************  FUNCTION  *********************/
 int main(int argc, char ** argv)
 {
-    cout << "Homelihnux" << endl;
+    cout << "Homelinux" << endl;
     return EXIT_SUCCESS;
 }

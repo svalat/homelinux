@@ -1,0 +1,11 @@
+export CMAKE_PREFIX_PATH=
+export CPATH=
+export HL_PREFIX_PATH=
+export LD_LIBRARY_PATH=
+export LD_RUN_PATH=
+export MANPATH=
+export MODULEPATH=
+export PATH=
+export PERL5LIB=
+export PKG_CONFIG_PATH=
+export PYTHONPATH=

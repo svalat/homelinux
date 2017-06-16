@@ -1,0 +1,11 @@
+export CMAKE_PREFIX_PATH=/home/USER/usr
+export CPATH=/home/USER/usr/include
+export HL_PREFIX_PATH=/home/USER/usr
+export LD_LIBRARY_PATH=/home/USER/usr/lib64:/home/USER/usr/lib
+export LD_RUN_PATH=/home/USER/usr/lib64:/home/USER/usr/lib
+export MANPATH=/home/USER/usr/share/man
+export MODULEPATH=/home/USER/usr/Modules/modulefiles
+export PATH=/home/USER/usr/sbin:/home/USER/usr/bin
+export PERL5LIB=/home/USER/usr/lib/perl5/site_perl:/home/USER/usr/lib/perl5
+export PKG_CONFIG_PATH=/home/USER/usr/share/pkgconfig:/home/USER/usr/lib/pkgconfig
+export PYTHONPATH=/home/USER/usr/lib/python2.7/site-packages/

@@ -22,6 +22,8 @@ struct System
 {
     static std::string getHomeDir(void);
     static bool fileExist(const std::string & path);
+    static std::string getEnv(const std::string & name,const std::string & defaultValue = "");
+    static std::string loadFile(const std::string & path);
 };
 
 }

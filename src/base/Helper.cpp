@@ -45,4 +45,31 @@ void Helper::stringSplit(const std::string & value,char separator,std::function<
         callback(buffer);
 }
 
+/*******************  FUNCTION  *********************/
+/**
+ * Check if a string contain a given value.
+ * @param value String in which to search.
+ * @param what value to seach in string.
+**/
+bool Helper::contain(const std::string & value,const std::string what)
+{
+    return value.find(what) != std::string::npos;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Concatenate
+**/
+std::string Helper::join(const std::list<std::string> & lst,char sep)
+{
+    std::string out;
+    for (auto & value : lst)
+    {
+        if (out.empty() == false)
+            out += sep;
+        out+=value;
+    }
+    return out;
+}
+
 }

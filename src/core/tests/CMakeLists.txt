@@ -11,10 +11,11 @@
 include_directories(${GTEST_INCLUDE_DIRS} ${GMOCK_INCLUDE_DIRS})
 
 ######################################################
-#add_definitions(-DTEST_DATA_PATH="${CMAKE_CURRENT_SOURCE_DIR}/data")
+add_definitions(-DTEST_DATA_PATH="${CMAKE_CURRENT_SOURCE_DIR}/data")
 
 ######################################################
 set(TEST_NAMES TestUseFlags
+               TestEnvSetup
                TestVersionMatcher)
 
 ######################################################
