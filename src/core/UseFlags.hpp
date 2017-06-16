@@ -21,8 +21,8 @@ namespace hl
 /********************  ENUM  ************************/
 enum UseFlagState
 {
-    FLAG_ENABLED,
     FLAG_DISABLED,
+    FLAG_ENABLED,
     FLAG_AUTO
 };
 
@@ -37,6 +37,9 @@ class UseFlags
         UseFlags(const std::string & flags);
         UseFlags & merge(const std::string & flags);
         UseFlags & merge(const UseFlags & flags);
+        UseFlagState getStatus(const std::string & flag);
+        UseFlagState getApplyStatus(const std::string & flag);
+        UseFlagState getApplyStatusWithAnd(const std::string & flag);
         void setAuto(UseFlagState state = FLAG_ENABLED);
         std::string toString(bool force = false);
         //statics

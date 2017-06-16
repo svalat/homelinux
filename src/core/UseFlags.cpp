@@ -82,6 +82,79 @@ void UseFlags::addOne(const std::string & flagName,UseFlagState state)
 
 /*******************  FUNCTION  *********************/
 /**
+ * Get the status of the given flag
+**/
+UseFlagState UseFlags::getStatus(const std::string & flag)
+{
+    //get name
+    std::string flagName = getFlagName(flag);
+    
+    //search
+    auto it = stateMap.find(flagName);
+    
+    //select
+    if (it == stateMap.end())
+        HL_FATAL_ARG("Undefined flag %1").arg(flagName).end();
+    else
+        return it->second;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Same as getApplyStatus but managing multiple flags
+ * with & operation.
+**/
+UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag)
+{
+    if (flag.find('&') == std::string::npos)
+    {
+        return getApplyStatus(flag);
+    } else {
+        UseFlagState state = FLAG_ENABLED;
+        Helper::stringSplit(flag,'&',[this,&state](const std::string & value){
+            UseFlagState tmp = getApplyStatus(value);
+            if (tmp == FLAG_AUTO)
+                state = FLAG_AUTO;
+            else if (state == FLAG_ENABLED && tmp == FLAG_DISABLED)
+                state = FLAG_DISABLED;
+        });
+        return state;
+    }
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Check if the flag request need to be applied or not (for configure and deps).
+ * It als
+ * @param flag Flag string potentially with `+` or `-`. `-` will invert the return value.
+**/
+UseFlagState UseFlags::getApplyStatus(const std::string & flag)
+{
+    //trivial
+    if (flag == "" || flag == "+" || flag == "always" || flag == "+always")
+        return FLAG_ENABLED;
+    
+    //select mode
+    UseFlagState mode = FLAG_AUTO;
+    if (flag[0] == '+')
+        mode = FLAG_ENABLED;
+    else if (flag[0] == '-')
+        mode = FLAG_DISABLED;
+
+    //apply
+    UseFlagState status = this->getStatus(flag);
+    if (mode == FLAG_AUTO)
+        return status;
+    else if (mode == FLAG_ENABLED && status == FLAG_ENABLED)
+        return FLAG_ENABLED;
+    else if (mode == FLAG_DISABLED && status == FLAG_DISABLED) 
+        return FLAG_ENABLED;
+    else
+        return FLAG_DISABLED;
+}
+
+/*******************  FUNCTION  *********************/
+/**
  * Replace all the AUTO flags to set them to the given state
  * @param state Define the state to use to replace AUTO.
 **/

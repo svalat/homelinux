@@ -51,3 +51,41 @@ TEST(UseFlags,toString)
     EXPECT_EQ("+qt -gtk svg",flags.toString());
     EXPECT_EQ("+qt +svg -gtk",flags.toString(true));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,getStatus)
+{
+    UseFlags flags("-gtk +qt  svg ");
+    EXPECT_EQ(FLAG_ENABLED,flags.getStatus("qt"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getStatus("gtk"));
+    EXPECT_EQ(FLAG_AUTO,flags.getStatus("svg"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,getApplyStatus)
+{
+    UseFlags flags("+qt -gtk svg");
+    
+    EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("qt"));
+    EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("+qt"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("-qt"));
+    
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("gtk"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("+gtk"));
+    EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("-gtk"));
+    
+    EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("svg"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("+svg"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("-svg"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,getApplyStatusWithAnd)
+{
+    UseFlags flags("+qt +kde -gtk svg");
+    
+    EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("+qt&-gtk"));
+    EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("+qt&+gtk"));
+    EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("qt&kde"));
+    EXPECT_EQ(FLAG_AUTO,flags.getApplyStatusWithAnd("qt&svg"));
+}
