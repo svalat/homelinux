@@ -40,8 +40,8 @@ endif (JSONCPP_FOUND)
 include_directories(./)
 
 ######################################################
-set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>)
-#                       $<TARGET_OBJECTS:homelinux-core>
+set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
+                       $<TARGET_OBJECTS:homelinux-core>)
 #                       $<TARGET_OBJECTS:homelinux-providers>)
 
 ######################################################
@@ -63,7 +63,7 @@ target_link_libraries(homelinux ${HOMELINUX_EXTERN_LIBS})
 
 ######################################################
 add_subdirectory(base)
-#add_subdirectory(core)
+add_subdirectory(core)
 #add_subdirectory(providers)
 
 ######################################################

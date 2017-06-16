@@ -7,10 +7,10 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-core OBJECT /dev/null)
+add_library(homelinux-core OBJECT UseFlags.cpp)
 #SET_TARGET_PROPERTIES(homelinux-core PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################
-#if (ENABLE_TESTS)
-#	add_subdirectory(tests)
-#endif (ENABLE_TESTS)
+if (ENABLE_TESTS)
+	add_subdirectory(tests)
+endif (ENABLE_TESTS)
