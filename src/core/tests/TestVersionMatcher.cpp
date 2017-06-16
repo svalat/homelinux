@@ -119,6 +119,37 @@ TEST(VersionMatcher,match)
 }
 
 /*******************  FUNCTION  *********************/
+TEST(VersionMatcher,match_slot_1)
+{
+    SlotDef slots;
+    slots["3"] = ">=3.0 <4";
+    slots["4"] = ">=4.0 <5";
+    
+    VersionMatcher match(":3");
+    
+    EXPECT_TRUE(match.match("3.5",slots));
+    EXPECT_TRUE(match.match("3.5.3",slots));
+    EXPECT_FALSE(match.match("4.6.2",slots));
+    EXPECT_FALSE(match.match("4.6.6",slots));
+    EXPECT_FALSE(match.match("5.7",slots));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(VersionMatcher,match_slot_2)
+{
+    SlotDef slots;
+    slots["~"] = "([0-9]+.[0-9]+)";
+    
+    VersionMatcher match(":3.5");
+    
+    EXPECT_TRUE(match.match("3.5",slots));
+    EXPECT_TRUE(match.match("3.5.3",slots));
+    EXPECT_FALSE(match.match("3.4.2",slots));
+    EXPECT_FALSE(match.match("4.6.6",slots));
+    EXPECT_FALSE(match.match("5.7",slots));
+}
+
+/*******************  FUNCTION  *********************/
 TEST(VersionMatcher,getSlot_1)
 {
     SlotDef slots;
