@@ -1,0 +1,6 @@
+Please add you name here if you contribute to the project.
+
+Contributors:
+-------------
+
+ - Sébastien Valat <sebastien.valat-dev@orange.fr>

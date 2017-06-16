@@ -1,0 +1,23 @@
+/*****************************************************
+             PROJECT  : homelinux
+             VERSION  : 2.0.0-dev
+             DATE     : 06/2017
+             AUTHOR   : Valat Sébastien
+             LICENSE  : CeCILL-C
+*****************************************************/
+
+#ifndef HL_CONFIG_HPP
+#define HL_CONFIG_HPP
+
+/********************  MACRO  ***********************/
+
+//color support
+#cmakedefine ENABLE_COLORS
+
+//jsoncpp
+#cmakedefine HAVE_JSON_CPP
+
+//version
+#define DAQPIPE_VERSION "2.0.0-dev"
+
+#endif //HL_CONFIG_HPP

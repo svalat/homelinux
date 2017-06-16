@@ -1,0 +1,13 @@
+{
+	"general": {
+		"credits": 2,
+		"eventRailMaxDataSize": 2097152,
+		"eventMaxMetaSize": 2048,
+		"ruStoredEvents": 512,
+		"runTimeout": 10,
+		"mode": "PUSH"
+	},
+	"debug": {
+		"show": ["em","bu","ru"]
+	}
+}

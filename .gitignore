@@ -1,0 +1,4 @@
+/build*
+.kdev4/
+homelinux.kdev4
+*.orig
