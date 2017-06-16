@@ -49,15 +49,26 @@ bool VersionMatcher::match(const std::string & version,const SlotDef & slots)
 }
 
 /*******************  FUNCTION  *********************/
-void VersionMatcher::filterList(VersionList & list,const SlotDef & slots)
+VersionList VersionMatcher::filterList(const VersionList & list,const SlotDef & slots)
 {
-    
+    VersionList out;
+    for (auto & version : list)
+        if (match(version,slots))
+            out.push_back(version);
+    return out;
 }
 
 /*******************  FUNCTION  *********************/
-VersionList VersionMatcher::sortList(const VersionList & list)
+static bool versionSortCompare(const std::string & a,const std::string & b)
 {
-    
+    return VersionMatcher::compareVersion(a,b) == -1;
+}
+
+/*******************  FUNCTION  *********************/
+VersionList VersionMatcher::sortList(VersionList list)
+{
+    list.sort(versionSortCompare);
+    return list;
 }
 
 /*******************  FUNCTION  *********************/

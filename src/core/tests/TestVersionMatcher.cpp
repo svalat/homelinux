@@ -188,3 +188,65 @@ TEST(VersionMatcher,getSlot_3)
     EXPECT_EQ("3.9",VersionMatcher::getSlot(slots,"3.9.1"));
     EXPECT_EQ("4.1",VersionMatcher::getSlot(slots,"4.1.8.6"));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(VersionMatcher,filterList_1)
+{
+    VersionList lst;
+    lst.push_back("1.2.1");
+    lst.push_back("1.2.2");
+    lst.push_back("1.3.1");
+    lst.push_back("2.3.1");
+    
+    VersionMatcher match(">=1.2.2 <=1.3.1");
+    VersionList out = match.filterList(lst);
+    
+    EXPECT_EQ("1.2.2",*(out.begin()));
+    EXPECT_EQ("1.3.1",*(++out.begin()));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(VersionMatcher,filterList_2)
+{
+    SlotDef slots;
+    slots["~"] = "([0-9]+\\.[0-9]+)";
+    
+    VersionList lst;
+    lst.push_back("1.2.1");
+    lst.push_back("1.2.2");
+    lst.push_back("1.3.1");
+    lst.push_back("2.3.1");
+    
+    VersionMatcher match(":1.2");
+    VersionList out = match.filterList(lst,slots);
+    
+    EXPECT_EQ("1.2.1",*(out.begin()));
+    EXPECT_EQ("1.2.2",*(++out.begin()));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(VersionMatcher,sortList)
+{
+    VersionList list;
+    list.push_back("2.3.1");
+    list.push_back("1.2.1");
+    list.push_back("2.3");
+    list.push_back("1.2");
+    
+    VersionList sorted = VersionMatcher::sortList(list);
+    
+    VersionList ref;
+    ref.push_back("1.2");
+    ref.push_back("1.2.1");
+    ref.push_back("2.3");
+    ref.push_back("2.3.1");
+    
+    auto it = sorted.begin();
+    auto itRef = ref.begin();
+    for (int i = 0 ; i < 4 ; i++)
+    {
+        EXPECT_EQ(*itRef,*it);
+        ++itRef;
+        ++it;
+    }
+}

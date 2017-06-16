@@ -33,8 +33,8 @@ class VersionMatcher
     public: 
         VersionMatcher(const std::string & rules);
         bool match(const std::string & version,const SlotDef & slots = gblSlotNone);
-        void filterList(VersionList & list,const SlotDef & slots = gblSlotNone);
-        static VersionList sortList(const VersionList & list);
+        VersionList filterList(const VersionList & list,const SlotDef & slots = gblSlotNone);
+        static VersionList sortList(VersionList list);
         static int compareVersion(const std::string & v1,const std::string & v2);
         static std::string fillNumber(const std::string & value,int pad = 16);
         static std::string getSlot(const SlotDef & slots,const std::string & version);
