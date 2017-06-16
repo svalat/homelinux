@@ -9,6 +9,7 @@
 /********************  HEADERS  *********************/
 #include <map>
 #include <base/Debug.hpp>
+#include <base/Helper.hpp>
 #include "UseFlags.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -151,31 +152,9 @@ std::string UseFlags::toString(bool force)
 **/
 UseFlags & UseFlags::merge(const std::string & flags)
 {
-     //vars
-    char buffer[1024];
-    
-    //read
-    int cnt = 0;
-    for (int i = 0 ; i < flags.size() ; i++)
-    {
-        if (flags[i] == ' ' && cnt > 0)
-        {
-            buffer[cnt] = '\0';
-            cnt = 0;
-            addOne(buffer);
-        } else if (flags[i] != ' ') {
-            buffer[cnt++] = flags[i];
-            assume(cnt < 1024,"Flag name is too large");
-        }
-    }
-    
-    //flush
-    buffer[cnt] = '\0';
-    if (cnt > 0)
-        addOne(buffer);
-    
-    //ret
-    return *this;
+    Helper::stringSplit(flags,' ',[this](const std::string & value){
+        this->addOne(value);
+    });
 }
 
 /*******************  FUNCTION  *********************/

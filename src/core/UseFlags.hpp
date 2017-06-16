@@ -12,7 +12,6 @@
 /********************  HEADERS  *********************/
 //std
 #include <string>
-#include <list>
 #include <map>
 
 /*******************  NAMESPACE  ********************/
@@ -28,7 +27,6 @@ enum UseFlagState
 };
 
 /********************* TYPES ************************/
-typedef std::list<std::string> FlagList;
 typedef std::map<std::string,UseFlagState> UseFlagStateMap;
 
 /*********************  CLASS  **********************/

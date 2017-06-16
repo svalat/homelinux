@@ -7,7 +7,7 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-base OBJECT FormattedMessage.cpp Debug.cpp Config.cpp)
+add_library(homelinux-base OBJECT FormattedMessage.cpp Debug.cpp Config.cpp Helper.cpp)
 #SET_TARGET_PROPERTIES(daqpipe-common PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################
