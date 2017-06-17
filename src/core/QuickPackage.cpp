@@ -33,7 +33,7 @@ static const char * gblProperties[] = {
 static const char* gblHosts[] = {
 	"centos7",
 	"debian8",
-	"user",
+	"default",
 	"gentoo"
 };
 
@@ -145,7 +145,7 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 		const StringList & lst = this->getQuickInfo(host,name);
 		if (lst.empty() == false)
 		{
-			if (host == "user")
+			if (host == "default")
 					pack.host[host] = true;
 			else
 					Helper::toJson(pack.host[host],lst);

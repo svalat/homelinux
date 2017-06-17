@@ -15,6 +15,7 @@
 #include <functional>
 #include <list>
 #include <map>
+#include <vector>
 #include "Debug.hpp"
 
 /*******************  TYPES  ************************/
@@ -33,6 +34,7 @@ typedef std::map<std::string,std::string> StringMap;
 typedef std::map<std::string,std::list<std::string>> StringMapList;
 typedef std::list<std::string> StringList;
 typedef std::map<std::string,Json::Value> JsonMap;
+typedef std::vector<std::string> StringVector;
 
 /********************  STRUCT  **********************/
 struct Helper
@@ -52,6 +54,7 @@ struct Helper
 	static void merge(StringMap & out,const StringMap & override);
 	static void merge(StringList & out,const StringList & override);
 	static void merge(StringMapList & out,const StringMapList & override,bool erase);
+	static bool startBy(const std::string & v1,const std::string & v2);
 };
 
 /*******************  FUNCTION  *********************/

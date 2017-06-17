@@ -10,6 +10,7 @@
 add_library(homelinux-core OBJECT UseFlags.cpp
                                   EnvSetup.cpp
                                   Prefix.cpp
+                                  HostPkgChecker.cpp
                                   QuickPackage.cpp
                                   PackageDef.cpp
                                   VersionMatcher.cpp)

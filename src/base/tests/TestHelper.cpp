@@ -184,3 +184,11 @@ TEST(Helper,merge_StringList_2)
 	EXPECT_EQ("c",Helper::getListEl(l1,1));
 	EXPECT_EQ("d",Helper::getListEl(l1,2));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(Helper,startBy)
+{
+	EXPECT_TRUE(Helper::startBy("Hello","He"));
+	EXPECT_FALSE(Helper::startBy("Hello","he"));
+	EXPECT_FALSE(Helper::startBy("Hello","Hello World"));
+}

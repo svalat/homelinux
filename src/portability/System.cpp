@@ -14,6 +14,7 @@
 #include <fstream>
 #include <base/Debug.hpp>
 #include <json/json.h>
+#include <dirent.h>
 #include "System.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -102,6 +103,33 @@ void System::loadJson(Json::Value & out,const std::string & path)
 		.arg(path)
 		.arg(reader.getFormattedErrorMessages())
 		.end();
+}
+
+/*******************  FUNCTION  *********************/
+void System::readDir(const std::string & path,std::function<void(const std::string &)> callback)
+{
+	//open
+	DIR * dir = opendir(path.c_str());
+	assumeArg(dir != NULL,"Fail to scan directory : %1. %2").arg(path).argStrErrno().end();
+	
+	//loop
+	for(;;)
+	{
+		dirent * d = readdir(dir);
+		if (d == NULL)
+			break;
+		else
+			callback(d->d_name);
+	}
+	
+	//close
+	closedir(dir);
+}
+
+/*******************  FUNCTION  *********************/
+int System::runCommand(const std::string & cmd)
+{
+	return system(cmd.c_str());
 }
 
 }

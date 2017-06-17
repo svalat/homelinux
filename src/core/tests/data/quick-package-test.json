@@ -12,8 +12,8 @@
 	{
 		"centos7" : [ "test" ],
 		"debian8" : [ "test" ],
-		"gentoo" : [ "app-test/test" ],
-		"user" : true
+		"default" : true,
+		"gentoo" : [ "app-test/test" ]
 	},
 	"inherit" : "models/cmake",
 	"md5" : null,

@@ -12,6 +12,7 @@
 /********************  HEADERS  *********************/
 //std
 #include <string>
+#include <functional>
 
 /*******************  TYPES  ************************/
 //to avoid to include json.hpp everywhere
@@ -32,6 +33,8 @@ struct System
 	static std::string getEnv(const std::string & name,const std::string & defaultValue = "");
 	static std::string loadFile(const std::string & path);
 	static void loadJson(Json::Value & out,const std::string & path);
+	static void readDir(const std::string & path,std::function<void(const std::string &)> callback);
+	static int runCommand(const std::string & cmd);
 };
 
 }

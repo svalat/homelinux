@@ -10,6 +10,7 @@
 //std
 #include "Debug.hpp"
 #include "Helper.hpp"
+#include <cstring>
 #include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
@@ -173,6 +174,17 @@ void Helper::merge(StringMapList & out,const StringMapList & override,bool erase
 		else
 			merge(out[it.first],it.second);
 	}
+}
+
+/********************  STRUCT  **********************/
+bool Helper::startBy(const std::string & v1,const std::string & v2)
+{
+	//if too large
+	if (v2.size() > v1.size())
+		return false;
+	
+	//check
+	return (strncmp(v1.c_str(),v2.c_str(),v2.size()) == 0);
 }
 
 }
