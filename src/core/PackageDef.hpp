@@ -44,7 +44,7 @@ struct PackageDef
 	void load(Json::Value & json);
 	void save(const std::string & path);
 	void save(std::ostream & out);
-	void apply(const PackageDef & def);
+	void merge(const PackageDef & def);
 	void save(Json::Value & json);
 	//helpers
 	static void jsonToObj(StringList & out,const Json::Value & json);
@@ -55,6 +55,9 @@ struct PackageDef
 	static void toJson(Json::Value & out,const StringMap & map);
 	static void toJson(Json::Value & out,const StringMapList & mapList);
 	static void toJson(Json::Value & out,const JsonMap & map);
+	static void merge(StringMap & out,const StringMap & override);
+	static void merge(StringList & out,const StringList & override);
+	static void merge(StringMapList & out,const StringMapList & override,bool erase);
 	//members
 	std::string name;
 	std::string homepage;

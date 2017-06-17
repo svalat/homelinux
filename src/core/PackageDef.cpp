@@ -50,13 +50,13 @@ void PackageDef::load(const std::string & path)
 void PackageDef::load(Json::Value & json)
 {
 	this->name = json.get("name","").asString();
-	this->homepage = json.get("home","").asString();
+	this->homepage = json.get("homepage","").asString();
 	this->inherit = json.get("inherit","").asString();
 	this->jsonToObj(versions,json["versions"]);
-	this->vfetcher.mode = json.get("mode","").asString();
-	this->vfetcher.url = json.get("url","").asString();
-	this->vfetcher.regexp = json.get("regexp","").asString();
-	this->jsonToObj(md5,json["mod5"]);
+	this->vfetcher.mode = json["vfetcher"].get("mode","").asString();
+	this->vfetcher.url = json["vfetcher"].get("url","").asString();
+	this->vfetcher.regexp = json["vfetcher"].get("regexp","").asString();
+	this->jsonToObj(md5,json["md5"]);
 	this->subdir = json.get("subdir","").asString();
 	this->jsonToObj(deps,json["deps"]);
 	this->host = json["host"];
@@ -89,7 +89,7 @@ void PackageDef::save(Json::Value & json)
 	toJson(json["configure"],configure);
 	toJson(json["vspecific"],vspecific);
 	toJson(json["steps"],steps);
-	toJson(json["conflicts"],steps);
+	toJson(json["conflicts"],conflicts);
 	toJson(json["use"],use);
 	toJson(json["warn"],warn);
 	json["module"] = module;
@@ -99,9 +99,40 @@ void PackageDef::save(Json::Value & json)
 }
 
 /*******************  FUNCTION  *********************/
-void PackageDef::apply(const PackageDef & def)
+void PackageDef::merge(const PackageDef & def)
 {
-	
+	if (def.name.empty() == false)
+		name = def.name;
+	if (def.homepage.empty() == false)
+		homepage = def.homepage;
+	if (def.inherit.empty() == false)
+		inherit = def.inherit;
+	if (def.versions.empty() == false)
+		versions = def.versions;
+	if (def.vfetcher.mode.empty() == false)
+		vfetcher.mode = def.vfetcher.mode;
+	if (def.vfetcher.url.empty() == false)
+		vfetcher.url = def.vfetcher.url;
+	if (def.vfetcher.regexp.empty() == false)
+		vfetcher.regexp = def.vfetcher.regexp;
+	merge(md5,def.md5);
+	if (def.subdir.empty() == false)
+		subdir = def.subdir;
+	merge(deps,def.deps);
+	//@TODO make better merge
+	host = def.host;
+	merge(configure,def.configure,false);
+	for (auto & it : def.vspecific)
+		vspecific[it.first] = it.second;
+	merge(steps,def.steps,true);
+	merge(conflicts,def.conflicts);
+	merge(use,def.use);
+	merge(warn,def.warn);
+	if (def.module.empty() == false)
+		module = def.module;
+	merge(scripts,def.scripts);
+	merge(vars,def.vars);
+	merge(flags,def.flags,false);
 }
 
 /*******************  FUNCTION  *********************/
@@ -194,6 +225,42 @@ void PackageDef::toJson(Json::Value & out,const JsonMap & map)
 {
 	for (auto & it : map)
 		out[it.first] = it.second;
+}
+
+/********************  STRUCT  **********************/
+void PackageDef::merge(StringMap & out,const StringMap & override)
+{
+	for (auto & it : override)
+		out[it.first] = it.second;
+}
+
+/********************  STRUCT  **********************/
+void PackageDef::merge(StringList & out,const StringList & override)
+{
+	for (auto & it : override)
+	{
+		if (it[0] == '!')
+		{
+			std::string tmp = it.substr(1);
+			for (auto it = out.begin() ; it != out.end() ; ++it)
+				if (*it == tmp)
+					it = out.erase(it);
+		} else {
+			out.push_back(it);
+		}
+	}
+}
+
+/********************  STRUCT  **********************/
+void PackageDef::merge(StringMapList & out,const StringMapList & override,bool erase)
+{
+	for (auto & it : override)
+	{
+		if (out.find(it.first) == out.end() || erase)
+			out[it.first] = it.second;
+		else
+			merge(out[it.first],it.second);
+	}
 }
 
 }

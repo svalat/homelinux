@@ -1,0 +1,88 @@
+
+{
+	"configure" : 
+	{
+		"" : [ "--with-curses=$(hl_prefix curses)", "--static" ],
+		"+profile" : [ "--enable-profile" ],
+		"+ssl & +openssl" : [ "--enable-profile" ],
+		"-profile" : [ "--disable-profile" ],
+		"debug" : [ "--$enable-debug" ],
+		"optimize" : [ "--enable-sse" ]
+	},
+	"conflicts" : [ "jmake", "hmake" ],
+	"deps" : 
+	[
+		"make",
+		"gcc > 3.4 < 4.8 ! 4.5.8",
+		"install = 4.5",
+		"curses? curses:4[+shell,-gui,lst,#requireIfParentHas] >3.4 <4.8 <=4.8 !4.5.8 ~4\\.5\\.[0-9]+",
+		"static? app-static/static"
+	],
+	"flags" : 
+	{
+		"C" : [ "!-ffastmath", "-O4" ],
+		"CXX" : [ "--stdc++11" ],
+		"F" : [ "" ],
+		"LD" : [ "-L/usr/lib" ]
+	},
+	"homepage" : "http://home.com",
+	"host" : 
+	{
+		"debian8" : [ "shell" ],
+		"default" : false
+	},
+	"inherit" : "spec",
+	"md5" : 
+	{
+		"2.5" : "eff5bc1ef8ec9d03e640fc4370f5eacd",
+		"3.8" : "7fc43b4622767e4d815d75685e1d0807"
+	},
+	"module" : "gcc-${SLOT}",
+	"name" : "app-shell/bash2",
+	"scripts" : [ "models/scripts/default.sh", "models/scripts/opt.sh" ],
+	"steps" : 
+	{
+		"install" : [ "run ./prepinstall.sh", "run make install" ],
+		"prepare" : [ "./autogen.sh" ],
+		"test" : [ "run make test" ]
+	},
+	"subdir" : "bash2-${VERSION}",
+	"use" : [ "-debug", "-expat", "+debug", "static" ],
+	"vars" : 
+	{
+		"PYTHON_SLOT" : "4",
+		"SETUP" : "module"
+	},
+	"versions" : [ "5.5", "5.6" ],
+	"vfetcher" : 
+	{
+		"mode" : "http",
+		"regexp" : "http://ftp.cwru.edu/pub/bash",
+		"url" : "bash2-([0-9]+.[0-9]+).tar.gz"
+	},
+	"vspecific" : 
+	{
+		"4.2" : 
+		{
+			"configure" : 
+			{
+				"" : [ "--enable-bugfix" ]
+			}
+		},
+		"4.3" : 
+		{
+			"configure" : 
+			{
+				"" : [ "--enable-bugfix3" ]
+			}
+		},
+		":4 >3.4 <4.8 !4.5.8 ~4\\.5\\.[0-9]+" : 
+		{
+			"configure" : 
+			{
+				"" : [ "!--enable-bugfix" ]
+			}
+		}
+	},
+	"warn" : [ "Some warning to print (NOT YET SUPPORTED)", "This is ok" ]
+}

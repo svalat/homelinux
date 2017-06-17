@@ -8,11 +8,7 @@
 		"-profile" : [ "--disable-profile" ],
 		"debug" : [ "--$enable-debug" ]
 	},
-	"conflicts" : 
-	{
-		"install" : [ "run make install" ],
-		"prepare" : [ "./autogen.sh" ]
-	},
+	"conflicts" : [ "jmake" ],
 	"deps" : 
 	[
 		"make",
@@ -27,14 +23,17 @@
 		"F" : [ "" ],
 		"LD" : [ "-L/usr/lib" ]
 	},
-	"homepage" : "",
+	"homepage" : "http://www.home.com",
 	"host" : 
 	{
 		"debian8" : [ "bash" ],
 		"default" : true
 	},
 	"inherit" : "models/autotools",
-	"md5" : null,
+	"md5" : 
+	{
+		"2.5" : "eff5bc1ef8ec9d03e640fc4370f5eacd"
+	},
 	"module" : "gcc-${VERSION}",
 	"name" : "app-shell/bash",
 	"scripts" : [ "models/scripts/default.sh" ],
@@ -52,9 +51,9 @@
 	"versions" : [ "4.0", "4.1", "4.2", "4.3" ],
 	"vfetcher" : 
 	{
-		"mode" : "",
-		"regexp" : "",
-		"url" : ""
+		"mode" : "ftp",
+		"regexp" : "ftp://ftp.cwru.edu/pub/bash",
+		"url" : "bash-([0-9]+.[0-9]+).tar.gz"
 	},
 	"vspecific" : 
 	{

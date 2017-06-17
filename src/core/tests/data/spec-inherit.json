@@ -1,0 +1,61 @@
+
+{
+	"configure" : 
+	{
+		"" : [ "!--enable-always", "--static" ],
+		"optimize": [ "--enable-sse" ]
+	},
+	"conflicts" : [ "hmake" ],
+	"deps" : 
+	[
+		"static? app-static/static"
+	],
+	"flags" : 
+	{
+		"C" : [ "!-O3", "-O4" ]
+	},
+	"homepage" : "http://home.com",
+	"host" : 
+	{
+		"debian8" : [ "shell" ],
+		"default" : false
+	},
+	"inherit" : "spec",
+	"md5" : 
+	{
+		"3.8" : "7fc43b4622767e4d815d75685e1d0807"
+	},
+	"module" : "gcc-${SLOT}",
+	"name" : "app-shell/bash2",
+	"scripts" : [ "models/scripts/opt.sh" ],
+	"steps" : 
+	{
+		"install" : [ "run ./prepinstall.sh", "run make install" ],
+		"test": [ "run make test" ]
+	},
+	"subdir" : "bash2-${VERSION}",
+	"use" : [ "+debug", "static" ],
+	"vars" : 
+	{
+		"PYTHON_SLOT" : "4",
+		"SETUP": "module"
+	},
+	"versions" : [ "5.5", "5.6" ],
+	"vfetcher" : 
+	{
+		"mode" : "http",
+		"regexp" : "http://ftp.cwru.edu/pub/bash",
+		"url" : "bash2-([0-9]+.[0-9]+).tar.gz"
+	},
+	"vspecific" : 
+	{
+		"4.3" : 
+		{
+			"configure" : 
+			{
+				"" : [ "--enable-bugfix3" ]
+			}
+		}
+	},
+	"warn" : [ "This is ok" ]
+}

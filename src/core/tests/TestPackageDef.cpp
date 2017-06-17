@@ -134,3 +134,58 @@ TEST(PackageDef,load_and_save)
 	def.save(out);
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(PackageDef,merge)
+{
+	PackageDef def;
+	def.load(TEST_DATA_PATH "/spec.json");
+	
+	ASSERT_EQ("app-shell/bash",def.name);
+	
+	PackageDef child;
+	child.load(TEST_DATA_PATH "/spec-inherit.json");
+	def.merge(child);
+	
+	std::stringstream out;
+	def.save(out);
+	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec-merged.json"),out.str());
+}
+
+/*******************  FUNCTION  *********************/
+TEST(PackageDef,merge_StringList_1)
+{
+	StringList l1;
+	l1.push_back("a");
+	l1.push_back("b");
+	
+	StringList l2;
+	l2.push_back("c");
+	l2.push_back("d");
+	
+	PackageDef::merge(l1,l2);
+	
+	EXPECT_EQ("a",Helper::getListEl(l1,0));
+	EXPECT_EQ("b",Helper::getListEl(l1,1));
+	EXPECT_EQ("c",Helper::getListEl(l1,2));
+	EXPECT_EQ("d",Helper::getListEl(l1,3));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(PackageDef,merge_StringList_2)
+{
+	StringList l1;
+	l1.push_back("a");
+	l1.push_back("b");
+	
+	StringList l2;
+	l2.push_back("c");
+	l2.push_back("d");
+	l2.push_back("!a");
+	
+	PackageDef::merge(l1,l2);
+	
+	EXPECT_EQ("b",Helper::getListEl(l1,0));
+	EXPECT_EQ("c",Helper::getListEl(l1,1));
+	EXPECT_EQ("d",Helper::getListEl(l1,2));
+}
