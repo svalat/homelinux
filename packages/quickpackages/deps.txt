@@ -1,0 +1,94 @@
+############################ FROM svhomelinux (V0) ################################
+gentoo/mpfr gmp
+gentoo/mpc mpfr gmp
+gentoo/gcc gmp mpfr mpc binutils libtool
+gentoo/dbus-glib expat
+gentoo/XML-Parser expat
+gentoo/intltool XML-Parser
+gentoo/dbus-glib dbus
+gentoo/dbus libxml2
+gentoo/gitg glib gtk+:2 gtksourceview gsettings-desktop-schemas libglade
+gentoo/phonon automoc4
+gentoo/libdbusmenu-qt qjson qt:4
+gentoo/strigi bzip2
+gentoo/geany XML-Parser gtk+:2
+gentoo/gnome-doc-utils scrollkeeper
+gentoo/vte binutils gtk+:2
+gentoo/gcalctool intltool gnome-doc-utils libxslt libxml2
+gentoo/dia glib gtk+:2 pango libxml2 atk libxslt libart_lgpl intltool docbook-xsl
+gentoo/docbook-xsl docbook-xml sgml-common
+gentoo/pygtk pygobject
+gentoo/pygobject gobject-introspection glib pycairo
+gentoo/gobject-introspection libffi
+gentoo/libcanberra libvorbis
+gentoo/libvorbis libogg
+gentoo/kdevelop kdevplatform kdebase-workspace
+gentoo/kdebase-workspace qimageblitz libxkbfile libpng libXcomposite libXrandr libXdamage libXcursor kdelibs
+gentoo/libXcomposite compositeproto libXfixes
+gentoo/libXdamage damageproto
+gentoo/libXcursor libXfixes
+gentoo/indent texi2html
+gentoo/kdebase kdelibs oxygen-icons
+gentoo/kdesdk kdelibs graphviz
+gentoo/kdev-xtest veritas kdevelop
+gentoo/acl attr
+gentoo/gkrellm gtk+:2
+gentoo/glibc binutils libtool
+gentoo/kdelibs pcre qt:4 automoc4 phonon strigi attica giflib aspell libdbusmenu-qt docbook-xsl shared-mime-info soprano libxslt
+gentoo/soprano qt:4
+gentoo/kdiff3 qt:4 diffutils
+gentoo/sgml-common automake autoconf
+gentoo/poppler gdk-pixbuf
+gentoo/gimp babl tiff gegl
+gentoo/gegl babl json-glib virtual/jpeg
+gentoo/kdegraphics libkdcraw
+gentoo/shared-mime-info intltool
+gentoo/kchmviewer chmlib
+gentoo/evince gnome-icon-theme gnome-keyring
+gentoo/gnome-icon-theme icon-naming-utils
+gentoo/icon-naming-utils XML-Simple
+gentoo/gnome-keyring libgcrypt libtasn1
+gentoo/libgcrypt libgpg-error
+############################### FROM HOMELINUX 1.0.0 ###############################
+gentoo/libXau xproto dev-util/pkgconfig
+gentoo/xorg-server pixman libdrm glproto mesa
+gentoo/libXxf86vm libXext xf86vidmodeproto
+gentoo/libX11 libxcb xtrans xproto xf86bigfontproto inputproto kbproto xextproto
+gentoo/libXi libXfixes
+gentoo/libXrandr libXrender randrproto
+gentoo/libXrender renderproto
+gentoo/libXfixes fixesproto xextproto xproto libX11
+gentoo/flex bison
+gentoo/gource freetype pcre glew glu SDL@~1.2 SDL_image
+gentoo/pcre cmake
+gentoo/mesa glproto dri2proto dri3proto presentproto libxcb libxshmfence xextproto libXdamage libomxil-bellagio
+gentoo/glproto libdrm
+gentoo/libdrm libpthread-stubs libpciaccess
+gentoo/libxcb xcb-proto libXau libpthread-stubs
+gentoo/udisks libgudev
+gentoo/libgudev udev
+gentoo/libmng lcms
+gentoo/gobject-introspection glib
+gentoo/meld intltool itstool
+gentoo/librsvg gdk-pixbuf glib pango cairo libcroco
+gentoo/libcroco glib
+#################################### FOR TESTE #####################################
+none/test gcc
+#################################### FOR USER ######################################
+gentoo/nemiver boost sqlite GConf dbus dbus-glib libgtop glibmm gnome-doc-utils gtkmm@:3 gtksourceviewmm vte
+gentoo/libgtksourceviewmm pangomm
+gentoo/gtksourceviewmm gtkmm@:3 gtksourceview
+gentoo/GConf glib ORBit2 libxml2 dbus-glib
+gentoo/ORBit2 libIDL
+gentoo/at-spi2-atk at-spi
+gentoo/at-spi libbonobo
+gentoo/libbonoboui libbonobo libgnome activation libgnomecanvas
+gentoo/libgnome gnome-vfs libbonobo
+gentoo/libbonobo popt
+gentoo/upower glib:2
+gentoo/polkit-qt polkit
+gentoo/rgb util-macros xproto
+gentoo/lzo cmake
+gentoo/ragel colm
+gentoo/libXaw libXt libXmu
+gentoo/swig pcre

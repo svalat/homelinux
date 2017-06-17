@@ -27,6 +27,7 @@
 	},
 	"module" : "gcc-${SLOT}",
 	"name" : "app-shell/bash2",
+	"patch" : [ "bash-2.3-fix-other-spell.patch" ],
 	"scripts" : [ "models/scripts/opt.sh" ],
 	"steps" : 
 	{
@@ -34,6 +35,7 @@
 		"test": [ "run make test" ]
 	},
 	"subdir" : "bash2-${VERSION}",
+	"urls" : [ "http://www.package2.org" ],
 	"use" : [ "+debug", "static" ],
 	"vars" : 
 	{

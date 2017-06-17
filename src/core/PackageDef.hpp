@@ -60,6 +60,8 @@ struct PackageDef
 	StringList scripts;
 	StringMap vars;
 	StringMapList flags;
+	StringList urls;
+	StringList patch;
 };
 
 }

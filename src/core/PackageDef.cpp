@@ -53,6 +53,8 @@ void PackageDef::loadJson(const Json::Value & json)
 	Helper::jsonToObj(scripts,json["scripts"]);
 	Helper::jsonToObj(vars,json["vars"]);
 	Helper::jsonToObj(flags,json["flags"]);
+	Helper::jsonToObj(urls,json["urls"]);
+	Helper::jsonToObj(patch,json["patch"]);
 }
 
 /*******************  FUNCTION  *********************/
@@ -79,6 +81,8 @@ void PackageDef::save(Json::Value & json)
 	Helper::toJson(json["scripts"],scripts);
 	Helper::toJson(json["vars"],vars);
 	Helper::toJson(json["flags"],flags);
+	Helper::toJson(json["urls"],urls);
+	Helper::toJson(json["patch"],patch);
 }
 
 /*******************  FUNCTION  *********************/
@@ -116,6 +120,8 @@ void PackageDef::merge(const PackageDef & def)
 	Helper::merge(scripts,def.scripts);
 	Helper::merge(vars,def.vars);
 	Helper::merge(flags,def.flags,false);
+	Helper::merge(urls,def.urls);
+	Helper::merge(patch,def.patch);
 }
 
 /*******************  FUNCTION  *********************/

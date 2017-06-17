@@ -38,6 +38,7 @@
 	},
 	"module" : "gcc-${VERSION}",
 	"name" : "app-shell/bash",
+	"patch" : [ "bash-2.3-fix-spell.patch" ],
 	"scripts" : [ "models/scripts/default.sh" ],
 	"steps" : 
 	{
@@ -45,6 +46,7 @@
 		"prepare" : [ "./autogen.sh" ]
 	},
 	"subdir" : "bash-${VERSION}",
+	"urls" : [ "http://www.package.org" ],
 	"use" : [ "-debug", "-expat" ],
 	"vars" : 
 	{

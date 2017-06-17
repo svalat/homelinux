@@ -1,0 +1,2 @@
+gentoo/SDL sdl-1.2-xdata.patch
+none/test test-1.3-fix.patch

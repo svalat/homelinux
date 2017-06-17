@@ -1,0 +1,32 @@
+
+{
+	"configure" : 
+	{
+		"" : [ "--enable-debug" ]
+	},
+	"conflicts" : null,
+	"deps" : [ "gcc" ],
+	"flags" : null,
+	"homepage" : "",
+	"host" : null,
+	"inherit" : "models/cmake",
+	"md5" : null,
+	"module" : "test-${VERSION}",
+	"name" : "none/test",
+	"patch" : [ "test-1.3-fix.patch" ],
+	"scripts" : null,
+	"steps" : null,
+	"subdir" : "test_${VERSINO}",
+	"urls" : null,
+	"use" : null,
+	"vars" : null,
+	"versions" : [ "1.3.0" ],
+	"vfetcher" : 
+	{
+		"mode" : "",
+		"regexp" : "",
+		"url" : ""
+	},
+	"vspecific" : null,
+	"warn" : null
+}

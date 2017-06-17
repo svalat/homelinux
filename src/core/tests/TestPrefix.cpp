@@ -17,5 +17,6 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(Prefix,constructor)
 {
-	Prefix prefix(TEST_DATA_PATH);
+    Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
 }

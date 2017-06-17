@@ -40,6 +40,7 @@
 	},
 	"module" : "gcc-${SLOT}",
 	"name" : "app-shell/bash2",
+	"patch" : [ "bash-2.3-fix-spell.patch", "bash-2.3-fix-other-spell.patch" ],
 	"scripts" : [ "models/scripts/default.sh", "models/scripts/opt.sh" ],
 	"steps" : 
 	{
@@ -48,6 +49,7 @@
 		"test" : [ "run make test" ]
 	},
 	"subdir" : "bash2-${VERSION}",
+	"urls" : [ "http://www.package.org", "http://www.package2.org" ],
 	"use" : [ "-debug", "-expat", "+debug", "static" ],
 	"vars" : 
 	{

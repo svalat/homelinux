@@ -12,6 +12,7 @@
 /********************  HEADERS  *********************/
 //std
 #include <base/Helper.hpp>
+#include <base/Config.hpp>
 #include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
@@ -38,12 +39,15 @@ struct PrefixConfig
 class Prefix
 {
     public:
-        Prefix(const std::string & prefix);
+        Prefix(const Config *config, const std::string & prefix, bool master = false);
+        std::string getFilePath(const std::string path) const;
     private:
         void loadConfig(void);
     private:
+        const Config * config;
         std::string prefix;
-        PrefixConfig config;
+        PrefixConfig prefixConfig;
+        bool master;
 };
 
 }

@@ -1,0 +1,32 @@
+
+{
+	"configure" : 
+	{
+		"" : null
+	},
+	"conflicts" : null,
+	"deps" : null,
+	"flags" : null,
+	"homepage" : "",
+	"host" : null,
+	"inherit" : "models/auto",
+	"md5" : null,
+	"module" : "",
+	"name" : "none/empty",
+	"patch" : null,
+	"scripts" : null,
+	"steps" : null,
+	"subdir" : "empty-${VERSION}",
+	"urls" : null,
+	"use" : null,
+	"vars" : null,
+	"versions" : null,
+	"vfetcher" : 
+	{
+		"mode" : "",
+		"regexp" : "",
+		"url" : ""
+	},
+	"vspecific" : null,
+	"warn" : null
+}

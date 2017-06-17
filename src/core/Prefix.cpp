@@ -8,6 +8,7 @@
 
 /********************  HEADERS  *********************/
 //std
+#include <cassert>
 #include <portability/System.hpp>
 #include "Prefix.hpp"
 
@@ -16,13 +17,16 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
-Prefix::Prefix(const std::string & prefix)
+Prefix::Prefix(const Config * config,const std::string & prefix, bool master)
 {
-    //compute file path
+    //checks
+    assert(config != NULL);
 	assume(prefix.empty() == false,"Invalid empty prefix");
     
     //setup
+    this->config = config;
     this->prefix = prefix;
+    this->master = false;
     
     //load config
     this->loadConfig();
@@ -39,17 +43,24 @@ void Prefix::loadConfig(void)
     System::loadJson(json,path);
     
     //apply
-    Helper::jsonToObj(config.inherit,json["inherit"]);
-    Helper::jsonToObj(config.flags,json["flags"]);
-    Helper::jsonToObj(config.override,json["override"]);
-    Helper::jsonToObj(config.versions,json["versions"]);
-    Helper::jsonToObj(config.use,json["user"]);
-    Helper::jsonToObj(config.modules,json["modules"]);
-    Helper::jsonToObj(config.packageOverride,json["packageOverride"]);
-    config.gentoo = json["gentoo"];
-    config.debian = json["debian"];
-    Helper::jsonToObj(config.providers,json["providers"]);
-    config.useGnuStow = json.get("useGnuStow",false).asBool();
+    Helper::jsonToObj(prefixConfig.inherit,json["inherit"]);
+    Helper::jsonToObj(prefixConfig.flags,json["flags"]);
+    Helper::jsonToObj(prefixConfig.override,json["override"]);
+    Helper::jsonToObj(prefixConfig.versions,json["versions"]);
+    Helper::jsonToObj(prefixConfig.use,json["user"]);
+    Helper::jsonToObj(prefixConfig.modules,json["modules"]);
+    Helper::jsonToObj(prefixConfig.packageOverride,json["packageOverride"]);
+    prefixConfig.gentoo = json["gentoo"];
+    prefixConfig.debian = json["debian"];
+    Helper::jsonToObj(prefixConfig.providers,json["providers"]);
+    prefixConfig.providers.push_front("models");
+    prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
+}
+
+/*******************  FUNCTION  *********************/
+std::string Prefix::getFilePath(const std::string path) const
+{
+    return this->prefix + "/" + path;
 }
 
 }

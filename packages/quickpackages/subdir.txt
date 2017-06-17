@@ -1,0 +1,2 @@
+gentoo/gcc gcc-$VERSION
+none/test test_${VERSINO}
