@@ -43,7 +43,7 @@ namespace hl
 /**
  * String to print names of debug levels.
 **/
-#ifdef ENABLE_COLOR
+#ifdef ENABLE_COLORS
 	static const char * cstLevelPrefix[] = {COLOR_RED "Assert : ",COLOR_CYAN , COLOR_CYAN,"", COLOR_YELLOW "Warning : ", COLOR_RED"Error : ",COLOR_RED"Fatal : "};
 	static const char * cstPostfix = COLOR_NORMAL;
 #else

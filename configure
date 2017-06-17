@@ -72,6 +72,7 @@ Optional Features:
    --enable-valgrind         Enable valgrind on unit tests (-DENABLE_VALGRIND=yes).
    --disable-tests           Disable unit tests of the lib (-DENABLE_TESTS=no).
    --enable-jenkins          Enable all checking modes (unit, valgrind, coverage...).
+   --disable-colors          Disable usage of colors in terminal (-DENABLE_COLOR=no)
 
 To find libs and commands :
    --with-cmake={command}    Define the cmake command to use [cmake].
@@ -142,8 +143,11 @@ do
 		--enable-debug)
 			BUILD_TYPE='Debug'
 			;;
+		--enable-colors | --disable-colors)
+			ENABLE_COLORS="-DENABLE_COLORS=`enabl_disabl_to_yes_no $arg`"
+			;;
 		--enable-gcc-coverage | --disable-gcc-coverage)
-			ENABLE_GCC_COVERAGE="-DENABLE_GCC_COVERAGE=`enabl_disabl_to_yes_no $arg`"
+			ENABLE_COLORS="-DENABLE_COLORS=`enabl_disabl_to_yes_no $arg`"
 			;;
 		--enable-junit-output | --disable-junit-output)
 			ENABLE_JUNIT_OUT="-DENABLE_JUNIT_OUTPUT=`enabl_disabl_to_yes_no $arg`"
@@ -223,7 +227,7 @@ gen_clean_command()
 COMMAND="`gen_clean_command "${CMAKE}" "-DCMAKE_BUILD_TYPE=${BUILD_TYPE}" "${PREFIX}" "${EXTRA_CXX}" \
 	"${EXTRA_CXXFLAGS}" "${EXTRA_LDFLAGS}" "${EXTRA_CC}" "${EXTRA_CFLAGS}" \
 	"${ENABLE_SELF_TEST}" "${ENABLE_JUNIT_OUT}" "${ENABLE_VALGRIND}" "${ENABLE_GCC_COVERAGE}" "${DISABLE_TESTS}" \
-	"${LIB_SUFFIX}" "${SOURCE_DIR}"`" 
+	"${LIB_SUFFIX}" "${ENABLE_COLORS}" "${SOURCE_DIR}"`" 
 
 ######################################################
 #execute or display
