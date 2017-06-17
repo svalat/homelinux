@@ -13,6 +13,13 @@
 //std
 #include <string>
 
+/*******************  TYPES  ************************/
+//to avoid to include json.hpp everywhere
+namespace Json
+{
+    class Value;
+}
+
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
@@ -24,6 +31,7 @@ struct System
 	static bool fileExist(const std::string & path);
 	static std::string getEnv(const std::string & name,const std::string & defaultValue = "");
 	static std::string loadFile(const std::string & path);
+	static void loadJson(Json::Value & out,const std::string & path);
 };
 
 }

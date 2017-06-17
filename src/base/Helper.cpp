@@ -10,6 +10,7 @@
 //std
 #include "Debug.hpp"
 #include "Helper.hpp"
+#include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
@@ -70,6 +71,108 @@ std::string Helper::join(const std::list<std::string> & lst,char sep)
 		out+=value;
 	}
 	return out;
+}
+
+
+/*******************  FUNCTION  *********************/
+void Helper::jsonToObj(StringList & out,const Json::Value & json)
+{
+	out.clear();
+	if (json.isArray())
+	{
+		int size = json.size();
+		for (int i = 0 ; i < size ; i++)
+			out.push_back(json[i].asString());
+	}
+}
+
+/********************  STRUCT  **********************/
+void Helper::jsonToObj(StringMap & out,const Json::Value & json)
+{
+	out.clear();
+	for (auto it = json.begin() ; it != json.end() ; ++it)
+		out[it.key().asString()] = (*it).asString();
+}
+
+/********************  STRUCT  **********************/
+void Helper::jsonToObj(StringMapList & out,const Json::Value & json)
+{
+	out.clear();
+	for (auto it = json.begin() ; it != json.end() ; ++it)
+		jsonToObj(out[it.key().asString()],*it);
+}
+
+/********************  STRUCT  **********************/
+void Helper::jsonToObj(JsonMap & out,const Json::Value & json)
+{
+	out.clear();
+	for (auto it = json.begin() ; it != json.end() ; ++it)
+		out[it.key().asString()] = (*it);
+}
+
+/********************  STRUCT  **********************/
+void Helper::toJson(Json::Value & out,const StringList & list)
+{
+	out.isArray();
+	for (auto & value : list)
+		out.append(value);
+}
+
+/********************  STRUCT  **********************/
+void Helper::toJson(Json::Value & out,const StringMap & map)
+{
+	for (auto & it : map)
+		out[it.first] = it.second;
+}
+
+/********************  STRUCT  **********************/
+void Helper::toJson(Json::Value & out,const StringMapList & map)
+{
+	for (auto & it : map)
+		toJson(out[it.first],it.second);
+}
+
+/********************  STRUCT  **********************/
+void Helper::toJson(Json::Value & out,const JsonMap & map)
+{
+	for (auto & it : map)
+		out[it.first] = it.second;
+}
+
+/********************  STRUCT  **********************/
+void Helper::merge(StringMap & out,const StringMap & override)
+{
+	for (auto & it : override)
+		out[it.first] = it.second;
+}
+
+/********************  STRUCT  **********************/
+void Helper::merge(StringList & out,const StringList & override)
+{
+	for (auto & it : override)
+	{
+		if (it[0] == '!')
+		{
+			std::string tmp = it.substr(1);
+			for (auto it = out.begin() ; it != out.end() ; ++it)
+				if (*it == tmp)
+					it = out.erase(it);
+		} else {
+			out.push_back(it);
+		}
+	}
+}
+
+/********************  STRUCT  **********************/
+void Helper::merge(StringMapList & out,const StringMapList & override,bool erase)
+{
+	for (auto & it : override)
+	{
+		if (out.find(it.first) == out.end() || erase)
+			out[it.first] = it.second;
+		else
+			merge(out[it.first],it.second);
+	}
 }
 
 }

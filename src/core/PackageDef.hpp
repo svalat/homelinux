@@ -22,12 +22,6 @@
 namespace hl
 {
 
-/********************  ENUM  ************************/
-typedef std::map<std::string,std::string> StringMap;
-typedef std::map<std::string,std::list<std::string>> StringMapList;
-typedef std::list<std::string> StringList;
-typedef std::map<std::string,Json::Value> JsonMap;
-
 /********************  STRUCT  **********************/
 struct VersionFetcher
 {
@@ -46,18 +40,6 @@ struct PackageDef
 	void save(std::ostream & out);
 	void merge(const PackageDef & def);
 	void save(Json::Value & json);
-	//helpers
-	static void jsonToObj(StringList & out,const Json::Value & json);
-	static void jsonToObj(StringMap & out,const Json::Value & json);
-	static void jsonToObj(StringMapList & out, const Json::Value & json);
-	static void jsonToObj(JsonMap & out,const Json::Value & json);
-	static void toJson(Json::Value & out,const StringList & list);
-	static void toJson(Json::Value & out,const StringMap & map);
-	static void toJson(Json::Value & out,const StringMapList & mapList);
-	static void toJson(Json::Value & out,const JsonMap & map);
-	static void merge(StringMap & out,const StringMap & override);
-	static void merge(StringList & out,const StringList & override);
-	static void merge(StringMapList & out,const StringMapList & override,bool erase);
 	//members
 	std::string name;
 	std::string homepage;

@@ -16,6 +16,7 @@ add_definitions(-DTEST_DATA_PATH="${CMAKE_CURRENT_SOURCE_DIR}/data")
 ######################################################
 set(TEST_NAMES TestUseFlags
                TestEnvSetup
+               TestPrefix
                TestPackageDef
                TestVersionMatcher)
 

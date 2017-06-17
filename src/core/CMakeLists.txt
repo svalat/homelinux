@@ -9,6 +9,7 @@
 ######################################################
 add_library(homelinux-core OBJECT UseFlags.cpp
                                   EnvSetup.cpp
+                                  Prefix.cpp
                                   PackageDef.cpp
                                   VersionMatcher.cpp)
 #SET_TARGET_PROPERTIES(homelinux-core PROPERTIES COMPILE_FLAGS -fPIC)

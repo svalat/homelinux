@@ -11,7 +11,9 @@
 #include <cstdlib>
 #include <cstdio>
 #include <unistd.h>
+#include <fstream>
 #include <base/Debug.hpp>
+#include <json/json.h>
 #include "System.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -78,6 +80,28 @@ std::string System::loadFile(const std::string & path)
 	
 	//return
 	return res;
+}
+
+/*******************  FUNCTION  *********************/
+void System::loadJson(Json::Value & out,const std::string & path)
+{
+	//compute file path
+	assume(path.empty() == false,"Invalid empty path");
+	
+	//check if exist
+	assumeArg(System::fileExist(path),"File %1 does not exist !").arg(path).end();
+
+	//open file
+	std::ifstream file(path.c_str(),std::ifstream::binary);
+	assumeArg(file.is_open(),"Fail to open configuration file : %1 : %2").arg(path).argStrErrno().end();
+	
+	//parse
+	Json::Reader reader;
+	bool status = reader.parse(file, out);
+	assumeArg(status,"Fail to load configuration file '%1' : \n%2")
+		.arg(path)
+		.arg(reader.getFormattedErrorMessages())
+		.end();
 }
 
 }
