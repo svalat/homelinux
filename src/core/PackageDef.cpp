@@ -43,11 +43,11 @@ void PackageDef::load(const std::string & path)
 		.end();
 
 	//apply
-	this->load(tmpObj);
+	this->loadJson(tmpObj);
 }
 
 /*******************  FUNCTION  *********************/
-void PackageDef::load(Json::Value & json)
+void PackageDef::loadJson(const Json::Value & json)
 {
 	this->name = json.get("name","").asString();
 	this->homepage = json.get("homepage","").asString();

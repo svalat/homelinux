@@ -153,6 +153,24 @@ TEST(PackageDef,merge)
 }
 
 /*******************  FUNCTION  *********************/
+TEST(PackageDef,applySpecific)
+{
+	PackageDef def;
+	def.load(TEST_DATA_PATH "/spec.json");
+	
+	ASSERT_EQ("app-shell/bash",def.name);
+	
+	PackageDef specific;
+	specific.loadJson(def.vspecific["4.2"]);
+	
+	def.merge(specific);
+	
+	std::stringstream out;
+	def.save(out);
+	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec-specific.json"),out.str());
+}
+
+/*******************  FUNCTION  *********************/
 TEST(PackageDef,merge_StringList_1)
 {
 	StringList l1;

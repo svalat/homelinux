@@ -41,7 +41,7 @@ struct PackageDef
 {
 	//funcs
 	void load(const std::string & path);
-	void load(Json::Value & json);
+	void loadJson(const Json::Value & json);
 	void save(const std::string & path);
 	void save(std::ostream & out);
 	void merge(const PackageDef & def);
