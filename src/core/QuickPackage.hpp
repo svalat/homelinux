@@ -31,7 +31,7 @@ class QuickPackage
 		std::string getQuickInfoFirst(const std::string & property,const std::string packageName,const std::string & defaultValue="") const;
 		void genPackage(PackageDef & pack,const std::string & name) const;
 	private:
-		void loadQuickFile(const std::string & property);
+		void loadQuickFile(const std::string & property,const std::string & dir);
 	private:
 		const Prefix * prefix;
 		std::map<std::string,StringMapList> db;

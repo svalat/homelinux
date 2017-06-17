@@ -40,16 +40,23 @@ QuickPackage::QuickPackage(const Prefix * prefix)
 	//setup
 	this->prefix = prefix;
 	
-	//load files
+	//load files from prefix & home
 	for (auto prop : gblProperties)
-		loadQuickFile(prop);
+	{
+		loadQuickFile(prop,this->prefix->getFilePath("/homelinux/packages/quickpackages/"));
+		loadQuickFile(prop,System::getHomeDir()+".homelinux/quickpackages/");
+	}
 }
 
 /*******************  FUNCTION  *********************/
-void QuickPackage::loadQuickFile(const std::string & property)
+void QuickPackage::loadQuickFile(const std::string & property,const std::string & dir)
 {
 	//get filename
-	std::string path = this->prefix->getFilePath("/homelinux/packages/quickpackages/"+property+".txt");
+	std::string path = dir + "/"+property+".txt";
+	
+	//if file does not exit, skip
+	if (System::fileExist(path) == false)
+		return;
 	
 	//load
 	std::string content = System::loadFile(path);
@@ -65,7 +72,7 @@ void QuickPackage::loadQuickFile(const std::string & property)
 			});
 			std::string name = Helper::getListEl(lst,0);
 			lst.erase(lst.begin());
-			prop[name] = lst;
+			Helper::merge(prop[name],lst);
 		}
 	});
 }
