@@ -23,8 +23,6 @@ namespace hl
 {
 
 /********************  ENUM  ************************/
-
-/********************* TYPES ************************/
 typedef std::map<std::string,std::string> StringMap;
 typedef std::map<std::string,std::list<std::string>> StringMapList;
 typedef std::list<std::string> StringList;
@@ -44,26 +42,39 @@ struct PackageDef
 	//funcs
 	void load(const std::string & path);
 	void load(Json::Value & json);
-	void save(const sts::string & path);
+	void save(const std::string & path);
 	void save(std::ostream & out);
 	void apply(const PackageDef & def);
+	void save(Json::Value & json);
+	//helpers
+	static void jsonToObj(StringList & out,const Json::Value & json);
+	static void jsonToObj(StringMap & out,const Json::Value & json);
+	static void jsonToObj(StringMapList & out, const Json::Value & json);
+	static void jsonToObj(JsonMap & out,const Json::Value & json);
+	static void toJson(Json::Value & out,const StringList & list);
+	static void toJson(Json::Value & out,const StringMap & map);
+	static void toJson(Json::Value & out,const StringMapList & mapList);
+	static void toJson(Json::Value & out,const JsonMap & map);
 	//members
 	std::string name;
 	std::string homepage;
 	std::string inherit;
 	VersionList versions;
+	VersionFetcher vfetcher;
 	StringMap md5;
-	StringList subdir;
+	std::string subdir;
 	StringList deps;
-	StringMapList host;
+	Json::Value host;
 	StringMapList configure;
-	JsonMap vspecofic;
+	JsonMap vspecific;
 	StringMapList steps;
 	StringList conflicts;
 	StringList use;
-	std::string warn;
+	StringList warn;
 	std::string module;
 	StringList scripts;
+	StringMap vars;
+	StringMapList flags;
 };
 
 }

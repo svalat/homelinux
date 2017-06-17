@@ -14,6 +14,7 @@
 #include <string>
 #include <functional>
 #include <list>
+#include "Debug.hpp"
 
 /*******************  NAMESPACE  ********************/
 namespace hl
@@ -25,7 +26,19 @@ struct Helper
 	static void stringSplit(const std::string & value,char separator,std::function<void(const std::string&)> callback);
 	static bool contain(const std::string & value,const std::string what);
 	static std::string join(const std::list<std::string> & lst,char sep);
+	template <class T> static T getListEl(const std::list<T> & lst,int id);
 };
+
+/*******************  FUNCTION  *********************/
+template <class T> 
+T Helper::getListEl(const std::list<T> & lst,int id)
+{
+    assumeArg(id < lst.size(),"Cannot get element %1, list size is %2").arg(id).arg(lst.size());
+    auto it = lst.begin();
+    for (int i = 0 ; i < id ; i++)
+        ++it;
+    return *it;
+}
 
 }
 
