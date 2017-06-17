@@ -44,6 +44,7 @@ include_directories(../extern-deps/re2-2017-06-01)
 set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
                        $<TARGET_OBJECTS:homelinux-core>
                        $<TARGET_OBJECTS:homelinux-portability>)
+#                       $<TARGET_OBJECTS:homelinux-hosts>)
 #                       $<TARGET_OBJECTS:homelinux-providers>)
 
 ######################################################
