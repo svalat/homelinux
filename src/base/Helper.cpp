@@ -76,6 +76,11 @@ std::string Helper::join(const std::list<std::string> & lst,char sep)
 
 
 /*******************  FUNCTION  *********************/
+/**
+ * Convert a JSON sub-tree to string list.
+ * @param out Define the list to fill (will be cleared before)
+ * @param json Define the JSON sub-tree to load.
+**/
 void Helper::jsonToObj(StringList & out,const Json::Value & json)
 {
 	out.clear();
@@ -84,10 +89,17 @@ void Helper::jsonToObj(StringList & out,const Json::Value & json)
 		int size = json.size();
 		for (int i = 0 ; i < size ; i++)
 			out.push_back(json[i].asString());
+	} else if (json.isString()) {
+		out.push_back(json.asString());
 	}
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert a JSON sub-tree to string map.
+ * @param out Define the map to fill (will be cleared before)
+ * @param json Define the JSON sub-tree to load.
+**/
 void Helper::jsonToObj(StringMap & out,const Json::Value & json)
 {
 	out.clear();
@@ -96,6 +108,11 @@ void Helper::jsonToObj(StringMap & out,const Json::Value & json)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert a JSON sub-tree to map & list.
+ * @param out Define the map to fill (will be cleared before)
+ * @param json Define the JSON sub-tree to load.
+**/
 void Helper::jsonToObj(StringMapList & out,const Json::Value & json)
 {
 	out.clear();
@@ -104,6 +121,11 @@ void Helper::jsonToObj(StringMapList & out,const Json::Value & json)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert a JSON sub-tree to json map.
+ * @param out Define the map to fill (will be cleared before)
+ * @param json Define the JSON sub-tree to load.
+**/
 void Helper::jsonToObj(JsonMap & out,const Json::Value & json)
 {
 	out.clear();
@@ -112,6 +134,11 @@ void Helper::jsonToObj(JsonMap & out,const Json::Value & json)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert the list to JSON tree
+ * @param out Define the json node to fill
+ * @param list Define the list to convert.
+**/
 void Helper::toJson(Json::Value & out,const StringList & list)
 {
 	out.isArray();
@@ -120,6 +147,11 @@ void Helper::toJson(Json::Value & out,const StringList & list)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert the map to JSON tree
+ * @param out Define the json node to fill
+ * @param list Define the map to convert.
+**/
 void Helper::toJson(Json::Value & out,const StringMap & map)
 {
 	for (auto & it : map)
@@ -127,6 +159,11 @@ void Helper::toJson(Json::Value & out,const StringMap & map)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert the map list to JSON tree
+ * @param out Define the json node to fill
+ * @param list Define the map list to convert.
+**/
 void Helper::toJson(Json::Value & out,const StringMapList & map)
 {
 	for (auto & it : map)
@@ -134,6 +171,11 @@ void Helper::toJson(Json::Value & out,const StringMapList & map)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Convert the json map to JSON tree
+ * @param out Define the json node to fill
+ * @param list Define the map to convert.
+**/
 void Helper::toJson(Json::Value & out,const JsonMap & map)
 {
 	for (auto & it : map)
@@ -141,6 +183,12 @@ void Helper::toJson(Json::Value & out,const JsonMap & map)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Merge two string map. It will copy all the element from override into
+ * out. If some entries exist in out they will be overritten.
+ * @param out Define the map to write in
+ * @param override Define the map to merge on out.
+**/
 void Helper::merge(StringMap & out,const StringMap & override)
 {
 	for (auto & it : override)
@@ -148,6 +196,15 @@ void Helper::merge(StringMap & out,const StringMap & override)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Merge two string list. It will append all the element from override into
+ * out. It consider a particular case with entries in override starting with
+ * the `!` character. In this case, it will remove all similar strings into
+ * the list. Eg. if out contain `-O3 -ffast-math`, using `!-O3` will let only
+ * `-ffast-math`.
+ * @param out Define the list to write in
+ * @param override Define the list to merge on out.
+**/
 void Helper::merge(StringList & out,const StringList & override)
 {
 	for (auto & it : override)
@@ -165,6 +222,17 @@ void Helper::merge(StringList & out,const StringList & override)
 }
 
 /********************  STRUCT  **********************/
+/**
+ * Merge two string list. It will append all the element from override into
+ * out. It consider a particular case with entries in override starting with
+ * the `!` character. In this case, it will remove all similar strings into
+ * the list. Eg. if out contain `-O3 -ffast-math`, using `!-O3` will let only
+ * `-ffast-math`.
+ * @param out Define the list to write in
+ * @param override Define the list to merge on out.
+ * @param erase If defined to true it will replace the sub lists instead of
+ * making merge.
+**/
 void Helper::merge(StringMapList & out,const StringMapList & override,bool erase)
 {
 	for (auto & it : override)
@@ -177,14 +245,19 @@ void Helper::merge(StringMapList & out,const StringMapList & override,bool erase
 }
 
 /********************  STRUCT  **********************/
-bool Helper::startBy(const std::string & v1,const std::string & v2)
+/**
+ * Check if a string start by another one.
+ * @param value String to check.
+ * @param what Start string.
+**/
+bool Helper::startBy(const std::string & value,const std::string & what)
 {
 	//if too large
-	if (v2.size() > v1.size())
+	if (what.size() > value.size())
 		return false;
 	
 	//check
-	return (strncmp(v1.c_str(),v2.c_str(),v2.size()) == 0);
+	return (strncmp(value.c_str(),what.c_str(),what.size()) == 0);
 }
 
 }

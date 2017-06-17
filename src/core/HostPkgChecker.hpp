@@ -20,17 +20,22 @@ namespace hl
 {
 
 /*********************  CLASS  **********************/
+/**
+ * Check if packages are already installed into the host system.
+ * This class manage multiple system which are selected by the config file.
+**/
 class HostPkgChecker
 {
 	public:
 		HostPkgChecker(const std::string & hostType);
-		bool presentOnSystem(const Json::Value & hostDef,const std::string & packageName) const;
+		bool presentOnSystem(const Json::Value & hostDef) const;
 	private:
 		bool presentOnSystemGentoo(const StringList & pkgList) const;
 		bool presentOnSystemCentos(const StringList & pkgList) const;
 		bool presentOnSystemDebian(const StringList & pkgList) const;
 		bool presentOnSystemDefault(const StringList & pkgList) const;
 	private:
+		/** Type of host to consider **/
 		std::string hostType;
 };
 

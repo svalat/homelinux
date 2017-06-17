@@ -37,6 +37,9 @@ typedef std::map<std::string,Json::Value> JsonMap;
 typedef std::vector<std::string> StringVector;
 
 /********************  STRUCT  **********************/
+/**
+ * Helper class providing basic functions used everywhere in homelinux.
+**/
 struct Helper
 {
 	static void stringSplit(const std::string & value,char separator,std::function<void(const std::string&)> callback);
@@ -54,10 +57,15 @@ struct Helper
 	static void merge(StringMap & out,const StringMap & override);
 	static void merge(StringList & out,const StringList & override);
 	static void merge(StringMapList & out,const StringMapList & override,bool erase);
-	static bool startBy(const std::string & v1,const std::string & v2);
+	static bool startBy(const std::string & value,const std::string & what);
 };
 
 /*******************  FUNCTION  *********************/
+/**
+ * Return the N-th element from the list. If will fail if the ID is not in the list.
+ * @param lst List to search in
+ * @param id ID of the element to return.
+**/
 template <class T> 
 T Helper::getListEl(const std::list<T> & lst,int id)
 {

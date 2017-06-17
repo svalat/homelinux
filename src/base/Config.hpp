@@ -39,13 +39,21 @@ struct Config
 	void load(Json::Value & config);
 	void parseArgs(int argc, const char ** argv);
 	//vars
+	/** Display debugging category at exit **/
 	bool showDebugCat;
+	/** Main prefix to load **/
 	std::string prefix;
+	/** Host type to check pkg db (centos7, debian8, gentoo, default) **/
 	std::string host;
+	/** List of modules to enable in `hl env` **/
 	ModuleList modules;
+	/** Enable exporting path for ccache **/
 	bool ccache;
+	/** Enable usage of pyEnv **/
 	bool pyEnv;
+	/** Use home cache (usefull for dev) **/
 	bool homecache;
+	/** Override content of packages **/
 	Json::Value packageOverride;
 };
 

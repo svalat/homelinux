@@ -18,13 +18,22 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
+/**
+ * Constructor.
+ * @param hostType Define the type of host to consider (gentoo, centos7, debian8, default)
+**/
 HostPkgChecker::HostPkgChecker(const std::string & hostType)
 {
 	this->hostType = hostType;
 }
 
 /*******************  FUNCTION  *********************/
-bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef,const std::string & packageName) const
+/**
+ * Check if the given packages are already installed on the host system.
+ * @param hostDef Host field from package def containling the list of packages 
+ * names to check.
+**/
+bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef) const
 {
 	//vars
 	StringList pkgList;
@@ -58,6 +67,11 @@ bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef,const std::stri
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check package on a Gentoo host system.
+ * @param hostDef Host field from package def containling the list of packages 
+ * names to check.
+**/
 bool HostPkgChecker::presentOnSystemGentoo(const StringList & pkgList) const
 {
 	//loop
@@ -88,6 +102,11 @@ bool HostPkgChecker::presentOnSystemGentoo(const StringList & pkgList) const
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check package on a Centos system.
+ * @param hostDef Host field from package def containling the list of packages 
+ * names to check.
+**/
 bool HostPkgChecker::presentOnSystemCentos(const StringList & pkgList) const
 {
 	//loop
@@ -102,6 +121,11 @@ bool HostPkgChecker::presentOnSystemCentos(const StringList & pkgList) const
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Check package on a Debian system.
+ * @param hostDef Host field from package def containling the list of packages 
+ * names to check.
+**/
 bool HostPkgChecker::presentOnSystemDebian(const StringList & pkgList) const
 {
 	//loop
@@ -116,6 +140,10 @@ bool HostPkgChecker::presentOnSystemDebian(const StringList & pkgList) const
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Default is a non system checking it only rely on default values defined
+ * by packages and a user database.
+**/
 bool HostPkgChecker::presentOnSystemDefault(const StringList & pkgList) const
 {
 	return false;

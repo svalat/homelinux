@@ -215,6 +215,12 @@ void EnvSetup::enablePyEnv(std::ostream & out)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Prepend a value to the list of paths.
+ * @param varname Name of the env variable to edit
+ * @param value Value to prepend
+ * @param sep Separator to use.
+**/
 void EnvSetup::prepend(const std::string & varname,const std::string & value, const std::string & sep)
 {
 	//check
@@ -228,6 +234,12 @@ void EnvSetup::prepend(const std::string & varname,const std::string & value, co
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Append a value to the list of paths.
+ * @param varname Name of the env variable to edit
+ * @param value Value to append
+ * @param sep Separator to use.
+**/
 void EnvSetup::append(const std::string & varname,const std::string & value, const std::string & sep)
 {
 	//check
@@ -241,4 +253,3 @@ void EnvSetup::append(const std::string & varname,const std::string & value, con
 }
 	
 }
-

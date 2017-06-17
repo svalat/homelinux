@@ -19,6 +19,10 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load the package from given JSON file.
+ * @param path Path of the JSON file to load.
+**/
 void PackageDef::load(const std::string & path)
 {
 	//load
@@ -30,6 +34,10 @@ void PackageDef::load(const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load from a JSON tree.
+ * @param json JSON tree to use.
+**/
 void PackageDef::loadJson(const Json::Value & json)
 {
 	this->name = json.get("name","").asString();
@@ -58,6 +66,10 @@ void PackageDef::loadJson(const Json::Value & json)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Save the current package into JSON tree.
+ * @param json JSON tree to fill.
+**/
 void PackageDef::save(Json::Value & json)
 {
 	json["name"] = name;
@@ -86,6 +98,10 @@ void PackageDef::save(Json::Value & json)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Merge given package onto current one.
+ * @param def Package to merge.
+**/
 void PackageDef::merge(const PackageDef & def)
 {
 	if (def.name.empty() == false)
@@ -125,6 +141,10 @@ void PackageDef::merge(const PackageDef & def)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Save the package in given path using JSON format.
+ * @param path Path to be used.
+**/
 void PackageDef::save(const std::string & path)
 {
 	//open file
@@ -139,6 +159,10 @@ void PackageDef::save(const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Dump package into JSON ofrmat in ostream. (for unit tests)
+ * @param out Define the output stream to be used.
+**/
 void PackageDef::save(std::ostream & out)
 {
 	//rebuild json

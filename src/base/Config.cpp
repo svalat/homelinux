@@ -5,6 +5,7 @@
              AUTHOR   : Valat Sébastien
              LICENSE  : CeCILL-C
 *****************************************************/
+
 /********************  HEADERS  *********************/
 //std
 #include <fstream>
@@ -26,6 +27,9 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
+/**
+ * Config constructor.
+**/
 Config::Config(void)
 {
 	this->showDebugCat = false;
@@ -34,6 +38,9 @@ Config::Config(void)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Config destructor
+**/
 Config::~Config(void)
 {
 	if (showDebugCat)
@@ -41,6 +48,9 @@ Config::~Config(void)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load default values in the config to start.
+**/
 void Config::loadDefault()
 {
 	this->prefix = System::getHomeDir()+"/usr";
@@ -51,6 +61,10 @@ void Config::loadDefault()
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load the JSON values into the config.
+ * @param config JSON tree to load.
+**/
 void Config::load(Json::Value & config)
 {
 	//basics
@@ -72,6 +86,10 @@ void Config::load(Json::Value & config)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Load the given config file (json format).
+ * @param path Path to the file to load.
+**/
 void Config::load(std::string path)
 {
 	//compute file path
@@ -105,6 +123,11 @@ void Config::load(std::string path)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Parse arguements.
+ * @param argc Number of arguments from main.
+ * @param argv List of arguments from main.
+**/
 void Config::parseArgs(int argc, const char ** argv)
 {
 	for (int i = 1 ; i < argc -1 ; i++)

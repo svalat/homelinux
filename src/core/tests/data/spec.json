@@ -55,8 +55,8 @@
 	"vfetcher" : 
 	{
 		"mode" : "ftp",
-		"regexp" : "ftp://ftp.cwru.edu/pub/bash",
-		"url" : "bash-([0-9]+.[0-9]+).tar.gz"
+		"regexp" : "bash-([0-9]+.[0-9]+).tar.gz",
+		"url" : "ftp://ftp.cwru.edu/pub/bash"
 	},
 	"vspecific" : 
 	{
