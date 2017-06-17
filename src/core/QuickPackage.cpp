@@ -30,6 +30,12 @@ static const char * gblProperties[] = {
 	"type",
 	"subdir"
 };
+static const char* gblHosts[] = {
+	"centos7",
+	"debian8",
+	"user",
+	"gentoo"
+};
 
 /*******************  FUNCTION  *********************/
 QuickPackage::QuickPackage(const Prefix * prefix)
@@ -46,11 +52,21 @@ QuickPackage::QuickPackage(const Prefix * prefix)
 		loadQuickFile(prop,this->prefix->getFilePath("/homelinux/packages/quickpackages/"));
 		loadQuickFile(prop,System::getHomeDir()+".homelinux/quickpackages/");
 	}
+	
+	//load hosts
+	for (auto host : gblHosts)
+	{
+		loadQuickFile(host,this->prefix->getFilePath("/homelinux/packages/hosts/"));
+		loadQuickFile(host,System::getHomeDir()+".homelinux/hosts/");
+	}
 }
 
 /*******************  FUNCTION  *********************/
 void QuickPackage::loadQuickFile(const std::string & property,const std::string & dir)
 {
+	//setup
+	db[property];
+	
 	//get filename
 	std::string path = dir + "/"+property+".txt";
 	
@@ -123,6 +139,18 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 	pack.deps = this->getQuickInfo("deps",name);
 	pack.patch = this->getQuickInfo("patch",name);
 	pack.configure[""] = this->getQuickInfo("config",name);
+	
+	for (auto host : gblHosts)
+	{
+		const StringList & lst = this->getQuickInfo(host,name);
+		if (lst.empty() == false)
+		{
+			if (host == "user")
+					pack.host[host] = true;
+			else
+					Helper::toJson(pack.host[host],lst);
+		}
+	}
 }
 
 }

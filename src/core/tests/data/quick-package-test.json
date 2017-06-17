@@ -8,7 +8,13 @@
 	"deps" : [ "gcc" ],
 	"flags" : null,
 	"homepage" : "",
-	"host" : null,
+	"host" : 
+	{
+		"centos7" : [ "test" ],
+		"debian8" : [ "test" ],
+		"gentoo" : [ "app-test/test" ],
+		"user" : true
+	},
 	"inherit" : "models/cmake",
 	"md5" : null,
 	"module" : "test-${VERSION}",
