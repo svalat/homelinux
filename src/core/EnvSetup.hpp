@@ -28,33 +28,33 @@ typedef std::vector<std::string> EnvPrefixVector;
 
 /*********************  CLASS  **********************/
 /**
- * This script in responsible of the management of the environnement setup
- * mostly to build all the export variables.
+* This script in responsible of the management of the environnement setup
+* mostly to build all the export variables.
 **/
 class EnvSetup
 {
-    public:
-        EnvSetup(const Config * config);
-        void loadCurrent(void);
-        void addPrefix(const std::string & prefix);
-        void removeExisting(void);
-        void print(std::ostream & out = std::cout);
-        bool hasPrefix(const std::string & prefix);
-        void loadModules(bool load = true,std::ostream & out = std::cout);
-        void enableCCache(std::ostream & out = std::cout);
-        void enablePyEnv(std::ostream & out = std::cout);
-    private:
-        void setupEmpty(void);
-        void prepend(const std::string & varname,const std::string & value, const std::string & sep = ":");
-        void append(const std::string & varname,const std::string & value, const std::string & sep = ":");
-        void removeExisting(const std::string & varname,const char separator = ':');
-    private:
-        const Config * config;
-        EnvPrefixVector loadedPrefix;
-        EnvVarMap env;
+	public:
+		EnvSetup(const Config * config);
+		void loadCurrent(void);
+		void addPrefix(const std::string & prefix);
+		void removeExisting(void);
+		void print(std::ostream & out = std::cout);
+		bool hasPrefix(const std::string & prefix);
+		void loadModules(bool load = true,std::ostream & out = std::cout);
+		void enableCCache(std::ostream & out = std::cout);
+		void enablePyEnv(std::ostream & out = std::cout);
+	private:
+		void setupEmpty(void);
+		void prepend(const std::string & varname,const std::string & value, const std::string & sep = ":");
+		void append(const std::string & varname,const std::string & value, const std::string & sep = ":");
+		void removeExisting(const std::string & varname,const char separator = ':');
+	private:
+		const Config * config;
+		EnvPrefixVector loadedPrefix;
+		EnvVarMap env;
 };
 
-    
+	
 }
 
 #endif //HL_ENV_SETUP_HPP

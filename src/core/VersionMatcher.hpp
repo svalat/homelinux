@@ -30,19 +30,19 @@ extern const SlotDef gblSlotNone;
 /*********************  CLASS  **********************/
 class VersionMatcher
 {
-    public: 
-        VersionMatcher(const std::string & rules);
-        bool match(const std::string & version,const SlotDef & slots = gblSlotNone);
-        VersionList filterList(const VersionList & list,const SlotDef & slots = gblSlotNone);
-        static VersionList sortList(VersionList list);
-        static int compareVersion(const std::string & v1,const std::string & v2);
-        static std::string fillNumber(const std::string & value,int pad = 16);
-        static std::string getSlot(const SlotDef & slots,const std::string & version);
-        static bool applyVersionOperator(const std::string & op,const std::string version,const SlotDef & slots = gblSlotNone);
-        static std::string regexpReplPoint(const std::string & value);
-        void set(const std::string & rules);
-    private:
-        VersionMatcherRuleList ruleList;
+	public: 
+		VersionMatcher(const std::string & rules);
+		bool match(const std::string & version,const SlotDef & slots = gblSlotNone);
+		VersionList filterList(const VersionList & list,const SlotDef & slots = gblSlotNone);
+		static VersionList sortList(VersionList list);
+		static int compareVersion(const std::string & v1,const std::string & v2);
+		static std::string fillNumber(const std::string & value,int pad = 16);
+		static std::string getSlot(const SlotDef & slots,const std::string & version);
+		static bool applyVersionOperator(const std::string & op,const std::string version,const SlotDef & slots = gblSlotNone);
+		static std::string regexpReplPoint(const std::string & value);
+		void set(const std::string & rules);
+	private:
+		VersionMatcherRuleList ruleList;
 };
 
 }
