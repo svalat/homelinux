@@ -20,10 +20,11 @@
 	],
 	"flags" : 
 	{
-		"C" : [ "!-ffastmath", "-O4" ],
-		"CXX" : [ "--stdc++11" ],
-		"F" : [ "" ],
-		"LD" : [ "-L/usr/lib" ]
+		"CFLAGS" : [ "!-ffastmath", "-O4" ],
+		"CXXFLAGS" : [ "--stdc++11" ],
+		"FFLAGS" : [ "" ],
+		"LDFLAGS" : [ "-L/usr/lib" ],
+		"MAKEOPTS" : [ "-j8" ]
 	},
 	"homepage" : "http://home.com",
 	"host" : 

@@ -12,7 +12,7 @@
 	],
 	"flags" : 
 	{
-		"C" : [ "!-O3", "-O4" ]
+		"CFLAGS" : [ "!-O3", "-O4" ]
 	},
 	"homepage" : "http://home.com",
 	"host" : 
