@@ -201,7 +201,7 @@ void EnvSetup::loadModules(bool load,std::ostream & out)
 void EnvSetup::enableCCache(std::ostream & out)
 {
 	if (config->ccache)
-		out << "export PATH="<<config->prefix << "/bin/ccache-links:$PATH" << std::endl;
+		out << "export PATH="<<config->prefix.front() << "/bin/ccache-links:$PATH" << std::endl;
 }
 
 /*******************  FUNCTION  *********************/
@@ -211,7 +211,7 @@ void EnvSetup::enableCCache(std::ostream & out)
 void EnvSetup::enablePyEnv(std::ostream & out)
 {
 	if (config->pyEnv)
-		out << "export PATH="<<config->prefix << "/bin/hl-py-env-bins:$PATH" << std::endl;
+		out << "export PATH="<<config->prefix.front() << "/bin/hl-py-env-bins:$PATH" << std::endl;
 }
 
 /*******************  FUNCTION  *********************/

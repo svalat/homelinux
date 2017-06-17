@@ -16,15 +16,14 @@
 #include <string>
 #include <ctime>
 #include <vector>
+//internal
+#include <base/Helper.hpp>
 //from jsoncpp
 #include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
-
-/********************* TYPES ************************/
-typedef std::vector<std::string> ModuleList;
 
 /********************  STRUCT  **********************/
 /**
@@ -41,12 +40,12 @@ struct Config
 	//vars
 	/** Display debugging category at exit **/
 	bool showDebugCat;
-	/** Main prefix to load **/
-	std::string prefix;
+	/** List of prefix to load (in priority order). The first one will be master. **/
+	StringList prefix;
 	/** Host type to check pkg db (centos7, debian8, gentoo, default) **/
 	std::string host;
 	/** List of modules to enable in `hl env` **/
-	ModuleList modules;
+	StringList modules;
 	/** Enable exporting path for ccache **/
 	bool ccache;
 	/** Enable usage of pyEnv **/

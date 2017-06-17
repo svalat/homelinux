@@ -36,11 +36,12 @@ TEST(Config,loadConfigValid)
 	Config config;
 	config.load(TEST_DATA_PATH "/config.json");
 	
-	EXPECT_EQ("/home/USER/usr",config.prefix);
+	EXPECT_EQ("/home/USER/usr",Helper::getListEl(config.prefix,0));
+	EXPECT_EQ(1,config.prefix.size());
 	EXPECT_EQ("gentoo",config.host);
 	ASSERT_EQ(2,config.modules.size());
-	EXPECT_EQ("gcc-5.0",config.modules[0]);
-	EXPECT_EQ("openmpi",config.modules[1]);
+	EXPECT_EQ("gcc-5.0",Helper::getListEl(config.modules,0));
+	EXPECT_EQ("openmpi",Helper::getListEl(config.modules,1));
 	EXPECT_TRUE(config.homecache);
 	EXPECT_TRUE(config.ccache);
 	EXPECT_FALSE(config.pyEnv);

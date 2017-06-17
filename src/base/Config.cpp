@@ -53,7 +53,7 @@ Config::~Config(void)
 **/
 void Config::loadDefault()
 {
-	this->prefix = System::getHomeDir()+"/usr";
+	this->prefix.push_back(System::getHomeDir()+"/usr");
 	this->host = "default";
 	this->ccache = false;
 	this->pyEnv = true;
@@ -68,7 +68,7 @@ void Config::loadDefault()
 void Config::load(Json::Value & config)
 {
 	//basics
-	this->prefix = config.get("prefix",this->prefix).asString();
+	Helper::jsonToObj(this->prefix,config["prefix"]);
 	this->host = config.get("host",this->host).asString();
 	this->homecache = config.get("homecache",this->homecache).asBool();
 	this->ccache = config.get("ccache",this->ccache).asBool();

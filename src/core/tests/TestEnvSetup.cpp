@@ -93,7 +93,8 @@ TEST(EnvSetup,loadModulesUnload)
 TEST(EnvSetup,enableCCache)
 {
 	Config config;
-	config.prefix="/home/USER/usr";
+	config.prefix.clear();
+	config.prefix.push_back("/home/USER/usr");
 	EnvSetup env(&config);
 	
 	std::stringstream out;
@@ -110,7 +111,8 @@ TEST(EnvSetup,enableCCache)
 TEST(EnvSetup,enablePyEnv)
 {
 	Config config;
-	config.prefix="/home/USER/usr";
+	config.prefix.clear();
+	config.prefix.push_back("/home/USER/usr");
 	config.pyEnv = false;
 	EnvSetup env(&config);
 	
