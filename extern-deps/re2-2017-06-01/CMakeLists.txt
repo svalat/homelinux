@@ -13,7 +13,7 @@ option(USEPCRE "use PCRE in tests and benchmarks" OFF)
 
 # CMake seems to have no way to enable/disable testing per subproject,
 # so we provide an option similar to BUILD_TESTING, but just for RE2.
-option(RE2_BUILD_TESTING "enable testing for RE2" ON)
+option(RE2_BUILD_TESTING "enable testing for RE2" OFF)
 
 set(EXTRA_TARGET_LINK_LIBRARIES)
 

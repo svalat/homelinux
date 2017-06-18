@@ -8,7 +8,7 @@
 
 ######################################################
 #disable re2 tests
-set(RE2_BUILD_TESTING no)
+set(RE2_BUILD_TESTING OFF)
 
 ######################################################
 add_subdirectory(gmock-1.7.0)

@@ -147,7 +147,7 @@ do
 			ENABLE_COLORS="-DENABLE_COLORS=`enabl_disabl_to_yes_no $arg`"
 			;;
 		--enable-gcc-coverage | --disable-gcc-coverage)
-			ENABLE_COLORS="-DENABLE_COLORS=`enabl_disabl_to_yes_no $arg`"
+			ENABLE_GCC_COVERAGE="-DENABLE_GCC_COVERAGE=`enabl_disabl_to_yes_no $arg`"
 			;;
 		--enable-junit-output | --disable-junit-output)
 			ENABLE_JUNIT_OUT="-DENABLE_JUNIT_OUTPUT=`enabl_disabl_to_yes_no $arg`"
