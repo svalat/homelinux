@@ -58,6 +58,8 @@ struct Helper
 	static void merge(StringList & out,const StringList & override);
 	static void merge(StringMapList & out,const StringMapList & override,bool erase);
 	static bool startBy(const std::string & value,const std::string & what);
+	static bool endBy(const std::string & value,const std::string & what);
+	static std::string toLower(std::string value);
 };
 
 /*******************  FUNCTION  *********************/

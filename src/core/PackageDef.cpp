@@ -12,6 +12,7 @@
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include <portability/System.hpp>
+#include <core/VersionMatcher.hpp>
 #include "PackageDef.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -71,6 +72,7 @@ void PackageDef::loadJson(const Json::Value & json)
 	Helper::jsonToObj(flags,json["flags"]);
 	Helper::jsonToObj(urls,json["urls"]);
 	Helper::jsonToObj(patch,json["patch"]);
+	Helper::jsonToObj(slots,json["slots"]);
 }
 
 /*******************  FUNCTION  *********************/
@@ -104,6 +106,7 @@ void PackageDef::save(Json::Value & json)
 	Helper::toJson(json["flags"],flags);
 	Helper::toJson(json["urls"],urls);
 	Helper::toJson(json["patch"],patch);
+	Helper::toJson(json["slots"],slots);
 }
 
 /*******************  FUNCTION  *********************/
@@ -147,6 +150,7 @@ void PackageDef::merge(const PackageDef & def)
 	Helper::merge(flags,def.flags,false);
 	Helper::merge(urls,def.urls);
 	Helper::merge(patch,def.patch);
+	Helper::merge(slots,def.slots);
 }
 
 /*******************  FUNCTION  *********************/
@@ -182,6 +186,56 @@ void PackageDef::save(std::ostream & out)
 	
 	//dump
 	out << json;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Select the newer version in the list (considered already sorted)
+**/
+std::string PackageDef::getVersion(void)
+{
+	return versions.front();
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Get the current slot considering the current best version available
+ * it the list (constidered already sorted)
+**/
+std::string PackageDef::getSlot(void)
+{
+	return VersionMatcher::getSlot(slots,getVersion());
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Sort versions in decresing order so last version is first.
+**/
+void PackageDef::sortVersions(void)
+{
+	VersionMatcher::sortList(versions);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Return the N first versions (condiser already ordered)
+ * @param cnt Number of element to return
+**/
+std::string PackageDef::getNVersions(int cnt)
+{
+	//vars
+	StringList tmp;
+	
+	//loop
+	for (auto & v : versions)
+	{
+		tmp.push_back(v);
+		if (--cnt == 0)
+			break;
+	}
+	
+	//return
+	return Helper::join(tmp,' ');
 }
 
 }

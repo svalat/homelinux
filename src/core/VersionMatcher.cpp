@@ -61,7 +61,7 @@ VersionList VersionMatcher::filterList(const VersionList & list,const SlotDef & 
 /*******************  FUNCTION  *********************/
 static bool versionSortCompare(const std::string & a,const std::string & b)
 {
-	return VersionMatcher::compareVersion(a,b) == -1;
+	return VersionMatcher::compareVersion(a,b) == 1;
 }
 
 /*******************  FUNCTION  *********************/
@@ -203,7 +203,6 @@ std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & ve
 		if (it.first == "~")
 		{
 			//vars
-			std::smatch matches;
 			std::string extract;
 			std::string prepared = regexpReplPoint(it.second)+".*";
 			

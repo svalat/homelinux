@@ -41,6 +41,10 @@
 	"name" : "app-shell/bash",
 	"patch" : [ "bash-2.3-fix-spell.patch" ],
 	"scripts" : [ "models/scripts/default.sh" ],
+	"slots" : 
+	{
+		"~" : "([0-9]+.[0-9]+)"
+	},
 	"steps" : 
 	{
 		"install" : [ "run make install" ],

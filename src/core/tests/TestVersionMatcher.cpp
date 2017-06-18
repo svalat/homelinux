@@ -236,10 +236,10 @@ TEST(VersionMatcher,sortList)
 	VersionList sorted = VersionMatcher::sortList(list);
 	
 	VersionList ref;
-	ref.push_back("1.2");
-	ref.push_back("1.2.1");
-	ref.push_back("2.3");
 	ref.push_back("2.3.1");
+	ref.push_back("2.3");
+	ref.push_back("1.2.1");
+	ref.push_back("1.2");
 	
 	auto it = sorted.begin();
 	auto itRef = ref.begin();

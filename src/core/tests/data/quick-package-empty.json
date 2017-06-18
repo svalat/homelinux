@@ -16,6 +16,7 @@
 	"name" : "none/empty",
 	"patch" : null,
 	"scripts" : null,
+	"slots" : null,
 	"steps" : null,
 	"subdir" : "empty-${VERSION}",
 	"urls" : null,

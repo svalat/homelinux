@@ -260,4 +260,31 @@ bool Helper::startBy(const std::string & value,const std::string & what)
 	return (strncmp(value.c_str(),what.c_str(),what.size()) == 0);
 }
 
+/********************  STRUCT  **********************/
+/**
+ * Check if a given string end by a reference.
+ * @param value String to check
+ * @param what Need to end by this.
+**/
+bool Helper::endBy(const std::string & value,const std::string & what)
+{
+	//if too large
+	if (what.size() > value.size())
+		return false;
+	
+	//check
+	return (strncmp(value.c_str()+value.size()-what.size(),what.c_str(),what.size()) == 0);
+}
+
+/********************  STRUCT  **********************/
+/**
+ * Convert a string to lower case.
+**/
+std::string Helper::toLower(std::string value)
+{
+	for (auto & el : value)
+		el = std::tolower(el);
+	return value;
+}
+
 }

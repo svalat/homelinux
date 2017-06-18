@@ -28,12 +28,18 @@ namespace hl
 /********************  STRUCT  **********************/
 struct System
 {
+	//env
 	static std::string getHomeDir(void);
-	static bool fileExist(const std::string & path);
 	static std::string getEnv(const std::string & name,const std::string & defaultValue = "");
-	static std::string loadFile(const std::string & path);
+	//json
 	static void loadJson(Json::Value & out,const std::string & path);
+	static void writeJson(const Json::Value & json,const std::string & path);
+	//dirs & files
+	static std::string loadFile(const std::string & path);
+	static bool fileExist(const std::string & path);
 	static void readDir(const std::string & path,std::function<void(const std::string &)> callback);
+	static void findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir = "");
+	//run
 	static int runCommand(const std::string & cmd);
 };
 

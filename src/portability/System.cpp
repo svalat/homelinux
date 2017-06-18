@@ -15,6 +15,7 @@
 #include <base/Debug.hpp>
 #include <json/json.h>
 #include <dirent.h>
+#include <cstring>
 #include "System.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -106,6 +107,24 @@ void System::loadJson(Json::Value & out,const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
+void System::writeJson(const Json::Value & json,const std::string & path)
+{
+	//compute file path
+	assume(path.empty() == false,"Invalid empty path");
+	assume(json.isNull() == false,"Invalid NULL json");
+	
+	//open file
+	std::ofstream file(path.c_str(),std::ifstream::binary);
+	assumeArg(file.is_open(),"Fail to open configuration file : %1 : %2").arg(path).argStrErrno().end();
+	
+	//dump
+	file << json;
+	
+	//close
+	file.close();
+}
+
+/*******************  FUNCTION  *********************/
 void System::readDir(const std::string & path,std::function<void(const std::string &)> callback)
 {
 	//open
@@ -130,6 +149,44 @@ void System::readDir(const std::string & path,std::function<void(const std::stri
 int System::runCommand(const std::string & cmd)
 {
 	return system(cmd.c_str());
+}
+
+/*******************  FUNCTION  *********************/
+void System::findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir)
+{
+	//open
+	DIR * dir = opendir(path.c_str());
+	assumeArg(dir != NULL,"Fail to scan directory : %1. %2").arg(path).argStrErrno().end();
+	
+	//loop
+	for(;;)
+	{
+		dirent * d = readdir(dir);
+		if (d == NULL)
+		{
+			break;
+		} else {
+			if (d->d_type == DT_DIR && strcmp(d->d_name,".") != 0 &&  strcmp(d->d_name,"..") != 0 ) 
+			{
+				//compute sub
+				std::string sub = subdir;
+				if (sub.empty() == false)
+					sub += "/";
+				sub += d->d_name;
+				
+				//recurse
+				findFiles(path+std::string("/")+d->d_name,callback,sub);
+			} else if (d->d_type == DT_REG) {
+				if (subdir.empty())
+					callback(d->d_name);
+				else
+					callback(subdir + std::string("/") + d->d_name);
+			}
+		}
+	}
+	
+	//close
+	closedir(dir);
 }
 
 }

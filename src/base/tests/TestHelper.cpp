@@ -192,3 +192,11 @@ TEST(Helper,startBy)
 	EXPECT_FALSE(Helper::startBy("Hello","he"));
 	EXPECT_FALSE(Helper::startBy("Hello","Hello World"));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(Helper,endBy)
+{
+	EXPECT_TRUE(Helper::endBy("Hello","lo"));
+	EXPECT_FALSE(Helper::endBy("Hello","Lo"));
+	EXPECT_FALSE(Helper::endBy("world","Hello World"));
+}

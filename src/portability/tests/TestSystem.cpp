@@ -9,6 +9,8 @@
 /********************  HEADERS  *********************/
 #include <cerrno>
 #include <gtest/gtest.h>
+#include <base/Helper.hpp>
+#include <json/json.h>
 #include "../System.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -39,4 +41,39 @@ TEST(System,fileExist)
 TEST(System,loadFile)
 {
 	EXPECT_EQ("This is a test !",System::loadFile(TEST_DATA_PATH "/test.txt"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(System,findFiels)
+{
+	std::map<std::string,std::string> ref;
+	ref["TestSystem.cpp"] = "TestSystem.cpp";
+	ref["CMakeLists.txt"] = "CMakeLists.txt";
+	ref["data/test.txt"] = "data/test.txt";
+	ref["data/test.json"] = "data/test.json";
+	
+	System::findFiles(TEST_DATA_PATH "/..",[&](const std::string & value){
+		EXPECT_EQ(ref[value],value);
+	});
+}
+
+/*******************  FUNCTION  *********************/
+TEST(System,loadJson)
+{
+	Json::Value json;
+	System::loadJson(json,TEST_DATA_PATH "/test.json");
+	
+	EXPECT_EQ("Hello",json["test"].asString());
+}
+
+/*******************  FUNCTION  *********************/
+TEST(System,writeJson)
+{
+	Json::Value json;
+	json["test"] = "Hello";
+	System::writeJson(json,"/tmp/hl-system-test-save-json.json");
+	
+	Json::Value json2;
+	System::loadJson(json2,TEST_DATA_PATH "/test.json");
+	EXPECT_EQ("Hello",json2["test"].asString());
 }

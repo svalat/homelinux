@@ -43,6 +43,10 @@
 	"name" : "app-shell/bash2",
 	"patch" : [ "bash-2.3-fix-spell.patch", "bash-2.3-fix-other-spell.patch" ],
 	"scripts" : [ "models/scripts/default.sh", "models/scripts/opt.sh" ],
+	"slots" : 
+	{
+		"~" : "([0-9]+.[0-9]+)"
+	},
 	"steps" : 
 	{
 		"install" : [ "run ./prepinstall.sh", "run make install" ],

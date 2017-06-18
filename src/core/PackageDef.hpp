@@ -61,6 +61,10 @@ struct PackageDef
 	void save(std::ostream & out);
 	void merge(const PackageDef & def);
 	void save(Json::Value & json);
+	void sortVersions(void);
+	std::string getVersion(void);
+	std::string getSlot(void);
+	std::string getNVersions(int cnt);
 	//members
 	/** API in case of update **/
 	int api;
@@ -137,6 +141,8 @@ struct PackageDef
 	StringList urls;
 	/** List of patch to apply. Prefer to use this in version specific**/
 	StringList patch;
+	/** List of slots **/
+	StringMap slots;
 };
 
 }
