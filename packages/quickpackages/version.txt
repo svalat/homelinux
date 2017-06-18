@@ -23,6 +23,6 @@ gentoo/gtksourceviewmm 2.[0-9]+.[0-9]+
 gentoo/atlas 3.9.23
 gentoo/unzip [0-9]+
 gentoo/media-player-info [0-9]+
-none/test 1.3.0
+none/test [0-9]+.[0-9]+.[0-9]+
 ############################### FROM HOMELINUX 1.0.0 ###############################
 #################################### FOR USER ######################################

@@ -21,7 +21,7 @@ namespace hl
 /**
 * Helper function to split strings with element containing at most 1024 characters.
 **/
-void Helper::stringSplit(const std::string & value,char separator,std::function<void(const std::string&)> callback)
+void Helper::split(const std::string & value,char separator,std::function<void(const std::string&)> callback)
 {
 	//vars
 	char buffer[1024];
@@ -285,6 +285,32 @@ std::string Helper::toLower(std::string value)
 	for (auto & el : value)
 		el = std::tolower(el);
 	return value;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Return the last element of a string we split base on given character
+**/
+std::string Helper::last(const std::string& value, char sep)
+{
+	std::string res;
+	Helper::split(value,sep,[&res](const std::string & v) {
+		res = v;
+	});
+	return res;
+}
+
+/******************* FUNCTION *********************/
+std::string Helper::escape(const std::string & value,char c)
+{
+	std::string out;
+	for (auto ch : value)
+	{
+		if (ch == c)
+			out += '\\';
+		out += ch;
+	}	
+	return out;
 }
 
 }

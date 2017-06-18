@@ -134,7 +134,7 @@ void EnvSetup::removeExisting(const std::string & varname,const char separator)
 	
 	//remove
 	std::list<std::string> out;
-	Helper::stringSplit(env[varname],separator,[&out,this](const std::string & value){
+	Helper::split(env[varname],separator,[&out,this](const std::string & value){
 		bool status = true;
 		for (auto & prefix : loadedPrefix)
 		{

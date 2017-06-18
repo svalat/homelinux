@@ -87,7 +87,7 @@ bool HostPkgChecker::presentOnSystemGentoo(const StringList & pkgList) const
 		
 		//split
 		StringVector names(2);
-		Helper::stringSplit(pack,'/',[&names](const std::string & value){
+		Helper::split(pack,'/',[&names](const std::string & value){
 			names.push_back(value);
 		});
 		

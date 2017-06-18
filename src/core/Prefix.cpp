@@ -19,54 +19,69 @@ namespace hl
 /*******************  FUNCTION  *********************/
 Prefix::Prefix(const Config * config,const std::string & prefix, bool master)
 {
-    //checks
-    assert(config != NULL);
+	//checks
+	assert(config != NULL);
 	assume(prefix.empty() == false,"Invalid empty prefix");
-    
-    //setup
-    this->config = config;
-    this->prefix = prefix;
-    this->master = false;
-    
-    //load config
-    this->loadConfig();
+	
+	//setup
+	this->config = config;
+	this->prefix = prefix;
+	this->master = false;
+	this->quickPackage = NULL;
+	
+	//load config
+	this->loadConfig();
 }
 
 /*******************  FUNCTION  *********************/
 void Prefix::loadConfig(void)
 {
-    //compute path
-    std::string path = prefix + "/homelinux.json";
-    
-    //load
-    Json::Value json;
-    System::loadJson(json,path);
-    
-    //apply
-    Helper::jsonToObj(prefixConfig.inherit,json["inherit"]);
-    Helper::jsonToObj(prefixConfig.flags,json["flags"]);
-    Helper::jsonToObj(prefixConfig.override,json["override"]);
-    Helper::jsonToObj(prefixConfig.versions,json["versions"]);
-    Helper::jsonToObj(prefixConfig.use,json["user"]);
-    Helper::jsonToObj(prefixConfig.modules,json["modules"]);
-    Helper::jsonToObj(prefixConfig.packageOverride,json["packageOverride"]);
-    prefixConfig.gentoo = json["gentoo"];
-    prefixConfig.debian = json["debian"];
-    Helper::jsonToObj(prefixConfig.providers,json["providers"]);
-    prefixConfig.providers.push_front("models");
-    prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
+	//compute path
+	std::string path = prefix + "/homelinux.json";
+	
+	//load
+	Json::Value json;
+	System::loadJson(json,path);
+	
+	//apply
+	Helper::jsonToObj(prefixConfig.inherit,json["inherit"]);
+	Helper::jsonToObj(prefixConfig.flags,json["flags"]);
+	Helper::jsonToObj(prefixConfig.override,json["override"]);
+	Helper::jsonToObj(prefixConfig.versions,json["versions"]);
+	Helper::jsonToObj(prefixConfig.use,json["user"]);
+	Helper::jsonToObj(prefixConfig.modules,json["modules"]);
+	Helper::jsonToObj(prefixConfig.packageOverride,json["packageOverride"]);
+	prefixConfig.gentoo = json["gentoo"];
+	prefixConfig.debian = json["debian"];
+	Helper::jsonToObj(prefixConfig.providers,json["providers"]);
+	prefixConfig.providers.push_front("models");
+	prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
 }
 
 /*******************  FUNCTION  *********************/
 std::string Prefix::getFilePath(const std::string path) const
 {
-    return this->prefix + "/" + path;
+	return this->prefix + "/" + path;
 }
 
 /*******************  FUNCTION  *********************/
-void loadPackage(PackageDef & out,const std::string packageName)
+void Prefix::loadPackage(PackageDef & out,const std::string packageName)
 {
-    HL_FATAL("TODO");
+	HL_FATAL("TODO");
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::getQuickPackage(PackageDef & out,const std::string & packageName)
+{
+	getQuickPackage().genPackage(out,packageName);
+}
+
+/*******************  FUNCTION  *********************/
+QuickPackage & Prefix::getQuickPackage(void)
+{
+	if (quickPackage == NULL)
+		quickPackage = new QuickPackage(this);
+	return *quickPackage;
 }
 
 }

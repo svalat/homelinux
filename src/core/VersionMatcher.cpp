@@ -130,7 +130,7 @@ bool VersionMatcher::applyVersionOperator(const std::string & op,const std::stri
 void VersionMatcher::set(const std::string & rules)
 {
 	ruleList.clear();
-	Helper::stringSplit(rules,' ',[this](const std::string & value){
+	Helper::split(rules,' ',[this](const std::string & value){
 		this->ruleList.push_back(value);
 	});
 }
@@ -144,9 +144,9 @@ int VersionMatcher::compareVersion(const std::string & v1,const std::string & v2
 {
 	//split
 	std::vector<std::string> v1Details;
-	Helper::stringSplit(v1,'.',[&v1Details](const std::string& value){v1Details.push_back(fillNumber(value,8));});
+	Helper::split(v1,'.',[&v1Details](const std::string& value){v1Details.push_back(fillNumber(value,8));});
 	std::vector<std::string> v2Details;
-	Helper::stringSplit(v2,'.',[&v2Details](const std::string& value){v2Details.push_back(fillNumber(value,8));});
+	Helper::split(v2,'.',[&v2Details](const std::string& value){v2Details.push_back(fillNumber(value,8));});
 	
 	//fill
 	std::string zero(12,'0');

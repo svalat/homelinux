@@ -18,7 +18,7 @@ using namespace hl;
 TEST(Helper,stringSplit_1)
 {
 	std::string res;
-	Helper::stringSplit("a1 a2  a3",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
+	Helper::split("a1 a2  a3",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
 	EXPECT_EQ("(a1)(a2)(a3)",res);
 }
 
@@ -26,7 +26,7 @@ TEST(Helper,stringSplit_1)
 TEST(Helper,stringSplit_2)
 {
 	std::string res;
-	Helper::stringSplit("a1 a2  a3   ",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
+	Helper::split("a1 a2  a3   ",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
 	EXPECT_EQ("(a1)(a2)(a3)",res);
 }
 
@@ -199,4 +199,10 @@ TEST(Helper,endBy)
 	EXPECT_TRUE(Helper::endBy("Hello","lo"));
 	EXPECT_FALSE(Helper::endBy("Hello","Lo"));
 	EXPECT_FALSE(Helper::endBy("world","Hello World"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(Helper,espace)
+{
+	EXPECT_EQ("Test\\. and second\\.",Helper::escape("Test. and second.",'.'));
 }

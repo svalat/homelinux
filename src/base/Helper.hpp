@@ -42,9 +42,11 @@ typedef std::vector<std::string> StringVector;
 **/
 struct Helper
 {
-	static void stringSplit(const std::string & value,char separator,std::function<void(const std::string&)> callback);
+	static void split(const std::string & value,char separator,std::function<void(const std::string&)> callback);
+	static std::string last(const std::string & value, char sep);
 	static bool contain(const std::string & value,const std::string what);
 	static std::string join(const std::list<std::string> & lst,char sep);
+	static std::string escape(const std::string & value,char c);
 	template <class T> static T getListEl(const std::list<T> & lst,int id);
 	static void jsonToObj(StringList & out,const Json::Value & json);
 	static void jsonToObj(StringMap & out,const Json::Value & json);

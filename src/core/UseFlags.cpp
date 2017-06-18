@@ -111,7 +111,7 @@ UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag)
 		return getApplyStatus(flag);
 	} else {
 		UseFlagState state = FLAG_ENABLED;
-		Helper::stringSplit(flag,'&',[this,&state](const std::string & value){
+		Helper::split(flag,'&',[this,&state](const std::string & value){
 			UseFlagState tmp = getApplyStatus(value);
 			if (tmp == FLAG_AUTO)
 				state = FLAG_AUTO;
@@ -225,7 +225,7 @@ std::string UseFlags::toString(bool force)
 **/
 UseFlags & UseFlags::merge(const std::string & flags)
 {
-	Helper::stringSplit(flags,' ',[this](const std::string & value){
+	Helper::split(flags,' ',[this](const std::string & value){
 		this->addOne(value);
 	});
 }

@@ -79,11 +79,11 @@ void QuickPackage::loadQuickFile(const std::string & property,const std::string 
 	
 	//for each line
 	StringMapList & prop = db[property];
-	Helper::stringSplit(content,'\n',[&prop](const std::string & line){
+	Helper::split(content,'\n',[&prop](const std::string & line){
 		if (line[0] != '#' && line.empty() == false)
 		{
 			StringList lst;
-			Helper::stringSplit(line,' ',[&lst](const std::string & value){
+			Helper::split(line,' ',[&lst](const std::string & value){
 				lst.push_back(value);
 			});
 			std::string name = Helper::getListEl(lst,0);
@@ -125,7 +125,7 @@ std::string QuickPackage::getQuickInfoFirst(const std::string & property,const s
 void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 {
 	std::string shortName;
-	Helper::stringSplit(name,'/',[&shortName](const std::string & value){
+	Helper::split(name,'/',[&shortName](const std::string & value){
 		shortName = value;
 	});
 	
@@ -135,7 +135,8 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 	pack.subdir = this->getQuickInfoFirst("subdir",name,shortName+"-${VERSION}");
 	pack.module = this->getQuickInfoFirst("module",name,"");
 	
-	pack.versions = this->getQuickInfo("version",name);
+	const StringList & versionRefexp = this->getQuickInfo("version",name);
+	pack.vfetcher.regexp = versionRefexp.empty()?"":versionRefexp.front();
 	pack.deps = this->getQuickInfo("deps",name);
 	pack.patch = this->getQuickInfo("patch",name);
 	pack.configure[""] = this->getQuickInfo("config",name);

@@ -161,7 +161,7 @@ std::string ProviderHomelinux::search(const std::string & name)
 	{
 		//get name
 		std::string pn;
-		Helper::stringSplit(entry,'/',[&pn](const std::string & value){
+		Helper::split(entry,'/',[&pn](const std::string & value){
 			pn = value;
 		});
 		
