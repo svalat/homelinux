@@ -1,0 +1,45 @@
+{
+	"name": "app-shells/bash",
+	"homepage": "http://tiswww.case.edu/php/chet/bash/bashtop.html",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.3" 
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "http://ftp.gnu.org/gnu/bash/",
+		"regexp": "bash-([0-9]+\\.[0-9]+).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "bash-${VERSION}",
+	"urls" : [
+		"http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/ncurses",
+		"readline? sys-libs/readline",
+		"nls? virtual/libintl"
+	],
+	"host": {
+		"default": true,
+		"debian8": [ "bash" ],
+		"centos7": [ "bash" ],
+		"gentoo": [ "app-shells/bash" ]
+	},
+	"use": [
+		"gentoo",
+		"readline",
+		"ls",
+		"afs",
+		"net",
+		"mem-scramble",
+		"nls"
+	],
+	"configure": {
+		"+gentoo": [ "--with-curses", "--disable-profiling" ],
+		"afs": [ "--$with-afs" ],
+		"net": [ "--$enable-net-redirections" ],
+		"mem-scramble": [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
+		"readline": [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ]
+	}
+}
