@@ -143,6 +143,7 @@ do
 			;;
 		--enable-ninja)
 			ENABLE_NINJA="-G Ninja"
+			;;
 		--enable-debug)
 			BUILD_TYPE='Debug'
 			;;
