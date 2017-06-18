@@ -8,8 +8,10 @@
 
 /********************  HEADERS  *********************/
 #include <cerrno>
+#include <sstream>
 #include <gtest/gtest.h>
 #include <core/Prefix.hpp>
+#include <portability/System.hpp>
 #include "../ProviderHomelinux.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -25,7 +27,7 @@ TEST(ProviderHomelinux,constructor)
 }
 
 /*******************  FUNCTION  *********************/
-TEST(ProviderHomelinux,getPackage_no_models)
+TEST(ProviderHomelinux,getPackage_ok_full)
 {
     Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
@@ -33,7 +35,31 @@ TEST(ProviderHomelinux,getPackage_no_models)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_FALSE(provider.getPackage(pack,"hl/app-shell/bash"));
+	EXPECT_TRUE(provider.getPackage(pack,"hl/app-shell/bash"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderHomelinux,getPackage_ok_partial)
+{
+    Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderHomelinux provider(&prefix);
+	
+	PackageDef pack;
+	EXPECT_TRUE(provider.getPackage(pack,"app-shell/bash"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderHomelinux,getPackage_ok_short)
+{
+    Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderHomelinux provider(&prefix);
+	
+	PackageDef pack;
+	EXPECT_TRUE(provider.getPackage(pack,"bash"));
 }
 
 /*******************  FUNCTION  *********************/
@@ -45,11 +71,11 @@ TEST(ProviderHomelinux,getPackage_no_exist)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_FALSE(provider.getPackage(pack,"model/fake"));
+	EXPECT_FALSE(provider.getPackage(pack,"csh"));
 }
 
 /*******************  FUNCTION  *********************/
-TEST(ProviderHomelinux,getPackage_ok)
+TEST(ProviderHomelinux,getPackage_check_content)
 {
     Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
@@ -57,5 +83,10 @@ TEST(ProviderHomelinux,getPackage_ok)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_TRUE(provider.getPackage(pack,"models/default"));
+	EXPECT_TRUE(provider.getPackage(pack,"hl/app-shell/bash"));
+	
+	std::stringstream out;
+	pack.save(out);
+	
+	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/hl-full-bash.json"),out.str());
 }
