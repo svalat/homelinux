@@ -25,8 +25,8 @@ EXTRA_CFLAGS=''
 EXTRA_CXXFLAGS=''
 EXTRA_LDFLAGS=''
 BUILD_TYPE='Release'
-#compiler
-MPI_CXX_COMPILER=''
+#make or ninja
+ENABLE_NINJA=''
 #features
 ENABLE_GCC_COVERAGE=''
 ENABLE_JUNIT_OUT=''
@@ -73,6 +73,7 @@ Optional Features:
    --disable-tests           Disable unit tests of the lib (-DENABLE_TESTS=no).
    --enable-jenkins          Enable all checking modes (unit, valgrind, coverage...).
    --disable-colors          Disable usage of colors in terminal (-DENABLE_COLOR=no)
+   --enable-ninja            Generate for ninja instead of make.
 
 To find libs and commands :
    --with-cmake={command}    Define the cmake command to use [cmake].
@@ -140,6 +141,8 @@ do
 		--with-cmake=*)
 			CMAKE="`get_arg_value \"$arg\" --with-cmake`"
 			;;
+		--enable-ninja)
+			ENABLE_NINJA="-G Ninja"
 		--enable-debug)
 			BUILD_TYPE='Debug'
 			;;
@@ -227,7 +230,7 @@ gen_clean_command()
 COMMAND="`gen_clean_command "${CMAKE}" "-DCMAKE_BUILD_TYPE=${BUILD_TYPE}" "${PREFIX}" "${EXTRA_CXX}" \
 	"${EXTRA_CXXFLAGS}" "${EXTRA_LDFLAGS}" "${EXTRA_CC}" "${EXTRA_CFLAGS}" \
 	"${ENABLE_SELF_TEST}" "${ENABLE_JUNIT_OUT}" "${ENABLE_VALGRIND}" "${ENABLE_GCC_COVERAGE}" "${DISABLE_TESTS}" \
-	"${LIB_SUFFIX}" "${ENABLE_COLORS}" "${SOURCE_DIR}"`" 
+	"${LIB_SUFFIX}" "${ENABLE_COLORS}" ${NINJA} "${SOURCE_DIR}"`" 
 
 ######################################################
 #execute or display
