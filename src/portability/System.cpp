@@ -18,6 +18,10 @@
 #include <cstring>
 #include "System.hpp"
 
+/********************  MACROS  **********************/
+#define HAVE_CURL
+#define HAVE_WGET
+
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
@@ -187,6 +191,44 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 	
 	//close
 	closedir(dir);
+}
+
+/*******************  FUNCTION  *********************/
+bool System::downloadJson(Json::Value & out,const std::string & url)
+{
+	static int id;
+	
+	//gen filename
+	char buffer[128];
+	sprintf(buffer,"/tmp/hl-internal-download-%d.json",id++);
+	//std::string tmp = mktemp(buffer);
+	std::string tmp = buffer;
+	std::string cmd;
+	
+	//download
+	#ifdef HAVE_WGET
+		cmd = "wget "+url+" -O "+tmp+" > /dev/null 2>/dev/null";
+	#elif defined(HAVE_CURL)
+		cmd = "curl "+url+" -o "+tmp+" > /dev/null 2>/dev/null";
+	#else
+		HL_FATAL("Cannot download file without curl or wget on system !");
+	#endif
+	
+	//debug
+	HL_DEBUG_ARG("System","Downloading using command %1").arg(cmd).end();
+	
+	//run
+	int status = system(cmd.c_str());
+	
+	//load
+	if (status == 0)
+	{
+		loadJson(out,tmp);
+		//delete
+		unlink(tmp.c_str());
+	}
+	
+	return status == 0;
 }
 
 }

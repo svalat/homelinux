@@ -77,3 +77,11 @@ TEST(System,writeJson)
 	System::loadJson(json2,TEST_DATA_PATH "/test.json");
 	EXPECT_EQ("Hello",json2["test"].asString());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(System,downloadJson)
+{
+	Json::Value json;
+	EXPECT_TRUE(System::downloadJson(json,"https://api.github.com/repos/svalat/homelinux/releases/latest"));
+	EXPECT_EQ("svalat",json["author"]["login"].asString());
+}

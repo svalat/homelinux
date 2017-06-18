@@ -1,0 +1,37 @@
+
+{
+	"api" : 1,
+	"configure" : 
+	{
+		"" : [ "--enable-debug" ]
+	},
+	"conflicts" : null,
+	"deps" : null,
+	"flags" : null,
+	"homepage" : "",
+	"host" : null,
+	"inherit" : "models/auto",
+	"md5" : null,
+	"module" : "",
+	"name" : "github/svalat/svpgm2txt",
+	"patch" : null,
+	"scripts" : null,
+	"slots" : null,
+	"steps" : 
+	{
+		"download" : [ "hl_github_download" ]
+	},
+	"subdir" : "svpgm2txt-${VERSION}",
+	"urls" : [ "https://github.com/svalat/svpgm2txt/archive/v1.2.tar.gz" ],
+	"use" : null,
+	"vars" : null,
+	"versions" : [ "1.2" ],
+	"vfetcher" : 
+	{
+		"mode" : "",
+		"regexp" : "",
+		"url" : ""
+	},
+	"vspecific" : null,
+	"warn" : null
+}
