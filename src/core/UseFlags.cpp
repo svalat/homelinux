@@ -228,14 +228,16 @@ UseFlags & UseFlags::merge(const std::string & flags)
 	Helper::split(flags,' ',[this](const std::string & value){
 		this->addOne(value);
 	});
+	return *this;
 }
 
 /*******************  FUNCTION  *********************/
 UseFlags & UseFlags::merge(const UseFlags & flags)
 {
 	//loop
-	for (auto & it : stateMap)
+	for (auto & it : flags.stateMap)
 		addOne(it.first,it.second);
+	return *this;
 }
 
 }

@@ -36,7 +36,7 @@ TEST(UseFlags,getFlagName)
 }
 
 /*******************  FUNCTION  *********************/
-TEST(UseFlags,merge)
+TEST(UseFlags,merge_1)
 {
 	UseFlags flags;
 	flags.merge("-gtk +qt  svg ");
@@ -88,4 +88,29 @@ TEST(UseFlags,getApplyStatusWithAnd)
 	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("+qt&+gtk"));
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("qt&kde"));
 	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatusWithAnd("qt&svg"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,setAuto)
+{
+	UseFlags flags("+qt -kde gtk svg");
+	flags.setAuto(FLAG_ENABLED);
+
+	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("qt"));
+	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("gtk"));
+	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("svg"));
+	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("kde"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,merge_2)
+{
+	UseFlags flags("+qt +kde -gtk svg");
+	UseFlags flags2("-qt -kde +gtk +svg");
+	flags.merge(flags2);
+	
+	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("gtk"));
+	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("svg"));
+	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("qt"));
+	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("kde"));
 }

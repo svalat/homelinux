@@ -99,6 +99,16 @@ TEST(FormattedMessage,notTooMuch)
 }
 
 /*******************  FUNCTION  *********************/
+TEST(FormattedMessage,testPourcentPourcent)
+{
+	FormattedMessage message("value = %1 %%");
+	message.arg(10);
+	message.end();
+	EXPECT_EQ("value = 10 %",message.toString());
+}
+
+
+/*******************  FUNCTION  *********************/
 TEST(FormattedMessage,operatorStream)
 {
 	FormattedMessage message("test %1");
@@ -118,6 +128,14 @@ TEST(FormattedMessage,errnoToString)
 	message.argStrErrno();
 	
 	EXPECT_EQ("test Success",message.toString());
+}
+
+/*******************  FUNCTION  *********************/
+TEST(FormattedMessage,argUnit1000_KiB)
+{
+	FormattedMessage message("%1");
+	message.argUnit1000(2000,"B");
+	EXPECT_EQ("2.00 KB",message.toString());
 }
 
 /*******************  FUNCTION  *********************/
