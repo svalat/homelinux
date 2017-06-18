@@ -31,7 +31,7 @@ namespace hl
 **/
 struct Config
 {
-	Config(void);
+	Config(bool loadUserConfig = false);
 	~Config(void);
 	void loadDefault(void);
 	void load(std::string path = "");

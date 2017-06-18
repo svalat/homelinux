@@ -94,7 +94,8 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 	
 	//load from cache
 	PackageDef & pack = packageCache[packageName];
-	std::string path = prefix->getFilePath("/homelinux/package/db/"+shortName+".json");
+	std::string path = prefix->getFilePath("/homelinux/packages/db/"+shortName+".json");
+	HL_DEBUG_ARG("ProviderHomelinux","Try to load file : %1").arg(path).end();
 	if (System::fileExist(path))
 	{
 		pack.load(path);
@@ -102,7 +103,10 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 		//apply version
 		this->loadVersions();
 		if (versions.find(packageName) != versions.end())
-			pack.versions = versions["packageName"];
+			pack.versions = versions[packageName];
+			
+		//merge
+		out.merge(pack);
 		
 		return true;
 	} else {
@@ -215,7 +219,7 @@ std::string ProviderHomelinux::searchInCache(const std::string & name)
 void ProviderHomelinux::loadVersions(void)
 {
 	//path
-	std::string path = prefix->getFilePath("/homelinux/package/db/versions.json");
+	std::string path = prefix->getFilePath("/homelinux/packages/db/versions.json");
 	
 	//check if exist
 	Json::Value json;

@@ -1,4 +1,5 @@
 {
+	"api": 1,
 	"name": "app-shells/bash",
 	"homepage": "http://tiswww.case.edu/php/chet/bash/bashtop.html",
 	"inherit": "models/autotools",

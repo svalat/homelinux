@@ -21,6 +21,15 @@ namespace hl
 
 /*******************  FUNCTION  *********************/
 /**
+ * Constructor
+**/
+PackageDef::PackageDef(void)
+{
+	this->api = 0;
+}
+
+/*******************  FUNCTION  *********************/
+/**
  * Load the package from given JSON file.
  * @param path Path of the JSON file to load.
 **/
@@ -47,7 +56,6 @@ void PackageDef::load(const std::string & path)
 **/
 void PackageDef::loadJson(const Json::Value & json)
 {
-	this->api = json.get("api",0).asInt();
 	this->api = json.get("api",1).asInt();
 	this->name = json.get("name","").asString();
 	this->homepage = json.get("homepage","").asString();
@@ -116,6 +124,7 @@ void PackageDef::save(Json::Value & json)
 **/
 void PackageDef::merge(const PackageDef & def)
 {
+	api = def.api;
 	if (def.name.empty() == false)
 		name = def.name;
 	if (def.homepage.empty() == false)

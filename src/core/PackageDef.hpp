@@ -55,6 +55,7 @@ struct VersionFetcher
 struct PackageDef
 {
 	//funcs
+	PackageDef(void);
 	void load(const std::string & path);
 	void loadJson(const Json::Value & json);
 	void save(const std::string & path);

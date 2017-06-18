@@ -30,11 +30,11 @@ namespace hl
 /**
  * Config constructor.
 **/
-Config::Config(void)
+Config::Config(bool loadUserConfig)
 {
-	this->showDebugCat = false;
 	this->loadDefault();
-	this->load();
+	if (loadUserConfig)
+		this->load();
 }
 
 /*******************  FUNCTION  *********************/
@@ -58,6 +58,7 @@ void Config::loadDefault()
 	this->ccache = false;
 	this->pyEnv = true;
 	this->homecache = false;
+	this->showDebugCat = false;
 }
 
 /*******************  FUNCTION  *********************/

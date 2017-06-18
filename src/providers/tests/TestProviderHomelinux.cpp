@@ -27,6 +27,16 @@ TEST(ProviderHomelinux,constructor)
 }
 
 /*******************  FUNCTION  *********************/
+TEST(ProviderHomelinux,updateCache)
+{
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderHomelinux provider(&prefix);
+	provider.updateCache();
+}
+
+/*******************  FUNCTION  *********************/
 TEST(ProviderHomelinux,getPackage_ok_full)
 {
     Config config;
@@ -35,7 +45,7 @@ TEST(ProviderHomelinux,getPackage_ok_full)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_TRUE(provider.getPackage(pack,"hl/app-shell/bash"));
+	EXPECT_TRUE(provider.getPackage(pack,"hl/app-shells/bash"));
 }
 
 /*******************  FUNCTION  *********************/
@@ -47,7 +57,7 @@ TEST(ProviderHomelinux,getPackage_ok_partial)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_TRUE(provider.getPackage(pack,"app-shell/bash"));
+	EXPECT_TRUE(provider.getPackage(pack,"app-shells/bash"));
 }
 
 /*******************  FUNCTION  *********************/
@@ -83,7 +93,7 @@ TEST(ProviderHomelinux,getPackage_check_content)
 	ProviderHomelinux provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_TRUE(provider.getPackage(pack,"hl/app-shell/bash"));
+	ASSERT_TRUE(provider.getPackage(pack,"hl/app-shells/bash"));
 	
 	std::stringstream out;
 	pack.save(out);
