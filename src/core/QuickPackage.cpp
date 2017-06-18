@@ -130,7 +130,7 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 	});
 	
 	pack.name = name;
-	
+	pack.api = HL_JHSON_API;
 	pack.inherit = this->getQuickInfoFirst("type",name,"models/auto");
 	pack.subdir = this->getQuickInfoFirst("subdir",name,shortName+"-${VERSION}");
 	pack.module = this->getQuickInfoFirst("module",name,"");

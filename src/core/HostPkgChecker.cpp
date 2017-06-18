@@ -20,7 +20,8 @@ namespace hl
 /*******************  FUNCTION  *********************/
 /**
  * Constructor.
- * @param hostType Define the type of host to consider (gentoo, centos7, debian8, default)
+ * @param hostType Define the type of host to consider (gentoo, centos7, 
+ * debian8, default, true or false)
 **/
 HostPkgChecker::HostPkgChecker(const std::string & hostType)
 {
@@ -54,7 +55,11 @@ bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef) const
 		return false;
 	
 	//select type
-	if (hostType == "default")
+	if (hostType == "true")
+		return true;
+	else if (hostType == "false")
+		return false;
+	else if (hostType == "default")
 		return presentOnSystemDefault(pkgList);
 	else if (hostType == "centos7")
 		return presentOnSystemCentos(pkgList);

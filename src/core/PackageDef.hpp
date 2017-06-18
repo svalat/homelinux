@@ -16,11 +16,15 @@
 //from jsoncpp
 #include <json/json.h>
 //intenral
+#include <base/Helper.hpp>
 #include "VersionMatcher.hpp"
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
+
+/********************  MACROS  **********************/
+#define HL_JHSON_API 1
 
 /********************  STRUCT  **********************/
 /**
@@ -58,6 +62,8 @@ struct PackageDef
 	void merge(const PackageDef & def);
 	void save(Json::Value & json);
 	//members
+	/** API in case of update **/
+	int api;
 	/** Name of the package. **/
 	std::string name;
 	/** Home page of the project **/

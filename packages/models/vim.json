@@ -1,0 +1,13 @@
+{
+	"api": 1,
+	"name": "hl-template-perl",
+	"deps": [
+		"app-editors/vim"
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ ],
+		"build": [ ],
+		"install": [ "hl_vim_install" ]
+	}
+}

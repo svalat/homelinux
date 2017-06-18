@@ -14,6 +14,7 @@
 #include <base/Helper.hpp>
 #include <base/Config.hpp>
 #include <json/json.h>
+#include "PackageDef.hpp"
 
 /*******************  NAMESPACE  ********************/
 namespace hl
@@ -41,6 +42,7 @@ class Prefix
     public:
         Prefix(const Config *config, const std::string & prefix, bool master = false);
         std::string getFilePath(const std::string path) const;
+        void loadPackage(PackageDef & out,const std::string packageName);
     private:
         void loadConfig(void);
     private:

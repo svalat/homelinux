@@ -1,0 +1,11 @@
+{
+	"api": 1,
+	"name": "hl-template-cmake",
+	"deps": [
+		"dev-util/cmake"
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ "hl_configure_cmake" ]
+	}
+}

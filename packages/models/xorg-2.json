@@ -1,0 +1,62 @@
+{
+	"api": 1,
+	"name": "hl-template-xorg-2",
+	"deps": [
+		"sys-devel/libtool",
+		"sys-devel/m4",
+		"virtual/pkgconfig",
+		"xorg-util-macro? x11-misc/util-macros",
+		"xorg-font-util? media-fonts/font-util",
+		"xorg-font? media-fonts/font-util",
+		"xorg-font? x11-apps/mkfontscale",
+		"xorg-font? x11-apps/mkfontdir", 
+		"xorg-font? media-fonts/font-alias",
+		"xorg-font? media-fonts/font-util",
+		"xorg-dri? x11-base/xorg-server[-minimal]",
+		"xorg-dri? x11-libs/libdrm",
+		"xorg-dri? x11-proto/xf86driproto",
+		"xorg-dri? x11-proto/glproto",
+		"xorg-dri? x11-proto/dri2proto",
+		"xorg-input-driver? x11-proto/inputproto",
+		"xorg-input-driver? x11-proto/kbproto",
+		"xorg-input-driver? x11-proto/xproto",
+		"xorg-video-driver? x11-proto/fontsproto",
+		"xorg-video-driver? x11-proto/randrproto",
+		"xorg-video-driver? x11-proto/renderproto",
+		"xorg-video-driver? x11-proto/videoproto",
+		"xorg-video-driver? x11-proto/xextproto",
+		"xorg-video-driver? x11-proto/xineramaproto",
+		"xorg-video-driver? x11-proto/xproto",
+		"xorg-doc? app-text/asciidoc",
+		"xorg-doc? app-text/xmlto",
+		"xorg-doc? app-doc/doxygen",
+		"xorg-doc? app-text/docbook-xml-dtd",
+		"xorg-doc? app-text/docbook-xml-dtd",
+		"xorg-doc? app-text/docbook-xml-dtd"
+	],
+	"configure": {
+		"xorg-font": [ "--with-fontdir=${PREFIX}/usr/share/fonts/TODO_FONT_DIR" ]
+	},
+	"inherit": "models/autotools",
+	"steps": {
+	},
+	"use": [
+		"+xorg-util-macro",
+		"+xorg-font-util",
+		"xorg-font",
+		"xorg-input-driver",
+		"xorg-video-driver",
+		"xorg-dri",
+		"xorg-doc",
+		"test"
+	],
+	"hiddenUse": [
+		"xorg-util-macro",
+		"xorg-font-util",
+		"xorg-font",
+		"xorg-input-driver",
+		"xorg-video-driver",
+		"xorg-dri",
+		"xorg-doc"
+	]
+}

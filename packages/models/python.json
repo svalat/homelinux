@@ -1,0 +1,10 @@
+{
+	"api": 1,
+	"name": "hl-template-python",
+	"deps": [
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ "hl_configure_python" ]
+	}
+}

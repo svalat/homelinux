@@ -1,5 +1,6 @@
 
 {
+	"api" : 1,
 	"configure" : 
 	{
 		"" : [ "--with-curses=$(hl_prefix curses)", "--static" ],

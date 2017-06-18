@@ -63,4 +63,10 @@ std::string Prefix::getFilePath(const std::string path) const
     return this->prefix + "/" + path;
 }
 
+/*******************  FUNCTION  *********************/
+void loadPackage(PackageDef & out,const std::string packageName)
+{
+    HL_FATAL("TODO");
+}
+
 }

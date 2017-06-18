@@ -31,6 +31,12 @@ void PackageDef::load(const std::string & path)
 
 	//apply
 	this->loadJson(tmpObj);
+	
+	assumeArg (api == HL_JHSON_API,"Invalid API in %1, requires %2 but has %3")
+		.arg(path)
+		.arg(HL_JHSON_API)
+		.arg(api)
+		.end();
 }
 
 /*******************  FUNCTION  *********************/
@@ -40,6 +46,8 @@ void PackageDef::load(const std::string & path)
 **/
 void PackageDef::loadJson(const Json::Value & json)
 {
+	this->api = json.get("api",0).asInt();
+	this->api = json.get("api",1).asInt();
 	this->name = json.get("name","").asString();
 	this->homepage = json.get("homepage","").asString();
 	this->inherit = json.get("inherit","").asString();
@@ -72,6 +80,7 @@ void PackageDef::loadJson(const Json::Value & json)
 **/
 void PackageDef::save(Json::Value & json)
 {
+	json["api"] = api;
 	json["name"] = name;
 	json["homepage"] = homepage;
 	json["inherit"] = inherit;

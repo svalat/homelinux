@@ -7,10 +7,11 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-providers OBJECT /dev/null)
+add_library(homelinux-providers OBJECT Provider 
+                                       ProviderModels)
 #SET_TARGET_PROPERTIES(homelinux-providers PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################
-#if (ENABLE_TESTS)
-#	add_subdirectory(tests)
-#endif (ENABLE_TESTS)
+if (ENABLE_TESTS)
+	add_subdirectory(tests)
+endif (ENABLE_TESTS)

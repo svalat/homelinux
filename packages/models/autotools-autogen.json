@@ -1,0 +1,15 @@
+{
+	"api": 1,
+	"name": "hl-template-autotools-autogen",
+	"deps": [
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [ "hl_configure_autotools_autogen" ]
+	},
+	"deps": [
+		"sys-devel/autoconf",
+		"sys-devel/automake",
+		"sys-devel/libtool"
+	]
+}

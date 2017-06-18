@@ -1,0 +1,11 @@
+{
+	"api": 1,
+	"name": "hl-template-virtual",
+	"deps": [
+	],
+	"steps": {
+		"main" : [
+		]
+	},
+	"scripts": [ "models/scripts/default.sh" ]
+}

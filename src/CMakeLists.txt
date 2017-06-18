@@ -43,8 +43,8 @@ include_directories(../extern-deps/re2-2017-06-01)
 ######################################################
 set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
                        $<TARGET_OBJECTS:homelinux-core>
-                       $<TARGET_OBJECTS:homelinux-portability>)
-#                       $<TARGET_OBJECTS:homelinux-providers>)
+                       $<TARGET_OBJECTS:homelinux-portability>
+                       $<TARGET_OBJECTS:homelinux-providers>)
 
 ######################################################
 if (JSONCPP_FOUND)
@@ -67,7 +67,7 @@ target_link_libraries(homelinux ${HOMELINUX_EXTERN_LIBS})
 add_subdirectory(base)
 add_subdirectory(core)
 add_subdirectory(portability)
-#add_subdirectory(providers)
+add_subdirectory(providers)
 
 ######################################################
 #install

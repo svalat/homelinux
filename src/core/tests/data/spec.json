@@ -1,5 +1,6 @@
 
 {
+	"api" : 1,
 	"configure" : 
 	{
 		"" : [ "--enable-always", "--with-curses=$(hl_prefix curses)" ],

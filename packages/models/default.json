@@ -1,0 +1,47 @@
+{
+	"api": 1,
+	"name": "hl-template-default",
+	"deps": [
+	],
+	"scripts": [ "models/scripts/default.sh" ],
+	"steps": {
+		"download": [ "hl_download" ],
+		"check": [ "hl_check" ],
+		"preinstall": [ ],
+		"extract": [ "hl_extract" ],
+		"patch": [ "hl_patch" ],
+		"prepare": [ ],
+		"configure": [ "hl_configure" ],
+		"build": [ "hl_build" ],
+		"test": [ ],
+		"install": [ "hl_install" ],
+		"merge": [ "hl_merge" ],
+		"postinstall": [],
+		"manifest": [ "hl_manifest" ],
+		"clean": [ "hl_clean" ],
+		"module": [ "hl_module" ],
+		"prebuild": [
+			"@download",
+			"@check",
+			"@preinstall",
+			"@extract",
+			"@patch",
+			"@prepare",
+			"@configure"
+		],
+		"postbuild": [
+			"@test",
+			"@install",
+			"@manifest",
+			"@merge",
+			"@module",
+			"@postinstall",
+			"@clean"
+		],
+		"main" : [
+			"@prebuild",
+			"@build",
+			"@postbuild"
+		]
+	}
+}

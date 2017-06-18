@@ -1,5 +1,6 @@
 
 {
+	"api" : 1,
 	"configure" : 
 	{
 		"" : [ "--enable-debug" ]
