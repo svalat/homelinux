@@ -21,6 +21,17 @@ namespace hl
 {
 
 /*********************  CONST ***********************/
+static const char * gblCutDeps[] = {
+	"autoconf",
+	"automake",
+	"m4",
+	"python-defaults",
+	"python3-defaults",
+	"gcc-defaults",
+	"autotrash",
+	"lsb",
+	"binutils"
+};
 
 /*******************  FUNCTION  *********************/
 ProviderDebian::ProviderDebian(Prefix * prefix, bool unitTest)

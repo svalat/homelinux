@@ -10,6 +10,12 @@
 //std
 #include <cassert>
 #include <portability/System.hpp>
+#include <providers/ProviderGentoo.hpp>
+#include <providers/ProviderDebian.hpp>
+#include <providers/ProviderUrls.hpp>
+#include <providers/ProviderModels.hpp>
+#include <providers/ProviderHomelinux.hpp>
+#include <providers/ProviderGithub.hpp>
 #include "Prefix.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -31,6 +37,20 @@ Prefix::Prefix(const Config * config,const std::string & prefix, bool master)
 	
 	//load config
 	this->loadConfig();
+}
+
+/*******************  FUNCTION  *********************/
+Prefix::~Prefix(void)
+{
+	//provider
+	for (auto & it : providers)
+		delete it.second;
+	providers.clear();
+
+	//inherited prefix
+	for (auto & it :inheritedPrefix)
+		delete it;
+	inheritedPrefix.clear();
 }
 
 /*******************  FUNCTION  *********************/
@@ -56,6 +76,10 @@ void Prefix::loadConfig(void)
 	Helper::jsonToObj(prefixConfig.providers,json["providers"]);
 	prefixConfig.providers.push_front("models");
 	prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
+
+	//load inherited prefix
+	for (auto p : prefixConfig.inherit)
+		inheritedPrefix.push_back(new Prefix(config,p,false));
 }
 
 /*******************  FUNCTION  *********************/
@@ -88,6 +112,64 @@ QuickPackage & Prefix::getQuickPackage(void)
 	if (quickPackage == NULL)
 		quickPackage = new QuickPackage(this);
 	return *quickPackage;
+}
+
+/*******************  FUNCTION  *********************/
+Provider & Prefix::getProvider(const std::string & name)
+{
+	//search
+	auto it = providers.find(name);
+	
+	//ok
+	if (it != providers.end())
+		return *(it->second);
+	
+	//need to allocate
+	Provider * ret = NULL;
+	if (name == "gentoo")
+		ret = providers["gentoo"] = new ProviderGentoo(this);
+	else if (name == "debian")
+		ret = providers["debian"] = new ProviderDebian(this);
+	else if (name == "model")
+		ret = providers["model"] = new ProviderModels(this);
+	else if (name == "urls")
+		ret = providers["urls"] = new ProviderUrls(this);
+	else if (name == "homelinux")
+		ret = providers["homelinux"] = new ProviderHomelinux(this);
+	else if (name == "github")
+		ret = providers["github"] = new ProviderGithub(this);
+	else
+		HL_FATAL_ARG("Invalid package provider : %1").arg(name).end();
+
+	//ok
+	return *ret;
+}
+
+/*******************  FUNCTION  *********************/
+bool Prefix::hasInstalledPackage(const std::string & value)
+{
+	//TODO
+	return false;
+}
+
+/*******************  FUNCTION  *********************/
+//@TODO make parallel
+void Prefix::updateDb(void)
+{
+	for (auto prov : prefixConfig.providers)
+	{
+		Provider & p = getProvider(prov);
+		HL_MESSAGE_ARG("Update DB for provier %1").arg(prov).end();
+		p.updateDb();
+	}
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::fillEnv(EnvSetup & env)
+{
+	for (auto it :inheritedPrefix)
+		it->fillEnv(env);
+	env.addPrefix(this->prefix);
 }
 
 }
