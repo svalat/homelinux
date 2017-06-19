@@ -42,6 +42,7 @@ struct System
 	static void findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir = "");
 	//run
 	static int runCommand(const std::string & cmd);
+	static bool runAndRead(std::string & out,const std::string & cmd);
 	//download
 	static bool downloadJson(Json::Value & out,const std::string & url);
 	static bool ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback);

@@ -146,8 +146,8 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 		const StringList & lst = this->getQuickInfo(host,name);
 		if (lst.empty() == false)
 		{
-			if (host == "default")
-					pack.host[host] = true;
+			if (std::string(host) == "default")
+					pack.host[host] = false;
 			else
 					Helper::toJson(pack.host[host],lst);
 		}

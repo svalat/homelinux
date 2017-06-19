@@ -3,3 +3,4 @@
 homelinux.kdev4
 *.orig
 .c9
+.vscode

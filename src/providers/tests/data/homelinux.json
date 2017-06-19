@@ -1,3 +1,7 @@
 {
-	
+    "debian": {
+        "repos": [
+                "http://ftp2.fr.debian.org/debian/dists/jessie/main/"
+        ]
+    }
 }

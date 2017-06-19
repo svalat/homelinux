@@ -1,0 +1,19 @@
+[                                                                                                          
+        {                                                                                                 
+                "deps" : "bash-completion, debhelper, libarchive-dev, libbz2-dev, libcurl4-openssl-dev, libexpat1-dev, libncurses5-dev, procps, python-sphinx, libqt4-dev lib1g-dev",
+                "dir" : "pool/main/c/cmake",                                                               
+                "homepage" : "http://cmake.org/",                                                          
+                "name" : "cmake",                                                                          
+                "pakages" :                                                                                
+                [                                                                                          
+                        "cmake",                                                                           
+                        "cmake-data",                                                                      
+                        "cmake-curses-gui",                                                                
+                        "cmake-qt-gui",                                                                    
+                        "cmake-doc",                                                                       
+                        "cmake-dbg"                                                                        
+                ],                                                                                         
+                "section" : " devel",                                                                      
+                "version" : " 3.0.2"                                                                       
+	}
+]

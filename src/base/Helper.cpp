@@ -19,25 +19,25 @@ namespace hl
 
 /*******************  FUNCTION  *********************/
 /**
-* Helper function to split strings with element containing at most 1024 characters.
+* Helper function to split strings with element containing at most 4096 characters.
 **/
-void Helper::split(const std::string & value,char separator,std::function<void(const std::string&)> callback)
+void Helper::split(const std::string & value,char separator,std::function<void(const std::string&)> callback,bool keepEmpty)
 {
 	//vars
-	char buffer[1024];
+	char buffer[4096];
 	
 	//read
 	int cnt = 0;
 	for (int i = 0 ; i < value.size() ; i++)
 	{
-		if (value[i] == separator && cnt > 0)
+		if (value[i] == separator && (cnt > 0 || keepEmpty))
 		{
 			buffer[cnt] = '\0';
 			cnt = 0;
 			callback(buffer);
 		} else if (value[i] != separator) {
 			buffer[cnt++] = value[i];
-			assume(cnt < 1024,"Split element is too large, should be shorter than 1024 characters !");
+			assume(cnt < 4096,"Split element is too large, should be shorter than 1024 characters !");
 		}
 	}
 	
@@ -45,6 +45,19 @@ void Helper::split(const std::string & value,char separator,std::function<void(c
 	buffer[cnt] = '\0';
 	if (cnt > 0)
 		callback(buffer);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+* Helper function to split strings with element containing at most 1024 characters.
+**/
+StringList Helper::split(const std::string & value,char sep)
+{
+	StringList lst;
+	split(value,sep,[&lst](const std::string & value){
+		lst.push_back(value);
+	});
+	return lst;
 }
 
 /*******************  FUNCTION  *********************/
@@ -57,6 +70,21 @@ bool Helper::contain(const std::string & value,const std::string what)
 {
 	return value.find(what) != std::string::npos;
 }
+
+/*******************  FUNCTION  *********************/
+/**
+* Check if a strin glist contain a given value.
+* @param value String in which to search.
+* @param what value to seach in string.
+**/
+bool Helper::contain(const StringList & value,const std::string what)
+{
+	for (auto & it : value)
+		if (it == what)
+			return true;
+	return false;
+}
+
 
 /*******************  FUNCTION  *********************/
 /**

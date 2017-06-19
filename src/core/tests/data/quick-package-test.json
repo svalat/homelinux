@@ -13,7 +13,7 @@
 	{
 		"centos7" : [ "test" ],
 		"debian8" : [ "test" ],
-		"default" : true,
+		"default" : false,
 		"gentoo" : [ "app-test/test" ]
 	},
 	"inherit" : "models/cmake",

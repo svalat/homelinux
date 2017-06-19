@@ -6,8 +6,8 @@
 			 LICENSE  : CeCILL-C
 *****************************************************/
 
-#ifndef HL_PROVIDER_GENTOO_HPP
-#define HL_PROVIDER_GENTOO_HPP
+#ifndef HL_PROVIDER_DEBIAN_HPP
+#define HL_PROVIDER_DEBIAN_HPP
 
 /********************  HEADERS  *********************/
 //std
@@ -19,27 +19,39 @@
 namespace hl
 {
 
+/*********************  STRUCT  *********************/
+struct DebianDbEntry
+{
+	std::string name;
+	std::string version;
+	std::string deps;
+	std::string homepage;
+	StringList packages;
+	std::string dir;
+	std::string section;
+};
+
+/*********************  TYPES  **********************/
+typedef std::map<std::string,DebianDbEntry> DebianDb;
+
 /*********************  CLASS  **********************/
-class ProviderGentoo : public Provider
+class ProviderDebian : public Provider
 {
 	public:
-		ProviderGentoo(Prefix * prefix, bool unitTest = false);
+		ProviderDebian(Prefix * prefix, bool unitTest = false);
 		virtual bool getPackage(PackageDef & out,const std::string & name);
 		virtual void updateCache(void);
 		virtual void updateDb(void);
 		virtual std::string search(const std::string & name);
 	private:
 		void loadDb(void);
-		std::string getGentooUrl(const std::string & filename);
+		void saveDb(void);
 	private:
-		bool warn;
-		StringList db;
-		std::string server;
-		std::string port;
-		std::string distfiles;
+		DebianDb db;
 		bool unitTest;
+		bool warn;
 };
 
 }
 
-#endif //HL_PROVIDER_GENTOO_HPP
+#endif //HL_PROVIDER_DEBIAN_HPP

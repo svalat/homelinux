@@ -259,6 +259,31 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 }
 
 /*******************  FUNCTION  *********************/
+bool System::runAndRead(std::string & out,const std::string & cmd)
+{
+	static int id;
+	
+	//gen filename
+	char buffer[128];
+	sprintf(buffer,"/tmp/hl-internal-run-and-read-%d.out",id++);
+	//std::string tmp = mktemp(buffer);
+	std::string tmp = buffer;
+	
+	//run
+	int status = system((cmd + " > "+tmp).c_str());
+	
+	//load
+	if (status == 0)
+	{
+		out = loadFile(tmp);
+		//delete
+		unlink(tmp.c_str());
+	}
+	
+	return status == 0;
+}
+
+/*******************  FUNCTION  *********************/
 bool System::ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback)
 {
 	//check

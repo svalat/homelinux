@@ -1,0 +1,40 @@
+
+{
+	"api" : 1,
+	"configure" : 
+	{
+		"" : null
+	},
+	"conflicts" : null,
+	"deps" : null,
+	"flags" : null,
+	"homepage" : "",
+	"host" : 
+	{
+		"debian8" : [ "cmake" ]
+	},
+	"inherit" : "models/auto",
+	"md5" : null,
+	"module" : "",
+	"name" : "debian/cmake",
+	"patch" : null,
+	"scripts" : null,
+	"slots" : null,
+	"steps" : null,
+	"subdir" : "*",
+	"urls" : 
+	[
+		"http://http.debian.net/debian/pool/main/c/cmake/cmake_ 3.0.2.orig.tar.gz"
+	],
+	"use" : null,
+	"vars" : null,
+	"versions" : [ " 3.0.2" ],
+	"vfetcher" : 
+	{
+		"mode" : "",
+		"regexp" : "",
+		"url" : ""
+	},
+	"vspecific" : null,
+	"warn" : null
+}

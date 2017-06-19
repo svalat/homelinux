@@ -12,6 +12,7 @@ add_library(homelinux-providers OBJECT Provider.cpp
                                        ProviderModels.cpp
                                        ProviderGithub.cpp
                                        ProviderGentoo.cpp
+                                       ProviderDebian.cpp
                                        ProviderHomelinux.cpp)
 #SET_TARGET_PROPERTIES(homelinux-providers PROPERTIES COMPILE_FLAGS -fPIC)
 

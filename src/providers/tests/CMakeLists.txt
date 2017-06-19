@@ -18,6 +18,7 @@ set(TEST_NAMES TestProviderModels
                TestProviderHomelinux
 			   TestProviderUrls
 			   TestProviderGithub
+			   TestProviderDebian
 			   TestProviderGentoo)
 
 ######################################################
