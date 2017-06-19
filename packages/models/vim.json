@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-perl",
+	"name": "models/vim",
 	"deps": [
 		"app-editors/vim"
 	],

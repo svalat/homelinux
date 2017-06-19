@@ -83,7 +83,7 @@ void Config::load(Json::Value & config)
 	}
 	
 	//override
-	this->packageOverride = config["packagesOverride"];
+	this->packageOverride = config["packageOverride"];
 }
 
 /*******************  FUNCTION  *********************/

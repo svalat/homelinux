@@ -5,7 +5,7 @@
 	"homecache": true,
 	"ccache": true,
 	"pyEnv": false,
-	"packagesOverride": {
+	"packageOverride": {
 		"hl/sys-devel/gcc": {
 			"configure": {
 				"": [ "--enable-debug" ]

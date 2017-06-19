@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-virtual",
+	"name": "models/virtual",
 	"deps": [
 	],
 	"steps": {

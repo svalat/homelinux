@@ -1,0 +1,18 @@
+{
+	"prefix":"/home/USER/usr",
+	"host":"gentoo",
+	"modules": [],
+	"homecache": true,
+	"ccache": true,
+	"pyEnv": true,
+	"prefixOverride": {
+	},
+	"packageOverride": {
+		"hl/app-shells/bash": {
+			"configure": {
+				"": [ "--this-come-from-home" ],
+				"static": [ "!--enable-static" ]
+			}
+		}
+	}
+}

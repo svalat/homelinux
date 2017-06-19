@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-gnome2",
+	"name": "models/gnome2",
 	"deps": [
 	],
 	"inherit": "models/autotools",

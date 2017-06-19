@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-qmake",
+	"name": "models/qmake",
 	"deps": [
 	],
 	"inherit": "models/default",

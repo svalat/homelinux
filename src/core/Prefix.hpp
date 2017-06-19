@@ -50,7 +50,7 @@ class Prefix
 		Prefix(const Config *config, const std::string & prefix, bool master = false);
 		~Prefix(void);
 		std::string getFilePath(const std::string path) const;
-		void loadPackage(PackageDef & out,const std::string packageName);
+		void loadPackage(PackageDef & out,const std::string & packageName);
 		void getQuickPackage(PackageDef & out,const std::string & packageName);
 		const PrefixConfig & getConfig(void);
 		void updateDb(void);
@@ -58,6 +58,7 @@ class Prefix
 		//TODO
 		bool hasInstalledPackage(const std::string & value);
 	private:
+		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);
 		Provider & getProvider(const std::string & name);
 		void loadConfig(void);
 		QuickPackage & getQuickPackage(void);

@@ -28,7 +28,7 @@
 	"inherit" : "models/autotools",
 	"md5" : null,
 	"module" : "",
-	"name" : "app-shells/bash",
+	"name" : "hl/app-shells/bash",
 	"patch" : null,
 	"scripts" : null,
 	"slots" : null,

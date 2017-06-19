@@ -96,6 +96,7 @@ TEST(ProviderHomelinux,getPackage_check_content)
 	ASSERT_TRUE(provider.getPackage(pack,"hl/app-shells/bash"));
 	
 	std::stringstream out;
+	//pack.save(TEST_DATA_PATH "/hl-full-bash.json");
 	pack.save(out);
 	
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/hl-full-bash.json"),out.str());

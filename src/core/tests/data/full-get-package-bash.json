@@ -1,0 +1,83 @@
+
+{
+	"api" : 1,
+	"configure" : 
+	{
+		"" : [ "--enable-prefix-conf", "--this-come-from-home" ],
+		"+gentoo" : [ "--with-curses", "--disable-profiling" ],
+		"afs" : [ "--$with-afs" ],
+		"mem-scramble" : [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
+		"net" : [ "--$enable-net-redirections" ],
+		"readline" : [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ],
+		"static" : [ "--enable-prefix-conf-static" ]
+	},
+	"conflicts" : null,
+	"deps" : 
+	[
+		"sys-libs/ncurses",
+		"readline? sys-libs/readline",
+		"nls? virtual/libintl"
+	],
+	"flags" : null,
+	"homepage" : "http://tiswww.case.edu/php/chet/bash/bashtop.html",
+	"host" : null,
+	"inherit" : "models/auto",
+	"md5" : null,
+	"module" : "",
+	"name" : "hl/app-shells/bash",
+	"patch" : null,
+	"scripts" : [ "models/scripts/default.sh" ],
+	"slots" : null,
+	"steps" : 
+	{
+		"build" : [ "hl_build" ],
+		"check" : [ "hl_check" ],
+		"clean" : [ "hl_clean" ],
+		"configure" : [ "hl_configure_autotools" ],
+		"download" : [ "hl_download" ],
+		"extract" : [ "hl_extract" ],
+		"install" : [ "hl_install" ],
+		"main" : [ "@prebuild", "@build", "@postbuild" ],
+		"manifest" : [ "hl_manifest" ],
+		"merge" : [ "hl_merge" ],
+		"module" : [ "hl_module" ],
+		"patch" : [ "hl_patch" ],
+		"postbuild" : 
+		[
+			"@test",
+			"@install",
+			"@manifest",
+			"@merge",
+			"@module",
+			"@postinstall",
+			"@clean"
+		],
+		"postinstall" : null,
+		"prebuild" : 
+		[
+			"@download",
+			"@check",
+			"@preinstall",
+			"@extract",
+			"@patch",
+			"@prepare",
+			"@configure"
+		],
+		"preinstall" : null,
+		"prepare" : null,
+		"test" : null
+	},
+	"subdir" : "bash-${VERSION}",
+	"urls" : [ "http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz" ],
+	"use" : [ "gentoo", "readline", "ls", "afs", "net", "mem-scramble", "nls" ],
+	"vars" : null,
+	"versions" : [ "4.3.48" ],
+	"vfetcher" : 
+	{
+		"mode" : "ftp",
+		"regexp" : "bash-([0-9]+\\.[0-9]+).tar.gz",
+		"url" : "http://ftp.gnu.org/gnu/bash/"
+	},
+	"vspecific" : null,
+	"warn" : null
+}

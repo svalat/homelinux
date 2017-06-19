@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-autotools-autogen",
+	"name": "models/autotools-autogen",
 	"deps": [
 	],
 	"inherit": "models/default",

@@ -89,9 +89,56 @@ std::string Prefix::getFilePath(const std::string path) const
 }
 
 /*******************  FUNCTION  *********************/
-void Prefix::loadPackage(PackageDef & out,const std::string packageName)
+void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 {
-	HL_FATAL("TODO");
+	//load package
+	PackageDef pack;
+	if (loadPackageNoInherit(pack,packageName) == false)
+		HL_FATAL_ARG("Fail to load package %1. Not found in all DB.").arg(packageName).end();
+
+	//load inherit
+	if (pack.inherit.empty() == false)
+	{
+		PackageDef inherit;
+		loadPackage(inherit,pack.inherit);
+		out.merge(inherit);
+	}
+
+	//apply pack
+	out.merge(pack);
+
+	//apply quickpackahe
+	PackageDef quickPack;
+	getQuickPackage().genPackage(quickPack,pack.name);
+	out.merge(quickPack);
+
+	//apply override from prefix config
+	const auto & it = prefixConfig.packageOverride.find(pack.name);
+	if (it != prefixConfig.packageOverride.end())
+	{
+		PackageDef prefixPack;
+		prefixPack.loadJson(it->second);
+		out.merge(prefixPack);
+	}
+
+	//apply override from user config
+	const Json::Value & node = config->packageOverride[pack.name];
+	if (node.isObject())
+	{
+		PackageDef userPack;
+		userPack.loadJson(node);
+		out.merge(userPack);
+	}
+}
+
+/*******************  FUNCTION  *********************/
+bool Prefix::loadPackageNoInherit(PackageDef & out,const std::string & packageName)
+{
+	//get package
+	for (auto & prov : prefixConfig.providers)
+		if (getProvider(prov).getPackage(out,packageName))
+			return true;
+	return false;
 }
 
 /*******************  FUNCTION  *********************/
@@ -130,8 +177,8 @@ Provider & Prefix::getProvider(const std::string & name)
 		ret = providers["gentoo"] = new ProviderGentoo(this);
 	else if (name == "debian")
 		ret = providers["debian"] = new ProviderDebian(this);
-	else if (name == "model")
-		ret = providers["model"] = new ProviderModels(this);
+	else if (name == "models")
+		ret = providers["models"] = new ProviderModels(this);
 	else if (name == "urls")
 		ret = providers["urls"] = new ProviderUrls(this);
 	else if (name == "homelinux")

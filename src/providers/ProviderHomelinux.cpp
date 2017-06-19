@@ -107,6 +107,9 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 			
 		//merge
 		out.merge(pack);
+
+		//apply name
+		out.name = packageName;
 		
 		return true;
 	} else {

@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-default",
+	"name": "models/default",
 	"deps": [
 	],
 	"scripts": [ "models/scripts/default.sh" ],

@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-xorg-2",
+	"name": "models/xorg-2",
 	"deps": [
 		"sys-devel/libtool",
 		"sys-devel/m4",

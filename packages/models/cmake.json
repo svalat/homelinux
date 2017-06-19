@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "hl-template-cmake",
+	"name": "models/cmake",
 	"deps": [
 		"dev-util/cmake"
 	],

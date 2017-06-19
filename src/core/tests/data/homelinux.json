@@ -1,6 +1,5 @@
 {
 	"inherit": [
-		"/home/me/usr-shell-only"
 	],
 	"flags": {
 		"MAKEOPTS":"-j8",
@@ -20,10 +19,11 @@
 	"modules": {
 		"hl/app-shell/bash": "bash"
 	},
-	"packagesOverride": {
-		"gentoo/kdiff3": {
+	"packageOverride": {
+		"hl/app-shells/bash": {
 			"configure": {
-				"": [ "--enable-static" ]
+				"": [ "--enable-prefix-conf" ],
+				"static": [ "--enable-static", "--enable-prefix-conf-static" ]
 			}
 		}
 	},

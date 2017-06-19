@@ -240,9 +240,9 @@ void Helper::merge(StringList & out,const StringList & override)
 		if (it[0] == '!')
 		{
 			std::string tmp = it.substr(1);
-			for (auto it = out.begin() ; it != out.end() ; ++it)
-				if (*it == tmp)
-					it = out.erase(it);
+			for (auto it2 = out.begin() ; it2 != out.end() ; ++it2)
+				if (*it2 == tmp)
+					it2 = out.erase(it2);
 		} else {
 			out.push_back(it);
 		}
