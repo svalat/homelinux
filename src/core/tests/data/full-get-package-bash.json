@@ -3,7 +3,12 @@
 	"api" : 1,
 	"configure" : 
 	{
-		"" : [ "--enable-prefix-conf", "--this-come-from-home" ],
+		"" : 
+		[
+			"--enable-from-quick",
+			"--enable-prefix-conf",
+			"--this-come-from-home"
+		],
 		"+gentoo" : [ "--with-curses", "--disable-profiling" ],
 		"afs" : [ "--$with-afs" ],
 		"mem-scramble" : [ "--$enable-mem-scramble", "--$with-bash-malloc" ],

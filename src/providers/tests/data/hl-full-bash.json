@@ -37,7 +37,7 @@
 	"urls" : [ "http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz" ],
 	"use" : [ "gentoo", "readline", "ls", "afs", "net", "mem-scramble", "nls" ],
 	"vars" : null,
-	"versions" : [ "4.3" ],
+	"versions" : [ "4.3.48" ],
 	"vfetcher" : 
 	{
 		"mode" : "ftp",

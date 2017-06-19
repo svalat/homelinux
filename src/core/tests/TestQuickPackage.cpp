@@ -35,9 +35,8 @@ TEST(QuickPackage,getQuickInfo)
 	EXPECT_TRUE(quick.getQuickInfo("config","none/empty").empty());
 	
 	//get
-	const StringList & lst = quick.getQuickInfo("config","gentoo/mpfr");
-	EXPECT_EQ("--with-gmp=$(hl_prefix",Helper::getListEl(lst,0));
-	EXPECT_EQ("gentoo/gmp)",Helper::getListEl(lst,1));
+	const StringList & lst = quick.getQuickInfo("config","gentoo/csh");
+	EXPECT_EQ("--enable-debug",Helper::getListEl(lst,0));
 }
 
 /*******************  FUNCTION  *********************/
@@ -66,6 +65,7 @@ TEST(QuickPackage,genPackage_test)
 	quick.genPackage(pack,"none/test");
 	
 	std::stringstream out;
+	//pack.save(TEST_DATA_PATH "/quick-package-test.json");
 	pack.save(out);
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/quick-package-test.json"),out.str());
 }

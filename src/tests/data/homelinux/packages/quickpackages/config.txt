@@ -1,3 +1,5 @@
 urls/dash --enable-debug
 github/svalat/svpgm2txt --enable-debug
 gentoo/csh --enable-debug
+hl/app-shells/bash --enable-from-quick
+none/test --enable-debug
