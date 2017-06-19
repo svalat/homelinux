@@ -52,7 +52,7 @@ void ProviderHomelinux::loadCache(void)
 		Helper::jsonToObj(cache,json);
 	} else {
 		if (!warn)
-	    	HL_FATAL("No cache file available, consider to call 'hl update-cache' at least once");
+	    	HL_ERROR("No cache file available, consider to call 'hl update-cache' at least once");
 		warn = true;
 	}
 }

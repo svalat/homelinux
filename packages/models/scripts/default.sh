@@ -1,9 +1,9 @@
 #!/bin/bash
 ######################################################
 #           Project : HomeLinux                      #
-#           Version : 1.1.0-dev                      #
+#           Version : 2.2.0-dev                      #
 #           Date    : 01/2016                        #
-#           Licence : BSD                            #
+#           Licence : CeCILL-C                       #
 #           Authors : Sebastien Valat                #
 ######################################################
 
