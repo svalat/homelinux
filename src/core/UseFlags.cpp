@@ -95,8 +95,8 @@ UseFlagState UseFlags::getStatus(const std::string & flag)
 	//select
 	if (it == stateMap.end())
 		HL_FATAL_ARG("Undefined flag %1").arg(flagName).end();
-	else
-		return it->second;
+
+	return it->second;
 }
 
 /*******************  FUNCTION  *********************/

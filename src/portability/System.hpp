@@ -36,6 +36,7 @@ struct System
 	static void writeJson(const Json::Value & json,const std::string & path);
 	//dirs & files
 	static std::string loadFile(const std::string & path);
+	static void writeFile(const std::string & content,const std::string & path);
 	static bool fileExist(const std::string & path);
 	static void readDir(const std::string & path,std::function<void(const std::string &)> callback);
 	static void findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir = "");
@@ -43,6 +44,7 @@ struct System
 	static int runCommand(const std::string & cmd);
 	//download
 	static bool downloadJson(Json::Value & out,const std::string & url);
+	static bool ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback);
 };
 
 }

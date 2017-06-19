@@ -208,11 +208,14 @@ std::string ProviderHomelinux::searchInCache(const std::string & name)
 			
 	//check
 	if (lst.empty())
+	{
 		return "";
-	else if (lst.size() == 1)
+	} else if (lst.size() == 1) {
 		return lst.front();
-	else
+	} else {
 		HL_FATAL_ARG("Fail to find your package, multiple match : %1").arg(Helper::join(lst,','));
+		return "";
+	}
 }
 
 /*******************  FUNCTION  *********************/

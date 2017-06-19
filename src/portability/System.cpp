@@ -13,8 +13,11 @@
 #include <unistd.h>
 #include <fstream>
 #include <base/Debug.hpp>
+#include <base/Helper.hpp>
 #include <json/json.h>
 #include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <cstring>
 #include "System.hpp"
 
@@ -46,6 +49,24 @@ std::string System::getEnv(const std::string & name,const std::string & defaultV
 bool System::fileExist(const std::string & path)
 {
 	return ( access( path.c_str(), F_OK ) != -1 );
+}
+
+/*******************  FUNCTION  *********************/
+void System::writeFile(const std::string & content,const std::string & path)
+{
+	//check
+	assume(path.empty() == false,"Invalid empty path !");
+	
+	//open
+	FILE * fp = fopen(path.c_str(),"w");
+	assumeArg(fp != NULL,"Fail to open file %1 : %2").arg(path).argStrErrno().end();
+	
+	//read
+	size_t s = fwrite(content.c_str(),1,content.size(),fp);
+	assumeArg(s == content.size(),"Failed to read all file : %1").argStrErrno().end();
+	
+	//close
+	fclose(fp);
 }
 
 /*******************  FUNCTION  *********************/
@@ -170,7 +191,13 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 		{
 			break;
 		} else {
-			if (d->d_type == DT_DIR && strcmp(d->d_name,".") != 0 &&  strcmp(d->d_name,"..") != 0 ) 
+			//stats
+			struct stat s;
+			std::string full = path+std::string("/")+d->d_name;
+			assumeArg(stat(full.c_str(),&s) == 0,"Fail to stat path %1 : %2").arg(full).argStrErrno().end();
+
+			//apply
+			if (S_ISDIR(s.st_mode) && strcmp(d->d_name,".") != 0 &&  strcmp(d->d_name,"..") != 0 ) 
 			{
 				//compute sub
 				std::string sub = subdir;
@@ -179,8 +206,8 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 				sub += d->d_name;
 				
 				//recurse
-				findFiles(path+std::string("/")+d->d_name,callback,sub);
-			} else if (d->d_type == DT_REG) {
+				findFiles(full,callback,sub);
+			} else if (S_ISREG(s.st_mode)) {
 				if (subdir.empty())
 					callback(d->d_name);
 				else
@@ -229,6 +256,49 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 	}
 	
 	return status == 0;
+}
+
+/*******************  FUNCTION  *********************/
+bool System::ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback)
+{
+	//check
+	#ifndef HAVE_WGET
+		#error "Not support curl or other way to list files in FTP directory"
+	#endif
+
+	//check
+	assume(url.empty() == false,"Get empty URL !");
+
+	//vars
+	static int id;
+	
+	//gen filename
+	char buffer[128];
+	sprintf(buffer,"/tmp/hl-internal-ftp-list-files-%d.json",id++);
+	//std::string tmp = mktemp(buffer);
+	std::string tmp = buffer;
+	std::string cmd = "LC_ALL=C wget -O "+tmp+".html "+url+" > /dev/null 2> /dev/null; "
+	                + "cat "+tmp+ ".html | grep File | cut -f 2 -d '\"' > "+ tmp;
+
+	//run
+	int status = system(cmd.c_str());
+	if (status != 0)
+	{
+		HL_ERROR_ARG("Fail to fetch FTP files from  %1").arg(url).end();
+		return false;
+	}
+
+	//parse
+	std::string content = loadFile(tmp);
+	Helper::split(content,'\n',[&callback](const std::string & value){
+		callback(value);
+	});
+
+	//unlink
+	unlink(tmp.c_str());
+	unlink((tmp+".html").c_str());
+
+	return true;
 }
 
 }

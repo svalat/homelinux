@@ -1,0 +1,41 @@
+
+{
+	"api" : 1,
+	"configure" : 
+	{
+		"" : [ "--enable-debug" ]
+	},
+	"conflicts" : null,
+	"deps" : null,
+	"flags" : null,
+	"homepage" : "",
+	"host" : null,
+	"inherit" : "models/cmake",
+	"md5" : null,
+	"module" : "",
+	"name" : "gentoo/csh",
+	"patch" : null,
+	"scripts" : null,
+	"slots" : null,
+	"steps" : null,
+	"subdir" : "csh-${VERSION}",
+	"urls" : 
+	[
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.bz2",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.xz",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.gz",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}zip",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tgz"
+	],
+	"use" : null,
+	"vars" : null,
+	"versions" : [ "0.4.2" ],
+	"vfetcher" : 
+	{
+		"mode" : "",
+		"regexp" : "[0-9]+.[0-9]+.?[0-9]*.?[0-9]*",
+		"url" : ""
+	},
+	"vspecific" : null,
+	"warn" : null
+}

@@ -69,6 +69,9 @@ bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef) const
 		return presentOnSystemGentoo(pkgList);
 	else
 		HL_FATAL_ARG("Unsupported host type : %1").arg(hostType).end();
+	
+	//default to avoid warning at compile time
+	return false;
 }
 
 /*******************  FUNCTION  *********************/

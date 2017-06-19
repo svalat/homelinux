@@ -45,6 +45,7 @@ class Prefix
 		std::string getFilePath(const std::string path) const;
 		void loadPackage(PackageDef & out,const std::string packageName);
 		void getQuickPackage(PackageDef & out,const std::string & packageName);
+		const PrefixConfig & getConfig(void);
 	private:
 		void loadConfig(void);
 		QuickPackage & getQuickPackage(void);
