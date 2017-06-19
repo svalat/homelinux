@@ -100,3 +100,15 @@ TEST(ProviderHomelinux,getPackage_check_content)
 	
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/hl-full-bash.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderHomelinux,search)
+{
+    Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderHomelinux provider(&prefix);
+
+	EXPECT_EQ("\x1B[32mhl/app-shells/bash:0\x1B[0m-\x1B[36m4.3\x1B[0m [\x1B[34m4.3\x1B[0m]",provider.search("bash"));
+	EXPECT_EQ("",provider.search("csh"));
+}

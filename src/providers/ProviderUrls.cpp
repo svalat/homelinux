@@ -136,6 +136,9 @@ std::string ProviderUrls::search(const std::string & name)
 	//vars
 	StringList lst;
 
+	//load db
+	loadDb();
+
 	//loop on all
 	for (auto & entry : db)
 		if (Helper::contain(entry,name))

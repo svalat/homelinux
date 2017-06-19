@@ -101,3 +101,15 @@ TEST(ProviderGentoo,updateDb)
 
 	provider.updateDb();
 }
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderGentoo,search)
+{
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderGentoo provider(&prefix);
+
+	EXPECT_EQ("\x1B[35mgentoo/csh-0.4.2.tar.gz\x1B[0m\n\x1B[35mgentoo/csh-0.4.1.tar.gz\x1B[0m",provider.search("csh"));
+	EXPECT_EQ("",provider.search("bash"));
+}

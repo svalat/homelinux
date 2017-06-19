@@ -101,3 +101,15 @@ TEST(ProviderDebian,getPackage_check_content)
 
 	provider.updateDb();
 }*/
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderDebian,search)
+{
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderDebian provider(&prefix);
+
+	EXPECT_EQ("\x1B[35mdebian/cmake\x1B[0m",provider.search("cmake"));
+	EXPECT_EQ("",provider.search("bash"));
+}

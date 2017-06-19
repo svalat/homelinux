@@ -90,3 +90,14 @@ TEST(ProviderGithub,getPackage_check_content)
 	
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/github-full-dash.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderGithub,search)
+{
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderGithub provider(&prefix);
+
+	EXPECT_EQ("",provider.search("bash"));
+}

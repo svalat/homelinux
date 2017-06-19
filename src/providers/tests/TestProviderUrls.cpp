@@ -66,3 +66,15 @@ TEST(ProviderUrls,getPackage_check_content)
 	
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/url-full-dash.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(ProviderUrls,search)
+{
+    Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	
+	ProviderUrls provider(&prefix);
+
+	EXPECT_EQ("\x1B[35murls/dash-0.5.5.1.tar.gz\x1B[0m\n\x1B[35murls/dash-0.5.5.2.tar.gz\x1B[0m",provider.search("dash"));
+	EXPECT_EQ("",provider.search("bash"));
+}

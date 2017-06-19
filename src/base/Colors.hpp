@@ -10,6 +10,7 @@
 #define HL_COLOR_HPP
 
 /********************  HEADERS  *********************/
+#include <config.h>
 #include <string>
 
 /*******************  NAMESPACE  ********************/
