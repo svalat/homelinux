@@ -1,3 +1,3 @@
-urls/dash models/autoconf
+urls/dash models/autotools
 gentoo/csh models/cmake
 none/test models/cmake

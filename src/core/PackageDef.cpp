@@ -9,10 +9,12 @@
 /********************  HEADERS  *********************/
 //std
 #include <fstream>
+#include <sstream>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include <portability/System.hpp>
-#include <core/VersionMatcher.hpp>
+#include "VersionMatcher.hpp"
+#include "Prefix.hpp"
 #include "PackageDef.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -201,7 +203,7 @@ void PackageDef::save(std::ostream & out)
 /**
  * Select the newer version in the list (considered already sorted)
 **/
-std::string PackageDef::getVersion(void)
+std::string PackageDef::getVersion(void) const
 {
 	return versions.front();
 }
@@ -211,13 +213,13 @@ std::string PackageDef::getVersion(void)
  * Get the current slot considering the current best version available
  * it the list (constidered already sorted)
 **/
-std::string PackageDef::getSlot(void)
+std::string PackageDef::getSlot(void) const
 {
 	return VersionMatcher::getSlot(slots,getVersion());
 }
 
 /*******************  FUNCTION  *********************/
-/**
+/** 
  * Sort versions in decresing order so last version is first.
 **/
 void PackageDef::sortVersions(void)
@@ -230,7 +232,7 @@ void PackageDef::sortVersions(void)
  * Return the N first versions (condiser already ordered)
  * @param cnt Number of element to return
 **/
-std::string PackageDef::getNVersions(int cnt)
+std::string PackageDef::getNVersions(int cnt) const
 {
 	//vars
 	StringList tmp;
@@ -245,6 +247,112 @@ std::string PackageDef::getNVersions(int cnt)
 	
 	//return
 	return Helper::join(tmp,' ');
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Return the name to be used for stow installation
+ * This correspond to the package name (full) plus
+ * the slot with `:` separator.
+**/
+std::string PackageDef::getSlotName(void) const
+{
+	return this->name + ":" + this->getSlot();
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Return the short name of package. For example, `hl/app-shells/bash`
+ * become `bash`.
+**/
+std::string PackageDef::getShortName(void) const
+{
+	return Helper::last(name,'/');
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Compute short vestion which keep only the first two diggit.
+ * This is usefull into URLs because many packages use this shorten address
+ * into subdirectories to store the achives.
+**/
+std::string PackageDef::getShortVersion(void) const
+{
+	//get
+	std::string version = getVersion();
+
+	//split
+	StringList lst;
+	int cnt = 0;
+	Helper::split(version,'.',[&lst,&cnt](const std::string & value) {
+		if (cnt++ < 2)
+			lst.push_back(value);
+	});
+
+	return Helper::join(lst,'.');
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Return the prefix in which to install the package.
+ * Caution, this is not necerssarly the homelinux prefix
+ * as it could be completed by module paths if module
+ * is enable by this package.
+**/
+std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) const
+{
+	if (module.empty())
+	{
+		if (stow && getShortName() != "stow")
+			return prefix+"/stow/"+getSlotName();
+		else 
+			return prefix;
+	} else {
+		return prefix+"MOdules/installed/"+module;
+	}
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Generate the install script.
+ * @param parallelInstall Enable generation for parallel installation of
+ * packages. This requires some minot tricks in the generated script.
+ * @param prefix Prefix in which to install
+**/
+void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall)
+{
+	//checking
+	assumeArg(this->urls.empty() == false,"Fail to get URLS for package %1").arg(getSlotName()).end();
+
+	//vars
+	const Config & userConfig = prefix.getUserConfig();
+
+	//setup bash
+	out << "#!/bin/bash" << std::endl;
+
+	//setup variables
+	out << "HL_TEMP=\"" << userConfig.temp << "\"" << std::endl;
+	out << "HL_PACKAGE=\"" << prefix.getFilePath("/homelinux/packages/") << "\"" << std::endl;
+	out << "HL_PREFIX=\"" << prefix.getPrefix() +"\"" << std::endl;
+	out << "HL_HOMECACHE=\"" << (userConfig.homecache?"true":"false") << "\"" << std::endl;
+
+	//compiler flags
+	out << std::endl << "#Compiler flags" << std::endl;
+	const char * cstCplFlags[] = { "MAKEOPTS", "CFLAGS", "CXXFLAGS", "FFLAGS", "LDFLAGS" };
+	for (auto flag : cstCplFlags)
+		out << "HL_" << flag << "=\"" << Helper::join(this->flags[flag],' ') << "\"" << std::endl;
+
+	//pack infos
+	out << std::endl << "#Pack infos" << std::endl;
+	out << "NAME=\"" << this->name << "\"" << std::endl;
+	out << "SHORT_NAME=\"" << this->getShortName() << "\"" << std::endl;
+	out << "VERSION=\"" << this->getVersion() << "\"" << std::endl;
+	out << "SVERSION=\"" << this->getShortVersion() << "\"" << std::endl;
+	out << "URLS=\"" << Helper::join(this->urls,' ') << "\"" << std::endl;
+	out << "URLS=\"" << md5[getVersion()] << "\"" << std::endl;
+	out << "SUBDIR=\"" << subdir << "\"" << std::endl;
+	out << "SLOT=\"" << getSlot() << "\"" << std::endl;
+	out << "PREFIX=\"" << getRealPrefix(prefix.getPrefix(),prefix.getConfig().useGnuStow) << "\"" << std::endl;
 }
 
 }

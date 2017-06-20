@@ -54,6 +54,7 @@ Config::~Config(void)
 void Config::loadDefault()
 {
 	this->prefix.push_back(System::getHomeDir()+"/usr");
+	this->temp = "/tmp/homelinux-"+System::getEnv("USER");
 	this->host = "default";
 	this->ccache = false;
 	this->pyEnv = true;
@@ -74,6 +75,7 @@ void Config::load(Json::Value & config)
 	this->homecache = config.get("homecache",this->homecache).asBool();
 	this->ccache = config.get("ccache",this->ccache).asBool();
 	this->pyEnv = config.get("pyEnv",this->pyEnv).asBool();
+	this->temp = config.get("temp",this->temp).asString();
 	
 	//modules
 	Json::Value mods = config["modules"];

@@ -92,7 +92,7 @@ TEST(ProviderGentoo,getPackage_check_content)
 }
 
 /*******************  FUNCTION  *********************/
-TEST(ProviderGentoo,updateDb)
+/*TEST(ProviderGentoo,updateDb)
 {
 	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
@@ -100,7 +100,7 @@ TEST(ProviderGentoo,updateDb)
 	ProviderGentoo provider(&prefix,true);
 
 	provider.updateDb();
-}
+}*/
 
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,search)

@@ -10,7 +10,7 @@
 	"flags" : null,
 	"homepage" : "",
 	"host" : null,
-	"inherit" : "models/autoconf",
+	"inherit" : "models/autotools",
 	"md5" : null,
 	"module" : "",
 	"name" : "urls/dash",

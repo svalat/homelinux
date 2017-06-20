@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 #include <base/Helper.hpp>
 #include <portability/System.hpp>
+#include <core/Prefix.hpp>
 #include "../PackageDef.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -70,3 +71,22 @@ TEST(PackageDef,applySpecific)
 	def.save(out);
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec-specific.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(PackageDef,genScript)
+{
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+
+	//get package
+	PackageDef pack;
+	prefix.loadPackage(pack,"hl/app-shells/bash");
+
+	//convert
+	std::stringstream out;
+	pack.genScript(out,prefix,false);
+
+	//System::writeFile(out.str(),TEST_DATA_PATH "/gen-pack-bash-no-parallel.sh");
+	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/gen-pack-bash-no-parallel.sh"),out.str());
+}
+

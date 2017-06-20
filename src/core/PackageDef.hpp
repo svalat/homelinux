@@ -26,6 +26,10 @@ namespace hl
 /********************  MACROS  **********************/
 #define HL_JHSON_API 1
 
+/********************  CLASS  ***********************/
+//to break header deps
+class Prefix;
+
 /********************  STRUCT  **********************/
 /**
  * Parameters for version fetching
@@ -63,9 +67,14 @@ struct PackageDef
 	void merge(const PackageDef & def);
 	void save(Json::Value & json);
 	void sortVersions(void);
-	std::string getVersion(void);
-	std::string getSlot(void);
-	std::string getNVersions(int cnt);
+	std::string getVersion(void) const;
+	std::string getSlot(void) const;
+	std::string getNVersions(int cnt) const;
+	std::string getSlotName(void) const;
+	std::string getShortName(void) const;
+	std::string getShortVersion(void) const;
+	std::string getRealPrefix(const std::string & prefix,bool stow) const;
+	void genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall);
 	//members
 	/** API in case of update **/
 	int api;

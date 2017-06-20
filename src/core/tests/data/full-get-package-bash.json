@@ -23,7 +23,12 @@
 		"readline? sys-libs/readline",
 		"nls? virtual/libintl"
 	],
-	"flags" : null,
+	"flags" : 
+	{
+		"CFLAGS" : [ "-O3 -march=native" ],
+		"CXXFLAGS" : [ "$CFLAGS" ],
+		"MAKEOPTS" : [ "-j8" ]
+	},
 	"homepage" : "http://tiswww.case.edu/php/chet/bash/bashtop.html",
 	"host" : null,
 	"inherit" : "models/auto",

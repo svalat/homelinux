@@ -54,6 +54,8 @@ struct Config
 	bool homecache;
 	/** Override content of packages **/
 	Json::Value packageOverride;
+	/** Temporary directory to be used **/
+	std::string temp;
 };
 
 }

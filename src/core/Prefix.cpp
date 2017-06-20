@@ -102,6 +102,9 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 		PackageDef inherit;
 		loadPackage(inherit,pack.inherit);
 		out.merge(inherit);
+	} else {
+		//apply system cflags on root
+		Helper::merge(out.flags,prefixConfig.flags,false);
 	}
 
 	//apply pack
@@ -148,7 +151,7 @@ void Prefix::getQuickPackage(PackageDef & out,const std::string & packageName)
 }
 
 /*******************  FUNCTION  *********************/
-const PrefixConfig & Prefix::getConfig(void)
+const PrefixConfig & Prefix::getConfig(void) const
 {
 	return this->prefixConfig;
 }
@@ -193,10 +196,47 @@ Provider & Prefix::getProvider(const std::string & name)
 }
 
 /*******************  FUNCTION  *********************/
-bool Prefix::hasInstalledPackage(const std::string & value)
+bool Prefix::isInstalled(const std::string & value)
 {
-	//TODO
+	//get package
+	PackageDef pack;
+	loadPackage(pack,value);
+	return isInstalled(pack);
+}
+
+/*******************  FUNCTION  *********************/
+bool Prefix::isInstalled(const PackageDef & pack)
+{
+	//check local
+	if (isLocalyInstalled(pack))
+		return true;
+
+	//check inherit
+	for (auto & prefix : inheritedPrefix)
+		if (prefix->isLocalyInstalled(pack))
+			return true;
+	
+	//not found
 	return false;
+}
+
+/*******************  FUNCTION  *********************/
+//@TODO : check version
+bool Prefix::isLocalyInstalled(const PackageDef & pack)
+{
+	//build filename
+	std::string name = pack.getSlotName();
+
+	//replace
+	for (auto & c : name)
+		if (c == '/' || c == ':')
+			c = '_';
+	
+	//build path
+	std::string path = getFilePath("/homelinux/install-db/"+name+".json");
+
+	//check exist
+	return System::fileExist(path);
 }
 
 /*******************  FUNCTION  *********************/
@@ -214,9 +254,21 @@ void Prefix::updateDb(void)
 /*******************  FUNCTION  *********************/
 void Prefix::fillEnv(EnvSetup & env)
 {
-	for (auto it :inheritedPrefix)
+	for (auto it : inheritedPrefix)
 		it->fillEnv(env);
 	env.addPrefix(this->prefix);
+}
+
+/*******************  FUNCTION  *********************/
+const std::string & Prefix::getPrefix(void) const
+{
+	return prefix;
+}
+
+/*******************  FUNCTION  *********************/
+const Config & Prefix::getUserConfig(void) const
+{
+	return *config;
 }
 
 }

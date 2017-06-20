@@ -39,3 +39,21 @@ TEST(Prefix,loadPackage_ok)
 
     EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/full-get-package-bash.json"),out.str());
 }
+
+/*******************  FUNCTION  *********************/
+TEST(Prefix,isInstalled_ok)
+{
+    Config config(false);
+	Prefix prefix(&config,TEST_DATA_PATH);
+
+    EXPECT_TRUE(prefix.isInstalled("hl/app-shells/bash"));
+}
+
+/*******************  FUNCTION  *********************/
+TEST(Prefix,isInstalled_not_ok)
+{
+    Config config(false);
+	Prefix prefix(&config,TEST_DATA_PATH);
+
+    EXPECT_FALSE(prefix.isInstalled("urls/dash"));
+}
