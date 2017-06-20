@@ -469,8 +469,13 @@ void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool paralle
 	out << std::endl << "#extra vars" << std::endl;
 	out << "function hl_pack_extra_vars()" << std::endl;
 	out << "{" << std::endl;
-	for (auto & var : vars)
-		out << "\t" << var.first << "=\"" << var.second << "\"" << std::endl;
+	if (vars.empty())
+	{
+		out << "\ttrue" << std::endl;
+	} else {
+		for (auto & var : vars)
+			out << "\t" << var.first << "=\"" << var.second << "\"" << std::endl;
+	}
 	out << "}" << std::endl;
 
 	//build steps

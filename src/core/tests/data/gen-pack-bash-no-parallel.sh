@@ -140,6 +140,7 @@ source "/MY_PREFIX///homelinux/packages/models/scripts/default.sh"
 #extra vars
 function hl_pack_extra_vars()
 {
+	true
 }
 
 #package steps functions
