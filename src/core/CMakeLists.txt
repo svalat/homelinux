@@ -13,6 +13,7 @@ add_library(homelinux-core OBJECT UseFlags.cpp
                                   HostPkgChecker.cpp
                                   QuickPackage.cpp
                                   PackageDef.cpp
+                                  DepLoader.cpp
                                   VersionMatcher.cpp)
 #SET_TARGET_PROPERTIES(homelinux-core PROPERTIES COMPILE_FLAGS -fPIC)
 
