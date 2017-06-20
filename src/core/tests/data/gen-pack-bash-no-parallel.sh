@@ -21,4 +21,11 @@ URLS=""
 SUBDIR="bash-${VERSION}"
 SLOT="0"
 PREFIX="/MY_PREFIX/"
-BUILD_OPTIONS="\"--enable-from-quick\" \"--enable-prefix-conf\" \"--with-curses\" \"--disable-profiling\" \"--with-afs\" \"--disable-net-redirections\""
+BUILD_OPTIONS="\"--enable-from-quick\" \"--enable-prefix-conf\" \"--with-curses\" \"--disable-profiling\" \"--with-afs\" \"--disable-net-redirections\" \"--enable-static\" \"--enable-prefix-conf-static\""
+PATCHES=""
+USE="+afs +static -net gentoo ls mem-scramble nls readline"
+MODULE=""
+STOW_NAME=""
+
+#to mark install and keep track
+PACK_INSTALLED="/MY_PREFIX///homelinux/install-db/hl_app-shells_bash_0.json"

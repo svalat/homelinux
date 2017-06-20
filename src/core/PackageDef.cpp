@@ -273,6 +273,25 @@ std::string PackageDef::getShortName(void) const
 
 /*******************  FUNCTION  *********************/
 /**
+ * Used for stow directories, it is the slot name replacing some charts
+ * by underscore. (mostly `/` and `:`).
+**/
+std::string PackageDef::getStowName(void) const
+{
+	//build filename
+	std::string name = getSlotName();
+
+	//replace
+	for (auto & c : name)
+		if (c == '/' || c == ':')
+			c = '_';
+	
+	//ok ret
+	return name;
+}
+
+/*******************  FUNCTION  *********************/
+/**
  * Compute short vestion which keep only the first two diggit.
  * This is usefull into URLs because many packages use this shorten address
  * into subdirectories to store the achives.
@@ -311,6 +330,24 @@ std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) cons
 	} else {
 		return prefix+"MOdules/installed/"+module;
 	}
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Json script to write on when the package is installed
+ * or to check if it is installed.
+ * @param prefix Prefix to which we add the internal path.
+**/
+std::string PackageDef::getPackInstalled(const std::string & prefix) const
+{
+	//build filename
+	std::string name = getStowName();
+
+	//build path
+	std::string path = prefix+"/homelinux/install-db/"+name+".json";
+
+	//ok ret
+	return path;
 }
 
 /*******************  FUNCTION  *********************/
@@ -402,6 +439,18 @@ void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool paralle
 	out << "SLOT=\"" << getSlot() << "\"" << std::endl;
 	out << "PREFIX=\"" << getRealPrefix(prefix.getPrefix(),prefix.getConfig().useGnuStow) << "\"" << std::endl;
 	out << "BUILD_OPTIONS=\"" << getBuildOptions() << "\"" << std::endl;
+	out << "PATCHES=\"" << Helper::join(patch,' ') << "\"" << std::endl;
+	out << "USE=\"" << use.toString() << "\"" << std::endl;
+	out << "MODULE=\"" << module << "\"" << std::endl;
+	if (prefix.getConfig().useGnuStow)
+		out << "STOW_NAME=\"" << getStowName() << "\"" << std::endl;
+	else
+		out << "STOW_NAME=\"\"" << std::endl;
+	
+	//to mark install and keep track
+	out << std::endl << "#to mark install and keep track" << std::endl;
+	out << "PACK_INSTALLED=\"" << getPackInstalled(prefix.getFilePath("")) << "\"" << std::endl;
+	
 }
 
 }

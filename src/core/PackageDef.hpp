@@ -72,10 +72,12 @@ struct PackageDef
 	std::string getSlot(void) const;
 	std::string getNVersions(int cnt) const;
 	std::string getSlotName(void) const;
+	std::string getStowName(void) const;
 	std::string getShortName(void) const;
 	std::string getShortVersion(void) const;
 	std::string getRealPrefix(const std::string & prefix,bool stow) const;
 	std::string getBuildOptions(void) const;
+	std::string getPackInstalled(const std::string & prefix) const;
 	void genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall);
 	//members
 	/** API in case of update **/

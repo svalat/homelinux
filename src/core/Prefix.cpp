@@ -129,12 +129,19 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 		out.use.merge(it,true);
 
 	//apply use flags "all" from prefix
+	UseFlags toMerge;
 	for (auto &it : prefixConfig.use["all"])
-		out.use.merge(it,true);
+		toMerge.merge(it);
 
 	//apply use flags for packagName from prefix
 	for (auto &it : prefixConfig.use[out.name])
-		out.use.merge(it,true);
+		toMerge.merge(it);
+
+	//we need to force status, auto is considered as enabled
+	toMerge.setAuto(FLAG_ENABLED);
+	
+	//we can merge
+	out.use.merge(toMerge,true);
 
 	//apply override from user config
 	const Json::Value & node = config->packageOverride[pack.name];
@@ -236,16 +243,8 @@ bool Prefix::isInstalled(const PackageDef & pack)
 //@TODO : check version
 bool Prefix::isLocalyInstalled(const PackageDef & pack)
 {
-	//build filename
-	std::string name = pack.getSlotName();
-
-	//replace
-	for (auto & c : name)
-		if (c == '/' || c == ':')
-			c = '_';
-	
 	//build path
-	std::string path = getFilePath("/homelinux/install-db/"+name+".json");
+	std::string path = pack.getPackInstalled(getFilePath(""));
 
 	//check exist
 	return System::fileExist(path);
