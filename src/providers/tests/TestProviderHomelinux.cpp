@@ -99,6 +99,7 @@ TEST(ProviderHomelinux,getPackage_check_content)
 	//pack.save(TEST_DATA_PATH "/hl-full-bash.json");
 	pack.save(out);
 	
+	//System::writeFile(out.str(),TEST_DATA_PATH "/hl-full-bash.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/hl-full-bash.json"),out.str());
 }
 

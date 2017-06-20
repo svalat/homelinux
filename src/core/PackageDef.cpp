@@ -74,7 +74,7 @@ void PackageDef::loadJson(const Json::Value & json)
 	Helper::jsonToObj(vspecific,json["vspecific"]);
 	Helper::jsonToObj(steps,json["steps"]);
 	Helper::jsonToObj(conflicts,json["conflicts"]);
-	Helper::jsonToObj(use,json["use"]);
+	this->use.fromJson(json["use"]);
 	Helper::jsonToObj(warn,json["warn"]);
 	this->module = json.get("module","").asString();
 	Helper::jsonToObj(scripts,json["scripts"]);
@@ -108,7 +108,7 @@ void PackageDef::save(Json::Value & json)
 	Helper::toJson(json["vspecific"],vspecific);
 	Helper::toJson(json["steps"],steps);
 	Helper::toJson(json["conflicts"],conflicts);
-	Helper::toJson(json["use"],use);
+	this->use.toJson(json["use"]);
 	Helper::toJson(json["warn"],warn);
 	json["module"] = module;
 	Helper::toJson(json["scripts"],scripts);
@@ -152,7 +152,7 @@ void PackageDef::merge(const PackageDef & def)
 		vspecific[it.first] = it.second;
 	Helper::merge(steps,def.steps,true);
 	Helper::merge(conflicts,def.conflicts);
-	Helper::merge(use,def.use);
+	this->use.merge(def.use);
 	Helper::merge(warn,def.warn);
 	if (def.module.empty() == false)
 		module = def.module;

@@ -14,7 +14,8 @@
 		"app-shell/dash": ">2.5 <2.6"
 	},
 	"use": {
-		"all": ["X","x","svg","cairo","png","jpeg","python"]
+		"all": ["X","x","svg","cairo","png","jpeg","python"],
+		"hl/app-shells/bash": ["+afs","-net","static"]
 	},
 	"modules": {
 		"hl/app-shell/bash": "bash"

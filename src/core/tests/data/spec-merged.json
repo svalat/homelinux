@@ -55,7 +55,7 @@
 	},
 	"subdir" : "bash2-${VERSION}",
 	"urls" : [ "http://www.package.org", "http://www.package2.org" ],
-	"use" : [ "-debug", "-expat", "+debug", "static" ],
+	"use" : [ "+debug", "-expat", "static" ],
 	"vars" : 
 	{
 		"PYTHON_SLOT" : "4",

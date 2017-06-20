@@ -68,7 +68,7 @@ void Prefix::loadConfig(void)
 	Helper::jsonToObj(prefixConfig.flags,json["flags"]);
 	Helper::jsonToObj(prefixConfig.override,json["override"]);
 	Helper::jsonToObj(prefixConfig.versions,json["versions"]);
-	Helper::jsonToObj(prefixConfig.use,json["user"]);
+	Helper::jsonToObj(prefixConfig.use,json["use"]);
 	Helper::jsonToObj(prefixConfig.modules,json["modules"]);
 	Helper::jsonToObj(prefixConfig.packageOverride,json["packageOverride"]);
 	prefixConfig.gentoo = json["gentoo"];
@@ -123,6 +123,18 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 		prefixPack.loadJson(it->second);
 		out.merge(prefixPack);
 	}
+
+	//apply use flags "" from prefix
+	for (auto &it : prefixConfig.use[""])
+		out.use.merge(it,true);
+
+	//apply use flags "all" from prefix
+	for (auto &it : prefixConfig.use["all"])
+		out.use.merge(it,true);
+
+	//apply use flags for packagName from prefix
+	for (auto &it : prefixConfig.use[out.name])
+		out.use.merge(it,true);
 
 	//apply override from user config
 	const Json::Value & node = config->packageOverride[pack.name];

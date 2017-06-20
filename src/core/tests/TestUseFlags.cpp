@@ -114,3 +114,12 @@ TEST(UseFlags,merge_2)
 	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("qt"));
 	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("kde"));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(UseFlags,merge_3)
+{
+	UseFlags flags;
+	flags.merge("-gtk +qt  svg ");
+	flags.merge("+gtk kde",true);
+	EXPECT_EQ("+gtk +qt svg",flags.toString());
+}

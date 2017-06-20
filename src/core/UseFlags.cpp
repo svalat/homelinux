@@ -51,10 +51,15 @@ std::string UseFlags::getFlagName(const std::string & flag)
 * Add one flag
 * @param flag flag to add, could contain + or - to enable or disable.
 **/
-void UseFlags::addOne(const std::string & flag)
+void UseFlags::addOne(const std::string & flag,bool onlyIfExist)
 {
 	//get flag name (removing -/+)
 	std::string flagName = UseFlags::getFlagName(flag);
+
+	//only if exist
+	if (onlyIfExist)
+		if (stateMap.find(flagName) == stateMap.end())
+			return;
 	
 	//apply
 	if (flag[0] == '-')
@@ -71,8 +76,13 @@ void UseFlags::addOne(const std::string & flag)
 * @param flagName Name of flag to add (not starting by +/-)
 * @param state State of flag to apply
 **/
-void UseFlags::addOne(const std::string & flagName,UseFlagState state)
+void UseFlags::addOne(const std::string & flagName,UseFlagState state,bool onlyIfExist)
 {
+	//only if exist
+	if (onlyIfExist)
+		if (stateMap.find(flagName) == stateMap.end())
+			return;
+
 	//apply
 	if (state == FLAG_DISABLED || state == FLAG_ENABLED)
 		stateMap[flagName] = state;
@@ -219,24 +229,80 @@ std::string UseFlags::toString(bool force)
 	return res;
 }
 
+
+/*******************  FUNCTION  *********************/
+/**
+ * Load from json.
+**/
+void UseFlags::fromJson(const Json::Value & json)
+{
+	if (json.isArray())
+		for (int i = 0 ; i < json.size() ; i++)
+			addOne(json[i].asString());
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Save flags to json
+ * @param json Json node in which to dump.
+ * @param force Replace AUTO by `+`.
+**/
+void UseFlags::toJson(Json::Value & json,bool force)
+{
+	toJsonByState(json,FLAG_ENABLED,force);
+	toJsonByState(json,FLAG_DISABLED,force);
+	if (!force)
+		toJsonByState(json,FLAG_AUTO,force);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+* Convert the use flags to string only for the given state. This is used by toString
+* to give the flags in order.
+* @param out The string to complete (it will append)
+* @param state State to filter
+* @param force If force equal true, flas auto are set to enabled.
+**/
+void UseFlags::toJsonByState(Json::Value & json,UseFlagState state,bool force)
+{
+	//loop on all
+	for (auto & it : this->stateMap) 
+	{
+		//filter
+		if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+		{
+			//flag
+			if (state == FLAG_ENABLED) {
+				json.append("+" + it.first);
+			} else if (state == FLAG_DISABLED) {
+				json.append("-" + it.first);
+			} else if (state == FLAG_AUTO && force) {
+				json.append("+" + it.first);
+			} else {
+				json.append(it.first);
+			}
+		}
+	}
+}
+
 /*******************  FUNCTION  *********************/
 /**
 * Merge the list of flags to the current state
 **/
-UseFlags & UseFlags::merge(const std::string & flags)
+UseFlags & UseFlags::merge(const std::string & flags,bool onlyIfExist)
 {
-	Helper::split(flags,' ',[this](const std::string & value){
-		this->addOne(value);
+	Helper::split(flags,' ',[this,onlyIfExist](const std::string & value){
+		this->addOne(value,onlyIfExist);
 	});
 	return *this;
 }
 
 /*******************  FUNCTION  *********************/
-UseFlags & UseFlags::merge(const UseFlags & flags)
+UseFlags & UseFlags::merge(const UseFlags & flags,bool onlyIfExist)
 {
 	//loop
 	for (auto & it : flags.stateMap)
-		addOne(it.first,it.second);
+		addOne(it.first,it.second,onlyIfExist);
 	return *this;
 }
 

@@ -79,7 +79,7 @@
 	},
 	"subdir" : "bash-${VERSION}",
 	"urls" : [ "http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz" ],
-	"use" : [ "gentoo", "readline", "ls", "afs", "net", "mem-scramble", "nls" ],
+	"use" : [ "+afs", "-net", "gentoo", "ls", "mem-scramble", "nls", "readline" ],
 	"vars" : null,
 	"versions" : [ "4.3.48" ],
 	"vfetcher" : 

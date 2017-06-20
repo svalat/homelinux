@@ -17,6 +17,7 @@
 #include <json/json.h>
 //intenral
 #include <base/Helper.hpp>
+#include "UseFlags.hpp"
 #include "VersionMatcher.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -126,7 +127,7 @@ struct PackageDef
 	 * List of use flags allowed in this package, also provide their default
 	 * status.
 	**/
-	StringList use;
+	UseFlags use;
 	/** Warning message to display before installing this package **/
 	StringList warn;
 	/** 

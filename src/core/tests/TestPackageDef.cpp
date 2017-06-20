@@ -51,6 +51,7 @@ TEST(PackageDef,merge)
 	
 	std::stringstream out;
 	def.save(out);
+	//System::writeFile(out.str(),TEST_DATA_PATH "/spec-merged.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec-merged.json"),out.str());
 }
 

@@ -37,6 +37,7 @@ TEST(Prefix,loadPackage_ok)
     //pack.save(TEST_DATA_PATH "/full-get-package-bash.json");
     pack.save(out);
 
+    //System::writeFile(out.str(),TEST_DATA_PATH "/full-get-package-bash.json");
     EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/full-get-package-bash.json"),out.str());
 }
 

@@ -13,6 +13,7 @@
 //std
 #include <string>
 #include <map>
+#include <json/json.h>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
@@ -35,18 +36,21 @@ class UseFlags
 	public:
 		UseFlags(void);
 		UseFlags(const std::string & flags);
-		UseFlags & merge(const std::string & flags);
-		UseFlags & merge(const UseFlags & flags);
+		UseFlags & merge(const std::string & flags,bool onlyIfExist = false);
+		UseFlags & merge(const UseFlags & flags,bool onlyIfExist = false);
 		UseFlagState getStatus(const std::string & flag);
 		UseFlagState getApplyStatus(const std::string & flag);
 		UseFlagState getApplyStatusWithAnd(const std::string & flag);
+		void fromJson(const Json::Value & json);
+		void toJson(Json::Value & json,bool force = false);
 		void setAuto(UseFlagState state = FLAG_ENABLED);
 		std::string toString(bool force = false);
 		//statics
 		static std::string getFlagName(const std::string & flag);
 	private:
-		void addOne(const std::string & flag);
-		void addOne(const std::string & flagName,UseFlagState state);
+		void addOne(const std::string & flag,bool onlyIfExist = false);
+		void addOne(const std::string & flagName,UseFlagState state,bool onlyIfExist = false);
+		void toJsonByState(Json::Value & json,UseFlagState state,bool force = false);
 		void toStringByState(std::string & out,UseFlagState state,bool force = false);
 	private:
 		UseFlagStateMap stateMap;
