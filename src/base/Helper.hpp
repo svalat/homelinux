@@ -47,7 +47,7 @@ struct Helper
 	static std::string last(const std::string & value, char sep);
 	static bool contain(const std::string & value,const std::string what);
 	static bool contain(const StringList & value,const std::string what);
-	static void replaceOnInPlace(std::string & value,const std::string what,const std::string & byWhat);
+	static void replaceInPlace(std::string & value,const std::string what,const std::string & byWhat);
 	static std::string join(const std::list<std::string> & lst,char sep);
 	static std::string escape(const std::string & value,char c);
 	template <class T> static T getListEl(const std::list<T> & lst,int id);

@@ -206,3 +206,12 @@ TEST(Helper,espace)
 {
 	EXPECT_EQ("Test\\. and second\\.",Helper::escape("Test. and second.",'.'));
 }
+
+/*******************  FUNCTION  *********************/
+TEST(Helper,replaceInPlace)
+{
+	std::string tmp = "a.out.txt";
+	Helper::replaceInPlace(tmp,".","..");
+	EXPECT_EQ("a..out..txt",tmp);
+}
+

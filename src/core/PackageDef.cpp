@@ -377,15 +377,15 @@ std::string PackageDef::getBuildOptions(void) const
 			{
 
 				//replace $enable, $disable...
-				Helper::replaceOnInPlace(child, "$enable", status ? "enable":"disable");
-				Helper::replaceOnInPlace(child, "$disable", status ? "disable":"enable");
-				Helper::replaceOnInPlace(child, "$with", status ? "with":"without");
-				Helper::replaceOnInPlace(child, "$without", status ? "without":"with");
-				Helper::replaceOnInPlace(child, "$yes", status ? "yes":"no");
-				Helper::replaceOnInPlace(child, "$no", status ? "no":"yes");
-				Helper::replaceOnInPlace(child, "$ON", status ? "ON":"OFF");
-				Helper::replaceOnInPlace(child, "$OFF", status ? "OFF":"ON");
-				Helper::replaceOnInPlace(child, "-$no-", status ? "-":"-no-");//for QT
+				Helper::replaceInPlace(child, "$enable", status ? "enable":"disable");
+				Helper::replaceInPlace(child, "$disable", status ? "disable":"enable");
+				Helper::replaceInPlace(child, "$with", status ? "with":"without");
+				Helper::replaceInPlace(child, "$without", status ? "without":"with");
+				Helper::replaceInPlace(child, "$yes", status ? "yes":"no");
+				Helper::replaceInPlace(child, "$no", status ? "no":"yes");
+				Helper::replaceInPlace(child, "$ON", status ? "ON":"OFF");
+				Helper::replaceInPlace(child, "$OFF", status ? "OFF":"ON");
+				Helper::replaceInPlace(child, "-$no-", status ? "-":"-no-");//for QT
 
 				//we protect and push
 				lst.push_back("\\\""+child+"\\\"");
@@ -450,7 +450,64 @@ void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool paralle
 	//to mark install and keep track
 	out << std::endl << "#to mark install and keep track" << std::endl;
 	out << "PACK_INSTALLED=\"" << getPackInstalled(prefix.getFilePath("")) << "\"" << std::endl;
+
+	//dump package
+	std::stringstream tmp;
+	this->save(tmp);
+	std::string buf = tmp.str();
+	Helper::replaceInPlace(buf,"\\","\\\\");
+	Helper::replaceInPlace(buf,"\"","\\\"");
+	Helper::replaceInPlace(buf,"$","\\$");
+	out << "PACK_JSON=\"" << buf << "\"" << std::endl;
+
+	//load scripts
+	out << std::endl << "#load scripts" << std::endl;
+	for (auto & script : scripts)
+		out << "source \"" << prefix.getFilePath("/homelinux/packages/"+script) << "\"" << std::endl;
 	
+	//extra vars
+	out << std::endl << "#extra vars" << std::endl;
+	out << "function hl_pack_extra_vars()" << std::endl;
+	out << "{" << std::endl;
+	for (auto & var : vars)
+		out << "\t" << var.first << "=\"" << var.second << "\"" << std::endl;
+	out << "}" << std::endl;
+
+	//build steps
+	out << std::endl << "#package steps functions" << std::endl;
+	for (auto & step : steps)
+	{
+		out << "function hl_pack_" << step.first << "()" << std::endl;
+		out << "{" << std::endl;
+			out << "\tinfo '" << step.first << "'" << std::endl;
+			if (step.second.empty())
+			{
+				out << "\techo 'Nothing to do'" << std::endl;
+			} else {
+				for (auto & it : step.second)
+					if (it[0] == '@')
+						out << "\thl_pack_" << it.substr(1) << std::endl;
+					else
+						out << "\t" << it << std::endl;
+			}
+		out << "}" << std::endl;
+	}
+
+	//parallel install or not
+	out << std::endl << "#Main calls to run" << std::endl;
+	if (parallelInstall)
+	{
+		//for parallel install, the caller say which step to call via args
+		out << "set -e" << std::endl;
+		out << "setup_vars" << std::endl;
+		out << "eval \"$@\"" << std::endl;
+	} else {
+		out << "set -e" << std::endl;
+		out << "setup_vars" << std::endl;
+		out << "hl_start" << std::endl;
+		out << "hl_pack_main" << std::endl;
+		out << "hl_stop" << std::endl;
+	}
 }
 
 }
