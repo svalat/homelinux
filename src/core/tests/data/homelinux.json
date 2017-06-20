@@ -25,7 +25,10 @@
 			"configure": {
 				"": [ "--enable-prefix-conf" ],
 				"static": [ "--enable-static", "--enable-prefix-conf-static" ]
-			}
+			},
+			"use": [
+				"static"
+			]
 		}
 	},
 	"gentoo" : {

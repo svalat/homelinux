@@ -75,6 +75,7 @@ struct PackageDef
 	std::string getShortName(void) const;
 	std::string getShortVersion(void) const;
 	std::string getRealPrefix(const std::string & prefix,bool stow) const;
+	std::string getBuildOptions(void) const;
 	void genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall);
 	//members
 	/** API in case of update **/

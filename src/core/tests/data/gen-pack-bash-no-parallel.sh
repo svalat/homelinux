@@ -1,7 +1,7 @@
 #!/bin/bash
-HL_TEMP="/tmp/homelinux-svalat"
-HL_PACKAGE="/home/svalat/Projects/homelinux/src/core/tests/data//homelinux/packages/"
-HL_PREFIX="/home/svalat/Projects/homelinux/src/core/tests/data"
+HL_TEMP="/MY_TMP/"
+HL_PACKAGE="/MY_PREFIX///homelinux/packages/"
+HL_PREFIX="/MY_PREFIX/"
 HL_HOMECACHE="false"
 
 #Compiler flags
@@ -20,4 +20,5 @@ URLS="http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz"
 URLS=""
 SUBDIR="bash-${VERSION}"
 SLOT="0"
-PREFIX="/home/svalat/Projects/homelinux/src/core/tests/data"
+PREFIX="/MY_PREFIX/"
+BUILD_OPTIONS="\"--enable-from-quick\" \"--enable-prefix-conf\" \"--with-curses\" \"--disable-profiling\" \"--with-afs\" \"--disable-net-redirections\""

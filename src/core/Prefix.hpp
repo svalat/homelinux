@@ -60,6 +60,7 @@ class Prefix
 		bool isInstalled(const std::string & value);
 		bool isInstalled(const PackageDef & pack);
 		const std::string & getPrefix(void) const;
+		void setPrefixForTests(const std::string & prefix);
 	private:
 		bool isLocalyInstalled(const PackageDef & pack);
 		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);

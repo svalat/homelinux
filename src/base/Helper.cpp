@@ -341,4 +341,12 @@ std::string Helper::escape(const std::string & value,char c)
 	return out;
 }
 
+/******************* FUNCTION *********************/
+void Helper::replaceOnInPlace(std::string & value,const std::string what,const std::string & byWhat)
+{
+	size_t start_pos = value.find(what);
+    if(start_pos != std::string::npos)
+	    value.replace(start_pos, what.length(), byWhat);
+}
+
 }

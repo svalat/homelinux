@@ -10,6 +10,7 @@
 //std
 #include <fstream>
 #include <sstream>
+#include <regex>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include <portability/System.hpp>
@@ -314,6 +315,53 @@ std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) cons
 
 /*******************  FUNCTION  *********************/
 /**
+ * Generate build option based on `configure` entries of package
+ * depending on use flags enabling
+**/
+std::string PackageDef::getBuildOptions(void) const
+{
+	//vars
+	StringList lst;
+
+	//loop on all entries
+	for (auto & criteria : this->configure)
+	{
+		//get status
+		UseFlagState state = use.getApplyStatusWithAnd(criteria.first);
+
+		//we ignore AUTO
+		if (state != FLAG_AUTO)
+		{
+			//status
+			bool status = (state == FLAG_ENABLED);
+
+			//loop on all childs
+			for (auto child : criteria.second)
+			{
+
+				//replace $enable, $disable...
+				Helper::replaceOnInPlace(child, "$enable", status ? "enable":"disable");
+				Helper::replaceOnInPlace(child, "$disable", status ? "disable":"enable");
+				Helper::replaceOnInPlace(child, "$with", status ? "with":"without");
+				Helper::replaceOnInPlace(child, "$without", status ? "without":"with");
+				Helper::replaceOnInPlace(child, "$yes", status ? "yes":"no");
+				Helper::replaceOnInPlace(child, "$no", status ? "no":"yes");
+				Helper::replaceOnInPlace(child, "$ON", status ? "ON":"OFF");
+				Helper::replaceOnInPlace(child, "$OFF", status ? "OFF":"ON");
+				Helper::replaceOnInPlace(child, "-$no-", status ? "-":"-no-");//for QT
+
+				//we protect and push
+				lst.push_back("\\\""+child+"\\\"");
+			}
+		}
+	}
+
+	//join
+	return Helper::join(lst,' ');
+}
+
+/*******************  FUNCTION  *********************/
+/**
  * Generate the install script.
  * @param parallelInstall Enable generation for parallel installation of
  * packages. This requires some minot tricks in the generated script.
@@ -353,6 +401,7 @@ void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool paralle
 	out << "SUBDIR=\"" << subdir << "\"" << std::endl;
 	out << "SLOT=\"" << getSlot() << "\"" << std::endl;
 	out << "PREFIX=\"" << getRealPrefix(prefix.getPrefix(),prefix.getConfig().useGnuStow) << "\"" << std::endl;
+	out << "BUILD_OPTIONS=\"" << getBuildOptions() << "\"" << std::endl;
 }
 
 }

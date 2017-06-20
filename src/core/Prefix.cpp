@@ -283,4 +283,10 @@ const Config & Prefix::getUserConfig(void) const
 	return *config;
 }
 
+/*******************  FUNCTION  *********************/
+void Prefix::setPrefixForTests(const std::string & prefix)
+{
+	this->prefix = prefix;
+}
+
 }

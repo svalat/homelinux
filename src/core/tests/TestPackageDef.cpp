@@ -83,6 +83,10 @@ TEST(PackageDef,genScript)
 	PackageDef pack;
 	prefix.loadPackage(pack,"hl/app-shells/bash");
 
+	//avoid to have paths changing between users
+	prefix.setPrefixForTests("/MY_PREFIX/");
+	config.temp = "/MY_TMP/";
+
 	//convert
 	std::stringstream out;
 	pack.genScript(out,prefix,false);

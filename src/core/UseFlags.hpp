@@ -38,9 +38,9 @@ class UseFlags
 		UseFlags(const std::string & flags);
 		UseFlags & merge(const std::string & flags,bool onlyIfExist = false);
 		UseFlags & merge(const UseFlags & flags,bool onlyIfExist = false);
-		UseFlagState getStatus(const std::string & flag);
-		UseFlagState getApplyStatus(const std::string & flag);
-		UseFlagState getApplyStatusWithAnd(const std::string & flag);
+		UseFlagState getStatus(const std::string & flag) const;
+		UseFlagState getApplyStatus(const std::string & flag) const;
+		UseFlagState getApplyStatusWithAnd(const std::string & flag) const;
 		void fromJson(const Json::Value & json);
 		void toJson(Json::Value & json,bool force = false);
 		void setAuto(UseFlagState state = FLAG_ENABLED);

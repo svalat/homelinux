@@ -94,7 +94,7 @@ void UseFlags::addOne(const std::string & flagName,UseFlagState state,bool onlyI
 /**
 * Get the status of the given flag
 **/
-UseFlagState UseFlags::getStatus(const std::string & flag)
+UseFlagState UseFlags::getStatus(const std::string & flag) const
 {
 	//get name
 	std::string flagName = getFlagName(flag);
@@ -114,7 +114,7 @@ UseFlagState UseFlags::getStatus(const std::string & flag)
 * Same as getApplyStatus but managing multiple flags
 * with & operation.
 **/
-UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag)
+UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag) const
 {
 	if (flag.find('&') == std::string::npos)
 	{
@@ -138,7 +138,7 @@ UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag)
 * It als
 * @param flag Flag string potentially with `+` or `-`. `-` will invert the return value.
 **/
-UseFlagState UseFlags::getApplyStatus(const std::string & flag)
+UseFlagState UseFlags::getApplyStatus(const std::string & flag) const
 {
 	//trivial
 	if (flag == "" || flag == "+" || flag == "always" || flag == "+always")
