@@ -14,6 +14,8 @@
 #include <string>
 //from jsoncpp
 #include <json/json.h>
+//insternal
+#include <base/Helper.hpp>
 
 /*******************  NAMESPACE  ********************/
 namespace hl

@@ -13,6 +13,7 @@
 //std
 #include <string>
 #include <map>
+#include <list>
 //from jsoncpp
 #include <json/json.h>
 //intenral

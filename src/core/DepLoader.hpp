@@ -21,9 +21,52 @@
 namespace hl
 {
 
-/********************* TYPES ************************/
-typedef std::map<std::string,PackageDef *> PackageMap;
-typedef std::list<PackageDef *> PackageList;
+/*********************  CLASS  **********************/
+class DepPackage;
+
+/*********************  STRUCT  *********************/
+struct PackageRequest
+{
+	//funcs
+	PackageRequest(const std::string & value,DepPackage * parent = NULL);
+	PackageRequest(const PackageRequest & req);
+	PackageRequest(void);
+	//vars
+	std::string name;
+	std::string use;
+	std::string iuse;
+	std::string version;
+	DepPackage * parent;
+};
+
+/********************  TYPES  ***********************/
+typedef std::map<std::string,PackageRequest> PackageRequestMap;
+typedef std::list<DepPackage *> PackageList;
+typedef std::map<std::string,DepPackage *> PackageMap;
+
+/********************  STRUCT  **********************/
+/**
+ * Some infos used by deploader
+**/
+struct DepLoaderInfos
+{
+	DepLoaderInfos(void);
+	int loopChecker;
+	bool force;
+	PackageMap deps;
+	std::string present;
+};
+
+/********************  STRUCT  **********************/
+/**
+ * To aggregate all required infos in one struct.
+**/
+struct DepPackage
+{
+	PackageDef def;
+	DepLoaderInfos infos;
+	PackageRequestMap hints;
+};
 
 /*********************  CLASS  **********************/
 /**
@@ -41,9 +84,22 @@ class DepLoader
 		~DepLoader(void);
 		void loadRequest(const StringList & packageList);
 	private:
+		void applyVSpecific(void);
+		void applyVSpecific(DepPackage * pack);
+		void applyVersionRules(DepPackage * pack,DepPackage * parent,PackageRequest & infos);
+		void loadPackageDeps(DepPackage * pack);
+		void checkStatus(void);
+		void buildSched(void);
+		void buildSchedChild(DepPackage * pack);
+		void checkUseFlagHints(DepPackage * pack);
+		void applyVersionHints(DepPackage * pack);
+		void selectVSpecific(DepPackage * pack);
+		std::string replaceParentUseFlags(const std::string,const DepPackage * parent);
+		DepPackage * loadPackage(const std::string & request,DepPackage * parent,bool force);
+	private:
 		Prefix * prefix;
 		PackageMap packages;
-		PackageList sched;
+		StringList sched;
 		PackageList root;
 };
 	
