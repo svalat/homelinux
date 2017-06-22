@@ -20,66 +20,6 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
-/**
- * Parse the question string and then convert it into a more usable
- * struct for the rest of the app.
- * @param value Define the string to parse. The format can be on of those
- * examples :
- *    - git : Only simple name
- *    - dev-vcs/git : Name with source (can be gentoo/, urls/....)
- *    - dev-vcs/git[+debug,-gzip] : Force some useflags on the package
- *    - dev-vcs/git <3.5 >2.5 : version hints
- *    - dev-vcs/git =3.5.6 : Force specific vesrion
- *    - dev-vcs/git :3 : Define the slot to be used.
- *    - dev-vcs/git ~3.[0-9]+ : with regexp
- *    - git? dev-vcs/git : Only if has git flag
- *
- * You can see doc directory to get more infos on the format.
- * @param parent Pointer to the parent package
-**/
-PackageRequest::PackageRequest(const std::string & value,DepPackage * parent)
-{
-	//setup some regexp to be reused
-	static RE2 regexp1("([0-9a-zA-Z+._/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
-	static RE2 regexp2("([a-zA-Z0-9-&._+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
-
-	//check if has ? for package dep depending on flags
-	if (Helper::contain(value,"?"))
-	{
-		assumeArg(RE2::FullMatch(value,regexp2,&use,&name,&iuse,&version),"Invalid format : %1")
-			.arg(value)
-			.end();
-	} else {
-		assumeArg(RE2::FullMatch(value,regexp1,&name,&iuse,&version),"Invalid format : %1")
-			.arg(value)
-			.end();
-	}
-
-	//replace []
-	Helper::replaceInPlace(iuse,"[","");
-	Helper::replaceInPlace(iuse,"]","");
-
-	//setup
-	this->parent = parent;
-}
-
-/*******************  FUNCTION  *********************/
-PackageRequest::PackageRequest(void)
-{
-	parent = NULL;
-}
-
-/*******************  FUNCTION  *********************/
-PackageRequest::PackageRequest(const PackageRequest & req)
-{
-	name = req.name;
-	use = req.use;
-	iuse = req.iuse;
-	version = req.version;
-	parent = req.parent;
-}
-
-/*******************  FUNCTION  *********************/
 DepLoader::DepLoader(Prefix * prefix)
 {
 	assert(prefix != NULL);
@@ -385,13 +325,13 @@ void DepLoader::checkUseFlagHints(DepPackage * pack)
 	for (auto & hint : pack->hints)
 	{
 		//look on all slides
-		Helper::split(hint.second.iuse,',',[&err,this](const std::string & flag) {
+		Helper::split(hint.second.iuse,',',[&err,this,pack](const std::string & flag) {
 			std::string full = flag;
 			if (full[0] != '+' && full[0] != '-')
 				full = "+"+full;
 			UseFlagState state = pack->def.use.getApplyStatusWithAnd(full);
 			if (state != FLAG_ENABLED)
-				err += flags + " (" + pack->dev.getSlotName() + ") ";
+				err += full + " (" + pack->def.getSlotName() + ") ";
 		});
 	}
 
@@ -404,19 +344,73 @@ void DepLoader::checkUseFlagHints(DepPackage * pack)
 /*******************  FUNCTION  *********************/
 void DepLoader::applyVersionHints(DepPackage * pack)
 {
-	
+	std::string before = Helper::join(pack->def.versions,' ');
+
+	//loop on all hints
+	for (auto & hint : pack->hints)
+	{
+		VersionMatcher match(hint.second.version);
+		pack->def.versions = match.filterList(pack->def.versions,pack->def.slots);
+	}
+
+	//if empty
+	if (pack->def.versions.empty())
+	{
+		HL_ERROR_ARG("Version filter is too strict for package %1").arg(pack->def.name).end();
+		HL_ERROR_ARG("  - Previous version list is : %1").arg(before).end();
+		for (auto & hint : pack->hints)
+			HL_ERROR_ARG("  - Hint from %1 : %2").arg(hint.first).arg(hint.second.version).end();
+		exit(1);
+	}
 }
 
 /*******************  FUNCTION  *********************/
 void DepLoader::selectVSpecific(DepPackage * pack)
 {
+	//get versions
+	std::string version = pack->def.getVersion();
 
+	//loop on all specific
+	StringList toRemove;
+	for (auto & it : pack->def.vspecific)
+	{
+		VersionMatcher match(it.first);
+		if (match.match(version,pack->def.slots))
+		{
+			PackageDef def;
+			def.loadJson(it.second);
+			pack->def.merge(def);
+			toRemove.push_back(it.first);
+		}
+	}
+
+	//remove applied
+	for (auto & it : toRemove)
+		pack->def.vspecific.erase(it);
 }
 
 /*******************  FUNCTION  *********************/
-std::string DepLoader::replaceParentUseFlags(const std::string,const DepPackage * parent)
+std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPackage * parent)
 {
+	//vars
+	StringList out;
 
+	//loop on all
+	Helper::split(uses,' ',[&out,parent](const std::string & use){
+		if (use[0] == '#')
+		{
+			std::string name = use.substr(1);
+			UseFlagState state = parent->def.use.getStatus(name);
+			if (state == FLAG_ENABLED)
+				out.push_back("+"+name);
+			else if (state == FLAG_DISABLED)
+				out.push_back("-"+name);
+		} else {
+			out.push_back(use);
+		}
+	});
+
+	return Helper::join(out,' ');
 }
 
 /*******************  FUNCTION  *********************/

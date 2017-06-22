@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 //internal
+#include "PackageRequest.hpp"
 #include "PackageDef.hpp"
 #include "Prefix.hpp"
 
@@ -23,21 +24,6 @@ namespace hl
 
 /*********************  CLASS  **********************/
 class DepPackage;
-
-/*********************  STRUCT  *********************/
-struct PackageRequest
-{
-	//funcs
-	PackageRequest(const std::string & value,DepPackage * parent = NULL);
-	PackageRequest(const PackageRequest & req);
-	PackageRequest(void);
-	//vars
-	std::string name;
-	std::string use;
-	std::string iuse;
-	std::string version;
-	DepPackage * parent;
-};
 
 /********************  TYPES  ***********************/
 typedef std::map<std::string,PackageRequest> PackageRequestMap;

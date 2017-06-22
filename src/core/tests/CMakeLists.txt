@@ -20,6 +20,7 @@ set(TEST_NAMES TestUseFlags
                TestQuickPackage
                TestPackageDef
                TestDepLoader
+               TestPackageRequest
                TestVersionMatcher)
 
 ######################################################
