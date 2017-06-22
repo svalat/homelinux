@@ -11,6 +11,7 @@ add_library(homelinux-crawlers OBJECT Crawler.cpp
                                      CrawlerFtp.cpp
 									 CrawlerGentoo.cpp
 									 CrawlerGithub.cpp
+									 CrawlerHtml.cpp
 									 CrawlerGnomeCache.cpp)
 SET_TARGET_PROPERTIES(homelinux-crawlers PROPERTIES COMPILE_FLAGS -fPIC)
 

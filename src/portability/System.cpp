@@ -221,6 +221,12 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 }
 
 /*******************  FUNCTION  *********************/
+bool System::hasCommand(const std::string & cmd)
+{
+	return system((cmd + "> /dev/null 2>/dev/null").c_str()) == 0;
+}
+
+/*******************  FUNCTION  *********************/
 bool System::downloadJson(Json::Value & out,const std::string & url)
 {
 	static int id;

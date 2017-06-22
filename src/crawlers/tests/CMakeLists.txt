@@ -18,6 +18,7 @@ set(TEST_NAMES TestCrawlerDummy
                TestCrawlerFtp 
 			   TestCrawlerGnomeCache 
 			   TestCrawlerGentoo
+			   TestCrawlerHtml
 			   TestCrawlerGithub)
 
 ######################################################

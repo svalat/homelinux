@@ -74,6 +74,7 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	if (params.get("escapePoint",true).asBool())
 		Helper::replaceInPlace(r,".","\\.");
 	this->regexp = new RE2(r);
+	this->txtRegexp = r;
 
 	//run
 	versions = origVersions;

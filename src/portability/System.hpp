@@ -41,6 +41,7 @@ struct System
 	static void readDir(const std::string & path,std::function<void(const std::string &)> callback);
 	static void findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir = "");
 	//run
+	static bool hasCommand(const std::string & cmd);
 	static int runCommand(const std::string & cmd);
 	static bool runAndRead(std::string & out,const std::string & cmd);
 	//download

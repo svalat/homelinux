@@ -40,6 +40,7 @@ class Crawler
 	protected:
 		StringList versions;
 		RE2 * regexp;
+		std::string txtRegexp;
 		Prefix * prefix;
 		std::string packageName;
 	private:
