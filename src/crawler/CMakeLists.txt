@@ -12,5 +12,5 @@ SET_TARGET_PROPERTIES(homelinux-crawler PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################
 if (ENABLE_TESTS)
-#	add_subdirectory(tests)
+	add_subdirectory(tests)
 endif (ENABLE_TESTS)
