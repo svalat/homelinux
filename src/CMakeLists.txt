@@ -44,7 +44,8 @@ include_directories(../extern-deps/re2-2017-06-01)
 set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
                        $<TARGET_OBJECTS:homelinux-core>
                        $<TARGET_OBJECTS:homelinux-portability>
-                       $<TARGET_OBJECTS:homelinux-providers>)
+                       $<TARGET_OBJECTS:homelinux-providers>
+					   $<TARGET_OBJECTS:homelinux-crawler>)
 
 ######################################################
 if (JSONCPP_FOUND)
@@ -68,6 +69,7 @@ add_subdirectory(base)
 add_subdirectory(core)
 add_subdirectory(portability)
 add_subdirectory(providers)
+add_subdirectory(crawler)
 
 ######################################################
 #install
