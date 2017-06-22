@@ -6,8 +6,8 @@
 			 LICENSE  : CeCILL-C
 *****************************************************/
 
-#ifndef HL_CRAWLER_DUMMY_HPP
-#define HL_CRAWLER_DUMMY_HPP
+#ifndef HL_CRAWLER_FTP_HPP
+#define HL_CRAWLER_FTP_HPP
 
 /********************  HEADERS  *********************/
 #include "Crawler.hpp"
@@ -17,14 +17,14 @@ namespace hl
 {
 
 /*********************  CLASS  **********************/
-class CrawlerDummy : public Crawler
+class CrawlerFtp : public Crawler
 {
 	public:
-		CrawlerDummy(void) : Crawler("dummy"){};
+		CrawlerFtp(void);
 	protected:
-		void internalRun(std::string url) {};
+		void internalRun(std::string url);
 };
 
 }
 
-#endif //HL_CRAWLER_DUMMY_HPP
+#endif //HL_CRAWLER_FTP_HPP

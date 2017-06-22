@@ -28,14 +28,16 @@ class Crawler
 	public:
 		Crawler(const std::string & name);
 		virtual ~Crawler(void);
-		StringList run(Json::Value & params,const StringList & origVersions);
+		StringList run(const std::string & packagName,Json::Value & params,const StringList & origVersions);
 		const std::string & getName(void) const;
 	protected:
-		virtual void internalRun(const std::string & url) = 0;
+		virtual void internalRun(std::string url) = 0;
 		void scanValue(const std::string & value);
+		StringList makeUniq(StringList & lst);
 	protected:
 		StringList versions;
 		RE2 * regexp;
+		std::string packageName;
 	private:
 		std::string name;
 };

@@ -7,7 +7,8 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-crawler OBJECT Crawler.cpp)
+add_library(homelinux-crawler OBJECT Crawler.cpp
+                                     CrawlerFtp.cpp)
 SET_TARGET_PROPERTIES(homelinux-crawler PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################

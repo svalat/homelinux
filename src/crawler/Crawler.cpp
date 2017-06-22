@@ -8,6 +8,7 @@
 
 /********************  HEADERS  *********************/
 #include <cassert>
+#include <core/VersionMatcher.hpp>
 #include "Crawler.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -29,10 +30,13 @@ Crawler::~Crawler(void)
 }
 
 /********************  FUNCTION  *********************/
-StringList Crawler::run(Json::Value & params,const StringList & origVersions)
+StringList Crawler::run(const std::string & packagName,Json::Value & params,const StringList & origVersions)
 {
 	//check
 	assert(params["mode"].asString() == name);
+
+	//setup
+	this->packageName = packageName;
 
 	//extract urls
 	StringList urls;
@@ -51,7 +55,7 @@ StringList Crawler::run(Json::Value & params,const StringList & origVersions)
 
 		//run subdir
 		StringList none;
-		StringList subVersions = run(params["subdir"],none);
+		StringList subVersions = run(packageName,params["subdir"],none);
 
 		//fill
 		for (auto & v : subVersions)
@@ -65,19 +69,45 @@ StringList Crawler::run(Json::Value & params,const StringList & origVersions)
 	}
 		
 	//extract regexp
-	this->regexp = new RE2(params.get("regexp","^$").asString());
+	std::string r = params.get("regexp","^$").asString();
+	if (params.get("escapePoint",true).asBool())
+		Helper::replaceInPlace(r,".","\\.");
+	this->regexp = new RE2(r);
 
 	//run
 	versions = origVersions;
 	for (auto & url : urls)
+	{
+		HL_DEBUG_ARG("Crawler","Crawl %1").arg(url).end();
 		internalRun(url);
+	}
 	
 	//clear
 	delete regexp;
 	regexp = NULL;
 
+	//sort
+	versions = VersionMatcher::sortList(versions);
+
 	//return
-	return versions;
+	return makeUniq(versions);
+}
+
+/********************  FUNCTION  *********************/
+StringList Crawler::makeUniq(StringList & lst)
+{
+	std::string last;
+	StringList clean;
+	for (auto & it : lst)
+	{
+		if (it != last)
+		{
+			clean.push_back(it);
+			last = it;
+		}
+	}
+
+	return clean;
 }
 
 /********************  FUNCTION  *********************/
@@ -90,6 +120,8 @@ void Crawler::scanValue(const std::string & value)
 	std::string version;
 	if (RE2::FullMatch(value,*regexp,&version))
 		versions.push_back(version);
+	
+	//HL_DEBUG_ARG("Crawler","%1 reject %2").arg(packageName).arg(value).end();
 }
 
 /********************  FUNCTION  *********************/
