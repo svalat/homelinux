@@ -4,3 +4,5 @@ homelinux.kdev4
 *.orig
 .c9
 .vscode
+src/crawlers/html-link-extractor/node_modules/
+src/crawlers/html-link-extractor/package-lock.json 

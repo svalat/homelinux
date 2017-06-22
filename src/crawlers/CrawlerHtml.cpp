@@ -24,6 +24,20 @@ CrawlerHtml::CrawlerHtml(Prefix * prefix)
 {
 	//check if have node
 	assume(System::hasCommand("node -v"),"You need to install nodejs to crawl html pages !");
+	
+	//get node path
+	std::string path = prefix->getFilePath("/share/homelinux/html-link-extractor/");
+	nodeScript = path + "index.js";
+	if (System::fileExist(nodeScript) == false)
+	{
+		path = EXTRACTOR_SOURCE_PATH;
+		nodeScript = path + "/index.js";
+		assumeArg(System::fileExist(nodeScript),"Fail to find html extracttor script : %1").arg(nodeScript).end();
+	}
+
+	//check node_modules
+	if (System::fileExist(path+"/node_modules") == false)
+		System::runCommand("cd "+path+" && npm install");
 }
 
 /*******************  FUNCTION  *********************/
@@ -33,14 +47,6 @@ void CrawlerHtml::internalRun(std::string url)
 	static int id = 0;
 	char fname[64];
 	sprintf(fname,"hl-html-crawler-%d.html",++id);
-
-	//get node path
-	std::string nodeScript = prefix->getFilePath("/share/homelinux/html-link-extractor/index.js");
-	if (System::fileExist(nodeScript) == false)
-	{
-		nodeScript = EXTRACTOR_SOURCE_PATH "/index.js";
-		assumeArg(System::fileExist(nodeScript),"Fail to find html extracttor script : %1").arg(nodeScript).end();
-	}
 
 	//prepare regexp
 	std::string reg = txtRegexp;

@@ -23,6 +23,8 @@ class CrawlerHtml : public Crawler
 		CrawlerHtml(Prefix * prefix);
 	protected:
 		void internalRun(std::string url);
+	private:
+		std::string nodeScript;
 };
 
 }
