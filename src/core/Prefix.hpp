@@ -56,7 +56,7 @@ class Prefix
 		const Config & getUserConfig(void) const;
 		void updateDb(void);
 		void fillEnv(EnvSetup & env);
-		//TODO
+		std::string listInstalled(void);
 		bool isInstalled(const std::string & value);
 		bool isInstalled(const PackageDef & pack);
 		const std::string & getPrefix(void) const;

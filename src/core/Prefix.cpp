@@ -16,6 +16,7 @@
 #include <providers/ProviderModels.hpp>
 #include <providers/ProviderHomelinux.hpp>
 #include <providers/ProviderGithub.hpp>
+#include <base/Colors.hpp>
 #include "Prefix.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -286,6 +287,25 @@ const Config & Prefix::getUserConfig(void) const
 void Prefix::setPrefixForTests(const std::string & prefix)
 {
 	this->prefix = prefix;
+}
+
+/*******************  FUNCTION  *********************/
+std::string Prefix::listInstalled(void)
+{
+	//vars
+	std::string out;
+
+	//loop on files
+	System::readDir(getFilePath("/homelinux/install-db/"),[this,&out](const std::string & file)
+	{
+		PackageDef pack;
+		pack.load(getFilePath("/homelinux/install-db/"+file));
+		out += Colors::green(pack.getSlotName())+" "+Colors::cyan(pack.getVersion());
+		out += "\n";
+	});
+
+	//ok
+	return out;
 }
 
 }
