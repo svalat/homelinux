@@ -8,49 +8,62 @@
 
 /********************  HEADERS  *********************/
 #include <gtest/gtest.h>
+#include <base/Config.hpp>
+#include <core/Prefix.hpp>
+#include <json/json.h>
 #include "../CrawlerHtml.hpp"
 
 /***************** USING NAMESPACE ******************/
 using namespace hl;
 
+/*******************  CONSTS  ***********************/
+static const char cstValue1[] = "4.4 4.3.30 4.3 4.2.53 4.2 4.1 4.0 3.2.57 3.2.48 3.2 3.1 3.0.16 3.0 2.05 2.04 2.03 2.02.1 2.02 2.01.1 2.01 2.0 1.14.7";
+
 /*******************  FUNCTION  *********************/
 TEST(CrawlerHtml,constructor)
 {
-	CrawlerHtml crawler(NULL);
+	Debug::enableAll();
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerHtml crawler(&prefix);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerHtml,run)
 {
-	CrawlerHtml crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerHtml crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "html";
-	config["url"] = "https://ftp.gnu.org/gnu/bash/";
-	config["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*).tar.gz";
+	Json::Value cfg;
+	cfg["mode"] = "html";
+	cfg["url"] = "https://ftp.gnu.org/gnu/bash/";
+	cfg["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*).tar.gz";
 
 	StringList versions;
 	versions.push_back("4.3");
 
-	versions = crawler.run("bash",config,versions);
+	versions = crawler.run("bash",cfg,versions);
 
-	EXPECT_EQ("4.3",Helper::join(versions,' '));
+	EXPECT_EQ(cstValue1,Helper::join(versions,' '));
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerHtml,run_invalid)
 {
-	CrawlerHtml crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerHtml crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "html";
-	config["url"] = "http://blabla.bof/fail";
-	config["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*).tar.gz";
+	Json::Value cfg;
+	cfg["mode"] = "html";
+	cfg["url"] = "http://blabla.bof/fail";
+	cfg["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*).tar.gz";
 
 	StringList versions;
 	versions.push_back("2.47");
 
-	versions = crawler.run("bash",config,versions);
+	versions = crawler.run("bash",cfg,versions);
 
 	EXPECT_EQ("2.47",Helper::join(versions,' '));
 }
