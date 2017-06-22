@@ -10,6 +10,7 @@
 #include <map>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
+#include <base/Colors.hpp>
 #include "UseFlags.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -214,16 +215,57 @@ void UseFlags::toStringByState(std::string & out,UseFlagState state,bool force)
 }
 
 /*******************  FUNCTION  *********************/
-std::string UseFlags::toString(bool force)
+/**
+* Convert the use flags to string only for the given state. This is used by toString
+* to give the flags in order.
+* @param out The string to complete (it will append)
+* @param state State to filter
+* @param force If force equal true, flas auto are set to enabled.
+**/
+void UseFlags::toStringByStateColored(std::string & out,UseFlagState state,bool force)
+{
+	//loop on all
+	for (auto & it : this->stateMap) 
+	{
+		//filter
+		if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+		{
+			//space
+			if (out.empty() == false)
+				out += " ";
+			
+			//flag
+			if (state == FLAG_ENABLED) {
+				out += Colors::cyan("+" + it.first);
+			} else if (state == FLAG_DISABLED) {
+				out += Colors::red("-" + it.first);
+			} else if (state == FLAG_AUTO && force) {
+				out += Colors::cyan("+" + it.first);
+			} else {
+				out += Colors::blue(it.first);
+			}
+		}
+	}
+}
+
+/*******************  FUNCTION  *********************/
+std::string UseFlags::toString(bool force,bool colored)
 {
 	//var
 	std::string res;
 	
-	//enabled
-	toStringByState(res,FLAG_ENABLED,force);
-	toStringByState(res,FLAG_DISABLED,force);
-	if (!force)
-		toStringByState(res,FLAG_AUTO,false);
+	if (colored)
+	{
+		toStringByStateColored(res,FLAG_ENABLED,force);
+		toStringByStateColored(res,FLAG_DISABLED,force);
+		if (!force)
+			toStringByStateColored(res,FLAG_AUTO,false);
+	} else {
+		toStringByState(res,FLAG_ENABLED,force);
+		toStringByState(res,FLAG_DISABLED,force);
+		if (!force)
+			toStringByState(res,FLAG_AUTO,false);
+	}
 	
 	//ret
 	return res;

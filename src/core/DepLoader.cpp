@@ -12,6 +12,8 @@
 //extern
 #include <re2/re2.h>
 //internal
+#include <base/Colors.hpp>
+#include <portability/System.hpp>
 #include "HostPkgChecker.hpp"
 #include "DepLoader.hpp"
 
@@ -411,6 +413,146 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 	});
 
 	return Helper::join(out,' ');
+}
+
+/*******************  FUNCTION  *********************/
+void DepLoader::printList(std::ostream & out)
+{
+	out << Colors::yellow("----------------------REUSE HOST--------------------------") << std::endl;
+	for (auto & it : packages)
+		if (it.second->infos.present == "use-host")
+			out << Colors::magenta(it.second->def.name) << std::endl;
+	out << Colors::yellow("----------------------INSTALLED---------------------------") << std::endl;
+	for (auto & it : packages)
+		if (it.second->infos.present == "already-installed")
+			out << Colors::magenta(it.second->def.name) << std::endl;
+	out << Colors::yellow("----------------------TO INSTALL--------------------------") << std::endl;
+	for (auto & it : sched)
+	{
+		DepPackage & pack = *packages[it];
+		if (pack.infos.present.empty())
+			out << Colors::green(pack.def.getSlotName()) << "-" << Colors::magenta(pack.def.getVersion()) << " USE=\""<< pack.def.use.toString(false,true) << "\"" << std::endl;
+		else
+			out << Colors::green(pack.def.getSlotName()) << "-" << Colors::magenta(pack.def.getVersion()) << " [" << Colors::red(pack.infos.present) << "] USE=\""<< pack.def.use.toString(false,true) << "\"" << std::endl;
+	}
+	out << Colors::yellow("----------------------------------------------------------") << std::endl;
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Generate the inscall script my merging the install script of all
+ * the packages from sched list;
+ * This script must be forwarded to bash to be usd. This is done
+ * by the homelinux command.
+**/
+void DepLoader::genScript(std::ostream & out,bool usePinstall)
+{
+	//header
+	out << "#!/bin/bash" << std::endl << std::endl;
+
+	//some vars to track progress
+	out << "#Progress tracking" << std::endl;
+	out << "HL_TOT_PACK=" << sched.size() << std::endl;
+	out << "HL_CUR_PACK=0" << std::endl;
+	out << std::endl;
+
+	//for each package
+	for (auto & it : sched)
+	{
+		packages[it]->def.genScript(out,*prefix,usePinstall);
+		out << std::endl << std::endl;
+		out << "####################################################";
+		out << std::endl << std::endl;
+	}
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Generate the parallel makefile script to build all the requested packages
+ * in parallel mode. it mostly call all the childs script function per function
+ * and manage extraction of the Make subcommand to keep parallelism handling
+ * into the root makefile.
+ * @param tmpdir Temporary into which to write the Makefile.
+**/
+void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdir)
+{
+	//vars
+	StringList all;
+	StringMapList deps;
+
+	//all target
+	out << "all: hl-targets" << std::endl << std::endl;
+
+	//rules
+	for (auto & it : sched)
+	{
+		//build step name
+		std::string step = it;
+		Helper::replaceInPlace(step,":","_");
+		Helper::replaceInPlace(step,"/","_");
+		
+		//build
+		std::string notif = "$PWD/"+step+"hl-is-default-build.notify";
+		out << step << ":" << std::endl;
+		out << "\t@bash " << step << ".sh hl_start" << std::endl;
+		out << "\t@bash " << step << ".sh hl_prebuild" << std::endl;
+		out << "\t@bash " << step << ".sh hl_build" << notif <<  std::endl;
+		out << "\t@if test -f " << notif << "; then make -C `cat " << notif << "` fi" << std::endl;
+		out << "\t@bash " << step << ".sh hl_postbuild" << std::endl;
+		out << "\t@bash " << step << ".sh hl_finish" << std::endl;
+
+		//add to all
+		all.push_back(step);
+
+		//deps
+		DepPackage * p = packages[it];
+		for (auto it : p->infos.deps)
+		{
+			std::string tmp = p->def.getSlotName();
+			Helper::replaceInPlace(tmp,":","_");
+			Helper::replaceInPlace(tmp,"/","_");
+			deps[step].push_back(tmp);
+		}
+	}
+
+	//deps
+	for (auto it : deps)
+		out << it.first << ": " << Helper::join(it.second,' ') << std::endl;
+	out << std::endl;
+
+	//hl-targets
+	out << "hl-targets: " << Helper::join(all,' ') << std::endl << std::endl;
+
+	//PHONY
+	out << ".PHONY: hl-targets all " << Helper::join(all,' ') << std::endl;
+}
+
+/*******************  FUNCTION  *********************/
+void DepLoader::genParallelScripts(const std::string & tmpdir)
+{
+	//rules
+	int cnt = 0;
+	for (auto & it : sched)
+	{
+		//build step name
+		std::string step = it;
+		Helper::replaceInPlace(step,":","_");
+		Helper::replaceInPlace(step,"/","_");
+
+		//gen script
+		std::stringstream out;
+		out << "#!/bin/bash" << std::endl << std::endl;
+		out << "HL_TOT_PACK=" << this->sched.size() << "\n";
+		out << "HL_CUR_PACK=" << cnt << "\n\n";
+		this->packages[it]->def.genScript(out,*prefix,true);
+		out << "\n\n####################################################\n\n";
+
+		//dump to file
+		System::writeFile(tmpdir+"/"+step+".sh",out.str());
+
+		//count
+		cnt++;
+	}
 }
 
 /*******************  FUNCTION  *********************/

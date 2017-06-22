@@ -44,7 +44,7 @@ class UseFlags
 		void fromJson(const Json::Value & json);
 		void toJson(Json::Value & json,bool force = false);
 		void setAuto(UseFlagState state = FLAG_ENABLED);
-		std::string toString(bool force = false);
+		std::string toString(bool force = false,bool colred = false);
 		//statics
 		static std::string getFlagName(const std::string & flag);
 	private:
@@ -52,6 +52,7 @@ class UseFlags
 		void addOne(const std::string & flagName,UseFlagState state,bool onlyIfExist = false);
 		void toJsonByState(Json::Value & json,UseFlagState state,bool force = false);
 		void toStringByState(std::string & out,UseFlagState state,bool force = false);
+		void toStringByStateColored(std::string & out,UseFlagState state,bool force = false);
 	private:
 		UseFlagStateMap stateMap;
 };

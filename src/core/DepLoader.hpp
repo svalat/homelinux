@@ -69,6 +69,10 @@ class DepLoader
 		DepLoader(Prefix * prefix);
 		~DepLoader(void);
 		void loadRequest(const StringList & packageList);
+		void printList(std::ostream & out);
+		void genScript(std::ostream & out,bool usePinstall);
+		void genParallelMakefile(std::ostream & out,const std::string & tmpdir);
+		void genParallelScripts(const std::string & tmpdir);
 	private:
 		void applyVSpecific(void);
 		void applyVSpecific(DepPackage * pack);
