@@ -1,0 +1,34 @@
+{
+	"api": 1,
+	"name": "media-libs/glu",
+	"homepage": "https://cgit.freedesktop.org/mesa/glu/",
+	"versions": [
+		"9999"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "XXXXXXX",
+		"regexp": "^glu-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "glu-${VERSION}",
+	"urls": [
+		"git://anongit.freedesktop.org/mesa/glu"
+	],
+	"deps": [
+		"virtual/opengl"
+	],
+	"configure": {},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": true,
+		"debian8": true,
+		"centos7": true,
+		"gentoo": [
+			"media-libs/glu"
+		]
+	}
+}

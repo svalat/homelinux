@@ -145,6 +145,7 @@ function convertDeps(depString)
 
 //final
 var final = {
+	api:1,
 	name: getPackNameInfo(pack).name,
 	homepage: parts.home,
 	versions: [ getPackNameInfo(pack).version ],

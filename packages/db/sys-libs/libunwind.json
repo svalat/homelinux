@@ -1,0 +1,68 @@
+{
+	"api": 1,
+	"name": "sys-libs/libunwind",
+	"homepage": "https://savannah.nongnu.org/projects/libunwind",
+	"versions": [
+		"1.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.savannah.nongnu.org/releases/libunwind/",
+		"regexp": "^libunwind-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "libunwind-${VERSION}",
+	"urls": [
+		"http://download.savannah.nongnu.org/releases/libunwind/libunwind-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"lzma? app-arch/xz-utils",
+		"libatomic? dev-libs/libatomic_ops"
+	],
+	"configure": {
+		"gentoo": [
+			"--enable-cxx-exceptions",
+			"--enable-coredump",
+			"--enable-ptrace",
+			"--enable-setjmp"
+		],
+		"debug-frame": [
+			"--$enable-debug-frame"
+		],
+		"doc": [
+			"--$enable-documentation"
+		],
+		"lzma": [
+			"--$enable-minidebuginfo"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"debug": [
+			"--$enable-conservative_checks",
+			"--$enable-debug"
+		]
+	},
+	"use": [
+		"gentoo",
+		"debug",
+		"debug-frame",
+		"doc",
+		"libatomic",
+		"lzma",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libunwind"
+		],
+		"centos7": [
+			"libunwind"
+		],
+		"gentoo": [
+			"sys-libs/libunwind"
+		]
+	}
+}

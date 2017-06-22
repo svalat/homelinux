@@ -1,0 +1,36 @@
+{
+	"api": 1,
+	"name": "dev-libs/rapidxml",
+	"homepage": "http://rapidxml.sourceforge.net/",
+	"versions": [
+		"1.13"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/rapidxml/files/rapidxml/",
+		"regexp": "^rapidxml ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "rapidxml-${VERSION}",
+	"urls": [
+		"sourceforge://rapidxml/rapidxml/rapidxml%20${VERSION}/rapidxml-${VERSION}.zip"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"rapidxml"
+		],
+		"centos7": [
+			"rapidxml"
+		],
+		"gentoo": [
+			"dev-libs/rapidxml"
+		]
+	}
+}

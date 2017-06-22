@@ -1,0 +1,52 @@
+{
+	"api": 1,
+	"name": "sci-chemistry/molequeue",
+	"homepage": "https://sourceforge.net/projects/molequeue/",
+	"versions": [
+		"0.7.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/molequeue/files/molequeue/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "molequeue-${VERSION}",
+	"urls": [
+		"sourceforge://molequeue/molequeue/${VERSION}/molequeue-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-qt/qt:5",
+		"zeromq? net-libs/zeromq:0",
+		"doc? app-doc/doxygen"
+	],
+	"configure": {
+		"test": [
+			"-DENABLE_TESTING=$ON"
+		],
+		"doc": [
+			"-DBUILD_DOCUMENTATION=$ON"
+		],
+		"+zeromq": [ "-DZeroMQ_ROOT_DIR=$(hl prefix-of net-libs/zeromq:0)" ]
+	},
+	"use": [
+		"+client",
+		"doc",
+		"server",
+		"test",
+		"+zeromq"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"molequeue"
+		],
+		"centos7": [
+			"molequeue"
+		],
+		"gentoo": [
+			"sci-chemistry/molequeue"
+		]
+	}
+}

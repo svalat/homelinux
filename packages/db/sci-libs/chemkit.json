@@ -1,0 +1,58 @@
+{
+	"api": 1,
+	"name": "sci-libs/chemkit",
+	"homepage": "http://www.chemkit.org/",
+	"versions": [
+		"0.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/chemkit/files/",
+		"regexp": "^chemkit-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "chemkit-${VERSION}",
+	"urls": [
+		"sourceforge://chemkit/chemkit-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/boost",
+		"dev-libs/rapidxml",
+		"dev-cpp/eigen:3",
+		"dev-qt/qt:4 [opengl]",
+		"media-libs/glu",
+		"sci-libs/inchi",
+		"sci-libs/lemon",
+		"virtual/opengl",
+		"examples? x11-libs/libX11",
+		"examples? x11-libs/libXext"
+	],
+	"configure": {
+		"": [
+			"-DCHEMKIT_BUILD_PLUGIN_BABEL=on",
+			"-DUSE_SYSTEM_INCHI=ON",
+			"-DUSE_SYSTEM_JSONCPP=OFF",
+			"-DUSE_SYSTEM_RAPIDXML=ON",
+			"-DUSE_SYSTEM_XDRF=OFF"
+		]
+	},
+	"use": [
+		"applications",
+		"examples",
+		"python",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"chemkit"
+		],
+		"centos7": [
+			"chemkit"
+		],
+		"gentoo": [
+			"sci-libs/chemkit"
+		]
+	}
+}

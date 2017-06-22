@@ -25,7 +25,8 @@
 			"http://download.qt.io/archive/qt/5.5/",
 			"http://download.qt.io/archive/qt/5.6/",
 			"http://download.qt.io/archive/qt/5.7/",
-			"http://download.qt.io/archive/qt/5.8/"
+			"http://download.qt.io/archive/qt/5.8/",
+			"http://download.qt.io/archive/qt/5.9/"
 		],
 		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
 	},
@@ -33,7 +34,8 @@
 	"subdir": "qt-everywhere-opensource-src-${VERSION}",
 	"urls" : [
 		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz",
-		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.gz"
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.gz",
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.xz",
 	],
 	"deps": [
 		"x11-libs/xcb-util",
@@ -146,20 +148,20 @@
 	},
 	"use" : [
 		"FIXME",
-		"+aqua",
+		"aqua",
 		"-debug",
 		"-static",
 		"largefile",
 		"exceptions",
 		"accessibility",
-		"+sqlite",
+		"sqlite",
 		"qt3support",
 		"xmlpatterns",
 		"multimedia",
 		"audio-backend",
 		"phonon",
-		"+svg",
-		"+webkit",
+		"svg",
+		"webkit",
 		"nis",
 		"cups",
 		"iconv",
@@ -177,7 +179,7 @@
 		"mng",
 		"tiff",
 		"xv",
-		"+icu",
+		"icu",
 		"xinput",
 		"-examples"
 	],
@@ -185,6 +187,10 @@
         "~": "^([0-9]+).[0-9]+"
 	},
 	"steps": {
+		"configure": [
+			"run_sh cd $HL_PACKDIR",
+			"run ./configure -prefix $PREFIX $BUILD_OPTIONS"
+		],
 		"prepare": [
 			"export PATH=$HL_PREFIX/homelinux/compilers:$PATH"
 		]
@@ -206,6 +212,13 @@
 			}, 
 			"host": {
 				"centos7": [ "qt", "qt-devel" ]
+			}
+		},
+		":5": {
+			"steps": {
+				"postinstall": [
+					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
+				]
 			}
 		}
 	}

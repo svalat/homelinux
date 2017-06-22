@@ -1,0 +1,63 @@
+{
+	"api": 1,
+	"name": "dev-libs/libsodium",
+	"homepage": "https://github.com/jedisct1/libsodium",
+	"versions": [
+		"1.0.12"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "github://jedisct1/libsodium",
+		"regexp": "^libsodium-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "libsodium-${VERSION}",
+	"urls": [
+		"github://jedisct1/libsodium"
+	],
+	"deps": [],
+	"configure": {
+		"asm": [
+			"--$enable-asm"
+		],
+		"minimal": [
+			"--$enable-minimal"
+		],
+		"-urandom": [
+			"--$enable-blocking-random"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"cpu_flags_x86_sse4_1": [
+			"--$enable-sse4_1"
+		],
+		"cpu_flags_x86_aes": [
+			"--$enable-aesni"
+		],
+		"": [
+			"--disable-pie"
+		]
+	},
+	"use": [
+		"+asm",
+		"minimal",
+		"static-libs",
+		"+urandom",
+		"cpu_flags_x86_sse4_1",
+		"cpu_flags_x86_aes"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libsodium"
+		],
+		"centos7": [
+			"libsodium"
+		],
+		"gentoo": [
+			"dev-libs/libsodium"
+		]
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"api": 1,
+	"name": "app-text/asciidoc",
+	"homepage": "http://www.methods.co.nz/asciidoc/",
+	"versions": [
+		"8.6.9"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "github://asciidoc/asciidoc",
+		"regexp": "^asciidoc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "asciidoc-${VERSION}",
+	"urls": [
+		"github://asciidoc/asciidoc"
+	],
+	"deps": [
+		"test? dev-util/source-highlight",
+		"media-sound/lilypond",
+		"media-gfx/imagemagick",
+		"dev-texlive/texlive-latex",
+		"app-text/dvipng",
+		"media-gfx/graphviz",
+		"app-text/docbook-xsl-stylesheets",
+		"dev-libs/libxslt",
+		"app-text/docbook-xml-dtd:4.5",
+		"graphviz? media-gfx/graphviz"
+	],
+	"configure": {
+		"": [
+			"--sysconfdir=$HL_PREFIX/share"
+		]
+	},
+	"use": [
+		"examples",
+		"graphviz",
+		"highlight",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"asciidoc"
+		],
+		"centos7": [
+			"asciidoc"
+		],
+		"gentoo": [
+			"app-text/asciidoc"
+		]
+	}
+}

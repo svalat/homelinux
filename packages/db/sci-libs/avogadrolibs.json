@@ -1,0 +1,65 @@
+{
+	"api": 1,
+	"name": "sci-libs/avogadrolibs",
+	"homepage": "http://www.openchemistry.org/",
+	"versions": [
+		"0.9.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://OpenChemistry/avogadrolibs",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "avogadrolibs-${VERSION}",
+	"urls": [
+		"github://OpenChemistry/avogadrolibs"
+	],
+	"deps": [
+		"dev-cpp/eigen:3",
+		"sci-chemistry/molequeue",
+		"sci-libs/chemkit",
+		"test? dev-cpp/gtest",
+		"hdf5? sci-libs/hdf5",
+		"opengl? dev-qt/qt:5[opengl]",
+		"opengl? media-libs/glew",
+		"qt5? dev-qt/qt:5",
+		"vtk? sci-libs/vtk"
+	],
+	"configure": {
+		"": [
+			"-DUSE_PROTOCALL=OFF",
+			"-DBUILD_GPL_PLUGINS=ON",
+			"-DUSE_MOLEQUEUE=ON"
+		],
+		"hdf5": [ "-DUSE_HDF5=$yes" ],
+		"opengl": [ "-DUSE_OPENGL=$yes" ],
+		"qt5": [ "-DDUSE_QT=$yes" ],
+		"doc": [ "-DBUILD_DOCUMENTATION=$yes" ],
+		"static-plugins": [ "-DBUILD_STATIC_PLUGINS=$yes" ],
+		"test": [ "-DENABLE_TESTING=$yes" ],
+		"vtk": [ "-DUSE_VTK=$yes" ]
+	},
+	"use": [
+		"doc",
+		"hdf5",
+		"opengl",
+		"qt5",
+		"static-plugins",
+		"test",
+		"vtk"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"avogadrolibs"
+		],
+		"centos7": [
+			"avogadrolibs"
+		],
+		"gentoo": [
+			"sci-libs/avogadrolibs"
+		]
+	}
+}

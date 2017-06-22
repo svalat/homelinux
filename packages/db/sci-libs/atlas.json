@@ -1,0 +1,53 @@
+{
+	"api": 1,
+	"name": "sci-libs/atlas",
+	"homepage": "http://math-atlas.sourceforge.net/",
+	"versions": [
+		"3.10.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/math-atlas/files/Stable/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "ATLAS",
+	"urls": [
+		"sourceforge://math-atlas/Stable/${VERSION}/atlas${VERSION}.tar.bz2"
+	],
+	"steps": {
+		"prepare": [
+			"run mkdir $HL_PACKDIR/build",
+			"run_sh cd $HL_PACKDIR/build"
+		],
+		"configure": [
+			"run_sh cd $HL_PACKDIR/build",
+			"run ../configure --prefix=$PREFIX $BUILD_OPTIONS"
+		],
+		"build": [
+			"run_sh cd $HL_PACKDIR/build",
+			"run make"
+		]
+	},
+	"deps": [
+	],
+	"configure": {
+		"": [ ]
+	},
+	"use": [
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"atlas"
+		],
+		"centos7": [
+			"atlas"
+		],
+		"gentoo": [
+			"sci-libs/atlas"
+		]
+	}
+}
