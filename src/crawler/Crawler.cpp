@@ -30,7 +30,7 @@ Crawler::~Crawler(void)
 }
 
 /********************  FUNCTION  *********************/
-StringList Crawler::run(const std::string & packagName,Json::Value & params,const StringList & origVersions)
+StringList Crawler::run(const std::string & packageName,Json::Value & params,const StringList & origVersions)
 {
 	//check
 	assert(params["mode"].asString() == name);

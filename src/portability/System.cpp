@@ -227,7 +227,7 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 	
 	//gen filename
 	char buffer[128];
-	sprintf(buffer,"/tmp/hl-internal-download-%d.json",id++);
+	sprintf(buffer,"/tmp/hl-internal-download-%d.json",++id);
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	std::string cmd;

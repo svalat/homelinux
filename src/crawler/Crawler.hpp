@@ -28,7 +28,7 @@ class Crawler
 	public:
 		Crawler(const std::string & name);
 		virtual ~Crawler(void);
-		StringList run(const std::string & packagName,Json::Value & params,const StringList & origVersions);
+		StringList run(const std::string & packageName,Json::Value & params,const StringList & origVersions);
 		const std::string & getName(void) const;
 	protected:
 		virtual void internalRun(std::string url) = 0;
