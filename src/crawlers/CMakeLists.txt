@@ -7,12 +7,12 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-crawler OBJECT Crawler.cpp
+add_library(homelinux-crawlers OBJECT Crawler.cpp
                                      CrawlerFtp.cpp
 									 CrawlerGentoo.cpp
 									 CrawlerGithub.cpp
 									 CrawlerGnomeCache.cpp)
-SET_TARGET_PROPERTIES(homelinux-crawler PROPERTIES COMPILE_FLAGS -fPIC)
+SET_TARGET_PROPERTIES(homelinux-crawlers PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################
 if (ENABLE_TESTS)

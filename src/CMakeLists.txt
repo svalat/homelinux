@@ -45,7 +45,7 @@ set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
                        $<TARGET_OBJECTS:homelinux-core>
                        $<TARGET_OBJECTS:homelinux-portability>
                        $<TARGET_OBJECTS:homelinux-providers>
-					   $<TARGET_OBJECTS:homelinux-crawler>)
+					   $<TARGET_OBJECTS:homelinux-crawlers>)
 
 ######################################################
 if (JSONCPP_FOUND)
@@ -69,7 +69,7 @@ add_subdirectory(base)
 add_subdirectory(core)
 add_subdirectory(portability)
 add_subdirectory(providers)
-add_subdirectory(crawler)
+add_subdirectory(crawlers)
 
 ######################################################
 #install
