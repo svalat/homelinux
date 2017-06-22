@@ -20,13 +20,13 @@ const char cstValue2[] = "5.9.0 5.8.0 5.7.1 5.7.0 5.6.2 5.6.1 5.6.0 5.5.1 5.5.0 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerFtp,constructor)
 {
-	CrawlerFtp crawler;
+	CrawlerFtp crawler(NULL);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerFtp,run)
 {
-	CrawlerFtp crawler;
+	CrawlerFtp crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "ftp";
@@ -44,7 +44,7 @@ TEST(CrawlerFtp,run)
 /*******************  FUNCTION  *********************/
 /*TEST(CrawlerFtp,run_subdir)
 {
-	CrawlerFtp crawler;
+	CrawlerFtp crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "ftp";
@@ -67,7 +67,7 @@ TEST(CrawlerFtp,run)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerFtp,run_invalid)
 {
-	CrawlerFtp crawler;
+	CrawlerFtp crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "ftp";

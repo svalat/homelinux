@@ -16,13 +16,13 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(CrawlerDummy,constructor)
 {
-	CrawlerDummy crawler;
+	CrawlerDummy crawler(NULL);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerDummy,run)
 {
-	CrawlerDummy crawler;
+	CrawlerDummy crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "dummy";

@@ -16,9 +16,10 @@ namespace hl
 {
 
 /********************  FUNCTION  *********************/
-Crawler::Crawler(const std::string & name)
+Crawler::Crawler(const std::string & name,Prefix * prefix)
 {
 	this->name = name;
+	this->prefix = prefix;
 	this->regexp = NULL;
 }
 

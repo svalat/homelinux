@@ -16,13 +16,13 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,constructor)
 {
-	CrawlerGnomeCache crawler;
+	CrawlerGnomeCache crawler(NULL);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,run)
 {
-	CrawlerGnomeCache crawler;
+	CrawlerGnomeCache crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "gnome-cache";
@@ -40,7 +40,7 @@ TEST(CrawlerGnomeCache,run)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,run_invalid)
 {
-	CrawlerGnomeCache crawler;
+	CrawlerGnomeCache crawler(NULL);
 
 	Json::Value config;
 	config["mode"] = "gnome-cache";

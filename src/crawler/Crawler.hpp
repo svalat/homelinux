@@ -23,10 +23,13 @@ namespace hl
 {
 
 /*********************  CLASS  **********************/
+class Prefix;
+
+/*********************  CLASS  **********************/
 class Crawler
 {
 	public:
-		Crawler(const std::string & name);
+		Crawler(const std::string & name, Prefix * prefix);
 		virtual ~Crawler(void);
 		StringList run(const std::string & packageName,Json::Value & params,const StringList & origVersions);
 		const std::string & getName(void) const;
@@ -37,6 +40,7 @@ class Crawler
 	protected:
 		StringList versions;
 		RE2 * regexp;
+		Prefix * prefix;
 		std::string packageName;
 	private:
 		std::string name;

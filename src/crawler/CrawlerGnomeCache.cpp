@@ -15,8 +15,8 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
-CrawlerGnomeCache::CrawlerGnomeCache(void) 
-		   :Crawler("gnome-cache")
+CrawlerGnomeCache::CrawlerGnomeCache(Prefix * prefix) 
+		   :Crawler("gnome-cache",prefix)
 {
 	
 }

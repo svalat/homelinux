@@ -20,7 +20,7 @@ namespace hl
 class CrawlerFtp : public Crawler
 {
 	public:
-		CrawlerFtp(void);
+		CrawlerFtp(Prefix * prefix);
 	protected:
 		void internalRun(std::string url);
 };

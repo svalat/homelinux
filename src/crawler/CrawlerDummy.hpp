@@ -20,7 +20,7 @@ namespace hl
 class CrawlerDummy : public Crawler
 {
 	public:
-		CrawlerDummy(void) : Crawler("dummy"){};
+		CrawlerDummy(Prefix * prefix) : Crawler("dummy",prefix){};
 	protected:
 		void internalRun(std::string url) {};
 };

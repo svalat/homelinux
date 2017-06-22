@@ -15,8 +15,8 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
-CrawlerFtp::CrawlerFtp(void) 
-		   :Crawler("ftp")
+CrawlerFtp::CrawlerFtp(Prefix * prefix) 
+		   :Crawler("ftp",prefix)
 {
 	
 }

@@ -6,8 +6,8 @@
 			 LICENSE  : CeCILL-C
 *****************************************************/
 
-#ifndef HL_CRAWLER_GNOME_CACHE_HPP
-#define HL_CRAWLER_GNOME_CACHE_HPP
+#ifndef HL_CRAWLER_GENTOO_HPP
+#define HL_CRAWLER_GENTOO_HPP
 
 /********************  HEADERS  *********************/
 #include "Crawler.hpp"
@@ -17,14 +17,17 @@ namespace hl
 {
 
 /*********************  CLASS  **********************/
-class CrawlerGnomeCache : public Crawler
+class CrawlerGentoo : public Crawler
 {
 	public:
-		CrawlerGnomeCache(Prefix * prefix);
+		CrawlerGentoo(Prefix * prefix);
 	protected:
+		void loadDb(void);
 		void internalRun(std::string url);
+	private:
+		StringList db;
 };
 
 }
 
-#endif //HL_CRAWLER_GNOME_CACHE_HPP
+#endif //HL_CRAWLER_GENTOO_HPP
