@@ -122,7 +122,7 @@ PACK_JSON="
 		\"readline\"
 	],
 	\"vars\" : null,
-	\"versions\" : [ \"4.3.48\" ],
+	\"versions\" : [ \"4.3.48\", \"4.4.35\", \"4.5.20\" ],
 	\"vfetcher\" : 
 	{
 		\"mode\" : \"ftp\",

@@ -144,7 +144,7 @@ DepPackage * DepLoader::loadPackage(const std::string & request,DepPackage * par
 	PackageRequest infos(request,parent);
 
 	//check if need to load
-	if (parent != NULL && infos.use.empty() && parent->def.use.getApplyStatusWithAnd(infos.use) != FLAG_ENABLED)
+	if (parent != NULL && infos.use.empty() == false && parent->def.use.getApplyStatusWithAnd(infos.use) != FLAG_ENABLED)
 		return NULL;
 
 	//load package
@@ -153,6 +153,9 @@ DepPackage * DepLoader::loadPackage(const std::string & request,DepPackage * par
 
 	//apply version rules
 	applyVersionRules(p,parent,infos);
+
+	//sort versions
+	p->def.versions = VersionMatcher::sortList(p->def.versions);
 
 	//check if already loader (take in account selected slot)
 	std::string slotName = p->def.getSlotName();
@@ -234,7 +237,11 @@ void DepLoader::loadPackageDeps(DepPackage * pack)
 	for (auto & dep : pack->def.deps)
 	{
 		if (pack->infos.deps.find(dep) == pack->infos.deps.end())
-			pack->infos.deps[dep] = loadPackage(dep,pack,false);
+		{
+			DepPackage * p = loadPackage(dep,pack,false);
+			if (p != NULL)
+				pack->infos.deps[dep] = p;
+		}
 	}
 }
 
@@ -496,7 +503,7 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 		out << step << ":" << std::endl;
 		out << "\t@bash " << step << ".sh hl_start" << std::endl;
 		out << "\t@bash " << step << ".sh hl_prebuild" << std::endl;
-		out << "\t@bash " << step << ".sh hl_build" << notif <<  std::endl;
+		out << "\t@bash " << step << ".sh hl_build " << notif <<  std::endl;
 		out << "\t@if test -f " << notif << "; then make -C `cat " << notif << "` fi" << std::endl;
 		out << "\t@bash " << step << ".sh hl_postbuild" << std::endl;
 		out << "\t@bash " << step << ".sh hl_finish" << std::endl;
