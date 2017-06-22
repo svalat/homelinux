@@ -30,14 +30,18 @@ void CrawlerFtp::internalRun(std::string url)
 
 	//load
 	std::string out;
-	bool status = System::runAndRead(out,"LC_ALL=C curl "+url+" 2>/dev/null | awk '{print $9}'");
+	bool status = System::runAndRead(out,"LC_ALL=C curl "+url+" 2>/dev/null");
+
+	//check status
 	if (!status)
+	{
 		HL_ERROR_ARG("FTP failure for package %1 : %2").arg(packageName).arg(url).end();
-	
-	//loop over
-	Helper::split(out,'\n',[this](const std::string fname){
-		scanValue(fname);
-	});
+	} else {
+		//scan lines
+		Helper::split(out,'\n',[this](const std::string & line){
+			scanValue(Helper::last(line,' '));
+		});
+	}
 }
 
 }
