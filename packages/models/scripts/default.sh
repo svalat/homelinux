@@ -437,11 +437,13 @@ function hl_build()
 
 function hl_test()
 {
+	run_sh cd $HL_BUILDDIR
 	run make test
 }
 
 function hl_install()
 {
+	run_sh cd $HL_BUILDDIR
 	run make install
 }
 

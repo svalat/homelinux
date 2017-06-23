@@ -171,7 +171,7 @@ void Prefix::getQuickPackage(PackageDef & out,const std::string & packageName)
 }
 
 /*******************  FUNCTION  *********************/
-const PrefixConfig & Prefix::getConfig(void) const
+PrefixConfig & Prefix::getConfig(void)
 {
 	return this->prefixConfig;
 }

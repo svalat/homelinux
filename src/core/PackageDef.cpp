@@ -396,7 +396,7 @@ std::string PackageDef::getBuildOptions(void) const
  * packages. This requires some minot tricks in the generated script.
  * @param prefix Prefix in which to install
 **/
-void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall)
+void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInstall)
 {
 	//checking
 	assumeArg(this->urls.empty() == false,"Fail to get URLS for package %1").arg(getSlotName()).end();

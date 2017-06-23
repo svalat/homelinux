@@ -544,14 +544,14 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 		Helper::replaceInPlace(step,"/","_");
 		
 		//build
-		std::string notif = "$PWD/"+step+"hl-is-default-build.notify";
+		std::string notif = "$(PWD)/"+step+"-build-dir.notify";
 		out << step << ":" << std::endl;
 		out << "\t@bash " << step << ".sh hl_start" << std::endl;
-		out << "\t@bash " << step << ".sh hl_prebuild" << std::endl;
+		out << "\t@bash " << step << ".sh hl_pack_prebuild" << std::endl;
 		out << "\t@bash " << step << ".sh hl_build " << notif <<  std::endl;
-		out << "\t@if test -f " << notif << "; then make -C `cat " << notif << "` fi" << std::endl;
-		out << "\t@bash " << step << ".sh hl_postbuild" << std::endl;
-		out << "\t@bash " << step << ".sh hl_finish" << std::endl;
+		out << "\t@if test -f " << notif << "; then make -C `cat " << notif << "`; fi" << std::endl;
+		out << "\t@bash " << step << ".sh hl_pack_postbuild" << std::endl;
+		out << "\t@bash " << step << ".sh hl_stop" << std::endl;
 
 		//add to all
 		all.push_back(step);
@@ -560,16 +560,21 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 		DepPackage * p = packages[it];
 		for (auto it : p->infos.deps)
 		{
-			std::string tmp = p->def.getSlotName();
-			Helper::replaceInPlace(tmp,":","_");
-			Helper::replaceInPlace(tmp,"/","_");
-			deps[step].push_back(tmp);
+			const std::string & present = it.second->infos.present;
+			if (present.empty() || present == "override-system" || present == "reinstall")
+			{
+				std::string tmp = it.second->def.getSlotName();
+				Helper::replaceInPlace(tmp,":","_");
+				Helper::replaceInPlace(tmp,"/","_");
+				deps[step].push_back(tmp);
+			}
 		}
 	}
 
 	//deps
 	for (auto it : deps)
-		out << it.first << ": " << Helper::join(it.second,' ') << std::endl;
+		if (it.second.empty() == false)
+			out << it.first << ": " << Helper::join(it.second,' ') << std::endl;
 	out << std::endl;
 
 	//hl-targets
@@ -605,7 +610,7 @@ void DepLoader::genParallelScripts(const std::string & tmpdir)
 		out << "\n\n####################################################\n\n";
 
 		//dump to file
-		System::writeFile(tmpdir+"/"+step+".sh",out.str());
+		System::writeFile(out.str(),tmpdir+"/"+step+".sh");
 
 		//count
 		cnt++;

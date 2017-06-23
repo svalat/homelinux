@@ -59,7 +59,7 @@ struct PackageDef
 	std::string getRealPrefix(const std::string & prefix,bool stow) const;
 	std::string getBuildOptions(void) const;
 	std::string getPackInstalled(const std::string & prefix) const;
-	void genScript(std::ostream & out,const Prefix & prefix,bool parallelInstall);
+	void genScript(std::ostream & out,Prefix & prefix,bool parallelInstall);
 	//members
 	/** API in case of update **/
 	int api;

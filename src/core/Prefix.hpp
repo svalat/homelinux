@@ -52,7 +52,7 @@ class Prefix
 		std::string getFilePath(const std::string path) const;
 		void loadPackage(PackageDef & out,const std::string & packageName);
 		void getQuickPackage(PackageDef & out,const std::string & packageName);
-		const PrefixConfig & getConfig(void) const;
+		PrefixConfig & getConfig(void);
 		const Config & getUserConfig(void) const;
 		void updateDb(void);
 		void updateCache(void);

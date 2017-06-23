@@ -86,6 +86,8 @@ int main(int argc, char ** argv)
 		homelinux.buildCache();
 	} else if (config.command == "install") {
 		homelinux.install(config.args);
+	} else if (config.command == "pinstall") {
+		homelinux.pinstall(config.args);
 	}
 	
 	return EXIT_SUCCESS;

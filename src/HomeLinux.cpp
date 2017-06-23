@@ -80,6 +80,48 @@ void HomeLinux::install(const StringList & packages)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::pinstall(const StringList & packages)
+{
+	//setup
+	loadPrefix(true);
+	
+	//build loader
+	DepLoader loader(master);
+	
+	//load
+	loader.loadRequest(packages);
+	
+	//print
+	loader.printList(std::cout);
+	
+	//warn
+	HL_WARNING("Caution, parallel install is experimental !");
+	
+	//ask if ok
+	askOk();
+	
+	//setup dir
+	char tmp[] = "/tmp/homelinux-parallel-install-XXXXXX";
+	std::string path = mkdtemp(tmp);
+	
+	//gen scripts & makefile
+	loader.genParallelScripts(path);
+	
+	//gen makefile
+	std::ofstream out;
+	out.open(path+"/Makefile");
+	loader.genParallelMakefile(out,path);
+	out.close();
+	
+	//run
+	std::string opts = Helper::join(master->getConfig().flags["MAKEOPTS"],' ');
+	assume(System::runCommand("make -C "+path+" "+opts) == 0,"Installation encounted an issue, look before this message !");
+	
+	//rm
+	System::runCommand("rm -rfd "+path);
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::loadPrefix(bool onlyMaster)
 {
 	//check

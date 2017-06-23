@@ -28,6 +28,7 @@ class HomeLinux
 		~HomeLinux(void);
 		void buildCache(void);
 		void install(const StringList & packages);
+		void pinstall(const StringList & packages);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);
