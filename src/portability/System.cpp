@@ -248,6 +248,9 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	std::string cmd;
+
+	//debug
+	HL_DEBUG_ARG("System","Download JSON : %1").arg(url).end();
 	
 	//download
 	#ifdef HAVE_WGET
@@ -320,7 +323,7 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	std::string cmd = "LC_ALL=C wget -O "+tmp+".html "+url+" > /dev/null 2> /dev/null; "
-	                + "cat "+tmp+ ".html | grep File | cut -f 2 -d '\"' > "+ tmp;
+	                + "cat "+tmp+ ".html | grep File | cut -f 2 -d '>' | cut -f 1 -d '<' > "+ tmp;
 
 	//run
 	int status = system(cmd.c_str());
@@ -341,6 +344,16 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 	unlink((tmp+".html").c_str());
 
 	return true;
+}
+
+/*******************  FUNCTION  *********************/
+int System::getCoreCount(void)
+{
+	std::string out;
+	if (runAndRead(out,"cat /proc/cpuinfo | grep processor | wc -l") == 0)
+		return atoi(out.c_str());
+	else
+		return 4;
 }
 
 }

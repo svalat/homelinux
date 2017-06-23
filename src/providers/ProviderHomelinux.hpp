@@ -21,7 +21,7 @@ namespace hl
 {
 
 /*********************  TYPES  **********************/
-typedef std::map<std::string,Crawler *> CrawlerMap;
+typedef std::map<int,std::map<std::string,Crawler *>> CrawlerMap;
 
 /*********************  CLASS  **********************/
 class ProviderHomelinux : public Provider
@@ -36,8 +36,9 @@ class ProviderHomelinux : public Provider
 	private:
 		void loadCache(void);
 		void loadVersions(void);
-		Crawler * getCrawler(const std::string & name,const std::string & packageName = "");
+		Crawler * getCrawler(int threadId,const std::string & name,const std::string & packageName = "");
 		std::string searchInCache(const std::string & name);
+		void crawl(int cur, int cnt,int threadId,StringMapList & out,const std::string & path);
 	private:
 		StringList cache;
 		StringMapList versions;

@@ -45,8 +45,8 @@ void CrawlerHtml::internalRun(std::string url)
 {
 	//gen filename
 	static int id = 0;
-	char fname[64];
-	sprintf(fname,"hl-html-crawler-%d.html",++id);
+	char fname[128];
+	sprintf(fname,"/tmp/hl-html-crawler-%d.html",++id);
 	
 	//debug
 	HL_DEBUG_ARG("CrawlerHtml","Crawling %1").arg(url).end();
@@ -78,6 +78,9 @@ void CrawlerHtml::internalRun(std::string url)
 			.arg(url)
 			.end();
 	}
+
+	//erase
+	System::removeFile(fname);
 }
 
 }

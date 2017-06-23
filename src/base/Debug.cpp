@@ -22,6 +22,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <mutex>
 //header to implement
 #include "Colors.hpp"
 #include "Debug.hpp"
@@ -46,6 +47,7 @@ namespace hl
 static DebugCategoryMap ref;
 DebugCategoryMap * Debug::catMap = &ref;
 int Debug::catMaxWidth = 0;
+static std::mutex mutex;
 
 /*******************  FUNCTION  *********************/
 /**
@@ -195,11 +197,14 @@ bool Debug::showCat ( const char* cat )
 	if (catMap == NULL || cat == NULL) {
 		return true;
 	} else {
+		mutex.lock();
 		DebugCategoryMap::const_iterator it = catMap->find(cat);
 		if (it == catMap->end()) {
 			(*catMap)[cat] = false;
+			mutex.unlock();
 			return false;
 		} else {
+			mutex.unlock();
 			return it->second;
 		}
 	}

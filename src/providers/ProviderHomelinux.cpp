@@ -10,6 +10,8 @@
 //std
 #include <cassert>
 #include <algorithm>
+#include <thread>
+#include <mutex>
 #include <base/Helper.hpp>
 #include <base/Debug.hpp>
 #include <core/Prefix.hpp>
@@ -40,7 +42,8 @@ ProviderHomelinux::~ProviderHomelinux(void)
 {
 	//free mem
 	for (auto it : crawlers)
-		delete it.second;
+		for (auto it2 : it.second)
+			delete it2.second;
 	crawlers.clear();
 }
 
@@ -153,27 +156,27 @@ void ProviderHomelinux::updateCache(void)
 }
 
 /*******************  FUNCTION  *********************/
-Crawler * ProviderHomelinux::getCrawler(const std::string & name,const std::string & packageName)
+Crawler * ProviderHomelinux::getCrawler(int threadId,const std::string & name,const std::string & packageName)
 {
 	//check cache
-	auto it = crawlers.find(name);
-	if (it != crawlers.end())
+	auto it = crawlers[threadId].find(name);
+	if (it != crawlers[threadId].end())
 		return it->second;
 	
 	//load
 	Crawler * ret = NULL;
 	if (name == "dummy")
-		ret = crawlers["dummy"] = new CrawlerDummy(prefix);
+		ret = crawlers[threadId]["dummy"] = new CrawlerDummy(prefix);
 	else if (name == "ftp")
-		ret = crawlers["ftp"] = new CrawlerFtp(prefix);
+		ret = crawlers[threadId]["ftp"] = new CrawlerFtp(prefix);
 	else if (name == "html")
-		ret = crawlers["html"] = new CrawlerHtml(prefix);
+		ret = crawlers[threadId]["html"] = new CrawlerHtml(prefix);
 	else if (name == "github")
-		ret = crawlers["github"] = new CrawlerGithub(prefix);
+		ret = crawlers[threadId]["github"] = new CrawlerGithub(prefix);
 	else if (name == "gnome-cache")
-		ret = crawlers["gnome-cache"] = new CrawlerGnomeCache(prefix);
+		ret = crawlers[threadId]["gnome-cache"] = new CrawlerGnomeCache(prefix);
 	else if (name == "gentoo")
-		ret = crawlers["gentoo"] = new CrawlerGentoo(prefix);
+		ret = crawlers[threadId]["gentoo"] = new CrawlerGentoo(prefix);
 	else
 		HL_FATAL_ARG("Invalid crawler in %1 : %2").arg(packageName).arg(name).end();
 		
@@ -182,57 +185,103 @@ Crawler * ProviderHomelinux::getCrawler(const std::string & name,const std::stri
 }
 
 /*******************  FUNCTION  *********************/
+void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,const std::string & path)
+{
+	//load package
+	Json::Value pack;
+	System::loadJson(pack,path);
+	std::string name = pack.get("name","UNKNOWN").asString();
+
+	//check
+	if (Helper::endBy(path,name+".json") == false)
+		HL_WARNING_ARG("Caution, filename do not match which package name : %1 != %2").arg(name).arg(path).end();
+	
+	//help
+	HL_MESSAGE_ARG("[%1/%2] Crawling hl/%3 ...").arg(cur).arg(cnt).arg(name).end();
+	
+	//get default
+	StringList versions;
+	Helper::jsonToObj(versions,pack["versions"]);
+	
+	//get infos
+	Json::Value vfetcher = pack["vfetcher"];
+	
+	//get mode
+	std::string mode = vfetcher.get("mode","UNKNOWN").asString();
+	
+	//temporary convert
+	if (mode == "http" || mode == "http-apache-list")
+		mode = "html";
+	if (mode == "http-gnome-cache")
+		mode = "gnome-cache";
+	if (mode == "none")
+		mode = "dummy";
+	vfetcher["mode"] = mode;
+	
+	//craw
+	Crawler * crawler = getCrawler(threadId,mode,path);
+	out["hl/"+name] = crawler->run(name,vfetcher,versions);
+}
+
+/*******************  FUNCTION  *********************/
 void ProviderHomelinux::updateDb(void)
 {
 	//vars
-	Json::Value out;
-	
-	//loop on all packages
+	StringList files;
+	StringMapList global;
+	std::mutex mutex;
+
+	//find all packages
 	std::string path = prefix->getFilePath("/homelinux/packages/db/");
-	System::findFiles(path,[&out,&path,this](const std::string & file){
-		if (file != "cache.json" && file != "versions.json")
-		{
-			//load package
-			Json::Value pack;
-			System::loadJson(pack,path+file);
-			std::string name = pack.get("name","UNKNOWN").asString();
-			
-			//help
-			HL_MESSAGE_ARG("Crawline hl/%1...").arg(name).end();
-			
-			//get default
-			StringList versions;
-			Helper::jsonToObj(versions,pack["versions"]);
-			
-			//get infos
-			Json::Value vfetcher = pack["vfetcher"];
-			
-			//get mode
-			std::string mode = vfetcher.get("mode","UNKNOWN").asString();
-			
-			//temporary convert
-			if (mode == "http" || mode == "http-apache-list")
-				mode = "html";
-			if (mode == "http-gnome-cache")
-				mode = "gnome-cache";
-			if (mode == "none")
-				mode = "dummy";
-			vfetcher["mode"] = mode;
-			
-			//craw
-			Crawler * crawler = getCrawler(mode,path+file);
-			versions = crawler->run(name,vfetcher,versions);
-			
-			//fill out
-			Json::Value & node = out["hl/"+name];
-			for (auto & it : versions)
-				node.append(it);
-		}
+	System::findFiles(path,[&files,&path](const std::string & file){
+		if (file != "cache.json" && file != "versions.json" && Helper::endBy(file,".json"))
+			files.push_back(path+file);
 	});
+
+	//compute number of threads we want
+	//int cntThreads = System::getCoreCount() * 2;
+	int cntThreads = 2;
+	int fileCnt = files.size();
+	int cur = 0;
+
+	//spwan threads
+	std::thread * threads = new std::thread[cntThreads];
+	for (int i = 0 ; i < cntThreads ; i++)
+	{
+		threads[i] = std::thread([&cur,fileCnt,i,this,&mutex,&global,&files](){
+			StringMapList local;
+			bool loop = true;
+			while (loop)
+			{
+				mutex.lock();
+				if (files.empty())
+				{
+					Helper::merge(global,local,false);
+					loop = false;
+					mutex.unlock();
+				} else {
+					std::string p = files.front();
+					files.pop_front();
+					cur++;
+					mutex.unlock();
+					crawl(cur,fileCnt,i,local,p);
+				}
+			}
+		});
+	}
+
+	//wait threads
+	for (int i = 0 ; i < cntThreads ; i++)
+		threads[i].join();
+	delete [] threads;
+
+	//convert
+	Json::Value json;
+	Helper::toJson(json,global);
 	
 	//save
 	std::string outPath = prefix->getFilePath("/homelinux/packages/db/versions.json");
-	System::writeJson(out,outPath);
+	System::writeJson(json,outPath);
 }
 
 /*******************  FUNCTION  *********************/

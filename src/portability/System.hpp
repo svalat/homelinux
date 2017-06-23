@@ -48,6 +48,8 @@ struct System
 	//download
 	static bool downloadJson(Json::Value & out,const std::string & url);
 	static bool ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback);
+	//cpu
+	static int getCoreCount(void);
 };
 
 }
