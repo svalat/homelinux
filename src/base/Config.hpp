@@ -56,6 +56,10 @@ struct Config
 	Json::Value packageOverride;
 	/** Temporary directory to be used **/
 	std::string temp;
+	/** Command to run */
+	std::string command;
+	/** List of arguements **/
+	StringList args;
 };
 
 }

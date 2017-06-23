@@ -133,15 +133,29 @@ void Config::load(std::string path)
 **/
 void Config::parseArgs(int argc, const char ** argv)
 {
-	for (int i = 1 ; i < argc -1 ; i++)
+	for (int i = 1 ; i < argc ; i++)
 	{
 		if (strcmp(argv[i],"-v")==0)
 		{
-			if (strcmp(argv[i+1],"help"))
+			assume(i < argc - 1,"Option -v require a parameter !");
+			if (strcmp(argv[i+1],"help") == 0)
 				this->showDebugCat = true;
 			else
 				Debug::setVerbosity(argv[i+1]);
-		} 
+			i++;
+		}  else if (strcmp(argv[i],"--version") == 0) {
+			std::cout << "Homelinux " << HOMELINUX_VERSION << std::endl;
+			exit(0);
+		}  else if (strcmp(argv[i],"-p") == 0 || strcmp(argv[i],"--prefix") == 0) {
+			assume(i < argc - 1,"Option -p/--prefix require a parameter !");
+			prefix.clear();
+			prefix.push_back(argv[i+1]);
+			i++;
+		} else if (command.empty()) {
+			command = argv[i];
+		} else {
+			args.push_back(argv[i]);
+		}
 	}
 }
 

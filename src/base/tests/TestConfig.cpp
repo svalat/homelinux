@@ -26,8 +26,12 @@ TEST(Config,parseArgs)
 {
 	Config config;
 	
-	const char * argv[] = {"homelinux","install","-v","gentoo,debien","gcc"};
-	config.parseArgs(5,argv);
+	const char * argv[] = {"homelinux","-v","gentoo,debien","-p","/home/USER/usr","install","gcc"};
+	config.parseArgs(7,argv);
+	
+	EXPECT_EQ("install",config.command);
+	EXPECT_EQ("/home/USER/usr",Helper::join(config.prefix,','));
+	EXPECT_EQ("gcc",Helper::join(config.args,','));
 }
 
 /*******************  FUNCTION  *********************/
@@ -54,3 +58,4 @@ TEST(Config,loadConfigInvaild)
 	Config config;
 	config.load(TEST_DATA_PATH "/config-no.json");
 }
+

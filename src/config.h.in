@@ -18,6 +18,6 @@
 #cmakedefine HAVE_JSON_CPP
 
 //version
-#define DAQPIPE_VERSION "2.0.0-dev"
+#define HOMELINUX_VERSION "2.0.0-dev"
 
 #endif //HL_CONFIG_HPP

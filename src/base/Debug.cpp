@@ -117,7 +117,7 @@ void Debug::end(void)
 				break;
 			#else
 				if (line != 0)
-					buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
+					buf << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
 				buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 				std::cout << buf.str();
 				abort();
@@ -125,13 +125,13 @@ void Debug::end(void)
 		case MESSAGE_WARNING:
 		case MESSAGE_ERROR:
 			if (line != 0)
-				buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
+				buf << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
 			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cerr << buf.str();
 			break;
 		case MESSAGE_FATAL:
 			if (line != 0)
-				buf << std::endl << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
+				buf << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
 			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cerr << buf.str();
 			abort();
