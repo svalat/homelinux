@@ -73,6 +73,7 @@ class DepLoader
 		void genScript(std::ostream & out,bool usePinstall);
 		void genParallelMakefile(std::ostream & out,const std::string & tmpdir);
 		void genParallelScripts(const std::string & tmpdir);
+		DepPackage * loadPackage(const std::string & request,DepPackage * parent,bool force);
 	private:
 		void applyVSpecific(void);
 		void applyVSpecific(DepPackage * pack);
@@ -85,7 +86,6 @@ class DepLoader
 		void applyVersionHints(DepPackage * pack);
 		void selectVSpecific(DepPackage * pack);
 		std::string replaceParentUseFlags(const std::string,const DepPackage * parent);
-		DepPackage * loadPackage(const std::string & request,DepPackage * parent,bool force);
 	private:
 		/** Keep access to the prefix to know how to locate the files **/
 		Prefix * prefix;

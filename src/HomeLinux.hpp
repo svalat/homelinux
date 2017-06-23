@@ -29,6 +29,9 @@ class HomeLinux
 		void buildCache(void);
 		void install(const StringList & packages);
 		void pinstall(const StringList & packages);
+		void printGenPackage(const std::string & package);
+		void printGenPackageFull(const std::string & package);
+		void printGenInstall(const std::string & package);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

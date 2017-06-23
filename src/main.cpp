@@ -88,6 +88,19 @@ int main(int argc, char ** argv)
 		homelinux.install(config.args);
 	} else if (config.command == "pinstall") {
 		homelinux.pinstall(config.args);
+	} else if (config.command == "uninstall") {
+		HL_FATAL("Uninstall is not supported yet !");
+	} else if (config.command == "gen-package") {
+		assume(config.args.size() == 1,"Command gen-package expect only one argument !");
+		homelinux.printGenPackage(config.args.front());
+	} else if (config.command == "gen-package-full") {
+		assume(config.args.size() == 1,"Command gen-package-full expect only one argument !");
+		homelinux.printGenPackageFull(config.args.front());
+	} else if (config.command == "gen-install") {
+		assume(config.args.size() == 1,"Command gen-install expect only one argument !");
+		homelinux.printGenInstall(config.args.front());
+	} else {
+		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}
 	
 	return EXIT_SUCCESS;

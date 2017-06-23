@@ -45,6 +45,59 @@ void HomeLinux::buildCache(void)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::printGenPackage(const std::string & package)
+{
+	//setup
+	loadPrefix(true);
+	
+	//load
+	PackageDef pack;
+	master->loadPackage(pack,package);
+	
+	//send to stdout
+	pack.save(std::cout);
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::printGenPackageFull(const std::string & package)
+{
+	//setup
+	loadPrefix(true);
+	
+	//load
+	DepLoader loader(master);
+	StringList lst;
+	lst.push_back(package);
+	loader.loadRequest(lst);
+	
+	//extract
+	DepPackage * pack = loader.loadPackage(package,NULL,true);
+	
+	//send to stdout
+	pack->def.save(std::cout);
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::printGenInstall(const std::string & package)
+{
+	//setup
+	loadPrefix(true);
+	
+	//load
+	DepLoader loader(master);
+	StringList lst;
+	lst.push_back(package);
+	loader.loadRequest(lst);
+	
+	//extract
+	DepPackage * pack = loader.loadPackage(package,NULL,true);
+	
+	//send to stdout
+	pack->def.genScript(std::cout,*master,false);
+}
+
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::install(const StringList & packages)
 {
 	//setup

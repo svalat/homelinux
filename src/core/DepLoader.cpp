@@ -419,10 +419,13 @@ void DepLoader::selectVSpecific(DepPackage * pack)
 		VersionMatcher match(it.first);
 		if (match.match(version,pack->def.slots))
 		{
+			HL_DEBUG_ARG("DepLoader","Apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
 			PackageDef def;
 			def.loadJson(it.second);
 			pack->def.merge(def);
 			toRemove.push_back(it.first);
+		} else {
+			//HL_DEBUG_ARG("DepLoader","Do not apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
 		}
 	}
 
