@@ -61,7 +61,7 @@ configure_file(config.h.in "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ######################################################
-add_executable(homelinux ${HOMELINUX_SUB_LIBS} main.cpp)
+add_executable(homelinux ${HOMELINUX_SUB_LIBS} HomeLinux.cpp main.cpp)
 target_link_libraries(homelinux ${HOMELINUX_EXTERN_LIBS})
 
 ######################################################

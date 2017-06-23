@@ -86,11 +86,11 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 	prefix->getQuickPackage(quickPack,packageName);
 	
 	//default regexp
-	if (quickPack.vfetcher.regexp.empty())
-		quickPack.vfetcher.regexp = "[0-9]+.[0-9]+.?[0-9]*.?[0-9]*";
+	if (quickPack.vfetcher["regexp"].isString() == false || quickPack.vfetcher["regexp"].asString().empty())
+		quickPack.vfetcher["regexp"] = "[0-9]+.[0-9]+.?[0-9]*.?[0-9]*";
 	
 	//build regexp
-	std::string reg = Helper::escape(shortName,'+')+"-("+Helper::escape(quickPack.vfetcher.regexp+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)",'.');
+	std::string reg = Helper::escape(shortName,'+')+"-("+Helper::escape(quickPack.vfetcher["regexp"].asString()+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)",'.');
 	
 	//build regexp
 	RE2 regexp(reg);

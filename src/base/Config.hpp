@@ -60,6 +60,8 @@ struct Config
 	std::string command;
 	/** List of arguements **/
 	StringList args;
+	/** If need to show help **/
+	bool showHelp;
 };
 
 }

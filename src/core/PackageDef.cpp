@@ -64,9 +64,7 @@ void PackageDef::loadJson(const Json::Value & json)
 	this->homepage = json.get("homepage","").asString();
 	this->inherit = json.get("inherit","").asString();
 	Helper::jsonToObj(versions,json["versions"]);
-	this->vfetcher.mode = json["vfetcher"].get("mode","").asString();
-	this->vfetcher.url = json["vfetcher"].get("url","").asString();
-	this->vfetcher.regexp = json["vfetcher"].get("regexp","").asString();
+	this->vfetcher = json["vfetcher"];
 	Helper::jsonToObj(md5,json["md5"]);
 	this->subdir = json.get("subdir","").asString();
 	Helper::jsonToObj(deps,json["deps"]);
@@ -98,9 +96,7 @@ void PackageDef::save(Json::Value & json)
 	json["homepage"] = homepage;
 	json["inherit"] = inherit;
 	Helper::toJson(json["versions"],versions);
-	json["vfetcher"]["mode"] = vfetcher.mode;
-	json["vfetcher"]["url"] = vfetcher.url;
-	json["vfetcher"]["regexp"] = vfetcher.regexp;
+	json["vfetcher"] = vfetcher;
 	Helper::toJson(json["md5"],md5);
 	json["subdir"] = subdir;
 	Helper::toJson(json["deps"],deps);
@@ -136,12 +132,7 @@ void PackageDef::merge(const PackageDef & def)
 		inherit = def.inherit;
 	if (def.versions.empty() == false)
 		versions = def.versions;
-	if (def.vfetcher.mode.empty() == false)
-		vfetcher.mode = def.vfetcher.mode;
-	if (def.vfetcher.url.empty() == false)
-		vfetcher.url = def.vfetcher.url;
-	if (def.vfetcher.regexp.empty() == false)
-		vfetcher.regexp = def.vfetcher.regexp;
+	vfetcher = def.vfetcher;
 	Helper::merge(md5,def.md5);
 	if (def.subdir.empty() == false)
 		subdir = def.subdir;
@@ -434,7 +425,7 @@ void PackageDef::genScript(std::ostream & out,const Prefix & prefix,bool paralle
 	out << "VERSION=\"" << this->getVersion() << "\"" << std::endl;
 	out << "SVERSION=\"" << this->getShortVersion() << "\"" << std::endl;
 	out << "URLS=\"" << Helper::join(this->urls,' ') << "\"" << std::endl;
-	out << "URLS=\"" << md5[getVersion()] << "\"" << std::endl;
+	out << "MD5=\"" << md5[getVersion()] << "\"" << std::endl;
 	out << "SUBDIR=\"" << subdir << "\"" << std::endl;
 	out << "SLOT=\"" << getSlot() << "\"" << std::endl;
 	out << "PREFIX=\"" << getRealPrefix(prefix.getPrefix(),prefix.getConfig().useGnuStow) << "\"" << std::endl;

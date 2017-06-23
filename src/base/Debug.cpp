@@ -35,10 +35,10 @@ namespace hl
  * String to print names of debug levels.
 **/
 #ifdef ENABLE_COLORS
-	static const char * cstLevelPrefix[] = {COLOR_RED "Assert : ",COLOR_CYAN , COLOR_CYAN,"", COLOR_YELLOW "Warning : ", COLOR_RED"Error : ",COLOR_RED"Fatal : "};
+	static const char * cstLevelPrefix[] = {COLOR_RED "Assert : ",COLOR_CYAN , COLOR_CYAN,"", COLOR_YELLOW "Warning : ", COLOR_RED"Error : ",COLOR_RED"Fatal : ",COLOR_RED"Error : "};
 	static const char * cstPostfix = COLOR_NORMAL;
 #else
-	static const char * cstLevelPrefix[] = {"Assert : ","Debug : ","Info : ","","Warning : ","Error : ","Fatal : "};
+	static const char * cstLevelPrefix[] = {"Assert : ","Debug : ","Info : ","","Warning : ","Error : ","Fatal : ", "Error : "};
 	static const char * cstPostfix = "";
 #endif
 
@@ -93,6 +93,11 @@ void Debug::end(void)
 {
 	this->emitted = true;
 	std::stringstream buf;
+	#ifdef NDEBUG
+		bool showLocation = false;
+	#else
+		bool showLocation = true;
+	#endif
 	
 	//select
 	switch(level) {
@@ -124,10 +129,16 @@ void Debug::end(void)
 			#endif
 		case MESSAGE_WARNING:
 		case MESSAGE_ERROR:
-			if (line != 0)
+			if (line != 0 && showLocation)
 				buf << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
 			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
 			std::cerr << buf.str();
+			break;
+		case MESSAGE_THROW:
+			if (line != 0 && showLocation)
+				buf << cstLevelPrefix[level] << "At " <<  file << ':' << line << " : \n";
+			buf << cstLevelPrefix[level] << *this << cstPostfix << std::endl;
+			throw Error(buf.str());
 			break;
 		case MESSAGE_FATAL:
 			if (line != 0)

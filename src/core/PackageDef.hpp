@@ -34,26 +34,6 @@ class Prefix;
 
 /********************  STRUCT  **********************/
 /**
- * Parameters for version fetching
-**/
-struct VersionFetcher
-{
-	/**
-	 * Fetcher mode, can be `http`, `ftp`, `github`, `http-gnome-cache`.
-	**/
-	std::string mode;
-	/**
-	 * Url to use to crawl.
-	**/
-	std::string url;
-	/**
-	 * Regexp to use in the page to extract package versions.
-	**/
-	std::string regexp;
-};
-
-/********************  STRUCT  **********************/
-/**
  * Package definition containing all the information needed to build a package.
  * It also mange inheritance by providing function to merge content between
  * packages.
@@ -92,7 +72,7 @@ struct PackageDef
 	/** List of version available for this package **/
 	VersionList versions;
 	/** Information, to crawl versions **/
-	VersionFetcher vfetcher;
+	Json::Value vfetcher;
 	/** Md5 sums to check files **/
 	StringMap md5;
 	/**  Subdir in archive **/

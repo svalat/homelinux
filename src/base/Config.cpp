@@ -59,6 +59,7 @@ void Config::loadDefault()
 	this->ccache = false;
 	this->pyEnv = true;
 	this->homecache = false;
+	this->showHelp = false;
 	this->showDebugCat = false;
 }
 
@@ -151,6 +152,8 @@ void Config::parseArgs(int argc, const char ** argv)
 			prefix.clear();
 			prefix.push_back(argv[i+1]);
 			i++;
+		} else if (strcmp("--help",argv[i]) == 0 || strcmp("-h",argv[i]) == 0) {
+			showHelp = true;
 		} else if (command.empty()) {
 			command = argv[i];
 		} else {

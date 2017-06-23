@@ -173,7 +173,15 @@ void System::readDir(const std::string & path,std::function<void(const std::stri
 /*******************  FUNCTION  *********************/
 int System::runCommand(const std::string & cmd)
 {
+	HL_DEBUG_ARG("System","Run command : %1").arg(cmd).end();
 	return system(cmd.c_str());
+}
+
+/*******************  FUNCTION  *********************/
+void System::removeFile(const std::string & path)
+{
+	if (unlink(path.c_str()) != 0)
+		HL_ERROR_ARG("Fail to remove file %1 : %2").arg(path).argStrErrno().end();
 }
 
 /*******************  FUNCTION  *********************/

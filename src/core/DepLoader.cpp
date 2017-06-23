@@ -245,9 +245,15 @@ void DepLoader::loadPackageDeps(DepPackage * pack)
 	{
 		if (pack->infos.deps.find(dep) == pack->infos.deps.end())
 		{
-			DepPackage * p = loadPackage(dep,pack,false);
-			if (p != NULL)
-				pack->infos.deps[dep] = p;
+			try {
+				DepPackage * p = loadPackage(dep,pack,false);
+				
+				if (p != NULL)
+					pack->infos.deps[dep] = p;
+			} catch (const Error & error) {
+				std::cerr << error.what() << std::endl;
+				HL_FATAL_ARG("Fail to load package %1, see previous errors !").arg(pack->def.getSlotName()).end();
+			}
 		}
 	}
 }

@@ -136,7 +136,7 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 	pack.module = this->getQuickInfoFirst("module",name,"");
 	
 	const StringList & versionRefexp = this->getQuickInfo("version",name);
-	pack.vfetcher.regexp = versionRefexp.empty()?"":versionRefexp.front();
+	pack.vfetcher["regexp"] = versionRefexp.empty()?"":versionRefexp.front();
 	pack.deps = this->getQuickInfo("deps",name);
 	pack.patch = this->getQuickInfo("patch",name);
 	pack.configure[""] = this->getQuickInfo("config",name);

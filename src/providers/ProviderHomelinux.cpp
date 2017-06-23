@@ -75,7 +75,7 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 	if (Helper::contain(shortName,"/") == false)
 	{
 		//search
-		shortName = this->searchInCache(shortName);
+		shortName = this->searchInCache("/"+shortName);
 		
 		//not fount
 		if (shortName.empty())
@@ -104,12 +104,12 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 		this->loadVersions();
 		if (versions.find(packageName) != versions.end())
 			pack.versions = versions[packageName];
-			
-		//merge
-		out.merge(pack);
 
 		//apply name
-		out.name = packageName;
+		pack.name = packageName;
+		
+		//merge
+		out.merge(pack);
 		
 		return true;
 	} else {
@@ -216,7 +216,7 @@ std::string ProviderHomelinux::searchInCache(const std::string & name)
 	} else if (lst.size() == 1) {
 		return lst.front();
 	} else {
-		HL_FATAL_ARG("Fail to find your package, multiple match : %1").arg(Helper::join(lst,','));
+		HL_FATAL_ARG("Fail to find your package, multiple match : %1").arg(Helper::join(lst,',')).end();
 		return "";
 	}
 }

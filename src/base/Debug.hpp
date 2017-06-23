@@ -17,12 +17,20 @@
 #define HL_DEBUG_HPP
 
 /********************  HEADERS  *********************/
+#include <stdexcept>
 #include <map>
 #include "FormattedMessage.hpp"
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
+
+/********************  STRUCT  ***********************/
+class Error : public std::runtime_error
+{
+	public:
+		Error(const std::string & message) : runtime_error(message.c_str()) {};
+};
 
 /*********************  ENUM  ***********************/
 /**
@@ -43,7 +51,9 @@ enum DebugLevel
 	/** Used to print errors. **/
 	MESSAGE_ERROR,
 	/** Used to print fatal error and abort(). **/
-	MESSAGE_FATAL
+	MESSAGE_FATAL,
+	/** Used to send errors via exception **/
+	MESSAGE_THROW
 };
 
 /*********************  TYPES  **********************/
@@ -144,6 +154,7 @@ inline Debug fatal(const char * format)   {return Debug(format,MESSAGE_FATAL);  
 #define HL_WARNING(x)   HL_WARNING_ARG(x).end()
 #define HL_MESSAGE(x)   HL_MESSAGE_ARG(x).end()
 #define HL_INFO(x)      HL_INFO_ARG(x).end()
+#define HL_THROW(x)     HL_THROW_ARG(x).end()
 
 /********************  MACROS  **********************/
 #define HL_FATAL_ARG(x)     hl::Debug(x,HL_CODE_LOCATION,hl::MESSAGE_FATAL    )
@@ -151,6 +162,7 @@ inline Debug fatal(const char * format)   {return Debug(format,MESSAGE_FATAL);  
 #define HL_WARNING_ARG(x)   hl::Debug(x,HL_CODE_LOCATION,hl::MESSAGE_WARNING  )
 #define HL_MESSAGE_ARG(x)   hl::Debug(x,HL_CODE_LOCATION,hl::MESSAGE_NORMAL   )
 #define HL_INFO_ARG(x)      hl::Debug(x,HL_CODE_LOCATION,hl::MESSAGE_INFO     )
+#define HL_THROW_ARG(x)     hl::Debug(x,HL_CODE_LOCATION,hl::MESSAGE_THROW    )
 #ifdef NDEBUG
 	#define HL_DEBUG_ARG(cat,x) hl::DebugDummy(x,HL_CODE_LOCATION,hl::MESSAGE_DEBUG,cat)
 #else
@@ -160,6 +172,8 @@ inline Debug fatal(const char * format)   {return Debug(format,MESSAGE_FATAL);  
 /********************  MACROS  **********************/
 #define assume(check,message) do { if (!(check)) HL_FATAL(message); } while(0)
 #define assumeArg(check,message) if (!(check)) HL_FATAL_ARG(message)
+#define assumeThrow(check,message) do { if (!(check)) HL_THROW(message); } while(0)
+#define assumeThrowArg(check,message) if (!(check)) HL_THROW_ARG(message)
 
 /********************  MACROS  **********************/
 #define HL_TO_STRING(x) #x

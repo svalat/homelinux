@@ -40,7 +40,10 @@ bool ProviderModels::getPackage(PackageDef & out,const std::string & name)
 		
 	//check if cache
 	if (cache.find(name) != cache.end())
+	{
 		out.merge(cache[name]);
+		return true;
+	}
 	
 	//get path
 	std::string path = this->prefix->getFilePath("/homelinux/packages/"+name+".json");

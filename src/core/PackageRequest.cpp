@@ -40,17 +40,17 @@ namespace hl
 PackageRequest::PackageRequest(const std::string & value,DepPackage * parent)
 {
 	//setup some regexp to be reused
-	static RE2 regexp1("([0-9a-zA-Z+._/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
-	static RE2 regexp2("([a-zA-Z0-9-&._+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @].+)?");
+	static RE2 regexp1("([0-9a-zA-Z+._/&-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @]?.+)?");
+	static RE2 regexp2("([a-zA-Z0-9-&._+-]+)\\? ([0-9a-zA-Z_/-]+)(\\[[0-9A-Za-z#_+,-]+\\])?([ @]?.+)?");
 
 	//check if has ? for package dep depending on flags
 	if (Helper::contain(value,"?"))
 	{
-		assumeArg(RE2::FullMatch(value,regexp2,&use,&name,&iuse,&version),"Invalid format : %1")
+		assumeThrowArg(RE2::FullMatch(value,regexp2,&use,&name,&iuse,&version),"Invalid format : %1")
 			.arg(value)
 			.end();
 	} else {
-		assumeArg(RE2::FullMatch(value,regexp1,&name,&iuse,&version),"Invalid format : %1")
+		assumeThrowArg(RE2::FullMatch(value,regexp1,&name,&iuse,&version),"Invalid format : %1")
 			.arg(value)
 			.end();
 	}

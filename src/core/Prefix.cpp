@@ -258,8 +258,20 @@ void Prefix::updateDb(void)
 	for (auto prov : prefixConfig.providers)
 	{
 		Provider & p = getProvider(prov);
-		HL_MESSAGE_ARG("Update DB for provier %1").arg(prov).end();
+		HL_MESSAGE_ARG("Update DB of provier %1").arg(prov).end();
 		p.updateDb();
+	}
+}
+
+/*******************  FUNCTION  *********************/
+//@TODO make parallel
+void Prefix::updateCache(void)
+{
+	for (auto prov : prefixConfig.providers)
+	{
+		Provider & p = getProvider(prov);
+		HL_MESSAGE_ARG("Update cache of provier %1").arg(prov).end();
+		p.updateCache();
 	}
 }
 
