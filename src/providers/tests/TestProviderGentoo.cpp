@@ -88,6 +88,7 @@ TEST(ProviderGentoo,getPackage_check_content)
 	std::stringstream out;
 	pack.save(out);
 	
+	//System::writeFile(out.str(),TEST_DATA_PATH "/gentoo-full-csh.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/gentoo-full-csh.json"),out.str());
 }
 

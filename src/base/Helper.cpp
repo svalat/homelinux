@@ -274,6 +274,24 @@ void Helper::merge(StringMapList & out,const StringMapList & override,bool erase
 
 /********************  STRUCT  **********************/
 /**
+ * Merge json nodes
+**/
+void Helper::merge(Json::Value & out,const Json::Value & override)
+{
+	if (override.isObject())
+	{
+		for (auto it = override.begin() ; it != override.end() ; ++it)
+				merge(out[it.key().asString()],*it);
+	} else if (override.isArray()) {
+		for (int i = 0 ; i < override.size() ; i++)
+			out.append(override[i]);
+	} else if (override.isString() && override.asString().empty() == false) {
+		out = override;
+	}
+}
+
+/********************  STRUCT  **********************/
+/**
  * Check if a string start by another one.
  * @param value String to check.
  * @param what Start string.

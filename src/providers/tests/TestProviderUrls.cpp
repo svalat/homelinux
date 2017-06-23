@@ -64,6 +64,7 @@ TEST(ProviderUrls,getPackage_check_content)
 	std::stringstream out;
 	pack.save(out);
 	
+	//System::writeFile(out.str(),TEST_DATA_PATH "/url-full-dash.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/url-full-dash.json"),out.str());
 }
 

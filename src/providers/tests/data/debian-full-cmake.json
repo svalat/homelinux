@@ -31,9 +31,9 @@
 	"versions" : [ " 3.0.2" ],
 	"vfetcher" : 
 	{
-		"mode" : "",
-		"regexp" : "",
-		"url" : ""
+		"mode" : null,
+		"regexp" : null,
+		"url" : null
 	},
 	"vspecific" : null,
 	"warn" : null

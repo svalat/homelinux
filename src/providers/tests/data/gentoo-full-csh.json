@@ -32,9 +32,9 @@
 	"versions" : [ "0.4.2" ],
 	"vfetcher" : 
 	{
-		"mode" : "",
+		"mode" : null,
 		"regexp" : "[0-9]+.[0-9]+.?[0-9]*.?[0-9]*",
-		"url" : ""
+		"url" : null
 	},
 	"vspecific" : null,
 	"warn" : null

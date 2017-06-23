@@ -23,7 +23,7 @@ SHORT_NAME="ncurses"
 VERSION="6.0"
 SVERSION="6.0"
 URLS="ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2 ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
-URLS=""
+MD5=""
 SUBDIR="ncurses-${VERSION}"
 SLOT="0"
 PREFIX="/TEST/"
@@ -62,7 +62,7 @@ PACK_JSON="
 	\"module\" : \"\",
 	\"name\" : \"hl/sys-libs/ncurses\",
 	\"patch\" : null,
-	\"scripts\" : [ \"models/scripts/default.sh\", \"models/scripts/default.sh\" ],
+	\"scripts\" : [ \"models/scripts/default.sh\" ],
 	\"slots\" : null,
 	\"steps\" : 
 	{
@@ -139,7 +139,6 @@ PACK_JSON="
 "
 
 #load scripts
-source "/TEST///homelinux/packages/models/scripts/default.sh"
 source "/TEST///homelinux/packages/models/scripts/default.sh"
 
 #extra vars
@@ -283,7 +282,7 @@ SHORT_NAME="bash"
 VERSION="4.3.48"
 SVERSION="4.3"
 URLS="http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz"
-URLS=""
+MD5=""
 SUBDIR="bash-${VERSION}"
 SLOT="0"
 PREFIX="/TEST/"

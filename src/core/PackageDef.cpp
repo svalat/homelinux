@@ -132,7 +132,8 @@ void PackageDef::merge(const PackageDef & def)
 		inherit = def.inherit;
 	if (def.versions.empty() == false)
 		versions = def.versions;
-	vfetcher = def.vfetcher;
+	if (def.vfetcher.isObject())
+		Helper::merge(vfetcher, def.vfetcher);
 	Helper::merge(md5,def.md5);
 	if (def.subdir.empty() == false)
 		subdir = def.subdir;

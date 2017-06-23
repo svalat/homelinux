@@ -51,6 +51,8 @@ TEST(QuickPackage,genPackage_empty)
 	
 	std::stringstream out;
 	pack.save(out);
+	
+	//System::writeFile(out.str(),TEST_DATA_PATH "/quick-package-empty.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/quick-package-empty.json"),out.str());
 }
 

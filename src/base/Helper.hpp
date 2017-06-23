@@ -61,6 +61,7 @@ struct Helper
 	static void toJson(Json::Value & out,const JsonMap & map);
 	static void merge(StringMap & out,const StringMap & override);
 	static void merge(StringList & out,const StringList & override);
+	static void merge(Json::Value & out,const Json::Value & override);
 	static void merge(StringMapList & out,const StringMapList & override,bool erase);
 	static bool startBy(const std::string & value,const std::string & what);
 	static bool endBy(const std::string & value,const std::string & what);
