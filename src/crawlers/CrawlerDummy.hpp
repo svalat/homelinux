@@ -22,7 +22,7 @@ class CrawlerDummy : public Crawler
 	public:
 		CrawlerDummy(Prefix * prefix) : Crawler("dummy",prefix){};
 	protected:
-		void internalRun(std::string url) {};
+		void internalRun(std::string url) {HL_DEBUG_ARG("CrawlerDumy","Crawling dummy...");};
 };
 
 }

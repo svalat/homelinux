@@ -45,6 +45,16 @@ void HomeLinux::buildCache(void)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::updateDb(void)
+{
+	//setup
+	loadPrefix(true);
+	
+	//run
+	master->updateDb();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::printGenPackage(const std::string & package)
 {
 	//setup

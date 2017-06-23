@@ -115,6 +115,9 @@ void System::loadJson(Json::Value & out,const std::string & path)
 	//compute file path
 	assume(path.empty() == false,"Invalid empty path");
 	
+	//debug
+	HL_DEBUG_ARG("System","Load JSON file %1").arg(path).end();
+	
 	//check if exist
 	assumeArg(System::fileExist(path),"File %1 does not exist !").arg(path).end();
 

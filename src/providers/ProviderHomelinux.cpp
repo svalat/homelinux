@@ -17,6 +17,12 @@
 #include "ProviderHomelinux.hpp"
 #include <re2/re2.h>
 #include <base/Colors.hpp>
+#include <crawlers/CrawlerDummy.hpp>
+#include <crawlers/CrawlerFtp.hpp>
+#include <crawlers/CrawlerHtml.hpp>
+#include <crawlers/CrawlerGentoo.hpp>
+#include <crawlers/CrawlerGithub.hpp>
+#include <crawlers/CrawlerGnomeCache.hpp>
 
 /*******************  NAMESPACE  ********************/
 namespace hl
@@ -32,7 +38,10 @@ ProviderHomelinux::ProviderHomelinux(Prefix * prefix)
 /*******************  FUNCTION  *********************/
 ProviderHomelinux::~ProviderHomelinux(void)
 {
-	
+	//free mem
+	for (auto it : crawlers)
+		delete it.second;
+	crawlers.clear();
 }
 
 /*******************  FUNCTION  *********************/
@@ -144,9 +153,86 @@ void ProviderHomelinux::updateCache(void)
 }
 
 /*******************  FUNCTION  *********************/
+Crawler * ProviderHomelinux::getCrawler(const std::string & name,const std::string & packageName)
+{
+	//check cache
+	auto it = crawlers.find(name);
+	if (it != crawlers.end())
+		return it->second;
+	
+	//load
+	Crawler * ret = NULL;
+	if (name == "dummy")
+		ret = crawlers["dummy"] = new CrawlerDummy(prefix);
+	else if (name == "ftp")
+		ret = crawlers["ftp"] = new CrawlerFtp(prefix);
+	else if (name == "html")
+		ret = crawlers["html"] = new CrawlerHtml(prefix);
+	else if (name == "github")
+		ret = crawlers["github"] = new CrawlerGithub(prefix);
+	else if (name == "gnome-cache")
+		ret = crawlers["gnome-cache"] = new CrawlerGnomeCache(prefix);
+	else if (name == "gentoo")
+		ret = crawlers["gentoo"] = new CrawlerGentoo(prefix);
+	else
+		HL_FATAL_ARG("Invalid crawler in %1 : %2").arg(packageName).arg(name).end();
+		
+	//ok ret
+	return ret;
+}
+
+/*******************  FUNCTION  *********************/
 void ProviderHomelinux::updateDb(void)
 {
-	//TODO
+	//vars
+	Json::Value out;
+	
+	//loop on all packages
+	std::string path = prefix->getFilePath("/homelinux/packages/db/");
+	System::findFiles(path,[&out,&path,this](const std::string & file){
+		if (file != "cache.json" && file != "versions.json")
+		{
+			//load package
+			Json::Value pack;
+			System::loadJson(pack,path+file);
+			std::string name = pack.get("name","UNKNOWN").asString();
+			
+			//help
+			HL_MESSAGE_ARG("Crawline hl/%1...").arg(name).end();
+			
+			//get default
+			StringList versions;
+			Helper::jsonToObj(versions,pack["versions"]);
+			
+			//get infos
+			Json::Value vfetcher = pack["vfetcher"];
+			
+			//get mode
+			std::string mode = vfetcher.get("mode","UNKNOWN").asString();
+			
+			//temporary convert
+			if (mode == "http" || mode == "http-apache-list")
+				mode = "html";
+			if (mode == "http-gnome-cache")
+				mode = "gnome-cache";
+			if (mode == "none")
+				mode = "dummy";
+			vfetcher["mode"] = mode;
+			
+			//craw
+			Crawler * crawler = getCrawler(mode,path+file);
+			versions = crawler->run(name,vfetcher,versions);
+			
+			//fill out
+			Json::Value & node = out["hl/"+name];
+			for (auto & it : versions)
+				node.append(it);
+		}
+	});
+	
+	//save
+	std::string outPath = prefix->getFilePath("/homelinux/packages/db/versions.json");
+	System::writeJson(out,outPath);
 }
 
 /*******************  FUNCTION  *********************/

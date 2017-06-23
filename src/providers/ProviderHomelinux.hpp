@@ -13,11 +13,15 @@
 //std
 //internal
 #include <base/Helper.hpp>
+#include <crawlers/Crawler.hpp>
 #include "Provider.hpp"
 
 /*******************  NAMESPACE  ********************/
 namespace hl
 {
+
+/*********************  TYPES  **********************/
+typedef std::map<std::string,Crawler *> CrawlerMap;
 
 /*********************  CLASS  **********************/
 class ProviderHomelinux : public Provider
@@ -32,12 +36,14 @@ class ProviderHomelinux : public Provider
 	private:
 		void loadCache(void);
 		void loadVersions(void);
+		Crawler * getCrawler(const std::string & name,const std::string & packageName = "");
 		std::string searchInCache(const std::string & name);
 	private:
 		StringList cache;
 		StringMapList versions;
 		PackageDefMap packageCache;
 		bool warn;
+		CrawlerMap crawlers;
 };
 
 }

@@ -29,6 +29,9 @@ void CrawlerGnomeCache::internalRun(std::string url)
 		.arg(packageName)
 		.arg(url)
 		.end();
+		
+	//debug
+	HL_DEBUG_ARG("CrawlerGnomeCache","Crawling %1").arg(url).end();
 
 	//load
 	Json::Value json;

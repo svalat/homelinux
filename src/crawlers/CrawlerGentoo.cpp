@@ -40,6 +40,10 @@ void CrawlerGentoo::loadDb(void)
 /*******************  FUNCTION  *********************/
 void CrawlerGentoo::internalRun(std::string url)
 {
+	//debug
+	HL_DEBUG_ARG("CrawlerGentoo","Crawling %1").arg(url).end();
+	
+	//scan
 	for (auto & it : db)
 		scanValue(it);
 }

@@ -26,6 +26,9 @@ void CrawlerGithub::internalRun(std::string url)
 {
 	//vars
 	std::string key;
+	
+	//debug
+	HL_DEBUG_ARG("CrawlerGithub","Crawling %1").arg(url).end();
 
 	//build name
 	Helper::replaceInPlace(url,"github://","");

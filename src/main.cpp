@@ -99,6 +99,9 @@ int main(int argc, char ** argv)
 	} else if (config.command == "gen-install") {
 		assume(config.args.size() == 1,"Command gen-install expect only one argument !");
 		homelinux.printGenInstall(config.args.front());
+	} else if (config.command == "update-db") {
+		assume(config.args.size() == 0,"Command update-db expect no arguments !");
+		homelinux.updateDb();
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

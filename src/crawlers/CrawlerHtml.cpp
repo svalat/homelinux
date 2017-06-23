@@ -47,6 +47,9 @@ void CrawlerHtml::internalRun(std::string url)
 	static int id = 0;
 	char fname[64];
 	sprintf(fname,"hl-html-crawler-%d.html",++id);
+	
+	//debug
+	HL_DEBUG_ARG("CrawlerHtml","Crawling %1").arg(url).end();
 
 	//prepare regexp
 	std::string reg = txtRegexp;
@@ -60,7 +63,7 @@ void CrawlerHtml::internalRun(std::string url)
 		<< " && node " << nodeScript << " " << fname << " a " << '\"' << reg << '\"';
 
 	//help debug
-	HL_DEBUG_ARG("CrawlerHtml","Call : %1").arg(cmd.str()).end();
+	//HL_DEBUG_ARG("CrawlerHtmlCmd","Call : %1").arg(cmd.str()).end();
 
 	//run
 	std::string out;

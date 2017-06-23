@@ -27,6 +27,9 @@ void CrawlerFtp::internalRun(std::string url)
 	//add / at end otherwise curl fail
 	if (Helper::endBy(url,"/") == false)
 		url += "/";
+		
+	//debug
+	HL_DEBUG_ARG("CrawlerFtp","Crawling %1").arg(url).end();
 
 	//load
 	std::string out;
