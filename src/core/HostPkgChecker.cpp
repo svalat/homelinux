@@ -155,6 +155,7 @@ bool HostPkgChecker::presentOnSystemDebian(const StringList & pkgList) const
 bool HostPkgChecker::presentOnSystemDefault(const StringList & pkgList) const
 {
 	return false;
+		
 }
 
 }

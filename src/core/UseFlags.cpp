@@ -348,4 +348,10 @@ UseFlags & UseFlags::merge(const UseFlags & flags,bool onlyIfExist)
 	return *this;
 }
 
+/*******************  FUNCTION  *********************/
+bool UseFlags::hasFlag(const std::string & name) const
+{
+	return (stateMap.find(name) != stateMap.end());
+}
+
 }

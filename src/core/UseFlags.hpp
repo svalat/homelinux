@@ -41,6 +41,7 @@ class UseFlags
 		UseFlagState getStatus(const std::string & flag) const;
 		UseFlagState getApplyStatus(const std::string & flag) const;
 		UseFlagState getApplyStatusWithAnd(const std::string & flag) const;
+		bool hasFlag(const std::string & name) const;
 		void fromJson(const Json::Value & json);
 		void toJson(Json::Value & json,bool force = false);
 		void setAuto(UseFlagState state = FLAG_ENABLED);

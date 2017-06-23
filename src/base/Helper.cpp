@@ -329,6 +329,11 @@ std::string Helper::last(const std::string& value, char sep)
 }
 
 /******************* FUNCTION *********************/
+/**
+ * Escape the given character with backslash
+ * @param value String to escape.
+ * @param c Character to escape
+**/
 std::string Helper::escape(const std::string & value,char c)
 {
 	std::string out;
@@ -342,6 +347,12 @@ std::string Helper::escape(const std::string & value,char c)
 }
 
 /******************* FUNCTION *********************/
+/**
+ * replace all occurences in the given string.
+ * @param value The string in which to replace.
+ * @param what The substring to replace
+ * @param byWhat The replacement string.
+**/
 void Helper::replaceInPlace(std::string & value,const std::string what,const std::string & byWhat)
 {
 	size_t start_pos;

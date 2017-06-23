@@ -19,6 +19,9 @@ namespace hl
 {
 
 /********************* CONST ************************/ 
+/**
+ * List of env variables to manage.
+**/
 static const char * gblVarNames[] = {
 	"PATH","LD_LIBRARY_PATH","CPATH","MANPATH","PERL5LIB",
 	"PKG_CONFIG_PATH","MODULEPATH","PYTHONPATH","CMAKE_PREFIX_PATH",

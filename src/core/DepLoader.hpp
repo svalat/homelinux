@@ -87,9 +87,13 @@ class DepLoader
 		std::string replaceParentUseFlags(const std::string,const DepPackage * parent);
 		DepPackage * loadPackage(const std::string & request,DepPackage * parent,bool force);
 	private:
+		/** Keep access to the prefix to know how to locate the files **/
 		Prefix * prefix;
+		/** Map of packages already loaded to not load them again **/
 		PackageMap packages;
+		/** Scheduling gneerated meaning list of packages in order to install. **/
 		StringList sched;
+		/** List of packages epxlicitly required by user **/
 		PackageList root;
 };
 	

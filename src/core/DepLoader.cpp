@@ -22,6 +22,10 @@ namespace hl
 {
 
 /*******************  FUNCTION  *********************/
+/**
+ * Constructor of dependecy loader. Just used to provide prefix to be used.
+ * @param prefix Prefix to be used.
+**/
 DepLoader::DepLoader(Prefix * prefix)
 {
 	assert(prefix != NULL);
@@ -29,6 +33,9 @@ DepLoader::DepLoader(Prefix * prefix)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Destructor. It frees the memory allocated to store packages.
+**/
 DepLoader::~DepLoader(void)
 {
 	for (auto & it : packages)
@@ -39,9 +46,9 @@ DepLoader::~DepLoader(void)
 
 /*******************  FUNCTION  *********************/
 /**
- * Lad list of packages into workspace
+ * Load list of packages into workspace
  * @param packageList An array of string giving the list of packages
- * to install
+ * to install. Ican contain version hints like `bash>=2.5<=4.3`
 **/
 void DepLoader::loadRequest(const StringList & packageList)
 {
@@ -246,6 +253,9 @@ void DepLoader::loadPackageDeps(DepPackage * pack)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Loop on all selected packages and check if they are installed on the system.
+**/
 void DepLoader::checkStatus(void)
 {
 	HostPkgChecker host(prefix->getUserConfig().host);
@@ -325,6 +335,12 @@ void DepLoader::buildSchedChild(DepPackage * pack)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Package depedency can come with use hints : `qt[webkit,-opengl]`.
+ * This function parse the use flags provided and check if they are
+ * enabled on the given package.
+ * @param pack Define the package on which to apply.
+**/
 void DepLoader::checkUseFlagHints(DepPackage * pack)
 {
 	//vars
@@ -351,6 +367,12 @@ void DepLoader::checkUseFlagHints(DepPackage * pack)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Dependency strings can provide a version requirement on the dep.
+ * This function loop on all the hints provided by parent packages
+ * and filter the list of version to match them.
+ * @param pack Package on which to filter the version list.
+**/
 void DepLoader::applyVersionHints(DepPackage * pack)
 {
 	std::string before = Helper::join(pack->def.versions,' ');
@@ -374,6 +396,11 @@ void DepLoader::applyVersionHints(DepPackage * pack)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Select the vspecific entries matchin the current selected version and
+ * apply them.
+ * @param pack Package on which to apply.
+**/
 void DepLoader::selectVSpecific(DepPackage * pack)
 {
 	//get versions
@@ -399,6 +426,12 @@ void DepLoader::selectVSpecific(DepPackage * pack)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * On dependency string the package developper can provide alist of flags
+ * which are required on the dependency. But is can also define a state depending
+ * ont the status of the flag in the parent : `bash[#afs]`. In this case the 
+ * afs flag will be considered enabled if the parent has it, disabled otherwise.
+**/
 std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPackage * parent)
 {
 	//vars
@@ -409,6 +442,7 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 		if (use[0] == '#')
 		{
 			std::string name = use.substr(1);
+			assumeArg(parent->def.use.hasFlag(name),"Would like to apply parent state for %1, but parent %2 does not have it").arg(use).arg(parent->def.getSlotName()).end();
 			UseFlagState state = parent->def.use.getStatus(name);
 			if (state == FLAG_ENABLED)
 				out.push_back("+"+name);
@@ -423,6 +457,11 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Print the list of package selected for installation and dependencies already
+ * present on the system. It uses nice colors to shape the output.
+ * @param out Output stream to be used.
+**/
 void DepLoader::printList(std::ostream & out)
 {
 	out << Colors::yellow("----------------------REUSE HOST--------------------------") << std::endl;
@@ -535,6 +574,11 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Gen parallel scripts to be used to build packages in parallel.
+ * @param tmpdir Define the temporaty directory in which to store
+ * the files.
+**/
 void DepLoader::genParallelScripts(const std::string & tmpdir)
 {
 	//rules
@@ -563,6 +607,9 @@ void DepLoader::genParallelScripts(const std::string & tmpdir)
 }
 
 /*******************  FUNCTION  *********************/
+/**
+ * Constructor to set default values.
+**/
 DepLoaderInfos::DepLoaderInfos(void)
 {
 	this->loopChecker = 0;
