@@ -8,6 +8,7 @@
 
 /********************  HEADERS  *********************/
 #include <gtest/gtest.h>
+#include <core/Prefix.hpp>
 #include "../CrawlerGithub.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -16,23 +17,27 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGithub,constructor)
 {
-	CrawlerGithub crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerGithub crawler(&prefix);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGithub,run)
 {
-	CrawlerGithub crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerGithub crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "github";
-	config["url"] = "github://svalat/svUnitTest";
-	config["regexp"] = "v([0-9]+.[0-9]+.[0-9]+)";
+	Json::Value cfg;
+	cfg["mode"] = "github";
+	cfg["url"] = "github://svalat/svUnitTest";
+	cfg["regexp"] = "v([0-9]+.[0-9]+.[0-9]+)";
 
 	StringList versions;
 	versions.push_back("0.4.0");
 
-	versions = crawler.run("github/svalat/svUnitTest",config,versions);
+	versions = crawler.run("github/svalat/svUnitTest",cfg,versions);
 
 	EXPECT_EQ("0.4.0 0.3.0 0.2.0 0.1.0",Helper::join(versions,' '));
 }
@@ -40,17 +45,19 @@ TEST(CrawlerGithub,run)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGithub,run_invalid)
 {
-	CrawlerGithub crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerGithub crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "github";
-	config["url"] = "github://aaaaaaaaaaa546464/bbbb65466465";
-	config["regexp"] = "v([0-9]+.[0-9]+.[0-9]+)";
+	Json::Value cfg;
+	cfg["mode"] = "github";
+	cfg["url"] = "github://aaaaaaaaaaa546464/bbbb65466465";
+	cfg["regexp"] = "v([0-9]+.[0-9]+.[0-9]+)";
 
 	StringList versions;
 	versions.push_back("2.47");
 
-	versions = crawler.run("github/aaaaaaaaaaa546464/bbbb65466465",config,versions);
+	versions = crawler.run("github/aaaaaaaaaaa546464/bbbb65466465",cfg,versions);
 
 	EXPECT_EQ("2.47",Helper::join(versions,' '));
 }
