@@ -15,6 +15,7 @@
 #include <portability/System.hpp>
 #include <core/DepLoader.hpp>
 #include <providers/ProviderHomelinux.hpp>
+#include <core/EnvSetup.hpp>
 #include "HomeLinux.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -228,6 +229,63 @@ void HomeLinux::pinstall(const StringList & packages)
 	
 	//rm
 	System::runCommand("rm -rfd "+path);
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::unenv(void)
+{
+	//setup
+	loadPrefix(false);
+
+	//build env
+	EnvSetup env(config);
+	
+	//setup
+	env.loadCurrent();
+
+	//loop on all prefix
+	for (auto it : prefixes)
+		it->fillEnv(env);
+
+	//removed
+	env.removeExisting();
+
+	//print
+	env.print();
+
+	//special
+	env.loadModules(false);
+	/*if (config->ccache)
+		env.disableCCache();
+	if (config->pyEnv)
+		env.disablePyEnv();*/
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::env(void)
+{
+	//setup
+	loadPrefix(false);
+
+	//build env
+	EnvSetup env(config);
+	
+	//setup
+	env.loadCurrent();
+
+	//loop on all prefix
+	for (auto it : prefixes)
+		it->fillEnv(env);
+
+	//print
+	env.print();
+
+	//special
+	env.loadModules(true);
+	if (config->ccache)
+		env.enableCCache();
+	if (config->pyEnv)
+		env.enablePyEnv();
 }
 
 /*******************  FUNCTION  *********************/

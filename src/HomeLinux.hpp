@@ -35,6 +35,8 @@ class HomeLinux
 		void printVersions(const std::string & package);
 		void fetchVersions(const std::string & package);
 		void updateDb(void);
+		void env(void);
+		void unenv(void);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

@@ -108,6 +108,12 @@ int main(int argc, char ** argv)
 	} else if (config.command == "fetch-versions") {
 		assume(config.args.size() == 1,"Command versions expect only one argument !");
 		homelinux.fetchVersions(config.args.front());
+	} else if (config.command == "env") {
+		assume(config.args.size() == 0,"Command env expect no arguments !");
+		homelinux.env();
+	} else if (config.command == "unenv") {
+		assume(config.args.size() == 0,"Command unenv expect no arguments !");
+		homelinux.unenv();
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}
