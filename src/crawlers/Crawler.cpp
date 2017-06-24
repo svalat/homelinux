@@ -73,7 +73,7 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	std::string r = params.get("regexp","").asString();
 	if (Helper::contain(r,"^") || Helper::contain(r,"$"))
 	{
-		HL_ERROR_ARG("Character '^' and '$' are not needed as we already apply full match %1 : %2. Removed them.").arg(packageName).arg(r).end();
+		HL_WARNING_ARG("Character '^' and '$' are not needed as we already apply full match %1 : %2. Removed them.").arg(packageName).arg(r).end();
 		Helper::replaceInPlace(r,"^","");
 		Helper::replaceInPlace(r,"$","");
 	}

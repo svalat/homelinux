@@ -223,6 +223,10 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 
 	//run
 	out["hl/"+name] = crawler->run(name,vfetcher,versions);
+
+	//warn
+	if (out["hl/"+name].size() == versions.size())
+		HL_WARNING_ARG("Crawler don't find any versions for package %1. Check address and regexp !").arg("hl/"+name).end();
 }
 
 /*******************  FUNCTION  *********************/
