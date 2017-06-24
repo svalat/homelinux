@@ -339,6 +339,9 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 		#error "Not support curl or other way to list files in FTP directory"
 	#endif
 
+	//debug
+	HL_DEBUG_ARG("CrawlerFtp","List files in %1").arg(url).end();
+
 	//check
 	assume(url.empty() == false,"Get empty URL !");
 

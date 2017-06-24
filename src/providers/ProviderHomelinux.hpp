@@ -33,12 +33,12 @@ class ProviderHomelinux : public Provider
 		virtual void updateCache(void);
 		virtual void updateDb(void);
 		virtual std::string search(const std::string & name);
+		void crawl(int cur, int cnt,int threadId,StringMapList & out,const std::string & path);
 	private:
 		void loadCache(void);
 		void loadVersions(void);
 		Crawler * getCrawler(int threadId,const std::string & name,const std::string & packageName = "");
 		std::string searchInCache(const std::string & name);
-		void crawl(int cur, int cnt,int threadId,StringMapList & out,const std::string & path);
 	private:
 		StringList cache;
 		StringMapList versions;

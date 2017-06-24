@@ -77,7 +77,7 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 		Helper::replaceInPlace(r,"^","");
 		Helper::replaceInPlace(r,"$","");
 	}
-	if (params.get("escapePoint",true).asBool())
+	if (params.get("escapePoint",true).asBool() && Helper::contain(r,"\\") == false)
 		Helper::replaceInPlace(r,".","\\.");
 	this->regexp = new RE2(r);
 	this->txtRegexp = r;
@@ -123,6 +123,9 @@ void Crawler::scanValue(const std::string & value)
 {
 	//check
 	assert(regexp != NULL);
+
+	//debug
+	HL_DEBUG_ARG("CrawlerDetails","Scan value : %1").arg(value).end();
 
 	//run
 	std::string version;

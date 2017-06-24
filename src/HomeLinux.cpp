@@ -14,6 +14,7 @@
 //internal
 #include <portability/System.hpp>
 #include <core/DepLoader.hpp>
+#include <providers/ProviderHomelinux.hpp>
 #include "HomeLinux.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -85,6 +86,51 @@ void HomeLinux::printGenPackageFull(const std::string & package)
 	
 	//send to stdout
 	pack->def.save(std::cout);
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::printVersions(const std::string & package)
+{
+	//setup
+	loadPrefix(true);
+	
+	//load
+	DepLoader loader(master);
+	StringList lst;
+	lst.push_back(package);
+	loader.loadRequest(lst);
+	
+	//extract
+	DepPackage * pack = loader.loadPackage(package,NULL,true);
+	
+	//send to stdout
+	std::cout << Helper::join(pack->def.versions,' ') << std::endl;
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::fetchVersions(const std::string & package)
+{
+	//setup
+	loadPrefix(true);
+
+	//vars
+	ProviderHomelinux provider(master);
+
+	//laod package to get full name
+	PackageDef pack;
+	if (provider.getPackage(pack,package) == false)
+		HL_FATAL_ARG("Fail to load package : %1").arg(package).end();
+
+	//build file path
+	std::string shortName = pack.name.substr(3);//remove 'hl/'
+	std::string path = master->getFilePath("/homelinux/packages/db/"+shortName+".json");
+
+	//crawl
+	StringMapList out;
+	provider.crawl(1, 1,0,out,path);
+
+	//print
+	std::cout << Helper::join(out[pack.name],'\n') << std::endl;
 }
 
 /*******************  FUNCTION  *********************/

@@ -102,6 +102,12 @@ int main(int argc, char ** argv)
 	} else if (config.command == "update-db") {
 		assume(config.args.size() == 0,"Command update-db expect no arguments !");
 		homelinux.updateDb();
+	} else if (config.command == "versions") {
+		assume(config.args.size() == 1,"Command versions expect only one argument !");
+		homelinux.printVersions(config.args.front());
+	} else if (config.command == "fetch-versions") {
+		assume(config.args.size() == 1,"Command versions expect only one argument !");
+		homelinux.fetchVersions(config.args.front());
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

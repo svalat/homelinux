@@ -32,6 +32,8 @@ class HomeLinux
 		void printGenPackage(const std::string & package);
 		void printGenPackageFull(const std::string & package);
 		void printGenInstall(const std::string & package);
+		void printVersions(const std::string & package);
+		void fetchVersions(const std::string & package);
 		void updateDb(void);
 	private:
 		void loadPrefix(bool onlyMaster);

@@ -63,7 +63,7 @@ void CrawlerHtml::internalRun(std::string url)
 		<< " && node " << nodeScript << " " << fname << " a " << '\"' << reg << '\"';
 
 	//help debug
-	//HL_DEBUG_ARG("CrawlerHtmlCmd","Call : %1").arg(cmd.str()).end();
+	HL_DEBUG_ARG("CrawlerHtmlCmd","Call : %1").arg(cmd.str()).end();
 
 	//run
 	std::string out;

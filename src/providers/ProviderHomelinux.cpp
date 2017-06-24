@@ -196,9 +196,6 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	if (Helper::endBy(path,name+".json") == false)
 		HL_WARNING_ARG("Caution, filename do not match which package name : %1 != %2").arg(name).arg(path).end();
 	
-	//help
-	HL_MESSAGE_ARG("[%1/%2] Crawling hl/%3 ...").arg(cur).arg(cnt).arg(name).end();
-	
 	//get default
 	StringList versions;
 	Helper::jsonToObj(versions,pack["versions"]);
@@ -220,6 +217,11 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	
 	//craw
 	Crawler * crawler = getCrawler(threadId,mode,path);
+
+	//debug
+	HL_MESSAGE_ARG("[%1/%2] Crawling %3 using %4 ...").arg(cur).arg(cnt).arg(Colors::green("hl/"+name)).arg(crawler->getName()).end();
+
+	//run
 	out["hl/"+name] = crawler->run(name,vfetcher,versions);
 }
 
