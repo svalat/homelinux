@@ -70,7 +70,13 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	}
 		
 	//extract regexp
-	std::string r = params.get("regexp","^$").asString();
+	std::string r = params.get("regexp","").asString();
+	if (Helper::contain(r,"^") || Helper::contain(r,"$"))
+	{
+		HL_ERROR_ARG("Character '^' and '$' are not needed as we already apply full match %1 : %2. Removed them.").arg(packageName).arg(r).end();
+		Helper::replaceInPlace(r,"^","");
+		Helper::replaceInPlace(r,"$","");
+	}
 	if (params.get("escapePoint",true).asBool())
 		Helper::replaceInPlace(r,".","\\.");
 	this->regexp = new RE2(r);

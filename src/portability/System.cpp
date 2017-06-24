@@ -177,7 +177,17 @@ void System::readDir(const std::string & path,std::function<void(const std::stri
 int System::runCommand(const std::string & cmd)
 {
 	HL_DEBUG_ARG("System","Run command : %1").arg(cmd).end();
-	return system(cmd.c_str());
+	int status = system(cmd.c_str());
+
+	//exist with signal
+	if (WIFEXITED(status))
+	{
+	} else if (WIFSIGNALED(status)) {
+		HL_ERROR_ARG("Exited with signal %1").arg(WTERMSIG(status)).end();
+		exit(1);
+	}
+
+	return status;
 }
 
 /*******************  FUNCTION  *********************/
@@ -234,13 +244,15 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 /*******************  FUNCTION  *********************/
 bool System::hasCommand(const std::string & cmd)
 {
-	return system((cmd + "> /dev/null 2>/dev/null").c_str()) == 0;
+	int status = system((cmd + "> /dev/null 2>/dev/null").c_str());
+	HL_DEBUG_ARG("System","Ran command %1 and get exit code %2").arg(cmd).arg(status).end();
+	return status == 0;
 }
 
 /*******************  FUNCTION  *********************/
 bool System::downloadJson(Json::Value & out,const std::string & url)
 {
-	static int id;
+	static volatile int id;
 	
 	//gen filename
 	char buffer[128];
@@ -254,9 +266,9 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 	
 	//download
 	#ifdef HAVE_WGET
-		cmd = "wget "+url+" -O "+tmp+" > /dev/null 2>/dev/null";
+		cmd = "wget '"+url+"' -O "+tmp+" > /dev/null 2>/dev/null";
 	#elif defined(HAVE_CURL)
-		cmd = "curl "+url+" -o "+tmp+" > /dev/null 2>/dev/null";
+		cmd = "curl '"+url+"' -o "+tmp+" > /dev/null 2>/dev/null";
 	#else
 		HL_FATAL("Cannot download file without curl or wget on system !");
 	#endif
@@ -266,6 +278,14 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 	
 	//run
 	int status = system(cmd.c_str());
+
+	//exist with signal
+	if (WIFEXITED(status))
+	{
+	} else if (WIFSIGNALED(status)) {
+		HL_ERROR_ARG("Exited with signal %1").arg(WTERMSIG(status)).end();
+		exit(1);
+	}
 	
 	//load
 	if (status == 0)
@@ -281,7 +301,7 @@ bool System::downloadJson(Json::Value & out,const std::string & url)
 /*******************  FUNCTION  *********************/
 bool System::runAndRead(std::string & out,const std::string & cmd)
 {
-	static int id;
+	static volatile int id;
 	
 	//gen filename
 	char buffer[128];
@@ -291,6 +311,14 @@ bool System::runAndRead(std::string & out,const std::string & cmd)
 	
 	//run
 	int status = system((cmd + " > "+tmp).c_str());
+
+	//exist with signal
+	if (WIFEXITED(status))
+	{
+	} else if (WIFSIGNALED(status)) {
+		HL_ERROR_ARG("Exited with signal %1").arg(WTERMSIG(status)).end();
+		exit(1);
+	}
 	
 	//load
 	if (status == 0)
@@ -315,7 +343,7 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 	assume(url.empty() == false,"Get empty URL !");
 
 	//vars
-	static int id;
+	static volatile int id;
 	
 	//gen filename
 	char buffer[128];
@@ -327,6 +355,15 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 
 	//run
 	int status = system(cmd.c_str());
+
+	//exist with signal
+	if (WIFEXITED(status))
+	{
+	} else if (WIFSIGNALED(status)) {
+		HL_ERROR_ARG("Exited with signal %1").arg(WTERMSIG(status)).end();
+		exit(1);
+	}
+
 	if (status != 0)
 	{
 		HL_ERROR_ARG("Fail to fetch FTP files from  %1").arg(url).end();

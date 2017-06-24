@@ -62,6 +62,12 @@ struct Config
 	StringList args;
 	/** If need to show help **/
 	bool showHelp;
+	/** For Github crawler **/
+	std::string clientId;
+	/** For Github crawler **/
+	std::string clientSecret;
+	/** Crawler threader **/
+	int crawlerThreads;
 };
 
 }

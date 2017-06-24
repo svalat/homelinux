@@ -8,6 +8,7 @@
 
 /********************  HEADERS  *********************/
 #include <portability/System.hpp>
+#include <core/Prefix.hpp>
 #include "CrawlerGithub.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -33,12 +34,19 @@ void CrawlerGithub::internalRun(std::string url)
 	//build name
 	Helper::replaceInPlace(url,"github://","");
 
+	//id to get bigger limit rate on API
+	std::string oauth;
+	std::string clientId = prefix->getUserConfig().clientId;
+	std::string clientSecret = prefix->getUserConfig().clientSecret;
+	if (clientId.empty() == false && clientSecret.empty() == false)
+		oauth = "?client_id="+clientId+"&client_secret="+clientSecret;
+
 	//fetch
 	Json::Value json;
-	if (System::downloadJson(json,"https://api.github.com/repos/"+url+"/releases"))
+	if (System::downloadJson(json,"https://api.github.com/repos/"+url+"/releases"+oauth))
 	{
 		key = "tag_name";
-	} else if (System::downloadJson(json,"https://api.github.com/repos/"+url+"/tags")) {
+	} else if (System::downloadJson(json,"https://api.github.com/repos/"+url+"/tags"+oauth)) {
 		key = "name";
 	} else {
 		HL_ERROR_ARG("Package %1 fail to get github versions via release/tags : %2")

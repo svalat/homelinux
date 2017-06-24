@@ -77,6 +77,9 @@ void Config::load(Json::Value & config)
 	this->ccache = config.get("ccache",this->ccache).asBool();
 	this->pyEnv = config.get("pyEnv",this->pyEnv).asBool();
 	this->temp = config.get("temp",this->temp).asString();
+	this->clientId = config["github"].get("clientId","").asString();
+	this->clientSecret = config["github"].get("clientSecret","").asString();
+	this->crawlerThreads = atoi(config.get("crawlerThreads","4").asString().c_str());
 	
 	//modules
 	Json::Value mods = config["modules"];

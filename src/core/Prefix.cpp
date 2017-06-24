@@ -255,6 +255,19 @@ bool Prefix::isLocalyInstalled(const PackageDef & pack)
 //@TODO make parallel
 void Prefix::updateDb(void)
 {
+	//need to push gentoo first as some hl packages revers to gentoo versions
+	bool present = false;
+	for (auto it = prefixConfig.providers.begin() ; it != prefixConfig.providers.end() ; ++it)
+	{
+		if (*it == "gentoo")
+		{
+			it = prefixConfig.providers.erase(it);
+			present = true;
+		}
+	}
+	if (present)
+		prefixConfig.providers.push_front("gentoo");
+
 	for (auto prov : prefixConfig.providers)
 	{
 		Provider & p = getProvider(prov);

@@ -239,8 +239,11 @@ void ProviderHomelinux::updateDb(void)
 	});
 
 	//compute number of threads we want
-	//int cntThreads = System::getCoreCount() * 2;
-	int cntThreads = 2;
+	int cntThreads;
+	if (prefix->getUserConfig().crawlerThreads == 0)
+		cntThreads = System::getCoreCount();
+	else
+		cntThreads = prefix->getUserConfig().crawlerThreads;
 	int fileCnt = files.size();
 	int cur = 0;
 
