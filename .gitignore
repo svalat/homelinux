@@ -6,3 +6,13 @@ homelinux.kdev4
 .vscode
 src/crawlers/html-link-extractor/node_modules/
 src/crawlers/html-link-extractor/package-lock.json 
+Makefile.in
+/COPYING
+*~
+/missing
+/aclocal.m4
+/autom4te.cache
+/depcomp
+/install-sh
+/compile
+/INSTALL
