@@ -15,7 +15,7 @@
 
 ######################################################
 #script setup
-PROJECT_NAME='daqpipe'
+PROJECT_NAME='homelinux'
 # State variables
 PREFIX='-DCMAKE_INSTALL_PREFIX=/usr/local'
 CMAKE='cmake'
