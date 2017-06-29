@@ -96,6 +96,7 @@ void PackageDef::save(Json::Value & json)
 	json["homepage"] = homepage;
 	json["inherit"] = inherit;
 	Helper::toJson(json["versions"],versions);
+	json["version"] = getVersion();
 	json["vfetcher"] = vfetcher;
 	Helper::toJson(json["md5"],md5);
 	json["subdir"] = subdir;
@@ -198,7 +199,10 @@ void PackageDef::save(std::ostream & out)
 **/
 std::string PackageDef::getVersion(void) const
 {
-	return versions.front();
+	if (versions.empty())
+		return "unknown";
+	else
+		return versions.front();
 }
 
 /*******************  FUNCTION  *********************/
@@ -320,7 +324,7 @@ std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) cons
 		else 
 			return prefix;
 	} else {
-		return prefix+"MOdules/installed/"+module;
+		return prefix+"Modules/installed/"+module;
 	}
 }
 

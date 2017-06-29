@@ -126,6 +126,7 @@ PACK_JSON="
 		\"unicode\"
 	],
 	\"vars\" : null,
+	\"version\" : \"6.0\",
 	\"versions\" : [ \"6.0\" ],
 	\"vfetcher\" : 
 	{
@@ -387,6 +388,7 @@ PACK_JSON="
 		\"readline\"
 	],
 	\"vars\" : null,
+	\"version\" : \"4.3.48\",
 	\"versions\" : [ \"4.3.48\" ],
 	\"vfetcher\" : 
 	{

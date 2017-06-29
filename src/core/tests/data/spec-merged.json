@@ -61,6 +61,7 @@
 		"PYTHON_SLOT" : "4",
 		"SETUP" : "module"
 	},
+	"version" : "5.5",
 	"versions" : [ "5.5", "5.6" ],
 	"vfetcher" : 
 	{

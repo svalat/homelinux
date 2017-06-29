@@ -234,9 +234,6 @@ void HomeLinux::pinstall(const StringList & packages)
 /*******************  FUNCTION  *********************/
 void HomeLinux::unenv(void)
 {
-	//setup
-	loadPrefix(false);
-
 	//build env
 	EnvSetup env(config);
 	
@@ -250,11 +247,12 @@ void HomeLinux::unenv(void)
 	//removed
 	env.removeExisting();
 
+	//special
+	env.loadModules(false);
+
 	//print
 	env.print();
 
-	//special
-	env.loadModules(false);
 	/*if (config->ccache)
 		env.disableCCache();
 	if (config->pyEnv)
@@ -289,6 +287,20 @@ void HomeLinux::env(void)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::switchEnv(const std::string & prefixPath)
+{
+	//unenv
+	this->unenv();
+
+	//replace prefix
+	config->prefix.clear();
+	config->prefix.push_back(prefixPath);
+
+	//load env
+	this->env();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::loadPrefix(bool onlyMaster)
 {
 	//check
@@ -313,6 +325,60 @@ void HomeLinux::loadPrefix(bool onlyMaster)
 	
 	//take master
 	master = prefixes.back();
+}
+
+/*******************  FUNCTION  *********************/
+bool HomeLinux::isPackInstalled(const std::string & packageName)
+{
+	//load
+	loadPrefix(false);
+
+	//search on all prefix
+	for (auto pref : prefixes)
+		if (pref->isInstalled(packageName))
+			return true;
+	
+	//not found
+	return false;
+}
+
+/*******************  FUNCTION  *********************/
+bool HomeLinux::prefixOf(const std::string & packageName)
+{
+	//load
+	loadPrefix(false);
+
+	//search on all prefix
+	for (auto pref : prefixes)
+		if (pref->isInstalled(packageName))
+			return true;
+	
+	//not found
+	return false;
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::ls(void)
+{
+	//load
+	loadPrefix(false);
+
+	//revers
+	prefixes.reverse();
+
+	//loop
+	for (auto prefix : prefixes)
+		prefix->ls();
+}
+
+/*******************  FUNCTION  *********************/
+void HomeLinux::search(const std::string & value)
+{
+	//load
+	loadPrefix(true);
+
+	//search in master
+	master->search(std::cout,value);
 }
 
 /*******************  FUNCTION  *********************/

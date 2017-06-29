@@ -56,6 +56,7 @@
 	{
 		"PYTHON_SLOT" : "3"
 	},
+	"version" : "4.0",
 	"versions" : [ "4.0", "4.1", "4.2", "4.3" ],
 	"vfetcher" : 
 	{

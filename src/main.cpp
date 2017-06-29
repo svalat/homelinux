@@ -57,6 +57,21 @@ Commandsl:\n\
     export            : Export the current config and list of packages.\n\
     jump              : Start a shell configured for the hl prefix. You\n\
                         can optionally provide a command to run into this shell.\n\
+\n\
+For package installation you can use the given namings :\n\
+    hl install bash                      # use name, automatic search db\n\
+    hl install app-shells/bash           # force subdir in gentoo way\n\
+    hl install gentoo/htop               # use the gentoo archive (nodeps)\n\
+    hl install github/svalat/homelinux   # from github repos, use last release\n\
+    hl install urls/htop                 # Use from packages/urls.lst\n\
+\n\
+You can specify version :\n\
+    hl install htop=4.8                  #exact version\n\
+    hl install htop<4.8                  #less than\n\
+    hl install htop<=4.8                 #less eq than\n\
+    hl install 'htop!4.8'                #no this one\n\
+    hl install htop~4.8                  #regexpn allow all 4.8.X, take last avail\n\
+    hl install htop:4                    #slot based\n\
 ";
 
 /*******************  FUNCTION  *********************/
@@ -91,22 +106,22 @@ int main(int argc, char ** argv)
 	} else if (config.command == "uninstall") {
 		HL_FATAL("Uninstall is not supported yet !");
 	} else if (config.command == "gen-package") {
-		assume(config.args.size() == 1,"Command gen-package expect only one argument !");
+		assume(config.args.size() == 1,"Command gen-package expect one argument !");
 		homelinux.printGenPackage(config.args.front());
 	} else if (config.command == "gen-package-full") {
-		assume(config.args.size() == 1,"Command gen-package-full expect only one argument !");
+		assume(config.args.size() == 1,"Command gen-package-full expect one argument !");
 		homelinux.printGenPackageFull(config.args.front());
 	} else if (config.command == "gen-install") {
-		assume(config.args.size() == 1,"Command gen-install expect only one argument !");
+		assume(config.args.size() == 1,"Command gen-install expect one argument !");
 		homelinux.printGenInstall(config.args.front());
 	} else if (config.command == "update-db") {
 		assume(config.args.size() == 0,"Command update-db expect no arguments !");
 		homelinux.updateDb();
 	} else if (config.command == "versions") {
-		assume(config.args.size() == 1,"Command versions expect only one argument !");
+		assume(config.args.size() == 1,"Command versions expect one argument !");
 		homelinux.printVersions(config.args.front());
 	} else if (config.command == "fetch-versions") {
-		assume(config.args.size() == 1,"Command versions expect only one argument !");
+		assume(config.args.size() == 1,"Command versions expect one argument !");
 		homelinux.fetchVersions(config.args.front());
 	} else if (config.command == "env") {
 		assume(config.args.size() == 0,"Command env expect no arguments !");
@@ -114,6 +129,29 @@ int main(int argc, char ** argv)
 	} else if (config.command == "unenv") {
 		assume(config.args.size() == 0,"Command unenv expect no arguments !");
 		homelinux.unenv();
+	} else if (config.command == "switch") {
+		assume(config.args.size() == 1,"Command switch expect one argument !");
+		homelinux.switchEnv(config.args.front());
+	} else if (config.command == "is-pack-installed") {
+		assume(config.args.size() == 1,"Command switch expect one argument !");
+		if(homelinux.isPackInstalled(config.args.front()))
+		{
+			std::cout << "Installed" << std::endl;
+			return EXIT_SUCCESS;
+		} else {
+			std::cout << "Not installed" << std::endl;
+			return EXIT_FAILURE;
+		}
+	} else if (config.command == "prefix-of") {
+		assume(config.args.size() == 1,"Command switch expect one argument !");
+		if (homelinux.prefixOf(config.args.front()) == false)
+			return EXIT_FAILURE;
+	} else if (config.command == "ls") {
+		assume(config.args.size() == 0,"Command switch expect no argument !");
+		homelinux.ls();
+	} else if (config.command == "search") {
+		assume(config.args.size() == 1,"Command switch expect one argument !");
+		homelinux.search(config.args.front());
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

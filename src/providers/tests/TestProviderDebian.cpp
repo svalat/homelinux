@@ -88,6 +88,7 @@ TEST(ProviderDebian,getPackage_check_content)
 	std::stringstream out;
 	pack.save(out);
 	
+	System::writeFile(out.str(),TEST_DATA_PATH "/debian-full-cmake.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/debian-full-cmake.json"),out.str());
 }
 

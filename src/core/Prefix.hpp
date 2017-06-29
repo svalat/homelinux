@@ -59,9 +59,12 @@ class Prefix
 		void fillEnv(EnvSetup & env);
 		std::string listInstalled(void);
 		bool isInstalled(const std::string & value);
+		std::string prefixOf(const std::string & packageName);
 		bool isInstalled(const PackageDef & pack);
+		void ls(std::ostream & out = std::cout);
 		const std::string & getPrefix(void) const;
 		void setPrefixForTests(const std::string & prefix);
+		void search(std::ostream & out,const std::string & value);
 	private:
 		bool isLocalyInstalled(const PackageDef & pack);
 		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);

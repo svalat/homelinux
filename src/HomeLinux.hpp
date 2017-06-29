@@ -37,6 +37,11 @@ class HomeLinux
 		void updateDb(void);
 		void env(void);
 		void unenv(void);
+		void switchEnv(const std::string & prefixPath);
+		bool isPackInstalled(const std::string & packageName);
+		bool prefixOf(const std::string & packageName);
+		void ls(void);
+		void search(const std::string & value);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

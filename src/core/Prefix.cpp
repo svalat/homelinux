@@ -225,6 +225,31 @@ bool Prefix::isInstalled(const std::string & value)
 }
 
 /*******************  FUNCTION  *********************/
+std::string Prefix::prefixOf(const std::string & packageName)
+{
+	//get package
+	PackageDef pack;
+	loadPackage(pack,packageName);
+	
+	//check local
+	std::string pref;
+	if (isLocalyInstalled(pack))
+		pref = this->getPrefix();
+
+	//check inherit
+	for (auto & prefix : inheritedPrefix)
+		if (prefix->isLocalyInstalled(pack))
+			pref = prefix->getPrefix();
+	
+	//not found
+	if (pref.empty())
+		return "";
+	
+	//ok
+	return pack.getRealPrefix(pref,prefixConfig.useGnuStow);
+}
+
+/*******************  FUNCTION  *********************/
 bool Prefix::isInstalled(const PackageDef & pack)
 {
 	//check local
@@ -273,6 +298,42 @@ void Prefix::updateDb(void)
 		Provider & p = getProvider(prov);
 		HL_MESSAGE_ARG("Update DB of provier %1").arg(prov).end();
 		p.updateDb();
+	}
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::ls(std::ostream & out)
+{
+	//ls childs
+	for (auto prefix : inheritedPrefix)
+		prefix->ls(out);
+
+	//for all files
+	out << Colors::yellow("================ "+prefix+" =================") << std::endl;
+	System::readDir(getFilePath("/homelinux/install-db/"),[&out,this](const std::string & file){
+		if (Helper::endBy(file,".json"))
+		{
+			Json::Value json;
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			std::string name = json.get("name","").asString();
+			std::string version = json.get("version","unknown").asString();
+			out << Colors::green(name) << " " << Colors::cyan(version) << std::endl;
+		}
+	});
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::search(std::ostream & out,const std::string & value)
+{
+	prefixConfig.providers.reverse();
+	for (auto prov : prefixConfig.providers)
+	{
+		if( prov != "models")
+		{
+			Provider & p = getProvider(prov);
+			out << Colors::yellow("================ "+prov+" =================") << std::endl;
+			out << p.search(value) << std::endl;
+		}
 	}
 }
 

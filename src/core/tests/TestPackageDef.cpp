@@ -70,6 +70,7 @@ TEST(PackageDef,applySpecific)
 	
 	std::stringstream out;
 	def.save(out);
+	//System::writeFile(out.str(),TEST_DATA_PATH "/spec-specific.json");
 	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/spec-specific.json"),out.str());
 }
 

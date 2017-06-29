@@ -28,6 +28,7 @@
 	"urls" : null,
 	"use" : null,
 	"vars" : null,
+	"version" : "unknown",
 	"versions" : null,
 	"vfetcher" : 
 	{

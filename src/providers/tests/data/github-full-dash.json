@@ -25,6 +25,7 @@
 	"urls" : [ "https://github.com/svalat/svpgm2txt/archive/v1.2.tar.gz" ],
 	"use" : null,
 	"vars" : null,
+	"version" : "1.2",
 	"versions" : [ "1.2" ],
 	"vfetcher" : 
 	{
