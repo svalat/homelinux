@@ -48,8 +48,13 @@ then
 	echo "Cmake not found, fallback on autotools !"
 	echo
 	dir=$(dirname $0)
-	$dir/autotools/configure "$@"
-	exit $?
+	if [ -f $dir/autotools/configure ]; then
+		$dir/autotools/configure "$@"
+		exit $?
+	else
+		echo "Autoconf files not generated, please run $dir/autogen.sh"
+		echo "(it requires aclocal/autoconf/automake)"
+	fi
 fi
 
 ######################################################
