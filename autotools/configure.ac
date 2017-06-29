@@ -12,6 +12,7 @@ AC_INIT([homelinux], [2.0.0-dev], [sebastien.valat-dev@orange.fr])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS([src/config.h:src/config-autotools.h.in])
+AM_SILENT_RULES([yes])
 
 ######################################################
 # Checks for programs.
