@@ -36,6 +36,22 @@ ENABLE_TESTS=''
 LIB_SUFFIX=''
 #prefix
 
+
+######################################################
+
+
+######################################################
+#if not found cmake, fallback on autotools
+if ! which ${CMAKE} 2> /dev/null > /dev/null
+then
+	echo
+	echo "Cmake not found, fallback on autotools !"
+	echo
+	dir=$(dirname $0)
+	$dir/autotools/configure "$@"
+	exit $?
+fi
+
 ######################################################
 #Find default source dir
 SOURCE_DIR="`dirname \"$0\"`"

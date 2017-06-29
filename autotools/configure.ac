@@ -43,5 +43,5 @@ AC_CONFIG_FILES([Makefile
 				 extern-deps/re2-2017-06-01/re2/Makefile
 				 extern-deps/re2-2017-06-01/util/Makefile
 				])
-AC_CONFIG_SUBDIRS([extern-deps/gmock-1.7.0])
+#AC_CONFIG_SUBDIRS([extern-deps/gmock-1.7.0])
 AC_OUTPUT
