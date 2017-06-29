@@ -1,0 +1,15 @@
+{
+	"prefix":["/home/USER/usr"],
+	"host":"gentoo",
+	"modules": ["gcc-5.0", "openmpi"],
+	"homecache": true,
+	"ccache": true,
+	"pyEnv": false,
+	"packageOverride": {
+		"hl/sys-devel/gcc": {
+			"configure": {
+				"": [ "--enable-debug" ]
+			}
+		}
+	}
+}
