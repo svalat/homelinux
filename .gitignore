@@ -6,3 +6,6 @@ homelinux.kdev4
 .vscode
 src/crawlers/html-link-extractor/node_modules/
 src/crawlers/html-link-extractor/package-lock.json 
+dev/gentoo-pkg-converter/node_modules/
+dev/gentoo-pkg-converter/portage-latest.tar.bz2
+dev/gentoo-pkg-converter/portage-stable/
