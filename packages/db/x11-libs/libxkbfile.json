@@ -1,0 +1,38 @@
+{
+	"name": "x11-libs/libxkbfile",
+	"homepage": "https://www.x.org/wiki/",
+	"versions": [
+		"1.0.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.x.org/releases/X11R7.7/src/lib/",
+		"regexp": "libxkbfile-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libxkbfile-${VERSION}",
+	"urls": [
+		"https://www.x.org/releases/X11R7.7/src/lib/libxkbfile-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-proto/kbproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxkbfile"
+		],
+		"centos7": [
+			"libxkbfile"
+		],
+		"gentoo": [
+			"x11-libs/libxkbfile"
+		]
+	}
+}

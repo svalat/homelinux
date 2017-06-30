@@ -1,0 +1,31 @@
+{
+	"name": "x11-proto/randrproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.5.0"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "randrproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "randrproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/randrproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-randr-dev"
+		],
+		"centos7": [ "libXrandr-devel" ],
+		"gentoo": [ "x11-proto/randrproto" ]
+	}
+}

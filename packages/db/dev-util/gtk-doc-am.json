@@ -1,0 +1,47 @@
+{
+	"name": "dev-util/gtk-doc-am",
+	"homepage": "http://www.gtk.org/gtk-doc/",
+	"versions": [
+		"1.25"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "https://download.gnome.org/sources/gtk-doc//cache.json",
+		"regexp": "gtk-doc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)",
+		"name": "gtk-doc"
+	},
+	"md5": {},
+	"subdir": "gtk-doc-${VERSION}",
+	"urls": [
+		"https://download.gnome.org/sources/gtk-doc/${VERSION}/gtk-doc-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"sys-devel/autoconf",
+		"dev-lang/perl",
+		"virtual/pkgconfig"
+	],
+	"configure": {},
+	"steps": {
+		"configure":[],
+		"build":[],
+		"install":[
+			"run cp gtk-doc.m4 ${PREFIX}/share/aclocal"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gtk-doc-am"
+		],
+		"centos7": [
+			"gtk-doc-am"
+		],
+		"gentoo": [
+			"dev-util/gtk-doc-am"
+		]
+	}
+}

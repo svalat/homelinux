@@ -1,0 +1,54 @@
+{
+	"name": "media-gfx/inkscape",
+	"homepage": "http://www.inkscape.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.91" 
+	],
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
+		"regexp": "^inkscape-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2$"
+	},
+	"md5" : {},
+	"subdir": "inkscape-${VERSION}",
+	"urls" : [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/inkscape-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-text/poppler[cairo,xpdf]",
+		"dev-util/intltool",
+		"sys-devel/gettext",
+		"dev-util/pkgconfig",
+		"media-libs/freetype",
+		"dev-cpp/cairomm",
+		"dev-cpp/glibmm",
+		"sci-libs/gsl",
+		"dev-libs/bohem-gc",
+		"dev-libs/libxml2",
+		"dev-libs/libxslt",
+		"x11-libs/pango",
+		"dev-cpp/gtkmm :2",
+		"x11-libs/libX11",
+		"x11-proto/xproto",
+		"x11-proto/xextproto",
+		"x11-libs/xtrans",
+		"x11-libs/libxcb",
+		"x11-proto/xcb-proto",
+		"dev-libs/libpthread-stubs",
+		"x11-libs/libXau",
+		"x11-proto/kbproto",
+		"x11-proto/inputproto",
+		"dev-libs/popt",
+		"dev-libs/boost"
+	],
+	"configure": {
+		"": [ "--disable-lcms", "CPPFLAGS=-std=c++11" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "inkscape" ],
+		"centos7": [ "inkscape" ],
+		"gentoo": [ "media-gfx/inkscape" ]
+	}
+}

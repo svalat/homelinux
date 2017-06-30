@@ -74,7 +74,7 @@ TEST(EnvSetup,loadModules)
 	
 	std::stringstream out;
 	env.loadModules(true,out);
-	EXPECT_EQ("module 1>/dev/null 2>/dev/null || hl is-pack-installed sys-apps/modules && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)\nmodule load gcc\n",out.str());
+	EXPECT_EQ("module 1>/dev/null 2>/dev/null || hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)\nmodule load gcc\n",out.str());
 }
 
 /*******************  FUNCTION  *********************/
@@ -86,7 +86,7 @@ TEST(EnvSetup,loadModulesUnload)
 	
 	std::stringstream out;
 	env.loadModules(false,out);
-	EXPECT_EQ("module 1>/dev/null 2>/dev/null || hl is-pack-installed sys-apps/modules && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)\nmodule unload gcc\n",out.str());
+	EXPECT_EQ("module 1>/dev/null 2>/dev/null || hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)\nmodule unload gcc\n",out.str());
 }
 
 /*******************  FUNCTION  *********************/

@@ -1,0 +1,57 @@
+{
+	"name": "app-doc/doxygen",
+	"homepage": "http://www.doxygen.org/",
+	"inherit": "models/cmake",
+	"versions": [ 
+		"1.8.10"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.stack.nl/pub/users/dimitri/",
+		"regexp": "doxygen-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).src.tar.gz"
+	},
+	"md5" : {},
+	"subdir": "doxygen-${VERSION}",
+	"urls" : [
+		"ftp://ftp.stack.nl/pub/users/dimitri/doxygen-${VERSION}.src.tar.gz"
+	],
+	"warn": [
+		"Remove flex 2.6.0 when new versions comes"
+	],
+	"deps": [
+		"sys-devel/flex <2.6.0",
+		"app-text/ghostscript-gpl",
+		"dev-lang/perl",
+		"media-libs/libpng",
+		"libiconv? dev-libs/libiconv",
+		"dot? media-gfx/graphviz",
+		"dot? media-libs/freetype",
+		"doxysearch? dev-libs/xapian",
+		"latex? app-text/texlive[extra]",
+		"qt4? dev-qt/qtgui :4",
+		"sqlite? dev-db/sqlite :3"
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "doxygen" ],
+		"centos7": [ "doxygen" ],
+		"gentoo": [ "app-doc/doxygen" ]
+	},
+	"configure": {
+		"+debug": [ "-DCMAKE_BUILD_TYPE=Debug" ],
+		"-debug": [ "-DCMAKE_BUILD_TYPE=Release" ],
+		"doxysearch": [ "$(hl_cmake_with $with doxysearch)" ],
+		"qt4": [ "$(hl_cmake_with $with doxywizard)" ],
+		"sqlite": [ "$(hl_cmake_with $with sqlite3)" ]
+	},
+	"use": [
+		"libiconv",
+		"dot",
+		"doxysearch",
+		"latex",
+		"qt4",
+		"sqlite",
+		"debug"
+	]
+}

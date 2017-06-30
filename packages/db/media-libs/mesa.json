@@ -1,0 +1,181 @@
+{
+	"name": "media-libs/mesa",
+	"homepage": "http://mesa3d.sourceforge.net/",
+	"versions": [
+		"9999"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.freedesktop.org/pub/mesa/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "mesa-${VERSION}",
+	"urls": [
+		"ftp://ftp.freedesktop.org/pub/mesa/${VERSION}/mesa-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/expat",
+		"x11-libs/libX11",
+		"x11-libs/libxshmfence",
+		"x11-libs/libXdamage",
+		"x11-libs/libXext",
+		"x11-libs/libXxf86vm",
+		"x11-libs/libxcb",
+		"x11-libs/libXfixes",
+		"x11-libs/libdrm[#video_cards_freedreno,#video_cards_nouveau,#video_cards_vmware]",
+		"sys-devel/gettext",
+		"virtual/pkgconfig",
+		"x11-proto/dri2proto",
+		"x11-proto/glproto",
+		"x11-proto/xextproto",
+		"x11-proto/xf86driproto",
+		"x11-proto/xf86vidmodeproto",
+		"udev&kernel_linux? virtual/libudev",
+		"-video_cards_r600&video_cards_radeon? dev-libs/elfutils",
+		"-video_cards_r600&video_cards_radeon? dev-libs/libelf",
+		"-video_cards_r600? sys-devel/llvm",
+		"opencl? dev-libs/libclc",
+		"opencl? dev-libs/elfutils",
+		"opencl? dev-libs/libelf",
+		"opencl? sys-devel/llvm",
+		"opencl? sys-devel/clang",
+		"opencl? sys-devel/gcc",
+		"openmax? media-libs/libomxil-bellagio",
+		"vaapi? x11-libs/libva",
+		"vdpau? x11-libs/libvdpau",
+		"wayland? dev-libs/wayland",
+		"xvmc? x11-libs/libXvMC",
+		"+video_cards_i915? x11-libs/libdrm[#video_cards_intel]",
+		"+video_cards_i965? x11-libs/libdrm[#video_cards_intel]",
+		"+video_cards_ilo? x11-libs/libdrm[#video_cards_intel]",
+		"+video_cards_intel? x11-libs/libdrm[#video_cards_intel]",
+		"+video_cards_r100? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_r200? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_r300? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_r600? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_radeon? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_radeonsi? x11-libs/libdrm[#video_cards_radeon]",
+		"+video_cards_radeonsi? x11-libs/libdrm[#video_cards_amdgpu]",
+		"llvm&video_cards_radeonsi? sys-devel/llvm[#video_cards_radeon]",
+		"dri3? x11-proto/dri3proto",
+		"dri3? x11-proto/presentproto"
+	],
+	"configure": {
+		"": [
+			"--enable-dri",
+			"--enable-glx",
+			"--enable-shared-glapi",
+			"--disable-shader-cache",
+			"--enable-llvm-shared-libs",
+			"--with-dri-drivers=,swrast,i915,i965,nouveau,radeon,r200",
+			"--with-gallium-drivers=,swrast,svga,nouveau,i915,ilo,r300,r600,radeonsi,freedreno",
+			"PYTHON2=",
+			"--with-egl-platforms=x11,wayland,drm",
+			"--with-va-libdir=/usr//va/drivers",
+			"--with-clang-libdir=/usr/lib"
+		],
+		"bindist": [
+			"--$enable-texture-float"
+		],
+		"d3d9": [
+			"--$enable-nine"
+		],
+		"debug": [
+			"--$enable-debug"
+		],
+		"dri3": [
+			"--$enable-dri3"
+		],
+		"egl": [
+			"--$enable-egl"
+		],
+		"gbm": [
+			"--$enable-gbm"
+		],
+		"gles1": [
+			"--$enable-gles1"
+		],
+		"gles2": [
+			"--$enable-gles2"
+		],
+		"nptl": [
+			"--$enable-glx-tls"
+		],
+		"osmesa": [
+			"--$enable-osmesa"
+		],
+		"udev": [
+			"--$enable-sysfs"
+		],
+		"llvm": [
+			"--$enable-gallium-llvm"
+		],
+		"openmax": [
+			"--$enable-omx"
+		],
+		"vaapi": [
+			"--$enable-va"
+		],
+		"vdpau": [
+			"--$enable-vdpau"
+		],
+		"xa": [
+			"--$enable-xa"
+		],
+		"xvmc": [
+			"--$enable-xvmc"
+		],
+		"opencl": [
+			"--$enable-opencl"
+		]
+	},
+	"use": [
+		"video_cards_i915",
+		"video_cards_i965",
+		"video_cards_ilo",
+		"video_cards_intel",
+		"video_cards_r100",
+		"video_cards_r200",
+		"video_cards_r300",
+		"video_cards_r600",
+		"video_cards_radeon",
+		"video_cards_radeonsi",
+		"video_cards_freedreno",
+		"video_cards_nouveau",
+		"video_cards_vmware",
+		"bindist",
+		"+classic",
+		"d3d9",
+		"debug",
+		"+dri3",
+		"+egl",
+		"+gallium",
+		"+gbm",
+		"gles1",
+		"gles2",
+		"+llvm",
+		"+nptl",
+		"opencl",
+		"osmesa",
+		"pax_kernel",
+		"openmax",
+		"pic",
+		"selinux",
+		"+udev",
+		"vaapi",
+		"vdpau",
+		"wayland",
+		"xvmc",
+		"xa",
+		"kernel_FreeBSD",
+		"kernel_linux"
+	],
+	"host": {
+		"default": true,
+		"debian8": true,
+		"centos7": true,
+		"gentoo": [ "media-libs/mesa" ]
+	}
+}

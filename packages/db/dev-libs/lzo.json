@@ -1,0 +1,43 @@
+{
+	"name": "dev-libs/lzo",
+	"homepage": "http://www.oberhumer.com/opensource/lzo/",
+	"versions": [
+		"2.10"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.oberhumer.com/opensource/lzo/download/",
+		"regexp": "^lzo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "lzo-${VERSION}",
+	"urls": [
+		"http://www.oberhumer.com/opensource/lzo/download/lzo-${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"configure": {
+		"": [
+			"--enable-shared"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"examples",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lzo"
+		],
+		"centos7": [
+			"lzo"
+		],
+		"gentoo": [
+			"dev-libs/lzo"
+		]
+	}
+}

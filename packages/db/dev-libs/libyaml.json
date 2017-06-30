@@ -1,0 +1,34 @@
+{
+	"name": "dev-libs/libyaml",
+	"homepage": "http://pyyaml.org/wiki/LibYAML",
+	"versions": [
+		"0.1.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://pyyaml.org/wiki/LibYAML",
+		"regexp": "http://pyyaml.org/download/libyaml/yaml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "yaml-${VERSION}",
+	"urls": [
+		"http://pyyaml.org/download/libyaml/yaml-${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		"doc",
+		"examples",
+		"test",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libyaml"
+		],
+		"centos7": [ "libyaml", "libyaml-devel" ],
+		"gentoo": [ "dev-libs/libyaml" ]
+	}
+}

@@ -1,0 +1,60 @@
+{
+	"name": "sci-libs/armadillo",
+	"homepage": "http://arma.sourceforge.net/",
+	"versions": [
+		"7.950.1"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/arma/files/",
+		"regexp": "armadillo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "armadillo-${VERSION}",
+	"urls": [
+		"http://sourceforge.net/projects/arma/files/armadillo-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/boost",
+		"arpack? sci-libs/arpack",
+		"arpack? virtual/pkgconfig",
+		"blas? virtual/blas",
+		"blas? virtual/pkgconfig",
+		"lapack? virtual/lapack",
+		"lapack? virtual/pkgconfig",
+		"superlu? sci-libs/superlu-5",
+		"hdf5? sci-libs/hdf5",
+		"mkl? sci-libs/mkl",
+		"tbb? dev-cpp/tbb"
+	],
+	"configure": {
+		"": [
+		]
+	},
+	"use": [
+		"arpack",
+		"blas",
+		"debug",
+		"doc",
+		"examples",
+		"hdf5",
+		"lapack",
+		"mkl",
+		"superlu",
+		"tbb",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"armadillo"
+		],
+		"centos7": [
+			"armadillo"
+		],
+		"gentoo": [
+			"sci-libs/armadillo"
+		]
+	}
+}

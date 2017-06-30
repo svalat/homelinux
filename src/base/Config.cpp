@@ -95,6 +95,29 @@ void Config::load(Json::Value & config)
 }
 
 /*******************  FUNCTION  *********************/
+void Config::save(void)
+{
+	//vars
+	Json::Value json;
+	
+	//convert
+	Helper::toJson(json["prefix"],prefix);
+	json["host"] = host;
+	json["homecache"] = homecache;
+	json["ccache"] = ccache;
+	json["pyEnv"] = pyEnv;
+	json["temp"] = temp;
+	json["github"]["clientId"] = clientId;
+	json["github"]["clientSecret"] = clientSecret;
+	json["crawlerThreads"] = crawlerThreads;
+	Helper::toJson(json["modules"],modules);
+	json["packageOverride"] = packageOverride;
+	
+	//write
+	System::writeJson(json,System::getHomeDir()+"/.homelinux.json");
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Load the given config file (json format).
  * @param path Path to the file to load.
@@ -108,7 +131,8 @@ void Config::load(std::string path)
 	//check if exist
 	if (System::fileExist(path) == false)
 	{
-		HL_WARNING_ARG("Caution, %1 does not exist, using default config !").arg(path).end();
+		HL_WARNING_ARG("Caution, %1 does not exist, creating default one !").arg(path).end();
+		this->save();
 		return;
 	}
 	

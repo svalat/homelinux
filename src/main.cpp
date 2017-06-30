@@ -147,10 +147,10 @@ int main(int argc, char ** argv)
 		assume(config.args.size() == 1,"Command switch expect one argument !");
 		if(homelinux.isPackInstalled(config.args.front()))
 		{
-			std::cout << "Installed" << std::endl;
+			std::cout << "true" << std::endl;
 			return EXIT_SUCCESS;
 		} else {
-			std::cout << "Not installed" << std::endl;
+			std::cout << "false" << std::endl;
 			return EXIT_FAILURE;
 		}
 	} else if (config.command == "prefix-of") {

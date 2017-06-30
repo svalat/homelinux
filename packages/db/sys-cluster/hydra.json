@@ -1,0 +1,28 @@
+{
+	"name": "sys-cluster/hydra",
+	"homepage": "https://www.mpich.org/downloads/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.2" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.mpich.org/static/downloads/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "hydra-${VERSION}",
+	"urls" : [
+		"http://www.mpich.org/static/downloads/${VERSION}/hydra-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-apps/modules"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	},
+	"module": "hydra-${VERSION}"
+}

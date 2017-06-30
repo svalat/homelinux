@@ -1,0 +1,26 @@
+{
+	"name": "dev-libs/libtasn1",
+	"homepage": "https://www.gnu.org/software/libtasn1/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.7"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/libtasn1/",
+		"regexp": "libtasn1-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "libtasn1-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libtasn1-6", "libtasn1-6-dev" ],
+		"centos7": [ "libtasn1", "libtasn1-devel" ],
+		"gentoo": [ "dev-libs/libtasn1" ]
+	}
+}

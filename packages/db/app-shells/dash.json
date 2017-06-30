@@ -1,0 +1,39 @@
+{
+	"name": "app-shells/dash",
+	"homepage": "http://gondor.apana.org.au/~herbert/dash/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.5.8"
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://gondor.apana.org.au/~herbert/dash/files/",
+		"regexp": "dash-([0-9]+\\.[0-9]+\\.[0-9]+\\.?[0-9]*).tar.bz2"
+	},
+	"md5" : {},
+	"subdir": "dash-${VERSION}",
+	"urls" : [
+		"http://gondor.apana.org.au/~herbert/dash/files/dash-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"virtual/pkgconfig",
+		"libedit? dev-libs/libedit"
+	],
+	"configure": {
+		"+gentoo": [
+			"--enable-fnmatch",
+			"--disable-lineno"
+		],
+		"libedit": [ "--$with-libedit" ]
+	},
+	"host": {
+		"default": true,
+		"debian8": [ "dash" ],
+		"centos7": [ "dash" ],
+		"gentoo": [ "app-shells/dash" ]
+	},
+	"use": [ 
+		"gentoo",
+		"libedit"
+	]
+}

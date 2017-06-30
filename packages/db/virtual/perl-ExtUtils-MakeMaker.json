@@ -1,0 +1,37 @@
+{
+	"name": "virtual/perl-ExtUtils-MakeMaker",
+	"homepage": "",
+	"versions": [
+		"7.40.200"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "",
+		"regexp": ""
+	},
+	"md5": {},
+	"subdir": "perl-ExtUtils-MakeMaker-${VERSION}",
+	"urls": [
+		""
+	],
+	"deps": [
+		"dev-lang/perl"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"perl-ExtUtils-MakeMaker"
+		],
+		"centos7": [
+			"perl-ExtUtils-MakeMaker"
+		],
+		"gentoo": [
+			"virtual/perl-ExtUtils-MakeMaker"
+		]
+	}
+}

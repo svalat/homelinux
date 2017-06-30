@@ -1,0 +1,63 @@
+{
+	"api": 1,
+	"name": "net-libs/zeromq",
+	"homepage": "http://www.zeromq.org/",
+	"versions": [
+		"4.2.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://zeromq/libzmq",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "zeromq-${VERSION}",
+	"urls": [
+		"github://zeromq/libzmq"
+	],
+	"deps": [
+		"sys-libs/libunwind",
+		"doc? app-text/asciidoc",
+		"app-text/xmlto",
+		"gentoo? sys-apps/util-linux",
+		"sodium? dev-libs/libsodium",
+		"pgm? net-libs/openpgm",
+		"pgm? virtual/pkgconfig"
+	],
+	"configure": {
+		"": [
+			"--enable-shared"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"sodium": [
+			"--$with-libsodium="
+		],
+		"pgm": [
+			"--$with-pgm"
+		]
+	},
+	"use": [
+		"gentoo",
+		"pgm",
+		"+sodium",
+		"static-libs",
+		"test",
+		"elibc_Darwin",
+		"doc"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"zeromq"
+		],
+		"centos7": [
+			"zeromq"
+		],
+		"gentoo": [
+			"net-libs/zeromq"
+		]
+	}
+}

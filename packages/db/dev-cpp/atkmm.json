@@ -1,0 +1,39 @@
+{
+	"name": "dev-cpp/atkmm",
+	"homepage": "http://www.gtkmm.org",
+	"versions": [
+		"2.24.2"
+	],
+	"inherit": "models/gnome2",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/atkmm/cache.json",
+		"regexp": "atkmm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "atkmm-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/gnome/sources/atkmm/$SVERSION/atkmm-${VERSION}.tar.bz2",
+		"http://ftp.gnome.org/pub/gnome/sources/atkmm/$SVERSION/atkmm-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-cpp/glibmm:2[#doc]",
+		"dev-libs/atk",
+		"dev-libs/libsigc++:2",
+		"virtual/pkgconfig"
+	],
+	"configure": {},
+	"use": [
+		"doc"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"atkmm"
+		],
+		"centos7": [
+			"atkmm","atkmm-devel"
+		],
+		"gentoo" : [ "dev-cpp/atkmm" ]
+	}
+}

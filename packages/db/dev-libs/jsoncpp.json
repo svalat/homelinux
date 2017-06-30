@@ -1,0 +1,41 @@
+{
+	"name": "dev-libs/jsoncpp",
+	"homepage": "https://github.com/open-source-parsers/jsoncpp",
+	"versions": [
+		"0.10.5"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://open-source-parsers/jsoncpp",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "jsoncpp-${VERSION}",
+	"urls": [
+		"github://open-source-parsers/jsoncpp"
+	],
+	"deps": [
+		"doc? app-doc/doxygen"
+	],
+	"configure": {
+		"": [
+			"-DJSONCPP_WITH_TESTS=",
+			"-DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF",
+			"-DJSONCPP_WITH_CMAKE_PACKAGE=ON",
+			"-DBUILD_SHARED_LIBS=ON"
+		]
+	},
+	"use": [
+		"doc",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"jsoncpp"
+		], 
+		"centos7": false,
+		"gentoo": [ "dev-libs/jsoncpp" ]
+	}
+}

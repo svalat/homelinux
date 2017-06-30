@@ -1,0 +1,83 @@
+{
+	"name": "www-client/lynx",
+	"homepage": "http://lynx.isc.org/",
+	"versions": [
+		"2.8.9"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://lynx.invisible-island.net/lynx2.8.8/index.html",
+		"regexp": "lynx([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "lynx-${VERSION}",
+	"urls": [
+		"ftp://invisible-island.net/lynx/lynx${VERSION}/lynx${VERSION}rel.2.tar.bz2"
+	],
+	"deps": [
+		"sys-libs/ncurses[#unicode]",
+		"sys-libs/zlib",
+		"virtual/pkgconfig",
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext",
+		"ssl&-gnutls? dev-libs/openss",
+		"ssl&gnutls? dev-libs/libgcrypt :0",
+		"ssl&gnutls? net-libs/gnutls",
+		"bzip2? app-arch/bzip2",
+		"idn? net-dns/libidn"
+	],
+	"configure": {
+		"": [
+			"--enable-nested-tables",
+			"--enable-cgi-links",
+			"--enable-persistent-cookies",
+			"--enable-prettysrc",
+			"--enable-nsl-fork",
+			"--enable-file-upload",
+			"--enable-read-eta",
+			"--enable-color-style",
+			"--enable-scrollbar",
+			"--enable-included-msgs",
+			"--enable-externs",
+			"--with-zlib"
+		],
+		"unicode": [ "--with-screen=ncursesw" ],
+		"nls": [
+			"--$enable-nls"
+		],
+		"idn": [
+			"--$enable-idna"
+		],
+		"ipv6": [
+			"--$enable-ipv6"
+		],
+		"cjk": [
+			"--$enable-cjk"
+		],
+		"unicode": [
+			"--$enable-japanese-utf8"
+		],
+		"bzip2": [
+			"--$with-bzlib="
+		]
+	},
+	"use": [
+		"bzip2",
+		"cjk",
+		"gnutls",
+		"idn",
+		"ipv6",
+		"nls",
+		"ssl",
+		"unicode"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lynx"
+		],
+		"centos7": [ "lynx" ],
+		"gentoo": [ "www-client/lynx" ]
+	}
+}

@@ -1,0 +1,46 @@
+{
+	"name": "dev-util/cscope",
+	"homepage": "http://cscope.sourceforge.net/",
+	"versions": [
+		"15.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/cscope/files/cscope/",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*[a-z]+)"
+	},
+	"md5": {},
+	"subdir": "cscope-${VERSION}",
+	"urls": [
+		"sourceforge://cscope/cscope/${VERSION}/cscope-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"sys-libs/ncurses:0",
+		"sys-devel/flex",
+		"virtual/pkgconfig",
+		"virtual/yacc",
+		"emacs? virtual/emacs"
+	],
+	"configure": {
+		"gentoo": [
+			"--with-ncurses=$(hl_prefix)"
+		]
+	},
+	"use": [
+		"-gentoo",
+		"emacs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"cscope"
+		],
+		"centos7": [
+			"cscope"
+		],
+		"gentoo": [
+			"dev-util/cscope"
+		]
+	}
+}

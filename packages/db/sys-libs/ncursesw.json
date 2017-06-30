@@ -1,0 +1,30 @@
+{
+	"name": "sys-libs/ncursesw",
+	"homepage": "https://www.gnu.org/software/ncurses/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"6.0"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/pub/gnu/ncurses/",
+		"regexp": "ncurses-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "ncurses-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"configure": {
+		"": [ "--enable-widec", "--with-shared" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libncursesw5-dev" ],
+		"centos7": [ "ncurses", "ncurses-devel" ],
+		"gentoo": [ "sys-libs/ncursesw" ]
+	}
+}

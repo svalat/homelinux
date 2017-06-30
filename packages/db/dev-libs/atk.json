@@ -1,0 +1,43 @@
+{
+	"name": "dev-libs/atk",
+	"homepage": "https://wiki.gnome.org/Accessibility",
+	"inherit": "models/gnome2",
+	"versions": [ 
+		"2.18.0" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/mirror/gnome.org/sources/atk/cache.json",
+		"regexp": "atk-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "atk-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/mirror/gnome.org/sources/atk/$(echo $VERSION | cut -d '.' -f 1-2)/atk-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/glib",
+		"dev-util/gtk-doc",
+		"sys-devel/libtool",
+		"sys-devel/automake",
+		"sys-devel/autoconf",
+		"introspection? dev-libs/gobject-introspection",
+		"dev-lang/perl",
+		"virtual/pkgconfig",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"introspection": [ "--$enable-introspection" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "atk" ],
+		"centos7": [ "atk", "atk-devel" ],
+		"gentoo" : [ "dev-libs/atk" ]
+	},
+	"use": [
+		"+introspection",
+		"nls",
+		"test"
+	]
+}

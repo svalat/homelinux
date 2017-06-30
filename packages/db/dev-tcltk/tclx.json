@@ -1,0 +1,54 @@
+{
+	"name": "dev-tcltk/tclx",
+	"homepage": "http://tclx.sourceforge.net",
+	"versions": [
+		"8.4.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/tclx/files/TclX/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+)$"
+	},
+	"md5": {},
+	"subdir": "tclx*",
+	"urls": [
+		"sourceforge://tclx/TclX/${VERSION}/tclx${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-lang/tcl:0",
+		"tk? dev-lang/tk:0"
+	],
+	"configure": {
+		"tk": [
+			"--$enable-tk"
+		],
+		"threads": [
+			"--$enable-threads"
+		],
+		"": [
+			"--enable-shared",
+			"--with-tcl=$(hl prefix-of tcl)/lib"
+		]
+	},
+	"use": [
+		"tk",
+		"threads"
+	],
+	"steps": {
+		"extract": [
+			"hl_extract",
+			"hl_extract_other_pack dev-lang/tcl"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"tclx", "tclx-dev"
+		],
+		"centos7": [
+			"tclx", "tclx-devel"
+		],
+		"gentoo": [ "dev-tcltk/tclx" ]
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"name": "sys-apps/diffutils",
+	"homepage": "https://www.gnu.org/software/diffutils/",
+	"versions": [
+		"3.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.gnu.org/gnu/diffutils/",
+		"regexp": "diffutils-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "diffutils-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-arch/xz-utils",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"nls",
+		"static"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"diffutils"
+		],
+		"centos7": [ "diffutils" ],
+		"gentoo": [ "sys-apps/diffutils" ]
+	}
+}

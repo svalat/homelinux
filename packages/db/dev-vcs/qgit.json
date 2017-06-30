@@ -1,0 +1,36 @@
+{
+	"name": "dev-vcs/qgit",
+	"homepage": "http://libre.tibirna.org/projects/qgit/wiki/QGit",
+	"versions": [
+		"2.5"
+	],
+	"inherit": "models/qmake",
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "http://libre.tibirna.org/projects/qgit/files",
+		"regexp": "qgit-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "redivivus",
+	"urls": [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/qgit-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-qt/qt :4",
+		"dev-vcs/git"
+	],
+	"configure": {},
+	"use": [
+	],
+	"steps": {
+		"install": [ "run cp bin/qgit $PREFIX/bin" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"qgit"
+		],
+		"centos7": [ "qgit" ],
+		"gentoo": [ "dev-vcs/qgit" ]
+	}
+}

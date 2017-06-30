@@ -1,0 +1,44 @@
+{
+	"name": "app-vim/closetag",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=13",
+	"versions": [
+		"0.9.1"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=13",
+		"regexp": "closetag-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=4318"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O ${HL_TEMP}/closetag.vim"
+		],
+		"extract": [],
+		"install": [
+			"hl_vim_plugin_cp closetag.vim"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"closetag"
+		],
+		"centos7": [
+			"closetag"
+		],
+		"gentoo": [
+			"app-vim/closetag"
+		]
+	}
+}

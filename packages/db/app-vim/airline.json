@@ -1,0 +1,37 @@
+{
+	"name": "app-vim/airline",
+	"homepage": "https://github.com/vim-airline/vim-airline/",
+	"versions": [
+		"0.8"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://vim-airline/vim-airline",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "vim-airline-${VERSION}",
+	"urls": [
+		"github://vim-airline/vim-airline"
+	],
+	"deps": [
+		"app-editors/vim"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"airline"
+		],
+		"centos7": [
+			"airline"
+		],
+		"gentoo": [
+			"app-vim/airline"
+		]
+	}
+}

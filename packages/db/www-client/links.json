@@ -1,0 +1,106 @@
+{
+	"name": "www-client/links",
+	"homepage": "http://links.twibright.com/",
+	"versions": [
+		"2.9"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://links.twibright.com/download/",
+		"regexp": "links-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "links-${VERSION}",
+	"urls": [
+		"http://links.twibright.com/download/links-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"sys-libs/ncurses",
+		"virtual/pkgconfig",
+		"bzip2? app-arch/bzip2",
+		"directfb? media-libs/libpng :0",
+		"directfb? dev-libs/DirectFB",
+		"fbcon? media-libs/libpng :0",
+		"fbcon? virtual/os-headers",
+		"gpm? sys-libs/gpm",
+		"jpeg? virtual/jpeg :0",
+		"livecd? media-libs/libpng :0",
+		"livecd? sys-libs/gpm",
+		"livecd? virtual/jpeg:0",
+		"livecd? virtual/os-headers",
+		"lzma? app-arch/xz-utils",
+		"ssl? dev-libs/openssl :0",
+		"svga? media-libs/libpng :0",
+		"svga? media-libs/svgalib",
+		"tiff? media-libs/tiff :0",
+		"X? media-libs/libpng :0",
+		"X? x11-libs/libXext",
+		"zlib? sys-libs/zlib"
+	],
+	"configure": {
+		"ipv6": [
+			"--$with-ipv6"
+		],
+		"ssl": [
+			"--$with-ssl"
+		],
+		"zlib": [
+			"--$with-zlib"
+		],
+		"bzip2": [
+			"--$with-bzip2"
+		],
+		"lzma": [
+			"--$with-lzma"
+		],
+		"svga": [
+			"--$with-svgalib=$(hl_prefix media-libs/svgalib)"
+		],
+		"X": [
+			"--$with-x=$(hl_prefix x11-libs/libXext)"
+		],
+		"fbcon": [
+			"--$with-fb=$(hl_prefix media-libs/libpng)"
+		],
+		"directfb": [
+			"--$with-directfb"
+		],
+		"jpeg": [
+			"--$with-libjpeg=$(hl_prefix media-libs/jpeg)"
+		],
+		"tiff": [
+			"--$with-libtiff=$(hl_prefix media-libs/tiff)"
+		],
+		"": [
+			"--with-fb",
+			"--with-libjpeg",
+			"--enable-graphics"
+		]
+	},
+	"use": [
+		"bzip2",
+		"directfb",
+		"fbcon",
+		"gpm",
+		"ipv6",
+		"jpeg",
+		"livecd",
+		"lzma",
+		"ssl",
+		"suid",
+		"svga",
+		"tiff",
+		"unicode",
+		"X",
+		"zlib"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"links"
+		],
+		"centos7": [ "links" ],
+		"gentoo": [ "www-client/links" ]
+	}
+}

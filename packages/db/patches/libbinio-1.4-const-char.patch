@@ -1,0 +1,47 @@
+From e2c1dc224943f8f30bd2051194abdd5087818e54 Mon Sep 17 00:00:00 2001
+From: Sebastien Valat <sebastien.valat@gmail.com>
+Date: Mon, 12 Jun 2017 20:34:12 +0200
+Subject: [PATCH] patched
+
+---
+ src/binfile.cpp | 4 ++--
+ src/binwrap.cpp | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/binfile.cpp b/src/binfile.cpp
+index 446f899..72515b6 100644
+--- a/src/binfile.cpp
++++ b/src/binfile.cpp
+@@ -151,7 +151,7 @@ binofstream::~binofstream()
+ 
+ void binofstream::open(const char *filename, const Mode mode)
+ {
+-  char *modestr = "wb";
++  const char *modestr = "wb";
+ 
+   // Check if append mode is desired
+   if(mode & Append) modestr = "ab";
+@@ -209,7 +209,7 @@ binfstream::~binfstream()
+ 
+ void binfstream::open(const char *filename, const Mode mode)
+ {
+-  char	*modestr = "w+b";	// Create & at beginning
++  char modestr[] = "w+b";	// Create & at beginning
+   int	ferror = 0;
+ 
+   // Apply desired mode
+diff --git a/src/binwrap.cpp b/src/binwrap.cpp
+index 896389b..476184d 100644
+--- a/src/binwrap.cpp
++++ b/src/binwrap.cpp
+@@ -17,6 +17,7 @@
+  * Copyright (C) 2002, 2003 Simon Peter <dn.tlp@gmx.net>
+  */
+ 
++#include <cstdio>
+ #include "binwrap.h"
+ 
+ #if BINIO_ENABLE_IOSTREAM
+-- 
+2.13.0
+

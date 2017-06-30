@@ -1,0 +1,45 @@
+{
+	"name": "dev-libs/popt",
+	"homepage": "http://rpm5.org/",
+	"versions": [
+		"1.16"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://rpm5.org/files/popt/",
+		"regexp": "popt-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "popt-${VERSION}",
+	"urls": [
+		"http://rpm5.org/files/popt/popt-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"nls? sys-devel/gettext",
+		"nls? virtual/libintl-0-r1"
+	],
+	"configure": {
+		"": [
+			"--disable-dependency-tracking"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"nls",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libpopt-dev"
+		],
+		"centos7": [ "popt", "popt-devel" ],
+		"gentoo": [ "dev-libs/popt" ]
+	}
+}

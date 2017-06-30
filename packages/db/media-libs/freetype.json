@@ -1,0 +1,45 @@
+{
+	"name": "media-libs/freetype",
+	"homepage": "http://www.freetype.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.6.2" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/freetype/files/freetype2/",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "freetype-${VERSION}",
+	"urls" : [
+		"sourceforge://freetype/freetype2/${VERSION}/freetype-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"zlib? sys-libs/zlib",
+		"bzip2? app-arch/bzip2",
+		"png? media-libs/libpng",
+		"harfbuzz? media-libs/harfbuzz"
+	],
+	"use": [
+		"bzip2",
+		"zlib",
+		"png",
+		"harfbuzz"
+	],
+	"configure": {
+		"bzip2": [ "--with-bzip2=$yes" ],
+		"zlib": [ "--with-zlib=$yes" ],
+		"png": [ "--with-png=$yes" ],
+		"harfbuzz": [ "--with-harfbuzz=$yes" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libfreetype6","libfreetype6-dev" ],
+		"centos7": [ "freetype", "freetype-devel" ],
+		"gentoo": [ "media-libs/freetype" ]
+	},
+	"slots": {
+		"2": ">2.0"
+	}
+}

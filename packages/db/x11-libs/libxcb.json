@@ -1,0 +1,46 @@
+{
+	"name": "x11-libs/libxcb",
+	"homepage": "http://xcb.freedesktop.org/",
+	"versions": [
+		"1.11.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/xcb/",
+		"regexp": "libxcb-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libxcb-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/xcb/libxcb-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libpthread-stubs",
+		"x11-libs/libXau",
+		"x11-libs/libXdmcp",
+		"dev-libs/libxslt",
+		"x11-proto/xcb-proto"
+	],
+	"configure": {
+		"test": [
+			"--$enable-default-make-check"
+		],
+		"": [
+			"--disable-update-mimedb"
+		]
+	},
+	"use": [
+		"selinux",
+		"xkb",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxcb-dev"
+		],
+		"centos7": [ "libxcb", "libxcb-devel", "xcb-util" ],
+		"gentoo": [ "x11-libs/libxcb" ]
+	}
+}

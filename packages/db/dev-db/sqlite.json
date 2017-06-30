@@ -1,0 +1,83 @@
+{
+	"name": "dev-db/sqlite",
+	"homepage": "https://www.sqlite.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3090200" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://www.sqlite.org/download.html",
+		"regexp": "sqlite-autoconf-([0-9]+).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "sqlite-autoconf-${VERSION}",
+	"urls" : [
+		"http://www.sqlite.org/2016/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2017/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2018/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2019/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2020/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2021/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2022/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2023/sqlite-autoconf-${VERSION}.tar.gz",
+		"http://www.sqlite.org/2024/sqlite-autoconf-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "sqlite" ],
+		"centos7": [ "sqlite", "sqlite-devel" ],
+		"gentoo": [ "dev-db/sqlite" ]
+	},
+	"slots":{
+		"0": "<3000000",
+		"3": ">=3000000"
+	},
+	"use": [
+			"icu",
+			"readline",
+			"tcl",
+			"tools",
+			"doc",
+			"test",
+			"tools",
+			"gentoo",
+			"debug"
+	],
+	"vspecific": {
+		":3": {
+			"deps": [
+				"icu? dev-libs/icu :0",
+				"readline? sys-libs/readline :0",
+				"tcl? dev-lang/tcl :0",
+				"tools? dev-lang/tcl :0",
+				"doc? app-arch/unzip",
+				"tcl? app-arch/unzip",
+				"test? app-arch/unzip",
+				"test? dev-lang/tcl :0",
+				"tools? app-arch/unzip"
+			],
+			"configure": {
+				"+gentoo": [
+					"--enable-threadsafe",
+					"--enable-fts5",
+					"CXXFLAGS=-DSQLITE_ENABLE_API_ARMOR\\ -DSQLITE_ENABLE_COLUMN_METADATA\\ -DSQLITE_ENABLE_DBSTAT_VTAB\\ -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS\\ -DSQLITE_ENABLE_FTS4\\ -DSQLITE_ENABLE_JSON1\\ -DSQLITE_ENABLE_RBU\\ -DSQLITE_ENABLE_RTREE\\ -DSQLITE_ENABLE_STMT_SCANSTATUS\\ -DSQLITE_ENABLE_UNLOCK_NOTIFY\\ -DSQLITE_SOUNDEX"
+				],
+				"+readline": [ "--$enable-readline" ],
+				"+debug": [ "--$enable-debug" ]
+			},
+			"use" : [
+				"gentoo",
+				"icu",
+				"readline",
+				"tcl",
+				"doc",
+				"tools",
+				"test",
+				"debug"
+			]
+		}
+	}
+}

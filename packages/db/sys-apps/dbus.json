@@ -1,0 +1,91 @@
+{
+	"name": "sys-apps/dbus",
+	"homepage": "http://dbus.freedesktop.org/",
+	"versions": [
+		"1.8.20"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://dbus.freedesktop.org/releases/dbus/",
+		"regexp": "dbus-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "dbus-${VERSION}",
+	"urls": [
+		"http://dbus.freedesktop.org/releases/dbus/dbus-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/expat :2",
+		"app-text/xmlto",
+		"app-text/docbook-xml-dtd",
+		"virtual/pkgconfig",
+		"selinux? sys-libs/libselinux",
+		"selinux? sec-policy/selinux-dbus",
+		"systemd? sys-apps/systemd :0",
+		"X? x11-libs/libX11",
+		"X? x11-libs/libXt",
+		"doc? app-doc/doxygen",
+		"test? dev-libs/glib :2"
+	],
+	"configure": {
+		"": [
+			"--disable-asserts",
+			"--disable-checks",
+			"--disable-embedded-tests",
+			"--disable-modular-tests",
+			"--with-session-socket-dir=/tmp",
+			"--with-system-pid-file=/var/run/dbus.pid",
+			"--with-system-socket=/var/run/dbus/system_bus_socket",
+			"--with-dbus-user=messagebus",
+			"--disable-selinux",
+			"--disable-libaudit",
+			"--disable-systemd",
+			"--without-x",
+			"--disable-xml-docs",
+			"--disable-doxygen-docs"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"debug": [
+			"--$enable-verbose-mode",
+			"--$enable-stats"
+		],
+		"selinux": [
+			"--$enable-selinux",
+			"--$enable-libaudit"
+		],
+		"kernel_linux": [
+			"--$enable-inotify"
+		],
+		"kernel_FreeBSD": [
+			"--$enable-kqueue"
+		],
+		"systemd": [
+			"--$enable-systemd"
+		],
+		"X": [
+			"--$with-x="
+		]
+	},
+	"use": [
+		"debug",
+		"doc",
+		"selinux",
+		"static-libs",
+		"systemd",
+		"test",
+		"X",
+		"+kernel_linux",
+		"kernel_FreeBSD"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"dbus-dev"
+		], 
+		"centos7": [ "dbus-devel" ],
+		"gentoo": [ "sys-apps/dbus" ]
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"name": "app-vim/csscomplete",
+	"homepage": "https://github.com/othree/csscomplete.vim",
+	"versions": [
+		"1.0"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://othree/csscomplete.vim",
+		"regexp": "csscomplete-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "csscomplete.vim-${VERSION}",
+	"urls": [
+		"github://othree/csscomplete.vim"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		"app-editors/vim"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"csscomplete"
+		],
+		"centos7": [
+			"csscomplete"
+		],
+		"gentoo": [
+			"app-vim/csscomplete"
+		]
+	}
+}

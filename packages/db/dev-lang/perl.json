@@ -1,0 +1,45 @@
+{
+	"name": "dev-lang/perl",
+	"homepage": "https://www.perl.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"5.20.3" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.cpan.org/src/README.html",
+		"regexp": "^perl-([0-9]+\\.[0-9]*[02468]\\.[0-9]+).tar.gz$"
+	},
+	"md5" : {},
+	"subdir": "perl-${VERSION}",
+	"urls" : [
+		"http://www.cpan.org/src/5.0/perl-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"berkdb? sys-libs/db",
+		"gdbm? sys-libs/gdbm",
+		"gentoo? app-arch/bzip2",
+		"gentoo? sys-libs/zlib",
+		"gentoo? app-admin/perl-cleaner",
+		"gentoo? virtual/perl-File-Temp",
+		"gentoo? virtual/perl-Data-Dumper",
+		"gentoo? virtual/perl-Test-Harness"
+	],
+	"steps": {
+		"configure": [
+			"run_sh cd ${HL_TEMP}/${SUBDIR}",
+			"run sh Configure -de -Dprefix=${PREFIX} -Dusethreads"
+		]
+	},
+	"host": {
+		"default": true,
+		"debian8": [ "perl" ],
+		"centos7": [ "perl" ],
+		"gentoo": [ "dev-lang/perl" ]
+	},
+	"use": [	
+		"gentoo",
+		"berkdb",
+		"gdbm"
+	]
+}

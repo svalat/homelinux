@@ -1,0 +1,36 @@
+{
+	"name": "virtual/lapack",
+	"homepage": "",
+	"versions": [
+		"3.7"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "none",
+		"regexp": "lapack-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "lapack-${VERSION}",
+	"urls": [
+	],
+	"deps": [
+		"sci-libs/lapack-reference"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lapack"
+		],
+		"centos7": [
+			"lapack"
+		],
+		"gentoo": [
+			"virtual/lapack"
+		]
+	}
+}

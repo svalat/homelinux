@@ -1,0 +1,74 @@
+{
+	"name": "dev-cpp/eigen",
+	"homepage": "http://eigen.tuxfamily.org/",
+	"versions": [
+		"3.3.3"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://bitbucket.org/eigen/eigen/downloads/?tab=tags",
+		"regexp": "eigen-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "eigen-eigen-67e894c6cd8f",
+	"urls": [
+		"https://bitbucket.org/eigen/eigen/get/${VERSION}.tar.gz"
+	],
+	"deps": [
+		"doc? app-doc/doxygen[dot,latex]",
+		"test? dev-libs/gmp:0",
+		"test? dev-libs/mpfr:0",
+		"test? media-libs/freeglut",
+		"test? media-libs/glew",
+		"test? sci-libs/adolc[sparse]",
+		"test? sci-libs/cholmod",
+		"test? sci-libs/fftw:3.0",
+		"test? sci-libs/pastix",
+		"test? sci-libs/umfpack",
+		"test? sci-libs/scotch",
+		"test? sci-libs/spqr",
+		"test? sci-libs/superlu",
+		"test? dev-qt/qtcore:4",
+		"test? virtual/opengl",
+		"test? virtual/pkgconfig",
+		"test&cuda? dev-util/nvidia-cuda-toolkit"
+	],
+	"configure": {},
+	"use": [
+		"altivec",
+		"c++11",
+		"cuda",
+		"debug",
+		"doc",
+		"neon",
+		"openmp",
+		"test",
+		"cpu_flags_x86_avx",
+		"cpu_flags_x86_avx2",
+		"cpu_flags_x86_f16c",
+		"cpu_flags_x86_fma3",
+		"cpu_flags_x86_sse2",
+		"cpu_flags_x86_sse3",
+		"cpu_flags_x86_sse4_1",
+		"cpu_flags_x86_sse4_2",
+		"cpu_flags_x86_ssse3"
+	],
+	"vspecific": {
+		"=3.3.3": {
+			"subdir": "eigen-eigen-67e894c6cd8f"
+		}
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"eigen"
+		],
+		"centos7": [
+			"eigen"
+		],
+		"gentoo": [
+			"dev-cpp/eigen"
+		]
+	}
+}

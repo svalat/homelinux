@@ -1,0 +1,30 @@
+{
+	"name": "dev-libs/apr-util",
+	"homepage": "http://apr.apache.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.5.4" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://apr.apache.org/download.cgi?Preferred=http%3A%2F%2Fapache.crihan.fr%2Fdist%2F",
+		"regexp": "apr-util-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "apr-util-${VERSION}",
+	"urls" : [
+		"http://apache.crihan.fr/dist/apr/apr-util-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/apr"
+	],
+	"configure": {
+		"": [ "--with-apr=$(hl_prefix apr)" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "apr" ],
+		"centos7": [ "apr" ],
+		"gentoo": [ "dev-libs/apr-util" ]
+	}
+}

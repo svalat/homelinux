@@ -1,0 +1,27 @@
+{
+	"name": "sys-devel/gettext",
+	"homepage": "https://www.gnu.org/software/gettext/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.19.6"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/pub/gnu/gettext/",
+		"regexp": "gettext-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "gettext-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnu.org/pub/gnu/gettext/gettext-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "gettext" ],
+		"centos7": [ "gettext", "gettext-devel" ],
+		"gentoo": [ "sys-devel/gettext" ]
+	}
+}

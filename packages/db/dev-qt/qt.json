@@ -1,0 +1,225 @@
+{
+	"name": "dev-qt/qt",
+	"homepage": "https://www.qt.io/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"4.8.6" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": [ 
+			"http://download.qt.io/archive/qt/4.0/",
+			"http://download.qt.io/archive/qt/4.1/",
+			"http://download.qt.io/archive/qt/4.2/",
+			"http://download.qt.io/archive/qt/4.3/",
+			"http://download.qt.io/archive/qt/4.4/",
+			"http://download.qt.io/archive/qt/4.5/",
+			"http://download.qt.io/archive/qt/4.6/",
+			"http://download.qt.io/archive/qt/4.7/",
+			"http://download.qt.io/archive/qt/4.8/",
+			"http://download.qt.io/archive/qt/5.0/",
+			"http://download.qt.io/archive/qt/5.1/",
+			"http://download.qt.io/archive/qt/5.2/",
+			"http://download.qt.io/archive/qt/5.3/",
+			"http://download.qt.io/archive/qt/5.4/",
+			"http://download.qt.io/archive/qt/5.5/",
+			"http://download.qt.io/archive/qt/5.6/",
+			"http://download.qt.io/archive/qt/5.7/",
+			"http://download.qt.io/archive/qt/5.8/",
+			"http://download.qt.io/archive/qt/5.9/"
+		],
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
+	},
+	"md5" : {},
+	"subdir": "qt-everywhere-opensource-src-${VERSION}",
+	"urls" : [
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz",
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.gz",
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.xz",
+	],
+	"deps": [
+		"x11-libs/xcb-util",
+		"x11-libs/xcb-util-wm",
+		"x11-libs/xcb-util-image",
+		"x11-libs/xcb-util-keysyms",
+		"x11-libs/xcb-util-renderutil",
+		"x11-libs/xcb-util-cursor",
+		"x11-libs/xcb-util-errors",
+		"sqlite? dev-db/sqlite",
+		"sys-libs/zlib",
+		"media-libs/libpng",
+		"media-libs/jpeg",
+		"media-libs/fontconfig",
+		"media-libs/freetype",
+		"tiff? media-libs/tiff",
+		"mng? media-libs/libmng",
+		"ssl? dev-libs/openssl",
+		"icu? dev-libs/icu",
+		"cups? net-print/cups",
+		"iconv? virtual/libiconv",
+		"dbus? sys-apps/dbus",
+		"-aqua? x11-libs/libSM",
+		"-aqua? x11-libs/libICE",
+		"-aqua? x11-libs/libXext",
+		"xinerama? x11-libs/libXinerama",
+		"-aqua? x11-libs/libXcursor",
+		"-aqua? x11-libs/libXfixes",
+		"-aqua? x11-libs/libXrandr",
+		"-aqua? x11-libs/libXrender",
+		"-aqua? x11-libs/libXext",
+		"-aqua&xinput? x11-apps/xinput",
+		"xv? x11-libs/libXv",
+		"glib? dev-libs/glib :2",
+		"gtkstyle? x11-libs/cairo",
+		"gtkstyle? x11-libs/gtk+ :2.4",
+		"egl? media-libs/mesa[egl]",
+		"nas? media-libs/nas",
+		"opengl? x11-libs/libX11",
+		"opengl? x11-libs/libXrender",
+		"openvg? media-libs/mesa[egl,openvg]",
+		"phonon&-aqua? media-libs/gstreamer",
+		"phonon&-aqua? media-plugins/gst-plugins-meta"
+	],
+	"configure": {
+		"": [
+			"-opensource",
+			"-release",
+			"-confirm-license",
+			"-system-zlib",
+			"-system-libpng",
+			"-system-libjpeg",
+			"-fontconfig",
+			"-v"
+		],
+		"-examples": [ "-nomake examples" ],
+		"+mng": [ "-system-libmng" ],
+		"+tiff": [ "-system-libtiff" ],
+		"+ssl": [ "-openssl" ],
+		"+debug": [ "-debug" ],
+		"-debug": [ "-release" ],
+		"-static": [ "-shared" ],
+		"+static": [ "-static" ],
+		"-largefile": [ "-no-largefile" ],
+		"-exceptions": [ "-no-exceptions" ],
+		"-accessibility": [ "-no-accessibility" ],
+		"sqlite": [ "-system-sqlite" ],
+		"-qt3support": [ "-no-qt3support" ],
+		"-xmlpatterns": [ "-no-xmlpatterns" ],
+		"-multimedia": [ "-no-multimedia" ],
+		"-audio-backend": [ "-no-audio-backend" ],
+		"-phonon": [ "-no-phonon", "-no-phonon-backend" ],
+		"-webkit": [ "-no-webkit" ],
+		"webkit&debug": [ "-webkit-debug" ],
+		"-script": [ "-no-javascript", "-no-jit-script", "-no-scripttools" ],
+		"-nis": [ "-no-nis" ],
+		"-cups": [ "-no-cups" ],
+		"-iconv": [ "-no-iconv" ],
+		"-pch": [ "-no-pch" ],
+		"-dbus": [ "-no-dbus" ],
+		"-gtkstyle": [ "-no-gtkstyle" ],
+		"-gtkstyle": [ "-DQT_NO_STYLE_GTK" ],
+		"-nas": [ "-no-nas-sound" ],
+		"+nas": [ "-system-nas-sound" ],
+		"+egl": [ "-egl" ],
+		"-opengl": [ "-no-opengl" ],
+		"+opengl": [ "-opengl", "desktop" ],
+		"-openvg": [ "-no-openvg" ],
+		"-egl": [ "-no-openvg" ],
+		"-xv": [ "-no-xvideo" ],
+		"-aqua" : [ 
+			"-no-sm",
+			"-no-xshape",
+			"-no-xsync",
+			"-no-xcursor",
+			"-no-xfixes",
+			"-no-xrandr",
+			"-no-xrender", 
+			"-no-mitshm",
+			"-no-xkb" 
+		],
+		"-aqua&xinput": [ "-no-xinput" ],
+		"-xinerama": [ "-no-xinerama" ],
+		"-glib": [ "-no-glib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libqt4-dev" ],
+		"gentoo": [ "dev-qt/qt" ]
+	},
+	"use" : [
+		"FIXME",
+		"aqua",
+		"-debug",
+		"-static",
+		"largefile",
+		"exceptions",
+		"accessibility",
+		"sqlite",
+		"qt3support",
+		"xmlpatterns",
+		"multimedia",
+		"audio-backend",
+		"phonon",
+		"svg",
+		"webkit",
+		"nis",
+		"cups",
+		"iconv",
+		"pch",
+		"dbus",
+		"nas",
+		"egl",
+		"opengl",
+		"openvg",
+		"xinerama",
+		"glib",
+		"gtkstyle",
+		"script",
+		"-ssl",
+		"mng",
+		"tiff",
+		"xv",
+		"icu",
+		"xinput",
+		"-examples"
+	],
+	"slots": {
+        "~": "^([0-9]+).[0-9]+"
+	},
+	"steps": {
+		"configure": [
+			"run_sh cd $HL_PACKDIR",
+			"run ./configure -prefix $PREFIX $BUILD_OPTIONS"
+		],
+		"prepare": [
+			"export PATH=$HL_PREFIX/homelinux/compilers:$PATH"
+		]
+	},
+	"vspecific": {
+		":3": {
+			"host": {
+				"centos7": [ "qt3", "qt3-devel" ]
+			}
+		},
+		":4": {
+			"configure": {
+				"-svg": [ "-no-svg" ]
+			},
+			"steps": {
+				"postinstall": [
+					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
+				]
+			}, 
+			"host": {
+				"centos7": [ "qt", "qt-devel" ]
+			}
+		},
+		":5": {
+			"steps": {
+				"postinstall": [
+					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "media-libs/jpeg",
+	"homepage": "http://jpegclub.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"9a" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.ijg.org/files/",
+		"regexp": "jpegsrc.v([0-9a-z]+).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "jpeg-${VERSION}",
+	"urls" : [
+		"http://www.ijg.org/files/jpegsrc.v${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libjpeg-dev" ],
+		"centos7": [ "libjpeg-turbo", "libjpeg-turbo-devel" ],
+		"gentoo": [ "media-libs/jpeg" ]
+	}
+}

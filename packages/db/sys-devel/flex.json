@@ -1,0 +1,27 @@
+{
+	"name": "sys-devel/flex",
+	"homepage": "http://flex.sourceforge.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.5.39"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/flex/files/",
+		"regexp": "flex-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "flex-${VERSION}",
+	"urls" : [
+		"sourceforge://flex/flex-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-devel/bison"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "flex" ],
+		"centos7": [ "flex-devel" ],
+		"gentoo": [ "sys-devel/flex" ]
+	}
+}

@@ -1,0 +1,44 @@
+{
+	"name": "sci-libs/lapack-reference",
+	"homepage": "http://www.netlib.org/lapack/",
+	"versions": [
+		"3.7.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.netlib.org/lapack/",
+		"regexp": "lapack-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tgz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "lapack-${VERSION}",
+	"urls": [
+		"http://www.netlib.org/lapack/lapack-${VERSION}.tgz"
+	],
+	"deps": [
+		"gentoo? app-eselect/eselect-lapack",
+		"virtual/blas"
+	],
+	"steps": {
+	},
+	"configure": {
+		"": [
+			"-DBUILD_SHARED_LIBS=ON"
+		]
+	},
+	"use": [
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lapack"
+		],
+		"centos7": [
+			"lapack"
+		],
+		"gentoo": [
+			"sci-libs/lapack-reference"
+		]
+	}
+}

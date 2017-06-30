@@ -1,0 +1,32 @@
+{
+	"name": "sci-mathematics/fann",
+	"homepage": "http://leenissen.dk/fann/",
+	"versions": [
+		"2.2.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "github",
+		"url": "libfann/fann",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "fann-${VERSION}",
+	"urls": [
+		"github://libfann/fann"
+	],
+	"deps": [
+		"app-arch/unzip"
+	],
+	"configure": {},
+	"use": [
+		"examples"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"fann"
+		],
+		"gentoo": [ "sci-mathematics/fann" ]
+	}
+}

@@ -1,0 +1,101 @@
+{
+	"name": "dev-libs/glib",
+	"homepage": "http://www.gtk.org/",
+	"versions": [
+		"2.46.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/glib/cache.json",
+		"regexp": "^glib-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5": {},
+	"subdir": "glib-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/gnome/sources/glib/$(echo ${VERSION} | cut -d '.' -f 1,2)/glib-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"virtual/libiconv",
+		"virtual/libffi",
+		"sys-libs/zlib",
+		"app-text/docbook-xml-dtd",
+		"dev-libs/libxslt",
+		"sys-devel/gettext",
+		"TODO? dev-util/gtk-doc-am",
+		"selinux? sys-libs/libselinux",
+		"xattr? sys-apps/attr",
+		"fam? virtual/fam",
+		"utils? dev-util/gdbus-codegen",
+		"utils? dev-libs/elfutils",
+		"utils? dev-libs/libelf",
+		"systemtap? dev-util/systemtap",
+		"test? sys-devel/gdb",
+		"test? dev-util/gdbus-codegen",
+		"test? sys-apps/dbus",
+		"test? virtual/libiconv1",
+		"test? virtual/libffi",
+		"test? sys-libs/zlib",
+		"test&selinux? sys-libs/libselinux",
+		"test&xattr? sys-apps/attr",
+		"test&fam? virtual/fam",
+		"test&utils? dev-util/gdbus-codegen",
+		"test&utils? dev-libs/elfutils",
+		"test&utils? dev-libs/libelf"
+	],
+	"configure": {
+		"": [
+			"--with-threads=posix",
+			"--disable-compile-warnings",
+			"--enable-man",
+			"--with-pcre=internal",
+			"--enable-libmount=no",
+			"LDFLAGS=-L$PREFIX/lib",
+			"CFLAGS=-I$PREFIX/include"
+		],
+		"iconv": [
+			"--$with-libiconv"
+		],
+		"xattr": [
+			"--$enable-xattr"
+		],
+		"fam": [
+			"--$enable-fam"
+		],
+		"selinux": [
+			"--$enable-selinux"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"systemtap": [
+			"--$enable-dtrace",
+			"--$enable-systemtap"
+		]
+	},
+	"use": [
+		"dbus",
+		"fam",
+		"kernel_linux",
+		"+mime",
+		"selinux",
+		"static-libs",
+		"systemtap",
+		"test",
+		"utils",
+		"xattr",
+		"-TODO",
+		"+iconv"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"glib"
+		],
+		"centos7": [ "glib2", "glib2-devel" ],
+		"gentoo" : [ "dev-libs/glib" ]
+	},
+	"slots": {
+		"2": ">=2.0"
+	}
+}

@@ -1,0 +1,33 @@
+{
+	"name": "dev-libs/XML-LibXML",
+	"homepage": "http://search.cpan.org/dist/XML-LibXML/",
+	"inherit": "models/perl",
+	"versions": [ 
+		"2.0123" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/SHLOMIF/",
+		"regexp": "^XML-LibXML-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "XML-LibXML-${VERSION}",
+	"urls" : [
+		"http://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/XML-LibXML-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-perl/XML-SAX",
+		"dev-libs/libxml2",
+		"dev-perl/XML-NamespaceSupport"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libxml-libxml-perl" ],
+		"centos7": [ "perl-XML-LibXML" ],
+		"gentoo": [ "dev-libs/XML-LibXML" ]
+	},
+	"use": [
+	]
+}

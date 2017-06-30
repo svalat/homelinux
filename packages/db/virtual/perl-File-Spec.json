@@ -1,0 +1,37 @@
+{
+	"name": "virtual/perl-File-Spec",
+	"homepage": "",
+	"versions": [
+		"3.630.100"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "",
+		"regexp": ""
+	},
+	"md5": {},
+	"subdir": "perl-File-Spec-${VERSION}",
+	"urls": [
+		""
+	],
+	"deps": [
+		"dev-lang/perl"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"perl-File-Spec"
+		],
+		"centos7": [
+			"perl-File-Spec"
+		],
+		"gentoo": [
+			"virtual/perl-File-Spec"
+		]
+	}
+}

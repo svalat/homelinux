@@ -1,0 +1,27 @@
+{
+	"name": "sci-libs/root",
+	"homepage": "https://root.cern.ch/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"6.06.02" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://root.cern.ch/content/release-60414",
+		"regexp": "^root_v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).source.tar.gz$"
+	},
+	"md5" : {},
+	"subdir": "root-${VERSION}",
+	"urls" : [
+		"https://root.cern.ch/download/root_v${VERSION}.source.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libroot-core-dev" ],
+		"gentoo": [ "sci-physics/root" ]
+	}
+}

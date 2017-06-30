@@ -1,0 +1,35 @@
+{
+	"name": "dev-util/ccache",
+	"homepage": "https://ccache.samba.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.2.4" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://ccache.samba.org/",
+		"regexp": "^Version ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) has been released"
+	},
+	"md5" : {},
+	"subdir": "ccache-${VERSION}",
+	"urls" : [
+		"https://www.samba.org/ftp/ccache/ccache-${VERSION}.tar.gz"
+	],
+	"steps": {
+		"postinstall": [
+			"run mkdir -p $PREFIX/bin/ccache-links",
+			"run ln -sf $PREFIX/bin/ccache $PREFIX/bin/ccache-links/gcc",
+			"run ln -sf $PREFIX/bin/ccache $PREFIX/bin/ccache-links/g++",
+			"run ln -sf $PREFIX/bin/ccache $PREFIX/bin/ccache-links/cc",
+			"run ln -sf $PREFIX/bin/ccache $PREFIX/bin/ccache-links/c++"
+		]
+	},
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "ccache" ],
+		"centos7": false,
+		"gentoo": [ "dev-util/ccache" ]
+	}
+}

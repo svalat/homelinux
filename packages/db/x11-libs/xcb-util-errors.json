@@ -1,0 +1,40 @@
+{
+	"name": "x11-libs/xcb-util-errors",
+	"homepage": "https://xcb.freedesktop.org/",
+	"versions": [
+		"1.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/xcb/",
+		"regexp": "xcb-util-errors-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xcb-util-errors-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/xcb/xcb-util-errors-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-proto/xcb-proto",
+		"x11-libs/libxcb",
+		"x11-proto/xproto",
+		"gentoo? dev-util/gperf",
+		"test? dev-libs/check"
+	],
+	"configure": {},
+	"use": [
+		"gentoo",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xcb-util-errors", "xcb-util-errors-dev"
+		],
+		"centos7": [
+			"xcb-util-errors", "xcb-util-errors-devel"
+		],
+		"gentoo": [ "x11-libs/xcb-util-errors" ]
+	}
+}

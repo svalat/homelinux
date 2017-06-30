@@ -1,0 +1,37 @@
+{
+	"name": "app-arch/deb2targz",
+	"homepage": "http://www.miketaylor.org.uk/tech/deb/",
+	"inherit": "models/default",
+	"versions": [ 
+		"1"
+	],
+	"vfetcher": {
+		"mode": "none"
+	},
+	"md5" : {},
+	"subdir": "deb2targz-${VERSION}",
+	"urls" : [
+		"http://www.miketaylor.org.uk/tech/deb/deb2targz"
+	],
+	"deps": [
+		"dev-lang/perl"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "deb2targz" ],
+		"centos7": false,
+		"gentoo": [ "app-arch/deb2targz" ]
+	},
+	"use": [ 
+		"extra"
+	],
+	"steps": {
+		"extract": [ ],
+		"configure": [],
+		"build": [],
+		"patch": [],
+		"install": [ "run install -m a+x $DISTFILES/$ARCHIVE $PREFIX/bin" ]
+	}
+}

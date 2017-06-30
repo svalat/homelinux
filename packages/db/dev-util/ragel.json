@@ -1,0 +1,36 @@
+{
+	"name": "dev-util/ragel",
+	"homepage": "https://www.colm.net/open-source/ragel/",
+	"versions": [
+		"7.0.0.9"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.colm.net/files/ragel/",
+		"regexp": "ragel-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "ragel-${VERSION}",
+	"urls": [
+		"https://www.colm.net/files/ragel/ragel-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-util/colm"
+	],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ragel"
+		],
+		"centos7": [
+			"ragel"
+		],
+		"gentoo": [
+			"dev-util/ragel"
+		]
+	}
+}

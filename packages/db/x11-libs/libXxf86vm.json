@@ -1,0 +1,37 @@
+{
+	"name": "x11-lib/libXxf86vm",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.1.4"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXxf86vm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXxf86vm-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXxf86vm-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libXext",
+		"x11-proto/xf86vidmodeproto",
+		"x11-proto/xextproto",
+		"x11-proto/xproto"
+	],
+	"configure": {
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxxf86vm-dev"
+		],
+		"centos7": [ "libXxf86vm", "libXxf86vm-devel" ],
+		"gentoo": [ "x11-lib/libXxf86vm" ]
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "dev-libs/bohem-gc",
+	"homepage": "http://www.hboehm.info/gc/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"7.4.2" 
+	],
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
+		"regexp": "^gc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "gc-${VERSION}",
+	"urls" : [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/gc-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/libatomic_ops"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": [ "dev-libs/bohem-gc" ]
+	}
+}

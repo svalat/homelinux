@@ -1,0 +1,37 @@
+{
+	"name": "x11-proto/damageproto",
+	"homepage": "",
+	"versions": [
+		"1.2.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "damageproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "damageproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/damageproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-damage-dev"
+		],
+		"centos7": [
+			"libXdamage-devel"
+		],
+		"gentoo": [ "x11-proto/damageproto" ]
+	}
+}

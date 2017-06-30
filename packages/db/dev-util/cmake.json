@@ -1,0 +1,26 @@
+{
+	"name": "dev-util/cmake",
+	"homepage": "https://cmake.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.4.1" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://cmake.org/download/",
+		"regexp": "cmake-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)\\.tar\\.gz"
+	},
+	"md5" : {},
+	"subdir": "cmake-${VERSION}",
+	"urls" : [
+		"https://cmake.org/files/v$(echo $VERSION | cut -d '.' -f 1-2)/cmake-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "cmake" ],
+		"centos7": [ "cmake" ],
+		"gentoo": [ "dev-util/cmake" ]
+	}
+}

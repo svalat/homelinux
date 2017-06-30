@@ -1,0 +1,32 @@
+{
+	"name": "x11-proto/xineramaproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.2.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "xineramaproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xineramaproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/xineramaproto-${VERSION}.tar.bz2"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-xinerama-dev"
+		], 
+		"centos7": [ "libXinerama-devel" ],
+		"gentoo": [ "x11-proto/xineramaproto" ]
+	}
+}

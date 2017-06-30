@@ -1,0 +1,36 @@
+{
+	"name": "dev-libs/libbsd",
+	"homepage": "http://libbsd.freedesktop.org/wiki/",
+	"versions": [
+		"0.8.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://libbsd.freedesktop.org/releases/",
+		"regexp": "libbsd-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libbsd-${VERSION}",
+	"urls": [
+		"http://libbsd.freedesktop.org/releases/libbsd-${VERSION}.tar.gz",
+		"http://libbsd.freedesktop.org/releases/libbsd-${VERSION}.tar.xz"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libbsd-dev"
+		],
+		"centos7": false,
+		"gentoo": [ "dev-libs/libbsd" ]
+	}
+}

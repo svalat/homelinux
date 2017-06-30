@@ -1,0 +1,64 @@
+{
+	"name": "dev-lang/tk",
+	"homepage": "http://www.tcl.tk/",
+	"versions": [
+		"8.6.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/",
+		"regexp": "tk([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)-src.(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "tk-${VERSION}",
+	"urls": [
+		"ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk${VERSION}-src.tar.gz"
+	],
+	"deps": [
+		"-aqua? media-libs/fontconfig",
+		"-aqua? x11-libs/libX11",
+		"-aqua? x11-libs/libXt",
+		"-aqua&truetype? x11-libs/libXft",
+		"-aqua&xscreensaver? x11-libs/libXScrnSaver",
+		"~dev-lang/tcl:0",
+		"!aqua? ( x11-proto/xproto )"
+	],
+	"configure": {
+		"": [
+			"--with-tcl=/usr/"
+		],
+		"threads": [
+			"--$enable-threads"
+		],
+		"aqua": [
+			"--$enable-aqua"
+		],
+		"truetype": [
+			"--$enable-xft"
+		],
+		"xscreensaver": [
+			"--$enable-xss"
+		],
+		"debug": [
+			"--$enable-symbols"
+		]
+	},
+	"use": [
+		"debug",
+		"+threads",
+		"truetype",
+		"aqua",
+		"xscreensaver"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"tk", "tk-dev"
+		],
+		"centos7": [
+			"tk", "tk-devel"
+		],
+		"gentoo": [ "dev-lang/tk" ]
+	}
+}

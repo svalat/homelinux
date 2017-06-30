@@ -1,0 +1,37 @@
+{
+	"name": "app-vim/airline-themes",
+	"homepage": "https://github.com/vim-airline/vim-airline-themes",
+	"versions": [
+		"master"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://vim-airline/vim-airline-themes",
+		"regexp": "airline-themes-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "vim-airline-themes-${VERSION}",
+	"urls": [
+		"https://github.com/vim-airline/vim-airline-themes/archive/master.zip"
+	],
+	"deps": [
+		"app-vim/airline"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"airline-themes"
+		],
+		"centos7": [
+			"airline-themes"
+		],
+		"gentoo": [
+			"app-vim/airline-themes"
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "sys-devel/automake",
+	"homepage": "https://www.gnu.org/software/automake/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.12.2"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/automake/",
+		"regexp": "automake-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "automake-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnu.org/gnu/automake/automake-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-devel/autoconf",
+		"sys-apps/help2man"
+	],
+	"host": {
+		"default": true,
+		"debian8": [ "automake" ],
+		"centos7": [ "automake" ],
+		"gentoo": [ "sys-devel/automake" ]
+	}
+}

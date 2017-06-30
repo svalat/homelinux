@@ -1,0 +1,46 @@
+{
+	"name": "app-vim/cmdalias",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=746",
+	"versions": [
+		"3.0"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=746",
+		"regexp": "cmdalias-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=11356"
+	],
+	"deps": [
+		"app-arch/unzip"
+	],
+	"configure": {},
+	"use": [
+		
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O ${HL_TEMP}/cmdalias.vim"
+		],
+		"extract": [],
+		"install": [
+			"hl_vim_plugin_cp cmdalias.vim"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"cmdalias"
+		],
+		"centos7": [
+			"cmdalias"
+		],
+		"gentoo": [
+			"app-vim/cmdalias"
+		]
+	}
+}

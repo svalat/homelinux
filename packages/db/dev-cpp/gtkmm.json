@@ -1,0 +1,77 @@
+{
+	"name": "dev-cpp/gtkmm",
+	"homepage": "http://www.gtkmm.org",
+	"inherit": "models/gnome2",
+	"versions": [ 
+		"2.24.4" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/gtkmm/cache.json",
+		"regexp": "^gtkmm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "gtkmm-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/pub/gnome/sources/gtkmm/$(echo $VERSION | cut -d '.' -f 1-2)/gtkmm-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-cpp/pangomm",
+		"dev-cpp/atkmm",
+		"gentoo? dev-cpp/glibmm",
+		"gentoo? x11-libs/gdk-pixbuf",
+		"gentoo? dev-cpp/atkmm",
+		"gentoo? dev-cpp/cairomm",
+		"gentoo? dev-libs/libsigc++",
+		"gentoo? virtual/pkgconfig",
+		"doc? media-gfx/graphviz",
+		"doc? dev-libs/libxslt",
+		"doc? app-doc/doxygen"
+	],
+	"configure":{
+		"": [ "CXXFLAGS=-std=c++11" ],
+		"+gentoo": [ "--enable-api-atkmm" ],
+		"doc": [ "--$enable-documentation" ]
+	},
+	"vspecific":{
+		":2": {
+			"deps": [
+				"x11-libs/gtk+ :2"
+			],
+			"host": {
+				"centos7": [ "gtkmm24", "gtkmm24-devel" ]
+			}
+		},
+		":3": {
+			"deps": [
+				"x11-libs/gtk+ :3"
+			],
+			"use": [
+				"aqua",
+				"wayland",
+				"X"
+			],
+			"configure": {
+				"aqua": [ "--$enable-quartz-backend" ],
+				"wayland": [ "--$enable-wayland-backend" ],
+				"X": [ "--$enable-x11-backend" ]
+			},
+			"host": {
+				"centos7": [ "gtkmm30", "gtkmm30-devel" ]
+			}
+		}
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libgtkmm-2.4-dev" ],
+		"gentoo" : [ "dev-cpp/gtkmm" ]
+	},
+	"slots": {
+		"2": "<2.90",
+		"3": ">=2.90"
+	},
+	"use": [
+		"gentoo",
+		"doc"
+	]
+}

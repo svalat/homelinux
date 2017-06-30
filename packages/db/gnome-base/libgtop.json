@@ -1,0 +1,45 @@
+{
+	"name": "gnome-base/libgtop",
+	"homepage": "https://git.gnome.org/browse/libgtop",
+	"versions": [
+		"2.32.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://git.gnome.org/browse/libgtop",
+		"regexp": "libgtop-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libgtop-${VERSION}",
+	"urls": [
+		"https://git.gnome.org/browse/libgtop/snapshot/libgtop-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"TODO? dev-util/gtk-doc-am",
+		"dev-util/intltool",
+		"virtual/pkgconfig",
+		"introspection? dev-libs/gobject-introspection"
+	],
+	"configure": {
+		"": [
+			"--disable-static"
+		],
+		"introspection": [
+			"--$enable-introspection"
+		]
+	},
+	"use": [
+		"+introspection",
+		"-TODO"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libgtop2-dev"
+		],
+		"centos7": [ "libgtop2", "libgtop2-devel" ],
+		"gentoo": [ "gnome-base/libgtop" ]
+	}
+}

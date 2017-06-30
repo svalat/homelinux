@@ -1,0 +1,42 @@
+{
+	"name": "x11-libs/libXt",
+	"homepage": "https://www.x.org/wiki/",
+	"versions": [
+		"1.1.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.x.org/releases/X11R7.7/src/lib/",
+		"regexp": "libXt-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXt-${VERSION}",
+	"urls": [
+		"https://www.x.org/releases/X11R7.7/src/lib/libXt-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libSM",
+		"x11-libs/libICE",
+		"x11-proto/xproto",
+		"x11-proto/kbproto",
+		"test? dev-libs/glib"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libXt", "libXt-dev"
+		],
+		"centos7": [
+			"libXt", "libXt-devel"
+		],
+		"gentoo": [
+			"x11-libs/libXt"
+		]
+	}
+}

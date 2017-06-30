@@ -1,0 +1,38 @@
+{
+	"name": "sys-apps/ack",
+	"homepage": "http://betterthangrep.com/",
+	"versions": [
+		"2.18"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/PETDANCE/",
+		"regexp": "ack-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "ack-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/ack-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-perl/File-Next",
+		"test? dev-perl/IO-Tty"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ack"
+		],
+		"centos7": [
+			"ack"
+		],
+		"gentoo": [
+			"sys-apps/ack"
+		]
+	}
+}

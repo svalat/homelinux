@@ -1,0 +1,42 @@
+{
+	"name": "x11-libs/libXrender",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"0.9.9"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXrender-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXrender-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXrender-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-proto/renderproto",
+		"x11-proto/xproto"
+	],
+	"configure": {
+		"test": [
+			"--$enable-default-make-check"
+		],
+		"": [
+			"--disable-update-mimedb"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxrender-dev"
+		],
+		"centos7": [ "libXrender", "libXrender-devel" ],
+		"gentoo": [ "x11-libs/libXrender" ]
+	}
+}

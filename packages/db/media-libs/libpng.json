@@ -1,0 +1,34 @@
+{
+	"name": "media-libs/libpng",
+	"homepage": "http://www.libpng.org/pub/png/libpng.html",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.6.20" 
+	],
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/",
+		"regexp": "libpng-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "libpng-${VERSION}",
+	"urls" : [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/libpng-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"sys-libs/zlib"
+	],
+	"configure": {
+		"": [
+			"CFLAGS=-I$(hl prefix-of sys-libs/zlib)/include",
+			"LDFLAGS=-L$(hl prefix-of sys-libs/zlib)/lib",		
+			"--with-zlib-prefix=$(hl prefix-of sys-libs/zlib)"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libpng12-dev" ],
+		"centos7": [ "libpng", "libpng-devel" ],
+		"gentoo": [ "media-libs/libpng" ]
+	}
+}

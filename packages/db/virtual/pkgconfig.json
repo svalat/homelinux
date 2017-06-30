@@ -1,0 +1,27 @@
+{
+	"name": "virtual/pkgconfig",
+	"homepage": "NONE",
+	"inherit": "models/virtual",
+	"versions": [ 
+		"0.1" 
+	],
+	"vfetcher": {
+		"mode": "none",
+		"url": "none",
+		"regexp": "none"
+	},
+	"md5" : {},
+	"subdir": "none",
+	"urls" : [
+		"none"
+	],
+	"deps": [
+		"dev-util/pkgconfig"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	}
+}

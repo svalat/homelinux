@@ -1,0 +1,24 @@
+{
+	"name": "net-dns/libidn2",
+	"homepage": "https://www.gnu.org/software/libidn/#libidn2",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.10" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://alpha.gnu.org/gnu/libidn/",
+		"regexp": "libidn2-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "libidn2-${VERSION}",
+	"urls" : [
+		"ftp://alpha.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libidn2-0-dev" ],
+		"centos7": false,
+		"gentoo": [ "net-dns/libidn2" ]
+	}
+}

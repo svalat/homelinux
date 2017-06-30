@@ -1,0 +1,61 @@
+{
+	"name": "media-libs/lcms",
+	"homepage": "http://www.littlecms.com/",
+	"versions": [
+		"2.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/lcms/files/lcms/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "lcms2-${VERSION}",
+	"urls": [
+		"sourceforge://lcms/lcms/${VERSION}/lcms2-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"jpeg? virtual/jpeg",
+		"tiff? media-libs/tiff",
+		"zlib? sys-libs/zlib"
+	],
+	"configure": {
+		"": [
+			"--enable-shared"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"jpeg": [
+			"--$with-jpeg"
+		],
+		"tiff": [
+			"--$with-tiff"
+		],
+		"zlib": [
+			"--$with-zlib"
+		],
+		"threads": [
+			"--$with-threads"
+		]
+	},
+	"use": [
+		"doc",
+		"jpeg",
+		"static-libs",
+		"+threads",
+		"test",
+		"tiff",
+		"zlib"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"liblcms2-dev",
+			"liblcms2-utils"
+		],
+		"centos7": [ "lcms2", "lcms2-devel" ],
+		"gentoo": [ "media-libs/lcms" ]
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"name": "dev-util/intltool",
+	"homepage": "https://launchpad.net/intltool/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.51.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://launchpad.net/intltool/+download",
+		"regexp": "intltool-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)\\.tar\\.gz"
+	},
+	"md5" : {},
+	"subdir": "intltool-${VERSION}",
+	"urls" : [
+		"https://launchpad.net/intltool/trunk/${VERSION}/+download/intltool-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "intltool" ],
+		"centos7": [ "intltool" ],
+		"gentoo": [ "dev-util/intltool" ]
+	}
+}

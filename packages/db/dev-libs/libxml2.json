@@ -1,0 +1,77 @@
+{
+	"name": "dev-libs/libxml2",
+	"homepage": "http://www.xmlsoft.org/",
+	"versions": [
+		"2.9.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://xmlsoft.org/libxml2/",
+		"regexp": "libxml2-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libxml2-${VERSION}",
+	"urls": [
+		"ftp://xmlsoft.org/libxml2/libxml2-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-util/gtk-doc-am",
+		"virtual/pkgconfig",
+		"python? dev-lang/python:2",
+		"sys-libs/zlib",
+		"hppa? sys-devel/binutils",
+		"icu? dev-libs/icu",
+		"lzma? app-arch/xz-utils",
+		"readline? sys-libs/readline"
+	],
+	"configure": {
+		"": [
+			"--with-html-subdir=/html",
+			"--exec-prefix=$PREFIX"
+		],
+		"python": [
+			"--$with-python"
+		],
+		"debug": [
+			"--$with-run-debug="
+		],
+		"icu": [
+			"--$with-icu"
+		],
+		"lzma": [
+			"--$with-lzma"
+		],
+		"ipv6": [
+			"--$enable-ipv6"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"debug",
+		"examples",
+		"icu",
+		"ipv6",
+		"lzma",
+		"-python",
+		"readline",
+		"static-libs",
+		"test",
+		"hppa",
+		"python"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxml2"
+		],
+		"centos7": [
+			"libxml2"
+		],
+		"gentoo": [
+			"dev-libs/libxml2"
+		]
+	}
+}

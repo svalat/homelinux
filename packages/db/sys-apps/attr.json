@@ -1,0 +1,45 @@
+{
+	"name": "sys-apps/attr",
+	"homepage": "http://savannah.nongnu.org/projects/attr",
+	"versions": [
+		"2.4.47"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.savannah.gnu.org/releases/attr/",
+		"regexp": "attr-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "attr-${VERSION}",
+	"urls": [
+		"http://download.savannah.gnu.org/releases/attr/attr-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"nls? sys-devel/gettext",
+		"sys-devel/autoconf"
+	],
+	"configure": {
+		"nls": [
+			"--$enable-gettext"
+		],
+		"": [
+			"--enable-shared"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"nls",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"attr"
+		],
+		"centos7": [ "attr" ],
+		"gentoo": [ "sys-apps/attr" ]
+	}
+}

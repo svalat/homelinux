@@ -37,6 +37,7 @@ struct Config
 	void load(std::string path = "");
 	void load(Json::Value & config);
 	void parseArgs(int argc, const char ** argv);
+	void save(void);
 	//vars
 	/** Display debugging category at exit **/
 	bool showDebugCat;

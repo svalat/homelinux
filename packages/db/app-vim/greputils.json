@@ -1,0 +1,48 @@
+{
+	"name": "app-vim/greputils",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=1062",
+	"versions": [
+		"2.8"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=1062",
+		"regexp": "greputils-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"http://www.vim.org/scripts/download_script.php?src_id=4434"
+	],
+	"steps": {
+		"download": [
+			"run wget ${URLS} -O ${HL_TEMP}/greputils.vim"
+		],
+		"extract": [],
+		"install": [
+			"hl_vim_plugin_cp greputils.vim"
+		]
+	},
+	"deps": [
+		"app-vim/genutils",
+		"app-vim/multvals",
+		"app-vim/cmdalias"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"greputils"
+		],
+		"centos7": [
+			"greputils"
+		],
+		"gentoo": [
+			"app-vim/greputils"
+		]
+	}
+}

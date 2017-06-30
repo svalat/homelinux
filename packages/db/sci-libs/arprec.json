@@ -1,0 +1,58 @@
+{
+	"api": 1,
+	"name": "sci-libs/arprec",
+	"homepage": "http://crd-legacy.lbl.gov/~dhbailey/mpdist/",
+	"versions": [
+		"2.2.18"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://crd-legacy.lbl.gov/~dhbailey/mpdist/",
+		"regexp": "^arprec-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "arprec-${VERSION}",
+	"urls": [
+		"http://crd.lbl.gov/~dhbailey/mpdist/arprec-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"qd? sci-libs/qd[fortran]"
+	],
+	"configure": {
+		"": [
+			"--enable-shared"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"fortran": [
+			"--$enable-fortran"
+		],
+		"qd": [
+			"--$enable-qd"
+		],
+		"fma": [
+			"--$enable-fma"
+		]
+	},
+	"use": [
+		"fma",
+		"doc",
+		"fortran",
+		"qd",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"arprec"
+		],
+		"centos7": [
+			"arprec"
+		],
+		"gentoo": [
+			"sci-libs/arprec"
+		]
+	}
+}

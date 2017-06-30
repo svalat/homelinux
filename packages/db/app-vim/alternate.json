@@ -1,0 +1,40 @@
+{
+	"name": "app-vim/alternate",
+	"homepage": "https://github.com/vim-scripts/a.vim",
+	"versions": [
+		"2.18"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://vim-scripts/a.vim",
+		"regexp": "alternate-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "a.vim-${VERSION}",
+	"urls": [
+		"github://vim-scripts/a.vim"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"steps": {
+		"install": [
+			"hl_vim_plugin_cp plugin/a.vim"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"alternate"
+		],
+		"centos7": [
+			"alternate"
+		],
+		"gentoo": [
+			"app-vim/alternate"
+		]
+	}
+}

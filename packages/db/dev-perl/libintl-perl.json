@@ -1,0 +1,38 @@
+{
+	"name": "dev-perl/libintl-perl",
+	"homepage": "http://guido-flohr.net/projects/libintl-perl",
+	"versions": [
+		"1.26"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/GUIDO/",
+		"regexp": "libintl-perl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "libintl-perl-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/G/GU/GUIDO/libintl-perl-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"virtual/libintl",
+		"virtual/perl-ExtUtils-MakeMaker"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libintl-perl"
+		],
+		"centos7": [
+			"libintl-perl"
+		],
+		"gentoo": [
+			"dev-perl/libintl-perl"
+		]
+	}
+}

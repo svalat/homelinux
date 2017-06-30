@@ -1,0 +1,42 @@
+{
+	"name": "app-text/docbook-xsl-stylesheets",
+	"homepage": "http://wiki.docbook.org/DocBookXslStylesheets",
+	"versions": [
+		"1.79.1"
+	],
+	"inherit": "models/default",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/docbook/files/docbook-xsl/",
+		"regexp": "docbook-xsl-stylesheets-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "docbook-xsl-${VERSION}",
+	"urls": [
+		"sourceforge://docbook/docbook-xsl/${VERSION}/docbook-xsl-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-text/build-docbook-catalog"
+	],
+	"configure": {},
+	"use": [
+	],
+	"steps": {
+		"configure": [
+			"run mkdir -p ${PREFIX}/share/docbook-xsl/",
+			"run cp -r -v * ${PREFIX}/share/docbook-xsl/"
+		],
+		"build": [],
+		"postinstall": [
+			"run xmlcatalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"
+		]
+	},
+	"host": {
+		"default": true,
+		"debian8": [
+			"docbook-xsl"
+		],
+		"centos7": [ "docbook-style-xsl" ],
+		"gentoo" : [ "app-text/docbook-xsl-stylesheets" ]
+	}
+}

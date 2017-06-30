@@ -1,0 +1,34 @@
+{
+	"name": "x11-proto/xextproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"7.3.0"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "xextproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xextproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/xextproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"": [
+			"--without-fop"
+		]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-xext-dev"
+		], 
+		"centos7": [ "libXext-devel" ],
+		"gentoo": [ "x11-proto/xextproto" ]
+	}
+}

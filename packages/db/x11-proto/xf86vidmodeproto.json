@@ -1,0 +1,30 @@
+{
+	"name": "x11-proto/xf86vidmodeproto",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"2.3.1"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/proto/",
+		"regexp": "xf86vidmodeproto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xf86vidmodeproto-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/proto/xf86vidmodeproto-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"x11proto-xf86vidmode-dev"
+		],
+		"gentoo": [ "x11-proto/xf86vidmodeproto" ]
+	}
+}

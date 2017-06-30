@@ -1,0 +1,74 @@
+{
+	"name": "app-arch/dpkg",
+	"homepage": "http://packages.qa.debian.org/dpkg",
+	"inherit": "models/autotools-autogen",
+	"versions": [ 
+		"1.18.3"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.acc.umu.se/debian/pool/main/d/dpkg/",
+		"regexp": "^dpkg_([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(xz|bz|gz)$"
+	},
+	"md5" : {},
+	"subdir": "dpkg-${VERSION}",
+	"urls" : [
+		"http://ftp.acc.umu.se/debian/pool/main/d/dpkg/dpkg_${VERSION}.tar.bz2",
+		"http://ftp.acc.umu.se/debian/pool/main/d/dpkg/dpkg_${VERSION}.tar.xz",
+		"http://ftp.acc.umu.se/debian/pool/main/d/dpkg/dpkg_${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-devel/gettext",
+		"sys-devel/flex",
+		"sys-libs/ncurses",
+		"virtual/pkgconfig",
+		"gentoo? dev-lang/perl",
+		"gentoo? dev-perl/TimeDate",
+		"gentoo? app-arch/xz-utils",
+		"bzip2? app-arch/bzip2",
+		"lzma? app-arch/xz-utils",
+		"selinux? sys-libs/libselinux",
+		"zlib? sys-libs/zlib-1.1.4",
+		"nls? app-text/po4a",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"LDFLAGS=-L$PREFIX/lib"
+		],
+		"+gentoo": [
+			"--disable-compiler-warnings",
+			"--disable-dselect",
+			"--disable-silent-rules",
+			"--disable-start-stop-daemon",
+			"--localstatedir=${PREFIX}/var"
+		],
+		"nls": [ "--$enable-nls" ],
+		"unicode": [ "--$enable-unicode" ],
+		"update-alternatives": [ "--$enable-update-alternatives" ],
+		"bzip2": [ "--$with-bz2" ],
+		"lzma": [ "--$with-liblzma" ],
+		"selinux": [ "--$with-selinux" ],
+		"zlib": [ "--$with-zlib" ]
+		
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "dpkg" ],
+		"centos7": false,
+		"gentoo": [ "app-arch/dpkg" ]
+	},
+	"use": [ 
+		"gentoo",
+		"bzip2",
+		"lzma",
+		"selinux",
+		"zlib",
+		"nls",
+		"unicode",
+		"update-alternatives"
+	],
+	"steps": {
+		
+	}
+}

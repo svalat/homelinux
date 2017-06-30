@@ -1,0 +1,38 @@
+{
+	"name": "dev-util/cgdb",
+	"homepage": "http://cgdb.github.io/",
+	"versions": [
+		"0.6.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cgdb.me/files/",
+		"regexp": "cgdb-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "cgdb-${VERSION}",
+	"urls": [
+		"http://cgdb.me/files/cgdb-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/ncurses",
+		"sys-libs/readline",
+		"sys-devel/gdb"
+	],
+	"configure": {
+		"": [
+			"--with-ncurses=$(hl_prefix sys-libs/ncurses)"
+		]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"cgdb"
+		],
+		"centos7": [ "cgdb" ],
+		"gentoo": [ "dev-util/cgdb" ]
+	}
+}

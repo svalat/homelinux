@@ -1,0 +1,57 @@
+{
+	"name": "app-text/aspell",
+	"homepage": "http://aspell.net/",
+	"versions": [
+		"0.60.6"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/aspell",
+		"regexp": "aspell-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "aspell-${VERSION}",
+	"urls": [
+		"ftp://ftp.gnu.org/gnu/aspell/aspell-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/ncursesw",
+		"virtual/pkgconfig",
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"nls": [
+			"--$enable-nls"
+		],
+		"unicode": [
+			"--$enable-unicode"
+		],
+		"": [
+			"--disable-static",
+			"--sysconfdir=/etc/aspell"
+		]
+	},
+	"use": [
+		"nls",
+		"unicode"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"aspell"
+		],
+		"centos7": [
+			"aspell"
+		],
+		"gentoo": [
+			"app-text/aspell"
+		]
+	},
+	"vspecific": {
+		"=0.60.6": {
+			"patch": ["aspell-0.60.6-insert.patch"]
+		}
+	}
+}

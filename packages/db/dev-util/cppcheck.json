@@ -1,0 +1,41 @@
+{
+	"name": "dev-util/cppcheck",
+	"homepage": "http://cppcheck.sourceforge.net",
+	"versions": [
+		"1.70"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://sourceforge.net/projects/cppcheck/files/cppcheck/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "cppcheck-${VERSION}",
+	"urls": [
+		"sourceforge://cppcheck/cppcheck/${VERSION}/cppcheck-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"htmlreport? dev-python/pygments",
+		"dev-libs/tinyxml2",
+		"app-text/docbook-xsl-stylesheets",
+		"dev-libs/libxslt",
+		"virtual/pkgconfig",
+		"qt4? dev-qt/qtgui:4",
+		"pcre? dev-libs/libpcre"
+	],
+	"configure": {},
+	"use": [
+		"htmlreport",
+		"pcre",
+		"qt4"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"cppcheck"
+		],
+		"centos7": [ "cppcheck" ],
+		"gentoo": [ "dev-util/cppcheck" ]
+	}
+}

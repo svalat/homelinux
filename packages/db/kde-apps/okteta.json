@@ -1,0 +1,33 @@
+{
+	"name": "kde-apps/okteta",
+	"homepage": "https://www.kde.org/applications/utilities/okteta\nhttps://utils.kde.org/projects/okteta",
+	"versions": [
+		"4.14.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/4.14.3/src/",
+		"regexp": "okteta-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "okteta-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/4.14.3/src/okteta-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"app-crypt/qca[#qt4] :2"
+	],
+	"configure": {},
+	"use": [
+		"debug"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"okteta"
+		],
+		"centos7": [ "oketa" ],
+		"gentoo": [ "kde-apps/okteta" ]
+	}
+}

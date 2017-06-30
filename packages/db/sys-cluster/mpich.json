@@ -1,0 +1,28 @@
+{
+	"name": "sys-cluster/mpich",
+	"homepage": "http://www.mpich.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.2" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.mpich.org/static/downloads/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*)/$"
+	},
+	"md5" : {},
+	"subdir": "mpich-${VERSION}",
+	"urls" : [
+		"http://www.mpich.org/static/downloads/${VERSION}/mpich-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"module": "mpich-${VERSION}",
+	"host": {
+		"default": false,
+		"debian8": [ "mpich" ],
+		"centos7": [ "mpich", "mpich-devel" ],
+		"gentoo": [ "sys-cluster/mpich" ]
+	}
+}

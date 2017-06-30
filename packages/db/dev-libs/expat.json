@@ -1,0 +1,29 @@
+{
+	"name": "dev-libs/expat",
+	"homepage": "http://expat.sourceforge.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.1.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/expat/files/expat/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "expat-${VERSION}",
+	"urls" : [
+		"sourceforge://expat/expat/${VERSION}/expat-${VERSION}.tar.bz2"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libexpat1-dev" ],
+		"centos7": [ "expat", "expat-devel" ],
+		"gentoo": [ "dev-libs/expat" ]
+	},
+	"slots": {
+		"~": "^([0-9]+)"
+	}
+}

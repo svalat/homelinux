@@ -1,0 +1,36 @@
+{
+	"name": "dev-lang/python",
+	"homepage": "https://www.python.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.5.1" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.python.org/downloads/",
+		"regexp": "^Python ([0-9]+\\.[0-9]+\\.[0-9]+)$"
+	},
+	"md5" : {},
+	"subdir": "Python-${VERSION}",
+	"urls" : [
+		"http://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz",
+		"http://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz"
+	],
+	"deps": [
+	],
+	"host": {
+		"default": true,
+		"debian8": [ "python", "python-dev" ],
+		"centos7": [ "python", "python-devel" ],
+		"gentoo": [ "dev-lang/python" ]
+	},
+	"use": [	
+	],
+	"configure": {
+		"": [ "--enable-shared" ]
+	},
+	"slots": {
+	    "3": ">=3.0",
+	    "2": ">=2.0 <3.0"
+	}
+}

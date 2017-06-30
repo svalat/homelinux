@@ -1,0 +1,36 @@
+{
+	"name": "x11-libs/libXfixes",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"5.0.1"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXfixes-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXfixes-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXfixes-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-proto/fixesproto",
+		"x11-proto/xproto",
+		"x11-proto/xextproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxfixes-dev"
+		],
+		"centos7": [ "libXfixes", "libXfixes-devel" ],
+		"gentoo": [ "x11-libs/libXfixes" ]
+	}
+}

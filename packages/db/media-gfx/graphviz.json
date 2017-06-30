@@ -1,0 +1,178 @@
+{
+	"name": "media-gfx/graphviz",
+	"homepage": "http://www.graphviz.org/ https://github.com/ellson/graphviz",
+	"versions": [
+		"2.40.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.graphviz.org/pub/graphviz/stable/SOURCES/",
+		"regexp": "^graphviz-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "graphviz-${VERSION}",
+	"urls": [
+		"http://www.graphviz.org/pub/graphviz/stable/SOURCES/graphviz-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/zlib",
+		"dev-libs/expat",
+		"dev-libs/glib:2",
+		"gentoo? dev-libs/libltdl:0",
+		"media-libs/fontconfig",
+		"media-libs/freetype",
+		"media-libs/gd:[fontconfig,jpeg,png,truetype,zlib]",
+		"media-libs/libpng:0",
+		"!sci-chemistry/cluster",
+		"virtual/jpeg:0",
+		"virtual/libiconv",
+		"cairo? x11-libs/pango",
+		"cairo? x11-libs/cairo[svg]",
+		"devil? media-libs/devil[png,jpeg]",
+		"gtk? x11-libs/gtk+:2",
+		"gts? sci-libs/gts ",
+		"lasi? media-libs/lasi ",
+		"pdf? app-text/poppler ",
+		"perl? dev-lang/perl",
+		"qt4? dev-qt/qt:4",
+		"ruby? dev-lang/ruby",
+		"svg? gnome-base/librsvg",
+		"tcl? dev-lang/tcl",
+		"virtual/pkgconfig",
+		"sys-devel/flex",
+		"sys-devel/libtool",
+		"guile? dev-scheme/guile dev-lang/swig",
+		"java? virtual/jdk dev-lang/swig",
+		"nls? sys-devel/gettext",
+		"perl? dev-lang/swig",
+		"python? dev-lang/swig",
+		"ruby? dev-lang/swig",
+		"tcl? dev-lang/swig",
+		"X? x11-libs/libXaw",
+		"X? x11-libs/libX11",
+		"X? x11-libs/libXmu",
+		"X? x11-libs/libXpm",
+		"X? x11-libs/libXt",
+		"postscript? app-text/ghostscript-gpl"
+	],
+	"configure": {
+		"": [
+			"--enable-ltdl",
+			"--disable-silent-rules",
+			"--without-included-ltdl",
+			"--disable-ltdl-install",
+			"--with-digcola",
+			"--with-fontconfig",
+			"--with-freetype2",
+			"--with-ipsepcola",
+			"--with-libgd",
+			"--with-sfdp",
+			"--without-ming",
+			"--with-cgraph",
+			"--without-glitz",
+			"--without-ipsepcola",
+			"--without-smyrna",
+			"--without-visio",
+			"--disable-io",
+			"--disable-lua",
+			"--disable-ocaml",
+			"--disable-php",
+			"--disable-r",
+			"--disable-sharp"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"cairo": [
+			"--$with-pangocairo="
+		],
+		"devil": [
+			"--$with-devil"
+		],
+		"gtk": [
+			"--$with-gtk"
+		],
+		"gts": [
+			"--$with-gts"
+		],
+		"qt4": [
+			"--$with-qt="
+		],
+		"lasi": [
+			"--$with-lasi"
+		],
+		"pdf": [
+			"--$with-poppler="
+		],
+		"postscript": [
+			"--$with-ghostscript="
+		],
+		"svg": [
+			"--$with-rsvg="
+		],
+		"X": [
+			"--$with-x=",
+			"--$with-xaw=",
+			"--$with-lefty="
+		],
+		"gdk-pixbuf": [
+			"--$enable-gdk-pixbuf"
+		],
+		"guile": [
+			"--$enable-guile"
+		],
+		"java": [
+			"--$enable-java"
+		],
+		"perl": [
+			"--$enable-perl"
+		],
+		"python": [
+			"--$enable-python"
+		],
+		"ruby": [
+			"--$enable-ruby"
+		],
+		"tcl": [
+			"--$enable-tcl"
+		]
+	},
+	"use": [
+		"gentoo",
+		"+cairo",
+		"devil",
+		"doc",
+		"examples",
+		"gdk-pixbuf",
+		"gtk",
+		"gts",
+		"guile",
+		"java",
+		"lasi",
+		"nls",
+		"pdf",
+		"perl",
+		"postscript",
+		"python",
+		"qt4",
+		"ruby",
+		"svg",
+		"static-libs",
+		"tcl",
+		"X",
+		"elibc_FreeBSD"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"graphviz"
+		],
+		"centos7": [
+			"graphviz"
+		],
+		"gentoo": [
+			"media-gfx/graphviz"
+		]
+	}
+}

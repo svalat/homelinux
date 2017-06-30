@@ -1,0 +1,60 @@
+{
+	"name": "sys-cluster/modules",
+	"homepage": "http://moduless.sourceforge.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"3.2.10" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/modules/files/Modules/",
+		"regexp": "modules-([0-9]+\\.[0-9]+\\.[0-9]+)"
+	},
+	"md5" : {},
+	"subdir": "modules-${VERSION}",
+	"urls" : [
+		"sourceforge://modules/Modules/modules-${VERSION}/modules-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-lang/tcl",
+		"tclx? dev-tcltk/tclx"
+	],
+	"configure": {
+		"": [ 
+				"--with-tcl=$(hl prefix-of tcl)/lib",
+				"--with-tcl-lib=$(hl prefix-of tcl)/lib",
+				"--with-tcl-inc=$(hl prefix-of tcl)/include",
+				"--with-tcl-ver=$(source $(hl prefix-of tcl)/lib/tclConfig.sh && echo $TCL_VERSION)"
+			],
+		"X": [
+				"--$with-x"
+		],
+		"-tclx":[
+				"--without-tclx",
+				"--with-tclx-ver=8.4"
+		],
+		"+tclx": [
+			"--with-tclx=$(hl prefix-of tcl)/lib",
+			"--with-tclx-lib=$(hl prefix-of tcl)/lib",
+			"--with-tclx-inc=$(hl prefix-of tcl)/include",
+			"--with-tclx-ver=$(source $(hl prefix-of tcl)/lib/tclxConfig.sh && echo $TCLX_VERSION)"
+		],
+		"+X": [
+			"--with-tclx=$(hl prefix-of tcl)/lib"
+		]
+	},
+	"patch": [ "modules-tcl86.patch" ],
+	"steps": {
+		"postinstall": [ "ln -s ${PREFIX}/Modules/${VERSION} ${PREFIX}/Modules/current" ]
+	},
+	"use": [
+		"-X",
+		"-tclx"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": [ "environment-modules" ],
+		"gentoo": [ "sys-cluster/modules" ]
+	}
+}

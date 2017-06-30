@@ -1,0 +1,50 @@
+{
+	"name": "media-libs/harfbuzz",
+	"homepage": "http://www.freedesktop.org/wiki/Software/HarfBuzz",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.0.6" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.freedesktop.org/software/harfbuzz/release/",
+		"regexp": "harfbuzz-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
+	},
+	"md5" : {},
+	"subdir": "harfbuzz-${VERSION}",
+	"urls" : [
+		"http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/glib",
+		"media-libs/freetype",
+		"dev-util/ragel"
+	],
+	"configure": {
+		"" : [ 
+			"--without-coretext", 
+			"--without-uniscribe",  
+			"--with-glib=yes", 
+			"--with-freetype=yes",
+			"GLIB_CFLAGS=$(pkg-config --cflags glib-2.0 | sed -e 's/ -I/\\\\ -I/g')",
+			"GLIB_LIBS=$(pkg-config --libs glib-2.0 | sed -e 's/ -l/\\\\ -l/g')",
+			"FREETYPE_CFLAGS=$(pkg-config --cflags freetype2 | sed -e 's/ -I/\\\\ -I/g')",
+			"FREETYPE_LIBS=$(pkg-config --libs freetype2 | sed -e 's/ -l/\\\\ -l/g')"
+		]
+	},
+	"steps": {
+		"configure": [ "hl_configure_autotools_autogen" ]
+	},
+	"patch": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libharfbuzz-dev" ],
+		"centos7": [ "harfbuzz", "harfbuzz-devel" ],
+		"gentoo": [ "media-libs/harfbuzz" ]
+	},
+	"use": [
+		"+glib",
+		"+truetype"
+	]
+}

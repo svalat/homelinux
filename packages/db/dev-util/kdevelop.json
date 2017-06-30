@@ -1,0 +1,64 @@
+{
+	"name": "dev-util/kdevelop",
+	"homepage": "",
+	"versions": [
+		"4.7.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://download.kde.org/stable/kdevelop/",
+		"regexp": "kdevelop-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "kdevelop-${VERSION}",
+	"urls": [
+		"http://download.kde.org/stable/kdevelop/$VERSION/src/kdevelop-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/qjson",
+		"dev-qt/qt[webkit] :4",
+		"kde-base/kde-baseapps",
+		"kde-apps/kde-runtime",
+		"gdbui? kde-base/kde-workspace",
+		"okteta? kde-apps/okteta",
+		"qthelp? dev-qt/qt :4",
+		"cxx? sys-devel/gdb[python]"
+	],
+	"configure": {
+		"cmake": [
+			"-DBUILD_CMAKE=$ON",
+			"-DBUILD_cmakebuilder=$ON"
+		],
+		"cxx": [
+			"-DBUILD_cpp=$ON"
+		],
+		"gdbui": [
+			"-DWITH_KDE4Workspace=$ON"
+		],
+		"okteta": [
+			"-DWITH_LibKasten=$ON",
+			"-DWITH_LibOkteta=$ON",
+			"-DWITH_LibOktetaKasten=$ON"
+		],
+		"qthelp": [
+			"-DBUILD_QTHELP=$ON"
+		]
+	},
+	"use": [
+		"+cmake",
+		"+cxx",
+		"debug",
+		"+gdbui",
+		"okteta",
+		"qthelp"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"kdevelop"
+		],
+		"centos7": [ "kdevelop" ],
+		"gentoo": [ "dev-util/kdevelop" ]
+	}
+}

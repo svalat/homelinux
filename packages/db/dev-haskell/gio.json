@@ -1,0 +1,39 @@
+{
+	"name": "dev-haskell/gio",
+	"homepage": "http://projects.haskell.org/gtk2hs/",
+	"versions": [
+		"0.13.1.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://projects.haskell.org/gtk2hs/",
+		"regexp": "gio-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "gio-${VERSION}",
+	"urls": [
+		"http://projects.haskell.org/gtk2hs/gio-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-haskell/glib",
+		"dev-haskell/mtl",
+		"dev-lang/ghc",
+		"dev-libs/glib",
+		"dev-haskell/cabal",
+		"dev-haskell/gtk2hs-buildtools:0",
+		"virtual/pkgconfig"
+	],
+	"configure": {},
+	"use": [
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gio"
+		],
+		"centos7": false,
+		"gentoo": [ "dev-haskell/gio" ]
+	}
+}

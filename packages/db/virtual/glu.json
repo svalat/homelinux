@@ -1,0 +1,38 @@
+{
+	"api": 1,
+	"name": "virtual/glu",
+	"homepage": "",
+	"versions": [
+		"9.0"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http",
+		"url": "XXXXXXX",
+		"regexp": "^glu-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+	},
+	"md5": {},
+	"subdir": "glu-${VERSION}",
+	"urls": [
+		"XXXXXX/glu-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"media-libs/glu"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"glu"
+		],
+		"centos7": [
+			"glu"
+		],
+		"gentoo": [
+			"virtual/glu"
+		]
+	}
+}

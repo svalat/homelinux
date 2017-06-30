@@ -1,0 +1,36 @@
+{
+	"name": "app-arch/pbzip2",
+	"homepage": "http://compression.ca/pbzip2/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.1.13"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://launchpad.net/pbzip2/+announcements",
+		"regexp": "^pbzip2 ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) released"
+	},
+	"md5" : {},
+	"subdir": "pbzip2-${VERSION}",
+	"urls" : [
+		"https://launchpad.net/pbzip2/$(echo ${VERSION} | cut -d '.' -f 1-2)/${VERSION}/+download/pbzip2-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"app-arch/bzip2"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "pbzip2" ],
+		"centos7": [ "pbzip2" ],
+		"gentoo": [ "app-arch/pbzip2" ]
+	},
+	"use": [ 
+	],
+	"steps": {
+		"configure": [],
+		"build": [],
+		"install": [ "run make PREFIX=$PREFIX CXX=g++\\\\ -L$PREFIX/lib install" ]
+	}
+}

@@ -1,0 +1,56 @@
+{
+	"name": "sci-libs/arpack",
+	"homepage": "https://github.com/opencollab/arpack-ng",
+	"versions": [
+		"3.5.0"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://opencollab/arpack-ng",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"steps": {	
+		"prepare": [
+			"run libtoolize"
+		]
+	},
+	"md5": {},
+	"subdir": "arpack-ng-${VERSION}",
+	"urls": [
+		"github://opencollab/arpack-ng"
+	],
+	"deps": [
+		"virtual/blas",
+		"virtual/lapack",
+		"virtual/pkgconfig",
+		"mpi? virtual/mpi[fortran]"
+	],
+	"configure": {
+		"": [
+			"--with-blas=$(hl prefix-of lapack)/lib/libblas.a",
+			"--with-lapack=$(hl prefix-of lapack)/lib64/liblapack.so"
+		],
+		"mpi": [
+			"--$enable-mpi"
+		]
+	},
+	"use": [
+		"doc",
+		"examples",
+		"mpi",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"arpack"
+		],
+		"centos7": [
+			"arpack"
+		],
+		"gentoo": [
+			"sci-libs/arpack"
+		]
+	}
+}

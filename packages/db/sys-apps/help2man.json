@@ -1,0 +1,45 @@
+{
+	"name": "sys-apps/help2man",
+	"homepage": "https://www.gnu.org/software/help2man/",
+	"versions": [
+		"1.47.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://ftp.igh.cnrs.fr/pub/gnu/help2man/",
+		"regexp": "help2man-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "help2man-${VERSION}",
+	"urls": [
+		"http://ftp.igh.cnrs.fr/pub/gnu/help2man/help2man-${VERSION}.tar.gz",
+		"http://ftp.igh.cnrs.fr/pub/gnu/help2man/help2man-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-lang/perl",
+		"nls? dev-perl/Locale-gettext"
+	],
+	"configure": {
+		"": [
+		],
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"nls"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"help2man"
+		],
+		"centos7": [
+			"help2man"
+		],
+		"gentoo": [
+			"sys-apps/help2man"
+		]
+	}
+}

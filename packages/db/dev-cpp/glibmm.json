@@ -1,0 +1,40 @@
+{
+	"name": "dev-cpp/glibmm",
+	"homepage": "http://www.gtkmm.org",
+	"inherit": "models/gnome2",
+	"versions": [ 
+		"2.47.3" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/glibmm/cache.json",
+		"regexp": "^glibmm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
+	},
+	"md5" : {},
+	"subdir": "glibmm-${VERSION}",
+	"urls" : [
+		"http://ftp.gnome.org/pub/gnome/sources/glibmm/$(echo $VERSION | cut -d '.' -f 1-2)/glibmm-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/libsigc++",
+		"dev-libs/glib",
+		"gentoo? virtual/pkgconfig",
+		"doc? app-doc/doxygen"
+	],
+	"configure": {
+		"debug": [ "--$enable-debug-refcounting" ],
+		"doc": [ "--$enable-documentation" ],
+		"+gentoo": [ "--enable-deprecated-api" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libglibmm-2.4-dev" ],
+		"centos7": [ "glibmm24", "glibmm24-devel" ],
+		"gentoo" : [ "dev-cpp/glibmm" ]
+	},
+	"use": [
+		"gentoo",
+		"doc",
+		"debug"
+	]
+}

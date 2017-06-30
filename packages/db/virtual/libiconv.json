@@ -1,0 +1,30 @@
+{
+	"name": "virtual/libiconv",
+	"homepage": "",
+	"versions": [
+		"0"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "none",
+		"url": "XXXXXXX",
+		"regexp": "libiconv-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libiconv-${VERSION}",
+	"deps": [
+		"dev-libs/libiconv"
+	],
+	"urls" : [
+		"none"
+	],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	}
+}

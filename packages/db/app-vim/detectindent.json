@@ -1,0 +1,36 @@
+{
+	"name": "app-vim/detectindent",
+	"homepage": "https://github.com/ciaranm/detectindent",
+	"versions": [
+		"master"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "none",
+		"regexp": "detectindent-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "detectindent-${VERSION}",
+	"urls": [
+		"https://github.com/ciaranm/detectindent/archive/master.zip"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"detectindent"
+		],
+		"centos7": [
+			"detectindent"
+		],
+		"gentoo": [
+			"app-vim/detectindent"
+		]
+	}
+}

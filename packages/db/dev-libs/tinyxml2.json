@@ -1,0 +1,39 @@
+{
+	"name": "dev-libs/tinyxml2",
+	"homepage": "http://www.grinninglizard.com/tinyxml2/",
+	"versions": [
+		"2.2.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://leethomason/tinyxml2",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "tinyxml2-${VERSION}",
+	"urls": [
+		"github://leethomason/tinyxml2"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"-DBUILD_STATIC_LIBS=$ON"
+		],
+		"test": [
+			"-DBUILD_TEST=$ON"
+		]
+	},
+	"use": [
+		"static-libs",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"tinyxml2"
+		],
+		"centos7": false,
+		"gentoo": [ "dev-libs/tinyxml2" ]
+	}
+}

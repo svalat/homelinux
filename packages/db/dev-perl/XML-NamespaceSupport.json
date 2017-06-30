@@ -1,0 +1,30 @@
+{
+	"name": "dev-libs/XML-NamespaceSupport",
+	"homepage": "http://search.cpan.org/dist/XML-NamespaceSuppor/",
+	"inherit": "models/perl",
+	"versions": [ 
+		"1.11" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://cpansearch.perl.org/src/PERIGRIN/",
+		"regexp": "^XML-NamespaceSupport-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "XML-NamespaceSupport-${VERSION}",
+	"urls" : [
+		"http://search.cpan.org/CPAN/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libxml-namespacesupport-perl" ],
+		"centos7": [ "perl-XML-NamespaceSupport" ],
+		"gentoo": [ "dev-libs/XML-NamespaceSupport" ]
+	},
+	"use": [
+	]
+}

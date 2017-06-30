@@ -1,0 +1,29 @@
+{
+	"name": "dev-util/itstool",
+	"homepage": "http://itstool.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.0.2" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://itstool.org/download",
+		"regexp": "itstool ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "itstool-$VERSION",
+	"urls" : [
+		"http://files.itstool.org/itstool/itstool-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libxml2[python]"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "itstool" ],
+		"centos7": [ "itstool" ],
+		"gentoo": [ "dev-util/itstool" ]
+	}
+}

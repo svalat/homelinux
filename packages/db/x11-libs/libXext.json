@@ -1,0 +1,35 @@
+{
+	"name": "x11-lib/libXext",
+	"homepage": "http://xorg.freedesktop.org/",
+	"versions": [
+		"1.3.3"
+	],
+	"inherit": "models/xorg-2",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/lib/",
+		"regexp": "libXext-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libXext-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/lib/libXext-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-proto/xextproto"
+	],
+	"configure": {
+		"": [ "--without-fop" ]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libxext-dev"
+		],
+		"centos7": [ "libXext", "libXext-devel" ],
+		"gentoo": [ "x11-lib/libXext" ]
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"name": "x11-libs/xcb-util-keysyms",
+	"homepage": "https://xcb.freedesktop.org/",
+	"versions": [
+		"0.4.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/xcb/",
+		"regexp": "xcb-util-keysyms-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xcb-util-keysyms-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/xcb/xcb-util-keysyms-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libxcb",
+		"x11-proto/xproto",
+		"gentoo? dev-util/gperf",
+		"test? dev-libs/check"
+	],
+	"configure": {},
+	"use": [
+		"gentoo",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xcb-util-keysyms", "xcb-util-keysyms-dev"
+		],
+		"centos7": [
+			"xcb-util-keysyms", "xcb-util-keysyms-devel"
+		],
+		"gentoo": [ "x11-libs/xcb-util-keysyms" ]
+	}
+}

@@ -1,0 +1,140 @@
+{
+	"name": "media-libs/libgphoto2",
+	"homepage": "http://www.gphoto.org/",
+	"versions": [
+		"2.5.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/gphoto/files/libgphoto/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "libgphoto2-${VERSION}",
+	"urls": [
+		"sourceforge://gphoto/libgphoto/${VERSION}/libgphoto2-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"sys-devel/libtool",
+		"cameras_ax203? media-libs/gd",
+		"cameras_st2205? media-libs/gd",
+		"exif? media-libs/libexif",
+		"gd? media-libs/gd[jpeg,]",
+		"jpeg? virtual/jpeg:0",
+		"serial? dev-libs/lockdev",
+		"doc? app-doc/doxygen"
+	],
+	"configure": {
+		"": [
+			"--disable-docs",
+			"--disable-gp2ddb",
+			"--with-libusb=no",
+			"--with-libusb-1.0=auto",
+			"--disable-ttylock",
+			"--with-camlibs=all",
+			"--with-doc-dir=${PREFIX}/usr/share/doc/",
+			"--with-html-dir=${PREFIX}/usr/share/doc//html",
+			"--with-hotplug-doc-dir=${PREFIX}/usr/share/doc//hotplug",
+			"--with-rpmbuild=${PREFIX}/usr/bin/true",
+			"udevscriptdir=${PREFIX}/usr/lib/udev"
+		],
+		"nls": [
+			"--$enable-nls"
+		],
+		"exif": [
+			"--$with-libexif=auto"
+		],
+		"gd": [
+			"--$with-gd"
+		],
+		"jpeg": [
+			"--$with-jpeg"
+		],
+		"serial": [
+			"--$enable-serial",
+			"--$enable-lockdev"
+		]
+	},
+	"use": [
+		"doc",
+		"examples",
+		"exif",
+		"gd",
+		"jpeg",
+		"nls",
+		"serial",
+		"cameras_adc65",
+		"cameras_agfa_cl20",
+		"cameras_aox",
+		"cameras_ax203",
+		"cameras_barbie",
+		"cameras_canon",
+		"cameras_casio_qv",
+		"cameras_clicksmart310",
+		"cameras_digigr8",
+		"cameras_digita",
+		"cameras_dimagev",
+		"cameras_dimera3500",
+		"cameras_directory",
+		"cameras_enigma13",
+		"cameras_fuji",
+		"cameras_gsmart300",
+		"cameras_hp215",
+		"cameras_iclick",
+		"cameras_jamcam",
+		"cameras_jd11",
+		"cameras_jl2005a",
+		"cameras_jl2005c",
+		"cameras_kodak_dc120",
+		"cameras_kodak_dc210",
+		"cameras_kodak_dc240",
+		"cameras_kodak_dc3200",
+		"cameras_kodak_ez200",
+		"cameras_konica",
+		"cameras_konica_qm150",
+		"cameras_largan",
+		"cameras_lg_gsm",
+		"cameras_mars",
+		"cameras_mustek",
+		"cameras_panasonic_coolshot",
+		"cameras_panasonic_l859",
+		"cameras_panasonic_dc1000",
+		"cameras_panasonic_dc1580",
+		"cameras_pccam300",
+		"cameras_pccam600",
+		"cameras_pentax",
+		"cameras_polaroid_pdc320",
+		"cameras_polaroid_pdc640",
+		"cameras_polaroid_pdc700",
+		"cameras_ptp2",
+		"cameras_ricoh",
+		"cameras_ricoh_g3",
+		"cameras_samsung",
+		"cameras_sierra",
+		"cameras_sipix_blink2",
+		"cameras_sipix_web2",
+		"cameras_smal",
+		"cameras_sonix",
+		"cameras_sony_dscf1",
+		"cameras_sony_dscf55",
+		"cameras_soundvision",
+		"cameras_spca50x",
+		"cameras_sq905",
+		"cameras_st2205",
+		"cameras_stv0674",
+		"cameras_stv0680",
+		"cameras_sx330z",
+		"cameras_toshiba_pdrm11",
+		"cameras_topfield",
+		"cameras_tp6801"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libgphoto2"
+		], 
+		"centos7": [ "libgphoto2", "libgphoto2-devel" ],
+		"gentoo": [ "media-libs/libgphoto2" ]
+	}
+}

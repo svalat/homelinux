@@ -1,0 +1,31 @@
+{
+	"name": "dev-vcs/subversion",
+	"homepage": "https://subversion.apache.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.9.3" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://archive.apache.org/dist/subversion/",
+		"regexp": "subversion-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "subversion-${VERSION}",
+	"urls" : [
+		"http://archive.apache.org/dist/subversion/subversion-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/apr-util"
+	],
+	"configure": {
+		"": [ "--disable-mod-activation" ],
+		"-sqlite": [ "--with-sqlite=$(hl_prefix dev-libs/sqlite)" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "subversion" ],
+		"centos7": [ "subversion" ],
+		"gentoo": [ "dev-vcs/subversion" ]
+	}
+}

@@ -1,0 +1,43 @@
+{
+	"name": "app-arch/lzma",
+	"homepage": "http://www.7-zip.org/sdk.html",
+	"versions": [
+		"16.02"
+	],
+	"inherit": "models/default",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.7-zip.org/sdk.html",
+		"regexp": "lzma-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "",
+	"urls": [
+		"http://www.7-zip.org/a/lzma1602.7z"
+	],
+	"deps": [ "p7zip" ],
+	"configure": {},
+	"use": [
+		"doc"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lzma"
+		],
+		"centos7": [
+			"lzma"
+		],
+		"gentoo": [ "app-arch/lzma" ]
+	},
+	"steps": {
+		"configure":[],
+		"build": [
+			"run_sh cd CPP/7zip/Bundles/LzmaCon",
+			"run make -f makefile.gcc"
+		],
+		"install": [
+			"run cp lzma $PREFIX/bin/lzmacon"
+		]
+	}
+}

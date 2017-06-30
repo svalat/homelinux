@@ -1,0 +1,34 @@
+{
+	"name": "media-libs/glew",
+	"homepage": "http://glew.sourceforge.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.13.0" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://sourceforge.net/projects/glew/files/glew/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5" : {},
+	"subdir": "glew-${VERSION}",
+	"urls" : [
+		"sourceforge://glew/glew/${VERSION}/glew-${VERSION}.tgz"
+	],
+	"deps": [
+	],
+	"configure": {
+		
+	},
+	"steps": {
+		"configure": [ "" ],
+		"build" : [ "run make GLEW_PREFIX=$PREFIX GLEW_DEST=$PREFIX LIBDIR=$PREFIX/lib" ],
+		"install" : [ "run make install GLEW_PREFIX=$PREFIX GLEW_DEST=$PREFIX LIBDIR=$PREFIX/lib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "glew-utils" ],
+		"centos7": [ "glew", "glew-devel" ],
+		"gentoo": [ "media-libs/glew" ]
+	}
+}

@@ -1,0 +1,69 @@
+{
+	"name": "sys-devel/clang",
+	"homepage": "http://llvm.org/",
+	"versions": [
+		"4.0.0"
+	],
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://releases.llvm.org/",
+		"regexp": "clang-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "cfe-${VERSION}.src",
+	"urls": [
+		"http://releases.llvm.org/${VERSION}/cfe-${VERSION}.src.tar.xz"
+	],
+	"deps": [
+		"sys-apps/modules",
+		"static-analyzer? dev-lang/perl",
+		"static-analyzer&z3? sci-mathematics/z3",
+		"xml? dev-libs/libxml2",
+		"xml? virtual/pkgconfig",
+		"doc? dev-python/sphinx",
+		"test? dev-python/lit"
+	],
+	"configure": {
+		"": [
+
+		]
+	},
+	"slots": {
+		"~": "^([0-9]+.[0-9]+).[0-9]+"
+	},
+	"steps": {
+		"prepare": [
+			"run_sh module add clang-${SLOT}"
+		]
+	},
+	"module": "clang-${SLOT}",
+	"vspecific": {
+		":4.0": {
+			"deps": [
+				"sys-devel/llvm:4.0"
+			]
+		}
+	},
+	"use": [
+		"debug",
+		"doc",
+		"multitarget",
+		"+static-analyzer",
+		"test",
+		"xml",
+		"z3"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"clang"
+		],
+		"centos7": [
+			"clang"
+		],
+		"gentoo": [
+			"sys-devel/clang"
+		]
+	}
+}

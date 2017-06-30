@@ -1,0 +1,49 @@
+{
+	"name": "sci-libs/blas-reference",
+	"homepage": "http://www.netlib.org/blas/",
+	"versions": [
+		"3.7.0"
+	],
+	"inherit": "models/default",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.netlib.org/blas/",
+		"regexp": "blas-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tgz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "BLAS-${VERSION}",
+	"urls": [
+		"http://www.netlib.org/blas/blas-3.7.0.tgz"
+	],
+	"deps": [
+		"gentoo? app-eselect/eselect-blas"
+	],
+	"configure": {
+		"": [
+		]
+	},
+	"steps": {
+		"configure": [],
+		"install": [
+			"run cp blas_LINUX.a $PREFIX/lib/libblas.a"
+		],
+		"build": [
+			"run make OPTS=-fPIC"
+		]
+	},
+	"use": [
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"blas"
+		],
+		"centos7": [
+			"blas"
+		],
+		"gentoo": [
+			"sci-libs/blas-reference"
+		]
+	}
+}

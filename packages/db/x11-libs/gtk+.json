@@ -1,0 +1,126 @@
+{
+	"name": "x11-libs/gtk+",
+	"homepage": "http://www.gtk+.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.24.29" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/gtk+/cache.json",
+		"regexp": "gtk\\+-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
+	},
+	"md5" : {},
+	"subdir": "gtk+-$VERSION",
+	"urls" : [
+		"http://ftp.gnome.org/pub/GNOME/sources/gtk+/$(echo $VERSION | cut -d '.' -f 1-2)/gtk+-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/atk[#introspection]",
+		"dev-libs/glib :2",
+		"media-libs/fontconfig",
+		"x11-libs/cairo:[#aqua,svg]",
+		"x11-libs/gdk-pixbuf[#introspection] :2",
+		"x11-libs/pango[introspection]",
+		"x11-misc/shared-mime-info",
+		"dev-libs/gobject-introspection",
+		"TODO? dev-util/gtk-doc-am",
+		"sys-devel/gettext",
+		"virtual/pkgconfig",
+		"cups? net-print/cups",
+		"introspection? dev-libs/gobject-introspection",
+		"media-libs/libepoxy",
+		"-aqua? x11-libs/cairo[X]",
+		"-aqua? x11-libs/gdk-pixbuf[X] :2",
+		"-aqua? x11-libs/libXrender",
+		"-aqua? x11-libs/libX11",
+		"-aqua? x11-libs/libXi",
+		"-aqua? x11-libs/libXext",
+		"-aqua? x11-libs/libXrandr",
+		"-aqua? x11-libs/libXcursor",
+		"-aqua? x11-libs/libXfixes",
+		"-aqua? x11-libs/libXcomposite",
+		"-aqua? x11-libs/libXdamage",
+		"-aqua? x11-proto/xextproto",
+		"-aqua? x11-proto/xproto",
+		"-aqua? x11-proto/inputproto",
+		"-aqua? x11-proto/damageproto",
+		"-aqua&xinerama? x11-libs/libXinerama",
+		"-aqua&xinerama? x11-proto/xineramaproto",
+		"test? x11-themes/hicolor-icon-theme",
+		"test? media-fonts/font-misc-misc",
+		"test? media-fonts/font-cursor-misc",
+		"test? dev-libs/atk[#introspection]",
+		"test? dev-libs/glib :2",
+		"test? media-libs/fontconfig",
+		"test? x11-libs/cairo:[#aqua,svg]",
+		"test? x11-libs/gdk-pixbuf:2[#introspection]",
+		"test? x11-libs/pango[#introspection]",
+		"test? x11-misc/shared-mime-info",
+		"test? dev-util/gtk-update-icon-cache-2",
+		"test&cups? net-print/cups",
+		"test&introspection? dev-libs/gobject-introspection",
+		"test&-aqua? x11-libs/cairo[X]",
+		"test&-aqua? x11-libs/gdk-pixbuf[X] :2",
+		"test&-aqua? x11-libs/libXrender",
+		"test&-aqua? x11-libs/libX11",
+		"test&-aqua? x11-libs/libXi",
+		"test&-aqua? x11-libs/libXext",
+		"test&-aqua? x11-libs/libXrandr",
+		"test&-aqua? x11-libs/libXcursor",
+		"test&-aqua? x11-libs/libXfixes",
+		"test&-aqua? x11-libs/libXcomposite",
+		"test&-aqua? x11-libs/libXdamage",
+		"test&-aqua&xinerama? x11-libs/libXinerama"
+	],
+	"configure": {
+		"+aqua": [
+				"--with-gdktarget=quartz"
+		],
+		"-aqua": [
+				"--with-gdktarget=x11",
+				"--with-xinput"
+		],
+		"cups": [
+				"--$enable-cups"
+		],
+		"xinerama": [
+				"--$enable-xinerama"
+		],
+		"": [
+				"--disable-papi"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libgtk+2.4-dev" ], 
+		"centos7": [ "gtk2", "gtk2-devel" ],
+		"gentoo": [ "x11-libs/gtk+" ]
+	},
+	"slots": {
+		"2": "<2.90",
+		"3": ">=3.0"
+	},
+	"use": [
+		"-aqua",
+		"cups",
+		"examples",
+		"+introspection",
+		"test",
+		"vim-syntax",
+		"xinerama",
+		"-TODO"
+	],
+	"vspecific": {
+		":3": {
+			"deps": [
+				"app-accessibility/at-spi2-atk"
+			],
+			"host": {
+				"default": false,
+				"debian8": [ "libgtk+3.0-dev" ], 
+				"centos7": [ "gtk3", "gtk3-devel" ]
+			}
+		}
+	}
+}

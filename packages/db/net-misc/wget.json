@@ -1,0 +1,28 @@
+{
+	"name": "net-misc/wget",
+	"homepage": "https://www.gnu.org/software/wget/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.17.1"
+	],
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/wget/",
+		"regexp": "wget-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "wget-${VERSION}",
+	"urls" : [
+		"ftp://ftp.gnu.org/gnu/wget/wget-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-util/pkgconfig",
+		"net-libs/gnutls"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "wget" ],
+		"centos7": [ "wget" ],
+		"gentoo": [ "net-misc/wget" ]
+	}
+}

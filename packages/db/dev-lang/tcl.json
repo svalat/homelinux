@@ -1,0 +1,33 @@
+{
+	"name": "dev-lang/tcl",
+	"homepage": "http://www.tcl.tk/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"8.6.4" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "http://sourceforge.net/projects/tcl/files/Tcl/",
+		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+)$"
+	},
+	"md5" : {},
+	"subdir": "tcl${VERSION}/unix",
+	"urls" : [
+		"sourceforge://tcl/Tcl/${VERSION}/tcl${VERSION}-src.tar.gz"
+	],
+	"deps": [
+		"gentoo? sys-libs/zlib"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "tcl8.6", "tcl8.6-dev" ],
+		"centos7": [ "tcl", "tcl-devel" ],
+		"gentoo": [ "dev-lang/tcl" ]
+	},
+	"configure": {
+		"+debug": [ "--$enable-symbols" ],
+		"+threads": [ "--$enable-threads" ]
+	},
+	"use": [ "-gentoo", "-debug", "-threads" ],
+	"gentooUse": [ "+threads" ]
+}

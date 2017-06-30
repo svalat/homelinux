@@ -1,0 +1,40 @@
+{
+	"name": "app-admin/stow",
+	"homepage": "https://www.gnu.org/software/stow/",
+	"versions": [
+		"2.2.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "http://ftp.gnu.org/gnu/stow/",
+		"regexp": "stow-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "stow-${VERSION}",
+	"urls": [
+		"http://ftp.gnu.org/gnu/stow/stow-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-lang/perl",
+		"test? virtual/perl-Test-Harness",
+		"test? dev-perl/Test-Output"
+	],
+	"configure": {
+	},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"stow"
+		],
+		"centos7": [
+			"stow"
+		],
+		"gentoo": [
+			"app-admin/stow"
+		]
+	}
+}

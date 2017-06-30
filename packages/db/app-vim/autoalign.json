@@ -1,0 +1,39 @@
+{
+	"name": "app-vim/autoalign",
+	"homepage": "http://www.vim.org/scripts/script.php?script_id=884",
+	"versions": [
+		"14"
+	],
+	"inherit": "models/vim",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://www.vim.org/scripts/script.php?script_id=884",
+		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+	},
+	"md5": {},
+	"subdir": "autoalign-${VERSION}",
+	"urls": [
+		"http://dev.gentoo.org/~chutzpah/vim/autoalign-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"app-arch/xz-utils",
+		"app-vim/align",
+		"app-vim/cecutil"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"autoalign"
+		],
+		"centos7": [
+			"autoalign"
+		],
+		"gentoo": [
+			"app-vim/autoalign"
+		]
+	}
+}

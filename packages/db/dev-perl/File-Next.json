@@ -1,0 +1,39 @@
+{
+	"name": "dev-perl/File-Next",
+	"homepage": "http://search.cpan.org/~petdance/",
+	"versions": [
+		"1.16"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://search.cpan.org/~petdance/",
+		"regexp": "File-Next-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "File-Next-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/File-Next-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"virtual/perl-File-Spec",
+		"virtual/perl-ExtUtils-MakeMaker",
+		"test? virtual/perl-Test-Simple"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"File-Next"
+		],
+		"centos7": [
+			"File-Next"
+		],
+		"gentoo": [
+			"dev-perl/File-Next"
+		]
+	}
+}

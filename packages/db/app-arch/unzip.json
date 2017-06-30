@@ -1,0 +1,45 @@
+{
+	"name": "app-arch/unzip",
+	"homepage": "http://www.info-zip.org/",
+	"versions": [
+		"6.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "none",
+		"url": "XXXXXXX",
+		"regexp": "unzip-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "unzip*",
+	"urls": [
+		"sourceforge://infozip/UnZip%206.x%20%28latest%29/UnZip%20${VERSION}/unzip$(echo ${VERSION} | sed -e 's/\\.//g').tar.gz"
+	],
+	"deps": [
+		"bzip2? app-arch/bzip2",
+		"natspec? dev-libs/libnatspec"
+	],
+	"configure": {},
+	"use": [
+		"bzip2",
+		"natspec",
+		"unicode"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"unzip"
+		],
+		"centos7": [ "unzip" ],
+		"gentoo": [ "app-arch/unzip" ]
+	},
+	"steps" : {
+		"configure": [
+			"run cp unix/Makefile .",
+			"run sed -i Makefile -e \"s#/usr/local#$PREFIX#g\""
+		],
+		"build": [
+			"run make linux_noasm"
+		]
+	}
+}

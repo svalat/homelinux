@@ -1,0 +1,50 @@
+{
+	"name": "x11-libs/pango",
+	"homepage": "http://www.pango.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.38.1" 
+	],
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/pango/cache.json",
+		"regexp": "pango-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(gz|xz)"
+	},
+	"md5" : {},
+	"subdir": "pango-$VERSION",
+	"urls" : [
+		"http://ftp.gnome.org/pub/GNOME/sources/pango/$(echo $VERSION | cut -d '.' -f 1-2)/pango-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"media-libs/harfbuzz:[#glib,#truetype]",
+		"dev-libs/glib:2",
+		"media-libs/fontconfig:1.0",
+		"media-libs/freetype:2",
+		"x11-libs/cairo:[X]",
+		"TODO? dev-util/gtk-doc-am",
+		"virtual/pkgconfig",
+		"!sys-devel/autoconf:2.5",
+		"introspection? dev-libs/gobject-introspection",
+		"X? x11-libs/libXrender",
+		"X? x11-libs/libX11",
+		"X? x11-libs/libXft",
+		"X? x11-proto/xproto",
+		"test? media-fonts/cantarell"
+	],
+	"configure": {
+		"": [ "$(hl_with cairo x11-libs/cairo)" ],
+		"X": [ "--$with-xft=$(hl_with x11-libs/libXft)" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libpango1.0-dev" ],
+		"centos7": [ "pango", "pango-devel" ],
+		"gentoo": [ "x11-libs/pango" ]
+	},
+	"use": [
+			"X",
+			"+introspection",
+			"test",
+			"-TODO"
+	]
+}

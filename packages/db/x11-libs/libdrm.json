@@ -1,0 +1,45 @@
+{
+	"name": "x11-libs/libdrm",
+	"homepage": "http://dri.freedesktop.org/",
+	"versions": [
+		"2.4.81"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://dri.freedesktop.org/libdrm/",
+		"regexp": "libdrm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libdrm-${VERSION}",
+	"urls": [
+		"http://dri.freedesktop.org/libdrm/libdrm-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libpthread-stubs",
+		"video_cards_intel? x11-libs/libpciaccess",
+		"valgrind? dev-util/valgrind"
+	],
+	"configure": {},
+	"use": [
+		"video_cards_amdgpu",
+		"video_cards_exynos",
+		"video_cards_freedreno",
+		"video_cards_intel",
+		"video_cards_nouveau",
+		"video_cards_omap",
+		"video_cards_radeon",
+		"video_cards_tegra",
+		"video_cards_vmware",
+		"libkms",
+		"valgrind"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libdrm-dev"
+		],
+		"centos7": [ "libdrm", "libdrm-devel" ],
+		"gentoo": [ "x11-libs/libdrm" ]
+	}
+}

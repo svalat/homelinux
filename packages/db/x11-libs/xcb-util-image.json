@@ -1,0 +1,40 @@
+{
+	"name": "x11-libs/xcb-util-image",
+	"homepage": "https://xcb.freedesktop.org/",
+	"versions": [
+		"0.4.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://xorg.freedesktop.org/releases/individual/xcb/",
+		"regexp": "xcb-util-image-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "xcb-util-image-${VERSION}",
+	"urls": [
+		"http://xorg.freedesktop.org/releases/individual/xcb/xcb-util-image-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/xcb-util",
+		"x11-libs/libxcb",
+		"x11-proto/xproto",
+		"gentoo? dev-util/gperf",
+		"test? dev-libs/check"
+	],
+	"configure": {},
+	"use": [
+		"gentoo",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xcb-util-image", "xcb-util-image-dev"
+		],
+		"centos7": [
+			"xcb-util-image", "xcb-util-image-devel"
+		],
+		"gentoo": [ "x11-libs/xcb-util-image" ]
+	}
+}

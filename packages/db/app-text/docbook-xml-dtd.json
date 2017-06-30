@@ -1,0 +1,46 @@
+{
+	"name": "app-text/docbook-xml-dtd",
+	"homepage": "http://www.docbook.org/",
+	"versions": [
+		"4.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "XXXXXXX",
+		"regexp": "docbook-xml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "./",
+	"urls": [
+		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/docbook-xml-${VERSION}.zip"
+	],
+	"deps": [
+		"app-arch/unzip",
+		"dev-libs/libxml2",
+		"app-text/docbook-xsl-stylesheets",
+		"app-text/build-docbook-catalog"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"steps": {
+		"configure": [],
+		"build": [],
+		"install": [
+				"run mkdir -p ${PREFIX}/share/docbook-xml/",
+				"run cp -r -v * ${PREFIX}/share/docbook-xml/",
+				"run rm -f ${PREFIX}/share/docbook-xml/README",
+				"run rm -f ${PREFIX}/share/docbook-xml/ChangeLog"
+		]
+	},
+	"host": {
+		"default": true,
+		"debian8": [
+			"docbook-xml-dtd"
+		],
+		"centos7": [ "docbook-dtds" ],
+		"gentoo": [ "app-text/docbook-xml-dtd" ]
+	}
+}
