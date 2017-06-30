@@ -1,0 +1,164 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "HOMELINUX\.JSON" "5" "June 2017" "" ""
+.
+.SH "NAME"
+\fBhomelinux\.json\fR \- HomeLinux config files
+.
+.SH "PREFIX CONFIG FILE"
+Each HomeLinux prefix must have his own config file which are names \fB`PREFIX/homelinux\.json\fR\. It follow the file structure :
+.
+.IP "" 4
+.
+.nf
+
+    {
+        "inherit": [
+            "/home/me/usr\-shell\-only"
+        ],
+        "flags": {
+            "MAKEOPTS":"\-j8",
+            "CFLAGS":"\-O3 \-march=native",
+            "CXXFLAGS":"$CFLAGS"
+        },
+        "override": [
+            "app\-shell/bash"
+        ],
+        "versions": {
+            "app\-shell/bash": "~2\.4",
+            "app\-shell/dash": ">2\.5 <2\.6"
+        },
+        "use": [
+            "+gentoo",
+            "+debug",
+            "\-doc"
+        ],
+        "gentoo" : {
+            "server":"gentoo\.mirrors\.ovh\.net",
+            "port": 21,
+            "distfiles": "gentoo\-distfiles/distfiles/"
+        },
+        "packageOverride": {
+            "gentoo/kdiff3": {
+                "module": "kdiff3\-$SVERSION"
+            }
+        },
+        "providers": [
+            "homelinux",
+            "gentoo",
+            "debian",
+            "urls",
+            "github"
+        ],
+        "useGnuStow": false
+    }
+.
+.fi
+.
+.IP "" 0
+.
+.P
+With the descrived entries :
+.
+.TP
+\fBìnherit\fR
+Permit to inherit from a list of other HomeLinux prefix\. It permit to not rebuild the packages they provide\.
+.
+.TP
+\fBcompiler\fR
+Permit to setup some compiler flags to be used by packages\.
+.
+.TP
+\fBoverride\fR
+A list of packages which must be rebuild even if they are already provided by a inherited prefix or by the host system\.
+.
+.TP
+\fBversion\fR
+Permit to force usage of specific version for the given packages\.
+.
+.TP
+\fBuse\fR
+Useflags to enable feature on package building\. You can use \fB+flag\fR or \fBflag\fR to enable the feature or \fB\-flag\fR to disable it\.
+.
+.TP
+\fBgentoo\fR
+Configure the gentoo server to be used to fetch the Gentoo distfile file list\.
+.
+.TP
+\fBpackageOverride\fR
+To be used to overide some packages informations directly from the prefix config file\. You can use any key available in packages\.
+.
+.TP
+\fBproviders\fR
+HomeLinux support source package fetching from multiple source for non pre\-defined HomeLinux packages\. It permit HomeLinux to be at least in position to fetch most of the existing packaged\. With this option you can select the priority in which to try to find packages depending on your preference\. The more interesting change is to choose to first look on Gentoo or Debian repository for unknown packages\.
+.
+.TP
+\fBuseGnuStow\fR
+Enable usage of GNU stow to manage package files\.
+.
+.SH "USER CONFIG FILE"
+HomeLinux is also configured by the user session with a file stored into \fB~/\.homelinux\.json\fR with the given format :
+.
+.IP "" 4
+.
+.nf
+
+    {
+        "prefix":"/home/USER/usr",
+        "host":"debian8",
+        "modules": [],
+        "homecache": false,
+        "ccache": false,
+        "pyEnv": true,
+        "prefixOverride": {
+            "/home/me/usr": {
+                "use": [ "+debug", "\-X" ]
+            }
+        },
+        "packagesOverride": {
+            "dev\-cpp/gtkmm": {
+                "configure": {
+                    "": [ "\-\-enable\-shared" ]
+                }
+            }
+        },
+    }
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can use the given keys :
+.
+.TP
+\fBprefix\fR
+Define the main prefix to use\.
+.
+.TP
+\fBhost\fR
+Define the current host you are using for existing package detection\.
+.
+.TP
+\fBhomecache\fR
+This is more for package developper\. It copies the sources archives into \fB~/\.homelinux/cache\fR to not redownload them if you erase your prefix\. It is usefull if you want to restart from fresh prefix to test your package dependency tree\.
+.
+.TP
+\fBccache\fR
+Enable usage of ccache for get faster rebuilding of packages (also for package developper)\.
+.
+.TP
+\fBpyEnv\fR
+Enable usage of python wrapper to automatically switch PYTHONPATH depending on the python version you are calling\.
+.
+.TP
+\fBprefixOverride\fR
+For package developper mostly\. It permit to override or completly configure your prefix from the user config file\. Usefull if you erase your prefix to rebuild it\.
+.
+.TP
+\fBpackageOverride\fR
+As for the prefix config file, you can override some package entries from this part of the config file\.
+.
+.SH "SEE ALSO"
+hl(1), hl\-packages(5)

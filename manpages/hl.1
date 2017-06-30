@@ -1,0 +1,252 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "HL" "1" "June 2017" "" ""
+.
+.SH "NAME"
+\fBhl\fR \- HomeLinux main utility
+.
+.SH "SYNOPSIS"
+\fBhl\fR {command} [packages]
+.
+.SH "DESCRIPTION"
+HomeLinux is a package manager for you HOME dirctory\. It handle installation of sources packages downloaded from internet and manage the dependencies like a Gentoo system for the pre\-defined packages\.
+.
+.P
+The \fBhl\fR command is the main utility provided by HomeLinux and is used to install, list, update, and manage your prefix\.
+.
+.P
+HomeLinux is configured by a user file \fB~/\.homelinux\.json\fR which is documented into hl\-config(5) and a prefix config \fBPREFIX/homelinux\.json\fR which is documented into hl\-config(5)\.
+.
+.SH "USER COMMANDS"
+The \fBhl\fR utility support the given commands for users\.
+.
+.TP
+\fBhelp\fR
+Show help message with available sub commands\.
+.
+.TP
+\fBenv\fR
+Print the environnement variable to setup\. You must call it in your terminal or \fB~/\.bashrc\fR to setup the HomeLinux environnement\.
+.
+.TP
+\fBunenv\fR
+Unset the HomeLinux environnement\.
+.
+.TP
+\fBswitch {prefix}\fR
+Unset the current environnement and setup a new one for the prefix passed as parameter\.
+.
+.TP
+\fBexport\fR
+Export the current environnement\. It contain : the user and prefix configuration and the list of installed packages wit versions\.
+.
+.TP
+\fBjump [command]\fR
+Start a shell with the HomeLinux environnement setup or launche the command inside HomeLinux environnement\. It is usefull if you don\'t want to globaly setup the HomeLinux environnement\.
+.
+.P
+For database management :
+.
+.TP
+\fBupdate\-cache\fR
+Rebuild the internal caches\.
+.
+.TP
+\fBupdate\-db\fR
+Update the internal databases to get last versions of packages\. It refersh the internal database and fetch the gentoo distfile list for quickpackage system\.
+.
+.P
+For package management :
+.
+.IP "\(bu" 4
+\fBinstall {package_list}\fR : Install the packages passed as argument\.
+.
+.IP "\(bu" 4
+\fBpinstall {package}\fR : Same as install but try to build many packages in parallel to go faster\. It require a strict well defined dependencies between packages\. This function is currently experimental and likely to fail\.
+.
+.IP "\(bu" 4
+\fBuninstall {package}\fR : Uninstall the given package\. It work only if you enable usage of GNU \fBstow\fR in the prefix config file\.
+.
+.IP "\(bu" 4
+\fBis\-pack\-installed {package}\fR: Check if the given package is installed or not\.
+.
+.IP "\(bu" 4
+\fBprefix\-of\fR : Return the prefix of the given package\. /usr if not installed in HomeLinux environnement\.
+.
+.IP "\(bu" 4
+\fBsearch {name}\fR : Search list of packages containing the given name in all HomeLinux databases\.
+.
+.IP "" 0
+.
+.SH "PACKAGE DEVELOPPER COMMANDS"
+.
+.TP
+\fBgen\-package\fR
+Check the generated package, mostly to help debugging the quickpackage system\.
+.
+.TP
+\fBgen\-full\-package\fR
+Same as \fBgen\-package\fR but also apply package inheritance before printing\.
+.
+.TP
+\fBfetch\-versions\fR
+Fetch the versions from given package and print\. It helps debugging the \fBvfetcher\fR entry of packages\.
+.
+.TP
+\fBgen\-install\fR
+Print the shell script used to build the package\.
+.
+.SH "ENVIRONMENT"
+HomeLinux will setup the environnement variables :
+.
+.IP "\(bu" 4
+\fBPATH\fR
+.
+.IP "\(bu" 4
+\fBLD_LIBRARY_PATH\fR
+.
+.IP "\(bu" 4
+\fBLD_RUN_PATH\fR
+.
+.IP "\(bu" 4
+\fBCPATH\fR
+.
+.IP "\(bu" 4
+\fBPERL5LIB\fR
+.
+.IP "\(bu" 4
+\fBPYTHONPATH\fR
+.
+.IP "\(bu" 4
+\fBPKG_CONFIG_PATH\fR
+.
+.IP "\(bu" 4
+\fBMANPATH\fR
+.
+.IP "\(bu" 4
+\fBMODULEPATH\fR
+.
+.IP "\(bu" 4
+\fBCMAKE_PREFIX_PATH\fR
+.
+.IP "\(bu" 4
+\fBHL_PREFIX_PATH\fR
+.
+.IP "" 0
+.
+.SH "USAGE EXAMPLE"
+.
+.nf
+
+    #provide environnement variables
+    hl env
+
+    #update your package DB (fetch gentoo\.\.\.)
+    hl update\-db
+
+    #install package
+    hl install bash                      # use name, automatic search db
+    hl install app\-shells/bash           # force subdir in gentoo way
+    hl install gentoo/htop               # use the gentoo archive (nodeps)
+    hl install github/svalat/svUnitTest  # from github repos, use last release
+    hl install urls/htop                 # Use from packages/urls\.lst
+
+    #for non HL packages (gentooo, github\.\.\.) you can provide some deps
+    #infos and conf options into homelinux/packages/quickpackages/, see examples\.
+
+    #you can force the vesion to install with
+    hl install htop=4\.8   #exact version
+    hl install htop<4\.8   #less than
+    hl install htop<=4\.8  #less eq than
+    hl install \'htop!4\.8\' #no this one
+    hl install htop~4\.8   #regexpn allow all 4\.8\.X, take last avail
+    hl install htop:4     #slot based
+
+    #search in avail packages
+    hl search htop
+
+    #list installed packages
+    hl ls
+
+    #uninstall htop (only if you enable stow support in prefix config)
+    hl unstinall htop
+
+    #Jump into the HL env
+    hl jump
+
+    #Run a command from hl env (without setting the global env)
+    #You can use alias to export HL commands to your shell
+    #without setting the full HL env
+    hl jump gcc\-5\.2
+
+    #Whatch generated quickpackages
+    hl gen\-package gentoo/htop
+    hl gen\-full\-package gentoo/htop
+
+    #whatch generated install script
+    hl gen\-install gentoo/htop
+.
+.fi
+.
+.SH "PACKAGE PROVIDERS"
+HomeLinux support multiple package providers\. The default one is the internal database :
+.
+.TP
+\fBhl/{directory}/{packageName}\fR
+refers to the HomeLinux package database\.
+.
+.TP
+\fBgentoo/{name}\fR
+refers to the gentoo distfile archives which are automatically installed if no packages matched into the HomeLinux database\.
+.
+.TP
+\fBurls/{name}\fR
+is similar to \fBgentoo/\fR but using a custom url list into \fBhomelinux/packages/urls\.txt\fR
+.
+.TP
+\fBgithub/{user}/{project}\fR
+refers to packages from GitHub\. HomeLinux will auotomatically search the last vesrion using the GitHub release system or available tags\.
+.
+.SH "QUICKPACKAGE SYSTEM"
+HomeLinux provide a quickpackage system to automatically generate packages for applications not already explicitly managed by the internal database\. All the packages from gentoo, urls and github are based on this system\. You can take on look on package documentation in hl\-packages(5), to get a better understanding on how HomeLinux handle packages\.
+.
+.P
+You can provide some informations to tune those packages by playing with the files into \fBhomelinux/packages/quickpackage\fR:
+.
+.TP
+\fBconfig\.txt\fR
+provides a list of option to use on configure step\.
+.
+.TP
+\fBdeps\.txt\fR
+provides list of dependencies to install\. Prefer to only give the package name and not forcing the provider so HomeLinux will automaticlly choose the best one\. But provide the full name for the entry description (first column)\.
+.
+.TP
+\fBmodule\.txt\fR
+ask to HomeLinux to install the package into the given subdiretory in Module subdir and to register it into module\. It permit to use multiple version of the same package and to choose which one to use\.
+.
+.TP
+\fBpatch\.txt\fR
+you can provide a list of patch to applies\. The paches must be placed into the \fBdb/patches\fR directory\.
+.
+.TP
+\fBsubdir\.txt\fR
+define the name of the archive subdirectory to build the sources\.
+.
+.TP
+\fBtype\.txt\fR
+define the type of package to inherit from\. By default it use \fBauto\fR which tries to autimatically detect the build system of the sources\.
+.
+.TP
+\fBversion\.txt\fR
+define the version number to use or the vesion regexp to apply to search in Gentoo distfile list and urls\.
+.
+.P
+Remark that you can use the quickpackages to extend the dependency list and to enable module on HomeLinux packages\.
+.
+.SH "VERSION"
+This is the manpage of HomeLinux version 1\.1\.0\-dev\.
+.
+.SH "SEE ALSO"
+hl\-config(5), hl\-packages(5)

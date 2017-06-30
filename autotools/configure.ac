@@ -46,6 +46,7 @@ AH_TEMPLATE(HOMELINUX_VERSION,[Give homelinux version])
 
 ######################################################
 AC_CONFIG_FILES([Makefile 
+                 manpages/Makefile
                  src/Makefile
 				 src/base/Makefile
 				 src/core/Makefile
