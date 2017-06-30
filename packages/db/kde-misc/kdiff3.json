@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://sourceforge.net/projects/kdiff3/files/kdiff3/",
-		"regexp": "kdiff3-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "kdiff3-${VERSION}",

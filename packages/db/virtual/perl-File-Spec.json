@@ -6,7 +6,7 @@
 	],
 	"inherit": "models/virtual",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "dummy",
 		"url": "",
 		"regexp": ""
 	},

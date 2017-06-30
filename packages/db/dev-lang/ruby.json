@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://cache.ruby-lang.org/pub/ruby/",
-		"regexp": "ruby-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "ruby-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*(-p[0-9]+)?).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "ruby-${VERSION}",

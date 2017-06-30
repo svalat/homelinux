@@ -7,9 +7,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "XXXXXXX",
-		"regexp": "^glu-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+		"mode": "html",
+		"url": "https://cgit.freedesktop.org/mesa/glu/refs/",
+		"regexp": "glu-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "glu-${VERSION}",

@@ -1,5 +1,5 @@
 {
-	"name": "x11-lib/libXext",
+	"name": "x11-libs/libXext",
 	"homepage": "http://xorg.freedesktop.org/",
 	"versions": [
 		"1.3.3"

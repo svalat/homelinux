@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "gentoo",
 		"url": "XXXXXXX",
-		"regexp": "docbook-xml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "docbook-xml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip)"
 	},
 	"md5": {},
 	"subdir": "./",

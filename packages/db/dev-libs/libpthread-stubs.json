@@ -1,5 +1,5 @@
 {
-	"name": "lib-x11/libpthread-stubs",
+	"name": "dev-libs/libpthread-stubs",
 	"homepage": "http://xorg.freedesktop.org/",
 	"versions": [
 		"0.3"

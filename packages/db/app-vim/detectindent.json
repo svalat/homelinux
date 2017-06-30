@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/vim",
 	"vfetcher": {
-		"mode": "http",
-		"url": "none",
-		"regexp": "detectindent-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "dummy",
+		"url": "",
+		"regexp": ""
 	},
 	"md5": {},
 	"subdir": "detectindent-${VERSION}",

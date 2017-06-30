@@ -9,7 +9,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://lemon.cs.elte.hu/pub/sources/",
-		"regexp": "^lemon-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+		"regexp": "lemon-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "lemon-${VERSION}",

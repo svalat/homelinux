@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://launchpad.net/pbzip2/+announcements",
-		"regexp": "^pbzip2 ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) released"
+		"regexp": "pbzip2 ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*) released"
 	},
 	"md5" : {},
 	"subdir": "pbzip2-${VERSION}",

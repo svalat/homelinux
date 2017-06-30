@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://vim-scripts/a.vim",
-		"regexp": "alternate-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "a.vim-${VERSION}",

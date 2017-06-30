@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://www.open-mpi.org/software/hwloc/v1.11/",
-		"regexp": "^hwloc-([0-9]+\\.[0-9]+\\.[0-9]+)\\.tar\\.gz$"
+		"regexp": "hwloc-([0-9]+.[0-9]+.[0-9]+).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "hwloc-${VERSION}",

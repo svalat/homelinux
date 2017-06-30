@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/vim",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "dummy",
 		"url": "",
-		"regexp": "json-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": ""
 	},
 	"md5": {},
 	"subdir": "vim-json-${VERSION}",

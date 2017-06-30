@@ -1,5 +1,5 @@
 {
-	"name": "x11-lib/libXxf86vm",
+	"name": "x11-libs/libXxf86vm",
 	"homepage": "http://xorg.freedesktop.org/",
 	"versions": [
 		"1.1.4"

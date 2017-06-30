@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://sourceforge.net/projects/tcl/files/Tcl/",
-		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+)$"
+		"regexp": "([0-9]+.[0-9]+.[0-9]+)"
 	},
 	"md5" : {},
 	"subdir": "tcl${VERSION}/unix",

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.freedesktop.org/software/systemd/",
-		"regexp": "systemd-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "systemd-([0-9]+.?[0-9]*.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "systemd-${VERSION}",

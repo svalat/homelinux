@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.cpan.org/authors/id/J/JD/JDHEDDEN/",
-		"regexp": "^Thread-Queue-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+		"regexp": "Thread-Queue-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
 	},
 	"md5": {},
 	"subdir": "Thread-Queue-${VERSION}",

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.bzip.org/downloads.html",
-		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) source tarball"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*) source[ \\n]+tarball"
 	},
 	"md5" : {},
 	"subdir": "bzip2-${VERSION}",

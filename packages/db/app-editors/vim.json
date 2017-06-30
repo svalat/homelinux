@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "github",
-		"url": "vim/vim",
+		"url": "github://vim/vim",
 		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "vim-${VERSION}",
 	"urls" : [
-		"https://github.com/vim/vim/archive/v${VERSION}.tar.gz"
+		"github://vim/vim"
 	],
 	"deps": [
 		"sys-libs/ncurses",

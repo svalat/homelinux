@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/vim",
 	"vfetcher": {
-		"mode": "github",
+		"mode": "dummy",
 		"url": "github://vim-airline/vim-airline-themes",
-		"regexp": "airline-themes-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "vim-airline-themes-${VERSION}",

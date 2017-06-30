@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://ftp.acc.umu.se/debian/pool/main/d/dpkg/",
-		"regexp": "^dpkg_([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.(xz|bz|gz)$"
+		"regexp": "dpkg_([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.(xz|bz|gz)"
 	},
 	"md5" : {},
 	"subdir": "dpkg-${VERSION}",

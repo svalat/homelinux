@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.cabextract.org.uk/#download",
-		"regexp": "^Download cabextract ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) source"
+		"regexp": "Download cabextract ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*) source"
 	},
 	"md5" : {},
 	"subdir": "cabextract-${VERSION}",

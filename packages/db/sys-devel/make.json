@@ -1,5 +1,5 @@
 {
-	"name": "sys-apps/make",
+	"name": "sys-devel/make",
 	"homepage": "https://www.gnu.org/software/make/make.html",
 	"inherit": "models/autotools",
 	"versions": [ 
@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.gnu.org/gnu/make/",
-		"regexp": "^make-([0-9]+\\.[0-9]+\\.?[0-9]*)\\.tar\\.gz/$"
+		"regexp": "make-([0-9]+.[0-9]+.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "make-${VERSION}",

@@ -6,36 +6,25 @@
 		"4.8.6" 
 	],
 	"vfetcher": {
-		"mode": "http",
+		"subdir": {
+			"mode": "html",
+			"url": [ 
+				"http://download.qt.io/archive/qt/"
+			],
+			"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
+		},
+		"mode": "html",
 		"url": [ 
-			"http://download.qt.io/archive/qt/4.0/",
-			"http://download.qt.io/archive/qt/4.1/",
-			"http://download.qt.io/archive/qt/4.2/",
-			"http://download.qt.io/archive/qt/4.3/",
-			"http://download.qt.io/archive/qt/4.4/",
-			"http://download.qt.io/archive/qt/4.5/",
-			"http://download.qt.io/archive/qt/4.6/",
-			"http://download.qt.io/archive/qt/4.7/",
-			"http://download.qt.io/archive/qt/4.8/",
-			"http://download.qt.io/archive/qt/5.0/",
-			"http://download.qt.io/archive/qt/5.1/",
-			"http://download.qt.io/archive/qt/5.2/",
-			"http://download.qt.io/archive/qt/5.3/",
-			"http://download.qt.io/archive/qt/5.4/",
-			"http://download.qt.io/archive/qt/5.5/",
-			"http://download.qt.io/archive/qt/5.6/",
-			"http://download.qt.io/archive/qt/5.7/",
-			"http://download.qt.io/archive/qt/5.8/",
-			"http://download.qt.io/archive/qt/5.9/"
+			"http://download.qt.io/archive/qt/${SVERSION}/"
 		],
-		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
 	},
 	"md5" : {},
 	"subdir": "qt-everywhere-opensource-src-${VERSION}",
 	"urls" : [
 		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/qt-everywhere-opensource-src-${VERSION}.tar.gz",
 		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.gz",
-		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.xz",
+		"http://download.qt.io/archive/qt/$(echo $VERSION | cut -d '.' -f 1-2)/${VERSION}/single/qt-everywhere-opensource-src-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"x11-libs/xcb-util",

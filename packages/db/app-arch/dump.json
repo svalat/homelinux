@@ -7,8 +7,8 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/dump/",
-		"regexp": "^([0-9]+\\.[0-9]+b[0-9]+)$"
+		"url": "https://sourceforge.net/projects/dump/files/dump/",
+		"regexp": "([0-9]+.[0-9]+b[0-9]+)"
 	},
 	"md5" : {},
 	"subdir": "dump-${VERSION}",

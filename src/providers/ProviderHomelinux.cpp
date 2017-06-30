@@ -178,7 +178,7 @@ Crawler * ProviderHomelinux::getCrawler(int threadId,const std::string & name,co
 	else if (name == "gentoo")
 		ret = crawlers[threadId]["gentoo"] = new CrawlerGentoo(prefix);
 	else
-		HL_FATAL_ARG("Invalid crawler in %1 : %2").arg(packageName).arg(name).end();
+		HL_ERROR_ARG("Invalid crawler in %1 : %2").arg(packageName).arg(name).end();
 		
 	//ok ret
 	return ret;
@@ -217,16 +217,17 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	
 	//craw
 	Crawler * crawler = getCrawler(threadId,mode,path);
+	if (crawler == NULL)
+	{
+		out["hl/"+name] = versions;
+		return;
+	}
 
 	//debug
 	HL_MESSAGE_ARG("[%1/%2] Crawling %3 using %4 ...").arg(cur).arg(cnt).arg(Colors::green("hl/"+name)).arg(crawler->getName()).end();
 
 	//run
 	out["hl/"+name] = crawler->run(name,vfetcher,versions);
-
-	//warn
-	if (out["hl/"+name].size() == versions.size())
-		HL_WARNING_ARG("Crawler don't find any versions for package %1. Check address and regexp !").arg("hl/"+name).end();
 }
 
 /*******************  FUNCTION  *********************/

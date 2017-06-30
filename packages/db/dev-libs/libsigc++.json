@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-gnome-cache",
 		"url": "http://ftp.gnome.org/pub/GNOME/sources/libsigc++/cache.json",
-		"regexp": "^libsigc++-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz$"
+		"regexp": "libsigc\\+\\+-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "libsigc++-${VERSION}",

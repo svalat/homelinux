@@ -7,8 +7,8 @@
 	"inherit": "models/cmake",
 	"vfetcher": {
 		"mode": "github",
-		"url": "google/googletest",
-		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"url": "github://google/googletest",
+		"regexp": "release-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "googletest-release-${VERSION}",

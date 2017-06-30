@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://sourceforge.net/projects/boost/files/boost/",
-		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+\\.?[0-9]*)$"
+		"regexp": "([0-9]+.[0-9]+.[0-9]+.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "boost_$(echo ${VERSION} | sed -e 's/\\./_/g')",

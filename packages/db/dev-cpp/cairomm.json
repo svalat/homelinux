@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://cairographics.org/releases/",
-		"regexp": "^cairomm-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"regexp": "cairomm-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "cairomm-${VERSION}",

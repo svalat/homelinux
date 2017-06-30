@@ -8,12 +8,13 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.7-zip.org/sdk.html",
-		"regexp": "lzma-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*):",
+		"tag": "b"
 	},
 	"md5": {},
 	"subdir": "./",
 	"urls": [
-		"http://www.7-zip.org/a/lzma1602.7z"
+		"http://www.7-zip.org/a/lzma$(echo $VERSION | sed -e 's/\\.//g').7z"
 	],
 	"deps": [ "p7zip" ],
 	"configure": {},

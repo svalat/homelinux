@@ -7,9 +7,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "html",
 		"url": "https://sourceforge.net/projects/chemkit/files/",
-		"regexp": "^chemkit-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+		"regexp": "chemkit-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "chemkit-${VERSION}",

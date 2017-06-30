@@ -6,14 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "gentoo",
 		"url": "http://projects.haskell.org/gtk2hs/",
 		"regexp": "gio-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "gio-${VERSION}",
 	"urls": [
-		"http://projects.haskell.org/gtk2hs/gio-${VERSION}.tar.bz2"
+		"http://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/gio-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-haskell/glib",

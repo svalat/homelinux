@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://vim-airline/vim-airline",
-		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "vim-airline-${VERSION}",

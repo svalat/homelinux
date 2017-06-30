@@ -7,8 +7,8 @@
 	"inherit": "models/vim",
 	"vfetcher": {
 		"mode": "github",
-		"url": "github://hari-rangarajan/CCTree/",
-		"regexp": "cctree-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"url": "github://hari-rangarajan/CCTree",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "CCTree-${VERSION}",

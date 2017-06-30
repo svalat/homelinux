@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://fedorahosted.org/releases/x/m/xmlto/",
-		"regexp": "xmlto-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "html",
+		"url": "http://anduin.linuxfromscratch.org/BLFS/xmlto/",
+		"regexp": "xmlto-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "xmlto-${VERSION}",

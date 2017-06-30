@@ -5,10 +5,11 @@
 		"2.3"
 	],
 	"inherit": "models/vim",
+	"TODO": "Support google code",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "dummy",
 		"url": "https://code.google.com/archive/p/conque/downloads",
-		"regexp": "conque_([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "conque_([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "conque_${VERSION}",

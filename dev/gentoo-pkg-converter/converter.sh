@@ -29,7 +29,7 @@ if [ ! -d portage-stable ]; then
 	tar -xf portage-latest.tar.bz2
 	mv portage portage-stable
 	#git clone git@github.com:coreos/portage-stable.git
-	git clone git@github.com:gentoo/portage.git
+	#git clone git@github.com:gentoo/portage.git
 fi
 
 ######################################################

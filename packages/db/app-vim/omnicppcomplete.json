@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://www.vim.org/scripts/script.php?script_id=1520",
-		"regexp": "omnicppcomplete-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "dummy",
+		"url": "",
+		"regexp": ""
 	},
 	"md5": {},
 	"subdir": "./",

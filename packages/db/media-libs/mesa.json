@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.freedesktop.org/pub/mesa/",
-		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "mesa-${VERSION}",

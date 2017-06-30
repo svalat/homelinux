@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.kde.org/stable/",
-		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
 	},
 	"md5": {},
 	"subdir": "kde-baseapps-${VERSION}",

@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://scrooloose/nerdtree",
-		"regexp": "nerdtree-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "nerdtree-${VERSION}",

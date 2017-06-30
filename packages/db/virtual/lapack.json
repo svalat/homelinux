@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/virtual",
 	"vfetcher": {
-		"mode": "http",
-		"url": "none",
-		"regexp": "lapack-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "dummy",
+		"url": "",
+		"regexp": ""
 	},
 	"md5": {},
 	"subdir": "lapack-${VERSION}",

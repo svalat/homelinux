@@ -43,6 +43,7 @@ class Crawler
 		std::string txtRegexp;
 		Prefix * prefix;
 		std::string packageName;
+		Json::Value options;
 	private:
 		std::string name;
 };

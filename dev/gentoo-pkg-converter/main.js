@@ -151,9 +151,9 @@ var final = {
 	versions: [ getPackNameInfo(pack).version ],
 	inherit: "models/autotools",
 	vfetcher: {
-			mode: "http",
+			mode: "html",
 			url: "XXXXXXX",
-			regexp: '^'+getPackNameInfo(pack).shortName+"-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+			regexp: getPackNameInfo(pack).shortName+"-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	md5: {},
 	subdir: getPackNameInfo(pack).shortName+"-${VERSION}",

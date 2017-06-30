@@ -8,7 +8,8 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://bitbucket.org/eigen/eigen/downloads/?tab=tags",
-		"regexp": "eigen-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)",
+		"tag": "td"
 	},
 	"md5": {},
 	"subdir": "eigen-eigen-67e894c6cd8f",

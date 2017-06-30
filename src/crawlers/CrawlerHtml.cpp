@@ -56,11 +56,15 @@ void CrawlerHtml::internalRun(std::string url)
 	Helper::replaceInPlace(reg,"\\","\\\\");
 	Helper::replaceInPlace(reg,"\"","\\\"");
 	Helper::replaceInPlace(reg,"$","\\$");
+	reg = "" + reg + "$";
+	
+	//tag
+	std::string tag = options.get("tag","a").asString();
 
 	//gen command
 	std::stringstream cmd;
-	cmd << "curl " << url << " -o " << fname << " 2> /dev/null"
-		<< " && node " << nodeScript << " " << fname << " a " << '\"' << reg << '\"';
+	cmd << "curl -m 30 -L " << url << " -o " << fname << " 2> /dev/null"
+		<< " && node " << nodeScript << " " << fname << " " << tag << " " << '\"' << reg << '\"';
 
 	//help debug
 	HL_DEBUG_ARG("CrawlerHtmlCmd","Call : %1").arg(cmd.str()).end();

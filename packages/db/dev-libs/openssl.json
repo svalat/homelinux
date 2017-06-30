@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "https://www.openssl.org/source/",
-		"regexp": "openssl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"regexp": "openssl-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*[a-z]).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "openssl-${VERSION}",

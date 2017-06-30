@@ -6,9 +6,9 @@
 		"6.06.02" 
 	],
 	"vfetcher": {
-		"mode": "http",
+		"mode": "html",
 		"url": "https://root.cern.ch/content/release-60414",
-		"regexp": "^root_v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).source.tar.gz$"
+		"regexp": "root_v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).source.tar.gz"
 	},
 	"md5" : {},
 	"subdir": "root-${VERSION}",

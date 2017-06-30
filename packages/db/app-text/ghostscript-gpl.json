@@ -6,9 +6,9 @@
 		"9.18"
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://www.ghostscript.com/download/",
-		"regexp": "Ghostscript ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"mode": "html",
+		"url": "https://www.ghostscript.com/download/",
+		"regexp": "Ghostscript ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "ghostscript-${VERSION}",

@@ -81,6 +81,9 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 		Helper::replaceInPlace(r,".","\\.");
 	this->regexp = new RE2(r);
 	this->txtRegexp = r;
+	
+	//set options
+	options = params;
 
 	//run
 	versions = origVersions;
@@ -93,6 +96,9 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	//clear
 	delete regexp;
 	regexp = NULL;
+	
+	if (origVersions.size() == versions.size() && getName() != "dummy")
+		HL_WARNING_ARG("Crawler don't find any versions for package %1. Check address and regexp !").arg(packageName).end();
 
 	//sort
 	versions = VersionMatcher::sortList(versions);

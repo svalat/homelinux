@@ -6,9 +6,9 @@
 		"4.3" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
+		"mode": "html",
 		"url": "http://ftp.gnu.org/gnu/bash/",
-		"regexp": "bash-([0-9]+\\.[0-9]+).tar.gz"
+		"regexp": "bash-([0-9]+.[0-9]+).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "bash-${VERSION}",

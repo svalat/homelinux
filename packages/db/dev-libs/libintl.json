@@ -1,7 +1,7 @@
 {
-	"name": "virtual/libintl",
+	"name": "dev-libs/libintl",
 	"homepage": "NONE",
-	"inherit": "models/virtual",
+	"inherit": "models/autotools",
 	"versions": [ 
 		"0.1" 
 	],

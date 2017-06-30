@@ -6,9 +6,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
+		"mode": "html",
 		"url": "http://ftp.gnu.org/gnu/stow/",
-		"regexp": "stow-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "stow-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "stow-${VERSION}",
@@ -21,6 +21,9 @@
 		"test? dev-perl/Test-Output"
 	],
 	"configure": {
+		"": [
+			"--enable-silent-rules"
+		]
 	},
 	"use": [
 		"test"

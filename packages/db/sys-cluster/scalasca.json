@@ -8,7 +8,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.scalasca.org/software/scalasca-2.x/download.html",
-		"regexp": "^([0-9]+\\.[0-9]+\\.[0-9]+)$"
+		"regexp": "([0-9]+\\.[0-9]+\\.[0-9]+)"
 	},
 	"md5" : {},
 	"subdir": "scalasca-${VERSION}",

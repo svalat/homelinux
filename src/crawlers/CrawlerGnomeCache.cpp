@@ -39,6 +39,11 @@ void CrawlerGnomeCache::internalRun(std::string url)
 
 	//shortname
 	std::string shortName = Helper::last(packageName,'/');
+	
+	//from user
+	std::string pname = options.get("name","").asString();
+	if (pname.empty() == false)
+		shortName = pname;
 
 	//check status
 	if (!status)

@@ -6,9 +6,9 @@
 		"4.6.5" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/",
-		"regexp": "lftp-([0-9]+\\.[0-9]+\\.[0-9]+\\.?[0-9]*)\\.tar\\.gz"
+		"mode": "html",
+		"url": "http://lftp.yar.ru/ftp/",
+		"regexp": "lftp-([0-9]+.[0-9]+.[0-9]+.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "lftp-${VERSION}",

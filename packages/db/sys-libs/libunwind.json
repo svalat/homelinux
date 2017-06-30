@@ -9,7 +9,7 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.savannah.nongnu.org/releases/libunwind/",
-		"regexp": "^libunwind-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)$"
+		"regexp": "libunwind-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "libunwind-${VERSION}",

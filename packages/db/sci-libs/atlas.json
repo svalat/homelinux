@@ -7,9 +7,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
+		"mode": "html",
 		"url": "https://sourceforge.net/projects/math-atlas/files/Stable/",
-		"regexp": "^([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)$"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "ATLAS",

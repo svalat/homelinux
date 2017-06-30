@@ -8,12 +8,14 @@
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.kde.org/stable/kdevelop/",
-		"regexp": "kdevelop-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
 	},
 	"md5": {},
 	"subdir": "kdevelop-${VERSION}",
 	"urls": [
-		"http://download.kde.org/stable/kdevelop/$VERSION/src/kdevelop-${VERSION}.tar.xz"
+		"http://download.kde.org/stable/kdevelop/$VERSION/src/kdevelop-${VERSION}.tar.xz",
+		"http://download.kde.org/stable/kdevelop/$VERSION/src/kdevelop-${VERSION}.tar.bz2",
+		"http://download.kde.org/stable/kdevelop/$VERSION/src/kdevelop-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/qjson",
