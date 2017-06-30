@@ -394,6 +394,17 @@ std::string PackageDef::getBuildOptions(void) const
 }
 
 /*******************  FUNCTION  *********************/
+std::string PackageDef::getPatchList(const std::string & prefix) const
+{
+	StringList lst;
+	
+	for (auto & it : patch)
+		lst.push_back(prefix+"/homelinux/packages/db/patches/"+it);
+	
+	return Helper::join(lst,' ');
+}
+
+/*******************  FUNCTION  *********************/
 /**
  * Generate the install script.
  * @param parallelInstall Enable generation for parallel installation of
@@ -435,7 +446,7 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 	out << "SLOT=\"" << getSlot() << "\"" << std::endl;
 	out << "PREFIX=\"" << getRealPrefix(prefix.getPrefix(),prefix.getConfig().useGnuStow) << "\"" << std::endl;
 	out << "BUILD_OPTIONS=\"" << getBuildOptions() << "\"" << std::endl;
-	out << "PATCHES=\"" << Helper::join(patch,' ') << "\"" << std::endl;
+	out << "PATCHES=\"" << getPatchList(prefix.getPrefix()) << "\"" << std::endl;
 	out << "USE=\"" << use.toString() << "\"" << std::endl;
 	out << "MODULE=\"" << module << "\"" << std::endl;
 	if (prefix.getConfig().useGnuStow)

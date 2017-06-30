@@ -68,15 +68,15 @@ TEST(UseFlags,getApplyStatus)
 	
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("qt"));
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("+qt"));
-	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("-qt"));
+	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("-qt"));
 	
 	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("gtk"));
-	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("+gtk"));
+	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("+gtk"));
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatus("-gtk"));
 	
 	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("svg"));
-	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("+svg"));
-	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatus("-svg"));
+	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("+svg"));
+	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatus("-svg"));
 }
 
 /*******************  FUNCTION  *********************/
@@ -85,7 +85,7 @@ TEST(UseFlags,getApplyStatusWithAnd)
 	UseFlags flags("+qt +kde -gtk svg");
 	
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("+qt&-gtk"));
-	EXPECT_EQ(FLAG_DISABLED,flags.getApplyStatusWithAnd("+qt&+gtk"));
+	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatusWithAnd("+qt&+gtk"));
 	EXPECT_EQ(FLAG_ENABLED,flags.getApplyStatusWithAnd("qt&kde"));
 	EXPECT_EQ(FLAG_AUTO,flags.getApplyStatusWithAnd("qt&svg"));
 }

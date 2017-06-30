@@ -343,18 +343,21 @@ bool HomeLinux::isPackInstalled(const std::string & packageName)
 }
 
 /*******************  FUNCTION  *********************/
-bool HomeLinux::prefixOf(const std::string & packageName)
+std::string HomeLinux::prefixOf(const std::string & packageName)
 {
 	//load
 	loadPrefix(false);
 
 	//search on all prefix
 	for (auto pref : prefixes)
-		if (pref->isInstalled(packageName))
-			return true;
+	{
+		std::string tmp = pref->prefixOf(packageName);
+		if (tmp.empty() == false)
+			return tmp;
+	}
 	
 	//not found
-	return false;
+	return "";
 }
 
 /*******************  FUNCTION  *********************/

@@ -217,8 +217,13 @@ function hl_download_internal()
 	if [ "$ARCHIVE" = "master.zip" ]; then
 		ARCHIVE=$SHORT_NAME-$VERSION.zip
 	fi
+	
+	#hceck cache
+	if [ -f $ARCHIVE ]; then
+		return;
+	fi
 
-	#cache
+	#home cache
 	if [ "$HL_HOMECACHE" = 'true' ] && [ -f $HOME/.homelinux/cache/$ARCHIVE ] ; then
 		ln -sf $HOME/.homelinux/cache/$ARCHIVE $ARCHIVE
 		return
@@ -263,7 +268,7 @@ function hl_download_internal()
 			;;
 	esac
 	
-	#cache
+	#home cache
 	if [ "$HL_HOMECACHE" = 'true' ]; then
 		run mkdir -p $HOME/.homelinux/cache
 		run cp $ARCHIVE $HOME/.homelinux/cache

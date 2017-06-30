@@ -39,7 +39,7 @@ class HomeLinux
 		void unenv(void);
 		void switchEnv(const std::string & prefixPath);
 		bool isPackInstalled(const std::string & packageName);
-		bool prefixOf(const std::string & packageName);
+		std::string prefixOf(const std::string & packageName);
 		void ls(void);
 		void search(const std::string & value);
 		void exportConfig(void);

@@ -161,7 +161,7 @@ UseFlagState UseFlags::getApplyStatus(const std::string & flag) const
 	else if (mode == FLAG_DISABLED && status == FLAG_DISABLED) 
 		return FLAG_ENABLED;
 	else
-		return FLAG_DISABLED;
+		return FLAG_AUTO;
 }
 
 /*******************  FUNCTION  *********************/

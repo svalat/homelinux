@@ -155,8 +155,11 @@ int main(int argc, char ** argv)
 		}
 	} else if (config.command == "prefix-of") {
 		assume(config.args.size() == 1,"Command switch expect one argument !");
-		if (homelinux.prefixOf(config.args.front()) == false)
+		std::string prefix = homelinux.prefixOf(config.args.front());
+		if (prefix.empty())
 			return EXIT_FAILURE;
+		else
+			std::cout << prefix << std::endl;
 	} else if (config.command == "ls") {
 		assume(config.args.size() == 0,"Command switch expect no argument !");
 		homelinux.ls();

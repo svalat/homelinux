@@ -16,7 +16,7 @@
 		"sourceforge://tcl/Tcl/${VERSION}/tcl${VERSION}-src.tar.gz"
 	],
 	"deps": [
-		"gentoo? sys-libs/zlib"
+		"sys-libs/zlib"
 	],
 	"host": {
 		"default": false,
@@ -28,6 +28,6 @@
 		"+debug": [ "--$enable-symbols" ],
 		"+threads": [ "--$enable-threads" ]
 	},
-	"use": [ "-gentoo", "-debug", "-threads" ],
+	"use": [ "debug", "threads" ],
 	"gentooUse": [ "+threads" ]
 }

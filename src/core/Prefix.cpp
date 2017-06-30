@@ -114,6 +114,8 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 	//apply quickpackahe
 	PackageDef quickPack;
 	getQuickPackage().genPackage(quickPack,pack.name);
+	if (out.subdir.empty() == false)
+		quickPack.subdir = "";
 	out.merge(quickPack);
 
 	//apply override from prefix config
