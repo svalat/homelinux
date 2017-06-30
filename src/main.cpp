@@ -12,6 +12,7 @@
 //std
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
 //internal
 #include "HomeLinux.hpp"
 
@@ -28,9 +29,10 @@ Options:\n\
                         components.\n\
     -h/--help         : Display this help message\n\
     --version         : Print version of Homelinux.\n\
+    --no-user-config  : Do not load user config file.\n\
 \n\
 Commandsl:\n\
-    build-cache       : Rebuild the cache file to convert short\n\
+    update-cache       : Rebuild the cache file to convert short\n\
                         package name to long names.\n\
     help              : Show this help message.\n\
     install           : Install the requested packages. Require package \n\
@@ -75,10 +77,19 @@ You can specify version :\n\
 ";
 
 /*******************  FUNCTION  *********************/
+bool loadUserConfig(int argc, char ** argv)
+{
+	for (int i = 0 ; i < argc ; i++)
+		if (strcmp(argv[i],"--no-user-config") == 0)
+			return false;
+	return true;
+}
+
+/*******************  FUNCTION  *********************/
 int main(int argc, char ** argv)
 {
 	//setup config
-	Config config(true);
+	Config config(loadUserConfig(argc,argv));
 	config.parseArgs(argc,(const char **) argv);
 	
 	//show help
@@ -96,7 +107,7 @@ int main(int argc, char ** argv)
 	HomeLinux homelinux(&config);
 	
 	//run command
-	if (config.command == "build-cache")
+	if (config.command == "update-cache")
 	{
 		homelinux.buildCache();
 	} else if (config.command == "install") {

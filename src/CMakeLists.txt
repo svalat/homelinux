@@ -56,13 +56,16 @@ endif (JSONCPP_FOUND)
 add_library(homelinux-lib STATIC ${HOMELINUX_SUB_LIBS})
 
 ######################################################
+set(PREFIX ${CMAKE_INSTALL_PREFIX})
+
+######################################################
 #setup config file
 configure_file(config.h.in "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ######################################################
-add_executable(homelinux ${HOMELINUX_SUB_LIBS} HomeLinux.cpp main.cpp)
-target_link_libraries(homelinux ${HOMELINUX_EXTERN_LIBS})
+add_executable(hl ${HOMELINUX_SUB_LIBS} HomeLinux.cpp main.cpp)
+target_link_libraries(hl ${HOMELINUX_EXTERN_LIBS})
 
 ######################################################
 add_subdirectory(base)
@@ -73,4 +76,5 @@ add_subdirectory(crawlers)
 
 ######################################################
 #install
-INSTALL(TARGETS homelinux RUNTIME DESTINATION bin/)
+INSTALL(TARGETS hl RUNTIME DESTINATION bin/)
+install(CODE "execute_process(COMMAND ${CMAKE_INSTALL_PREFIX}/bin/hl --no-user-config update-cache)")

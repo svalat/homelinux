@@ -21,11 +21,11 @@
 	"subdir" : "csh-${VERSION}",
 	"urls" : 
 	[
-		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.bz2",
-		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.xz",
-		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tar.gz",
-		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}zip",
-		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}tgz"
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}.tar.bz2",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}.tar.xz",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}.tar.gz",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}.zip",
+		"ftp://gentoo.mirrors.ovh.net:21/gentoo-distfiles/distfiles/csh-${VERSION}.tgz"
 	],
 	"use" : null,
 	"vars" : null,

@@ -1,0 +1,40 @@
+{
+	"inherit": [
+	],
+	"flags": {
+		"MAKEOPTS":"-j4",
+		"CFLAGS":"-O3 -march=native",
+		"CXXFLAGS":"$CFLAGS"
+	},
+	"override": [
+	],
+	"versions": {
+	},
+	"use": {
+		"all": []
+	},
+	"modules": {
+	},
+	"packageOverride": {
+	},
+	"gentoo" : {
+		"server":"gentoo.mirrors.ovh.net",
+		"port": 21,
+		"distfiles": "gentoo-distfiles/distfiles/"
+	},
+	"debian": {
+		"repos": [
+			"http://ftp2.fr.debian.org/debian/dists/jessie/main/",
+			"http://ftp2.fr.debian.org/debian/dists/jessie/contrib/",
+			"http://ftp2.fr.debian.org/debian/dists/jessie/non-free/"
+		]
+	},
+	"providers": [
+		"homelinux", 
+		"gentoo", 
+		"debian", 
+		"urls", 
+		"github"
+	],
+	"useGnuStow": false
+}

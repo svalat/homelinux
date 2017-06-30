@@ -1,0 +1,11 @@
+{
+	"prefix":"/home/USER/usr",
+	"host":"gentoo",
+	"modules": [],
+	"homecache": false,
+	"ccache": true,
+	"pyEnv": false,
+	"crawlerThreads": 4,
+	"packageOverride": {
+	}
+}

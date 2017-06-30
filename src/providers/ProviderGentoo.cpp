@@ -77,7 +77,7 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 	{
 		shortName = packageName.substr(7);
 	} else {
-		shortName = packageName;
+		shortName = Helper::last(packageName,'/');
 		packageName = "gentoo/"+shortName;
 	}
 
@@ -127,7 +127,7 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 
 		//urls
 		for (auto ext :gblExt)
-			out.urls.push_back(getGentooUrl(shortName+"-${VERSION}"+std::string(ext)));
+			out.urls.push_back(getGentooUrl(shortName+"-${VERSION}."+std::string(ext)));
 
 		//ok
 		return true;

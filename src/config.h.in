@@ -20,4 +20,7 @@
 //version
 #define HOMELINUX_VERSION "2.0.0-dev"
 
+//prefix
+#cmakedefine PREFIX  "@PREFIX@"
+
 #endif //HL_CONFIG_HPP

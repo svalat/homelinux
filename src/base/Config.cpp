@@ -53,7 +53,8 @@ Config::~Config(void)
 **/
 void Config::loadDefault()
 {
-	this->prefix.push_back(System::getHomeDir()+"/usr");
+	//this->prefix.push_back(System::getHomeDir()+"/usr");
+	this->prefix.push_back(PREFIX);
 	this->temp = "/tmp/homelinux-"+System::getEnv("USER");
 	this->host = "default";
 	this->ccache = false;
@@ -61,6 +62,7 @@ void Config::loadDefault()
 	this->homecache = false;
 	this->showHelp = false;
 	this->showDebugCat = false;
+	this->crawlerThreads = 4;
 }
 
 /*******************  FUNCTION  *********************/
@@ -157,6 +159,8 @@ void Config::parseArgs(int argc, const char ** argv)
 			i++;
 		} else if (strcmp("--help",argv[i]) == 0 || strcmp("-h",argv[i]) == 0) {
 			showHelp = true;
+		} else if (strcmp(argv[i],"--no-user-config") == 0) {
+			//nothing
 		} else if (command.empty()) {
 			command = argv[i];
 		} else {

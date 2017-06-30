@@ -37,3 +37,9 @@ homelinux_enable_cxx_11()
 ######################################################
 add_subdirectory(src)
 add_subdirectory(extern-deps)
+
+######################################################
+install(FILES bin/hl-py-env.sh DESTINATION bin/)
+install(DIRECTORY compilers DESTINATION homelinux)
+install(DIRECTORY packages DESTINATION homelinux)
+install(FILES configs/homelinux.json DESTINATION ./)

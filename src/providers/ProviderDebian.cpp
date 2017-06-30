@@ -54,7 +54,7 @@ bool ProviderDebian::getPackage(PackageDef & out,const std::string & name)
 	{
 		shortName = packageName.substr(7);
 	} else {
-		shortName = packageName;
+		shortName = Helper::last(packageName,'/');
 		packageName = "debian/"+shortName;
 	}
 
@@ -104,10 +104,6 @@ void ProviderDebian::updateCache(void)
 /*******************  FUNCTION  *********************/
 void ProviderDebian::updateDb(void)
 {
-	//not valid yet
-	HL_WARNING("Debian DB not yet supported, work in progress !");
-	return;
-
 	//vars
 	const Json::Value & json = prefix->getConfig().debian;
 

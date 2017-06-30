@@ -24,6 +24,13 @@ CrawlerFtp::CrawlerFtp(Prefix * prefix)
 /*******************  FUNCTION  *********************/
 void CrawlerFtp::internalRun(std::string url)
 {
+	//check
+	if (Helper::startBy(url,"ftp://") == false && Helper::startBy(url,"sftp://") == false)
+	{
+		HL_ERROR_ARG("Invlid URL for FTP usage : %1").arg(url).end();
+		return;
+	}
+	
 	//add / at end otherwise curl fail
 	if (Helper::endBy(url,"/") == false)
 		url += "/";
