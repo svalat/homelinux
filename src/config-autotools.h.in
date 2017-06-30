@@ -1,5 +1,8 @@
 /* src/config-autotools.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Enable or disable usage of colors */
+#undef ENABLE_COLORS
+
 /* define if the compiler supports basic C++11 syntax */
 #undef HAVE_CXX11
 

@@ -45,6 +45,14 @@ AC_SUBST(HOMELINUX_VERSION,[\\\"$VERSION\\\"])
 AH_TEMPLATE(HOMELINUX_VERSION,[Give homelinux version])
 
 ######################################################
+AC_ARG_ENABLE(colors, AS_HELP_STRING([--disable-colors], [Enable of distble usage of colors in output]), 
+                      [enable_colors = $enableval], 
+					  [enable_colors = yes])
+AM_CONDITIONAL([ENABLE_COLORS], [test x$enable_colors = xyes])
+AM_COND_IF([ENABLE_COLORS],
+           [AC_DEFINE([ENABLE_COLORS],[1],[Enable or disable usage of colors])])
+
+######################################################
 AC_CONFIG_FILES([Makefile 
                  manpages/Makefile
                  src/Makefile
