@@ -49,6 +49,8 @@ bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef) const
 	//extract list
 	if (entry.isArray())
 		Helper::jsonToObj(pkgList,entry);
+
+	HL_DEBUG_ARG("HostPkgChecker","Check dep entry : %1").arg(Helper::join(pkgList,' ')).end();
 	
 	//if empty
 	if (entry.empty())

@@ -140,7 +140,8 @@ void PackageDef::merge(const PackageDef & def)
 		subdir = def.subdir;
 	Helper::merge(deps,def.deps);
 	//@TODO make better merge
-	host = def.host;
+	if (def.host.isNull() == false)
+		Helper::merge(host,def.host);
 	Helper::merge(configure,def.configure,false);
 	for (auto & it : def.vspecific)
 		vspecific[it.first] = it.second;
