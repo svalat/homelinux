@@ -11,7 +11,7 @@
 		"regexp": "lzma-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "",
+	"subdir": "./",
 	"urls": [
 		"http://www.7-zip.org/a/lzma1602.7z"
 	],

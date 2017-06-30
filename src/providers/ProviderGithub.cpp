@@ -40,8 +40,7 @@ bool ProviderGithub::getPackage(PackageDef & out,const std::string & name)
 	{
 		shortName = packageName.substr(7);
 	} else {
-		shortName = packageName;
-		packageName = "github/"+shortName;
+		return false;
 	}
 	
 	//get quickpack
