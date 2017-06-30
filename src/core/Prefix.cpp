@@ -302,6 +302,32 @@ void Prefix::updateDb(void)
 }
 
 /*******************  FUNCTION  *********************/
+void Prefix::exportConfig(std::ostream & out)
+{
+	//build json
+	Json::Value final;
+	
+	//load config file
+	System::loadJson(final["prefixConfig"],this->getFilePath("/homelinux.json"));
+	
+	//export packages
+	Json::Value packs = final["installed"];
+	System::readDir(getFilePath("/homelinux/install-db/"),[&packs,this](const std::string & file){
+		if (Helper::endBy(file,".json"))
+		{
+			Json::Value json;
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			std::string name = json.get("name","").asString();
+			std::string version = json.get("version","unknown").asString();
+			packs[name] = version;
+		}
+	});
+	
+	//out
+	out << final;
+}
+
+/*******************  FUNCTION  *********************/
 void Prefix::ls(std::ostream & out)
 {
 	//ls childs

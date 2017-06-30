@@ -279,7 +279,7 @@ std::string UseFlags::toString(bool force,bool colored)
 void UseFlags::fromJson(const Json::Value & json)
 {
 	if (json.isArray())
-		for (int i = 0 ; i < json.size() ; i++)
+		for (Json::ArrayIndex i = 0 ; i < json.size() ; i++)
 			addOne(json[i].asString());
 }
 

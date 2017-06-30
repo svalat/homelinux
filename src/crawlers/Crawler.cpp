@@ -44,7 +44,7 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	if (params["url"].isString())
 		urls.push_back(params["url"].asString());
 	else if (params["url"].isArray())
-		for (int i = 0 ; i < params["url"].size() ; i++)
+		for (Json::ArrayIndex i = 0 ; i < params["url"].size() ; i++)
 			urls.push_back(params["url"][i].asString());
 
 	//manage subdir

@@ -152,6 +152,9 @@ int main(int argc, char ** argv)
 	} else if (config.command == "search") {
 		assume(config.args.size() == 1,"Command switch expect one argument !");
 		homelinux.search(config.args.front());
+	} else if (config.command == "export") {
+		assume(config.args.size() == 1,"Command switch expect no argument !");
+		homelinux.exportConfig();
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

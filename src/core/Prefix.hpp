@@ -65,6 +65,7 @@ class Prefix
 		const std::string & getPrefix(void) const;
 		void setPrefixForTests(const std::string & prefix);
 		void search(std::ostream & out,const std::string & value);
+		void exportConfig(std::ostream & out = std::cout);
 	private:
 		bool isLocalyInstalled(const PackageDef & pack);
 		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);

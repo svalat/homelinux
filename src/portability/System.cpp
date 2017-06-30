@@ -95,7 +95,7 @@ std::string System::loadFile(const std::string & path)
 	
 	//read
 	size_t s = fread(buffer,1,size,fp);
-	assumeArg(s == size,"Failed to read all file : %1").argStrErrno().end();
+	assumeArg(s == (size_t)size,"Failed to read all file : %1").argStrErrno().end();
 	buffer[s] = '\0';
 	
 	//close

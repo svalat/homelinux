@@ -42,6 +42,7 @@ class HomeLinux
 		bool prefixOf(const std::string & packageName);
 		void ls(void);
 		void search(const std::string & value);
+		void exportConfig(void);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

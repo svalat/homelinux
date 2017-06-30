@@ -21,7 +21,7 @@ namespace hl
 {
 
 /*********************  CONST ***********************/
-static const char * gblCutDeps[] = {
+/*static const char * gblCutDeps[] = {
 	"autoconf",
 	"automake",
 	"m4",
@@ -31,7 +31,7 @@ static const char * gblCutDeps[] = {
 	"autotrash",
 	"lsb",
 	"binutils"
-};
+};*/
 
 /*******************  FUNCTION  *********************/
 ProviderDebian::ProviderDebian(Prefix * prefix, bool unitTest)
@@ -116,7 +116,7 @@ void ProviderDebian::updateDb(void)
 		return;
 
 	//loop
-	for (int i = 0 ; i < json["repos"].size() ; i++)
+	for (Json::ArrayIndex i = 0 ; i < json["repos"].size() ; i++)
 	{
 		//get url
 		std::string repo = json["repos"][i].asString();
@@ -199,7 +199,7 @@ void ProviderDebian::loadDb(void)
 		//convert
 		if (json.isArray())
 		{
-			for (int i = 0 ; i < json.size() ; i++)
+			for (Json::ArrayIndex i = 0 ; i < json.size() ; i++)
 			{
 				DebianDbEntry entry;
 				Json::Value & p = json[i];

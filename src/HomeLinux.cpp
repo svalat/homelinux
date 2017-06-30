@@ -382,6 +382,16 @@ void HomeLinux::search(const std::string & value)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::exportConfig(void)
+{
+	//load
+	loadPrefix(true);
+
+	//load all verisons
+	master->exportConfig();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::askOk(void)
 {
 	std::string buf = "?";

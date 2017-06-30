@@ -28,7 +28,7 @@ void Helper::split(const std::string & value,char separator,std::function<void(c
 	
 	//read
 	int cnt = 0;
-	for (int i = 0 ; i < value.size() ; i++)
+	for (size_t i = 0 ; i < value.size() ; i++)
 	{
 		if (value[i] == separator && (cnt > 0 || keepEmpty))
 		{
@@ -283,7 +283,7 @@ void Helper::merge(Json::Value & out,const Json::Value & override)
 		for (auto it = override.begin() ; it != override.end() ; ++it)
 				merge(out[it.key().asString()],*it);
 	} else if (override.isArray()) {
-		for (int i = 0 ; i < override.size() ; i++)
+		for (Json::ArrayIndex i = 0 ; i <override.size() ; i++)
 			out.append(override[i]);
 	} else if (override.isString() && override.asString().empty() == false) {
 		out = override;

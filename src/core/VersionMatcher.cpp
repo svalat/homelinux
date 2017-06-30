@@ -150,8 +150,8 @@ int VersionMatcher::compareVersion(const std::string & v1,const std::string & v2
 	
 	//fill
 	std::string zero(12,'0');
-	int m = std::max(v1Details.size(),v2Details.size());
-	for (int i = 0 ; i < m ; i++)
+	size_t m = std::max(v1Details.size(),v2Details.size());
+	for (size_t i = 0 ; i < m ; i++)
 	{
 		if (i >= v1Details.size())
 			v1Details.push_back(zero);
@@ -160,7 +160,7 @@ int VersionMatcher::compareVersion(const std::string & v1,const std::string & v2
 	}
 	
 	//compare
-	for (int i = 0 ; i < m ; i++)
+	for (size_t i = 0 ; i < m ; i++)
 	{
 		int res = strcmp(v1Details[i].c_str(),v2Details[i].c_str());
 		//HL_INFO_ARG("Compare %1 > %2 => %3").arg(v1Details[i]).arg(v2Details[i]).arg(res).end();
