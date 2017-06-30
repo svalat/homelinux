@@ -3,7 +3,7 @@
 	],
 	"flags": {
 		"MAKEOPTS":"-j4",
-		"CFLAGS":"-O3 -march=native",
+		"CFLAGS":"-O2",
 		"CXXFLAGS":"$CFLAGS"
 	},
 	"override": [
