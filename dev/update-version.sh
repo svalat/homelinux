@@ -1,8 +1,8 @@
 #!/bin/bash
 ######################################################
 #           Project : HomeLinux                      #
-#           Version : 1.1.0-dev                      #
-#           Date    : 01/2016                        #
+#           Version : 1.1.0                          #
+#           Date    : 06/2017                        #
 #           Licence : BSD                            #
 #           Authors : Sebastien Valat                #
 ######################################################

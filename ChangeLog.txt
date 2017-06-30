@@ -1,12 +1,12 @@
 ######################################################
 #           Project : HomeLinux                      #
-#           Version : 1.1.0-dev                      #
-#           Date    : 01/2016                        #
+#           Version : 1.1.0                          #
+#           Date    : 06/2017                        #
 #           Licence : BSD                            #
 #           Authors : Sebastien Valat                #
 ######################################################
 
-Version 1.1.0-dev
+Version 1.1.0 (June 30, 2017)
 
  * Add hl jump
  * Add python wrapper to setup PYTHON_PATH automatically
