@@ -16,14 +16,13 @@
 		"http://ftp.gnome.org/pub/GNOME/sources/pango/$(echo $VERSION | cut -d '.' -f 1-2)/pango-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"media-libs/harfbuzz:[#glib,#truetype]",
+		"media-libs/harfbuzz[#glib,#truetype]",
 		"dev-libs/glib:2",
-		"media-libs/fontconfig:1.0",
+		"media-libs/fontconfig",
 		"media-libs/freetype:2",
-		"x11-libs/cairo:[X]",
+		"x11-libs/cairo[X]",
 		"TODO? dev-util/gtk-doc-am",
 		"virtual/pkgconfig",
-		"!sys-devel/autoconf:2.5",
 		"introspection? dev-libs/gobject-introspection",
 		"X? x11-libs/libXrender",
 		"X? x11-libs/libX11",
@@ -45,6 +44,8 @@
 			"X",
 			"+introspection",
 			"test",
+			"glib",
+			"truetype",
 			"-TODO"
 	]
 }

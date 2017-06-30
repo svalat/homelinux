@@ -1,0 +1,43 @@
+{
+	"api": 1,
+	"name": "dev-perl/Test-Output",
+	"homepage": "http://search.cpan.org/dist/Test-Output/",
+	"versions": [
+		"1.031"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://search.cpan.org/~bdfoy/",
+		"regexp": "Test-Output-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "Test-Output-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/B/BD/BDFOY/Test-Output-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-perl/Capture-Tiny",
+		"virtual/perl-File-Temp",
+		"virtual/perl-Test-Simple",
+		"virtual/perl-ExtUtils-MakeMaker",
+		"virtual/perl-File-Spec",
+		"test? virtual/perl-Test-Simple"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Test-Output"
+		],
+		"centos7": [
+			"Test-Output"
+		],
+		"gentoo": [
+			"dev-perl/Test-Output"
+		]
+	}
+}

@@ -42,8 +42,14 @@ add_subdirectory(extern-deps)
 install(FILES bin/hl-py-env.sh DESTINATION bin/)
 install(DIRECTORY compilers DESTINATION homelinux)
 install(DIRECTORY packages DESTINATION homelinux)
-install(FILES configs/homelinux.json DESTINATION ./)
 install(DIRECTORY DESTINATION homelinux/install-db)
 install(DIRECTORY DESTINATION homelinux/distfiles)
 install(FILES manpages/hl.1.bz2 DESTINATION share/man/man1)
 install(FILES manpages/hl-config.5.bz2 DESTINATION share/man/man5)
+
+######################################################
+install(CODE "
+  if (NOT EXISTS \"${CMAKE_INSTALL_PREFIX}/homelinux.json\")
+        file(INSTALL \"${CMAKE_SOURCE_DIR}/configs/homelinux.json\" DESTINATION \"${CMAKE_INSTALL_PREFIX}\")
+    endif()
+ ")

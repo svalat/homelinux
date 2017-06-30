@@ -351,23 +351,28 @@ void DepLoader::checkUseFlagHints(DepPackage * pack)
 {
 	//vars
 	std::string err;
+	std::string parent;
 
 	//loop on all parent packages hints
 	for (auto & hint : pack->hints)
 	{
 		//look on all slides
-		Helper::split(hint.second.iuse,',',[&err,this,pack](const std::string & flag) {
+		Helper::split(hint.second.iuse,',',[&err,&hint,&parent,this,pack](const std::string & flag) {
 			std::string full = flag;
 			if (full[0] != '+' && full[0] != '-')
 				full = "+"+full;
 			UseFlagState state = pack->def.use.getApplyStatusWithAnd(full);
 			if (state != FLAG_ENABLED)
-				err += full + " (" + pack->def.getSlotName() + ") ";
+			{
+				err += pack->def.getSlotName() + "[ "+full + " ]";
+				parent = hint.second.parent->def.getSlotName();
+			}
 		});
 	}
 
 	if (err.empty() == false)
-		HL_FATAL_ARG("Package %1 has some missing use flags tp match dependencies requirement : %2")
+		HL_FATAL_ARG("Package %1 has some missing use flags to match dependencies requirement : %2")
+			.arg(parent)
 			.arg(err)
 			.end();
 }
@@ -447,7 +452,7 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 	StringList out;
 
 	//loop on all
-	Helper::split(uses,' ',[&out,parent](const std::string & use){
+	Helper::split(uses,',',[&out,parent](const std::string & use){
 		if (use[0] == '#')
 		{
 			std::string name = use.substr(1);
@@ -462,7 +467,7 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 		}
 	});
 
-	return Helper::join(out,' ');
+	return Helper::join(out,',');
 }
 
 /*******************  FUNCTION  *********************/
