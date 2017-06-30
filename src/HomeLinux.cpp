@@ -392,6 +392,21 @@ void HomeLinux::exportConfig(void)
 }
 
 /*******************  FUNCTION  *********************/
+int HomeLinux::jump(StringList command)
+{
+	//if command empty
+	if (command.empty())
+		command.push_back("$SHELL");
+		
+	//hl path
+	loadPrefix(true);
+	std::string path = master->getFilePath("/bin/hl");
+	
+	//launch
+	return System::runCommand("eval \"$("+path+" env)\" && "+Helper::join(command,' '));
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::askOk(void)
 {
 	std::string buf = "?";

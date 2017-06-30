@@ -43,6 +43,7 @@ class HomeLinux
 		void ls(void);
 		void search(const std::string & value);
 		void exportConfig(void);
+		int jump(StringList command);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);
