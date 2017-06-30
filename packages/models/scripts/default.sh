@@ -419,7 +419,11 @@ function hl_configure_cmake()
 	run rm -rfd cmakebuild
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
-	run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+	if which ninja > /dev/null 2> /dev/null && [ "${PINSTALL}" = "false" ]; then
+		run cmake .. -GNinja -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+	else
+		run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+	fi
 }
 
 function hl_configure_qmake()
@@ -435,6 +439,8 @@ function hl_build()
 	#parallelism management
 	if [ ! -z "$1" ]; then
 		echo $HL_BUILDDIR > "$1"
+	elif [ -f rules.ninja ] && [ ! -f Makefile ]; then
+		run ninja
 	else
 		run make ${HL_MAKEOPTS}
 	fi
@@ -449,7 +455,14 @@ function hl_test()
 function hl_install()
 {
 	run_sh cd $HL_BUILDDIR
-	run make install
+	if [ -d cmakebuild ]; then
+		run_sh cd cmakebuild
+	fi
+	if [ -f rules.ninja ] && [ ! -f Makefile ]; then
+		run ninja install
+	else
+		run make install
+	fi
 }
 
 function hl_vim_plugin_cp()

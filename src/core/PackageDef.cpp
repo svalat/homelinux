@@ -454,6 +454,10 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 		out << "STOW_NAME=\"" << getStowName() << "\"" << std::endl;
 	else
 		out << "STOW_NAME=\"\"" << std::endl;
+	if (parallelInstall)
+		out << "PINSTALL=true";
+	else
+		out << "PINSTALL=false";
 	
 	//to mark install and keep track
 	out << std::endl << "#to mark install and keep track" << std::endl;

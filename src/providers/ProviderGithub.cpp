@@ -47,9 +47,16 @@ bool ProviderGithub::getPackage(PackageDef & out,const std::string & name)
 	PackageDef quickpack;
 	prefix->getQuickPackage(quickpack,packageName);
 	
+	//id to get bigger limit rate on API
+	std::string oauth;
+	std::string clientId = prefix->getUserConfig().clientId;
+	std::string clientSecret = prefix->getUserConfig().clientSecret;
+	if (clientId.empty() == false && clientSecret.empty() == false)
+		oauth = "?client_id="+clientId+"&client_secret="+clientSecret;
+	
 	//fetch from API
 	Json::Value json;
-	bool status = System::downloadJson(json,"https://api.github.com/repos/"+shortName+"/releases/latest");
+	bool status = System::downloadJson(json,"https://api.github.com/repos/"+shortName+"/releases/latest"+oauth);
 	
 	//get what we whant
 	if (status && json["tag_name"].isString())
