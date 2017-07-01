@@ -9,10 +9,10 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.imagemagick.org/pub/ImageMagick/releases/",
-		"regexp": "imagemagick-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"regexp": "ImageMagick-([0-9]+.[0-9]+.?[0-9]*-?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
-	"subdir": "imagemagick-${VERSION}",
+	"subdir": "ImageMagick-${VERSION}",
 	"urls": [
 		"ftp://ftp.imagemagick.org/pub/ImageMagick/releases/imagemagick-${VERSION}.tar.xz",
 		"ftp://ftp.imagemagick.org/pub/ImageMagick/releases/imagemagick-${VERSION}.tar.bz2"

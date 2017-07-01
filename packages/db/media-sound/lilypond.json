@@ -8,7 +8,7 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "html",
-		"url": "http://download.linuxaudio.org/lilypond/source/${SVERSION}",
+		"url": "http://download.linuxaudio.org/lilypond/source/v${SVERSION}",
 		"regexp": "lilypond-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz",
 		"subdir": {
 			"mode": "html",

@@ -25,11 +25,15 @@ CrawlerGnomeCache::CrawlerGnomeCache(Prefix * prefix)
 void CrawlerGnomeCache::internalRun(std::string url)
 {
 	//add / at end otherwise curl fail
-	assumeArg(Helper::endBy(url,"/cache.json"),"Package %1 has invalid url for gnome cache : %2")
-		.arg(packageName)
-		.arg(url)
-		.end();
-		
+	if (Helper::endBy(url,"/cache.json") == false)
+	{
+		HL_ERROR_ARG("Package %1 has invalid url for gnome cache : %2")
+			.arg(packageName)
+			.arg(url)
+			.end();
+		return;
+	}
+
 	//debug
 	HL_DEBUG_ARG("CrawlerGnomeCache","Crawling %1").arg(url).end();
 
@@ -39,7 +43,7 @@ void CrawlerGnomeCache::internalRun(std::string url)
 
 	//shortname
 	std::string shortName = Helper::last(packageName,'/');
-	
+
 	//from user
 	std::string pname = options.get("name","").asString();
 	if (pname.empty() == false)

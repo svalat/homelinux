@@ -8,13 +8,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "github",
-		"url": "github://upferlauncher/keybinder",
+		"url": "github://kupferlauncher/keybinder",
 		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "keybinder-${VERSION}",
 	"urls": [
-		"github://upferlauncher/keybinder"
+		"github://kupferlauncher/keybinder"
 	],
 	"deps": [
 		"x11-libs/gtk+:3",
