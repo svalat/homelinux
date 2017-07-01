@@ -33,7 +33,9 @@ AC_TYPE_SIZE_T
 
 ######################################################
 #check for c++11
-AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
+#AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
+#AX_CHECK_COMPILE_FLAG([-std=c++11], [CXXFLAGS="$CXXFLAGS -std=c++11"])
+CXXFLAGS="$CXXFLAGS -std=c++11"
 
 ######################################################
 # Checks for library functions.

@@ -16,6 +16,7 @@
 		"http://www.freedesktop.org/software/fontconfig/release/fontconfig-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-util/gperf",
 		"dev-libs/expat",
 		"media-libs/freetype",
 		"virtual/pkgconfig",

@@ -1,0 +1,41 @@
+{
+	"api": 1,
+	"name": "dev-libs/libunistring",
+	"homepage": "https://www.gnu.org/software/libunistring/",
+	"versions": [
+		"0.9.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/libunistring/",
+		"regexp": "libunistring-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libunistring-${VERSION}",
+	"urls": [
+		"ftp://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.xz"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"doc",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libunistring", "libunistring-dev"
+		],
+		"centos7": [
+			"libunistring", "libunistring-devel"
+		],
+		"gentoo": [
+			"dev-libs/libunistring"
+		]
+	}
+}

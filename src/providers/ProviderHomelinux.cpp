@@ -369,6 +369,10 @@ std::string ProviderHomelinux::searchInCache(const std::string & name)
 /*******************  FUNCTION  *********************/
 void ProviderHomelinux::loadVersions(void)
 {
+	//already done
+	if (versions.empty() == false)
+		return;
+	
 	//path
 	std::string path = prefix->getFilePath("/homelinux/packages/db/versions.json");
 	

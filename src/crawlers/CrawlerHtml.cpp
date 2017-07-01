@@ -56,7 +56,7 @@ void CrawlerHtml::internalRun(std::string url)
 	Helper::replaceInPlace(reg,"\\","\\\\");
 	Helper::replaceInPlace(reg,"\"","\\\"");
 	Helper::replaceInPlace(reg,"$","\\$");
-	reg = "" + reg + "$";
+	reg = "^" + reg + "$";
 	
 	//tag
 	std::string tag = options.get("tag","a").asString();

@@ -16,7 +16,7 @@
 		"sourceforge://dump/dump/${VERSION}/dump-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"gentoo/e2fsprogs",
+		"sys-fs/e2fsprogs",
 		"app-arch/bzip2",
 		"gentoo? sys-libs/zlib",
 		"ermt&-libressl? dev-libs/openssl:0",
@@ -63,5 +63,6 @@
 			"export EXT2FS_LIBS='-lext2fs -lcom_err'",
 			"hl_configure_autotools"
 		]
-	}
+	},
+	"warn": "As issue with deps !"
 }

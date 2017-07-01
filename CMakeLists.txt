@@ -44,12 +44,18 @@ install(DIRECTORY compilers DESTINATION homelinux)
 install(DIRECTORY packages DESTINATION homelinux)
 install(DIRECTORY DESTINATION homelinux/install-db)
 install(DIRECTORY DESTINATION homelinux/distfiles)
+install(DIRECTORY DESTINATION lib)
 install(FILES manpages/hl.1.bz2 DESTINATION share/man/man1)
 install(FILES manpages/hl-config.5.bz2 DESTINATION share/man/man5)
 
 ######################################################
+#install config file only if not already exist
 install(CODE "
   if (NOT EXISTS \"${CMAKE_INSTALL_PREFIX}/homelinux.json\")
         file(INSTALL \"${CMAKE_SOURCE_DIR}/configs/homelinux.json\" DESTINATION \"${CMAKE_INSTALL_PREFIX}\")
     endif()
  ")
+
+######################################################
+#we create a symlink for lib64 to avoid detection issues
+install_symlink(lib ${CMAKE_INSTALL_PREFIX}/lib64)

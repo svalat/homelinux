@@ -1,0 +1,40 @@
+{
+	"api": 1,
+	"name": "dev-util/gperf",
+	"homepage": "https://www.gnu.org/software/gperf/",
+	"versions": [
+		"3.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://fr.mirror.babylon.network/gnu/gperf/",
+		"regexp": "gperf-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "gperf-${VERSION}",
+	"urls": [
+		"http://fr.mirror.babylon.network/gnu/gperf/gperf-${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"configure": {
+		"": [
+			"--htmldir=${PREFIX}/doc//html"
+		]
+	},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gperf"
+		],
+		"centos7": [
+			"gperf"
+		],
+		"gentoo": [
+			"dev-util/gperf"
+		]
+	}
+}

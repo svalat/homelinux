@@ -20,14 +20,21 @@
 	],
 	"host": {
 		"default": true,
-		"debian8": [ "python", "python-dev" ],
-		"centos7": [ "python", "python-devel" ],
+		"debian8": [ "python" ],
+		"centos7": [ "python" ],
 		"gentoo": [ "dev-lang/python" ]
 	},
 	"use": [	
 	],
 	"configure": {
 		"": [ "--enable-shared" ]
+	},
+	"vspecific": {
+		":3": {
+			"host": {
+				"centos7": false
+			}
+		}
 	},
 	"slots": {
 	    "3": ">=3.0",

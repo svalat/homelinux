@@ -1,0 +1,57 @@
+{
+	"api": 1,
+	"name": "gnome-base/librsvg",
+	"homepage": "https://wiki.gnome.org/Projects/LibRsvg",
+	"versions": [
+		"2.40.17"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "https://download.gnome.org/sources/librsvg/cache.json",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
+	},
+	"md5": {},
+	"subdir": "librsvg-${VERSION}",
+	"urls": [
+		"https://download.gnome.org/sources/librsvg/${SVERSION}/librsvg-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"x11-libs/cairo",
+		"x11-libs/pango",
+		"dev-libs/libxml2",
+		"dev-libs/libcroco",
+		"x11-libs/gdk-pixbuf[#introspection] :2",
+		"dev-libs/gobject-introspection-common",
+		"dev-libs/vala-common",
+		"dev-util/gtk-doc-am",
+		"virtual/pkgconfig",
+		"introspection? dev-libs/gobject-introspection",
+		"tools? x11-libs/gtk+:3"
+	],
+	"configure": {
+		"": [
+			"--disable-static",
+			"--disable-tools",
+			"--enable-pixbuf-loader"
+		]
+	},
+	"use": [
+		"+introspection",
+		"tools",
+		"vala"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"librsvg2", "librsvg2-dev"
+		],
+		"centos7": [
+			"librsvg2","librsvg2-devel"
+		],
+		"gentoo": [
+			"gnome-base/librsvg"
+		]
+	}
+}

@@ -26,5 +26,8 @@
 		"gentoo": [ "app-arch/gzip" ]
 	},
 	"use": [ 
-	]
+	],
+	"tested": {
+		"centos7": "1.8"
+	}
 }

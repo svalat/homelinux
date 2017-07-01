@@ -35,5 +35,8 @@
 	"use": [ 
 		"gentoo",
 		"libedit"
-	]
+	],
+	"tested": {
+		"centos7": "0.5.9.1"
+	}
 }

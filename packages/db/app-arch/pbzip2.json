@@ -32,5 +32,8 @@
 		"configure": [],
 		"build": [],
 		"install": [ "run make PREFIX=$PREFIX CXX=g++\\\\ -L$PREFIX/lib install" ]
+	},
+	"tested": {
+		"centos7": "16.02"
 	}
 }

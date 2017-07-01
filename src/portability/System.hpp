@@ -31,6 +31,7 @@ struct System
 	//env
 	static std::string getHomeDir(void);
 	static std::string getEnv(const std::string & name,const std::string & defaultValue = "");
+	static int getPid(void);
 	//json
 	static void loadJson(Json::Value & out,const std::string & path);
 	static void writeJson(const Json::Value & json,const std::string & path);

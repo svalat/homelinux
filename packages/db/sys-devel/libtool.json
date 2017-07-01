@@ -2,7 +2,7 @@
 	"name": "sys-devel/libtool",
 	"homepage": "https://www.gnu.org/software/libtool/",
 	"versions": [
-		"9999"
+		"2.4.6"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

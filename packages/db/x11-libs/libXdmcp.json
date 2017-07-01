@@ -16,7 +16,7 @@
 		"http://xorg.freedesktop.org/releases/individual/lib/libXdmcp-${VERSION}.tar.bz2"
 	],
 	"deps": [
-		"dev-libs/libbsd",
+		"gentoo? dev-libs/libbsd",
 		"x11-proto/xproto"
 	],
 	"configure": {
@@ -28,6 +28,7 @@
 		]
 	},
 	"use": [
+		"gentoo",
 		"test"
 	],
 	"host": {

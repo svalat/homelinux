@@ -26,9 +26,7 @@
 		"debian8": [
 			"lzma"
 		],
-		"centos7": [
-			"lzma"
-		],
+		"centos7": false,
 		"gentoo": [ "app-arch/lzma" ]
 	},
 	"steps": {
@@ -40,5 +38,8 @@
 		"install": [
 			"run cp lzma $PREFIX/bin/lzmacon"
 		]
+	},
+	"tested": {
+		"centos7": "16.04"
 	}
 }

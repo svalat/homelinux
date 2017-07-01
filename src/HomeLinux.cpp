@@ -173,7 +173,8 @@ void HomeLinux::install(const StringList & packages)
 	askOk();
 	
 	//build script
-	char tmp[] = "/tmp/homelinux-install-XXXXXX.sh";
+	char tmp[128];
+	sprintf(tmp,"/tmp/homelinux-install-%d.sh",System::getPid());
 	//mktemp(tmp);
 	std::string path = tmp;
 	std::ofstream out;
@@ -234,6 +235,9 @@ void HomeLinux::pinstall(const StringList & packages)
 /*******************  FUNCTION  *********************/
 void HomeLinux::unenv(void)
 {
+	//setup
+	loadPrefix(false);
+	
 	//build env
 	EnvSetup env(config);
 	
@@ -357,7 +361,7 @@ std::string HomeLinux::prefixOf(const std::string & packageName)
 	}
 	
 	//not found
-	return "";
+	return "/usr";
 }
 
 /*******************  FUNCTION  *********************/

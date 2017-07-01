@@ -18,8 +18,9 @@
 	"deps": [
 		"sys-libs/ncursesw"
 	],
-	"configure": {
-		"": [ "LDFLAGS=-L$(hl_prefix sys-libs/ncurses)/lib" ]
+	"flags": {
+		"LDFLAGS": [ "-L$(hl prefix-of sys-libs/ncurses)/lib" ],
+		"CFLAGS": [ "-I$(hl prefix-of sys-libs/ncurses)/include" ]
 	},
 	"host": {
 		"default": false,

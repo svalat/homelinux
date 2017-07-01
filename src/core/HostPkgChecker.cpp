@@ -122,7 +122,11 @@ bool HostPkgChecker::presentOnSystemCentos(const StringList & pkgList) const
 	//loop
 	for (auto & pack : pkgList)
 	{
-		if (System::runCommand("rpm -V "+pack+" 2>/deb/null") != 0)
+		#ifndef NDEBUG
+			if (System::runCommand("yum list "+pack+" 2>/dev/null >/dev/null") != 0)
+				HL_WARNING_ARG("Package %1 does not exist on yum !").arg(pack).end();
+		#endif
+		if (System::runCommand("rpm -V "+pack+" 2>/dev/null > /dev/null") != 0)
 			return false;
 	}
 	

@@ -1,0 +1,41 @@
+{
+	"api": 1,
+	"name": "dev-libs/libltdl",
+	"homepage": "https://www.gnu.org/software/libtool/",
+	"versions": [
+		"2.4.6"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "dummy",
+		"url": "",
+		"regexp": ""
+	},
+	"md5": {},
+	"subdir": "libltdl-${VERSION}",
+	"urls": [
+		""
+	],
+	"deps": [
+		"sys-devel/libtool"
+	],
+	"configure": {
+		"": [
+			"--enable-ltdl-install"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": [
+			"dev-libs/libltdl"
+		]
+	}
+}

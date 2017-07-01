@@ -24,7 +24,7 @@
 		"dev-cpp/cairomm",
 		"dev-cpp/glibmm",
 		"sci-libs/gsl",
-		"dev-libs/bohem-gc",
+		"dev-libs/boehm-gc",
 		"dev-libs/libxml2",
 		"dev-libs/libxslt",
 		"x11-libs/pango",

@@ -105,7 +105,7 @@ UseFlagState UseFlags::getStatus(const std::string & flag) const
 	
 	//select
 	if (it == stateMap.end())
-		HL_FATAL_ARG("Undefined flag %1").arg(flagName).end();
+		HL_THROW_ARG("Undefined flag %1").arg(flagName).end();
 
 	return it->second;
 }

@@ -26,9 +26,7 @@
 		"debian8": [
 			"ragel"
 		],
-		"centos7": [
-			"ragel"
-		],
+		"centos7": false,
 		"gentoo": [
 			"dev-util/ragel"
 		]

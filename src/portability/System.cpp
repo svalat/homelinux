@@ -250,13 +250,19 @@ bool System::hasCommand(const std::string & cmd)
 }
 
 /*******************  FUNCTION  *********************/
+int System::getPid(void)
+{
+	return getpid();
+}
+
+/*******************  FUNCTION  *********************/
 bool System::downloadJson(Json::Value & out,const std::string & url)
 {
 	static volatile int id;
 	
 	//gen filename
 	char buffer[128];
-	sprintf(buffer,"/tmp/hl-internal-download-%d.json",++id);
+	sprintf(buffer,"/tmp/hl-internal-download-%d-%d.json",getpid(),++id);
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	std::string cmd;
@@ -305,7 +311,7 @@ bool System::runAndRead(std::string & out,const std::string & cmd)
 	
 	//gen filename
 	char buffer[128];
-	sprintf(buffer,"/tmp/hl-internal-run-and-read-%d.out",id++);
+	sprintf(buffer,"/tmp/hl-internal-run-and-read-%d-%d.out",getpid(),id++);
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	
@@ -350,7 +356,7 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 	
 	//gen filename
 	char buffer[128];
-	sprintf(buffer,"/tmp/hl-internal-ftp-list-files-%d.json",id++);
+	sprintf(buffer,"/tmp/hl-internal-ftp-list-files-%d-%d.json",getpid(),id++);
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
 	std::string cmd = "LC_ALL=C wget -O "+tmp+".html "+url+" > /dev/null 2> /dev/null; "

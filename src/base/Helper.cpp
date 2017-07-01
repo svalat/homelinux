@@ -278,6 +278,7 @@ void Helper::merge(StringMapList & out,const StringMapList & override,bool erase
 **/
 void Helper::merge(Json::Value & out,const Json::Value & override)
 {
+	//HL_DEBUG_ARG("Helper","Merge json : %1 on %2").arg(override).arg(out).end();
 	if (override.isObject())
 	{
 		for (auto it = override.begin() ; it != override.end() ; ++it)
@@ -286,6 +287,8 @@ void Helper::merge(Json::Value & out,const Json::Value & override)
 		for (Json::ArrayIndex i = 0 ; i <override.size() ; i++)
 			out.append(override[i]);
 	} else if (override.isString() && override.asString().empty() == false) {
+		out = override;
+	} else if (override.isBool()) {
 		out = override;
 	}
 }
