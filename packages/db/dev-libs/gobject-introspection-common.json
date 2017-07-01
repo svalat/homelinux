@@ -1,0 +1,37 @@
+{
+	"api": 1,
+	"name": "dev-libs/gobject-introspection-common",
+	"homepage": "https://wiki.gnome.org/Projects/GObjectIntrospection",
+	"versions": [
+		"1.52.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/cache.json",
+		"regexp": "gobject-introspection-common-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "gobject-introspection-common-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/GNOME/sources/gobject-introspection/${SVERSION}/gobject-introspection-${VERSION}.tar.xz"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gobject-introspection"
+		],
+		"centos7": [
+			"gobject-introspection"
+		],
+		"gentoo": [
+			"dev-libs/gobject-introspection-common"
+		]
+	}
+}

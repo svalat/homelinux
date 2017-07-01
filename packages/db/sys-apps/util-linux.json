@@ -15,6 +15,14 @@
 	"urls": [
 		"https://www.kernel.org/pub/linux/utils/util-linux/v${VERSION}/util-linux-${VERSION}.tar.gz"
 	],
+	"steps": {
+		"prepare": [
+			"run mkdir fake",
+			"echo '#!/bin/bash' > fake/chgrp",
+			"run chmod a+x fake/chgrp",
+			"run_sh export PATH=$PWD/fake:$PATH"
+		]
+	},
 	"deps": [
 		"caps? sys-libs/libcap-ng",
 		"cramfs? sys-libs/zlib",

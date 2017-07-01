@@ -29,7 +29,7 @@
 			"autoconf-archive"
 		],
 		"centos7": [
-			"autoconf-archive"
+			"autoconf"
 		],
 		"gentoo": [
 			"sys-devel/autoconf-archive"

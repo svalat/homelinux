@@ -16,6 +16,10 @@
 		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.bz2",
 		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.gz"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of ncurses)/lib" ]
+	},
 	"deps": [
 		"sys-libs/ncurses:0",
 		"liblockfile? net-libs/liblockfile",
@@ -202,5 +206,8 @@
 		],
 		"centos7": [ "emacs" ],
 		"gentoo": [ "app-editors/emacs" ]
+	},
+	"tested": {
+		"centos7": "25.2"
 	}
 }

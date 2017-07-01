@@ -20,9 +20,9 @@
 	],
 	"host": {
 		"default": false,
-		"debian8": false,
+		"debian8": [ "nodejs" ],
 		"centos7": false,
-		"gentoo":  false
+		"gentoo":  [ "net-libs/nodejs" ]
 	},
 	"conflict": [ "nodejs" ],
 	"steps": {

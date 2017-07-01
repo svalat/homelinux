@@ -16,6 +16,7 @@
 		"http://search.cpan.org/CPAN/authors/id/A/AU/AUDREYT/Unicode-EastAsianWidth-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-perl/Module-Package",
 		"virtual/perl-File-Spec",
 		"virtual/perl-ExtUtils-MakeMaker"
 	],

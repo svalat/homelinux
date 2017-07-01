@@ -1,0 +1,63 @@
+{
+	"api": 1,
+	"name": "sys-fs/e2fsprogs",
+	"homepage": "http://e2fsprogs.sourceforge.net/",
+	"versions": [
+		"1.43.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "e2fsprogs-${VERSION}",
+	"urls": [
+		"sourceforge://e2fsprogs/e2fsprogs/v${VERSION}/e2fsprogs-libs-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-apps/util-linux",
+		"virtual/pkgconfig",
+		"sys-apps/texinfo",
+		"fuse? sys-fs/fuse",
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--with-root-prefix=/",
+			"--enable-symlink-install",
+			"--disable-tls",
+			"--without-included-gettext",
+			"--disable-libblkid",
+			"--disable-libuuid",
+			"--disable-fsck",
+			"--disable-uuidd"
+		],
+		"fuse": [
+			"--$enable-fuse2fs"
+		],
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"fuse",
+		"nls",
+		"static-libs",
+		"elibc_FreeBSD"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"e2fsprogs"
+		],
+		"centos7": [
+			"e2fsprogs"
+		],
+		"gentoo": [
+			"sys-fs/e2fsprogs"
+		]
+	}
+}

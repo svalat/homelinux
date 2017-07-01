@@ -1,0 +1,48 @@
+{
+	"api": 1,
+	"name": "dev-lang/swig",
+	"homepage": "http://www.swig.org/",
+	"versions": [
+		"3.0.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://sourceforge.net/projects/swig/files/swig/",
+		"regexp": "swig-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "swig-${VERSION}",
+	"urls": [
+		"sourceforge://swig/swig/swig-${VERSION}/swig-${VERSION}.tar.gz/download"
+	],
+	"deps": [
+		"pcre? dev-libs/libpcre",
+		"ccache? sys-libs/zlib"
+	],
+	"configure": {
+		"ccache": [
+			"--$enable-ccache"
+		],
+		"pcre": [
+			"--$with-pcre"
+		]
+	},
+	"use": [
+		"ccache",
+		"doc",
+		"pcre"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"swig"
+		],
+		"centos7": [
+			"swig"
+		],
+		"gentoo": [
+			"dev-lang/swig"
+		]
+	}
+}

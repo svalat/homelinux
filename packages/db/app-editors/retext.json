@@ -32,5 +32,8 @@
 	],
 	"vars": {
 		"PYTHON_SLOT": "3"
+	},
+	"tested": {
+		"centos7": "7.0.0"
 	}
 }

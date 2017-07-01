@@ -137,12 +137,15 @@ void EnvSetup::removeExisting(const std::string & varname,const char separator)
 	
 	//remove
 	std::list<std::string> out;
-	Helper::split(env[varname],separator,[&out,this](const std::string & value){
+	Helper::split(env[varname],separator,[&out,&varname,this](const std::string & value){
 		bool status = true;
 		for (auto & prefix : loadedPrefix)
 		{
 			if (Helper::contain(value,prefix+"/") || value == prefix)
+			{
+				HL_DEBUG_ARG("EnvSetup","In %1, remove %2").arg(varname).arg(value).end();
 				status = false;
+			}
 		}
 		if (status)
 			out.push_back(value);

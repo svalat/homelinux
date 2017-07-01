@@ -1,0 +1,37 @@
+{
+	"api": 1,
+	"name": "app-text/t1utils",
+	"homepage": "http://www.lcdf.org/type/#t1utils",
+	"versions": [
+		"1.39"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://kohler/t1utils",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "t1utils-${VERSION}",
+	"urls": [
+		"github://kohler/t1utils"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"t1utils"
+		],
+		"centos7": [
+			"t1utils"
+		],
+		"gentoo": [
+			"app-text/t1utils"
+		]
+	}
+}

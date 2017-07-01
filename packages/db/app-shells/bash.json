@@ -41,5 +41,8 @@
 		"net": [ "--$enable-net-redirections" ],
 		"mem-scramble": [ "--$enable-mem-scramble", "--$with-bash-malloc" ],
 		"readline": [ "--$enable-readline", "--$enable-history", "--$enable-bang-history" ]
+	},
+	"tested": {
+		"centos7": "4.4"
 	}
 }

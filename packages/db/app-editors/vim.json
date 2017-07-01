@@ -18,7 +18,7 @@
 	"deps": [
 		"sys-libs/ncurses",
 		"nls? virtual/libintl",
-		"acl&kernel_linux? sys-apps/acl",
+		"acl? sys-apps/acl",
 		"cscope? dev-util/cscope",
 		"gpm? sys-libs/gpm",
 		"lua&+luajit? dev-lang/luajit :2",
@@ -36,7 +36,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "vim" ],
-		"centos7": [ "vim" ],
+		"centos7": [ "vim-enhanced", "vim-common" ],
 		"gentoo": [ "app-editors/vim" ]
 	},
 	"configure": {
@@ -74,5 +74,8 @@
 		"selinux",
 		"tcl",
 		"vim-pager"
-	]
+	],
+	"tested": {
+		"centos7": "8.0.0691"
+	}
 }

@@ -7,7 +7,7 @@
 ######################################################
 
 ######################################################
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 SUBDIRS = extern-deps/jsoncpp/dist extern-deps/re2-2017-06-01/ src manpages
 
 ######################################################
@@ -16,8 +16,10 @@ install-data-hook:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/install-db
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/distfiles
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/lib
+	cd $(DESTDIR)$(prefix)/homelinux/ && ln -sf lib lib64
 	cp -r $(srcdir)/../packages $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../compilers $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../bin/hl-py-env.sh $(DESTDIR)$(bindir)
-	cp -r $(srcdir)/../configs/homelinux.json $(DESTDIR)$(prefix)
+	test -f $(DESTDIR)$(prefix)/homelinux.json || cp -r $(srcdir)/../configs/homelinux.json $(DESTDIR)$(prefix)
 	$(DESTDIR)$(bindir)/hl --no-user-config -p $(DESTDIR)$(prefix) update-cache

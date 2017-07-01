@@ -1,0 +1,38 @@
+{
+	"api": 1,
+	"name": "dev-libs/vala-common",
+	"homepage": "https://wiki.gnome.org/Projects/Vala",
+	"versions": [
+		"0.34.8"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/vala/cache.sjon",
+		"regexp": "vala-common-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "vala-common-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/GNOME/sources/vala/${SVERSION}/vala-${VERSION}.tar.xz"
+	],
+	"deps": [
+		"dev-lang/vala"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"vala"
+		],
+		"centos7": [
+			"vala"
+		],
+		"gentoo": [
+			"dev-libs/vala-common"
+		]
+	}
+}

@@ -1,12 +1,12 @@
 {
 	"name": "dev-libs/libintl",
 	"homepage": "NONE",
-	"inherit": "models/autotools",
+	"inherit": "models/virtual",
 	"versions": [ 
 		"0.1" 
 	],
 	"vfetcher": {
-		"mode": "none",
+		"mode": "dummy",
 		"url": "none",
 		"regexp": "none"
 	},

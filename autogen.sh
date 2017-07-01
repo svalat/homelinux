@@ -17,5 +17,5 @@ cd $dir/autotools
 ######################################################
 set -x
 aclocal
-autoconf
+autoconf -f
 automake -a -c

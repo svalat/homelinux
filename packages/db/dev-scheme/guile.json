@@ -1,0 +1,89 @@
+{
+	"api": 1,
+	"name": "dev-scheme/guile",
+	"homepage": "https://www.gnu.org/software/guile/",
+	"versions": [
+		"2.1.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://alpha.gnu.org/gnu/guile/",
+		"regexp": "guile-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "guile-${VERSION}",
+	"urls": [
+		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
+		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
+		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/boehm-gc[#threads]",
+		"dev-libs/gmp",
+		"virtual/libffi",
+		"dev-libs/libltdl",
+		"dev-libs/libunistring:0",
+		"sys-devel/libtool",
+		"sys-libs/ncurses:0",
+		"sys-libs/readline:0",
+		"virtual/pkgconfig",
+		"sys-apps/texinfo",
+		"sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--disable-error-on-warning",
+			"--disable-rpath",
+			"--enable-posix",
+			"--with-libgmp-prefix=$(hl prefix-of gmp)",
+			"--with-libiconv-prefix=$(hl prefix-of dev-libs/libiconv)",
+			"--with-libintl-prefix=$(hl prefix-of dev-libs/libintl)",
+			"--with-libltdl-prefix=$(hl prefix-of libtool)",
+			"--with-libreadline-prefix=$(hl prefix-of readline)",
+			"--with-libunistring-prefix=$(hl prefix-of libunistring)"
+		],
+		"debug": [
+			"--$enable-guile-debug"
+		],
+		"debug-malloc": [
+			"--$enable-debug-malloc"
+		],
+		"deprecated": [
+			"--$enable-deprecated"
+		],
+		"networking": [
+			"--$enable-networking"
+		],
+		"nls": [
+			"--$enable-nls"
+		],
+		"regex": [
+			"--$enable-regex"
+		],
+		"threads": [
+			"--$with-threads"
+		]
+	},
+	"use": [
+		"debug",
+		"debug-malloc",
+		"+deprecated",
+		"+networking",
+		"+nls",
+		"+regex",
+		"+threads"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"guile"
+		],
+		"centos7": [
+			"guile"
+		],
+		"gentoo": [
+			"dev-scheme/guile"
+		]
+	}
+}

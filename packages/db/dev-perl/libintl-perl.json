@@ -23,13 +23,18 @@
 	"use": [
 		""
 	],
+	"steps": {
+		"install": [
+			"run PERL5LIB=$PWD:$PERL5LIB make install"
+		]
+	},
 	"host": {
 		"default": false,
 		"debian8": [
 			"libintl-perl"
 		],
 		"centos7": [
-			"libintl-perl"
+			"perl-libintl"
 		],
 		"gentoo": [
 			"dev-perl/libintl-perl"

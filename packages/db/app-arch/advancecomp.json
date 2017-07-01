@@ -4,6 +4,10 @@
 	"versions": [
 		"1.19"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of sys-libs/zlib)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of sys-libs/zlib)/lib" ]
+	},
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
@@ -42,5 +46,8 @@
 			"advancecomp"
 		],
 		"gentoo": [ "app-arch/advancecomp" ]
+	},
+	"tested": {
+		"centos7": "1.23"
 	}
 }

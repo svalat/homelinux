@@ -25,7 +25,7 @@
 		"media-gfx/graphviz",
 		"app-text/docbook-xsl-stylesheets",
 		"dev-libs/libxslt",
-		"app-text/docbook-xml-dtd:4.5",
+		"app-text/docbook-xml-dtd",
 		"graphviz? media-gfx/graphviz"
 	],
 	"configure": {

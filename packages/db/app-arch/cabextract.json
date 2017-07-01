@@ -28,5 +28,8 @@
 	},
 	"use": [ 
 		"extras"
-	]
+	],
+	"tested": {
+		"centos7": "1.6"
+	}
 }

@@ -16,10 +16,14 @@
 		"http://unbound.net/downloads/unbound-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-libs/openssl",
 		"dev-libs/expat"
 	],
 	"configure": {
-		"": [ "$(hl_with libexpat dev-libs/expat)" ]
+		"": [ 
+			"--with-libexpat=$(hl prefix-of dev-libs/expat)", 
+			"--with-ssl=$(hl prefix-of dev-libs/openssl)"
+		]
 	},
 	"host": {
 		"default": false,

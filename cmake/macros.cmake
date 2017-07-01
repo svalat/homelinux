@@ -39,3 +39,11 @@ MACRO(homelinux_enable_cxx_11)
 			message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 	endif()
 ENDMACRO(homelinux_enable_cxx_11)
+
+######################################################
+#form https://stackoverflow.com/questions/35765106/symbolic-links-cmake
+#thanks to Rian Quinn
+macro(install_symlink filepath sympath)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${filepath} ${sympath})")
+    install(CODE "message(\"-- Created symlink: ${sympath} -> ${filepath}\")")
+endmacro(install_symlink)

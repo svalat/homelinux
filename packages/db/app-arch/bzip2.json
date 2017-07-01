@@ -37,5 +37,8 @@
 			"run ln -sf libbz2.so.1.0 libbz2.so.${VERSION}",
 			"run ln -sf libbz2.so.1.0 libbz2.so"
 		]
+	},
+	"tested": {
+		"centos7": "1.0.6"
 	}
 }

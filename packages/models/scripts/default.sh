@@ -106,6 +106,11 @@ function run()
 	fi
 }
 
+function display()
+{
+	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
+}
+
 function run_sh()
 {
 	echo "$STEPINFO ${COLOR_DGRAY}>> $@${COLOR_STD}"
@@ -219,7 +224,7 @@ function hl_download_internal()
 	fi
 	
 	#hceck cache
-	if [ -f $ARCHIVE ]; then
+	if [ -f "$ARCHIVE" ]; then
 		return;
 	fi
 
@@ -232,7 +237,7 @@ function hl_download_internal()
 	#download
 	case "${url}" in
 		http://*|ftp://*|https://*|sftp://*)
-			run wget -c "${url}" -O ${ARCHIVE} || return 1
+			run wget -c "${url}" -O ${ARCHIVE} || (rm -f "${ARCHIVE}" && return 1)
 			;;
 		git://*)
 			DIR=$PWD
@@ -255,6 +260,7 @@ function hl_download_internal()
 				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${VERSION}.tar.gz" || \
 				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/${SHORT_NAME}-${VERSION}.tar.gz" || \
 				run wget -c -O ${ARCHIVE} "https://github.com/$project/archive/release-${VERSION}.tar.gz" || \
+				rm ${ARCHIVE} && \
 				return 1 
 			;;
 		sourceforge://*/*)
@@ -283,7 +289,7 @@ function hl_download()
 
 	for url in ${URLS}
 	do
-		hl_download_internal ${url} || continue && break
+		hl_download_internal ${url} && break
 	done
 	run_sh cd ${HL_TEMP}
 }
@@ -388,6 +394,7 @@ function hl_configure_python()
 function hl_configure_autotools_autogen_nocheck()
 {
 	run_sh cd $HL_PACKDIR
+	run_nocheck ./bootstrap.sh
 	run_nocheck ./autogen.sh
 	hl_configure_autotools
 }
@@ -397,6 +404,8 @@ function hl_configure_autotools_autogen()
 	run_sh cd $HL_PACKDIR
 	if [ -f ./autogen.sh ]; then
 		run ./autogen.sh --prefix=$PREFIX $BUILD_OPTIONS
+	elif [ -f ./bootstrap.sh ]; then
+		run ./bootstrap.sh --prefix=$PREFIX $BUILD_OPTIONS
 	else
 		run aclocal
 		run autoconf
@@ -408,7 +417,18 @@ function hl_configure_autotools_autogen()
 function hl_configure_autotools()
 {
 	run_sh cd $HL_PACKDIR
-	run ./configure --prefix=$PREFIX $BUILD_OPTIONS
+	
+	display CFLAGS=\"${CFLAGS} ${HL_CFLAGS}\"
+	display CXXFLAGS=\"${CXXFLAGS} ${HL_CXXFLAGS}\"
+	display LDFLAGS=\"${LDFLAGS} ${HL_LDFLAGS}\"
+	display FFLAGS=\"${FFLAGS} ${HL_FFLAGS}\"
+	
+	CXXFLAGS="${CXXFLAGS} ${HL_CXXFLAGS}"\
+	CFLAGS="${CFLAGS} ${HL_CFLAGS}" \
+	FFLAGS="${FFLAGS} ${HL_FFLAGS}" \
+	LDFLAGS="${LDFLAGS} ${HL_LDFLAGS}" \
+	run ./configure --prefix=$PREFIX \
+				$BUILD_OPTIONS
 }
 
 function hl_configure_cmake()
@@ -420,10 +440,20 @@ function hl_configure_cmake()
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
 	if which ninja > /dev/null 2> /dev/null && [ "${PINSTALL}" = "false" ]; then
-		run cmake .. -GNinja -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+		ninja="-GNinja"
 	else
-		run cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=$PREFIX $BUILD_OPTIONS
+		ninja=""
 	fi
+	
+	run cmake .. ${ninja} -DCMAKE_BUILD_TYPE="Release" \
+	             -DCMAKE_INSTALL_PREFIX=$PREFIX\
+	             -DCMAKE_COMPILER_CXX_FLAGS="\"${CXXFLAGS} ${HL_CXXFLAGS}\""\
+	             -DCMAKE_COMPILER_C_FLAGS="\"${CFLAGS} ${HL_CFLAGS}\"" \
+	             -DCMAKE_COMPILER_F_FLAGS="\"${FFLAGS} ${HL_FFLAGS}\"" \
+	             -DCMAKE_MODULE_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\
+	             -DCMAKE_SHARED_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\
+	             -DCMAKE_STATIC_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\
+	             $BUILD_OPTIONS
 }
 
 function hl_configure_qmake()

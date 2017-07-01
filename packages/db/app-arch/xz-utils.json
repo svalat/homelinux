@@ -45,5 +45,8 @@
 		],
 		"centos7": [ "xz", "xz-libs", "xz-devel" ],
 		"gentoo": [ "app-arch/xz-utils" ]
+	},
+	"tested": {
+		"centos7": "5.2.3"
 	}
 }

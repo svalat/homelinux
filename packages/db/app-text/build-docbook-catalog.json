@@ -36,5 +36,8 @@
 		],
 		"centos7": [ "docbook-utils" ],
 		"gentoo": [ "app-text/build-docbook-catalog" ]
+	},
+	"tested": {
+		"centos7": "1.21"
 	}
 }

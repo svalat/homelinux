@@ -34,7 +34,7 @@
 		"debian8": [
 			"libcroco"
 		],
-		"centos7": [ "libcroro", "libcroco-devel" ],
+		"centos7": [ "libcroco", "libcroco-devel" ],
 		"gentoo": [ "dev-libs/libcroco" ]
 	}
 }

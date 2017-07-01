@@ -41,5 +41,8 @@
 		"build": [
 			"run make linux_noasm"
 		]
+	},
+	"tested": {
+		"centos7": "6.0"
 	}
 }

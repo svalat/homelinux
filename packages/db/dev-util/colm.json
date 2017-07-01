@@ -19,14 +19,20 @@
 	"configure": {},
 	"use": [
 	],
+	"steps": {
+		"prepare": [
+			"echo > doc/Makefile.am",
+			"run aclocal",
+			"run autoconf",
+			"run automake"
+		]
+	},
 	"host": {
 		"default": false,
 		"debian8": [
 			"colm"
 		],
-		"centos7": [
-			"colm"
-		],
+		"centos7": false,
 		"gentoo": [
 			"dev-util/colm"
 		]

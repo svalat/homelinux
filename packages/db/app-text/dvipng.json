@@ -1,0 +1,52 @@
+{
+	"api": 1,
+	"name": "app-text/dvipng",
+	"homepage": "http://dvipng.sourceforge.net/",
+	"versions": [
+		"1.15"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://download.savannah.gnu.org/releases/dvipng/",
+		"regexp": "dvipng-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "dvipng-${VERSION}",
+	"urls": [
+		"http://download.savannah.gnu.org/releases/dvipng/dvipng-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/kpathsea",
+		"media-libs/gd[jpeg,png]",
+		"media-libs/libpng:0",
+		"gentoo? virtual/latex-base",
+		"sys-libs/zlib",
+		"gentoo? virtual/texi2dvi",
+		"virtual/pkgconfig",
+		"truetype? media-libs/freetype",
+		"test? dev-texlive/texlive-fontsrecommended"
+	],
+	"configure": {},
+	"use": [
+		"truetype",
+		"test",
+		"gentoo"
+	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of libpng)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of libpng)/lib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"dvipng"
+		],
+		"centos7": [
+			"texlive-dvipng-bin","texlive-dvipng-noarch"
+		],
+		"gentoo": [
+			"app-text/dvipng"
+		]
+	}
+}

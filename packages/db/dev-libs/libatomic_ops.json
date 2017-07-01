@@ -3,22 +3,25 @@
 	"homepage": "https://github.com/ivmai/libatomic_ops/",
 	"inherit": "models/autotools",
 	"versions": [ 
-		"7.4.2" 
+		"7.6.0" 
 	],
 	"vfetcher": {
-		"mode": "none",
-		"url": "",
-		"regexp": "gc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"mode": "github",
+		"url": "github://ivmai/libatomic_ops",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
-	"subdir": "libatomic_ops-libatomic_ops-$(echo $VERSION | sed -e 's/\\./_/g')",
+	"subdir": "libatomic_ops-$VERSION",
 	"urls" : [
-		"https://github.com/ivmai/libatomic_ops/archive/libatomic_ops-$(echo $VERSION | sed -e 's/\\./_/g').tar.gz"
+		"github://ivmai/libatomic_ops"
 	],
 	"deps": [
 	],
 	"steps": {
-		"configure": [ "hl_configure_autotools_autogen" ]
+		"prepare": [
+			"run libtoolize",
+			"run ./autogen.sh"
+		]
 	},
 	"host": {
 		"default": false,

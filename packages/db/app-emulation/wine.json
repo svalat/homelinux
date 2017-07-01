@@ -20,6 +20,10 @@
 	"urls" : [
 		"https://dl.winehq.org/wine/source/$(echo $VERSION | cut -d '.' -f 1-2)/wine-${VERSION}.tar.bz2"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of x11-libs/libX11)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of x11-libs/libX11)/lib" ]
+	},
 	"deps": [
 		"truetype? media-libs/freetype :2",
 		"capi? net-dialup/capi4k-utils",
@@ -115,7 +119,7 @@
 	"host": {
 		"default": false,
 		"debian8": [ "wine" ],
-		"centos7": [ "wine" ],
+		"centos7": false,
 		"gentoo": [ "app-emulation/wine" ]
 	},
 	"use": [
@@ -172,5 +176,8 @@
 		"+prelink",
 		"+udisks",
 		"+xcomposite"
-	]
+	],
+	"tested": {
+		"centos7": "1.9.24"
+	}
 }

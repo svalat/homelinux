@@ -1,0 +1,215 @@
+{
+	"api": 1,
+	"name": "media-gfx/imagemagick",
+	"homepage": "http://www.imagemagick.org/",
+	"versions": [
+		"7.0.5.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.imagemagick.org/pub/ImageMagick/releases/",
+		"regexp": "imagemagick-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "imagemagick-${VERSION}",
+	"urls": [
+		"ftp://ftp.imagemagick.org/pub/ImageMagick/releases/imagemagick-${VERSION}.tar.xz",
+		"ftp://ftp.imagemagick.org/pub/ImageMagick/releases/imagemagick-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libltdl:0",
+		"virtual/pkgconfig",
+		"autotrace? media-gfx/autotrace",
+		"bzip2? app-arch/bzip2",
+		"corefonts? media-fonts/corefonts",
+		"djvu? app-text/djvu",
+		"fftw? sci-libs/fftw:3.0",
+		"fontconfig? media-libs/fontconfig",
+		"fpx? media-libs/libfpx",
+		"graphviz? media-gfx/graphviz",
+		"jbig? media-libs/jbigkit-2",
+		"jpeg? virtual/jpeg:0",
+		"jpeg2k? media-libs/openjpeg:2",
+		"lcms? media-libs/lcms:2",
+		"lqr? media-libs/liblqr",
+		"opencl? virtual/opencl",
+		"openexr? media-libs/openexr:0",
+		"pango? x11-libs/pango",
+		"perl? dev-lang/perl:0",
+		"png? media-libs/libpng:0",
+		"postscript? app-text/ghostscript-gpl",
+		"raw? media-gfx/ufraw",
+		"svg? gnome-base/librsvg",
+		"tiff? media-libs/tiff:0",
+		"truetype&gentoo? media-fonts/urw-fonts",
+		"truetype? media-libs/freetype:2",
+		"webp? media-libs/libwebp:0",
+		"wmf? media-libs/libwmf",
+		"X? x11-libs/libICE",
+		"X? x11-libs/libSM",
+		"X? x11-libs/libXext",
+		"X? x11-libs/libXt",
+		"X? x11-proto/xextproto",
+		"xml? dev-libs/libxml2",
+		"lzma? app-arch/xz-utils",
+		"zlib? sys-libs/zlib"
+	],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		],
+		"hdri": [
+			"--$enable-hdri"
+		],
+		"opencl": [
+			"--$enable-opencl"
+		],
+		"": [
+			"--with-threads",
+			"--with-modules",
+			"--with-quantum-depth=32",
+			"--with-perl-options=INSTALLDIRS=vendor",
+			"--with-gs-font-dir=/usr/share/fonts/urw-fonts",
+			"--with-dejavu-font-dir=/usr/share/fonts/dejavu",
+			"--disable-openmp",
+			"--with-gcc-arch=no-automagic"
+		],
+		"cxx": [
+			"--$with-magick-plus-plus="
+		],
+		"perl": [
+			"--$with-perl"
+		],
+		"bzip2": [
+			"--$with-bzlib="
+		],
+		"X": [
+			"--$with-x="
+		],
+		"zlib": [
+			"--$with-zlib"
+		],
+		"autotrace": [
+			"--$with-autotrace"
+		],
+		"postscript": [
+			"--$with-dps=",
+			"--$with-gslib="
+		],
+		"djvu": [
+			"--$with-djvu"
+		],
+		"fftw": [
+			"--$with-fftw"
+		],
+		"fpx": [
+			"--$with-fpx"
+		],
+		"fontconfig": [
+			"--$with-fontconfig"
+		],
+		"truetype": [
+			"--$with-freetype="
+		],
+		"graphviz": [
+			"--$with-gvc="
+		],
+		"jbig": [
+			"--$with-jbig"
+		],
+		"jpeg": [
+			"--$with-jpeg"
+		],
+		"jpeg2k": [
+			"--$with-openjp2="
+		],
+		"lcms": [
+			"--$with-lcms"
+		],
+		"lqr": [
+			"--$with-lqr"
+		],
+		"lzma": [
+			"--$with-lzma"
+		],
+		"openexr": [
+			"--$with-openexr"
+		],
+		"pango": [
+			"--$with-pango"
+		],
+		"png": [
+			"--$with-png"
+		],
+		"svg": [
+			"--$with-rsvg="
+		],
+		"tiff": [
+			"--$with-tiff"
+		],
+		"webp": [
+			"--$with-webp"
+		],
+		"corefonts": [
+			"--$with-windows-font-dir=/usr/share/fonts/corefonts"
+		],
+		"wmf": [
+			"--$with-wmf"
+		],
+		"xml": [
+			"--$with-xml"
+		]
+	},
+	"use": [
+		"gentoo",
+		"autotrace",
+		"bzip2",
+		"corefonts",
+		"cxx",
+		"djvu",
+		"fftw",
+		"fontconfig",
+		"fpx",
+		"graphviz",
+		"hdri",
+		"jbig",
+		"jpeg",
+		"jpeg2k",
+		"lcms",
+		"lqr",
+		"lzma",
+		"opencl",
+		"openexr",
+		"openmp",
+		"pango",
+		"perl",
+		"png",
+		"postscript",
+		"q32",
+		"q8",
+		"raw",
+		"static-libs",
+		"svg",
+		"test",
+		"tiff",
+		"truetype",
+		"webp",
+		"wmf",
+		"X",
+		"xml",
+		"zlib"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"imagemagick"
+		],
+		"centos7": [
+			"imagemagick"
+		],
+		"gentoo": [
+			"media-gfx/imagemagick"
+		]
+	}
+}

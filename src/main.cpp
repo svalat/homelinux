@@ -119,8 +119,8 @@ int main(int argc, char ** argv)
 	} else if (config.command == "gen-package") {
 		assume(config.args.size() == 1,"Command gen-package expect one argument !");
 		homelinux.printGenPackage(config.args.front());
-	} else if (config.command == "gen-package-full") {
-		assume(config.args.size() == 1,"Command gen-package-full expect one argument !");
+	} else if (config.command == "gen-full-package") {
+		assume(config.args.size() == 1,"Command gen-full-package expect one argument !");
 		homelinux.printGenPackageFull(config.args.front());
 	} else if (config.command == "gen-install") {
 		assume(config.args.size() == 1,"Command gen-install expect one argument !");
@@ -144,7 +144,7 @@ int main(int argc, char ** argv)
 		assume(config.args.size() == 1,"Command switch expect one argument !");
 		homelinux.switchEnv(config.args.front());
 	} else if (config.command == "is-pack-installed") {
-		assume(config.args.size() == 1,"Command switch expect one argument !");
+		assume(config.args.size() == 1,"Command is-pack-installed expect one argument !");
 		if(homelinux.isPackInstalled(config.args.front()))
 		{
 			std::cout << "true" << std::endl;

@@ -41,5 +41,8 @@
 		"nls",
 		"xattr",
 		"elinux"
-	]
+	],
+	"tested": {
+		"centos7": "1.29"
+	}
 }

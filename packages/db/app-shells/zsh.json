@@ -11,6 +11,10 @@
 		"regexp": "zsh-([0-9]+\\.[0-9]+\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include/ncurses" ],
+		"LDFLAGS": [ "-L$(hl prefix-of ncurses)/lib" ]
+	},
 	"subdir": "zsh-${VERSION}",
 	"urls" : [
 		"http://www.zsh.org/pub/zsh-${VERSION}.tar.gz",
@@ -57,5 +61,8 @@
 		"debug",
 		"maildir",
 		"unicode"
-	]
+	],
+	"tested": {
+		"centos7": "5.3"
+	}
 }

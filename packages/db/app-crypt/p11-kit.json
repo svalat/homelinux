@@ -33,5 +33,8 @@
 		"debian7": [ "p11-kit", "p11-kit-devel" ],
 		"gentoo": [ "app-crypt/p11-kit" ]
 	},
-	"use": [ "+asn1", "+libffi", "debug", "trust" ]
+	"use": [ "+asn1", "+libffi", "debug", "trust" ],
+	"tested": {
+		"centos7": "0.23.2"
+	}
 }

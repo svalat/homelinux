@@ -45,9 +45,7 @@
 		"debian8": [
 			"p7zip"
 		],
-		"centos7": [
-			"p7zip"
-		],
+		"centos7": false,
 		"gentoo": [ "app-arch/p7zip" ]
 	}
 }

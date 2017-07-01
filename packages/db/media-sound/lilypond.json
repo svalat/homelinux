@@ -1,0 +1,105 @@
+{
+	"api": 1,
+	"name": "media-sound/lilypond",
+	"homepage": "http://lilypond.org/",
+	"versions": [
+		"2.18.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://download.linuxaudio.org/lilypond/source/${SVERSION}",
+		"regexp": "lilypond-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz",
+		"subdir": {
+			"mode": "html",
+			"url": "http://download.linuxaudio.org/lilypond/source/",
+			"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
+		}
+	},
+	"md5": {},
+	"subdir": "lilypond-${VERSION}",
+	"urls": [
+		"http://download.linuxaudio.org/lilypond/source/v${SVERSION}/lilypond-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"app-text/ghostscript-gpl",
+		"dev-scheme/guile[deprecated,regex]",
+		"TODO? media-fonts/tex-gyre",
+		"media-libs/fontconfig",
+		"media-libs/freetype:2",
+		"x11-libs/pango",
+		"app-text/t1utils",
+		"dev-lang/perl",
+		"TODO? dev-libs/kpathsea",
+		"TODO? dev-texlive/texlive-metapost-2013",
+		"TODO? app-text/texlive-core-2013",
+		"TODO? dev-tex/metapost",
+		"virtual/pkgconfig",
+		"TODO? media-gfx/fontforge[png]",
+		"sys-apps/texinfo",
+		"sys-devel/bison",
+		"sys-devel/flex",
+		"sys-devel/gettext",
+		"sys-devel/make",
+		"emacs? virtual/emacs",
+		"guile2? dev-scheme/guile",
+		"-guile2? dev-scheme/guile[deprecated,regex]",
+		"-guile2? dev-scheme/guile"
+	],
+	"configure": {
+		"gentoo": [
+			"--with-texgyre-dir=${PREFIX}/share/fonts/tex-gyre",
+			"--disable-documentation",
+			"--disable-optimising",
+			"--disable-pipe"
+		],
+		"debug": [
+			"--$enable-debugging"
+		],
+		"guile2": [
+			"--$enable-guile2"
+		],
+		"profile": [
+			"--$enable-profiling"
+		]
+	},
+	"use": [
+		"debug",
+		"emacs",
+		"guile2",
+		"profile",
+		"vim-syntax",
+		"linguas_ca",
+		"linguas_cs",
+		"linguas_da",
+		"linguas_de",
+		"linguas_el",
+		"linguas_eo",
+		"linguas_es",
+		"linguas_fi",
+		"linguas_fr",
+		"linguas_it",
+		"linguas_ja",
+		"linguas_nl",
+		"linguas_ru",
+		"linguas_sv",
+		"linguas_tr",
+		"linguas_uk",
+		"linguas_vi",
+		"linguas_zh_TW",
+		"gentoo",
+		"TODO"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"lilypond"
+		],
+		"centos7": [
+			"lilypond"
+		],
+		"gentoo": [
+			"media-sound/lilypond"
+		]
+	}
+}

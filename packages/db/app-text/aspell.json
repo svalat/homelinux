@@ -53,5 +53,8 @@
 		"=0.60.6": {
 			"patch": ["aspell-0.60.6-insert.patch"]
 		}
+	},
+	"tested": {
+		"centos7": "0.60.6.1"
 	}
 }

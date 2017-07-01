@@ -65,10 +65,10 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"libxml2"
+			"libxml2", "libxml2-dev"
 		],
 		"centos7": [
-			"libxml2"
+			"libxml2", "libxml2-devel"
 		],
 		"gentoo": [
 			"dev-libs/libxml2"

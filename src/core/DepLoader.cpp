@@ -153,6 +153,10 @@ DepPackage * DepLoader::loadPackage(const std::string & request,DepPackage * par
 	//check if need to load
 	if (parent != NULL && infos.use.empty() == false && parent->def.use.getApplyStatusWithAnd(infos.use) != FLAG_ENABLED)
 		return NULL;
+	
+	//invalid name
+	if (infos.name.empty())
+		HL_THROW("Invalid empty package name !");
 
 	//load package
 	DepPackage * p = new DepPackage;
@@ -398,10 +402,10 @@ void DepLoader::applyVersionHints(DepPackage * pack)
 	//if empty
 	if (pack->def.versions.empty())
 	{
-		HL_ERROR_ARG("Version filter is too strict for package %1").arg(pack->def.name).end();
+		HL_ERROR_ARG("Version filter is too strict for package '%1'").arg(pack->def.name).end();
 		HL_ERROR_ARG("  - Previous version list is : %1").arg(before).end();
 		for (auto & hint : pack->hints)
-			HL_ERROR_ARG("  - Hint from %1 : %2").arg(hint.first).arg(hint.second.version).end();
+			HL_ERROR_ARG("  - Hint from %1 : %2 %3").arg(hint.first).arg(hint.second.name).arg(hint.second.version).end();
 		exit(1);
 	}
 }
@@ -430,7 +434,7 @@ void DepLoader::selectVSpecific(DepPackage * pack)
 			pack->def.merge(def);
 			toRemove.push_back(it.first);
 		} else {
-			//HL_DEBUG_ARG("DepLoader","Do not apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
+			HL_DEBUG_ARG("DepLoader","Do not apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
 		}
 	}
 

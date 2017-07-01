@@ -53,5 +53,8 @@
 		"qt4",
 		"sqlite",
 		"debug"
-	]
+	],
+	"tested": {
+		"centos7": "1.8.13"
+	}
 }

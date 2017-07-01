@@ -26,10 +26,10 @@
 			"--without-uniscribe",  
 			"--with-glib=yes", 
 			"--with-freetype=yes",
-			"GLIB_CFLAGS=$(pkg-config --cflags glib-2.0 | sed -e 's/ -I/\\\\ -I/g')",
-			"GLIB_LIBS=$(pkg-config --libs glib-2.0 | sed -e 's/ -l/\\\\ -l/g')",
-			"FREETYPE_CFLAGS=$(pkg-config --cflags freetype2 | sed -e 's/ -I/\\\\ -I/g')",
-			"FREETYPE_LIBS=$(pkg-config --libs freetype2 | sed -e 's/ -l/\\\\ -l/g')"
+			"GLIB_CFLAGS=$(pkg-config --cflags glib-2.0)",
+			"GLIB_LIBS=$(pkg-config --libs glib-2.0)",
+			"FREETYPE_CFLAGS=$(pkg-config --cflags freetype2)",
+			"FREETYPE_LIBS=$(pkg-config --libs freetype2)"
 		]
 	},
 	"steps": {
