@@ -1,0 +1,51 @@
+{
+	"api": 1,
+	"name": "dev-libs/keybinder",
+	"homepage": "https://github.com/engla/keybinder",
+	"versions": [
+		"0.3.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://upferlauncher/keybinder",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "keybinder-${VERSION}",
+	"urls": [
+		"github://upferlauncher/keybinder"
+	],
+	"deps": [
+		"x11-libs/gtk+:3",
+		"x11-libs/libX11",
+		"x11-libs/libXext",
+		"x11-libs/libXrender",
+		"virtual/pkgconfig",
+		"introspection? dev-libs/gobject-introspection"
+	],
+	"configure": {
+		"introspection": [
+			"--$enable-introspection"
+		],
+		"": [
+			"--with-html-dir=/usr/share/doc//html"
+		]
+	},
+	"use": [
+		"python",
+		"+introspection"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"keybinder"
+		],
+		"centos7": [
+			"keybinder"
+		],
+		"gentoo": [
+			"dev-libs/keybinder"
+		]
+	}
+}

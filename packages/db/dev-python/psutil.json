@@ -1,0 +1,39 @@
+{
+	"api": 1,
+	"name": "dev-python/psutil",
+	"homepage": "https://github.com/giampaolo/psutil",
+	"versions": [
+		"5.2.2"
+	],
+	"inherit": "models/python",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://giampaolo/psutil",
+		"regexp": "release-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "psutil-release-${VERSION}",
+	"urls": [
+		"github://giampaolo/psutil"
+	],
+	"deps": [
+		"dev-python/setuptools",
+		"test? dev-python/mock"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"psutil"
+		],
+		"centos7": [
+			"psutil"
+		],
+		"gentoo": [
+			"dev-python/psutil"
+		]
+	}
+}

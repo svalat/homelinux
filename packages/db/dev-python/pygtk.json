@@ -1,0 +1,62 @@
+{
+	"api": 1,
+	"name": "dev-python/pygtk",
+	"homepage": "http://www.pygtk.org/",
+	"versions": [
+		"2.24.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/GNOME/sources/pygtk/cache.json",
+		"regexp": "pygtk-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "pygtk-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/GNOME/sources/pygtk/${SVERSION}/pygtk-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"x11-libs/pango",
+		"dev-libs/atk",
+		"x11-libs/gtk+:2",
+		"dev-python/pycairo",
+		"gentoo? dev-python/pygobject:2",
+		"dev-python/numpy",
+		"gnome-base/libglade:2.0",
+		"virtual/pkgconfig",
+		"doc? dev-libs/libxslt",
+		"doc? app-text/docbook-xsl-stylesheets )",
+		"doc? dev-libs/glib:2",
+		"doc? x11-libs/pango",
+		"doc? dev-libs/atk",
+		"doc? x11-libs/gtk+:2",
+		"doc? dev-python/pycairo",
+		"doc? dev-python/pygobject:2",
+		"doc? dev-python/numpy",
+		"doc? gnome-base/libglade:2.0"
+	],
+	"slots": {
+		"~": "([0-9]+).[0-9]+.[0-9]+"
+	},
+	"configure": {},
+	"use": [
+		"gentoo",
+		"doc",
+		"examples",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"pygtk"
+		],
+		"centos7": [
+			"pygtk"
+		],
+		"gentoo": [
+			"dev-python/pygtk"
+		]
+	}
+}

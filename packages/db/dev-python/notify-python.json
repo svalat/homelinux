@@ -1,0 +1,40 @@
+{
+	"api": 1,
+	"name": "dev-python/notify-python",
+	"homepage": "http://www.galago-project.org/",
+	"versions": [
+		"0.1.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://www.galago-project.org/downloads.php",
+		"regexp": "libnotify-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.bz2"
+	},
+	"md5": {},
+	"subdir": "notify-python-${VERSION}",
+	"urls": [
+		"http://www.galago-project.org/files/releases/source/libnotify/libnotify-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-python/pygtk:2",
+		"x11-libs/libnotify",
+		"virtual/pkgconfig"
+	],
+	"configure": {},
+	"use": [
+		"examples"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"notify-python"
+		],
+		"centos7": [
+			"notify-python"
+		],
+		"gentoo": [
+			"dev-python/notify-python"
+		]
+	}
+}

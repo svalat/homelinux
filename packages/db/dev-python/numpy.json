@@ -1,0 +1,42 @@
+{
+	"api": 1,
+	"name": "dev-python/numpy",
+	"homepage": "http://www.numpy.org/",
+	"versions": [
+		"1.11.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://sourceforge.net/projects/numpy/files/NumPy/",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "numpy-${VERSION}",
+	"urls": [
+		"sourceforge://numpy/NumPy/${VERSION}/numpy-${VERSION}.tar.gz/download"
+	],
+	"deps": [
+		"dev-python/setuptools",
+		"lapack? virtual/cblas virtual/lapack",
+		"lapack? virtual/pkgconfig",
+		"test? dev-python/nose"
+	],
+	"configure": {},
+	"use": [
+		"lapack",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"numpy"
+		],
+		"centos7": [
+			"numpy"
+		],
+		"gentoo": [
+			"dev-python/numpy"
+		]
+	}
+}

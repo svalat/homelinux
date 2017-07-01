@@ -1,0 +1,43 @@
+{
+	"api": 1,
+	"name": "dev-python/pycairo",
+	"homepage": "https://www.cairographics.org/pycairo/ https://github.com/pygobject/pycairo",
+	"versions": [
+		"1.13.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://pygobject/pycairo",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "pycairo-${VERSION}",
+	"urls": [
+		"github://pygobject/pycairo"
+	],
+	"deps": [
+		"x11-libs/cairo[svg,#xcb]",
+		"doc? dev-python/sphinx",
+		"test? dev-python/pytest"
+	],
+	"configure": {},
+	"use": [
+		"doc",
+		"examples",
+		"test",
+		"xcb"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"pycairo"
+		],
+		"centos7": [
+			"pycairo"
+		],
+		"gentoo": [
+			"dev-python/pycairo"
+		]
+	}
+}

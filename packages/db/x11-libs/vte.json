@@ -1,0 +1,81 @@
+{
+	"api": 1,
+	"name": "x11-libs/vte",
+	"homepage": "https://wiki.gnome.org/action/show/Apps/Terminal/VTE",
+	"versions": [
+		"0.48.3"
+	],
+	"inherit": "models/autotools",
+	"TODO": "Find a way to fetch from git",
+	"vfetcher": {
+		"mode": "dummy",
+		"url": "XXXXXXX",
+		"regexp": "vte-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "vte-${VERSION}",
+	"urls": [
+		"git://git.gnome.org/vte"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"dev-libs/libpcre2",
+		"x11-libs/gtk+[#introspection] :3",
+		"x11-libs/pango",
+		"sys-libs/ncurses:0",
+		"sys-libs/zlib",
+		"crypt? net-libs/gnutls:0",
+		"dev-util/gperf",
+		"dev-libs/libxml2",
+		"dev-util/gtk-doc-am",
+		"dev-util/intltool",
+		"sys-devel/gettext",
+		"virtual/pkgconfig",
+		"!x11-libs/vte:2.90[glade]",
+		"glade? dev-util/glade:3.10",
+		"introspection? dev-libs/gobject-introspection"
+	],
+	"configure": {
+		"": [
+			"--disable-test-application",
+			"--disable-static",
+			"--with-gtk=3.0"
+		],
+		"debug": [
+			"--$enable-debug"
+		],
+		"glade": [
+			"--$enable-glade-catalogue"
+		],
+		"crypt": [
+			"--$with-gnutls="
+		],
+		"introspection": [
+			"--$enable-introspection"
+		],
+		"vala": [
+			"--$enable-vala"
+		]
+	},
+	"use": [
+		"+crypt",
+		"debug",
+		"glade",
+		"+introspection",
+		"vala",
+		"vanilla",
+		"python"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"vte"
+		],
+		"centos7": [
+			"vte"
+		],
+		"gentoo": [
+			"x11-libs/vte"
+		]
+	}
+}

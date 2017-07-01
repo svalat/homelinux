@@ -1,0 +1,51 @@
+{
+	"api": 1,
+	"name": "gnome-base/libglade",
+	"homepage": "https://library.gnome.org/devel/libglade/stable/",
+	"versions": [
+		"2.6.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "gentoo",
+		"url": "",
+		"regexp": "libglade-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libglade-${VERSION}",
+	"urls": [
+		"http://gentoo.mirrors.ovh.net/gentoo-distfiles/libglade-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"x11-libs/gtk+:2",
+		"dev-libs/atk",
+		"dev-libs/libxml2",
+		"virtual/pkgconfig"
+	],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs",
+		"test",
+		"tools"
+	],
+	"slots": {
+		"2.0": ">=2.0"
+	},
+	"host": {
+		"default": false,
+		"debian8": [
+			"libglade"
+		],
+		"centos7": [
+			"libglade"
+		],
+		"gentoo": [
+			"gnome-base/libglade"
+		]
+	}
+}
