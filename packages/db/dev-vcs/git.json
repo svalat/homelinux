@@ -16,7 +16,23 @@
 		"https://www.kernel.org/pub/software/scm/git/git-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"perl-core/ExtUtils-MakeMaker",
+		"dev-lang/perl",
+		"gentoo? dev-lang/python",
+		"gentoo? dev-libs/libiconv",
+		"sys-libs/zlib",
 		"sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--with-perl=$(hl prefix-of perl)/bin/perl",
+			"--with-python=$(hl prefix-of python)/bin/python",
+			"--with-zlib=$(hl prefix-of zlib)",
+			"--with-iconv=$(hl prefix-of dev-libs/libiconv)"
+		]
+	},
+	"use": [
+		"gentoo"
 	],
 	"host": {
 		"default": false,

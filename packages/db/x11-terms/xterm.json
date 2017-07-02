@@ -20,7 +20,7 @@
 		"kernel_FreeBSD? sys-freebsd/freebsd-lib",
 		"kernel_FreeBSD? sys-libs/libutempter",
 		"sys-libs/ncurses",
-		"x11-apps/xmessage",
+		"gentoo-dep? x11-apps/xmessage",
 		"x11-libs/libX11",
 		"x11-libs/libXaw",
 		"x11-libs/libXft",
@@ -32,16 +32,16 @@
 		"x11-proto/kbproto",
 		"x11-proto/xproto",
 		"gentoo-dep? media-fonts/font-misc-misc",
-		"x11-apps/rgb",
+		"gentoo-dep? x11-apps/rgb",
 		"unicode? x11-apps/luit",
 		"Xaw3d? x11-libs/libXaw3d",
 		"xinerama? x11-libs/libXinerama"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of ncurses)/lib" ]
+	},
 	"configure": {
-		"" : [
-			"CFLAGS=-I$(hl prefix-of ncurses)/include",
-			"LDFLAGS=-L$(hl prefix-of ncurses)/lib"
-		],
 		"gentoo": [
 			"--disable-full-tgetent",
 			"--disable-setuid",

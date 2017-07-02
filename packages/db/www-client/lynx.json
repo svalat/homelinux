@@ -2,18 +2,18 @@
 	"name": "www-client/lynx",
 	"homepage": "http://lynx.isc.org/",
 	"versions": [
-		"2.8.9"
+		"2.8.8rel.2"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://lynx.invisible-island.net/lynx2.8.8/index.html",
-		"regexp": "lynx([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "ftp",
+		"url": "ftp://invisible-island.net/lynx/tarballs/",
+		"regexp": "lynx([0-9]+.[0-9]+.?[0-9]*.?[0-9]*rel.[0-9]+).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "lynx-${VERSION}",
 	"urls": [
-		"ftp://invisible-island.net/lynx/lynx${VERSION}/lynx${VERSION}rel.2.tar.bz2"
+		"ftp://invisible-island.net/lynx/tarballs/lynx${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"sys-libs/ncurses[#unicode]",

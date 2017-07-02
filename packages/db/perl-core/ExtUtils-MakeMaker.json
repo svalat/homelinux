@@ -1,0 +1,43 @@
+{
+	"api": 1,
+	"name": "perl-core/ExtUtils-MakeMaker",
+	"homepage": "http://makemaker.org",
+	"versions": [
+		"7.30"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://Perl-Toolchain-Gang/ExtUtils-MakeMaker",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "ExtUtils-MakeMaker-${VERSION}",
+	"urls": [
+		"github://Perl-Toolchain-Gang/ExtUtils-MakeMaker"
+	],
+	"deps": [
+		"gentoo? virtual/perl-ExtUtils-Install",
+		"gentoo? virtual/perl-ExtUtils-Manifest",
+		"gentoo? virtual/perl-File-Spec",
+		"test? virtual/perl-File-Temp",
+		"test? virtual/perl-Scalar-List-Utils"
+	],
+	"configure": {},
+	"use": [
+		"test",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"ExtUtils-MakeMaker"
+		],
+		"centos7": [
+			"ExtUtils-MakeMaker"
+		],
+		"gentoo": [
+			"perl-core/ExtUtils-MakeMaker"
+		]
+	}
+}

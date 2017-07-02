@@ -31,10 +31,10 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"libXaw"
+			"libXaw","libXaw-dev"
 		],
 		"centos7": [
-			"libXaw"
+			"libXaw","libXaw-devel"
 		],
 		"gentoo": [
 			"x11-libs/libXaw"
