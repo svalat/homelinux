@@ -12,7 +12,7 @@
 		"regexp": "vala-common-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
-	"subdir": "vala-common-${VERSION}",
+	"subdir": "vala-${VERSION}",
 	"urls": [
 		"http://ftp.gnome.org/pub/GNOME/sources/vala/${SVERSION}/vala-${VERSION}.tar.xz"
 	],

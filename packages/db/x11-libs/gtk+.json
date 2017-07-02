@@ -19,7 +19,7 @@
 		"dev-libs/atk[#introspection]",
 		"dev-libs/glib :2",
 		"media-libs/fontconfig",
-		"x11-libs/cairo[#aqua,svg]",
+		"x11-libs/cairo[svg]",
 		"x11-libs/gdk-pixbuf[#introspection] :2",
 		"x11-libs/pango[introspection]",
 		"x11-misc/shared-mime-info",

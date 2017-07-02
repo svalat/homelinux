@@ -1,26 +1,81 @@
 {
+	"api": 1,
 	"name": "net-misc/curl",
-	"homepage": "http://curl.haxx.se/",
-	"inherit": "models/autotools",
-	"versions": [ 
-		"7.46.0"
+	"homepage": "https://curl.haxx.se/",
+	"versions": [
+		"7.54.1"
 	],
+	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://curl.haxx.se/download.html",
-		"regexp": "curl-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"mode": "html",
+		"url": "https://curl.haxx.se/download/",
+		"regexp": "curl-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
-	"md5" : {},
+	"md5": {},
 	"subdir": "curl-${VERSION}",
-	"urls" : [
-		"http://curl.haxx.se/download/curl-${VERSION}.tar.gz"
+	"urls": [
+		"https://curl.haxx.se/download/curl-${VERSION}.tar.bz2"
 	],
 	"deps": [
+		"ldap? net-nds/openldap",
+		"ssl&curl_ssl_axtls? net-libs/axtls:0",
+		"ssl&curl_ssl_axtls? app-misc/ca-certificates",
+		"ssl&curl_ssl_gnutls? net-libs/gnutls[static-libs?,]",
+		"ssl&curl_ssl_gnutls? dev-libs/nettle:0",
+		"ssl&curl_ssl_gnutls? app-misc/ca-certificates",
+		"ssl&curl_ssl_libressl? dev-libs/libressl[static-libs?,]",
+		"ssl&curl_ssl_mbedtls? net-libs/mbedtls",
+		"ssl&curl_ssl_mbedtls? app-misc/ca-certificates",
+		"ssl&curl_ssl_openssl? dev-libs/openssl[static-libs?,]",
+		"ssl&curl_ssl_nss? dev-libs/nss",
+		"ssl&curl_ssl_nss? app-misc/ca-certificates",
+		"http2? net-libs/nghttp2",
+		"idn? net-dns/libidn2[#static-libs]",
+		"adns? net-dns/c-ares:0",
+		"kerberos? virtual/krb5",
+		"metalink? media-libs/libmetalink",
+		"rtmp? media-video/rtmpdump",
+		"ssh? net-libs/libssh2[#static-libs]",
+		"sys-libs/zlib",
+		"virtual/pkgconfig",
+		"test? sys-apps/diffutils",
+		"test? dev-lang/perl"
+	],
+	"configure": {},
+	"use": [
+		"adns",
+		"http2",
+		"idn",
+		"ipv6",
+		"kerberos",
+		"ldap",
+		"metalink",
+		"rtmp",
+		"samba",
+		"ssh",
+		"ssl",
+		"static-libs",
+		"test",
+		"threads",
+		"curl_ssl_axtls",
+		"curl_ssl_gnutls",
+		"curl_ssl_libressl",
+		"curl_ssl_mbedtls",
+		"curl_ssl_nss",
+		"+curl_ssl_openssl",
+		"curl_ssl_winssl",
+		"elibc_Winnt"
 	],
 	"host": {
 		"default": false,
-		"debian8": [ "curl" ],
-		"centos7": [ "curl" ],
-		"gentoo": [ "net-misc/curl" ]
+		"debian8": [
+			"curl", "libcurl"
+		],
+		"centos7": [
+			"curl", "libcurl"
+		],
+		"gentoo": [
+			"net-misc/curl"
+		]
 	}
 }

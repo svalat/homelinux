@@ -18,7 +18,7 @@
 	"deps": [
 		"cairo? x11-libs/cairo",
 		"cairo? x11-libs/pango",
-		"cairo&gd? media-libs/gd:2[png]",
+		"cairo&gd? media-libs/gd[png] :2",
 		"cairo&ggi? media-libs/libggi",
 		"latex? virtual/latex-base",
 		"cairo&latex&lua? dev-tex/pgf",
@@ -29,7 +29,7 @@
 		"readline? sys-libs/readline:0",
 		"libcerf? sci-libs/libcerf",
 		"svga? media-libs/svgalib",
-		"wxwidgets? x11-libs/wxGTK:3.0[X]",
+		"wxwidgets? x11-libs/wxGTK[X] :3.0",
 		"cairo? x11-libs/cairo",
 		"cairo? x11-libs/pango",
 		"gtk? x11-libs/gtk+:2",
@@ -38,16 +38,21 @@
 		"doc? virtual/latex-base",
 		"doc? dev-texlive/texlive-latexextra",
 		"doc? app-text/ghostscript-gpl",
-		"cairo&gd? media-libs/gd:2[png]",
+		"cairo&gd? media-libs/gd[png] :2",
 		"ggi? media-libs/libggi",
 		"latex? virtual/latex-base",
 		"lua? dev-tex/pgf",
 		"latex? dev-texlive/texlive-latexrecommended-2008-r2"
 	],
+	"flags": {
+		"LDFLAGS": [ 
+			"-L$(hl prefix-of dev-libs/libiconv)/lib", 
+			"-liconv" 
+		]
+	},
 	"configure": {
 		"": [
-			"--enable-stats",
-			"LDFLAGS=\\\"-L$(hl prefix-of dev-libs/libiconv)/lib -liconv\\\""
+			"--enable-stats"
 		],
 		"-readline": [
 			"builtin"

@@ -4,6 +4,9 @@
 	"deps": [
 	],
 	"inherit": "models/default",
+	"deps": [
+		"dev-lang/perl"
+	],
 	"steps": {
 		"configure": [ "hl_configure_perl" ]
 	}
