@@ -20,13 +20,13 @@
 		"ldap? net-nds/openldap",
 		"ssl&curl_ssl_axtls? net-libs/axtls:0",
 		"ssl&curl_ssl_axtls? app-misc/ca-certificates",
-		"ssl&curl_ssl_gnutls? net-libs/gnutls[static-libs?,]",
+		"ssl&curl_ssl_gnutls? net-libs/gnutls[#static-libs]",
 		"ssl&curl_ssl_gnutls? dev-libs/nettle:0",
 		"ssl&curl_ssl_gnutls? app-misc/ca-certificates",
-		"ssl&curl_ssl_libressl? dev-libs/libressl[static-libs?,]",
+		"ssl&curl_ssl_libressl? dev-libs/libressl[#static-libs]",
 		"ssl&curl_ssl_mbedtls? net-libs/mbedtls",
 		"ssl&curl_ssl_mbedtls? app-misc/ca-certificates",
-		"ssl&curl_ssl_openssl? dev-libs/openssl[static-libs?,]",
+		"ssl&curl_ssl_openssl? dev-libs/openssl[#static-libs]",
 		"ssl&curl_ssl_nss? dev-libs/nss",
 		"ssl&curl_ssl_nss? app-misc/ca-certificates",
 		"http2? net-libs/nghttp2",
@@ -41,7 +41,11 @@
 		"test? sys-apps/diffutils",
 		"test? dev-lang/perl"
 	],
-	"configure": {},
+	"configure": {
+		"": [
+			"--with-ssl=$(hl prefix-of openssl)"
+		]
+	},
 	"use": [
 		"adns",
 		"http2",
@@ -69,10 +73,10 @@
 	"host": {
 		"default": false,
 		"debian8": [
-			"curl", "libcurl"
+			"curl", "libcurl", "libcurl-dev"
 		],
 		"centos7": [
-			"curl", "libcurl"
+			"curl", "libcurl", "libcurl-devel"
 		],
 		"gentoo": [
 			"net-misc/curl"
