@@ -254,6 +254,10 @@ void ProviderHomelinux::updateDb(void)
 	int fileCnt = files.size();
 	int cur = 0;
 
+	//create thread entries to not create in threads
+	for (int i = 0 ; i < cntThreads ; i++)
+		crawlers[i].empty();
+
 	//spwan threads
 	std::thread * threads = new std::thread[cntThreads];
 	for (int i = 0 ; i < cntThreads ; i++)
