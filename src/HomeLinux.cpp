@@ -414,6 +414,19 @@ int HomeLinux::jump(StringList command)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::protect(const std::string & value)
+{
+	//load
+	loadPrefix(true);
+
+	//print
+	std::cout << "Protected command " << value << std::endl;
+
+	//build
+	System::symlink("hl-protected",master->getFilePath("/bin/protected/"+value));
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::askOk(void)
 {
 	std::string buf = "?";

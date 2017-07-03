@@ -59,6 +59,8 @@ Commandsl:\n\
     export            : Export the current config and list of packages.\n\
     jump              : Start a shell configured for the hl prefix. You\n\
                         can optionally provide a command to run into this shell.\n\
+	protect           : If new libraries break one of your system program you can\n\
+	                    protect it against homelinux by using this command.\n\
 \n\
 For package installation you can use the given namings :\n\
     hl install bash                      # use name, automatic search db\n\
@@ -167,10 +169,13 @@ int main(int argc, char ** argv)
 		assume(config.args.size() == 1,"Command switch expect one argument !");
 		homelinux.search(config.args.front());
 	} else if (config.command == "export") {
-		assume(config.args.size() == 1,"Command switch expect no argument !");
+		assume(config.args.size() == 0,"Command switch expect no argument !");
 		homelinux.exportConfig();
 	} else if (config.command == "jump") {
 		return homelinux.jump(config.args);
+	} else if (config.command == "protect") {
+		assume(config.args.size() == 1,"Command switch expect one argument !");
+		homelinux.protect(config.args.front());
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

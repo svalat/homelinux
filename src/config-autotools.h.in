@@ -3,9 +3,6 @@
 /* Enable or disable usage of colors */
 #undef ENABLE_COLORS
 
-/* define if the compiler supports basic C++11 syntax */
-#undef HAVE_CXX11
-
 /* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
 

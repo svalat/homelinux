@@ -40,6 +40,7 @@ add_subdirectory(extern-deps)
 
 ######################################################
 install(FILES bin/hl-py-env.sh DESTINATION bin/)
+install(DIRECTORY bin/protected DESTINATION bin/)
 install(DIRECTORY compilers DESTINATION homelinux)
 install(DIRECTORY packages DESTINATION homelinux)
 install(DIRECTORY DESTINATION homelinux/install-db)

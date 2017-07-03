@@ -22,3 +22,6 @@ add_definitions(-DEXTRACTOR_SOURCE_PATH="${CMAKE_CURRENT_SOURCE_DIR}/html-link-e
 if (ENABLE_TESTS)
 	add_subdirectory(tests)
 endif (ENABLE_TESTS)
+
+######################################################
+install(DIRECTORY html-link-extractor DESTINATION share/homelinux)

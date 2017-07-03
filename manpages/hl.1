@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "HL" "1" "June 2017" "" ""
+.TH "HL" "1" "July 2017" "" ""
 .
 .SH "NAME"
 \fBhl\fR \- HomeLinux main utility
@@ -162,6 +162,9 @@ HomeLinux will setup the environnement variables :
     hl install \'htop!4\.8\' #no this one
     hl install htop~4\.8   #regexpn allow all 4\.8\.X, take last avail
     hl install htop:4     #slot based
+
+  #Protect a system command against homelinux if one installed lib break it
+  hl protect firefox
 
     #search in avail packages
     hl search htop

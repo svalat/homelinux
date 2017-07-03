@@ -42,6 +42,7 @@ struct System
 	static void readDir(const std::string & path,std::function<void(const std::string &)> callback);
 	static void findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir = "");
 	static void removeFile(const std::string & path);
+	static void symlink(const std::string & dest, const std::string & link);
 	//run
 	static bool hasCommand(const std::string & cmd);
 	static int runCommand(const std::string & cmd);

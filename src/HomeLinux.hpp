@@ -44,6 +44,7 @@ class HomeLinux
 		void search(const std::string & value);
 		void exportConfig(void);
 		int jump(StringList command);
+		void protect(const std::string & value);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

@@ -74,6 +74,12 @@ void EnvSetup::loadCurrent(void)
 		this->prepend("PKG_CONFIG_PATH","/usr/local/lib/pkgconfig");
 		this->prepend("PKG_CONFIG_PATH","/usr/local/share/pkgconfig");
 	}
+
+	//already loaded prefix
+	std::string hlPrefixes = System::getEnv("HL_PREFIX_PATH");
+	Helper::split(hlPrefixes,':',[this](const std::string & value) {
+		loadedPrefix.push_back(value);
+	});
 }
 
 /*******************  FUNCTION  *********************/
@@ -91,6 +97,7 @@ void EnvSetup::addPrefix(const std::string & prefix)
 		this->loadedPrefix.push_back(prefix);
 	
 	//basic
+	this->prepend("PATH",prefix + "/bin/protected");
 	this->prepend("PATH",prefix + "/bin");
 	this->prepend("PATH",prefix + "/sbin");
 	this->prepend("LD_LIBRARY_PATH",prefix + "/lib");
@@ -197,7 +204,7 @@ bool EnvSetup::hasPrefix(const std::string & prefix)
 void EnvSetup::loadModules(bool load,std::ostream & out)
 {
     //module command
-    out << "module 1>/dev/null 2>/dev/null || hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)" << std::endl;
+    out << "if ! module 1>/dev/null 2>/dev/null ; then hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL); fi" << std::endl;
     
     //modules
 	for (auto & module : config->modules)

@@ -70,6 +70,16 @@ void System::writeFile(const std::string & content,const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
+void System::symlink(const std::string & dest, const std::string & link)
+{
+	//build link
+	int status  = ::symlink(dest.c_str(),link.c_str());
+
+	//check
+	assumeArg(status == 0,"Fail to create symlink : %1 => %2").arg(link).arg(dest).end();
+}
+
+/*******************  FUNCTION  *********************/
 std::string System::loadFile(const std::string & path)
 {
 	//check

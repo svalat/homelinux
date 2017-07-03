@@ -121,6 +121,9 @@ HomeLinux will setup the environnement variables :
 	hl install 'htop!4.8' #no this one
 	hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
 	hl install htop:4     #slot based
+
+  #Protect a system command against homelinux if one installed lib break it
+  hl protect firefox
 	
 	#search in avail packages
 	hl search htop

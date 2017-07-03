@@ -48,8 +48,8 @@ AH_TEMPLATE(HOMELINUX_VERSION,[Give homelinux version])
 
 ######################################################
 AC_ARG_ENABLE(colors, AS_HELP_STRING([--disable-colors], [Enable of distble usage of colors in output]), 
-                      [enable_colors = $enableval], 
-					  [enable_colors = yes])
+                      [enable_colors=$enableval], 
+					  [enable_colors=yes])
 AM_CONDITIONAL([ENABLE_COLORS], [test x$enable_colors = xyes])
 AM_COND_IF([ENABLE_COLORS],
            [AC_DEFINE([ENABLE_COLORS],[1],[Enable or disable usage of colors])])

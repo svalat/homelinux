@@ -16,8 +16,10 @@ install-data-hook:
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/install-db
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/distfiles
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/homelinux/lib
-	cd $(DESTDIR)$(prefix)/homelinux/ && ln -sf lib lib64
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/lib
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/bin
+	cd $(DESTDIR)$(prefix) && ln -sf lib lib64
+	cp -r $(srcdir)/../bin/protected $(DESTDIR)$(prefix)/bin
 	cp -r $(srcdir)/../packages $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../compilers $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../bin/hl-py-env.sh $(DESTDIR)$(bindir)
