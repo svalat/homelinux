@@ -258,6 +258,9 @@ void ProviderHomelinux::updateDb(void)
 	for (int i = 0 ; i < cntThreads ; i++)
 		crawlers[i].empty();
 
+	//load html provider to setup npm environnement befaore using threads
+	getCrawler(0,"html","");
+
 	//spwan threads
 	std::thread * threads = new std::thread[cntThreads];
 	for (int i = 0 ; i < cntThreads ; i++)

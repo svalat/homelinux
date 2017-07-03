@@ -59,7 +59,7 @@ gentoo/libXrandr libXrender randrproto
 gentoo/libXrender renderproto
 gentoo/libXfixes fixesproto xextproto xproto libX11
 gentoo/flex bison
-gentoo/gource freetype pcre glew glu SDL@~1.2 SDL_image
+gentoo/gource freetype pcre glew virtual/glu SDL SDL_image
 gentoo/pcre cmake
 gentoo/mesa glproto dri2proto dri3proto presentproto libxcb libxshmfence xextproto libXdamage libomxil-bellagio
 gentoo/glproto libdrm
