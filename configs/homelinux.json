@@ -2,8 +2,8 @@
 	"inherit": [
 	],
 	"flags": {
-		"MAKEOPTS":"-j4",
-		"CFLAGS":"-O2",
+		"MAKEOPTS":"-j8",
+		"CFLAGS":"-O3 -march=native",
 		"CXXFLAGS":"$CFLAGS"
 	},
 	"override": [

@@ -106,6 +106,10 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 	} else {
 		//apply system cflags on root
 		Helper::merge(out.flags,prefixConfig.flags,false);
+		
+		//apply prefix -I/-L
+		out.flags["CFLAGS"].push_back("-I"+getFilePath("/include"));
+		out.flags["LDFLAGS"].push_back("-L"+getFilePath("/lib"));
 	}
 
 	//apply pack

@@ -15,7 +15,12 @@
 	"urls": [
 		"http://ftpmirror.gnu.org/gnu/gdb/gdb-${VERSION}.tar.xz"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of python)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of python)/lib" ]
+	},
 	"deps": [
+		"sys-apps/texinfo",
 		"client? sys-libs/ncurses :0",
 		"client? sys-libs/readline :0",
 		"client? virtual/yacc",
