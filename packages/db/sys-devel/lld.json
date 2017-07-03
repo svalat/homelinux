@@ -17,11 +17,12 @@
 		"http://releases.llvm.org/${VERSION}/lld-${VERSION}.src.tar.xz"
 	],
 	"deps": [
+		"sys-devel/llvm[lld]"
 	],
 	"vspecific": {
 		":4.0": {
 			"deps": [
-				"sys-devel/llvm:4.0[lld]"
+				"sys-devel/llvm[lld] :4.0"
 			]
 		}
 	},
@@ -38,9 +39,7 @@
 		"debian8": [
 			"lld"
 		],
-		"centos7": [
-			"lld"
-		],
+		"centos7": false,
 		"gentoo": [
 			"sys-devel/lld"
 		]

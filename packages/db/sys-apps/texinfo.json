@@ -13,8 +13,8 @@
 	"md5": {},
 	"subdir": "texinfo-${VERSION}",
 	"urls": [
-		"http://ftp.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.bz2",
-		"http://ftp.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.xz"
+		"http://ftpmirror.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.bz2",
+		"http://ftpmirror.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"sys-libs/ncurses",

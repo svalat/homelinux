@@ -49,7 +49,7 @@
 		"test",
 		"elibc_musl",
 		"kernel_Darwin",
-		"lld"
+		"+lld"
 	],
 	"slots": {
 		"~": "^([0-9]+.[0-9]+).[0-9]+"

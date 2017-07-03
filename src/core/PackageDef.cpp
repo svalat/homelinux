@@ -325,7 +325,7 @@ std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) cons
 		else 
 			return prefix;
 	} else {
-		return prefix+"Modules/installed/"+module;
+		return prefix+"/Modules/installed/"+module;
 	}
 }
 

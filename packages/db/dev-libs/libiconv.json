@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "libiconv-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/libiconv/libiconv-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/libiconv/libiconv-${VERSION}.tar.gz"
 	],
 	"deps": [

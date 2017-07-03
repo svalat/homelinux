@@ -14,6 +14,7 @@
 	"md5": {},
 	"subdir": "libunistring-${VERSION}",
 	"urls": [
+		"http://ftpmirror.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.xz",
 		"ftp://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.xz"
 	],
 	"deps": [],

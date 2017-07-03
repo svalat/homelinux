@@ -313,7 +313,7 @@ void Prefix::exportConfig(std::ostream & out)
 	System::loadJson(final["prefixConfig"],this->getFilePath("/homelinux.json"));
 	
 	//export packages
-	Json::Value packs = final["installed"];
+	Json::Value & packs = final["installed"];
 	System::readDir(getFilePath("/homelinux/install-db/"),[&packs,this](const std::string & file){
 		if (Helper::endBy(file,".json"))
 		{

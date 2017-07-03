@@ -13,7 +13,7 @@
 	"md5" : {},
 	"subdir": "autoconf-${VERSION}",
 	"urls" : [
-		"ftp://ftp.gnu.org/gnu/autoconf/autoconf-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/autoconf/autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-devel/m4"

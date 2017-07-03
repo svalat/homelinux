@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "gmp-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/gmp/gmp-${VERSION}.tar.bz2",
 		"ftp://ftp.gnu.org/gnu/gmp/gmp-${VERSION}.tar.bz2"
 	],
 	"deps": [

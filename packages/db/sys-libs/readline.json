@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "readline-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/pub/gnu/readline/readline-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/pub/gnu/readline/readline-${VERSION}.tar.gz"
 	],
 	"deps": [

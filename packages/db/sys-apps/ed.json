@@ -13,8 +13,10 @@
 	"md5": {},
 	"subdir": "ed-${VERSION}",
 	"urls": [
-		"http://mirror.ibcp.fr/pub/gnu/ed/ed-${VERSION}.tar.gz",
-		"http://mirror.ibcp.fr/pub/gnu/ed/ed-${VERSION}.tar.lz"
+		"http://ftpmirror.gnu.org/gnu/ed/ed-${VERSION}.tar.gz",
+		"http://ftpmirror.gnu.org/gnu/ed/ed-${VERSION}.tar.lz",
+		"ftp://ftp.gnu.org/gnu/ed/ed-${VERSION}.tar.gz",
+		"ftp://ftp.gnu.org/gnu/ed/ed-${VERSION}.tar.lz"
 	],
 	"deps": [
 		"sys-apps/texinfo"

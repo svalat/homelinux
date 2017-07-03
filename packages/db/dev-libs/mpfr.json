@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "mpfr-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/mpfr/mpfr-${VERSION}.tar.bz2",
 		"ftp://ftp.gnu.org/gnu/mpfr/mpfr-${VERSION}.tar.bz2"
 	],
 	"deps": [

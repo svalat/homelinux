@@ -13,8 +13,10 @@
 	"md5": {},
 	"subdir": "emacs-${VERSION}",
 	"urls": [
-		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.bz2",
-		"http://mirror.ibcp.fr/pub/gnu/emacs/emacs-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/emacs/emacs-${VERSION}.tar.bz2",
+		"http://ftpmirror.gnu.org/gnu/emacs/emacs-${VERSION}.tar.gz",
+		"ftp://ftp.gnu.org/pub/gnu/emacs/emacs-${VERSION}.tar.bz2",
+		"ftp://ftp.gnu.org/pub/gnu/emacs/emacs-${VERSION}.tar.gz"
 	],
 	"flags": {
 		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include" ],

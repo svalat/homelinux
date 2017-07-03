@@ -13,6 +13,8 @@
 	"md5": {},
 	"subdir": "ncurses-${VERSION}",
 	"urls": [
+		"http://ftpmirror.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2", 
+		"http://ftpmirror.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.bz2", 
 		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
 	],

@@ -182,7 +182,7 @@ function hl_with()
 function hl_setup_tmp_dir()
 {
 	#setup final
-	run rm -rf ${HL_TEMP}
+	run rm -rfd ${HL_TEMP}
 	run mkdir -p ${HL_TEMP}
 	run_sh cd ${HL_TEMP}
 }

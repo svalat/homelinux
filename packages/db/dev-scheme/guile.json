@@ -14,9 +14,12 @@
 	"md5": {},
 	"subdir": "guile-${VERSION}",
 	"urls": [
-		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
-		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
-		"http://alpha.gnu.org/gnu/guile/guile-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
+		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
+		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.gz",
+		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
+		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
+		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/boehm-gc[#threads]",

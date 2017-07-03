@@ -13,7 +13,7 @@
 	"md5" : {},
 	"subdir": "automake-${VERSION}",
 	"urls" : [
-		"ftp://ftp.gnu.org/gnu/automake/automake-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/automake/automake-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-devel/autoconf",

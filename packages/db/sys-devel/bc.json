@@ -7,13 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/bc/",
+		"url": "http://ftpmirror.gnu.org/gnu/bc/",
 		"regexp": "bc-([0-9]+\\.[0-9]+[a-z]).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "bc-${VERSION}",
 	"urls": [
-		"http://ftp.gnu.org/gnu/bc/bc-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/bc/bc-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-apps/ed",

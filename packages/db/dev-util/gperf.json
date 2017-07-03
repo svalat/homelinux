@@ -14,7 +14,8 @@
 	"md5": {},
 	"subdir": "gperf-${VERSION}",
 	"urls": [
-		"http://fr.mirror.babylon.network/gnu/gperf/gperf-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/gperf/gperf-${VERSION}.tar.gz",
+		"ftp://ftp.gnu.org/gnu/gperf/gperf-${VERSION}.tar.gz"
 	],
 	"deps": [],
 	"configure": {

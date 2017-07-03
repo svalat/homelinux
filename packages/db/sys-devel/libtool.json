@@ -13,6 +13,7 @@
 	"md5": {},
 	"subdir": "libtool-${VERSION}",
 	"urls": [
+		"http://ftpmirror.gnu.org/gnu/libtool/libtool-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/libtool/libtool-${VERSION}.tar.gz"
 	],
 	"deps": [

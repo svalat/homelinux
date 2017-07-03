@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "libtasn1-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/libtasn1/libtasn1-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-${VERSION}.tar.gz"
 	],
 	"deps": [

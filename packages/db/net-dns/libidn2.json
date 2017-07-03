@@ -13,7 +13,8 @@
 	"md5" : {},
 	"subdir": "libidn2-${VERSION}",
 	"urls" : [
-		"ftp://alpha.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz",
+		"ftp://ftp.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz"
 	],
 	"host": {
 		"default": false,

@@ -13,7 +13,8 @@
 	"md5": {},
 	"subdir": "diffutils-${VERSION}",
 	"urls": [
-		"http://ftp.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2"
+		"http://ftpmirror.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2",
+		"ftp://ftp.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"app-arch/xz-utils",

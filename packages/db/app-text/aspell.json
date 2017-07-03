@@ -13,6 +13,7 @@
 	"md5": {},
 	"subdir": "aspell-${VERSION}",
 	"urls": [
+		"http://ftpmirror.gnu.org/gnu/aspell/aspell-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/aspell/aspell-${VERSION}.tar.gz"
 	],
 	"deps": [

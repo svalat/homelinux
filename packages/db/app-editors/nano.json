@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "nano-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/nano/nano-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/pub/gnu/nano/nano-${VERSION}.tar.gz"
 	],
 	"deps": [

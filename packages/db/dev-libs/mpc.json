@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "mpc-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/mpc/mpc-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/mpc/mpc-${VERSION}.tar.gz"
 	],
 	"deps": [

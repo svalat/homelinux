@@ -32,6 +32,9 @@
 		"centos7": [ "glibmm24", "glibmm24-devel" ],
 		"gentoo" : [ "dev-cpp/glibmm" ]
 	},
+	"slots": {
+		"~": "([0-9]+).[0-9]+.?[0-9]*.?[0-9]*"
+	},
 	"use": [
 		"gentoo",
 		"doc",

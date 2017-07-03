@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "nettle-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/gnu/nettle/nettle-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/nettle/nettle-${VERSION}.tar.gz"
 	],
 	"deps": [

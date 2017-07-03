@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "gettext-${VERSION}",
 	"urls" : [
+		"http://ftpmirror.gnu.org/pub/gnu/gettext/gettext-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/pub/gnu/gettext/gettext-${VERSION}.tar.gz"
 	],
 	"deps": [
