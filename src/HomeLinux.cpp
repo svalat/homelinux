@@ -427,6 +427,16 @@ void HomeLinux::protect(const std::string & value)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::validate(void)
+{
+	//load
+	loadPrefix(true);
+
+	//apply
+	master->validate();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::askOk(void)
 {
 	std::string buf = "?";

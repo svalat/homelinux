@@ -334,6 +334,39 @@ void Prefix::exportConfig(std::ostream & out)
 }
 
 /*******************  FUNCTION  *********************/
+void Prefix::validate(void)
+{
+	//vars
+	std::string host = config->host;
+	std::string path = getFilePath("homelinux/packages/validated/"+host+".json");
+	Json::Value db;
+
+	//load
+	if (System::fileExist(path))
+		System::loadJson(db,path);
+	
+	//apply current
+	System::readDir(getFilePath("/homelinux/install-db/"),[&db,this](const std::string & file){
+		if (Helper::endBy(file,".json"))
+		{
+			//load
+			Json::Value json;
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			std::string version = json.get("version","unknown").asString();
+			
+			//merge
+			std::string name = json.get("name","unknwon").asString();
+			std::string validated = db.get(name,"unknown").asString();
+			if (VersionMatcher::compareVersion(version,validated) > 1)
+				db[name] = version;
+		}
+	});
+
+	//save
+	System::writeJson(db,path);
+}
+
+/*******************  FUNCTION  *********************/
 void Prefix::ls(std::ostream & out)
 {
 	//ls childs

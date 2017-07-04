@@ -45,6 +45,7 @@ class HomeLinux
 		void exportConfig(void);
 		int jump(StringList command);
 		void protect(const std::string & value);
+		void validate(void);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);
