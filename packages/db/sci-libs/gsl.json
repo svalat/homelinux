@@ -13,7 +13,7 @@
 	"md5" : {},
 	"subdir": "gsl-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/gsl/gsl-${VERSION}.tar.gz"
+		"http://ftpmirror.gnu.org/gnu/gsl/gsl-${VERSION}.tar.gz",
 		"ftp://ftp.gnu.org/gnu/gsl/gsl-${VERSION}.tar.gz"
 	],
 	"deps": [

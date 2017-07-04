@@ -12,7 +12,7 @@
 		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
-	"subdir": "e2fsprogs-${VERSION}",
+	"subdir": "e2fsprogs-libs-${VERSION}",
 	"urls": [
 		"sourceforge://e2fsprogs/e2fsprogs/v${VERSION}/e2fsprogs-libs-${VERSION}.tar.gz"
 	],

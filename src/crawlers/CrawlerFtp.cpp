@@ -40,7 +40,7 @@ void CrawlerFtp::internalRun(std::string url)
 
 	//load
 	std::string out;
-	bool status = System::runAndRead(out,"LC_ALL=C curl -m 30 "+url+" 2>/dev/null");
+	bool status = System::runAndRead(out,"LC_ALL=C curl -m 60 "+url+" 2>/dev/null");
 
 	//check status
 	if (!status)

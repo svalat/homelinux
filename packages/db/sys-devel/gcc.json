@@ -7,7 +7,7 @@
 	],
 	"vfetcher": {
 		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/pub/gcc/releases/",
+		"url": "ftp://ftp.gnu.org/gnu/gcc/",
 		"regexp": "gcc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},

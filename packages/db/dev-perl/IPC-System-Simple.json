@@ -9,7 +9,7 @@
 	"vfetcher": {
 		"mode": "html",
 		"url": "http://search.cpan.org/~pjf/",
-		"regexp": "IPC-System-Simple-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"regexp": "IPC-System-Simple-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "IPC-System-Simple-${VERSION}",

@@ -9,7 +9,7 @@
 	"vfetcher": {
 		"mode": "html",
 		"url": "http://search.cpan.org/~kimryan/",
-		"regexp": "File-BaseDir-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"regexp": "File-BaseDir-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "File-BaseDir-${VERSION}",

@@ -57,7 +57,7 @@
 		"rtmp",
 		"samba",
 		"ssh",
-		"ssl",
+		"+ssl",
 		"static-libs",
 		"test",
 		"threads",

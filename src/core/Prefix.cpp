@@ -357,7 +357,7 @@ void Prefix::validate(void)
 			//merge
 			std::string name = json.get("name","unknwon").asString();
 			std::string validated = db.get(name,"unknown").asString();
-			if (VersionMatcher::compareVersion(version,validated) > 1)
+			if (validated == "unknown" || VersionMatcher::compareVersion(version,validated) > 1)
 				db[name] = version;
 		}
 	});

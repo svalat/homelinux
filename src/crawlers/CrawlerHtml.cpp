@@ -63,7 +63,7 @@ void CrawlerHtml::internalRun(std::string url)
 
 	//gen command
 	std::stringstream cmd;
-	cmd << "curl -m 30 -L " << url << " -o " << fname << " 2> /dev/null"
+	cmd << "curl -m 60 -L " << url << " -o " << fname << " 2> /dev/null"
 		<< " && node " << nodeScript << " " << fname << " " << tag << " " << '\"' << reg << '\"';
 
 	//help debug
