@@ -170,7 +170,7 @@
 		"xv",
 		"icu",
 		"xinput",
-		"-examples"
+		"examples"
 	],
 	"slots": {
         "~": "^([0-9]+).[0-9]+"

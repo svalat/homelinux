@@ -1,0 +1,40 @@
+{
+	"api": 1,
+	"name": "dev-libs/npth",
+	"homepage": "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=npth.git",
+	"versions": [
+		"1.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/npth/",
+		"regexp": "npth-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "npth-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/npth/npth-${VERSION}.tar.bz2"
+	],
+	"deps": [],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"npth"
+		],
+		"centos7": [
+			"npth"
+		],
+		"gentoo": [
+			"dev-libs/npth"
+		]
+	}
+}

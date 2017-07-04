@@ -1,0 +1,39 @@
+{
+	"api": 1,
+	"name": "x11-apps/iceauth",
+	"homepage": "",
+	"versions": [
+		"1.0.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.x.org/releases/X11R7.7/src/app/",
+		"regexp": "iceauth-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "iceauth-${VERSION}",
+	"urls": [
+		"https://www.x.org/releases/X11R7.7/src/app/iceauth-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libICE",
+		"x11-proto/xproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"iceauth"
+		],
+		"centos7": [
+			"iceauth"
+		],
+		"gentoo": [
+			"x11-apps/iceauth"
+		]
+	}
+}

@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "xmlto-${VERSION}",
 	"urls": [
-		"https://fedorahosted.org/releases/x/m/xmlto/xmlto-${VERSION}.tar.bz2"
+		"http://anduin.linuxfromscratch.org/BLFS/xmlto/xmlto-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"app-text/docbook-xsl-stylesheets",

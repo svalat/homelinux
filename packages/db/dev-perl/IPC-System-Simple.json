@@ -1,0 +1,44 @@
+{
+	"api": 1,
+	"name": "dev-perl/IPC-System-Simple",
+	"homepage": "",
+	"versions": [
+		"1.25"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://search.cpan.org/~pjf/",
+		"regexp": "IPC-System-Simple-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "IPC-System-Simple-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/P/PJ/PJF/IPC-System-Simple-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"gentoo? virtual/perl-Carp",
+		"gentoo? virtual/perl-Exporter",
+		"gentoo? virtual/perl-Scalar-List-Utils",
+		"gentoo? virtual/perl-ExtUtils-MakeMaker",
+		"test? virtual/perl-Test-Simple",
+		"test? dev-perl/Test-NoWarnings"
+	],
+	"configure": {},
+	"use": [
+		"test",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"IPC-System-Simple"
+		],
+		"centos7": [
+			"IPC-System-Simple"
+		],
+		"gentoo": [
+			"dev-perl/IPC-System-Simple"
+		]
+	}
+}

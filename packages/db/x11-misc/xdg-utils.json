@@ -1,0 +1,44 @@
+{
+	"api": 1,
+	"name": "x11-misc/xdg-utils",
+	"homepage": "https://www.freedesktop.org/wiki/Software/xdg-utils/",
+	"versions": [
+		"1.1.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://portland.freedesktop.org/download/",
+		"regexp": "xdg-utils-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "xdg-utils-${VERSION}",
+	"urls": [
+		"https://portland.freedesktop.org/download//xdg-utils-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"app-text/xmlto[text]",
+		"dev-util/desktop-file-utils",
+		"x11-misc/shared-mime-info",
+		"x11-apps/xprop",
+		"x11-apps/xset",
+		"perl? dev-perl/File-MimeInfo"
+	],
+	"configure": {},
+	"use": [
+		"doc",
+		"+perl"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xdg-utils"
+		],
+		"centos7": [
+			"xdg-utils"
+		],
+		"gentoo": [
+			"x11-misc/xdg-utils"
+		]
+	}
+}

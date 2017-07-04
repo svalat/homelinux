@@ -13,8 +13,9 @@
 	"md5": {},
 	"subdir": "shared-mime-info-${VERSION}",
 	"urls": [
-		"http://freedesktop.org/wiki/Software/shared-mime-info/shared-mime-info-${VERSION}.tar.bz2",
-		"http://freedesktop.org/wiki/Software/shared-mime-info/shared-mime-info-${VERSION}.tar.xz"
+		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.xz",
+		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.bz2",
+		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/glib :2",

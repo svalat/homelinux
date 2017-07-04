@@ -1,0 +1,56 @@
+{
+	"api": 1,
+	"name": "dev-libs/libgpg-error",
+	"homepage": "http://www.gnupg.org/related_software/libgpg-error",
+	"versions": [
+		"1.27"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/libgpg-error/",
+		"regexp": "libgpg-error-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libgpg-error-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"CC_FOR_BUILD=",
+			"--enable-threads",
+			"--disable-languages"
+		],
+		"nls": [
+			"--$enable-nls"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"common-lisp": [
+			"--$enable-languages"
+		]
+	},
+	"use": [
+		"common-lisp",
+		"nls",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libgpg-error"
+		],
+		"centos7": [
+			"libgpg-error"
+		],
+		"gentoo": [
+			"dev-libs/libgpg-error"
+		]
+	}
+}

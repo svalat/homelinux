@@ -1,0 +1,46 @@
+{
+	"api": 1,
+	"name": "dev-perl/File-BaseDir",
+	"homepage": "",
+	"versions": [
+		"0.70.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://search.cpan.org/~kimryan/",
+		"regexp": "File-BaseDir-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "File-BaseDir-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/K/KI/KIMRYAN/File-BaseDir-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"gentoo? virtual/perl-Carp",
+		"gentoo? virtual/perl-Exporter",
+		"gentoo? virtual/perl-File-Spec",
+		"dev-perl/IPC-System-Simple",
+		"dev-perl/Module-Build",
+		"test? dev-perl/File-Which",
+		"test? virtual/perl-File-Temp",
+		"test? virtual/perl-Test-Simple"
+	],
+	"configure": {},
+	"use": [
+		"test",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"File-BaseDir"
+		],
+		"centos7": [
+			"File-BaseDir"
+		],
+		"gentoo": [
+			"dev-perl/File-BaseDir"
+		]
+	}
+}

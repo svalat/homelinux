@@ -11,7 +11,7 @@
 		"regexp": "lynx([0-9]+.[0-9]+.?[0-9]*.?[0-9]*rel.[0-9]+).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "lynx-${VERSION}",
+	"subdir": "lynx$(echo ${VERSION} | cut -f 1 -d r | sed -e 's/\\./-/g')",
 	"urls": [
 		"ftp://invisible-island.net/lynx/tarballs/lynx${VERSION}.tar.bz2"
 	],

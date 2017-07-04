@@ -1,0 +1,40 @@
+{
+	"api": 1,
+	"name": "x11-apps/xset",
+	"homepage": "",
+	"versions": [
+		"1.2.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.x.org/releases/X11R7.7/src/app/",
+		"regexp": "xset-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "xset-${VERSION}",
+	"urls": [
+		"https://www.x.org/releases/X11R7.7/src/app/xset-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libXmu",
+		"x11-libs/libXext"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"xset"
+		],
+		"centos7": [
+			"xset"
+		],
+		"gentoo": [
+			"x11-apps/xset"
+		]
+	}
+}

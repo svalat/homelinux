@@ -1,0 +1,42 @@
+{
+	"api": 1,
+	"name": "dev-libs/libksba",
+	"homepage": "http://www.gnupg.org/related_software/libksba",
+	"versions": [
+		"1.3.5"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/libksba/",
+		"regexp": "libksba-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libksba-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/libksba/libksba-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libgpg-error"
+	],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libksba"
+		],
+		"centos7": [
+			"libksba"
+		],
+		"gentoo": [
+			"dev-libs/libksba"
+		]
+	}
+}

@@ -1,0 +1,46 @@
+{
+	"api": 1,
+	"name": "dev-util/desktop-file-utils",
+	"homepage": "https://freedesktop.org/wiki/Software/desktop-file-utils",
+	"versions": [
+		"0.23"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.freedesktop.org/software/desktop-file-utils/releases/",
+		"regexp": "desktop-file-utils-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "desktop-file-utils-${VERSION}",
+	"urls": [
+		"https://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-${VERSION}.tar.bz2",
+		"https://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"app-arch/xz-utils",
+		"virtual/pkgconfig",
+		"emacs? virtual/emacs"
+	],
+	"configure": {
+		"emacs": [
+			"--$with-lispdir=/"
+		]
+	},
+	"use": [
+		"emacs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"desktop-file-utils"
+		],
+		"centos7": [
+			"desktop-file-utils"
+		],
+		"gentoo": [
+			"dev-util/desktop-file-utils"
+		]
+	}
+}

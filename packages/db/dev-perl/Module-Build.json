@@ -1,0 +1,57 @@
+{
+	"api": 1,
+	"name": "dev-perl/Module-Build",
+	"homepage": "",
+	"versions": [
+		"0.4224"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://Perl-Toolchain-Gang/Module-Buil",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "Module-Build-${VERSION}",
+	"urls": [
+		"github://Perl-Toolchain-Gang/Module-Buil"
+	],
+	"deps": [
+		"gentoo? virtual/perl-CPAN-Meta",
+		"gentoo? virtual/perl-Data-Dumper",
+		"gentoo? virtual/perl-ExtUtils-CBuilder",
+		"gentoo? virtual/perl-ExtUtils-Install",
+		"gentoo? virtual/perl-ExtUtils-Manifest",
+		"gentoo? virtual/perl-ExtUtils-MakeMaker",
+		"gentoo? virtual/perl-ExtUtils-ParseXS",
+		"gentoo? virtual/perl-File-Spec",
+		"gentoo? virtual/perl-Getopt-Long",
+		"gentoo? virtual/perl-Module-Metadata",
+		"gentoo? virtual/perl-Perl-OSType-1",
+		"gentoo? virtual/perl-Test-Harness",
+		"gentoo? virtual/perl-Text-ParseWords",
+		"gentoo? virtual/perl-podlators",
+		"gentoo? virtual/perl-version",
+		"gentoo? virtual/perl-CPAN-Meta-YAML",
+		"gentoo? virtual/perl-File-Temp",
+		"gentoo? virtual/perl-Parse-CPAN-Meta",
+		"test? virtual/perl-Test-Simple"
+	],
+	"configure": {},
+	"use": [
+		"gentoo",
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Module-Build"
+		],
+		"centos7": [
+			"Module-Build"
+		],
+		"gentoo": [
+			"dev-perl/Module-Build"
+		]
+	}
+}

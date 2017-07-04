@@ -18,7 +18,7 @@
 	"deps": [
 		"virtual/pkgconfig",
 		"qt4? dev-qt/qt :4",
-		"qt4? dev-util/automoc4",
+		"gentoo&qt4? dev-util/automoc4",
 		"qt4&designer? dev-qt/designer :4",
 		"qt5? dev-qt/qt :5",
 		"qt5&designer? dev-qt/designer:5",
@@ -45,7 +45,8 @@
 		"+qt4",
 		"qt5",
 		"+vlc",
-		"zeitgeist"
+		"zeitgeist",
+		"gentoo"
 	],
 	"host": {
 		"default": false,

@@ -1,0 +1,54 @@
+{
+	"api": 1,
+	"name": "sys-apps/sed",
+	"homepage": "http://sed.sourceforge.net/",
+	"versions": [
+		"4.4"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "ftp",
+		"url": "ftp://ftp.gnu.org/gnu/sed/",
+		"regexp": "sed-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "sed-${VERSION}",
+	"urls": [
+		"http://ftpmirror.gnu.org/gnu/sed/sed-${VERSION}.tar.xz",
+		"http://ftpmirror.gnu.org/gnu/sed/sed-${VERSION}.tar.bz2",
+		"ftp://ftp.gnu.org/gnu/sed/sed-${VERSION}.tar.xz",
+		"ftp://ftp.gnu.org/gnu/sed/sed-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"acl? virtual/acl",
+		"nls? virtual/libintl",
+		"nls? sys-devel/gettext",
+		"selinux? sys-libs/libselinux"
+	],
+	"configure": {
+		"acl": [
+			"--$enable-acl"
+		],
+		"nls": [
+			"--$enable-nls"
+		]
+	},
+	"use": [
+		"acl",
+		"nls",
+		"selinux",
+		"static"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"sed"
+		],
+		"centos7": [
+			"sed"
+		],
+		"gentoo": [
+			"sys-apps/sed"
+		]
+	}
+}

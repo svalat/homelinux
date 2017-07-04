@@ -16,7 +16,7 @@
 		"http://download.kde.org/stable/${VERSION}/src/kdelibs-${VERSION}.tar.xz"
 	],
 	"deps": [
-		"app-misc/strigi",
+		"old? app-misc/strigi",
 		"app-text/docbook-xml-dtd",
 		"app-text/docbook-xsl-stylesheets",
 		"dev-libs/libattica",
@@ -51,12 +51,12 @@
 		"-aqua? x11-libs/libXScrnSaver",
 		"-aqua? x11-libs/libXtst",
 		"-aqua? x11-apps/iceauth",
-		"-aqua? x11-apps/rgb",
+		"old&-aqua? x11-apps/rgb",
 		"-aqua? x11-misc/xdg-utils",
 		"TODO&-aqua&-kernel_SunOS? sys-libs/libutempter",
 		"TODO&-aqua&-kernel_SunOS? sys-freebsd/freebsd-lib",
 		"bzip2? app-arch/bzip2",
-		"crypt? app-crypt/qca:2[#qt4]",
+		"crypt? app-crypt/qca[#qt4]",
 		"fam? virtual/fam",
 		"jpeg2k? media-libs/jasper",
 		"kerberos? virtual/krb5",
@@ -179,7 +179,9 @@
 		"udisks",
 		"upower",
 		"zeroconf",
-		"-TODO"
+		"-TODO",
+		"old",
+		"qt4"
 	],
 	"host": {
 		"default": false,

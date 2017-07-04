@@ -1,0 +1,42 @@
+{
+	"api": 1,
+	"name": "dev-libs/libassuan",
+	"homepage": "http://www.gnupg.org/related_software/libassuan/index.en.html",
+	"versions": [
+		"2.4.3"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/libassuan/",
+		"regexp": "libassuan-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libassuan-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/libassuan/libassuan-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libgpg-error"
+	],
+	"configure": {
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libassuan"
+		],
+		"centos7": [
+			"libassuan"
+		],
+		"gentoo": [
+			"dev-libs/libassuan"
+		]
+	}
+}

@@ -1,0 +1,50 @@
+{
+	"api": 1,
+	"name": "dev-libs/libgcrypt",
+	"homepage": "http://www.gnupg.org/",
+	"versions": [
+		"1.7.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/libgcrypt/",
+		"regexp": "libgcrypt-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libgcrypt-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libgpg-error",
+		"doc? virtual/texi2dvi"
+	],
+	"configure": {
+		"": [
+			"--disable-dependency-tracking",
+			"--enable-noexecstack",
+			"--disable-O-flag-munging",
+			"--without-capabilities"
+		],
+		"static-libs": [
+			"--$enable-static"
+		]
+	},
+	"use": [
+		"doc",
+		"static-libs"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libgcrypt"
+		],
+		"centos7": [
+			"libgcrypt"
+		],
+		"gentoo": [
+			"dev-libs/libgcrypt"
+		]
+	}
+}

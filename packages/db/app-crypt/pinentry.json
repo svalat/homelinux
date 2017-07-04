@@ -1,0 +1,83 @@
+{
+	"api": 1,
+	"name": "app-crypt/pinentry",
+	"homepage": "http://gnupg.org/aegypten2/index.html",
+	"versions": [
+		"1.0.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.gnupg.org/ftp/gcrypt/pinentry/",
+		"regexp": "pinentry-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "pinentry-${VERSION}",
+	"urls": [
+		"https://www.gnupg.org/ftp/gcrypt/pinentry/pinentry-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/libgpg-error",
+		"dev-libs/libassuan",
+		"dev-libs/libgcrypt",
+		"gentoo? app-eselect/eselect-pinentry",
+		"sys-devel/gettext",
+		"virtual/pkgconfig",
+		"ncurses? sys-libs/ncurses:0",
+		"gtk? x11-libs/gtk+:2",
+		"qt4? dev-qt/qt:4",
+		"qt5? dev-qt/qt:5",
+		"qt5? dev-qt/qtwidgets:5",
+		"caps? sys-libs/libcap",
+		"static? sys-libs/ncurses[static-libs,-gpm]",
+		"gnome-keyring? app-crypt/libsecret",
+		"gnome-keyring? app-crypt/gcr"
+	],
+	"configure": {
+		"": [
+			"--enable-pinentry-tty",
+			"--enable-pinentry-qt",
+			"--disable-pinentry-qt5"
+		],
+		"emacs": [
+			"--$enable-pinentry-emacs"
+		],
+		"gtk": [
+			"--$enable-pinentry-gtk2"
+		],
+		"ncurses": [
+			"--$enable-pinentry-curses",
+			"--$enable-fallback-curses"
+		],
+		"caps": [
+			"--$with-libcap="
+		],
+		"gnome-keyring": [
+			"--$enable-libsecret",
+			"--$enable-pinentry-gnome3"
+		]
+	},
+	"use": [
+		"emacs",
+		"gtk",
+		"ncurses",
+		"qt4",
+		"qt5",
+		"caps",
+		"gnome-keyring",
+		"static",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"pinentry"
+		],
+		"centos7": [
+			"pinentry"
+		],
+		"gentoo": [
+			"app-crypt/pinentry"
+		]
+	}
+}

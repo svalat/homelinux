@@ -1,0 +1,43 @@
+{
+	"api": 1,
+	"name": "dev-perl/File-MimeInfo",
+	"homepage": "",
+	"versions": [
+		"0.27"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://mbeijen/File-MimeInfo",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)",
+		"tag": "option"
+	},
+	"md5": {},
+	"subdir": "File-MimeInfo-${VERSION}",
+	"urls": [
+		"github://mbeijen/File-MimeInfo"
+	],
+	"deps": [
+		"dev-perl/File-BaseDir",
+		"dev-perl/File-DesktopEntry",
+		"x11-misc/shared-mime-info",
+		"virtual/perl-ExtUtils-MakeMaker",
+		"test? virtual/perl-Test-Simple"
+	],
+	"configure": {},
+	"use": [
+		"test"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"File-MimeInfo"
+		],
+		"centos7": [
+			"File-MimeInfo"
+		],
+		"gentoo": [
+			"dev-perl/File-MimeInfo"
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"api": 1,
+	"name": "x11-libs/libXScrnSaver",
+	"homepage": "",
+	"versions": [
+		"1.2.2"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://www.x.org/releases/X11R7.7/src/lib/",
+		"regexp": "libXScrnSaver-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libXScrnSaver-${VERSION}",
+	"urls": [
+		"https://www.x.org/releases/X11R7.7/src/lib/libXScrnSaver-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"x11-libs/libX11",
+		"x11-libs/libXext",
+		"x11-proto/scrnsaverproto"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libXScrnSaver"
+		],
+		"centos7": [
+			"libXScrnSaver"
+		],
+		"gentoo": [
+			"x11-libs/libXScrnSaver"
+		]
+	}
+}
