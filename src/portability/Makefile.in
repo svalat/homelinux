@@ -113,7 +113,8 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libportability_a_AR = $(AR) $(ARFLAGS)
 libportability_a_LIBADD =
-am_libportability_a_OBJECTS = libportability_a-System.$(OBJEXT)
+am_libportability_a_OBJECTS = libportability_a-System.$(OBJEXT) \
+	libportability_a-Regexp.$(OBJEXT)
 libportability_a_OBJECTS = $(am_libportability_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -273,7 +274,7 @@ top_srcdir = @top_srcdir@
 
 ######################################################
 noinst_LIBRARIES = libportability.a
-libportability_a_SOURCES = System.cpp
+libportability_a_SOURCES = System.cpp Regexp.cpp
 libportability_a_CPPFLAGS = -I$(srcdir)/../ -I$(srcdir)/../../extern-deps/jsoncpp/dist
 all: all-am
 
@@ -323,6 +324,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libportability_a-Regexp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libportability_a-System.Po@am__quote@
 
 .cpp.o:
@@ -352,6 +354,20 @@ libportability_a-System.obj: System.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='System.cpp' object='libportability_a-System.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libportability_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libportability_a-System.obj `if test -f 'System.cpp'; then $(CYGPATH_W) 'System.cpp'; else $(CYGPATH_W) '$(srcdir)/System.cpp'; fi`
+
+libportability_a-Regexp.o: Regexp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libportability_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libportability_a-Regexp.o -MD -MP -MF $(DEPDIR)/libportability_a-Regexp.Tpo -c -o libportability_a-Regexp.o `test -f 'Regexp.cpp' || echo '$(srcdir)/'`Regexp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libportability_a-Regexp.Tpo $(DEPDIR)/libportability_a-Regexp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Regexp.cpp' object='libportability_a-Regexp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libportability_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libportability_a-Regexp.o `test -f 'Regexp.cpp' || echo '$(srcdir)/'`Regexp.cpp
+
+libportability_a-Regexp.obj: Regexp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libportability_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT libportability_a-Regexp.obj -MD -MP -MF $(DEPDIR)/libportability_a-Regexp.Tpo -c -o libportability_a-Regexp.obj `if test -f 'Regexp.cpp'; then $(CYGPATH_W) 'Regexp.cpp'; else $(CYGPATH_W) '$(srcdir)/Regexp.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libportability_a-Regexp.Tpo $(DEPDIR)/libportability_a-Regexp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Regexp.cpp' object='libportability_a-Regexp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libportability_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o libportability_a-Regexp.obj `if test -f 'Regexp.cpp'; then $(CYGPATH_W) 'Regexp.cpp'; else $(CYGPATH_W) '$(srcdir)/Regexp.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
