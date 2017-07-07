@@ -6,10 +6,10 @@ HL_HOMECACHE="false"
 
 #Compiler flags
 HL_MAKEOPTS="-j8"
-HL_CFLAGS="-O3 -march=native"
+HL_CFLAGS="-O3 -march=native -I/home/sebv/Projects/homelinux/src/core/tests/data//include"
 HL_CXXFLAGS="$CFLAGS"
 HL_FFLAGS=""
-HL_LDFLAGS=""
+HL_LDFLAGS="-L/home/sebv/Projects/homelinux/src/core/tests/data//lib"
 
 #Pack infos
 NAME="hl/app-shells/bash"
@@ -26,7 +26,7 @@ PATCHES=""
 USE="+afs +static -net gentoo ls mem-scramble nls readline"
 MODULE=""
 STOW_NAME=""
-
+PINSTALL=false
 #to mark install and keep track
 PACK_INSTALLED="/MY_PREFIX///homelinux/install-db/hl_app-shells_bash_0.json"
 PACK_JSON="
@@ -51,14 +51,24 @@ PACK_JSON="
 	],
 	\"flags\" : 
 	{
-		\"CFLAGS\" : [ \"-O3 -march=native\" ],
+		\"CFLAGS\" : 
+		[
+			\"-O3 -march=native\",
+			\"-I/home/sebv/Projects/homelinux/src/core/tests/data//include\"
+		],
 		\"CXXFLAGS\" : [ \"\$CFLAGS\" ],
 		\"FFLAGS\" : null,
-		\"LDFLAGS\" : null,
+		\"LDFLAGS\" : [ \"-L/home/sebv/Projects/homelinux/src/core/tests/data//lib\" ],
 		\"MAKEOPTS\" : [ \"-j8\" ]
 	},
 	\"homepage\" : \"http://tiswww.case.edu/php/chet/bash/bashtop.html\",
-	\"host\" : null,
+	\"host\" : 
+	{
+		\"centos7\" : [ \"bash\" ],
+		\"debian8\" : [ \"bash\" ],
+		\"default\" : true,
+		\"gentoo\" : [ \"app-shells/bash\" ]
+	},
 	\"inherit\" : \"models/auto\",
 	\"md5\" : 
 	{

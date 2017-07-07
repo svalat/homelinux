@@ -10,10 +10,10 @@
 //std
 //internal
 #include <portability/System.hpp>
+#include <portability/Regexp.hpp>
 #include <core/Prefix.hpp>
 #include <base/Helper.hpp>
 #include <base/Colors.hpp>
-#include <re2/re2.h>
 #include "ProviderGentoo.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -93,7 +93,7 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 	std::string reg = Helper::escape(shortName,'+')+"-("+Helper::escape(quickPack.vfetcher["regexp"].asString()+").(tar.gz|tar.bz2|tar.bzip|tar.xz|tar.lz|tgz)",'.');
 	
 	//build regexp
-	RE2 regexp(reg);
+	Regexp regexp(reg);
 	
 	//scan
 	std::string fname;
@@ -103,7 +103,7 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 	for (auto & entry : db)
 	{
 		fname = Helper::last(entry,'/');
-		if (RE2::FullMatch(fname,regexp,&version))
+		if (regexp.match(fname,version))
 		{
 			versions.push_back(version);
 			url = entry;

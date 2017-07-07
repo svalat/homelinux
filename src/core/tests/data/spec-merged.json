@@ -30,7 +30,7 @@
 	"homepage" : "http://home.com",
 	"host" : 
 	{
-		"debian8" : [ "shell" ],
+		"debian8" : [ "bash", "shell" ],
 		"default" : false
 	},
 	"inherit" : "spec",

@@ -17,7 +17,7 @@
 #include <core/Prefix.hpp>
 #include <portability/System.hpp>
 #include "ProviderHomelinux.hpp"
-#include <re2/re2.h>
+#include <portability/Regexp.hpp>
 #include <base/Colors.hpp>
 #include <crawlers/CrawlerDummy.hpp>
 #include <crawlers/CrawlerFtp.hpp>
@@ -133,7 +133,7 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 void ProviderHomelinux::updateCache(void)
 {
 	//setup
-	RE2 regexp("([A-Za-z0-9_-]+/[A-Za-z0-9+_-]+)\\.json");
+	Regexp regexp("([A-Za-z0-9_-]+/[A-Za-z0-9+_-]+)\\.json");
 	std::string path = prefix->getFilePath("/homelinux/packages/db");
 	
 	//check
@@ -142,7 +142,7 @@ void ProviderHomelinux::updateCache(void)
 	//scan
 	System::findFiles(path,[this,&regexp](const std::string & file){
 		std::string packageName;
-		if (RE2::FullMatch(file,regexp,&packageName))
+		if (regexp.match(file,packageName))
 			cache.push_back(packageName);
 	});
 	

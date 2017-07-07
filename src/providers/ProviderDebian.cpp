@@ -13,7 +13,6 @@
 #include <core/Prefix.hpp>
 #include <base/Helper.hpp>
 #include <base/Colors.hpp>
-#include <re2/re2.h>
 #include "ProviderDebian.hpp"
 
 /*******************  NAMESPACE  ********************/

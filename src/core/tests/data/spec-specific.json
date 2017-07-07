@@ -31,7 +31,11 @@
 		"MAKEOPTS" : [ "-j8" ]
 	},
 	"homepage" : "http://www.home.com",
-	"host" : null,
+	"host" : 
+	{
+		"debian8" : [ "bash" ],
+		"default" : true
+	},
 	"inherit" : "models/autotools",
 	"md5" : 
 	{

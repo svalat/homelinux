@@ -10,10 +10,10 @@
 //std
 #include <cassert>
 //extern
-#include <re2/re2.h>
 //internal
 #include <base/Colors.hpp>
 #include <portability/System.hpp>
+#include <portability/Regexp.hpp>
 #include "HostPkgChecker.hpp"
 #include "DepLoader.hpp"
 

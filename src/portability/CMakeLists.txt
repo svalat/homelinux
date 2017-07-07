@@ -7,7 +7,7 @@
 ######################################################
 
 ######################################################
-add_library(homelinux-portability OBJECT System.cpp)
+add_library(homelinux-portability OBJECT System.cpp Regexp.cpp)
 SET_TARGET_PROPERTIES(homelinux-portability PROPERTIES COMPILE_FLAGS -fPIC)
 
 ######################################################

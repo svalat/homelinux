@@ -1,9 +1,9 @@
 /*****************************************************
-             PROJECT  : homelinux
-             VERSION  : 2.0.0-dev
-             DATE     : 06/2017
-             AUTHOR   : Valat Sébastien
-             LICENSE  : CeCILL-C
+			 PROJECT  : homelinux
+			 VERSION  : 2.0.0-dev
+			 DATE     : 06/2017
+			 AUTHOR   : Valat Sébastien
+			 LICENSE  : CeCILL-C
 *****************************************************/
 
 /********************  HEADERS  *********************/
@@ -19,42 +19,42 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(Prefix,constructor)
 {
-    Config config(false);
+	Config config(false);
 	Prefix prefix(&config,TEST_DATA_PATH);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(Prefix,loadPackage_ok)
 {
-    Config config(false);
-    config.load(TEST_DATA_PATH "/user-homelinux.json");
+	Config config(false);
+	config.load(TEST_DATA_PATH "/user-homelinux.json");
 	Prefix prefix(&config,TEST_DATA_PATH);
 
-    PackageDef pack;
-    prefix.loadPackage(pack,"hl/app-shells/bash");
+	PackageDef pack;
+	prefix.loadPackage(pack,"hl/app-shells/bash");
 
-    std::stringstream out;
-    //pack.save(TEST_DATA_PATH "/full-get-package-bash.json");
-    pack.save(out);
+	std::stringstream out;
+	//pack.save(TEST_DATA_PATH "/full-get-package-bash.json");
+	pack.save(out);
 
-    //System::writeFile(out.str(),TEST_DATA_PATH "/full-get-package-bash.json");
-    EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/full-get-package-bash.json"),out.str());
+	//System::writeFile(out.str(),TEST_DATA_PATH "/full-get-package-bash.json");
+	EXPECT_EQ(System::loadFile(TEST_DATA_PATH "/full-get-package-bash.json"),out.str());
 }
 
 /*******************  FUNCTION  *********************/
 TEST(Prefix,isInstalled_ok)
 {
-    Config config(false);
+	Config config(false);
 	Prefix prefix(&config,TEST_DATA_PATH);
 
-    EXPECT_TRUE(prefix.isInstalled("hl/app-shells/bash"));
+	EXPECT_TRUE(prefix.isInstalled("hl/app-shells/bash"));
 }
 
 /*******************  FUNCTION  *********************/
 TEST(Prefix,isInstalled_not_ok)
 {
-    Config config(false);
+	Config config(false);
 	Prefix prefix(&config,TEST_DATA_PATH);
 
-    EXPECT_FALSE(prefix.isInstalled("urls/dash"));
+	EXPECT_FALSE(prefix.isInstalled("urls/dash"));
 }

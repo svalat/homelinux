@@ -25,12 +25,23 @@
 	],
 	"flags" : 
 	{
-		"CFLAGS" : [ "-O3 -march=native" ],
+		"CFLAGS" : 
+		[
+			"-O3 -march=native",
+			"-I/home/sebv/Projects/homelinux/src/core/tests/data//include"
+		],
 		"CXXFLAGS" : [ "$CFLAGS" ],
+		"LDFLAGS" : [ "-L/home/sebv/Projects/homelinux/src/core/tests/data//lib" ],
 		"MAKEOPTS" : [ "-j8" ]
 	},
 	"homepage" : "http://tiswww.case.edu/php/chet/bash/bashtop.html",
-	"host" : null,
+	"host" : 
+	{
+		"centos7" : [ "bash" ],
+		"debian8" : [ "bash" ],
+		"default" : true,
+		"gentoo" : [ "app-shells/bash" ]
+	},
 	"inherit" : "models/auto",
 	"md5" : null,
 	"module" : "",

@@ -14,8 +14,8 @@
 #include <string>
 //external
 #include <json/json.h>
-#include <re2/re2.h>
 //internal
+#include <portability/Regexp.hpp>
 #include <base/Helper.hpp>
 
 /*******************  NAMESPACE  ********************/
@@ -39,7 +39,7 @@ class Crawler
 		StringList makeUniq(StringList & lst);
 	protected:
 		StringList versions;
-		RE2 * regexp;
+		Regexp * regexp;
 		std::string txtRegexp;
 		Prefix * prefix;
 		std::string packageName;

@@ -11,7 +11,7 @@
 #include <algorithm>
 #include <cstring>
 #include <regex>
-#include <re2/re2.h>
+#include <portability/Regexp.hpp>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include "VersionMatcher.hpp"
@@ -207,7 +207,8 @@ std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & ve
 			std::string prepared = regexpReplPoint(it.second)+".*";
 			
 			//match & extract
-			if(RE2::FullMatch(version,prepared,&extract)) {
+			Regexp reg(prepared);
+			if(reg.match(version,extract)) {
 				return extract;
 			} else {
 				HL_FATAL_ARG("Fail to match versoin to search slot, regexp is %1 and verison is %2")

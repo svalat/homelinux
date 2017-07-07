@@ -38,7 +38,7 @@ endif (JSONCPP_FOUND)
 
 ######################################################
 include_directories(./)
-include_directories(../extern-deps/re2-2017-06-01)
+include_directories(${CMAKE_BINARY_DIR}/extern-deps/)
 
 ######################################################
 set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
@@ -49,7 +49,7 @@ set(HOMELINUX_SUB_LIBS $<TARGET_OBJECTS:homelinux-base>
 
 ######################################################
 if (JSONCPP_FOUND)
-	list(APPEND HOMELINUX_EXTERN_LIBS ${JSON_CPP_LIBRARY} re2 -lpthread)
+	list(APPEND HOMELINUX_EXTERN_LIBS ${JSON_CPP_LIBRARY} -lpthread)
 endif (JSONCPP_FOUND)
 
 ######################################################

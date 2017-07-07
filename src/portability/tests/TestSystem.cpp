@@ -44,10 +44,11 @@ TEST(System,loadFile)
 }
 
 /*******************  FUNCTION  *********************/
-TEST(System,findFiels)
+TEST(System,findFiles)
 {
 	std::map<std::string,std::string> ref;
 	ref["TestSystem.cpp"] = "TestSystem.cpp";
+	ref["TestRegexp.cpp"] = "TestRegexp.cpp";
 	ref["CMakeLists.txt"] = "CMakeLists.txt";
 	ref["data/test.txt"] = "data/test.txt";
 	ref["data/test.json"] = "data/test.json";

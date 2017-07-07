@@ -227,6 +227,8 @@ bool Prefix::isInstalled(const std::string & value)
 	//get package
 	PackageDef pack;
 	loadPackage(pack,value);
+	if (pack.name == "")
+		return false;
 	return isInstalled(pack);
 }
 

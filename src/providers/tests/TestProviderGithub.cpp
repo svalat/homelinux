@@ -47,7 +47,7 @@ TEST(ProviderGithub,getPackage_ok_short)
 	ProviderGithub provider(&prefix);
 	
 	PackageDef pack;
-	EXPECT_TRUE(provider.getPackage(pack,"svalat/svpgm2txt"));
+	EXPECT_FALSE(provider.getPackage(pack,"svalat/svpgm2txt"));
 }
 
 /*******************  FUNCTION  *********************/
