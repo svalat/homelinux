@@ -7,7 +7,7 @@
 ######################################################
 
 ######################################################
-AC_PREREQ([2.69])
+AC_PREREQ([2.63])
 AC_INIT([homelinux], [2.0.0-dev], [sebastien.valat-dev@orange.fr])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR([src/main.cpp])
