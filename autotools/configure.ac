@@ -34,8 +34,12 @@ AC_TYPE_SIZE_T
 ######################################################
 #check for c++11
 #AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
-#AX_CHECK_COMPILE_FLAG([-std=c++11], [CXXFLAGS="$CXXFLAGS -std=c++11"])
-CXXFLAGS="$CXXFLAGS -std=c++11"
+AX_CHECK_COMPILE_FLAG([-std=c++11], [CXXFLAGS="$CXXFLAGS -std=c++11"],
+		[ AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="$CXXFLAGS -std=c++0x"],
+			[AC_MSG_FAILURE([Fail to find -std=c++11 or -std=c++0x on you compiler !])]
+		])
+	)
+#CXXFLAGS="$CXXFLAGS -std=c++11"
 
 ######################################################
 # Checks for library functions.
@@ -64,9 +68,6 @@ AC_CONFIG_FILES([Makefile
 				 src/portability/Makefile
 				 src/providers/Makefile
 				 extern-deps/jsoncpp/dist/Makefile
-				 extern-deps/re2-2017-06-01/Makefile
-				 extern-deps/re2-2017-06-01/re2/Makefile
-				 extern-deps/re2-2017-06-01/util/Makefile
 				])
 
 ######################################################
