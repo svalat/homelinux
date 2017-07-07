@@ -8,6 +8,7 @@
 
 /********************  HEADERS  *********************/
 #include <portability/System.hpp>
+#include <core/Prefix.hpp>
 #include "CrawlerFtp.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -40,7 +41,9 @@ void CrawlerFtp::internalRun(std::string url)
 
 	//load
 	std::string out;
-	bool status = System::runAndRead(out,"LC_ALL=C curl -m 60 "+url+" 2>/dev/null");
+	char tmp[32];
+	sprintf(tmp,"%d",prefix->getUserConfig().crawlerTimeout);
+	bool status = System::runAndRead(out,"LC_ALL=C curl -m "+std::string(tmp)+" "+url+" 2>/dev/null");
 
 	//check status
 	if (!status)

@@ -13,6 +13,7 @@
 	"md5" : {},
 	"subdir": "lftp-${VERSION}",
 	"urls" : [
+		"ftp://ftp.st.ryukoku.ac.jp/pub/network/ftp/lftp/lftp-${VERSION}.tar.gz",
 		"ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/lftp-${VERSION}.tar.gz"
 	],
 	"deps": [

@@ -81,7 +81,8 @@ void Config::load(Json::Value & config)
 	this->temp = config.get("temp",this->temp).asString();
 	this->clientId = config["github"].get("clientId","").asString();
 	this->clientSecret = config["github"].get("clientSecret","").asString();
-	this->crawlerThreads = atoi(config.get("crawlerThreads","4").asString().c_str());
+	this->crawlerThreads = config.get("crawlerThreads","4").asInt();
+	this->crawlerTimeout = config.get("crawlerTimeout","60").asInt();
 	
 	//modules
 	Json::Value mods = config["modules"];
@@ -110,6 +111,7 @@ void Config::save(void)
 	json["github"]["clientId"] = clientId;
 	json["github"]["clientSecret"] = clientSecret;
 	json["crawlerThreads"] = crawlerThreads;
+	json["crawlerTimeout"] = crawlerTimeout;
 	Helper::toJson(json["modules"],modules);
 	json["packageOverride"] = packageOverride;
 	

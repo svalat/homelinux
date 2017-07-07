@@ -6,6 +6,7 @@
 	"ccache": true,
 	"pyEnv": false,
 	"crawlerThreads": 4,
+	"crawlerTimeout": 60,
 	"packageOverride": {
 	}
 }

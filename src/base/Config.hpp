@@ -69,6 +69,8 @@ struct Config
 	std::string clientSecret;
 	/** Crawler threader **/
 	int crawlerThreads;
+	/** Crawler timeout **/
+	int crawlerTimeout;
 };
 
 }

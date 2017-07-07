@@ -63,7 +63,9 @@ void CrawlerHtml::internalRun(std::string url)
 
 	//gen command
 	std::stringstream cmd;
-	cmd << "curl -m 60 -L " << url << " -o " << fname << " 2> /dev/null"
+	char tmp[32];
+	sprintf(tmp,"%d",prefix->getUserConfig().crawlerTimeout);
+	cmd << "curl -m " << tmp << " -L " << url << " -o " << fname << " 2> /dev/null"
 		<< " && node " << nodeScript << " " << fname << " " << tag << " " << '\"' << reg << '\"';
 
 	//help debug
