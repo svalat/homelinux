@@ -62,7 +62,12 @@ bool ProviderGithub::getPackage(PackageDef & out,const std::string & name)
 	if (status && json["tag_name"].isString())
 	{
 		std::string tag = json["tag_name"].asString();
-		quickpack.versions.push_back(tag.substr(1));
+		if (Helper::startBy(tag,"v"))
+			quickpack.versions.push_back(tag.substr(1));
+		else if (Helper::startBy(tag,"release_"))
+			quickpack.versions.push_back(tag.substr(8));
+		else
+			quickpack.versions.push_back(tag);
 		quickpack.urls.push_back("https://github.com/"+shortName+"/archive/"+tag+".tar.gz");
 		quickpack.steps["download"].push_back("hl_github_download");
 		quickpack.name = packageName;

@@ -19,8 +19,8 @@ PROJECT_NAME='homelinux'
 # State variables
 PREFIX='-DCMAKE_INSTALL_PREFIX=/usr/local'
 CMAKE='cmake'
-EXTRA_CC=''
-EXTRA_CXX=''
+EXTRA_CC='/usr/bin/gcc'
+EXTRA_CXX='/usr/bin/g++'
 EXTRA_CFLAGS=''
 EXTRA_CXXFLAGS=''
 EXTRA_LDFLAGS=''
@@ -49,7 +49,7 @@ then
 	echo
 	dir=$(dirname $0)
 	if [ -f $dir/autotools/configure ]; then
-		$dir/autotools/configure "$@"
+		$dir/autotools/configure CC=/usr/bin/gcc CXX=/usr/bin/g++ "$@"
 		exit $?
 	else
 		echo "Autoconf files not generated, please run $dir/autogen.sh"
