@@ -16,6 +16,6 @@ cd $dir/autotools
 
 ######################################################
 set -x
-aclocal -I ./m4
-autoconf -f -I ./m4
+aclocal
+autoconf -f
 automake -a -c
