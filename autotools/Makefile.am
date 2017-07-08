@@ -23,5 +23,6 @@ install-data-hook:
 	cp -r $(srcdir)/../packages $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../compilers $(DESTDIR)$(prefix)/homelinux
 	cp -r $(srcdir)/../bin/hl-py-env.sh $(DESTDIR)$(bindir)
+	cp -r $(srcdir)/../bin/source.sh $(DESTDIR)$(prefix)
 	test -f $(DESTDIR)$(prefix)/homelinux.json || cp -r $(srcdir)/../configs/homelinux.json $(DESTDIR)$(prefix)
 	$(DESTDIR)$(bindir)/hl --no-user-config -p $(DESTDIR)$(prefix) update-cache
