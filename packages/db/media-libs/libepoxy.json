@@ -16,7 +16,7 @@
 		"github://anholt/libepoxy"
 	],
 	"deps": [
-		"TODO? media-libs/mesa[egl]",
+		"media-libs/mesa[egl]",
 		"x11-misc/util-macros",
 		"x11-libs/libX11"
 	],

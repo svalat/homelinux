@@ -16,7 +16,15 @@
 		"https://launchpad.net/intltool/trunk/${VERSION}/+download/intltool-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-perl/XML-Parser"
 	],
+	"vspecific": {
+		"~0.51": {
+			"patch": [
+				"intltool-regexp-braces-0.51.patch"
+			]
+		}
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "intltool" ],

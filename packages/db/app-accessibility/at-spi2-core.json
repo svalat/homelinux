@@ -1,0 +1,59 @@
+{
+	"api": 1,
+	"name": "app-accessibility/at-spi2-core",
+	"homepage": "https://wiki.gnome.org/Accessibility",
+	"versions": [
+		"2.22.1"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/cache.json",
+		"regexp": "at-spi2-core-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "at-spi2-core-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/${SVERSION}/at-spi2-core-${VERSION}.tar.xz",
+		"http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/${SVERSION}/at-spi2-core-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"dev-libs/glib:2",
+		"sys-apps/dbus",
+		"x11-libs/libSM",
+		"x11-libs/libXi",
+		"x11-libs/libXtst",
+		"dev-util/gtk-doc-am",
+		"dev-util/intltool",
+		"sys-devel/gettext",
+		"virtual/pkgconfig",
+		"introspection? dev-libs/gobject-introspection",
+		"X? x11-libs/libX11",
+		"X? x11-libs/libXi",
+		"X? x11-libs/libXtst"
+	],
+	"configure": {
+		"": [
+			"--disable-xevie"
+		],
+		"X": [
+			"--$enable-x11"
+		]
+	},
+	"use": [
+		"X",
+		"+introspection"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"at-spi2-core"
+		],
+		"centos7": [
+			"at-spi2-core"
+		],
+		"gentoo": [
+			"app-accessibility/at-spi2-core"
+		]
+	}
+}

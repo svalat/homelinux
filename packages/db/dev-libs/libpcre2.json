@@ -14,7 +14,8 @@
 	"md5": {},
 	"subdir": "pcre2-${VERSION}",
 	"urls": [
-		"ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/libpcre2-${VERSION}.tar.bz2"
+		"ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-${VERSION}.tar.bz2",
+		"ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"bzip2? app-arch/bzip2",
@@ -26,10 +27,8 @@
 	],
 	"configure": {
 		"": [
-			"--with-match-limit-recursion=@on@+recursion-limit@8192@",
 			"--enable-pcre2-8",
-			"--enable-shared",
-			"--htmldir=/usr/share/doc//html"
+			"--enable-shared"
 		],
 		"-recursion-limit": [
 			"MATCH_LIMIT"

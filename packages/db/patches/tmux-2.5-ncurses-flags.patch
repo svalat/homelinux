@@ -1,0 +1,39 @@
+From 6b7c8984c755767b4122e30cd1971ceba28007aa Mon Sep 17 00:00:00 2001
+From: Sebastien Valat <sebastien.valat@gmail.com>
+Date: Sat, 8 Jul 2017 18:29:19 +0200
+Subject: [PATCH] patch
+
+---
+ configure.ac | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 3591a73..36c35d4 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -176,6 +176,7 @@ if test "x$found_ncurses" = xno; then
+ 	)
+ fi
+ if test "x$found_ncurses" = xyes; then
++	CFLAGS="$LIBNCURSES_CFLAGS $LIBTINFO_CFLAGS $CFLAGS"
+ 	CPPFLAGS="$LIBNCURSES_CFLAGS $LIBTINFO_CFLAGS $CPPFLAGS"
+ 	LIBS="$LIBNCURSES_LIBS $LIBTINFO_LIBS $LIBS"
+ else
+@@ -622,11 +623,11 @@ AM_CONDITIONAL(IS_UNKNOWN, test "x$PLATFORM" = xunknown)
+ # Save our CFLAGS/CPPFLAGS/LDFLAGS for the Makefile and restore the old user
+ # variables.
+ AC_SUBST(AM_CPPFLAGS)
+-CPPFLAGS="$SAVED_CPPFLAGS"
++#CPPFLAGS="$SAVED_CPPFLAGS"
+ AC_SUBST(AM_CFLAGS)
+-CFLAGS="$SAVED_CFLAGS"
++#CFLAGS="$SAVED_CFLAGS"
+ AC_SUBST(AM_LDFLAGS)
+-LDFLAGS="$SAVED_LDFLAGS"
++#LDFLAGS="$SAVED_LDFLAGS"
+ 
+ # autoconf should create a Makefile.
+ AC_OUTPUT(Makefile)
+-- 
+1.8.3.1
+

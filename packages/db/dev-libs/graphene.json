@@ -1,0 +1,32 @@
+{
+	"name": "dev-libs/graphene",
+	"homepage": "http://ebassi.github.io/graphene/",
+	"versions": [
+		"1.6.0"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://ebassi/graphene",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "graphene-${VERSION}",
+	"urls": [
+		"github://ebassi/graphene"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"use": [
+	],
+	"steps": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "graphene" ],
+		"centos7": [ "graphene" ],
+		"gentoo": [ "dev-libs/graphene" ]
+	}
+}

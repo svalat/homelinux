@@ -47,7 +47,7 @@ function setup_vars()
 	HL_PACKDIR=$HL_TEMP/$SUBDIR
 	PYTHON_VERSION=$(python --version 2>&1 | cut -d ' ' -f 2 | cut -d '.' -f 1-2)
 	PYTHON_PACKAGE_DIR=${PREFIX}/lib/python${PYTHON_VERSION}/site-packages/
-	if [ -f $HL_PACKDIR/hl-is-cmake.notify ]; then
+	if [ -f $HL_PACKDIR/hl-is-cmake.notify ] && [ "${PINSTALL}" = "true" ]; then
 		HL_BUILDDIR=$HL_BUILDDIR/cmakebuild
 	fi
 	hl_pack_extra_vars

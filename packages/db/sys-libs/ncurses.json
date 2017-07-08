@@ -19,10 +19,11 @@
 		"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"dev-util/pkgconfig",
 		"gpm? sys-libs/gpm"
 	],
 	"configure": {
-		"": [ "--with-shared" ]
+		"": [ "--with-shared", "--enable-pc-files" ]
 	},
 	"use": [
 		"ada",

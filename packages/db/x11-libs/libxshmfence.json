@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "libxshmfence-${VERSION}",
 	"urls": [
-		"http://xorg.freedesktop.org/releases/individual/xcb/lib/libxshmfence-${VERSION}.tar.bz2"
+		"http://xorg.freedesktop.org/releases/individual/lib/libxshmfence-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"x11-proto/xproto"

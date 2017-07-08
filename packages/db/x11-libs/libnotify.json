@@ -1,0 +1,55 @@
+{
+	"api": 1,
+	"name": "x11-libs/libnotify",
+	"homepage": "https://git.gnome.org/browse/libnotify",
+	"versions": [
+		"0.7.7"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http-gnome-cache",
+		"url": "http://ftp.gnome.org/pub/gnome/sources/libnotify/cache.json",
+		"regexp": "libnotify-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+	},
+	"md5": {},
+	"subdir": "libnotify-${VERSION}",
+	"urls": [
+		"http://ftp.gnome.org/pub/gnome/sources/libnotify/${SVERSION}/libnotify-${VERSION}.tar.bz2"
+	],
+	"deps": [
+		"gentoo? app-eselect/eselect-notify-send",
+		"dev-libs/glib:2",
+		"x11-libs/gdk-pixbuf:2",
+		"dev-libs/gobject-introspection-common",
+		"dev-util/gtk-doc-am",
+		"virtual/pkgconfig",
+		"introspection? dev-libs/gobject-introspection",
+		"test? x11-libs/gtk+:3"
+	],
+	"configure": {
+		"": [
+			"--disable-gtk-doc",
+			"--disable-static"
+		],
+		"test": [
+			"--$enable-tests"
+		]
+	},
+	"use": [
+		"+introspection",
+		"test",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libnotify"
+		],
+		"centos7": [
+			"libnotify"
+		],
+		"gentoo": [
+			"x11-libs/libnotify"
+		]
+	}
+}

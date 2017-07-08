@@ -24,7 +24,7 @@
 		"dev-libs/libcroco",
 		"x11-libs/gdk-pixbuf[#introspection] :2",
 		"dev-libs/gobject-introspection-common",
-		"dev-libs/vala-common",
+		"vala? dev-libs/vala-common",
 		"dev-util/gtk-doc-am",
 		"virtual/pkgconfig",
 		"introspection? dev-libs/gobject-introspection",
@@ -35,7 +35,8 @@
 			"--disable-static",
 			"--disable-tools",
 			"--enable-pixbuf-loader"
-		]
+		],
+		"vala": [ "--enable-vala=$yes" ]
 	},
 	"use": [
 		"+introspection",

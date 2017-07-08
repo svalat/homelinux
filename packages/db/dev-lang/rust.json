@@ -1,0 +1,37 @@
+{
+	"api": 1,
+	"name": "dev-lang/rist",
+	"homepage": "https://www.rust-lang.org",
+	"versions": [
+		"1.18.0"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github.com/rust-lang/rust",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "rustc-${VERSION}-src",
+	"urls": [
+		"https://static.rust-lang.org/dist/rustc-${VERSION}-src.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"rust"
+		],
+		"centos7": [
+			"rust"
+		],
+		"gentoo": [
+			"dev-lang/rust"
+		]
+	}
+}

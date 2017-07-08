@@ -2,18 +2,19 @@
 	"name": "media-libs/mesa",
 	"homepage": "http://mesa3d.sourceforge.net/",
 	"versions": [
-		"9999"
+		"17.1.4"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://ftp.freedesktop.org/pub/mesa/",
-		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+		"regexp": "mesa-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.gz|tar.xz|tar.bz2)"
 	},
 	"md5": {},
 	"subdir": "mesa-${VERSION}",
 	"urls": [
-		"ftp://ftp.freedesktop.org/pub/mesa/${VERSION}/mesa-${VERSION}.tar.gz"
+		"ftp://ftp.freedesktop.org/pub/mesa/mesa-${VERSION}.tar.xz",
+		"ftp://ftp.freedesktop.org/pub/mesa/mesa-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/expat",
@@ -39,7 +40,7 @@
 		"opencl? dev-libs/libclc",
 		"opencl? dev-libs/elfutils",
 		"opencl? dev-libs/libelf",
-		"opencl? sys-devel/llvm",
+		"llvm? sys-devel/llvm",
 		"opencl? sys-devel/clang",
 		"opencl? sys-devel/gcc",
 		"openmax? media-libs/libomxil-bellagio",
@@ -64,17 +65,18 @@
 	],
 	"configure": {
 		"": [
+		],
+		"gentoo": [
 			"--enable-dri",
 			"--enable-glx",
 			"--enable-shared-glapi",
 			"--disable-shader-cache",
+			"--with-platforms=x11",
+			"--with-va-libdir=/usr//va/drivers",
+			"--with-clang-libdir=/usr/lib",
 			"--enable-llvm-shared-libs",
 			"--with-dri-drivers=,swrast,i915,i965,nouveau,radeon,r200",
-			"--with-gallium-drivers=,swrast,svga,nouveau,i915,ilo,r300,r600,radeonsi,freedreno",
-			"PYTHON2=",
-			"--with-egl-platforms=x11,wayland,drm",
-			"--with-va-libdir=/usr//va/drivers",
-			"--with-clang-libdir=/usr/lib"
+			"--with-gallium-drivers=,swrast,svga,nouveau,i915,ilo,r300,r600,radeonsi,freedreno"
 		],
 		"bindist": [
 			"--$enable-texture-float"
@@ -110,7 +112,7 @@
 			"--$enable-sysfs"
 		],
 		"llvm": [
-			"--$enable-gallium-llvm"
+			"--$enable-llvm"
 		],
 		"openmax": [
 			"--$enable-omx"
@@ -146,17 +148,17 @@
 		"video_cards_nouveau",
 		"video_cards_vmware",
 		"bindist",
-		"+classic",
+		"classic",
 		"d3d9",
 		"debug",
-		"+dri3",
-		"+egl",
-		"+gallium",
-		"+gbm",
+		"dri3",
+		"egl",
+		"gallium",
+		"gbm",
 		"gles1",
 		"gles2",
-		"+llvm",
-		"+nptl",
+		"llvm",
+		"nptl",
 		"opencl",
 		"osmesa",
 		"pax_kernel",
@@ -170,7 +172,8 @@
 		"xvmc",
 		"xa",
 		"kernel_FreeBSD",
-		"kernel_linux"
+		"kernel_linux",
+		"gentoo"
 	],
 	"host": {
 		"default": true,
