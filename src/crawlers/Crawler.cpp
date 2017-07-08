@@ -59,12 +59,14 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 		StringList subVersions = run(packageName,params["subdir"],none);
 
 		//fill
-		for (auto & v : subVersions)
+		//for (auto & v : subVersions)
+		forEach(StringList,v,subVersions)
 		{
-			for (auto u : tmp)
+			//for (auto u : tmp)
+			forEach(StringList,u,tmp)
 			{
-				Helper::replaceInPlace(u,"${SVERSION}",v);
-				urls.push_back(u);
+				Helper::replaceInPlace(*u,"${SVERSION}",*v);
+				urls.push_back(*u);
 			}
 		}
 	}
@@ -87,10 +89,11 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 
 	//run
 	versions = origVersions;
-	for (auto & url : urls)
+	//for (auto & url : urls)
+	forEach(StringList,url,urls)
 	{
-		HL_DEBUG_ARG("Crawler","Crawl %1").arg(url).end();
-		internalRun(url);
+		HL_DEBUG_ARG("Crawler","Crawl %1").arg(*url).end();
+		internalRun(*url);
 	}
 	
 	//clear
@@ -112,12 +115,13 @@ StringList Crawler::makeUniq(StringList & lst)
 {
 	std::string last;
 	StringList clean;
-	for (auto & it : lst)
+	//for (auto & it : lst)
+	forEach(StringList,it,lst)
 	{
-		if (it != last)
+		if (*it != last)
 		{
-			clean.push_back(it);
-			last = it;
+			clean.push_back(*it);
+			last = *it;
 		}
 	}
 

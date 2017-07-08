@@ -163,8 +163,11 @@ void System::writeJson(const Json::Value & json,const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
-void System::readDir(const std::string & path,std::function<void(const std::string &)> callback)
+StringList System::readDir(const std::string & path)
 {
+	//vars
+	StringList res;
+
 	//open
 	DIR * dir = opendir(path.c_str());
 	assumeArg(dir != NULL,"Fail to scan directory : %1. %2").arg(path).argStrErrno().end();
@@ -176,11 +179,14 @@ void System::readDir(const std::string & path,std::function<void(const std::stri
 		if (d == NULL)
 			break;
 		else
-			callback(d->d_name);
+			res.push_back(d->d_name);
 	}
 	
 	//close
 	closedir(dir);
+
+	//ret
+	return res;
 }
 
 /*******************  FUNCTION  *********************/
@@ -208,8 +214,11 @@ void System::removeFile(const std::string & path)
 }
 
 /*******************  FUNCTION  *********************/
-void System::findFiles(const std::string & path,std::function<void(const std::string &)> callback,const std::string & subdir)
+StringList System::findFiles(const std::string & path,const std::string & subdir)
 {
+	//vars
+	StringList res;
+
 	//open
 	DIR * dir = opendir(path.c_str());
 	assumeArg(dir != NULL,"Fail to scan directory : %1. %2").arg(path).argStrErrno().end();
@@ -237,18 +246,22 @@ void System::findFiles(const std::string & path,std::function<void(const std::st
 				sub += d->d_name;
 				
 				//recurse
-				findFiles(full,callback,sub);
+				StringList tmp = findFiles(full,sub);
+				res.merge( tmp );
 			} else if (S_ISREG(s.st_mode)) {
 				if (subdir.empty())
-					callback(d->d_name);
+					res.push_back(d->d_name);
 				else
-					callback(subdir + std::string("/") + d->d_name);
+					res.push_back(subdir + std::string("/") + d->d_name);
 			}
 		}
 	}
 	
 	//close
 	closedir(dir);
+
+	//ret
+	return res;
 }
 
 /*******************  FUNCTION  *********************/
@@ -348,7 +361,7 @@ bool System::runAndRead(std::string & out,const std::string & cmd)
 }
 
 /*******************  FUNCTION  *********************/
-bool System::ftpListFiles(const std::string & url,std::function<void(const std::string &)> callback)
+bool System::ftpListFiles(StringList & out,const std::string & url)
 {
 	//check
 	#ifndef HAVE_WGET
@@ -391,9 +404,7 @@ bool System::ftpListFiles(const std::string & url,std::function<void(const std::
 
 	//parse
 	std::string content = loadFile(tmp);
-	Helper::split(content,'\n',[&callback](const std::string & value){
-		callback(value);
-	});
+	out = Helper::split(content,'\n');
 
 	//unlink
 	unlink(tmp.c_str());

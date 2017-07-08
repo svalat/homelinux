@@ -32,7 +32,7 @@ if (ENABLE_GCC_COVERAGE)
 endif(ENABLE_GCC_COVERAGE)
 
 ######################################################
-homelinux_enable_cxx_11()
+#homelinux_enable_cxx_11()
 
 ######################################################
 add_subdirectory(src)

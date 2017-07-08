@@ -44,13 +44,15 @@ Prefix::Prefix(const Config * config,const std::string & prefix, bool master)
 Prefix::~Prefix(void)
 {
 	//provider
-	for (auto & it : providers)
-		delete it.second;
+	//for (auto & it : providers)
+	forEach(ProviderMap,it,providers)
+		delete it->second;
 	providers.clear();
 
 	//inherited prefix
-	for (auto & it :inheritedPrefix)
-		delete it;
+	//for (auto & it :inheritedPrefix)
+	forEach(PrefixList,it,inheritedPrefix)
+		delete *it;
 	inheritedPrefix.clear();
 }
 
@@ -79,8 +81,9 @@ void Prefix::loadConfig(void)
 	prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
 
 	//load inherited prefix
-	for (auto p : prefixConfig.inherit)
-		inheritedPrefix.push_back(new Prefix(config,p,false));
+	//for (auto p : prefixConfig.inherit)
+	forEach(StringList,p,prefixConfig.inherit)
+		inheritedPrefix.push_back(new Prefix(config,*p,false));
 }
 
 /*******************  FUNCTION  *********************/
@@ -123,7 +126,7 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 	out.merge(quickPack);
 
 	//apply override from prefix config
-	const auto & it = prefixConfig.packageOverride.find(pack.name);
+	JsonMap::iterator it = prefixConfig.packageOverride.find(pack.name);
 	if (it != prefixConfig.packageOverride.end())
 	{
 		PackageDef prefixPack;
@@ -132,17 +135,20 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 	}
 
 	//apply use flags "" from prefix
-	for (auto &it : prefixConfig.use[""])
-		out.use.merge(it,true);
+	//for (auto &it : prefixConfig.use[""])
+	forEach(StringList,it,prefixConfig.use[""])
+		out.use.merge(*it,true);
 
 	//apply use flags "all" from prefix
 	UseFlags toMerge;
-	for (auto &it : prefixConfig.use["all"])
-		toMerge.merge(it);
+	//for (auto &it : prefixConfig.use["all"])
+	forEach(StringList,it,prefixConfig.use["all"])
+		toMerge.merge(*it);
 
 	//apply use flags for packagName from prefix
-	for (auto &it : prefixConfig.use[out.name])
-		toMerge.merge(it);
+	//for (auto &it : prefixConfig.use[out.name])
+	forEach(StringList,it,prefixConfig.use[out.name])
+		toMerge.merge(*it);
 
 	//we need to force status, auto is considered as enabled
 	toMerge.setAuto(FLAG_ENABLED);
@@ -164,8 +170,9 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 bool Prefix::loadPackageNoInherit(PackageDef & out,const std::string & packageName)
 {
 	//get package
-	for (auto & prov : prefixConfig.providers)
-		if (getProvider(prov).getPackage(out,packageName))
+	//for (auto & prov : prefixConfig.providers)
+	forEach(StringList,prov,prefixConfig.providers)
+		if (getProvider(*prov).getPackage(out,packageName))
 			return true;
 	return false;
 }
@@ -194,7 +201,7 @@ QuickPackage & Prefix::getQuickPackage(void)
 Provider & Prefix::getProvider(const std::string & name)
 {
 	//search
-	auto it = providers.find(name);
+	ProviderMap::iterator it = providers.find(name);
 	
 	//ok
 	if (it != providers.end())
@@ -245,9 +252,10 @@ std::string Prefix::prefixOf(const std::string & packageName)
 		pref = this->getPrefix();
 
 	//check inherit
-	for (auto & prefix : inheritedPrefix)
-		if (prefix->isLocalyInstalled(pack))
-			pref = prefix->getPrefix();
+	//for (auto & prefix : inheritedPrefix)
+	forEach(PrefixList,prefix,inheritedPrefix)
+		if ((*prefix)->isLocalyInstalled(pack))
+			pref = (*prefix)->getPrefix();
 	
 	//not found
 	if (pref.empty())
@@ -265,8 +273,9 @@ bool Prefix::isInstalled(const PackageDef & pack)
 		return true;
 
 	//check inherit
-	for (auto & prefix : inheritedPrefix)
-		if (prefix->isLocalyInstalled(pack))
+	//for (auto & prefix : inheritedPrefix)
+	forEach(PrefixList,prefix,inheritedPrefix)
+		if ((*prefix)->isLocalyInstalled(pack))
 			return true;
 	
 	//not found
@@ -290,7 +299,7 @@ void Prefix::updateDb(void)
 {
 	//need to push gentoo first as some hl packages revers to gentoo versions
 	bool present = false;
-	for (auto it = prefixConfig.providers.begin() ; it != prefixConfig.providers.end() ; ++it)
+	for (StringList::iterator it = prefixConfig.providers.begin() ; it != prefixConfig.providers.end() ; ++it)
 	{
 		if (*it == "gentoo")
 		{
@@ -301,10 +310,11 @@ void Prefix::updateDb(void)
 	if (present)
 		prefixConfig.providers.push_front("gentoo");
 
-	for (auto prov : prefixConfig.providers)
+	//for (auto prov : prefixConfig.providers)
+	forEach(StringList,prov,prefixConfig.providers)
 	{
-		Provider & p = getProvider(prov);
-		HL_MESSAGE_ARG("Update DB of provier %1").arg(prov).end();
+		Provider & p = getProvider(*prov);
+		HL_MESSAGE_ARG("Update DB of provier %1").arg(*prov).end();
 		p.updateDb();
 	}
 }
@@ -320,16 +330,18 @@ void Prefix::exportConfig(std::ostream & out)
 	
 	//export packages
 	Json::Value & packs = final["installed"];
-	System::readDir(getFilePath("/homelinux/install-db/"),[&packs,this](const std::string & file){
-		if (Helper::endBy(file,".json"))
+	StringList lst = System::readDir(getFilePath("/homelinux/install-db/"));
+	forEach(StringList,file,lst)
+	{
+		if (Helper::endBy(*file,".json"))
 		{
 			Json::Value json;
-			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+*file));
 			std::string name = json.get("name","").asString();
 			std::string version = json.get("version","unknown").asString();
 			packs[name] = version;
 		}
-	});
+	}
 	
 	//out
 	out << final;
@@ -348,12 +360,14 @@ void Prefix::validate(void)
 		System::loadJson(db,path);
 	
 	//apply current
-	System::readDir(getFilePath("/homelinux/install-db/"),[&db,this](const std::string & file){
-		if (Helper::endBy(file,".json"))
+	StringList lst = System::readDir(getFilePath("/homelinux/install-db/"));
+	forEach(StringList,file,lst)
+	{
+		if (Helper::endBy(*file,".json"))
 		{
 			//load
 			Json::Value json;
-			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+*file));
 			std::string version = json.get("version","unknown").asString();
 			
 			//merge
@@ -362,7 +376,7 @@ void Prefix::validate(void)
 			if (validated == "unknown" || VersionMatcher::compareVersion(version,validated) > 1)
 				db[name] = version;
 		}
-	});
+	}
 
 	//save
 	System::writeJson(db,path);
@@ -372,33 +386,37 @@ void Prefix::validate(void)
 void Prefix::ls(std::ostream & out)
 {
 	//ls childs
-	for (auto prefix : inheritedPrefix)
-		prefix->ls(out);
+	//for (auto prefix : inheritedPrefix)
+	forEach(PrefixList,prefix,inheritedPrefix)
+		(*prefix)->ls(out);
 
 	//for all files
-	out << Colors::yellow("================ "+prefix+" =================") << std::endl;
-	System::readDir(getFilePath("/homelinux/install-db/"),[&out,this](const std::string & file){
-		if (Helper::endBy(file,".json"))
+	out << Colors::yellow("================ "+this->prefix+" =================") << std::endl;
+	StringList lst = System::readDir(getFilePath("/homelinux/install-db/"));
+	forEach(StringList,file,lst)
+	{
+		if (Helper::endBy(*file,".json"))
 		{
 			Json::Value json;
-			System::loadJson(json,getFilePath("/homelinux/install-db/"+file));
+			System::loadJson(json,getFilePath("/homelinux/install-db/"+*file));
 			std::string name = json.get("name","").asString();
 			std::string version = json.get("version","unknown").asString();
 			out << Colors::green(name) << " " << Colors::cyan(version) << std::endl;
 		}
-	});
+	}
 }
 
 /*******************  FUNCTION  *********************/
 void Prefix::search(std::ostream & out,const std::string & value)
 {
 	prefixConfig.providers.reverse();
-	for (auto prov : prefixConfig.providers)
+	//for (auto prov : prefixConfig.providers)
+	forEach(StringList,prov,prefixConfig.providers)
 	{
-		if( prov != "models")
+		if( *prov != "models")
 		{
-			Provider & p = getProvider(prov);
-			out << Colors::yellow("================ "+prov+" =================") << std::endl;
+			Provider & p = getProvider(*prov);
+			out << Colors::yellow("================ "+*prov+" =================") << std::endl;
 			out << p.search(value) << std::endl;
 		}
 	}
@@ -408,10 +426,11 @@ void Prefix::search(std::ostream & out,const std::string & value)
 //@TODO make parallel
 void Prefix::updateCache(void)
 {
-	for (auto prov : prefixConfig.providers)
+	//for (auto prov : prefixConfig.providers)
+	forEach(StringList,prov,prefixConfig.providers)
 	{
-		Provider & p = getProvider(prov);
-		HL_MESSAGE_ARG("Update cache of provier %1").arg(prov).end();
+		Provider & p = getProvider(*prov);
+		HL_MESSAGE_ARG("Update cache of provier %1").arg(*prov).end();
 		p.updateCache();
 	}
 }
@@ -419,8 +438,8 @@ void Prefix::updateCache(void)
 /*******************  FUNCTION  *********************/
 void Prefix::fillEnv(EnvSetup & env)
 {
-	for (auto it : inheritedPrefix)
-		it->fillEnv(env);
+	forEach(PrefixList,it,inheritedPrefix)
+		(*it)->fillEnv(env);
 	env.addPrefix(this->prefix);
 }
 
@@ -449,13 +468,14 @@ std::string Prefix::listInstalled(void)
 	std::string out;
 
 	//loop on files
-	System::readDir(getFilePath("/homelinux/install-db/"),[this,&out](const std::string & file)
+	StringList lst = System::readDir(getFilePath("/homelinux/install-db/"));
+	forEach(StringList,file,lst)
 	{
 		PackageDef pack;
-		pack.load(getFilePath("/homelinux/install-db/"+file));
+		pack.load(getFilePath("/homelinux/install-db/"+*file));
 		out += Colors::green(pack.getSlotName())+" "+Colors::cyan(pack.getVersion());
 		out += "\n";
-	});
+	}
 
 	//ok
 	return out;

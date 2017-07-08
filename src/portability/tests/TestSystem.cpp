@@ -53,9 +53,9 @@ TEST(System,findFiles)
 	ref["data/test.txt"] = "data/test.txt";
 	ref["data/test.json"] = "data/test.json";
 	
-	System::findFiles(TEST_DATA_PATH "/..",[&](const std::string & value){
-		EXPECT_EQ(ref[value],value);
-	});
+	StringList lst = System::findFiles(TEST_DATA_PATH "/..");
+	forEach(StringList,value,lst)
+		EXPECT_EQ(ref[*value],*value);
 }
 
 /*******************  FUNCTION  *********************/

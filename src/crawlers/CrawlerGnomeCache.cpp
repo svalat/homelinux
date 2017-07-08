@@ -57,7 +57,7 @@ void CrawlerGnomeCache::internalRun(std::string url)
 		if (json.isArray() && json[0].asInt() == 4)
 		{
 			Json::Value node = json[1][shortName];
-			for (auto it = node.begin() ; it != node.end() ; ++it)
+			for (Json::Value::iterator it = node.begin() ; it != node.end() ; ++it)
 				versions.push_back(it.key().asString());
 		} else {
 			HL_ERROR_ARG("Package %1 has invalid gnome cache format on %2").arg(packageName).arg(url).end();

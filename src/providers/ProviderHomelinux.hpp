@@ -21,7 +21,8 @@ namespace hl
 {
 
 /*********************  TYPES  **********************/
-typedef std::map<int,std::map<std::string,Crawler *>> CrawlerMap;
+typedef std::map<std::string,Crawler *> CrawlerStringMap;
+typedef std::map<int,CrawlerStringMap > CrawlerMap;
 
 /*********************  CLASS  **********************/
 class ProviderHomelinux : public Provider

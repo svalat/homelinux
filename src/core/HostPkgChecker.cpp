@@ -85,22 +85,23 @@ bool HostPkgChecker::presentOnSystem(const Json::Value & hostDef) const
 bool HostPkgChecker::presentOnSystemGentoo(const StringList & pkgList) const
 {
 	//loop
-	for (auto & pack : pkgList)
+	//for (auto & pack : pkgList)
+	forEachConst(StringList,pack,pkgList)
 	{
 		//default
 		bool found = false;
 		
 		//split
 		StringVector names(2);
-		Helper::split(pack,'/',[&names](const std::string & value){
-			names.push_back(value);
-		});
+		StringList lst = Helper::split(*pack,'/');
+		forEach(StringList,value,lst)
+			names.push_back(*value);
 		
 		//list dir
-		System::readDir("/var/db/pkg/"+names[0],[&found,&names](const std::string & value){
-			if (Helper::startBy(value,names[1]))
+		lst = System::readDir("/var/db/pkg/"+names[0]);
+		forEach(StringList,value,lst)
+			if (Helper::startBy(*value,names[1]))
 				found = true;
-		});
 		
 		//check
 		if (found == false)
@@ -120,13 +121,14 @@ bool HostPkgChecker::presentOnSystemGentoo(const StringList & pkgList) const
 bool HostPkgChecker::presentOnSystemCentos(const StringList & pkgList) const
 {
 	//loop
-	for (auto & pack : pkgList)
+	//for (auto & pack : pkgList)
+	forEachConst(StringList,pack,pkgList)
 	{
 		#ifndef NDEBUG
-			if (System::runCommand("yum list "+pack+" 2>/dev/null >/dev/null") != 0)
-				HL_WARNING_ARG("Package %1 does not exist on yum !").arg(pack).end();
+			if (System::runCommand("yum list "+*pack+" 2>/dev/null >/dev/null") != 0)
+				HL_WARNING_ARG("Package %1 does not exist on yum !").arg(*pack).end();
 		#endif
-		if (System::runCommand("rpm -V "+pack+" 2>/dev/null > /dev/null") != 0)
+		if (System::runCommand("rpm -V "+*pack+" 2>/dev/null > /dev/null") != 0)
 			return false;
 	}
 	
@@ -143,9 +145,10 @@ bool HostPkgChecker::presentOnSystemCentos(const StringList & pkgList) const
 bool HostPkgChecker::presentOnSystemDebian(const StringList & pkgList) const
 {
 	//loop
-	for (auto & pack : pkgList)
+	//for (auto & pack : pkgList)
+	forEachConst(StringList,pack,pkgList)
 	{
-		if (System::runCommand("dpkg -s "+pack+" 2>/deb/null") != 0)
+		if (System::runCommand("dpkg -s "+*pack+" 2>/deb/null") != 0)
 			return false;
 	}
 	

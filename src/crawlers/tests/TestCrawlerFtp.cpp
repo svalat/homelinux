@@ -8,6 +8,8 @@
 
 /********************  HEADERS  *********************/
 #include <gtest/gtest.h>
+#include <base/Config.hpp>
+#include <core/Prefix.hpp>
 #include "../CrawlerFtp.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -26,17 +28,19 @@ TEST(CrawlerFtp,constructor)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerFtp,run)
 {
-	CrawlerFtp crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerFtp crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "ftp";
-	config["url"] = "ftp://ftp.gnu.org/gnu/bash";
-	config["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)";
+	Json::Value cfg;
+	cfg["mode"] = "ftp";
+	cfg["url"] = "ftp://ftp.gnu.org/gnu/bash";
+	cfg["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)";
 
 	StringList versions;
 	versions.push_back("4.3");
 
-	versions = crawler.run("bash",config,versions);
+	versions = crawler.run("bash",cfg,versions);
 
 	EXPECT_EQ(cstValue1,Helper::join(versions,' '));
 }
@@ -67,17 +71,19 @@ TEST(CrawlerFtp,run)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerFtp,run_invalid)
 {
-	CrawlerFtp crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerFtp crawler(&prefix);
 
-	Json::Value config;
-	config["mode"] = "ftp";
-	config["url"] = "ftp://azertyuio.invalid/notok/";
-	config["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)";
+	Json::Value cfg;
+	cfg["mode"] = "ftp";
+	cfg["url"] = "ftp://azertyuio.invalid/notok/";
+	cfg["regexp"] = "bash-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)";
 
 	StringList versions;
 	versions.push_back("4.3");
 
-	versions = crawler.run("bash",config,versions);
+	versions = crawler.run("bash",cfg,versions);
 
 	EXPECT_EQ("4.3",Helper::join(versions,' '));
 }

@@ -25,7 +25,7 @@ namespace hl
 static const char * gblVarNames[] = {
 	"PATH","LD_LIBRARY_PATH","CPATH","MANPATH","PERL5LIB",
 	"PKG_CONFIG_PATH","MODULEPATH","PYTHONPATH","CMAKE_PREFIX_PATH",
-	"LD_RUN_PATH","HL_PREFIX_PATH"
+	"LD_RUN_PATH","HL_PREFIX_PATH", NULL
 };
 
 /*******************  FUNCTION  *********************/
@@ -52,8 +52,10 @@ EnvSetup::EnvSetup(const Config * config)
 void EnvSetup::setupEmpty(void)
 {
 	//set to empty
-	for (auto & var : gblVarNames)
-		env[var] = "";
+	//for (auto & var : gblVarNames)
+	int i = 0;
+	while(gblVarNames[i] != NULL)
+		env[gblVarNames[i++]] = "";
 }
 
 /*******************  FUNCTION  *********************/
@@ -63,8 +65,9 @@ void EnvSetup::setupEmpty(void)
 void EnvSetup::loadCurrent(void)
 {
 	//load from env
-	for (auto & it : env)
-		it.second = System::getEnv(it.first);
+	//for (auto & it : env)
+	forEach(StringMap,it,env)
+		it->second = System::getEnv(it->first);
 		
 	//special for pkg-config otherwise we miss the system one
 	if (env["PKG_CONFIG_PATH"].empty())
@@ -77,9 +80,9 @@ void EnvSetup::loadCurrent(void)
 
 	//already loaded prefix
 	std::string hlPrefixes = System::getEnv("HL_PREFIX_PATH");
-	Helper::split(hlPrefixes,':',[this](const std::string & value) {
-		loadedPrefix.push_back(value);
-	});
+	StringList lst = Helper::split(hlPrefixes,':');
+	forEach(StringList,it,lst)
+		loadedPrefix.push_back(*it);
 }
 
 /*******************  FUNCTION  *********************/
@@ -144,19 +147,22 @@ void EnvSetup::removeExisting(const std::string & varname,const char separator)
 	
 	//remove
 	std::list<std::string> out;
-	Helper::split(env[varname],separator,[&out,&varname,this](const std::string & value){
+	StringList lst = Helper::split(env[varname],separator);
+	forEach(StringList,value,lst)
+	{
 		bool status = true;
-		for (auto & prefix : loadedPrefix)
+		//for (auto & prefix : loadedPrefix)
+		forEach(EnvPrefixVector,prefix,loadedPrefix)
 		{
-			if (Helper::contain(value,prefix+"/") || value == prefix)
+			if (Helper::contain(*value,*prefix+"/") || *value == *prefix)
 			{
-				HL_DEBUG_ARG("EnvSetup","In %1, remove %2").arg(varname).arg(value).end();
+				HL_DEBUG_ARG("EnvSetup","In %1, remove %2").arg(varname).arg(*value).end();
 				status = false;
 			}
 		}
 		if (status)
-			out.push_back(value);
-	});
+			out.push_back(*value);
+	}
 	
 	//repush
 	env[varname] = Helper::join(out,separator);
@@ -168,8 +174,9 @@ void EnvSetup::removeExisting(const std::string & varname,const char separator)
 **/
 void EnvSetup::removeExisting(void)
 {
-	for (auto & var : env)
-		this->removeExisting(var.first,':');
+	//for (auto & var : env)
+	forEach(EnvVarMap,var,env)
+		this->removeExisting(var->first,':');
 	this->loadedPrefix.clear();
 }
 
@@ -180,8 +187,9 @@ void EnvSetup::removeExisting(void)
 **/
 void EnvSetup::print(std::ostream & out)
 {
-	for (auto & var : env)
-		out << "export " << var.first << "=" << var.second << std::endl;
+	//for (auto & var : env)
+	forEach(EnvVarMap,var,env)
+		out << "export " << var->first << "=" << var->second << std::endl;
 }
 
 /*******************  FUNCTION  *********************/
@@ -191,8 +199,9 @@ void EnvSetup::print(std::ostream & out)
 **/
 bool EnvSetup::hasPrefix(const std::string & prefix)
 {
-	for (auto & p : loadedPrefix)
-		if (p == prefix)
+	//for (auto & p : loadedPrefix)
+	forEach(EnvPrefixVector,p,loadedPrefix)
+		if (*p == prefix)
 			return true;
 	return false;
 }
@@ -207,8 +216,9 @@ void EnvSetup::loadModules(bool load,std::ostream & out)
     out << "if ! module 1>/dev/null 2>/dev/null ; then hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL); fi" << std::endl;
     
     //modules
-	for (auto & module : config->modules)
-		out << "module " << (load?"load ":"unload ")  << module << std::endl;
+	//for (auto & module : config->modules)
+	forEachConst(StringList,module,config->modules)
+		out << "module " << (load?"load ":"unload ")  << *module << std::endl;
 }
 
 /*******************  FUNCTION  *********************/

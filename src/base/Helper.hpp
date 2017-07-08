@@ -31,10 +31,13 @@ namespace hl
 
 /*******************  TYPES  ************************/
 typedef std::map<std::string,std::string> StringMap;
-typedef std::map<std::string,std::list<std::string>> StringMapList;
+typedef std::map<std::string,std::list<std::string> > StringMapList;
 typedef std::list<std::string> StringList;
 typedef std::map<std::string,Json::Value> JsonMap;
 typedef std::vector<std::string> StringVector;
+
+#define forEach(type,it,list) for(type::iterator it = list.begin() ; it != list.end() ; ++it)
+#define forEachConst(type,it,list) for(type::const_iterator it = list.begin() ; it != list.end() ; ++it)
 
 /********************  STRUCT  **********************/
 /**
@@ -42,8 +45,7 @@ typedef std::vector<std::string> StringVector;
 **/
 struct Helper
 {
-	static void split(const std::string & value,char separator,std::function<void(const std::string&)> callback,bool keepEmpty = false);
-	static StringList split(const std::string & value, char sep);
+	static StringList split(const std::string & value,char separator,bool keepEmpty = false);
 	static std::string last(const std::string & value, char sep);
 	static bool contain(const std::string & value,const std::string what);
 	static bool contain(const StringList & value,const std::string what);
@@ -78,7 +80,7 @@ template <class T>
 T Helper::getListEl(const std::list<T> & lst,int id)
 {
     assumeArg(id < lst.size(),"Cannot get element %1, list size is %2").arg(id).arg(lst.size());
-    auto it = lst.begin();
+    typename std::list<T>::const_iterator it = lst.begin();
     for (int i = 0 ; i < id ; i++)
         ++it;
     return *it;

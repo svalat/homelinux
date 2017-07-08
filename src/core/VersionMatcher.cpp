@@ -10,7 +10,6 @@
 #include <map>
 #include <algorithm>
 #include <cstring>
-#include <regex>
 #include <portability/Regexp.hpp>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
@@ -42,8 +41,9 @@ VersionMatcher::VersionMatcher(const std::string & rules)
 **/
 bool VersionMatcher::match(const std::string & version,const SlotDef & slots)
 {
-	for (auto & rule : ruleList)
-		if (applyVersionOperator(rule,version,slots) == false)
+	//for (auto & rule : ruleList)
+	forEach(VersionMatcherRuleList,rule,ruleList)
+		if (applyVersionOperator(*rule,version,slots) == false)
 			return false;
 	return true;
 }
@@ -52,9 +52,10 @@ bool VersionMatcher::match(const std::string & version,const SlotDef & slots)
 VersionList VersionMatcher::filterList(const VersionList & list,const SlotDef & slots)
 {
 	VersionList out;
-	for (auto & version : list)
-		if (match(version,slots))
-			out.push_back(version);
+	//for (auto & version : list)
+	forEachConst(VersionList,version,list)
+		if (match(*version,slots))
+			out.push_back(*version);
 	return out;
 }
 
@@ -108,8 +109,8 @@ bool VersionMatcher::applyVersionOperator(const std::string & op,const std::stri
 	} else if (oper == "!") {
 		ret = (compareVersion(version,operand) != 0);
 	} else if (oper == "~") {
-		std::regex reg(regexpReplPoint(operand)+".*");
-		ret = std::regex_match(version,reg);
+		Regexp reg(regexpReplPoint(operand)+".*");
+		ret = reg.match(version);
 	} else if (oper == ":") {
 		std::string slot = getSlot(slots,version);
 		ret = (slot == operand);
@@ -130,9 +131,7 @@ bool VersionMatcher::applyVersionOperator(const std::string & op,const std::stri
 void VersionMatcher::set(const std::string & rules)
 {
 	ruleList.clear();
-	Helper::split(rules,' ',[this](const std::string & value){
-		this->ruleList.push_back(value);
-	});
+	this->ruleList = Helper::split(rules,' ');
 }
 
 /*******************  FUNCTION  *********************/
@@ -142,11 +141,17 @@ void VersionMatcher::set(const std::string & rules)
 **/
 int VersionMatcher::compareVersion(const std::string & v1,const std::string & v2)
 {
-	//split
+	//prep v1
 	std::vector<std::string> v1Details;
-	Helper::split(v1,'.',[&v1Details](const std::string& value){v1Details.push_back(fillNumber(value,8));});
+	StringList lst = Helper::split(v1,'.');
+	forEach(StringList,value,lst)
+		v1Details.push_back(fillNumber(*value,8));
+
+	//prep v2
 	std::vector<std::string> v2Details;
-	Helper::split(v2,'.',[&v2Details](const std::string& value){v2Details.push_back(fillNumber(value,8));});
+	lst = Helper::split(v2,'.');
+	forEach(StringList,value,lst)
+		v2Details.push_back(fillNumber(*value,8));
 	
 	//fill
 	std::string zero(12,'0');
@@ -198,13 +203,14 @@ std::string VersionMatcher::fillNumber(const std::string & value,int pad)
 std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & version)
 {
 	//loop
-	for (auto & it : slots)
+	//for (auto & it : slots)
+	forEachConst(StringMap,it,slots)
 	{
-		if (it.first == "~")
+		if (it->first == "~")
 		{
 			//vars
 			std::string extract;
-			std::string prepared = regexpReplPoint(it.second)+".*";
+			std::string prepared = regexpReplPoint(it->second)+".*";
 			
 			//match & extract
 			Regexp reg(prepared);
@@ -217,9 +223,9 @@ std::string VersionMatcher::getSlot(const SlotDef & slots,const std::string & ve
 					.end();
 			}
 		} else {
-			VersionMatcher matcher(it.second);
+			VersionMatcher matcher(it->second);
 			if (matcher.match(version))
-				return it.first;
+				return it->first;
 		}
 	}
 	
@@ -232,8 +238,10 @@ std::string VersionMatcher::regexpReplPoint(const std::string & value)
 {
 	std::string res;
 	bool lastIsProtect = false;
-	for (auto c : value)
+	//for (auto c : value)
+	for (int i = 0 ; i < value.size() ; i++)
 	{
+		char c = value[i];
 		if (c == '.' && !lastIsProtect)
 			res += "\\.";
 		else

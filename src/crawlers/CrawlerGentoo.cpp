@@ -32,9 +32,7 @@ void CrawlerGentoo::loadDb(void)
 	std::string file = System::loadFile(path);
 
 	//parse
-	Helper::split(file,'\n',[this](const std::string & line){
-		db.push_back(line);
-	});
+	db = Helper::split(file,'\n');
 }
 
 /*******************  FUNCTION  *********************/
@@ -44,8 +42,9 @@ void CrawlerGentoo::internalRun(std::string url)
 	HL_DEBUG_ARG("CrawlerGentoo","Crawling %1").arg(url).end();
 	
 	//scan
-	for (auto & it : db)
-		scanValue(it);
+	//for (auto & it : db)
+	forEach(StringList,it,db)
+		scanValue(*it);
 }
 
 }

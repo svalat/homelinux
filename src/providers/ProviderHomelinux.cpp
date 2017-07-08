@@ -10,12 +10,11 @@
 //std
 #include <cassert>
 #include <algorithm>
-#include <thread>
-#include <mutex>
 #include <base/Helper.hpp>
 #include <base/Debug.hpp>
 #include <core/Prefix.hpp>
 #include <portability/System.hpp>
+#include <portability/Mutex.hpp>
 #include "ProviderHomelinux.hpp"
 #include <portability/Regexp.hpp>
 #include <base/Colors.hpp>
@@ -41,9 +40,11 @@ ProviderHomelinux::ProviderHomelinux(Prefix * prefix)
 ProviderHomelinux::~ProviderHomelinux(void)
 {
 	//free mem
-	for (auto it : crawlers)
-		for (auto it2 : it.second)
-			delete it2.second;
+	//for (auto it : crawlers)
+	forEach(CrawlerMap,it,crawlers)
+		//for (auto it2 : it.second)
+		forEach(CrawlerStringMap,it2,it->second)
+			delete it2->second;
 	crawlers.clear();
 }
 
@@ -140,11 +141,13 @@ void ProviderHomelinux::updateCache(void)
 	assumeArg(System::fileExist(path),"Fail to find homelinux db : %1 !").arg(path).end();
 	
 	//scan
-	System::findFiles(path,[this,&regexp](const std::string & file){
+	StringList lst = System::findFiles(path);
+	forEach(StringList,file,lst)
+	{
 		std::string packageName;
-		if (regexp.match(file,packageName))
+		if (regexp.match(*file,packageName))
 			cache.push_back(packageName);
-	});
+	}
 	
 	//convert to json
 	Json::Value json;
@@ -159,7 +162,7 @@ void ProviderHomelinux::updateCache(void)
 Crawler * ProviderHomelinux::getCrawler(int threadId,const std::string & name,const std::string & packageName)
 {
 	//check cache
-	auto it = crawlers[threadId].find(name);
+	CrawlerStringMap::iterator it = crawlers[threadId].find(name);
 	if (it != crawlers[threadId].end())
 		return it->second;
 	
@@ -230,20 +233,57 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	out["hl/"+name] = crawler->run(name,vfetcher,versions);
 }
 
+/******************  STRUCT  ************************/
+struct WorkerArgs
+{
+	int * cur;
+	int fileCnt;
+	int threadId;
+	ProviderHomelinux * provider;
+	Mutex * mutex;
+	StringMapList * global;
+	StringList * files;
+};
+
+/*******************  FUNCTION  *********************/
+void * worker(void * args)
+{
+	//convert
+	WorkerArgs & wargs = *(WorkerArgs*)args;
+
+	StringMapList local;
+	bool loop = true;
+	while (loop)
+	{
+		wargs.mutex->lock();
+		if (wargs.files->empty())
+		{
+			Helper::merge(*wargs.global,local,false);
+			loop = false;
+			wargs.mutex->unlock();
+		} else {
+			std::string p = wargs.files->front();
+			wargs.files->pop_front();
+			*wargs.cur++;
+			wargs.mutex->unlock();
+			wargs.provider->crawl(*wargs.cur,wargs.fileCnt,wargs.threadId,local,p);
+		}
+	}
+	
+	return NULL;
+}
+
 /*******************  FUNCTION  *********************/
 void ProviderHomelinux::updateDb(void)
 {
 	//vars
 	StringList files;
 	StringMapList global;
-	std::mutex mutex;
+	Mutex mutex;
 
 	//find all packages
 	std::string path = prefix->getFilePath("/homelinux/packages/db/");
-	System::findFiles(path,[&files,&path](const std::string & file){
-		if (file != "cache.json" && file != "versions.json" && Helper::endBy(file,".json"))
-			files.push_back(path+file);
-	});
+	files = System::findFiles(path,path);
 
 	//compute number of threads we want
 	int cntThreads;
@@ -261,35 +301,27 @@ void ProviderHomelinux::updateDb(void)
 	//load html provider to setup npm environnement befaore using threads
 	getCrawler(0,"html","");
 
-	//spwan threads
-	std::thread * threads = new std::thread[cntThreads];
+	//launcher worker
+	pthread_t * threads = new pthread_t[cntThreads];
 	for (int i = 0 ; i < cntThreads ; i++)
 	{
-		threads[i] = std::thread([&cur,fileCnt,i,this,&mutex,&global,&files](){
-			StringMapList local;
-			bool loop = true;
-			while (loop)
-			{
-				mutex.lock();
-				if (files.empty())
-				{
-					Helper::merge(global,local,false);
-					loop = false;
-					mutex.unlock();
-				} else {
-					std::string p = files.front();
-					files.pop_front();
-					cur++;
-					mutex.unlock();
-					crawl(cur,fileCnt,i,local,p);
-				}
-			}
-		});
+		//setup args
+		WorkerArgs * workerArgs = new WorkerArgs;
+		workerArgs->cur = &cur;
+		workerArgs->fileCnt = fileCnt;
+		workerArgs->threadId = i;
+		workerArgs->provider = this;
+		workerArgs->mutex = & mutex;
+		workerArgs->global = &global;
+		workerArgs->files = &files;
+
+		//launch
+		pthread_create(&threads[i],NULL,worker,workerArgs);
 	}
 
 	//wait threads
 	for (int i = 0 ; i < cntThreads ; i++)
-		threads[i].join();
+		pthread_join(threads[i],NULL);
 	delete [] threads;
 
 	//convert
@@ -312,13 +344,13 @@ std::string ProviderHomelinux::search(const std::string & name)
 	
 	//conver
 	std::string lowerName = Helper::toLower(name);
-	for (auto & entry : cache)
+	//for (auto & entry : cache)
+	forEach(StringList,entry,cache)
 	{
 		//get name
 		std::string pn;
-		Helper::split(entry,'/',[&pn](const std::string & value){
-			pn = value;
-		});
+		StringList tmp = Helper::split(*entry,'/');
+		pn = tmp.back();
 		
 		//to lower
 		pn = Helper::toLower(pn);
@@ -326,9 +358,9 @@ std::string ProviderHomelinux::search(const std::string & name)
 		{
 			//@TODO replace by prefix.loadPackage
 			PackageDef def;
-			entry = "hl/"+entry;
-			bool status = getPackage(def,entry);
-			assumeArg(status,"Fail to load package %1").arg(entry).end();
+			*entry = "hl/"+*entry;
+			bool status = getPackage(def,*entry);
+			assumeArg(status,"Fail to load package %1").arg(*entry).end();
 			
 			//sort versions
 			def.sortVersions();
@@ -339,7 +371,7 @@ std::string ProviderHomelinux::search(const std::string & name)
 			std::string versions = def.getNVersions(10);
 			
 			//build full
-			std::string full = Colors::green(entry+":"+slot)+"-"+Colors::cyan(version)+" ["+Colors::blue(versions)+"]";
+			std::string full = Colors::green(*entry+":"+slot)+"-"+Colors::cyan(version)+" ["+Colors::blue(versions)+"]";
 			lst.push_back(full);
 		}
 	}
@@ -357,9 +389,10 @@ std::string ProviderHomelinux::searchInCache(const std::string & name)
 	this->loadCache();
 	
 	//loop
-	for (auto entry : cache)
-		if (Helper::endBy(entry,name))
-			lst.push_back(entry);
+	//for (auto entry : cache)
+	forEach(StringList,entry,cache)
+		if (Helper::endBy(*entry,name))
+			lst.push_back(*entry);
 			
 	//check
 	if (lst.empty())

@@ -51,9 +51,7 @@ void ProviderUrls::loadDb(const std::string & path)
 	std::string file = System::loadFile(path);
 	
 	//for each line
-	Helper::split(file,'\n',[this](const std::string & line){
-		this->db.push_back(line);
-	});
+	db = Helper::split(file,'\n');
 }
 
 /******************* FUNCTION *********************/
@@ -92,13 +90,14 @@ bool ProviderUrls::getPackage(PackageDef & out,const std::string & name)
 	std::string version;
 	std::string url;
 	StringList versions;
-	for (auto & entry : db)
+	//for (auto & entry : db)
+	forEach(StringList,entry,db)
 	{
-		fname = Helper::last(entry,'/');
+		fname = Helper::last(*entry,'/');
 		if (regexp.match(fname,version))
 		{
 			versions.push_back(version);
-			url = entry;
+			url = *entry;
 			url.replace(url.find(version), version.length(), "${VERSION}");
 		}
 	}
@@ -140,9 +139,10 @@ std::string ProviderUrls::search(const std::string & name)
 	loadDb();
 
 	//loop on all
-	for (auto & entry : db)
-		if (Helper::contain(entry,name))
-			lst.push_back(Colors::magenta("urls/"+Helper::last(entry,'/')));
+	//for (auto & entry : db)
+	forEach(StringList,entry,db)
+		if (Helper::contain(*entry,name))
+			lst.push_back(Colors::magenta("urls/"+Helper::last(*entry,'/')));
 	
 	//gen
 	return Helper::join(lst,'\n');

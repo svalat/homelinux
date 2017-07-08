@@ -28,13 +28,15 @@ static const char * gblProperties[] = {
 	"version",
 	"module",
 	"type",
-	"subdir"
+	"subdir",
+	NULL
 };
 static const char* gblHosts[] = {
 	"centos7",
 	"debian8",
 	"default",
-	"gentoo"
+	"gentoo",
+	NULL
 };
 
 /*******************  FUNCTION  *********************/
@@ -47,17 +49,21 @@ QuickPackage::QuickPackage(const Prefix * prefix)
 	this->prefix = prefix;
 	
 	//load files from prefix & home
-	for (auto prop : gblProperties)
+	int i = 0;
+	while(gblProperties[i] != NULL)
 	{
-		loadQuickFile(prop,this->prefix->getFilePath("/homelinux/packages/quickpackages/"));
-		loadQuickFile(prop,System::getHomeDir()+".homelinux/quickpackages/");
+		loadQuickFile(gblProperties[i],this->prefix->getFilePath("/homelinux/packages/quickpackages/"));
+		loadQuickFile(gblProperties[i],System::getHomeDir()+".homelinux/quickpackages/");
+		i++;
 	}
 	
 	//load hosts
-	for (auto host : gblHosts)
+	i = 0;
+	while (gblHosts[i] != NULL)
 	{
-		loadQuickFile(host,this->prefix->getFilePath("/homelinux/packages/hosts/"));
-		loadQuickFile(host,System::getHomeDir()+".homelinux/hosts/");
+		loadQuickFile(gblHosts[i],this->prefix->getFilePath("/homelinux/packages/hosts/"));
+		loadQuickFile(gblHosts[i],System::getHomeDir()+".homelinux/hosts/");
+		i++;
 	}
 }
 
@@ -79,32 +85,31 @@ void QuickPackage::loadQuickFile(const std::string & property,const std::string 
 	
 	//for each line
 	StringMapList & prop = db[property];
-	Helper::split(content,'\n',[&prop](const std::string & line){
-		if (line[0] != '#' && line.empty() == false)
+	StringList lst = Helper::split(content,'\n');
+	forEach(StringList,line,lst)
+	{
+		if ((*line)[0] != '#' && line->empty() == false)
 		{
-			StringList lst;
-			Helper::split(line,' ',[&lst](const std::string & value){
-				lst.push_back(value);
-			});
-			std::string name = Helper::getListEl(lst,0);
-			lst.erase(lst.begin());
-			Helper::merge(prop[name],lst);
+			StringList lst2 = Helper::split(*line,' ');
+			std::string name = Helper::getListEl(lst2,0);
+			lst2.erase(lst2.begin());
+			Helper::merge(prop[name],lst2);
 		}
-	});
+	}
 }
 
 /*******************  FUNCTION  *********************/
 const StringList & QuickPackage::getQuickInfo(const std::string & property,const std::string packageName) const
 {
 	//get entry
-	auto it = db.find(property);
+	std::map<std::string,StringMapList>::const_iterator it = db.find(property);
 	
 	//error
 	assumeArg(it != db.end(),"Invalid property name : %1").arg(property).end();
 	
 	//check if has one
 	const StringMapList & map = it->second;
-	auto entryIt = map.find(packageName);
+	StringMapList::const_iterator entryIt = map.find(packageName);
 	if (entryIt == map.end())
 		return gblEmpty;
 	else
@@ -124,10 +129,7 @@ std::string QuickPackage::getQuickInfoFirst(const std::string & property,const s
 /*******************  FUNCTION  *********************/
 void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 {
-	std::string shortName;
-	Helper::split(name,'/',[&shortName](const std::string & value){
-		shortName = value;
-	});
+	std::string shortName = Helper::last(name,'/');
 	
 	pack.name = name;
 	pack.api = HL_JHSON_API;
@@ -143,16 +145,18 @@ void QuickPackage::genPackage(PackageDef & pack,const std::string & name) const
 	pack.patch = this->getQuickInfo("patch",name);
 	pack.configure[""] = this->getQuickInfo("config",name);
 	
-	for (auto host : gblHosts)
+	int i = 0;
+	while (gblHosts[i] != NULL)
 	{
-		const StringList & lst = this->getQuickInfo(host,name);
+		const StringList & lst = this->getQuickInfo(gblHosts[i],name);
 		if (lst.empty() == false)
 		{
-			if (std::string(host) == "default")
-					pack.host[host] = false;
+			if (std::string(gblHosts[i]) == "default")
+					pack.host[gblHosts[i]] = false;
 			else
-					Helper::toJson(pack.host[host],lst);
+					Helper::toJson(pack.host[gblHosts[i]],lst);
 		}
+		i++;
 	}
 }
 

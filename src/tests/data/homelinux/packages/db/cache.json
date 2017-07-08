@@ -1,1 +1,1 @@
-[ "sys-libs/ncurses", "app-shells/bash" ]
+[ "app-shells/bash", "sys-libs/ncurses" ]

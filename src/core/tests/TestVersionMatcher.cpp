@@ -241,8 +241,8 @@ TEST(VersionMatcher,sortList)
 	ref.push_back("1.2.1");
 	ref.push_back("1.2");
 	
-	auto it = sorted.begin();
-	auto itRef = ref.begin();
+	VersionList::iterator it = sorted.begin();
+	VersionList::iterator itRef = ref.begin();
 	for (int i = 0 ; i < 4 ; i++)
 	{
 		EXPECT_EQ(*itRef,*it);

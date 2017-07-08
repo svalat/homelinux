@@ -9,6 +9,7 @@
 /********************  HEADERS  *********************/
 #include <portability/System.hpp>
 #include <core/Prefix.hpp>
+#include <cstdio>
 #include "CrawlerFtp.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -41,7 +42,7 @@ void CrawlerFtp::internalRun(std::string url)
 
 	//load
 	std::string out;
-	char tmp[32];
+	char tmp[2048];
 	sprintf(tmp,"%d",prefix->getUserConfig().crawlerTimeout);
 	bool status = System::runAndRead(out,"LC_ALL=C curl -m "+std::string(tmp)+" "+url+" 2>/dev/null");
 
@@ -51,9 +52,9 @@ void CrawlerFtp::internalRun(std::string url)
 		HL_ERROR_ARG("FTP failure for package %1 : %2").arg(packageName).arg(url).end();
 	} else {
 		//scan lines
-		Helper::split(out,'\n',[this](const std::string & line){
-			scanValue(Helper::last(line,' '));
-		});
+		StringList lst = Helper::split(out,'\n');
+		forEach(StringList,line,lst)
+			scanValue(Helper::last(*line,' '));
 	}
 }
 

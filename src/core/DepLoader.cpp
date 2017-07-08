@@ -38,8 +38,9 @@ DepLoader::DepLoader(Prefix * prefix)
 **/
 DepLoader::~DepLoader(void)
 {
-	for (auto & it : packages)
-		delete it.second;
+	//for (auto & it : packages)
+	forEach(PackageMap,it,packages)
+		delete it->second;
 	packages.clear();
 	sched.clear();
 }
@@ -53,8 +54,12 @@ DepLoader::~DepLoader(void)
 void DepLoader::loadRequest(const StringList & packageList)
 {
 	//clear
-	for (auto package : packageList)
+	//for (auto package : packageList)
+	forEachConst(StringList,it,packageList)
 	{
+		//copy
+		std::string package = *it;
+
 		//prepare
 		Helper::replaceInPlace(package,":"," :");
 		Helper::replaceInPlace(package,"<"," <");
@@ -91,8 +96,9 @@ void DepLoader::loadRequest(const StringList & packageList)
 **/
 void DepLoader::applyVSpecific(void)
 {
-	for (auto pack : root)
-		applyVSpecific(pack);
+	//for (auto pack : root)
+	forEach(PackageList,pack,root)
+		applyVSpecific(*pack);
 }
 
 /*******************  FUNCTION  *********************/
@@ -124,8 +130,9 @@ void DepLoader::applyVSpecific(DepPackage * pack)
 	loadPackageDeps(pack);
 
 	//loop on deps
-	for (auto & it : pack->infos.deps)
-		applyVSpecific(it.second);
+	//for (auto & it : pack->infos.deps)
+	forEach(PackageMap,it,pack->infos.deps)
+		applyVSpecific(it->second);
 	
 	//loop
 	pack->infos.loopChecker--;
@@ -245,15 +252,16 @@ void DepLoader::loadPackageDeps(DepPackage * pack)
 		return;
 
 	//loop on all
-	for (auto & dep : pack->def.deps)
+	//for (auto & dep : pack->def.deps)
+	forEach(StringList,dep,pack->def.deps)
 	{
-		if (pack->infos.deps.find(dep) == pack->infos.deps.end())
+		if (pack->infos.deps.find(*dep) == pack->infos.deps.end())
 		{
 			try {
-				DepPackage * p = loadPackage(dep,pack,false);
+				DepPackage * p = loadPackage(*dep,pack,false);
 				
 				if (p != NULL)
-					pack->infos.deps[dep] = p;
+					pack->infos.deps[*dep] = p;
 			} catch (const Error & error) {
 				std::cerr << error.what() << std::endl;
 				HL_FATAL_ARG("Fail to load package %1, see previous errors !").arg(pack->def.getSlotName()).end();
@@ -271,10 +279,11 @@ void DepLoader::checkStatus(void)
 	HostPkgChecker host(prefix->getUserConfig().host);
 
 	//loop on all
-	for (auto & it : packages)
+	//for (auto & it : packages)
+	forEach(PackageMap,it,packages)
 	{
 		//extract
-		DepPackage & pack = *(it.second);
+		DepPackage & pack = *(it->second);
 
 		//check status
 		if(pack.infos.force)
@@ -304,17 +313,19 @@ void DepLoader::buildSched(void)
 	sched.clear();
 
 	//build list
-	for (auto & pack : root)
-		buildSchedChild(pack);
+	//for (auto & pack : root)
+	forEach(PackageList,pack,root)
+		buildSchedChild(*pack);
 
 	//reverse
 	sched.reverse();
 
 	//make uniq
 	StringList endSched;
-	for (auto pack : sched)
-		if (Helper::contain(endSched,pack) == false)
-			endSched.push_back(pack);
+	//for (auto pack : sched)
+	forEach(StringList,pack,sched)
+		if (Helper::contain(endSched,*pack) == false)
+			endSched.push_back(*pack);
 
 	//overrite	
 	sched.clear();
@@ -339,8 +350,9 @@ void DepLoader::buildSchedChild(DepPackage * pack)
 		sched.push_back(pack->def.getSlotName());
 
 		//apply deps
-		for (auto &it : pack->infos.deps)
-			buildSchedChild(it.second);
+		//for (auto &it : pack->infos.deps)
+		forEach(PackageMap,it,pack->infos.deps)
+			buildSchedChild(it->second);
 	}
 }
 
@@ -358,20 +370,23 @@ void DepLoader::checkUseFlagHints(DepPackage * pack)
 	std::string parent;
 
 	//loop on all parent packages hints
-	for (auto & hint : pack->hints)
+	//for (auto & hint : pack->hints)
+	forEach(PackageRequestMap,hint,pack->hints)
 	{
 		//look on all slides
-		Helper::split(hint.second.iuse,',',[&err,&hint,&parent,this,pack](const std::string & flag) {
-			std::string full = flag;
+		StringList lst = Helper::split(hint->second.iuse,',');
+		forEach(StringList,flag,lst)
+		{
+			std::string full = *flag;
 			if (full[0] != '+' && full[0] != '-')
 				full = "+"+full;
 			UseFlagState state = pack->def.use.getApplyStatusWithAnd(full);
 			if (state != FLAG_ENABLED)
 			{
 				err += pack->def.getSlotName() + "[ "+full + " ]";
-				parent = hint.second.parent->def.getSlotName();
+				parent = hint->second.parent->def.getSlotName();
 			}
-		});
+		}
 	}
 
 	if (err.empty() == false)
@@ -393,9 +408,10 @@ void DepLoader::applyVersionHints(DepPackage * pack)
 	std::string before = Helper::join(pack->def.versions,' ');
 
 	//loop on all hints
-	for (auto & hint : pack->hints)
+	//for (auto & hint : pack->hints)
+	forEach(PackageRequestMap,hint,pack->hints)
 	{
-		VersionMatcher match(hint.second.version);
+		VersionMatcher match(hint->second.version);
 		pack->def.versions = match.filterList(pack->def.versions,pack->def.slots);
 	}
 
@@ -404,8 +420,9 @@ void DepLoader::applyVersionHints(DepPackage * pack)
 	{
 		HL_ERROR_ARG("Version filter is too strict for package '%1'").arg(pack->def.name).end();
 		HL_ERROR_ARG("  - Previous version list is : %1").arg(before).end();
-		for (auto & hint : pack->hints)
-			HL_ERROR_ARG("  - Hint from %1 : %2 %3").arg(hint.first).arg(hint.second.name).arg(hint.second.version).end();
+		//for (auto & hint : pack->hints)
+		forEach(PackageRequestMap,hint,pack->hints)
+			HL_ERROR_ARG("  - Hint from %1 : %2 %3").arg(hint->first).arg(hint->second.name).arg(hint->second.version).end();
 		exit(1);
 	}
 }
@@ -423,24 +440,26 @@ void DepLoader::selectVSpecific(DepPackage * pack)
 
 	//loop on all specific
 	StringList toRemove;
-	for (auto & it : pack->def.vspecific)
+	//for (auto & it : pack->def.vspecific)
+	forEach(JsonMap,it,pack->def.vspecific)
 	{
-		VersionMatcher match(it.first);
+		VersionMatcher match(it->first);
 		if (match.match(version,pack->def.slots))
 		{
-			HL_DEBUG_ARG("DepLoader","Apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
+			HL_DEBUG_ARG("DepLoader","Apply version specific %1 on package %2 (%3)").arg(it->first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
 			PackageDef def;
-			def.loadJson(it.second);
+			def.loadJson(it->second);
 			pack->def.merge(def);
-			toRemove.push_back(it.first);
+			toRemove.push_back(it->first);
 		} else {
-			HL_DEBUG_ARG("DepLoader","Do not apply version specific %1 on package %2 (%3)").arg(it.first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
+			HL_DEBUG_ARG("DepLoader","Do not apply version specific %1 on package %2 (%3)").arg(it->first).arg(pack->def.getSlotName()).arg(pack->def.getVersion()).end();
 		}
 	}
 
 	//remove applied
-	for (auto & it : toRemove)
-		pack->def.vspecific.erase(it);
+	//for (auto & it : toRemove)
+	forEach(StringList,it,toRemove)
+		pack->def.vspecific.erase(*it);
 }
 
 /*******************  FUNCTION  *********************/
@@ -456,20 +475,22 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 	StringList out;
 
 	//loop on all
-	Helper::split(uses,',',[&out,parent](const std::string & use){
-		if (use[0] == '#')
+	StringList lst = Helper::split(uses,',');
+	forEach(StringList,use,lst)
+	{
+		if ((*use)[0] == '#')
 		{
-			std::string name = use.substr(1);
-			assumeArg(parent->def.use.hasFlag(name),"Would like to apply parent state for %1, but parent %2 does not have it").arg(use).arg(parent->def.getSlotName()).end();
+			std::string name = use->substr(1);
+			assumeArg(parent->def.use.hasFlag(name),"Would like to apply parent state for %1, but parent %2 does not have it").arg(*use).arg(parent->def.getSlotName()).end();
 			UseFlagState state = parent->def.use.getStatus(name);
 			if (state == FLAG_ENABLED)
 				out.push_back("+"+name);
 			else if (state == FLAG_DISABLED)
 				out.push_back("-"+name);
 		} else {
-			out.push_back(use);
+			out.push_back(*use);
 		}
-	});
+	}
 
 	return Helper::join(out,',');
 }
@@ -483,17 +504,20 @@ std::string DepLoader::replaceParentUseFlags(const std::string uses,const DepPac
 void DepLoader::printList(std::ostream & out)
 {
 	out << Colors::yellow("----------------------REUSE HOST--------------------------") << std::endl;
-	for (auto & it : packages)
-		if (it.second->infos.present == "use-host")
-			out << Colors::magenta(it.second->def.name) << std::endl;
+	//for (auto & it : packages)
+	forEach(PackageMap,it,packages)
+		if (it->second->infos.present == "use-host")
+			out << Colors::magenta(it->second->def.name) << std::endl;
 	out << Colors::yellow("----------------------INSTALLED---------------------------") << std::endl;
-	for (auto & it : packages)
-		if (it.second->infos.present == "already-installed")
-			out << Colors::magenta(it.second->def.name) << std::endl;
+	//for (auto & it : packages)
+	forEach(PackageMap,it,packages)
+		if (it->second->infos.present == "already-installed")
+			out << Colors::magenta(it->second->def.name) << std::endl;
 	out << Colors::yellow("----------------------TO INSTALL--------------------------") << std::endl;
-	for (auto & it : sched)
+	//for (auto & it : sched)
+	forEach(StringList,it,sched)
 	{
-		DepPackage & pack = *packages[it];
+		DepPackage & pack = *packages[*it];
 		if (pack.infos.present.empty())
 			out << Colors::green(pack.def.getSlotName()) << "-" << Colors::magenta(pack.def.getVersion()) << " USE=\""<< pack.def.use.toString(false,true) << "\"" << std::endl;
 		else
@@ -521,9 +545,10 @@ void DepLoader::genScript(std::ostream & out,bool usePinstall)
 	out << std::endl;
 
 	//for each package
-	for (auto & it : sched)
+	//for (auto & it : sched)
+	forEach(StringList,it,sched)
 	{
-		packages[it]->def.genScript(out,*prefix,usePinstall);
+		packages[*it]->def.genScript(out,*prefix,usePinstall);
 		out << std::endl << std::endl;
 		out << "####################################################";
 		out << std::endl << std::endl;
@@ -548,10 +573,11 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 	out << "all: hl-targets" << std::endl << std::endl;
 
 	//rules
-	for (auto & it : sched)
+	//for (auto & it : sched)
+	forEach(StringList,it,sched)
 	{
 		//build step name
-		std::string step = it;
+		std::string step = *it;
 		Helper::replaceInPlace(step,":","_");
 		Helper::replaceInPlace(step,"/","_");
 		
@@ -569,13 +595,14 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 		all.push_back(step);
 
 		//deps
-		DepPackage * p = packages[it];
-		for (auto it : p->infos.deps)
+		DepPackage * p = packages[*it];
+		//for (auto it : p->infos.deps)
+		forEach(PackageMap,it2,p->infos.deps)
 		{
-			const std::string & present = it.second->infos.present;
+			const std::string & present = it2->second->infos.present;
 			if (present.empty() || present == "override-system" || present == "reinstall")
 			{
-				std::string tmp = it.second->def.getSlotName();
+				std::string tmp = it2->second->def.getSlotName();
 				Helper::replaceInPlace(tmp,":","_");
 				Helper::replaceInPlace(tmp,"/","_");
 				deps[step].push_back(tmp);
@@ -584,9 +611,10 @@ void DepLoader::genParallelMakefile(std::ostream & out,const std::string & tmpdi
 	}
 
 	//deps
-	for (auto it : deps)
-		if (it.second.empty() == false)
-			out << it.first << ": " << Helper::join(it.second,' ') << std::endl;
+	//for (auto it : deps)
+	forEach(StringMapList,it,deps)
+		if (it->second.empty() == false)
+			out << it->first << ": " << Helper::join(it->second,' ') << std::endl;
 	out << std::endl;
 
 	//hl-targets
@@ -606,10 +634,11 @@ void DepLoader::genParallelScripts(const std::string & tmpdir)
 {
 	//rules
 	int cnt = 0;
-	for (auto & it : sched)
+	//for (auto & it : sched)
+	forEach(StringList,it,sched)
 	{
 		//build step name
-		std::string step = it;
+		std::string step = *it;
 		Helper::replaceInPlace(step,":","_");
 		Helper::replaceInPlace(step,"/","_");
 
@@ -618,7 +647,7 @@ void DepLoader::genParallelScripts(const std::string & tmpdir)
 		out << "#!/bin/bash" << std::endl << std::endl;
 		out << "HL_TOT_PACK=" << this->sched.size() << "\n";
 		out << "HL_CUR_PACK=" << cnt << "\n\n";
-		this->packages[it]->def.genScript(out,*prefix,true);
+		this->packages[*it]->def.genScript(out,*prefix,true);
 		out << "\n\n####################################################\n\n";
 
 		//dump to file

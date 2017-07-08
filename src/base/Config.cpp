@@ -87,8 +87,8 @@ void Config::load(Json::Value & config)
 	//modules
 	Json::Value mods = config["modules"];
 	if (mods.isArray()) {
-		for (auto & m : mods)
-			this->modules.push_back(m.asString());
+		for (Json::Value::iterator it = mods.begin() ; it != mods.end() ; ++it)
+			this->modules.push_back((*it).asString());
 	}
 	
 	//override

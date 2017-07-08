@@ -65,10 +65,11 @@ bool ProviderDebian::getPackage(PackageDef & out,const std::string & name)
 	//search in sub packages
 	if (entry == NULL)
 	{
-		for (auto & it : db)
+		//for (auto & it : db)
+		forEach(DebianDb,it,db)
 		{
-			if (Helper::contain(it.second.packages,shortName))
-				entry = &it.second;
+			if (Helper::contain(it->second.packages,shortName))
+				entry = &it->second;
 		}
 	}
 
@@ -122,8 +123,10 @@ void ProviderDebian::updateDb(void)
 		std::string cur;
 		if (System::runAndRead(content,"curl "+repo+"/source/Sources.xz | xz -d"))
 		{
-			Helper::split(content,'\n',[&](const std::string & line){
-				if (line.empty())
+			StringList lst = Helper::split(content,'\n',true);
+			forEach(StringList,line,lst)
+			{
+				if (line->empty())
 				{
 					DebianDbEntry entry;
 					entry.name = state["Package"];
@@ -136,18 +139,18 @@ void ProviderDebian::updateDb(void)
 					entry.section = state["Section"];
 
 					db[entry.name] = entry;
-				} else if (line[0] == ' ') {
+				} else if ((*line)[0] == ' ') {
 					state[cur] += " ";
-					state[cur] += Helper::split(line,' ').back();
+					state[cur] += Helper::split(*line,' ').back();
 				} else {
-					StringList lst = Helper::split(line, ':');
+					StringList lst = Helper::split(*line, ':');
 					cur = lst.front();
 					if (lst.size() == 1 || lst.back() == "" || lst.back() == " ")
 						state[cur] = "";
 					else
 						state[cur] = lst.back().substr(1);
 				}
-			},true);
+			}
 		}
 	}
 
@@ -166,9 +169,10 @@ std::string ProviderDebian::search(const std::string & name)
 
 	//loop
 	StringList out;
-	for (auto & entry : db)
-		if (Helper::contain(entry.first,lname))
-			out.push_back(Colors::magenta("debian/"+entry.first));
+	//for (auto & entry : db)
+	forEach(DebianDb,entry,db)
+		if (Helper::contain(entry->first,lname))
+			out.push_back(Colors::magenta("debian/"+entry->first));
 
 	//ret
 	return Helper::join(out,'\n');
@@ -223,9 +227,9 @@ void ProviderDebian::saveDb(void)
 
 	//convert
 	Json::Value json;
-	for (auto & it : db)
+	forEach(DebianDb,it,db)
 	{
-		DebianDbEntry & entry = it.second;
+		DebianDbEntry & entry = it->second;
 		Json::Value e;
 		e["name"] = entry.name;
 		e["version"] = entry.version;

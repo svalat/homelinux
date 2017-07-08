@@ -31,8 +31,9 @@ HomeLinux::HomeLinux(Config * config)
 /*******************  FUNCTION  *********************/
 HomeLinux::~HomeLinux(void)
 {
-	for (auto prefix : prefixes)
-		delete prefix;
+	//for (auto prefix : prefixes)
+	forEach(PrefixList,prefix,prefixes)
+		delete *prefix;
 }
 
 
@@ -178,7 +179,7 @@ void HomeLinux::install(const StringList & packages)
 	//mktemp(tmp);
 	std::string path = tmp;
 	std::ofstream out;
-	out.open(path);
+	out.open(path.c_str());
 	loader.genScript(out,false);
 	out.close();
 	
@@ -220,7 +221,7 @@ void HomeLinux::pinstall(const StringList & packages)
 	
 	//gen makefile
 	std::ofstream out;
-	out.open(path+"/Makefile");
+	out.open((path+"/Makefile").c_str());
 	loader.genParallelMakefile(out,path);
 	out.close();
 	
@@ -245,8 +246,9 @@ void HomeLinux::unenv(void)
 	env.loadCurrent();
 
 	//loop on all prefix
-	for (auto it : prefixes)
-		it->fillEnv(env);
+	//for (auto it : prefixes)
+	forEach(PrefixList,it,prefixes)
+		(*it)->fillEnv(env);
 
 	//removed
 	env.removeExisting();
@@ -276,8 +278,9 @@ void HomeLinux::env(void)
 	env.loadCurrent();
 
 	//loop on all prefix
-	for (auto it : prefixes)
-		it->fillEnv(env);
+	//for (auto it : prefixes)
+	forEach(PrefixList,it,prefixes)
+		(*it)->fillEnv(env);
 
 	//print
 	env.print();
@@ -312,10 +315,11 @@ void HomeLinux::loadPrefix(bool onlyMaster)
 	
 	//load
 	bool isMaster(true);
-	for (auto & path : config->prefix)
+	//for (auto & path : config->prefix)
+	forEach(StringList,path,config->prefix)
 	{
 		//build
-		prefixes.push_back(new Prefix(config,path,isMaster));
+		prefixes.push_back(new Prefix(config,*path,isMaster));
 		
 		//case
 		if (onlyMaster)
@@ -338,8 +342,9 @@ bool HomeLinux::isPackInstalled(const std::string & packageName)
 	loadPrefix(false);
 
 	//search on all prefix
-	for (auto pref : prefixes)
-		if (pref->isInstalled(packageName))
+	//for (auto pref : prefixes)
+	forEach(PrefixList,pref,prefixes)
+		if ((*pref)->isInstalled(packageName))
 			return true;
 	
 	//not found
@@ -353,9 +358,10 @@ std::string HomeLinux::prefixOf(const std::string & packageName)
 	loadPrefix(false);
 
 	//search on all prefix
-	for (auto pref : prefixes)
+	//for (auto pref : prefixes)
+	forEach(PrefixList,pref,prefixes)
 	{
-		std::string tmp = pref->prefixOf(packageName);
+		std::string tmp = (*pref)->prefixOf(packageName);
 		if (tmp.empty() == false)
 			return tmp;
 	}
@@ -374,8 +380,9 @@ void HomeLinux::ls(void)
 	prefixes.reverse();
 
 	//loop
-	for (auto prefix : prefixes)
-		prefix->ls();
+	//for (auto prefix : prefixes)
+	forEach(PrefixList,prefix,prefixes)
+		(*prefix)->ls();
 }
 
 /*******************  FUNCTION  *********************/

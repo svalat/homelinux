@@ -10,7 +10,8 @@
 //std
 #include <fstream>
 #include <sstream>
-#include <regex>
+#include <cassert>
+#include <portability/Regexp.hpp>
 #include <base/Debug.hpp>
 #include <base/Helper.hpp>
 #include <portability/System.hpp>
@@ -143,8 +144,8 @@ void PackageDef::merge(const PackageDef & def)
 	if (def.host.isNull() == false)
 		Helper::merge(host,def.host);
 	Helper::merge(configure,def.configure,false);
-	for (auto & it : def.vspecific)
-		vspecific[it.first] = it.second;
+	forEachConst(JsonMap,it,def.vspecific)
+		vspecific[it->first] = it->second;
 	Helper::merge(steps,def.steps,true);
 	Helper::merge(conflicts,def.conflicts);
 	this->use.merge(def.use);
@@ -167,7 +168,7 @@ void PackageDef::merge(const PackageDef & def)
 void PackageDef::save(const std::string & path)
 {
 	//open file
-	std::ofstream out(path);
+	std::ofstream out(path.c_str());
 	assumeArg(out.fail() == false,"Fail to open file %1 to dump config : %2").arg(path).argStrErrno().end();
 
 	//write	
@@ -236,9 +237,10 @@ std::string PackageDef::getNVersions(int cnt) const
 	StringList tmp;
 	
 	//loop
-	for (auto & v : versions)
+	//for (auto & v : versions)
+	forEachConst(StringList,v,versions)
 	{
-		tmp.push_back(v);
+		tmp.push_back(*v);
 		if (--cnt == 0)
 			break;
 	}
@@ -279,9 +281,10 @@ std::string PackageDef::getStowName(void) const
 	std::string name = getSlotName();
 
 	//replace
-	for (auto & c : name)
-		if (c == '/' || c == ':')
-			c = '_';
+	//for (auto & c : name)
+	for (int i = 0 ; i < name.size() ; i++)
+		if (name[i] == '/' || name[i] == ':')
+			name[i] = '_';
 	
 	//ok ret
 	return name;
@@ -299,12 +302,9 @@ std::string PackageDef::getShortVersion(void) const
 	std::string version = getVersion();
 
 	//split
-	StringList lst;
-	int cnt = 0;
-	Helper::split(version,'.',[&lst,&cnt](const std::string & value) {
-		if (cnt++ < 2)
-			lst.push_back(value);
-	});
+	StringList lst = Helper::split(version,'.');
+	lst.resize(2);
+	assert(lst.size() == 2);
 
 	return Helper::join(lst,'.');
 }
@@ -358,10 +358,11 @@ std::string PackageDef::getBuildOptions(void) const
 	StringList lst;
 
 	//loop on all entries
-	for (auto & criteria : this->configure)
+	//for (auto & criteria : this->configure)
+	forEachConst(StringMapList,criteria,this->configure)
 	{
 		//get status
-		UseFlagState state = use.getApplyStatusWithAnd(criteria.first);
+		UseFlagState state = use.getApplyStatusWithAnd(criteria->first);
 
 		//we ignore AUTO
 		if (state != FLAG_AUTO)
@@ -370,8 +371,10 @@ std::string PackageDef::getBuildOptions(void) const
 			bool status = (state == FLAG_ENABLED);
 
 			//loop on all childs
-			for (auto child : criteria.second)
+			//for (auto child : criteria->second)
+			forEachConst(StringList,it,criteria->second)
 			{
+				std::string child = *it;
 
 				//replace $enable, $disable...
 				Helper::replaceInPlace(child, "$enable", status ? "enable":"disable");
@@ -399,8 +402,9 @@ std::string PackageDef::getPatchList(const std::string & prefix) const
 {
 	StringList lst;
 	
-	for (auto & it : patch)
-		lst.push_back(prefix+"/homelinux/packages/db/patches/"+it);
+	//for (auto & it : patch)
+	forEachConst(StringList,it,patch)
+		lst.push_back(prefix+"/homelinux/packages/db/patches/"+*it);
 	
 	return Helper::join(lst,' ');
 }
@@ -431,9 +435,10 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 
 	//compiler flags
 	out << std::endl << "#Compiler flags" << std::endl;
-	const char * cstCplFlags[] = { "MAKEOPTS", "CFLAGS", "CXXFLAGS", "FFLAGS", "LDFLAGS" };
-	for (auto flag : cstCplFlags)
-		out << "HL_" << flag << "=\"" << Helper::join(this->flags[flag],' ') << "\"" << std::endl;
+	const char * cstCplFlags[] = { "MAKEOPTS", "CFLAGS", "CXXFLAGS", "FFLAGS", "LDFLAGS" , NULL};
+	//for (auto flag : cstCplFlags)
+	for (int i = 0 ; cstCplFlags[i] != NULL ; i++)
+		out << "HL_" << cstCplFlags[i] << "=\"" << Helper::join(this->flags[cstCplFlags[i]],' ') << "\"" << std::endl;
 
 	//pack infos
 	out << std::endl << "#Pack infos" << std::endl;
@@ -474,8 +479,9 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 
 	//load scripts
 	out << std::endl << "#load scripts" << std::endl;
-	for (auto & script : scripts)
-		out << "source \"" << prefix.getFilePath("/homelinux/packages/"+script) << "\"" << std::endl;
+	//for (auto & script : scripts)
+	forEachConst(StringList,script,scripts)
+		out << "source \"" << prefix.getFilePath("/homelinux/packages/"+*script) << "\"" << std::endl;
 	
 	//extra vars
 	out << std::endl << "#extra vars" << std::endl;
@@ -485,27 +491,30 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 	{
 		out << "\ttrue" << std::endl;
 	} else {
-		for (auto & var : vars)
-			out << "\t" << var.first << "=\"" << var.second << "\"" << std::endl;
+		//for (auto & var : vars)
+		forEachConst(StringMap,var,vars)
+			out << "\t" << var->first << "=\"" << var->second << "\"" << std::endl;
 	}
 	out << "}" << std::endl;
 
 	//build steps
 	out << std::endl << "#package steps functions" << std::endl;
-	for (auto & step : steps)
+	//for (auto & step : steps)
+	forEachConst(StringMapList,step,steps)
 	{
-		out << "function hl_pack_" << step.first << "()" << std::endl;
+		out << "function hl_pack_" << step->first << "()" << std::endl;
 		out << "{" << std::endl;
-			out << "\tinfo '" << step.first << "'" << std::endl;
-			if (step.second.empty())
+			out << "\tinfo '" << step->first << "'" << std::endl;
+			if (step->second.empty())
 			{
 				out << "\techo 'Nothing to do'" << std::endl;
 			} else {
-				for (auto & it : step.second)
-					if (it[0] == '@')
-						out << "\thl_pack_" << it.substr(1) << std::endl;
+				//for (auto & it : step->second)
+				forEachConst(StringList,it,step->second)
+					if ((*it)[0] == '@')
+						out << "\thl_pack_" << it->substr(1) << std::endl;
 					else
-						out << "\t" << it << std::endl;
+						out << "\t" << *it << std::endl;
 			}
 		out << "}" << std::endl;
 	}

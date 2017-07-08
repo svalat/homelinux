@@ -21,7 +21,7 @@ namespace hl
 {
 
 /*********************  CONST ***********************/
-static const char * gblExt[] = {"tar.bz2","tar.xz","tar.gz","zip","tgz"};
+static const char * gblExt[] = {"tar.bz2","tar.xz","tar.gz","zip","tgz",NULL};
 
 /*******************  FUNCTION  *********************/
 ProviderGentoo::ProviderGentoo(Prefix * prefix, bool unitTest)
@@ -54,9 +54,7 @@ void ProviderGentoo::loadDb(void)
 		std::string file = System::loadFile(path);
 		
 		//for each line
-		Helper::split(file,'\n',[this](const std::string & line){
-			this->db.push_back(line);
-		});
+		db = Helper::split(file,'\n');
 	} else {
 		if (warn)
 			HL_ERROR("No gentoo list file available, consider to call 'hl update-db' at least once");
@@ -100,13 +98,14 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 	std::string version;
 	std::string url;
 	StringList versions;
-	for (auto & entry : db)
+	//for (auto & entry : db)
+	forEach(StringList,entry,db)
 	{
-		fname = Helper::last(entry,'/');
+		fname = Helper::last(*entry,'/');
 		if (regexp.match(fname,version))
 		{
 			versions.push_back(version);
-			url = entry;
+			url = *entry;
 			url.replace(url.find(version), version.length(), "${VERSION}");
 		}
 	}
@@ -126,8 +125,9 @@ bool ProviderGentoo::getPackage(PackageDef & out,const std::string & name)
 		out.name = packageName;
 
 		//urls
-		for (auto ext :gblExt)
-			out.urls.push_back(getGentooUrl(shortName+"-${VERSION}."+std::string(ext)));
+		//for (auto ext :gblExt)
+		for (int i = 0 ; gblExt[i] != NULL ; i++)
+			out.urls.push_back(getGentooUrl(shortName+"-${VERSION}."+std::string(gblExt[i])));
 
 		//ok
 		return true;
@@ -159,9 +159,7 @@ void ProviderGentoo::updateDb(void)
 		url = "../snapshots/";
 	
 	//get
-	System::ftpListFiles(getGentooUrl(""),[&lst](const std::string & value){
-		lst.push_back(value);
-	});
+	System::ftpListFiles(lst,getGentooUrl(""));
 
 	//save
 	std::string content = Helper::join(lst,'\n');
@@ -183,9 +181,10 @@ std::string ProviderGentoo::search(const std::string & name)
 
 	//loop
 	StringList out;
-	for (auto & entry : db)
-		if (Helper::contain(entry,lname))
-			out.push_back(Colors::magenta("gentoo/"+entry));
+	//for (auto & entry : db)
+	forEach(StringList,entry,db)
+		if (Helper::contain(*entry,lname))
+			out.push_back(Colors::magenta("gentoo/"+*entry));
 	
 	//ret
 	return Helper::join(out,'\n');

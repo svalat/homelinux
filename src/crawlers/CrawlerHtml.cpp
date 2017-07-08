@@ -75,9 +75,8 @@ void CrawlerHtml::internalRun(std::string url)
 	std::string out;
 	if (System::runAndRead(out,cmd.str()))
 	{
-		Helper::split(out,'\n',[this](const std::string & line){
-			versions.push_back(line);
-		});
+		StringList lst = Helper::split(out,'\n');
+		versions.merge(lst);
 	} else {
 		HL_ERROR_ARG("Fail to fetch or scan html page for package %1 : %2")
 			.arg(packageName)

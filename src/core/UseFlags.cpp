@@ -101,7 +101,7 @@ UseFlagState UseFlags::getStatus(const std::string & flag) const
 	std::string flagName = getFlagName(flag);
 	
 	//search
-	auto it = stateMap.find(flagName);
+	UseFlagStateMap::const_iterator it = stateMap.find(flagName);
 	
 	//select
 	if (it == stateMap.end())
@@ -122,13 +122,15 @@ UseFlagState UseFlags::getApplyStatusWithAnd(const std::string & flag) const
 		return getApplyStatus(flag);
 	} else {
 		UseFlagState state = FLAG_ENABLED;
-		Helper::split(flag,'&',[this,&state](const std::string & value){
-			UseFlagState tmp = getApplyStatus(value);
+		StringList flags = Helper::split(flag,'&');
+		forEach(StringList,it,flags)
+		{
+			UseFlagState tmp = getApplyStatus(*it);
 			if (tmp == FLAG_AUTO)
 				state = FLAG_AUTO;
 			else if (state == FLAG_ENABLED && tmp == FLAG_DISABLED)
 				state = FLAG_DISABLED;
-		});
+		}
 		return state;
 	}
 }
@@ -172,9 +174,10 @@ UseFlagState UseFlags::getApplyStatus(const std::string & flag) const
 void UseFlags::setAuto(UseFlagState state)
 {
 	//loop on all
-	for (auto & it : this->stateMap)
-		if (it.second == FLAG_AUTO)
-			it.second = state;
+	//for (auto & it : this->stateMap)
+	forEach(UseFlagStateMap,it,stateMap)
+		if (it->second == FLAG_AUTO)
+			it->second = state;
 }
 
 /*******************  FUNCTION  *********************/
@@ -188,10 +191,11 @@ void UseFlags::setAuto(UseFlagState state)
 void UseFlags::toStringByState(std::string & out,UseFlagState state,bool force)
 {
 	//loop on all
-	for (auto & it : this->stateMap) 
+	//for (auto & it : this->stateMap) 
+	forEach(UseFlagStateMap,it,stateMap)
 	{
 		//filter
-		if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+		if (it->second == state || (it->second == FLAG_AUTO && force && state == FLAG_ENABLED))
 		{
 			//space
 			if (out.empty() == false)
@@ -200,15 +204,15 @@ void UseFlags::toStringByState(std::string & out,UseFlagState state,bool force)
 			//flag
 			if (state == FLAG_ENABLED) {
 				out += "+";
-				out += it.first;
+				out += it->first;
 			} else if (state == FLAG_DISABLED) {
 				out += "-";
-				out += it.first;
+				out += it->first;
 			} else if (state == FLAG_AUTO && force) {
 				out += "+";
-				out += it.first;
+				out += it->first;
 			} else {
-				out += it.first;
+				out += it->first;
 			}
 		}
 	}
@@ -225,10 +229,11 @@ void UseFlags::toStringByState(std::string & out,UseFlagState state,bool force)
 void UseFlags::toStringByStateColored(std::string & out,UseFlagState state,bool force)
 {
 	//loop on all
-	for (auto & it : this->stateMap) 
+	//for (auto & it : this->stateMap) 
+	forEach(UseFlagStateMap,it,stateMap)
 	{
 		//filter
-		if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+		if (it->second == state || (it->second == FLAG_AUTO && force && state == FLAG_ENABLED))
 		{
 			//space
 			if (out.empty() == false)
@@ -236,13 +241,13 @@ void UseFlags::toStringByStateColored(std::string & out,UseFlagState state,bool 
 			
 			//flag
 			if (state == FLAG_ENABLED) {
-				out += Colors::cyan("+" + it.first);
+				out += Colors::cyan("+" + it->first);
 			} else if (state == FLAG_DISABLED) {
-				out += Colors::red("-" + it.first);
+				out += Colors::red("-" + it->first);
 			} else if (state == FLAG_AUTO && force) {
-				out += Colors::cyan("+" + it.first);
+				out += Colors::cyan("+" + it->first);
 			} else {
-				out += Colors::blue(it.first);
+				out += Colors::blue(it->first);
 			}
 		}
 	}
@@ -308,20 +313,21 @@ void UseFlags::toJson(Json::Value & json,bool force)
 void UseFlags::toJsonByState(Json::Value & json,UseFlagState state,bool force)
 {
 	//loop on all
-	for (auto & it : this->stateMap) 
+	//for (auto & it : this->stateMap)
+	forEach(UseFlagStateMap,it,stateMap) 
 	{
 		//filter
-		if (it.second == state || (it.second == FLAG_AUTO && force && state == FLAG_ENABLED))
+		if (it->second == state || (it->second == FLAG_AUTO && force && state == FLAG_ENABLED))
 		{
 			//flag
 			if (state == FLAG_ENABLED) {
-				json.append("+" + it.first);
+				json.append("+" + it->first);
 			} else if (state == FLAG_DISABLED) {
-				json.append("-" + it.first);
+				json.append("-" + it->first);
 			} else if (state == FLAG_AUTO && force) {
-				json.append("+" + it.first);
+				json.append("+" + it->first);
 			} else {
-				json.append(it.first);
+				json.append(it->first);
 			}
 		}
 	}
@@ -333,9 +339,9 @@ void UseFlags::toJsonByState(Json::Value & json,UseFlagState state,bool force)
 **/
 UseFlags & UseFlags::merge(const std::string & flags,bool onlyIfExist)
 {
-	Helper::split(flags,' ',[this,onlyIfExist](const std::string & value){
-		this->addOne(value,onlyIfExist);
-	});
+	StringList lst = Helper::split(flags,' ');
+	forEach(StringList,it,lst)
+		this->addOne(*it,onlyIfExist);
 	return *this;
 }
 
@@ -343,8 +349,9 @@ UseFlags & UseFlags::merge(const std::string & flags,bool onlyIfExist)
 UseFlags & UseFlags::merge(const UseFlags & flags,bool onlyIfExist)
 {
 	//loop
-	for (auto & it : flags.stateMap)
-		addOne(it.first,it.second,onlyIfExist);
+	//for (auto & it : flags.stateMap)
+	forEachConst(UseFlagStateMap,it,flags.stateMap)
+		addOne(it->first,it->second,onlyIfExist);
 	return *this;
 }
 

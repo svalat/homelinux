@@ -22,8 +22,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
-#include <mutex>
 //header to implement
+#include <portability/Mutex.hpp>
 #include "Colors.hpp"
 #include "Debug.hpp"
 
@@ -47,7 +47,7 @@ namespace hl
 static DebugCategoryMap ref;
 DebugCategoryMap * Debug::catMap = &ref;
 int Debug::catMaxWidth = 0;
-static std::mutex mutex;
+static Mutex mutex;
 
 /*******************  FUNCTION  *********************/
 /**

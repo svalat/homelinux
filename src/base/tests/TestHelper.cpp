@@ -18,7 +18,13 @@ using namespace hl;
 TEST(Helper,stringSplit_1)
 {
 	std::string res;
-	Helper::split("a1 a2  a3",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
+	StringList lst = Helper::split("a1 a2  a3",' ');
+	forEach(StringList,value,lst)
+	{
+		res += "(";
+		res+=*value;
+		res+=")";
+	}
 	EXPECT_EQ("(a1)(a2)(a3)",res);
 }
 
@@ -26,7 +32,13 @@ TEST(Helper,stringSplit_1)
 TEST(Helper,stringSplit_2)
 {
 	std::string res;
-	Helper::split("a1 a2  a3   ",' ',[&res](const std::string & value){res += "(";res+=value;res+=")";});
+	StringList lst = Helper::split("a1 a2  a3    ",' ');
+	forEach(StringList,value,lst)
+	{
+		res += "(";
+		res+=*value;
+		res+=")";
+	}
 	EXPECT_EQ("(a1)(a2)(a3)",res);
 }
 
