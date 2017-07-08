@@ -8,8 +8,8 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "html",
-		"url": "https://userbase.kde.org/QCA",
-		"regexp": "qca-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"url": "https://download.kde.org/stable/qca/",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
 	},
 	"md5": {},
 	"subdir": "qca-${VERSION}",

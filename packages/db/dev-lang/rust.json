@@ -1,6 +1,6 @@
 {
 	"api": 1,
-	"name": "dev-lang/rist",
+	"name": "dev-lang/rust",
 	"homepage": "https://www.rust-lang.org",
 	"versions": [
 		"1.18.0"
@@ -8,7 +8,7 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "github",
-		"url": "github.com/rust-lang/rust",
+		"url": "github://rust-lang/rust",
 		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},

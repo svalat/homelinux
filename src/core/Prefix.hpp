@@ -67,6 +67,7 @@ class Prefix
 		void search(std::ostream & out,const std::string & value);
 		void exportConfig(std::ostream & out = std::cout);
 		void validate(void);
+		void crawl(void);
 	private:
 		bool isLocalyInstalled(const PackageDef & pack);
 		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);

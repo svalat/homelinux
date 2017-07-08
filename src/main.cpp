@@ -46,6 +46,7 @@ Commandsl:\n\
     gen-full-package  : Print fully generated package.\n\
     gen-install       : Generate install script to forward to bash.\n\
     update-db         : Sync the gentoo DB for unknown packages.\n\
+    crawl             : Crawn the web to get last versions.\n\
     versions          : Print the list of available version for the given package.\n\
     fetch-versions    : Fetch versions of given package (work only\n\
                         for db packages.\n\
@@ -181,6 +182,9 @@ int main(int argc, char ** argv)
 	} else if (config.command == "validate") {
 		assume(config.args.size() == 0,"Command validate expect no argument !");
 		homelinux.validate();
+	} else if (config.command == "crawl") {
+		assume(config.args.size() == 0,"Command crawl expect no argument !");
+		homelinux.crawl();
 	} else {
 		HL_FATAL_ARG("Invalid command : %1").arg(config.command).end();
 	}

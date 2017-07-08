@@ -294,6 +294,15 @@ bool Prefix::isLocalyInstalled(const PackageDef & pack)
 }
 
 /*******************  FUNCTION  *********************/
+void Prefix::crawl(void)
+{
+	updateDb();
+	Provider & p = getProvider("homelinux");
+	HL_MESSAGE_ARG("Update DB of provier %1").arg("homelinux").end();
+	p.updateDb();
+}
+
+/*******************  FUNCTION  *********************/
 //@TODO make parallel
 void Prefix::updateDb(void)
 {
@@ -313,9 +322,12 @@ void Prefix::updateDb(void)
 	//for (auto prov : prefixConfig.providers)
 	forEach(StringList,prov,prefixConfig.providers)
 	{
-		Provider & p = getProvider(*prov);
-		HL_MESSAGE_ARG("Update DB of provier %1").arg(*prov).end();
-		p.updateDb();
+		if (*prov != "homelinux")
+		{
+			Provider & p = getProvider(*prov);
+			HL_MESSAGE_ARG("Update DB of provier %1").arg(*prov).end();
+			p.updateDb();
+		}
 	}
 }
 

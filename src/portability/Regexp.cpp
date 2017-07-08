@@ -45,7 +45,8 @@ bool Regexp::match(const std::string & value,std::string & capture1)
 {
 	regmatch_t match[8];
 	int status = regexec(&compiled,value.c_str(),8,match,0);
-	matchToString(capture1,value,match[1]);
+	if (status == 0)
+		matchToString(capture1,value,match[1]);
 	return (status == 0);
 }
 
@@ -54,8 +55,11 @@ bool Regexp::match(const std::string & value,std::string & capture1,std::string 
 {
 	regmatch_t match[8];
 	int status = regexec(&compiled,value.c_str(),8,match,0);
-	matchToString(capture1,value,match[1]);
-	matchToString(capture2,value,match[2]);
+	if (status == 0)
+	{
+		matchToString(capture1,value,match[1]);
+		matchToString(capture2,value,match[2]);
+	}
 	return (status == 0);
 }
 
@@ -64,9 +68,12 @@ bool Regexp::match(const std::string & value,std::string & capture1,std::string 
 {
 	regmatch_t match[8];
 	int status = regexec(&compiled,value.c_str(),8,match,0);
-	matchToString(capture1,value,match[1]);
-	matchToString(capture2,value,match[2]);
-	matchToString(capture3,value,match[3]);
+	if (status == 0)
+	{
+		matchToString(capture1,value,match[1]);
+		matchToString(capture2,value,match[2]);
+		matchToString(capture3,value,match[3]);
+	}
 	return (status == 0);
 }
 
@@ -75,10 +82,13 @@ bool Regexp::match(const std::string & value,std::string & capture1,std::string 
 {
 	regmatch_t match[8];
 	int status = regexec(&compiled,value.c_str(),8,match,0);
-	matchToString(capture1,value,match[1]);
-	matchToString(capture2,value,match[2]);
-	matchToString(capture3,value,match[3]);
-	matchToString(capture4,value,match[4]);
+	if (status == 0)
+	{
+		matchToString(capture1,value,match[1]);
+		matchToString(capture2,value,match[2]);
+		matchToString(capture3,value,match[3]);
+		matchToString(capture4,value,match[4]);
+	}
 	return (status == 0);
 }
 

@@ -48,6 +48,16 @@ void HomeLinux::buildCache(void)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::crawl(void)
+{
+	//setup
+	loadPrefix(true);
+	
+	//run
+	master->crawl();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::updateDb(void)
 {
 	//setup

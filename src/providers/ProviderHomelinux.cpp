@@ -193,6 +193,11 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	//load package
 	Json::Value pack;
 	System::loadJson(pack,path);
+	if (pack.isObject() == false)
+	{
+		HL_ERROR_ARG("Fail to load package : %1").arg(path).end();
+		return;
+	}
 	std::string name = pack.get("name","UNKNOWN").asString();
 
 	//check
@@ -230,7 +235,11 @@ void ProviderHomelinux::crawl(int cur, int cnt,int threadId,StringMapList & out,
 	HL_MESSAGE_ARG("[%1/%2] Crawling %3 using %4 ...").arg(cur).arg(cnt).arg(Colors::green("hl/"+name)).arg(crawler->getName()).end();
 
 	//run
-	out["hl/"+name] = crawler->run(name,vfetcher,versions);
+	try{
+		out["hl/"+name] = crawler->run(name,vfetcher,versions);
+	} catch(std::runtime_error & err) {
+		HL_ERROR_ARG("Get error on package hl/%1 : %2").arg(name).arg(err.what()).end();
+	}
 }
 
 /******************  STRUCT  ************************/
@@ -264,9 +273,9 @@ void * worker(void * args)
 		} else {
 			std::string p = wargs.files->front();
 			wargs.files->pop_front();
-			*wargs.cur++;
+			(*wargs.cur)++;
 			wargs.mutex->unlock();
-			wargs.provider->crawl(*wargs.cur,wargs.fileCnt,wargs.threadId,local,p);
+			wargs.provider->crawl(*(wargs.cur),wargs.fileCnt,wargs.threadId,local,p);
 		}
 	}
 	
@@ -283,7 +292,10 @@ void ProviderHomelinux::updateDb(void)
 
 	//find all packages
 	std::string path = prefix->getFilePath("/homelinux/packages/db/");
-	files = System::findFiles(path,path);
+	StringList tmp = System::findFiles(path,path);
+	forEach(StringList,it,tmp)
+		if (Helper::endBy(*it,".json") && *it != "cache.json" && *it != "versions.json")
+			files.push_back(*it);
 
 	//compute number of threads we want
 	int cntThreads;

@@ -7,9 +7,9 @@
 	"inherit": "models/cmake",
 	"TODO": "Find a solution to crawl the script in html page",
 	"vfetcher": {
-		"mode": "dummy",
-		"url": "http://releases.llvm.org/",
-		"regexp": "llvm-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "http",
+		"url": "http://releases.llvm.org/download.html",
+		"regexp": "Download LLVM ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "llvm-${VERSION}.src",
