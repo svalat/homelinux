@@ -158,6 +158,8 @@ void PackageDef::merge(const PackageDef & def)
 	Helper::merge(urls,def.urls);
 	Helper::merge(patch,def.patch);
 	Helper::merge(slots,def.slots);
+	if (def.packageFile.empty() == false)
+		packageFile = def.packageFile;
 }
 
 /*******************  FUNCTION  *********************/

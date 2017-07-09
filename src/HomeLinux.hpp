@@ -47,6 +47,7 @@ class HomeLinux
 		void protect(const std::string & value);
 		void validate(void);
 		void crawl(void);
+		void edit(const std::string & packageName);
 	private:
 		void loadPrefix(bool onlyMaster);
 		void askOk(void);

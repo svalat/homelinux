@@ -71,6 +71,8 @@ struct Config
 	int crawlerThreads;
 	/** Crawler timeout **/
 	int crawlerTimeout;
+	/** editor to open packages **/
+	std::string editor;
 };
 
 }

@@ -118,6 +118,7 @@ setup the HomeLinux environnement.</dd>
 <dt><code>update-cache</code> </dt><dd>Rebuild the internal caches.</dd>
 <dt><code>update-db</code></dt><dd>Update the internal databases to get last versions of packages. It refersh
 the internal database and fetch the gentoo distfile list for quickpackage system.</dd>
+<dt class="flush"><code>crawl</code></dt><dd>Crawl over the web to fetch last version of defined packages.</dd>
 </dl>
 
 
@@ -152,6 +153,7 @@ system.</dd>
 <dt><code>fetch-versions</code> </dt><dd>Fetch the versions from given package and print. It helps debugging the
 <code>vfetcher</code> entry of packages.</dd>
 <dt><code>gen-install</code> </dt><dd>Print the shell script used to build the package.</dd>
+<dt class="flush"><code>edit</code> </dt><dd>Open the package file into configured editor.</dd>
 </dl>
 
 
@@ -182,6 +184,9 @@ system.</dd>
     #update your package DB (fetch gentoo...)
     hl update-db
 
+    #craw new versions from the web
+    hl crawl
+
     #install package
     hl install bash                      # use name, automatic search db
     hl install app-shells/bash           # force subdir in gentoo way
@@ -200,8 +205,8 @@ system.</dd>
     hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
     hl install htop:4     #slot based
 
-  #Protect a system command against homelinux if one installed lib break it
-  hl protect firefox
+    #Protect a system command against homelinux if one installed lib break it
+    hl protect firefox
 
     #search in avail packages
     hl search htop
@@ -226,6 +231,9 @@ system.</dd>
 
     #whatch generated install script
     hl gen-install gentoo/htop
+
+    #edit package
+    hl edit htop
 </code></pre>
 
 <h2 id="PACKAGE-PROVIDERS">PACKAGE PROVIDERS</h2>

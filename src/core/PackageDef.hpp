@@ -139,6 +139,8 @@ struct PackageDef
 	StringList patch;
 	/** List of slots **/
 	StringMap slots;
+	/** File containing the package **/
+	std::string packageFile;
 };
 
 }

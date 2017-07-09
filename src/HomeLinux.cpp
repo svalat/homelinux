@@ -454,6 +454,23 @@ void HomeLinux::validate(void)
 }
 
 /*******************  FUNCTION  *********************/
+void HomeLinux::edit(const std::string & packageName)
+{
+	//load
+	loadPrefix(true);
+
+	//get package
+	PackageDef pack;
+	master->loadPackage(pack,packageName);
+
+	//open editor
+	if (pack.packageFile.empty() == false && System::fileExist(pack.packageFile) && Helper::startBy(pack.name,"hl/"))
+		System::runCommand(config->editor+" "+pack.packageFile);
+	else
+		HL_FATAL_ARG("Fail to open package file for %1 => %2").arg(packageName).arg(pack.name).end();
+}
+
+/*******************  FUNCTION  *********************/
 void HomeLinux::askOk(void)
 {
 	std::string buf = "?";

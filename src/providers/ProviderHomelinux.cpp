@@ -123,6 +123,9 @@ bool ProviderHomelinux::getPackage(PackageDef & out,const std::string & name)
 		
 		//merge
 		out.merge(pack);
+
+		//setpu file path
+		out.packageFile = path;
 		
 		return true;
 	} else {

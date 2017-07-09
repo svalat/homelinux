@@ -46,6 +46,8 @@ For database management :
  * `update-db`:
    Update the internal databases to get last versions of packages. It refersh
    the internal database and fetch the gentoo distfile list for quickpackage system.
+ * `crawl`:
+   Crawl over the web to fetch last version of defined packages.
  
 For package management :
 
@@ -78,6 +80,8 @@ For package management :
    `vfetcher` entry of packages.
  * `gen-install` :
    Print the shell script used to build the package.
+ * `edit` :
+   Open the package file into configured editor.
 
 ## ENVIRONMENT
 
@@ -103,6 +107,9 @@ HomeLinux will setup the environnement variables :
 	
 	#update your package DB (fetch gentoo...)
 	hl update-db
+
+	#craw new versions from the web
+	hl crawl
 	
 	#install package
 	hl install bash                      # use name, automatic search db
@@ -122,8 +129,8 @@ HomeLinux will setup the environnement variables :
 	hl install htop~4.8   #regexpn allow all 4.8.X, take last avail
 	hl install htop:4     #slot based
 
-  #Protect a system command against homelinux if one installed lib break it
-  hl protect firefox
+	#Protect a system command against homelinux if one installed lib break it
+	hl protect firefox
 	
 	#search in avail packages
 	hl search htop
@@ -148,6 +155,9 @@ HomeLinux will setup the environnement variables :
 	
 	#whatch generated install script
 	hl gen-install gentoo/htop
+
+	#edit package
+	hl edit htop
 ```
 
 ## PACKAGE PROVIDERS

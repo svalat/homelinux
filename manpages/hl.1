@@ -56,6 +56,10 @@ Rebuild the internal caches\.
 \fBupdate\-db\fR
 Update the internal databases to get last versions of packages\. It refersh the internal database and fetch the gentoo distfile list for quickpackage system\.
 .
+.TP
+\fBcrawl\fR
+Crawl over the web to fetch last version of defined packages\.
+.
 .P
 For package management :
 .
@@ -96,6 +100,10 @@ Fetch the versions from given package and print\. It helps debugging the \fBvfet
 .TP
 \fBgen\-install\fR
 Print the shell script used to build the package\.
+.
+.TP
+\fBedit\fR
+Open the package file into configured editor\.
 .
 .SH "ENVIRONMENT"
 HomeLinux will setup the environnement variables :
@@ -145,6 +153,9 @@ HomeLinux will setup the environnement variables :
     #update your package DB (fetch gentoo\.\.\.)
     hl update\-db
 
+    #craw new versions from the web
+    hl crawl
+
     #install package
     hl install bash                      # use name, automatic search db
     hl install app\-shells/bash           # force subdir in gentoo way
@@ -163,8 +174,8 @@ HomeLinux will setup the environnement variables :
     hl install htop~4\.8   #regexpn allow all 4\.8\.X, take last avail
     hl install htop:4     #slot based
 
-  #Protect a system command against homelinux if one installed lib break it
-  hl protect firefox
+    #Protect a system command against homelinux if one installed lib break it
+    hl protect firefox
 
     #search in avail packages
     hl search htop
@@ -189,6 +200,9 @@ HomeLinux will setup the environnement variables :
 
     #whatch generated install script
     hl gen\-install gentoo/htop
+
+    #edit package
+    hl edit htop
 .
 .fi
 .

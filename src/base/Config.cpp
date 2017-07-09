@@ -63,6 +63,8 @@ void Config::loadDefault()
 	this->showHelp = false;
 	this->showDebugCat = false;
 	this->crawlerThreads = 4;
+	this->crawlerTimeout = 60;
+	this->editor = "vim";
 }
 
 /*******************  FUNCTION  *********************/
@@ -81,8 +83,9 @@ void Config::load(Json::Value & config)
 	this->temp = config.get("temp",this->temp).asString();
 	this->clientId = config["github"].get("clientId","").asString();
 	this->clientSecret = config["github"].get("clientSecret","").asString();
-	this->crawlerThreads = config.get("crawlerThreads",4).asInt();
-	this->crawlerTimeout = config.get("crawlerTimeout",60).asInt();
+	this->crawlerThreads = config.get("crawlerThreads",crawlerThreads).asInt();
+	this->crawlerTimeout = config.get("crawlerTimeout",crawlerTimeout).asInt();
+	this->editor = config.get("editor",editor).asString();
 	
 	//modules
 	Json::Value mods = config["modules"];
@@ -114,6 +117,7 @@ void Config::save(void)
 	json["crawlerTimeout"] = crawlerTimeout;
 	Helper::toJson(json["modules"],modules);
 	json["packageOverride"] = packageOverride;
+	json["editor"] = editor;
 	
 	//write
 	System::writeJson(json,System::getHomeDir()+"/.homelinux.json");
