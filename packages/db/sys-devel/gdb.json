@@ -7,13 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftpmirror.gnu.org/gnu/gdb/",
+		"url": "mirror://http-gnu/gnu/gdb/",
 		"regexp": "gdb-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "gdb-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/gdb/gdb-${VERSION}.tar.xz"
+		"mirror://http-gnu/gnu/gdb/gdb-${VERSION}.tar.xz"
 	],
 	"flags": {
 		"CFLAGS": [ "-I$(hl prefix-of python)/include" ],

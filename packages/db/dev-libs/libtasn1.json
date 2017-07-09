@@ -6,15 +6,14 @@
 		"4.7"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/libtasn1/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/libtasn1/",
 		"regexp": "libtasn1-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "libtasn1-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/libtasn1/libtasn1-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/libtasn1/libtasn1-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/libtasn1/libtasn1-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

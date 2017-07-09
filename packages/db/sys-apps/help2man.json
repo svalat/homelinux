@@ -7,14 +7,14 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftpmirror.gnu.org/gnu/help2man/",
+		"url": "mirror://http-gnu/gnu/help2man/",
 		"regexp": "help2man-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "help2man-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/help2man/help2man-${VERSION}.tar.gz",
-		"http://ftpmirror.gnu.org/gnu/help2man/help2man-${VERSION}.tar.xz"
+		"mirror://http-gnu/gnu/help2man/help2man-${VERSION}.tar.gz",
+		"mirror://http-gnu/gnu/help2man/help2man-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-lang/perl",

@@ -77,6 +77,7 @@ void Prefix::loadConfig(void)
 	prefixConfig.gentoo = json["gentoo"];
 	prefixConfig.debian = json["debian"];
 	Helper::jsonToObj(prefixConfig.providers,json["providers"]);
+	Helper::jsonToObj(prefixConfig.mirrors,json["mirrors"]);
 	prefixConfig.providers.push_front("models");
 	prefixConfig.useGnuStow = json.get("useGnuStow",false).asBool();
 
@@ -164,6 +165,59 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 		userPack.loadJson(node);
 		out.merge(userPack);
 	}
+
+	//apply mirrors
+	applyMirrors(out.urls);
+	applyMirrors(out.vfetcher["urls"]);
+	if (out.vfetcher["subdir"].isObject())
+		applyMirrors(out.vfetcher["subdir"]["urls"]);
+}
+
+/*******************  FUNCTION  *********************/
+std::string Prefix::applyMirrors(const std::string & url)
+{
+	//search matching
+	forEach(StringMap,it,prefixConfig.mirrors)
+	{
+		//what to match
+		std::string mirrorName = "mirror://"+it->first+"/";
+
+		//ok match, so replace
+		if (Helper::startBy(url,mirrorName))
+		{
+			std::string tmp = url;
+			Helper::replaceInPlace(tmp,mirrorName,it->second+"/");
+			return tmp;
+		}
+	}
+
+	//check if contain mirror
+	if (Helper::startBy(url,"mirror://"))
+		HL_FATAL_ARG("Failre to find mirror to build URL : %1, please check your prefix config file (PREFIX/homelinux.json)").arg(url).end();
+
+	//default
+	return url;
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::applyMirrors(Json::Value &urls)
+{
+	//nothing to do
+	if (urls.isArray() == false)
+	{
+		//loop
+		for (int i = 0 ; i < urls.size() ; i++)
+			urls[i] = applyMirrors(urls[i].asString());
+	} else if (urls.isString()) {
+		urls = applyMirrors(urls.asString());
+	}
+}
+
+/*******************  FUNCTION  *********************/
+void Prefix::applyMirrors(StringList &urls)
+{
+	forEach(StringList,it,urls)
+		*it = applyMirrors(*it);
 }
 
 /*******************  FUNCTION  *********************/

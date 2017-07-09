@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/tar/",
+		"url": "mirror://http-gnu/gnu/tar/",
 		"regexp": "tar-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "tar-${VERSION}",
 	"urls" : [
-		"http://ftp.gnu.org/gnu/tar/tar-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/tar/tar-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"acl? virtual/acl",

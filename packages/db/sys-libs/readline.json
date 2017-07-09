@@ -6,15 +6,14 @@
 		"6.3"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/pub/gnu/readline/",
+		"mode": "http",
+		"url": "mirror://http-gnu/pub/gnu/readline/",
 		"regexp": "readline-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "readline-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/pub/gnu/readline/readline-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/pub/gnu/readline/readline-${VERSION}.tar.gz"
+		"mirror://http-gnu/pub/gnu/readline/readline-${VERSION}.tar.gz"
 	],
 	"deps": [
 		

@@ -8,14 +8,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "html",
-		"url": "http://fr.mirror.babylon.network/gnu/gperf/",
+		"url": "mirror://http-gnu/gnu/gperf/",
 		"regexp": "gperf-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
 	"subdir": "gperf-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/gperf/gperf-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/gperf/gperf-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/gperf/gperf-${VERSION}.tar.gz"
 	],
 	"deps": [],
 	"configure": {

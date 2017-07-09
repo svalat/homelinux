@@ -7,16 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://mirror.ibcp.fr/pub/gnu/emacs/",
+		"url": "mirror://http-gnu/pub/gnu/emacs/",
 		"regexp": "emacs-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "emacs-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/emacs/emacs-${VERSION}.tar.bz2",
-		"http://ftpmirror.gnu.org/gnu/emacs/emacs-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/pub/gnu/emacs/emacs-${VERSION}.tar.bz2",
-		"ftp://ftp.gnu.org/pub/gnu/emacs/emacs-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/emacs/emacs-${VERSION}.tar.bz2"
 	],
 	"flags": {
 		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include" ],

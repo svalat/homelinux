@@ -7,13 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftpmirror.gnu.org/gnu/m4/",
+		"url": "mirror://http-gnu/gnu/m4/",
 		"regexp": "m4-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "m4-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/m4/m4-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/m4/m4-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"app-arch/xz-utils"

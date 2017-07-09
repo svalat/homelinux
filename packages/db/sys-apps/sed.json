@@ -7,17 +7,15 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/sed/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/sed/",
 		"regexp": "sed-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
 	"subdir": "sed-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/sed/sed-${VERSION}.tar.xz",
-		"http://ftpmirror.gnu.org/gnu/sed/sed-${VERSION}.tar.bz2",
-		"ftp://ftp.gnu.org/gnu/sed/sed-${VERSION}.tar.xz",
-		"ftp://ftp.gnu.org/gnu/sed/sed-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/sed/sed-${VERSION}.tar.xz",
+		"mirror://http-gnu/gnu/sed/sed-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"acl? virtual/acl",

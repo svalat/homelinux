@@ -6,15 +6,14 @@
 		"1.17.1"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/wget/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/wget/",
 		"regexp": "wget-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "wget-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/wget/wget-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/wget/wget-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/wget/wget-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-util/pkgconfig",

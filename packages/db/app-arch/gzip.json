@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/gzip/",
+		"url": "mirror://http-gnu/gnu/gzip/",
 		"regexp": "gzip-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "gzip-${VERSION}",
 	"urls" : [
-		"http://ftp.gnu.org/gnu/gzip/gzip-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/gzip/gzip-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

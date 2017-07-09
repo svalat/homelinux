@@ -6,15 +6,14 @@
 		"2.5.0"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/pub/gnu/nano",
+		"mode": "http",
+		"url": "mirror://http-gnu/pub/gnu/nano",
 		"regexp": "nano-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "nano-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/nano/nano-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/pub/gnu/nano/nano-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/nano/nano-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-libs/ncurses[#unicode]",

@@ -7,13 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "html",
-		"url": "http://ftp.gnu.org/gnu/stow/",
+		"url": "mirror://http-gnu/gnu/stow/",
 		"regexp": "stow-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "stow-${VERSION}",
 	"urls": [
-		"http://ftp.gnu.org/gnu/stow/stow-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/stow/stow-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"dev-lang/perl",

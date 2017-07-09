@@ -6,15 +6,14 @@
 		"6.1.0" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/gmp/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/gmp/",
 		"regexp": "gmp-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.bz2"
 	},
 	"md5" : {},
 	"subdir": "gmp-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/gmp/gmp-${VERSION}.tar.bz2",
-		"ftp://ftp.gnu.org/gnu/gmp/gmp-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/gmp/gmp-${VERSION}.tar.bz2"
 	],
 	"deps": [
 	],

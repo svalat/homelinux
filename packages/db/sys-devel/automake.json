@@ -6,14 +6,14 @@
 		"1.12.2"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/automake/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/automake/",
 		"regexp": "automake-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "automake-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/automake/automake-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/automake/automake-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-devel/autoconf",

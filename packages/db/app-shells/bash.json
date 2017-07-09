@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "html",
-		"url": "http://ftp.gnu.org/gnu/bash/",
+		"url": "mirror://http-gnu/gnu/bash/",
 		"regexp": "bash-([0-9]+.[0-9]+).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "bash-${VERSION}",
 	"urls" : [
-		"http://ftp.gnu.org/gnu/bash//bash-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/bash//bash-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-libs/ncurses",

@@ -6,15 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/libtool",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/libtool",
 		"regexp": "libtool-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "libtool-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/libtool/libtool-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/libtool/libtool-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/libtool/libtool-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"TODO? sys-devel/gnuconfig",

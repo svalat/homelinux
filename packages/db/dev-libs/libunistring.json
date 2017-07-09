@@ -7,15 +7,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/libunistring/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/libunistring/",
 		"regexp": "libunistring-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
 	"subdir": "libunistring-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.xz",
-		"ftp://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.xz"
+		"mirror://http-gnu/gnu/libunistring/libunistring-${VERSION}.tar.xz"
 	],
 	"deps": [],
 	"configure": {

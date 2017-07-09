@@ -6,15 +6,14 @@
 		"5.3.0"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/gcc/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/gcc/",
 		"regexp": "gcc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "gcc-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/gcc/gcc-${VERSION}/gcc-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/pub/gnu/gcc/gcc-${VERSION}/gcc-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/gcc/gcc-${VERSION}/gcc-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/gmp",

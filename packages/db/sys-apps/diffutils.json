@@ -7,14 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/diffutils/",
+		"url": "mirror://http-gnu/gnu/diffutils/",
 		"regexp": "diffutils-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "diffutils-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2",
-		"ftp://ftp.gnu.org/gnu/diffutils/diffutils-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/diffutils/diffutils-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"app-arch/xz-utils",

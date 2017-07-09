@@ -37,6 +37,7 @@ struct PrefixConfig
 	Json::Value debian;
 	StringList providers;
 	bool useGnuStow;
+	StringMap mirrors;
 };
 
 /*********************  TYPES  **********************/
@@ -74,6 +75,9 @@ class Prefix
 		Provider & getProvider(const std::string & name);
 		void loadConfig(void);
 		QuickPackage & getQuickPackage(void);
+		void applyMirrors(StringList &urls);
+		void applyMirrors(Json::Value & urls);
+		std::string applyMirrors(const std::string & url);
 	private:
 		const Config * config;
 		QuickPackage * quickPackage;

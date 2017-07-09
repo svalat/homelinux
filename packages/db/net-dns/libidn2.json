@@ -7,14 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://alpha.gnu.org/gnu/libidn/",
+		"url": "mirror://http-gnu/gnu/libidn/",
 		"regexp": "libidn2-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "libidn2-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/libidn/libidn2-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/libidn/libidn2-${VERSION}.tar.gz"
 	],
 	"host": {
 		"default": false,

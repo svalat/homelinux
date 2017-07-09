@@ -7,14 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftp.gnu.org/gnu/texinfo/",
+		"url": "mirror://http-gnu/gnu/texinfo/",
 		"regexp": "texinfo-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "texinfo-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.bz2",
-		"http://ftpmirror.gnu.org/gnu/texinfo/texinfo-${VERSION}.tar.xz"
+		"mirror://http-gnu/gnu/texinfo/texinfo-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"sys-libs/ncurses",

@@ -7,16 +7,14 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://mirror.ibcp.fr/pub/gnu/ed/",
+		"url": "mirror://http-gnu/pub/gnu/ed/",
 		"regexp": "ed-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "ed-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/ed/ed-${VERSION}.tar.gz",
-		"http://ftpmirror.gnu.org/gnu/ed/ed-${VERSION}.tar.lz",
-		"ftp://ftp.gnu.org/gnu/ed/ed-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/ed/ed-${VERSION}.tar.lz"
+		"mirror://http-gnu/gnu/ed/ed-${VERSION}.tar.gz",
+		"mirror://http-gnu/gnu/ed/ed-${VERSION}.tar.lz"
 	],
 	"deps": [
 		"sys-apps/texinfo"

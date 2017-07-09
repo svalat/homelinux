@@ -7,13 +7,13 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://ftpmirror.gnu.org/gnu/binutils/",
+		"url": "mirror://http-gnu/gnu/binutils/",
 		"regexp": "binutils-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "binutils-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/binutils/binutils-${VERSION}.tar.bz2"
+		"mirror://http-gnu/gnu/binutils/binutils-${VERSION}.tar.bz2"
 	],
 	"deps": [],
 	"configure": {

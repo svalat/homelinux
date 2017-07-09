@@ -29,6 +29,9 @@
 			"http://ftp2.fr.debian.org/debian/dists/jessie/non-free/"
 		]
 	},
+	"mirrors": {
+		"http-gnu": "https://ftp.gnu.org/"
+	},
 	"providers": [
 		"homelinux", 
 		"gentoo", 

@@ -6,15 +6,14 @@
 		"1.14"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/libiconv/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/libiconv/",
 		"regexp": "libiconv-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "libiconv-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/libiconv/libiconv-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/libiconv/libiconv-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/libiconv/libiconv-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

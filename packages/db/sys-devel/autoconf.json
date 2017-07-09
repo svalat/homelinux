@@ -6,14 +6,14 @@
 		"2.69"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/autoconf/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/autoconf/",
 		"regexp": "autoconf-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "autoconf-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/autoconf/autoconf-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/autoconf/autoconf-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-devel/m4"

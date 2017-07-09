@@ -8,18 +8,15 @@
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "html",
-		"url": "http://alpha.gnu.org/gnu/guile/",
+		"url": "mirror://http-gnu/gnu/guile/",
 		"regexp": "guile-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
 	"subdir": "guile-${VERSION}",
 	"urls": [
-		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
-		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
-		"http://ftpmirror.gnu.org/gnu/guile/guile-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.xz",
-		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.bz2",
-		"ftp://ftp.gnu.org/gnu/guile/guile-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/guile/guile-${VERSION}.tar.xz",
+		"mirror://http-gnu/gnu/guile/guile-${VERSION}.tar.bz2",
+		"mirror://http-gnu/gnu/guile/guile-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/boehm-gc[#threads]",

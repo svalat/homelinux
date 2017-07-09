@@ -6,15 +6,14 @@
 		"1.0.3" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.gnu.org/gnu/mpc/",
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/mpc/",
 		"regexp": "mpc-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "mpc-${VERSION}",
 	"urls" : [
-		"http://ftpmirror.gnu.org/gnu/mpc/mpc-${VERSION}.tar.gz",
-		"ftp://ftp.gnu.org/gnu/mpc/mpc-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/mpc/mpc-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/gmp",
