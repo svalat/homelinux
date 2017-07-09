@@ -2,7 +2,7 @@
 	"inherit": [
 	],
 	"flags": {
-		"MAKEOPTS":"-j8",
+		"MAKEOPTS":"",
 		"CFLAGS":"-O3 -march=native",
 		"CXXFLAGS":"$CFLAGS"
 	},

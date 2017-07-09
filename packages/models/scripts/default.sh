@@ -237,7 +237,10 @@ function hl_download_internal()
 	#download
 	case "${url}" in
 		http://*|ftp://*|https://*|sftp://*)
-			run wget -c "${url}" -O ${ARCHIVE} || (rm -f "${ARCHIVE}" && return 1)
+			if ! run wget -c "${url}" -O ${ARCHIVE}; then
+				rm -f "${ARCHIVE}"
+				return 1
+			fi
 			;;
 		git://*)
 			DIR=$PWD
