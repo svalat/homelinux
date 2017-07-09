@@ -288,10 +288,10 @@ void DepLoader::checkStatus(void)
 		//check status
 		if(pack.infos.force)
 		{
-			if (host.presentOnSystem(pack.def.host))
-				pack.infos.present = "override-system";
-			else if (prefix->isInstalled(pack.def))
+			if (prefix->isInstalled(pack.def))
 				pack.infos.present = "reinstall";
+			else if (host.presentOnSystem(pack.def.host))
+				pack.infos.present = "override-system";
 		} else if (pack.infos.present.empty()) {
 			if (prefix->isInstalled(pack.def))
 				pack.infos.present = "already-installed";

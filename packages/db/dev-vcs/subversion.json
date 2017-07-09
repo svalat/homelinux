@@ -20,8 +20,11 @@
 	],
 	"configure": {
 		"": [ "--disable-mod-activation" ],
-		"-sqlite": [ "--with-sqlite=$(hl_prefix dev-libs/sqlite)" ]
+		"+sqlite": [ "--with-sqlite=$(hl_prefix dev-libs/sqlite)" ]
 	},
+	"use": [
+		"sqlite"
+	],
 	"host": {
 		"default": false,
 		"debian8": [ "subversion" ],

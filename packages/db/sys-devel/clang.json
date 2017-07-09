@@ -17,6 +17,7 @@
 		"http://releases.llvm.org/${VERSION}/cfe-${VERSION}.src.tar.xz"
 	],
 	"deps": [
+		"sys-devel/llvm",
 		"sys-apps/modules",
 		"static-analyzer? dev-lang/perl",
 		"static-analyzer&z3? sci-mathematics/z3",

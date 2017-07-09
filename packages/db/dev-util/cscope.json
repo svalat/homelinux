@@ -13,6 +13,7 @@
 	"md5": {},
 	"subdir": "cscope-${VERSION}",
 	"urls": [
+		"sourceforge://cscope/cscope/${VERSION}/cscope-${VERSION}.tar.gz",
 		"sourceforge://cscope/cscope/${VERSION}/cscope-${VERSION}.tar.bz2"
 	],
 	"deps": [
@@ -22,9 +23,12 @@
 		"virtual/yacc",
 		"emacs? virtual/emacs"
 	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include/ncurses" ]
+	},
 	"configure": {
 		"gentoo": [
-			"--with-ncurses=$(hl_prefix)"
+			"--with-ncurses=$(hl prefix-of ncurses)"
 		]
 	},
 	"use": [

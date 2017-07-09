@@ -11,7 +11,7 @@
 		"regexp": "tk([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)-src.(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
-	"subdir": "tk-${VERSION}",
+	"subdir": "tk${VERSION}",
 	"urls": [
 		"ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk${VERSION}-src.tar.gz"
 	],
@@ -21,8 +21,7 @@
 		"-aqua? x11-libs/libXt",
 		"-aqua&truetype? x11-libs/libXft",
 		"-aqua&xscreensaver? x11-libs/libXScrnSaver",
-		"~dev-lang/tcl:0",
-		"!aqua? ( x11-proto/xproto )"
+		"dev-lang/tcl:0"
 	],
 	"configure": {
 		"": [

@@ -14,7 +14,7 @@
 	"md5": {},
 	"subdir": "swig-${VERSION}",
 	"urls": [
-		"sourceforge://swig/swig/swig-${VERSION}/swig-${VERSION}.tar.gz/download"
+		"sourceforge://swig/swig/swig-${VERSION}/swig-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"pcre? dev-libs/libpcre",
@@ -31,7 +31,7 @@
 	"use": [
 		"ccache",
 		"doc",
-		"pcre"
+		"+pcre"
 	],
 	"host": {
 		"default": false,

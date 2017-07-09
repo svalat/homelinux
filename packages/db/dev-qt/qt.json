@@ -84,6 +84,7 @@
 		"+mng": [ "-system-libmng" ],
 		"+tiff": [ "-system-libtiff" ],
 		"+ssl": [ "-openssl" ],
+		"-ssl": [ "-no-openssl" ],
 		"+debug": [ "-debug" ],
 		"-debug": [ "-release" ],
 		"-static": [ "-shared" ],
@@ -180,7 +181,7 @@
 			"run_sh cd $HL_PACKDIR",
 			"run ./configure -prefix $PREFIX $BUILD_OPTIONS"
 		],
-		"prepare": [
+		"prepareOld": [
 			"export PATH=$HL_PREFIX/homelinux/compilers:$PATH"
 		]
 	},
@@ -204,9 +205,12 @@
 			}
 		},
 		":5": {
+			"deps": [
+				"sys-devel/binutils[gold]"
+			],
 			"steps": {
 				"postinstall": [
-					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt4"
+					"ln -sf $PREFIX/bin/qmake $PREFIX/bin/qmake-qt5"
 				]
 			}
 		}

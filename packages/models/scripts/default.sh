@@ -435,7 +435,7 @@ function hl_configure_cmake()
 {
 	run mkdir -p $HL_BUILDDIR
 	run_sh cd $HL_BUILDDIR
-	run touch ${HL_PACKDIR}/hl-is-cmake.notify
+	run touch hl-is-cmake.notify
 	run rm -rfd cmakebuild
 	run mkdir cmakebuild
 	run_sh cd cmakebuild
@@ -447,9 +447,9 @@ function hl_configure_cmake()
 	
 	run cmake .. ${ninja} -DCMAKE_BUILD_TYPE="Release" \
 	             -DCMAKE_INSTALL_PREFIX=$PREFIX\
-	             -DCMAKE_COMPILER_CXX_FLAGS="\"${CXXFLAGS} ${HL_CXXFLAGS}\""\
-	             -DCMAKE_COMPILER_C_FLAGS="\"${CFLAGS} ${HL_CFLAGS}\"" \
-	             -DCMAKE_COMPILER_F_FLAGS="\"${FFLAGS} ${HL_FFLAGS}\"" \
+	             -DCMAKE_CXX_FLAGS="\"${CXXFLAGS} ${HL_CXXFLAGS}\""\
+	             -DCMAKE_C_FLAGS="\"${CFLAGS} ${HL_CFLAGS}\"" \
+	             -DCMAKE_F_FLAGS="\"${FFLAGS} ${HL_FFLAGS}\"" \
 	             -DCMAKE_MODULE_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\
 	             -DCMAKE_SHARED_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\
 	             -DCMAKE_STATIC_LINKER_FLAGS="\"${LDFLAGS} ${HL_LDFLAGS}\""\

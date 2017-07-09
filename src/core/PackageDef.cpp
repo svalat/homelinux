@@ -356,13 +356,18 @@ std::string PackageDef::getBuildOptions(void) const
 {
 	//vars
 	StringList lst;
+	UseFlagState state;
 
 	//loop on all entries
 	//for (auto & criteria : this->configure)
 	forEachConst(StringMapList,criteria,this->configure)
 	{
 		//get status
-		UseFlagState state = use.getApplyStatusWithAnd(criteria->first);
+		try{
+			state = use.getApplyStatusWithAnd(criteria->first);
+		} catch (std::runtime_error & err) {
+			HL_FATAL_ARG("%2\nInvalid flag in %1, see previous message !").arg(name).arg(err.what()).end();
+		}
 
 		//we ignore AUTO
 		if (state != FLAG_AUTO)

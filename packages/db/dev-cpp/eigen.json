@@ -12,7 +12,7 @@
 		"tag": "td"
 	},
 	"md5": {},
-	"subdir": "eigen-eigen-67e894c6cd8f",
+	"subdir": "eigen-eigen-*",
 	"urls": [
 		"https://bitbucket.org/eigen/eigen/get/${VERSION}.tar.gz"
 	],

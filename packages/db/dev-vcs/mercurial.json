@@ -16,7 +16,7 @@
 		"https://www.mercurial-scm.org/release/mercurial-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"app-misc/ca-certificates",
+		"gentoo? app-misc/ca-certificates",
 		"bugzilla? dev-python/mysql-python",
 		"gpg? app-crypt/gnupg",
 		"tk? dev-lang/tk",
@@ -34,6 +34,7 @@
 		"gentoo": [ "dev-vcs/mercurial" ]
 	},
 	"use": [
+		"gentoo",
 		"-bugzilla",
 		"-emacs",
 		"-gpg",

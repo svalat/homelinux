@@ -6,14 +6,14 @@
 		"3.11.0"
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://www.valgrind.org/downloads/current.html",
-		"regexp": "valgrind ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)[ \\n]+[(]tar.bz2[)]"
+		"mode": "ftp",
+		"url": "ftp://sourceware.org/pub/valgrind",
+		"regexp": "valgrind-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.xz)"
 	},
 	"md5" : {},
 	"subdir": "valgrind-${VERSION}",
 	"urls" : [
-		"http://www.valgrind.org/downloads/valgrind-${VERSION}.tar.bz2"
+		"ftp://sourceware.org/pub/valgrind/valgrind-${VERSION}.tar.bz2"
 	],
 	"deps": [
 	],

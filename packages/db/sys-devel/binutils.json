@@ -16,9 +16,13 @@
 		"http://ftpmirror.gnu.org/gnu/binutils/binutils-${VERSION}.tar.bz2"
 	],
 	"deps": [],
-	"configure": {},
+	"configure": {
+		"gold": [ "--enable-gold=$yes" ],
+		"+lto": [ "--enable-lto" ]
+	},
 	"use": [
-		""
+		"lto",
+		"+gold"
 	],
 	"host": {
 		"default": true,
