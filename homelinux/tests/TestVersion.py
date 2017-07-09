@@ -30,3 +30,13 @@ class TestVersion(unittest.TestCase):
 		self.assertEqual(out[0].version,"1.2")
 		self.assertEqual(out[1].version,"1.2.1")
 		self.assertEqual(out[2].version,"1.3")
+	
+	def test_compare(self):
+		self.assertTrue(Version("1.35.6")==Version("1.35.6"))
+		self.assertTrue(Version("1.35.7") > Version("1.35.6"))
+		self.assertTrue(Version("1.35.6") < Version("1.35.7"))
+		self.assertTrue(Version("1.45.7") > Version("1.35.6"))
+		self.assertTrue(Version("2.34.7") > Version("1.35.6"))
+		self.assertTrue(Version("1.35.6a") > Version("1.35.6"))
+		self.assertTrue(Version("1.35.6a") < Version("1.35.6b"))
+		self.assertTrue(Version("1.35.6a-r2") < Version("1.35.6a-r3"))

@@ -4,12 +4,22 @@ class Version:
 	"""Class to handle version numbers"""
 
 	def __init__(self,version):
-		"""Version constructor"""
+		"""Version constructor
+
+		Keyword arguments:
+		version -- The version string to apply (eg 3.5.8a)
+		"""
 		self.version = version
 	
-	def __fillNumber(self,number,pad):
+	@staticmethod
+	def __fillNumber(number,pad = 8):
 		"""Fill all the number component such a way they ues the same size.
-		Eg. 1.3.35a becore 0001.0003.0035a-beta"""
+		Eg. 1.3.35a becore 0001.0003.0035a-beta.
+
+		Keyword arguments:
+		number -- The version number, eg 10a
+		pad -- The padding to apply (default 8)
+		"""
 
 		#search first pos which is not a number
 		endNum = 0
@@ -23,9 +33,15 @@ class Version:
 		#build final
 		return fillPre + number + fillPost
 
-	def __buildPaddedVersion(self,version,pad):
+	@staticmethod
+	def __buildPaddedVersion(version,pad = 8):
 		"""Build a version number as a string with padded 0s to easily
-		use string compare operator for sorting and comparing"""
+		use string compare operator for sorting and comparing
+		
+		Keyword arguments:
+		version -- The version to pad (eg 3.5.1a)
+		pad -- The padding to apply (default 8)
+		"""
 
 		#split on points
 		parts = version.split(".")
@@ -33,19 +49,25 @@ class Version:
 		#replace
 		final = []
 		for part in parts:
-			final.append(self.__fillNumber(part,pad))
+			final.append(Version.__fillNumber(part,pad))
 		
 		#ret
 		return final
 
-	def __compareVersions(self,version1,version2):
+	@staticmethod
+	def __compareVersions(version1,version2):
 		"""Compare two version and return status, -1, 0, +1
 		if respectively version1 is smaller, equal or larger than
-		version 2"""
+		version 2
+		
+		Keyword arguments:
+		version1 -- First version to compare
+		version2 -- Second version to compare
+		"""
 
 		#prep
-		pv1 = self.__buildPaddedVersion(version1,8)
-		pv2 = self.__buildPaddedVersion(version2,8)
+		pv1 = Version.__buildPaddedVersion(version1,8)
+		pv2 = Version.__buildPaddedVersion(version2,8)
 
 		#fill missing if not same size
 		zeros = '0' * 16
@@ -67,6 +89,14 @@ class Version:
 		return 0
 	
 	def __cmp__(self,other):
-		"""Compare two version"""
-		print "ok"
+		"""Compare two version
+		
+		Keyword arguments:
+		other -- Version to compare with current one
+		"""
 		return self.__compareVersions(self.version,other.version)
+
+	def __repr__(self):
+		return "Version("+self.version+")"
+	def __str__(self):
+		return self.version
