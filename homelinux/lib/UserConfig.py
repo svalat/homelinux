@@ -6,64 +6,81 @@ import logging
 import sys
 
 class UserConfig:
-    """Structure to store the configuration of Homelinux"""
+	"""Structure to store the configuration of Homelinux"""
 
-    def __init__(self):
-        """Default constructor of class"""
+	def __init__(self):
+		"""Default constructor of class"""
 
-        #setup default
-        self.config = {
-            "prefix": [ os.path.expanduser("~")+"/usr" ],
-            "host": "default",
-            "modules" : [],
-            "ccacge": False,
-            "homecahe": False,
-            "pyEnv": True,
-            "packageOverride":{},
-            "tmp": "/tmp/homelinux-"+getpass.getuser()
-        }
-        self.showHelp = False
-        self.command = ""
-        self.args = []
+		#setup default
+		self.config = {
+			"prefix": [ os.path.expanduser("~")+"/usr" ],
+			"host": "default",
+			"modules" : [],
+			"ccache": False,
+			"homecache": False,
+			"pyEnv": True,
+			"packageOverride":{},
+			"temp": "/tmp/homelinux-"+getpass.getuser(),
+			"github": {
+				"clientId": "",
+				"clientSecret": ""
+			},
+			"crawlerThreads": 4,
+			"crawlerTimeout": 60,
+			"editor": "vim"
+		}
+		self.showHelp = False
+		self.command = ""
+		self.args = []
+	
+	def save(self):
+		"""Save default config in user home directory"""
 
-    def load(self,path = ""):
-        """Load the given config file. By default it will load ~∕.homelinux.json"""
+		#build path
+		path = os.path.expanduser("~")+"/.homelinux.json"
 
-        #setup default
-        if path == "":
-            path = os.path.expanduser("~")+"/.homelinux.json"
+		#save
+		with open(path,'w') as outfile:
+			json.dump(self.config,outfile)
 
-        #check if exist
-        if os.path.exists(path) == False:
-            print "No "+path+", using default config !"
-            return
-        
-        #load from file
-        with open(path) as dataFile:
-            data = json.load(dataFile)
-        
-        #merge
-        self.config.update(data)
+	def load(self,path = ""):
+		"""Load the given config file. By default it will load ~∕.homelinux.json"""
 
-    def parseArgs(self):
-        """Parse user arguments"""
-        i = 1
+		#setup default
+		if path == "":
+			path = os.path.expanduser("~")+"/.homelinux.json"
 
-        #Loop on all options
-        while i < len(sys.argv):
-            if sys.argv[i] == "--versoin":
-                print "Homelinux 2.0.0-dev"
-                sys.exit(0)
-            elif sys.argv[i] == "-p" or sys.argv[i] == "--prefix":
-                if i < len(sys.argv) - 1:
-                    logging.critical("Option -p/--prefix requires an argument")
-                del self.config["prefix"][:]
-                i = i+1
-                self.config["prefix"].append(sys.argv[i])
-            elif sys.argv[i] == "--help" or sys.argv[i] == "-h":
-                self.showHelp = True
-            elif self.command == "":
-                self.command = sys.argv[i]
-            else:
-                self.args.append(sys.argv[i])
-            i = i+1
+		#check if exist
+		if os.path.exists(path) == False:
+			print "No "+path+", using default config !"
+			return
+		
+		#load from file
+		with open(path) as dataFile:
+			data = json.load(dataFile)
+		
+		#merge
+		self.config.update(data)
+
+	def parseArgs(self,args):
+		"""Parse user arguments"""
+		i = 1
+
+		#Loop on all options
+		while i < len(args):
+			if args[i] == "--version":
+				print "Homelinux 2.0.0-dev"
+				sys.exit(0)
+			elif args[i] == "-p" or args[i] == "--prefix":
+				if i < len(args) - 1:
+					logging.critical("Option -p/--prefix requires an argument")
+				del self.config["prefix"][:]
+				i = i+1
+				self.config["prefix"].append(args[i])
+			elif args[i] == "--help" or args[i] == "-h":
+				self.showHelp = True
+			elif self.command == "":
+				self.command = args[i]
+			else:
+				self.args.append(args[i])
+			i = i+1

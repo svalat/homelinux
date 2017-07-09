@@ -11,5 +11,12 @@
 				"": [ "--enable-debug" ]
 			}
 		}
-	}
+	},
+	"github": {
+		"clientId": "",
+		"clientSecret": ""
+	},
+	"crawlerThreads": 4,
+	"crawlerTimeout": 60,
+	"editor": "vim"
 }
