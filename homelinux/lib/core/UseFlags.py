@@ -80,13 +80,13 @@ class UseFlags:
 
 		#if not exist
 		if onlyIfExist:
-			if name in self.flags:
+			if name not in self.flags:
 				return
 		
 		#apply
 		if status == UseFlags.FLAG_ENABLED or status == UseFlags.FLAG_DISABLED:
 			self.flags[name] = status
-		elif name in self.flags:
+		elif name not in self.flags:
 			self.flags[name] = UseFlags.FLAG_AUTO
 		
 	def getStatus(self,flag):
@@ -153,73 +153,66 @@ class UseFlags:
 			if self.flags[flag] == UseFlags.FLAG_AUTO:
 				self.flags[flag] = state
 	
-	def toStringByState(self,out,state,force = False):
+	def toListByState(self,out,state,force = False):
 		""" Convert the use flags to string only for the given state. This is used by toString
 		to give the flags in order.
 
-		out -- The output string to fill
+		out -- The output list to fill
 		state -- State to filter
 		force -- If force equal true, flas auto are set to enabled.	
 		"""
 		for flag in self.flags:
 			cur = self.flags[flag]
 			if cur == state or (cur == UseFlags.FLAG_AUTO and force and state == UseFlags.FLAG_ENABLED):
-				#space
-				if out != "":
-					out += " "
-				
 				#flag
 				if state == UseFlags.FLAG_ENABLED:
-					out += "+" + flag
+					out.append("+" + flag)
 				elif state == UseFlags.FLAG_DISABLED:
-					out += "-" + flag
+					out.append("-" + flag)
 				elif state == UseFlags.FLAG_AUTO and force:
-					out += "+" + flag
+					out.append("+" + flag)
 				else:
-					out += flag
+					out.append(flag)
 
-		def toStringByStateColored(self,out,state,force = False):
-			""" Same than toStringByState() but with colored string
+	@staticmethod
+	def __coloredList(list):
+		""" Add colors to element in the list
 
-			out -- The output string to fill
-			state -- State to filter
-			force -- If force equal true, flas auto are set to enabled.	
-			"""
-			
-			if state == UseFlags.FLAG_ENABLED:
-				return Colors.cyan(self.toStringByState(state,force))
-			elif state == UseFlags.FLAG_DISABLED:
-				return Colors.red(self.toStringByState(state,force))
-			elif state == UseFlags.FLAG_AUTO and force:
-				return Colors.cyan(self.toStringByState(state,force))
+		list -- List of flags to color
+		"""
+		for el in list:
+			if el[0] == "+":
+				el = Colors.cyan(el)
+			elif el[0] == "-":
+				el = Colors.red(el)
 			else:
-				return Colors.blue(self.toStringByState(state,force))
+				el = Colors.blue(el)
 
-		def toString(self,force,colored):
-			"""Convert to string with or without colors"""
+	def toString(self,force = False,colored = False):
+		"""Convert to string with or without colors"""
 
-			ret = ""
-			if colored:
-				self.toStringByStateColored(ret,UseFlags.FLAG_ENABLED,force)
-				self.toStringByStateColored(ret,UseFlags.FLAG_DISABLED,force)
-				if not force:
-					self.toStringByStateColored(ret,UseFlags.FLAG_AUTO,False)
-			else:
-				self.toStringByState(ret,UseFlags.FLAG_ENABLED,force)
-				self.toStringByState(ret,UseFlags.FLAG_DISABLED,force)
-				if not force:
-					self.toStringByState(ret,UseFlags.FLAG_AUTO,False)
-			return ret
+		#build
+		lst = self.toList(force)
+		
+		#color
+		UseFlags.__coloredList(lst)
 
-		def toList(self,force):
-			"""Convert to list"""
-			lst = self.toString(force,False)
-			return lst.split(" ")
+		#ret
+		return " ".join(lst)
 
-		def hasFlag(self,name):
-			"""Check if has flag"""
-			
-			if name in self.flags:
-				return True
-			else:
-				return False
+	def toList(self,force):
+		"""Convert to list"""
+		lst = []
+		self.toListByState(lst,UseFlags.FLAG_ENABLED,force)
+		self.toListByState(lst,UseFlags.FLAG_DISABLED,force)
+		if not force:
+			self.toListByState(lst,UseFlags.FLAG_AUTO,False)
+		return lst
+
+	def hasFlag(self,name):
+		"""Check if has flag"""
+
+		if name in self.flags:
+			return True
+		else:
+			return False
