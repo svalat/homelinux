@@ -2,3 +2,4 @@
 homelinux/.coverage
 homelinux/cover
 .vscode
+.noseids
