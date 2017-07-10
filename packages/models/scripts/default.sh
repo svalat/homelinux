@@ -294,6 +294,9 @@ function hl_download()
 	do
 		hl_download_internal ${url} && break
 	done
+
+	test -f ${ARCHIVE} || die "Fail to download archive !"
+
 	run_sh cd ${HL_TEMP}
 }
 

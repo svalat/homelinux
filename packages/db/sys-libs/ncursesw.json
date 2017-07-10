@@ -7,13 +7,14 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "mirror://http-gnu/pub/gnu/ncurses/",
+		"url": "mirror://http-gnu/gnu/ncurses/",
 		"regexp": "ncurses-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "ncurses-${VERSION}",
 	"urls" : [
-		"mirror://http-gnu/pub/gnu/ncurses/ncurses-${VERSION}.tar.gz"
+		"mirror://http-gnu/gnu/ncurses/ncurses-${VERSION}.tar.gz",
+		"mirror://http-gnu/gnu/ncurses/ncurses-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		
