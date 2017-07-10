@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+######################################################
+#            PROJECT  : homelinux                    #
+#            VERSION  : 2.0.0-dev                    #
+#            DATE     : 07/2017                      #
+#            AUTHOR   : Valat Sébastien              #
+#            LICENSE  : CeCILL-C                     #
+######################################################
+
 class Colors:
     """Define colors for shell"""
 

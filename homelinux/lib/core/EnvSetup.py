@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+######################################################
+#            PROJECT  : homelinux                    #
+#            VERSION  : 2.0.0-dev                    #
+#            DATE     : 07/2017                      #
+#            AUTHOR   : Valat Sébastien              #
+#            LICENSE  : CeCILL-C                     #
+######################################################
+
 import os
 import subprocess
 import logging
@@ -20,7 +29,7 @@ class EnvSetup:
         "HL_PREFIX_PATH"
     ]
 
-    def __init__(self,userConfig)
+    def __init__(self,userConfig):
         """Constrcutor, expect a UserConfig object as parameter"""
 
         #user config
@@ -36,12 +45,13 @@ class EnvSetup:
         for v in EnvSetup.__HANDLED:
             self.env[v] = []
     
-    def loadCurrent(void):
+    def loadCurrent(self):
         """Load current environnement status"""
 
         #load
         for var in self.env:
-            self.env[var] = os.environ[var].split(":")
+            if var in os.environ:
+             self.env[var] = os.environ[var].split(":")
         
         #special for pkg-config otherwise we miss the system one
         if not self.env["PKG_CONFIG_PATH"]:
@@ -99,8 +109,8 @@ class EnvSetup:
 
         #python
         pv = "2.7"
-        out = subprocess.check_output(["python","--version"])
-        pv = ".".join(out.split(" ")[1].split(".")[0:2])
+        #out = subprocess.check_output(["python","--version"])
+        #pv = ".".join(out.split(" ")[1].split(".")[0:2])
         self.prepend("PYTHONPATH",prefix + "/lib/python"+pv+"/site-packages/")
 
         #module
@@ -148,7 +158,7 @@ class EnvSetup:
         #clear loaded prefix
         self.env["HL_PREFIX_PATH"] = []
 
-    def genPrint(self):
+    def genExport(self):
         """
         Print the nevironenemnt variable setup (mostly export calls)
         to be used by shell scripts (bash/sh)
@@ -163,7 +173,7 @@ class EnvSetup:
         """Load of unload the modules"""
 
         out = "if ! module 1>/dev/null 2>/dev/null ; then hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL); fi\n"
-        for module in self.userConfig.modules:
+        for module in self.userConfig.config["modules"]:
             if load:
                 out += "module load %s\n"%(module)
             else:
@@ -173,16 +183,16 @@ class EnvSetup:
 
     def enableCCache(self):
         """Generate export PATH to enable ccache"""
-        if self.userConfig.ccache:
-            return "export PATH=%s/bin/ccache-links/:$PATH\n"%(self.userConfig.prefix[0])
-        else
+        if self.userConfig.config["ccache"]:
+            return "export PATH=%s/bin/ccache-links:$PATH\n"%(self.userConfig.config["prefix"][0])
+        else:
             return ""
     
     def enablePyEnv(self):
         """Generate export PATH to enable python wrapper"""
-        if self.userConfig.ccache:
-            return "export PATH=%s/bin/hl-py-env-bins/:$PATH\n"%(self.userConfig.prefix[0])
-        else
+        if self.userConfig.config["pyEnv"]:
+            return "export PATH=%s/bin/hl-py-env-bins:$PATH\n"%(self.userConfig.config["prefix"][0])
+        else:
             return ""
     
     def prepend(self,varName,value):
