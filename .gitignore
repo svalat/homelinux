@@ -1,3 +1,4 @@
 *.pyc
 homelinux/.coverage
 homelinux/cover
+.vscode

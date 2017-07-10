@@ -1,6 +1,6 @@
 import unittest
 
-from lib import Version
+from lib.core import Version
 
 class TestVersion(unittest.TestCase):
 	def test_equal_1(self):

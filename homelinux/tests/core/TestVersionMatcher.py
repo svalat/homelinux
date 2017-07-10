@@ -1,7 +1,7 @@
 import unittest
 
-from lib import VersionMatcher
-from lib import Version
+from lib.core import VersionMatcher
+from lib.core import Version
 
 class TestVersionMatcher(unittest.TestCase):
 	def test_match_1(self):

@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from lib import UserConfig
+from lib.core import UserConfig
 
 class TestUserConfig(unittest.TestCase):
 	def setUp(self):

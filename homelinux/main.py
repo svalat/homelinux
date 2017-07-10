@@ -1,4 +1,4 @@
-from lib import UserConfig
+from lib.core import UserConfig
 import sys
 
 if __name__ == '__main__':
