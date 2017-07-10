@@ -94,6 +94,9 @@ class Version:
 
         #equal
         return 0
+
+    def getShort(self):
+        return Version(".".join(self.version.split('.')[:2]))
     
     def __cmp__(self,other):
         """Compare two version
@@ -105,5 +108,6 @@ class Version:
 
     def __repr__(self):
         return "Version("+self.version+")"
+    
     def __str__(self):
         return self.version

@@ -94,6 +94,7 @@ class VersionMatcher:
         version -- Version to match with slot
         slots -- Definition of slots to match
         """
+        
         for slotName in slots:
             #regexp
             if slotName == "~":
