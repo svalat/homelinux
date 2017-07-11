@@ -7,6 +7,7 @@
 #            LICENSE  : CeCILL-C                     #
 ######################################################
 
+from UseFlags import UseFlags
 from Version import Version
 from VersionMatcher import VersionMatcher
 import json
@@ -69,7 +70,13 @@ class PackageDef:
             "vars": {},
             #List of flags (CFLAGS, CXXFLAGS) to append to system one. Can use
 	        #`!-O3` to disable `-O3` defined by system.
-            "flags": {},
+            "flags": {
+                "MAKEOPTS": [],
+                "CFLAGS": [],
+                "CXXFLAGS": [],
+                "FFLAGS": [],
+                "LDFLAGS": []
+            },
             #List of URLs to use to download the package (can contain `${VERSION}`)?
 	        #This is called in bash to it can also contain sub scripts to reformat
 	        #version number for example with _ instead of .
@@ -81,6 +88,7 @@ class PackageDef:
             #File containing the package
             "packageFile": ""
         }
+        self.use = UseFlags()
 
     def loadFromFile(self,path):
         #check if exist
@@ -111,6 +119,7 @@ class PackageDef:
             self.content["versions"] = []
             for v in json["versions"]:
                 self.content["versions"].append(Version(v))
+            self.use.merge(self.content["use"])
     
     def saveToDic(self,out):
         """Fill the dir output with current status"""
@@ -122,6 +131,7 @@ class PackageDef:
         for v in self.content["versions"]:
             lst.append(str(v))
         out["versions"] = lst
+        out["use"] = self.use.toList()
 
     def saveToFile(self,path):
         """Save package to given file in JSON format"""
@@ -204,13 +214,14 @@ class PackageDef:
         self.__mergeList(self.content["patch"],package.content["patch"])
         self.__mergeMap(self.content["slots"],package.content["slots"])
         self.__mergeString(package,"packageFile")
+        self.use.merge(package.use)
 
 
     def getVersion(self):
         """
         Return the current version (best one).
         CAUTION, it consider that version habve already been ordered
-        """"
+        """
         if self.content["versions"]:
             return self.content["versions"][0]
         else:
@@ -221,7 +232,7 @@ class PackageDef:
         Return the current slot considering the best version
         available
         CAUTION, it consider that version habve already been ordered
-        """"
+        """
         return VersionMatcher.getSlot(self.getVersion(),self.content["slots"])
 
     def sortVersions(self):
@@ -265,4 +276,191 @@ class PackageDef:
         """
         return getVersion().getShort()
 
+    def getStowName(self):
+        return re.sub("[/:]","_",self.getSlotName())
+
+    def getRealPrefix(self,prefix,stow):
+        """
+        Return the prefix in which to install the package.
+        Caution, this is not necerssarly the homelinux prefix
+        as it could be completed by module paths if module
+        is enable by this package.
+        """
+        module = self.content["module"]
+        if module:
+            return self.prefix+"/Modules/installed/"+module
+        else:
+            if stow and self.getShortName() != "stow":
+                return prefix+"/stow/"+self.getStowName()
+            else:
+                return prefix
     
+    def getPackInstalled(self,prefix):
+        """
+        Json script to write on when the package is installed
+        or to check if it is installed.
+        
+        prefix -- Prefix to which we add the internal path.
+        """
+        return prefix+"/homelinux/install-db/"+self.getStowName()+".json"
+
+    def getBuildOptions(self):
+        """
+        Generate build option based on `configure` entries of package
+        depending on use flags enabling
+        """
+
+        #loop on all entries
+        configure = self.content["configure"]
+        options = []
+        for criteria in configure:
+            #get status
+            try:
+                state = self.use.getApplyStatusWithAnd(criteria)
+            except Exception as e:
+                logging.fatal("%s\nInvalid flag in %s, se previous message! "%(e.args[0],self.content["name"]))
+            
+            #we ignore auto
+            if state != UseFlags.FLAG_AUTO:
+                #status
+                status = (state == UseFlags.FLAG_ENABLED)
+
+                #loop on childs
+                for option in configure[criteria]:
+                    option.replace("$enable","enable" if status else "disable")
+                    option.replace("$disable","disable" if status else "enable")
+                    option.replace("$with","with" if status else "without")
+                    option.replace("$without","without" if status else "with")
+                    option.replace("$yes","yes" if status else "no")
+                    option.replace("$no","no" if status else "yes")
+                    option.replace("$ON","ON" if status else "OFF")
+                    option.replace("$OFF","OFF" if status else "ON")
+                    option.replace("-$no-","-" if status else "-no-") #for QT4
+
+                    #push
+                    options.append("\\\""+option+"\\\"")
+        #ret final
+        return " ".joint(options)
+        
+    def getPatchList(self,prefix):
+        lst = []
+        for patch in self.content["patch"]:
+            lst.append(prefix+"/homelinux/packages/db/patches"+patch)
+        return " ".join(lst)
+
+    def genScript(self,userConfig,prefix,parallelInstall,useGnuStow):
+        """
+        Generate the install script.
+ 
+        userConfig      -- Global configuration of homelinux
+        parallelInstall -- Enable generation for parallel installation of
+                           packages. This requires some minot tricks in the 
+                           generated script.
+        prefix          -- Prefix in which to install
+        """
+        #to fill
+        out = []
+
+        #setup bash
+        out.append("#!/bin/bash")
+
+        #setup variables
+        out.append("")
+        out.append("#HL vars")
+        out.append("HL_TEMP=\"%s\""%(userConfig.config.temp))
+        out.append("HL_PACKAGE=\"%s\""%(prefix+"/homelinux/packages"))
+        out.append("HL_PREFIX=\"%s\""%(prefix))
+        out.append("HL_HOMECACHE=\"%S\""%("true" if userConfig.config['homecache'] else "false"))
+
+        #compiler flags
+        cplFlags = ["MAKEOPTS","CFLAGS","CXXFLAGS","FFLAGS","LDFLAGS"]
+        out.append("")
+        out.append("#compiler flags")
+        for flag in cplFlags:
+            out.append("HL_%s=\"%s\""%(flag," ".join(self.content["flags"][flag])))
+
+        #pack infos
+        out.append("")
+        out.append("#Pack infos")
+        out.append("NAME='%s'"%(self.content["name"]))
+        out.append("SHORT_NAME='%s'"%(self.getShortName()))
+        out.append("VERSION='%s'"%(self.getVersion()))
+        out.append("SVERSION='%s'"%(self.getShortVersion()))
+        out.append("URLS=\"%s\""%(" ".join(self.conent["urls"])))
+        out.append("MD5='%s'"%(self.content["md5"][eslf.getVersion().version]))
+        out.append("SUBDIR=\"%s\""%(self.content["subdir"]))
+        out.append("SLOT=\"%s\""%(self.getSlot()))
+        out.append("PREFIX=\"%s\""%(self.getRealPrefix(prefix,useGnuStow)))
+        out.append("BUILD_OPTIONS=\"%s\""%(self.getBuildOptions()))
+        out.append("PATCHES=\"%s\""%(self.getPatchList(prefix)))
+        out.append("USE=\"%s\""%(self.use.toString()))
+        out.append("MODULE=\"%s\""%(self.content["module"]))
+        if useGnuStow:
+            out.append("STOW_NAME=\"%s\""%(self.getStowName()))
+        else:
+            out.append("STOW_NAME=''")
+        if parallelInstall:
+            out.append("PINSTALL='true'")
+        else:
+            out.append("PINSTALL='false'")
+        
+        #to mark install and keep track
+        out.append("")
+        out.append("#to mark install and keep track")
+        out.append("PACK_INSTALLED=\"%s\""%(self.getPackInstall(prefix)))
+
+        #dump package
+        out.append("")
+        out.append("#package json")
+        p = {}
+        self.saveToDic(p)
+        p = json.dump(p).replace("\\","\\\\").replace("\"","\\\"").replace("$","\\$")
+        out.append("USE=\"%s\""%(p))
+
+        #load scripts
+        out.append("")
+        out.append("#load scripts")
+        for script in self.content["scripts"]:
+            out.append("source \"%s/homelinux/packages/%s\""%(prefix,script))
+        
+        #extra vars
+        out.append("")
+        out.append("#extra vars")
+        out.append("function hl_pack_extra_vars()")
+        out.append("{")
+        if not self.content["vars"]:
+            out.append("\ttrue")
+        else:
+            for var in self.content["vars"]:
+                out.append("\t%s=\"%s\""%(var,self.content["vars"][var]))
+        out.append("}")
+
+        #build steps
+        out.append("")
+        out.append("#package steps")
+        for step in self.content["steps"]:
+            out.append("")
+            out.append("#Step %s"%(step))
+            out.append("function hl_pack_%s"%(step))
+            out.append("{")
+            out.append("\tinfo '%s'"%(step))
+            if not self.content["steps"][step]:
+                out.append("\techo 'Nothing to do'")
+            else:
+                for entry in self.content["steps"][step]:
+                    out.append("\t%s"%(entry))
+            out.append("}")
+
+            #parallel install or not
+            out.append("")
+            out.append("#Main calls to run")
+            if parallelInstall:
+                out.append("set -e")
+                out.append("setup_vars")
+                out.append("eval \"$@\"")
+            else:
+                out.append("set -e")
+                out.append("setup_vars")
+                out.append("hl_start")
+                out.append("hl_pack_main")
+                out.append("hl_stop")
