@@ -73,6 +73,8 @@ struct Config
 	int crawlerTimeout;
 	/** editor to open packages **/
 	std::string editor;
+	/** -j ooptions for mak **/
+	int makeJ;
 };
 
 }

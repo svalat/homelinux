@@ -425,6 +425,7 @@ function hl_configure_autotools()
 	run_sh cd $HL_PACKDIR
 	
 	display CFLAGS=\"${CFLAGS} ${HL_CFLAGS}\"
+	display CPPFLAGS=\"${CPPFLAGS} ${HL_CXXFLAGS}\"
 	display CXXFLAGS=\"${CXXFLAGS} ${HL_CXXFLAGS}\"
 	display LDFLAGS=\"${LDFLAGS} ${HL_LDFLAGS}\"
 	display FFLAGS=\"${FFLAGS} ${HL_FFLAGS}\"
@@ -526,6 +527,12 @@ function hl_manifest()
 # 	run_sh pushd $HL_TEMP/install
 # 	run find -P > $($PREFIX/homelinux/manifests/$(echo $NAME | sed -e s#/#_#g)-$VERSION.lst) | sed -e 's#^\./#/#g'
 # 	run_sh popd
+}
+
+function hl_module_load()
+{
+	module 2>/dev/null || $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL)
+	run_sh module load "$1"
 }
 
 function hl_module()

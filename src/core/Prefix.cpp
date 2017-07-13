@@ -9,6 +9,7 @@
 /********************  HEADERS  *********************/
 //std
 #include <cassert>
+#include <cstdio>
 #include <portability/System.hpp>
 #include <providers/ProviderGentoo.hpp>
 #include <providers/ProviderDebian.hpp>
@@ -108,6 +109,12 @@ void Prefix::loadPackage(PackageDef & out,const std::string & packageName)
 		loadPackage(inherit,pack.inherit);
 		out.merge(inherit);
 	} else {
+		//apply makeopts -j
+		char tmp[32];
+		int makeJ = config->makeJ == 0 ? System::getCoreCount() : config->makeJ;
+		sprintf(tmp,"-j%d",makeJ);
+		out.flags["MAKEOPTS"].push_back(tmp);
+
 		//apply system cflags on root
 		Helper::merge(out.flags,prefixConfig.flags,false);
 		

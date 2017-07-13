@@ -65,6 +65,7 @@ void Config::loadDefault()
 	this->crawlerThreads = 4;
 	this->crawlerTimeout = 60;
 	this->editor = "vim";
+	this->makeJ = 0;
 }
 
 /*******************  FUNCTION  *********************/
@@ -86,6 +87,7 @@ void Config::load(Json::Value & config)
 	this->crawlerThreads = config.get("crawlerThreads",crawlerThreads).asInt();
 	this->crawlerTimeout = config.get("crawlerTimeout",crawlerTimeout).asInt();
 	this->editor = config.get("editor",editor).asString();
+	this->makeJ = config.get("makeJ",makeJ).asInt();
 	
 	//modules
 	Json::Value mods = config["modules"];
@@ -118,6 +120,7 @@ void Config::save(void)
 	Helper::toJson(json["modules"],modules);
 	json["packageOverride"] = packageOverride;
 	json["editor"] = editor;
+	json["makeJ"] = makeJ;
 	
 	//write
 	System::writeJson(json,System::getHomeDir()+"/.homelinux.json");
