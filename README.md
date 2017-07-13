@@ -98,8 +98,8 @@ You can use the given commands to install search or sync your repos :
 	#update your package DB (fetch gentoo...)
 	hl update-db
     
-    #Crawl the web to getch last version of every packages
-    hl crawl
+	#Crawl the web to getch last version of every packages
+	hl crawl
 	
 	#install package
 	hl install bash                      # use name, automatic search db
