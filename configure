@@ -36,9 +36,15 @@ ENABLE_TESTS=''
 LIB_SUFFIX=''
 #prefix
 
-
 ######################################################
-
+#Check current directory
+if [ -f 'CMakeLists.txt' ] && [ -f 'configure' ]; then
+	echo "ERROR : CMake isn't adapted to support build directely in source"
+	echo "directory. Prefer to create a subdirectory to build."
+	echo ""
+	echo "Example : mkdir build && cd build && ../configure"
+	exit 1
+fi
 
 ######################################################
 #if not found cmake, fallback on autotools
@@ -213,16 +219,6 @@ do
 			;;
 	esac
 done
-
-######################################################
-#Check current directory
-if [ -f 'CMakeLists.txt' ] && [ -f 'configure' ]; then
-	echo "ERROR : CMake isn't adapted to support build directely in source"
-	echo "directory. Prefer to create a subdirectory to build."
-	echo ""
-	echo "Example : mkdir build && cd build && ../configure"
-	exit 1
-fi
 
 ######################################################
 #Gen CC/CXX/LDFLAGS commands
