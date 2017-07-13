@@ -430,6 +430,7 @@ function hl_configure_autotools()
 	display LDFLAGS=\"${LDFLAGS} ${HL_LDFLAGS}\"
 	display FFLAGS=\"${FFLAGS} ${HL_FFLAGS}\"
 	
+	CPPFLAGS="${CPPFLAGS} ${HL_CXXFLAGS}"\
 	CXXFLAGS="${CXXFLAGS} ${HL_CXXFLAGS}"\
 	CFLAGS="${CFLAGS} ${HL_CFLAGS}" \
 	FFLAGS="${FFLAGS} ${HL_FFLAGS}" \
