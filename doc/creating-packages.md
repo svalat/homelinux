@@ -399,7 +399,7 @@ You can provide some version restriction using `>3.4 < 4.8 !4.5.8 ~4.5 :3` (appl
 		"X": [ "--$enable-X" ],
 		"+gmp": [ "--with-gmp=$(hl prefix-of gmp)" ],
 		"-gmp": [ "--without-gmp" ],
-		"mpfr": ["-DCMAKE_ENABLE_MPFR=$ON",
+		"mpfr": ["-DCMAKE_ENABLE_MPFR=$ON" ],
 		"debug&assert": ["--$enable-debug" ]
 	}
 }
