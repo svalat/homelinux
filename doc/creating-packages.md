@@ -368,8 +368,8 @@ You can provide some version restriction using `>3.4 < 4.8 !4.5.8 ~4.5 :3` (appl
  {
  	"host":{
  		"default": false,
- 		"debian8": [ "libpng", libpng-dev"],
- 		"centos7": [ "libpng", libpng-devel"],
+ 		"debian8": [ "libpng", "libpng-dev"],
+ 		"centos7": [ "libpng", "libpng-devel"],
  		"gentoo": "dev-libs/libpng"
  	}
  }
