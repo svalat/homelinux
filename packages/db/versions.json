@@ -9424,7 +9424,7 @@
 		"0.9.0.2"
 	],
 	"hl/x11-libs/libXt" : [ "1.1.3" ],
-	"hl/x11-libs/libXtst" : [ "1.2.3", "1.2.1" ],
+	"hl/x11-libs/libXtst" : [ "1.2.1" ],
 	"hl/x11-libs/libXxf86vm" : 
 	[
 		"1.1.4",

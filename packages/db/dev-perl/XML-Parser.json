@@ -18,6 +18,11 @@
 	"deps": [
 		"dev-libs/expat"
 	],
+	"steps": {
+		"prepare": [
+			"run_sh export PATH=\"$HL_PREFIX/homelinux/compilers:$PATH\""
+		]
+	},
 	"configure": {
 	},
 	"host": {

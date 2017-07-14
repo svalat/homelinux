@@ -1,0 +1,30 @@
+{
+	"name": "x11-libs/libxkbcommon",
+	"homepage": "https://xkbcommon.org/",
+	"versions": [
+		"0.7.1"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://xkbcommon/libxkbcommon",
+		"regexp": "xkbcommon-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "libxkbcommon-xkbcommon-${VERSION}",
+	"urls": [
+		"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libxkbcommon", "libxkbcommon-dev"],
+		"centos7": [ "libxkbcommon", "libxkbcommon-devel" ],
+		"gentoo": [ "x11-libs/libxkbcommon" ]
+	}
+}

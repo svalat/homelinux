@@ -2,18 +2,25 @@
 	"name": "app-text/docbook-xml-dtd",
 	"homepage": "http://www.docbook.org/",
 	"versions": [
+		"4.2",
+		"4.3",
 		"4.5"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "gentoo",
-		"url": "XXXXXXX",
-		"regexp": "docbook-xml-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip)"
+		"subdir": {
+			"mode": "html",
+			"url": "http://docbook.org/xml/",
+			"regexp": "([0-9]+.[0-9]+)/"
+		},
+		"mode": "html",
+		"url": "http://docbook.org/xml/${SVERSION}/",
+		"regexp": "docbook-xml-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).zip"
 	},
 	"md5": {},
 	"subdir": "./",
 	"urls": [
-		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/docbook-xml-${VERSION}.zip"
+		"http://docbook.org/xml/${VERSION}/docbook-xml-${VERSION}.zip"
 	],
 	"deps": [
 		"app-arch/unzip",
@@ -29,14 +36,48 @@
 		"configure": [],
 		"build": [],
 		"install": [
-				"run mkdir -p ${PREFIX}/share/docbook-xml/",
-				"run cp -r -v * ${PREFIX}/share/docbook-xml/",
-				"run rm -f ${PREFIX}/share/docbook-xml/README",
-				"run rm -f ${PREFIX}/share/docbook-xml/ChangeLog"
+			"#run mkdir -p ${PREFIX}/share/docbook-xml/",
+			"#run cp -r -v * ${PREFIX}/share/docbook-xml/",
+			"#run rm -f ${PREFIX}/share/docbook-xml/README",
+			"#run rm -f ${PREFIX}/share/docbook-xml/ChangeLog",
+				
+			"run install -v -d -m755 ${PREFIX}/share/xml/docbook/xml-dtd-${VERSION}",
+			"run install -v -d -m755 ${PREFIX}/etc/xml",
+			"run cp -v -af docbook.cat *.dtd ent/ *.mod ${PREFIX}/share/xml/docbook/xml-dtd-4.5"
+		],
+		"postinstall": [
+			"test -e ${PREFIX}/etc/xml/docbook || run xmlcatalog --noout --create ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//DTD DocBook XML V4.5//EN' 'http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd' ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//DTD DocBook XML CALS Table Model V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/calstblx.dtd ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//DTD XML Exchange Table Model 19990315//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/soextblx.dtd ${PREFIX}/etc/xml/docbook", 
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ELEMENTS DocBook XML Information Pool V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/dbpoolx.mod ${PREFIX}/etc/xml/docbook", 
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ELEMENTS DocBook XML Document Hierarchy V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/dbhierx.mod ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ELEMENTS DocBook XML HTML Tables V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/htmltblx.mod ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ENTITIES DocBook XML Notations V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/dbnotnx.mod ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ENTITIES DocBook XML Character Entities V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/dbcentx.mod ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'public' '-//OASIS//ENTITIES DocBook XML Additional General Entities V4.5//EN' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5/dbgenent.mod ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'rewriteSystem' 'http://www.oasis-open.org/docbook/xml/4.5' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5 ${PREFIX}/etc/xml/docbook",
+			"run_no_eval xmlcatalog --noout --add 'rewriteURI' 'http://www.oasis-open.org/docbook/xml/4.5' file://${PREFIX}/share/xml/docbook/xml-dtd-4.5 ${PREFIX}/etc/xml/docbook",
+			"test -e ${PREFIX}/etc/xml/catalog || run xmlcatalog --noout --create ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add 'delegatePublic' '-//OASIS//ENTITIES DocBook XML' file://${PREFIX}/etc/xml/docbook ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add 'delegatePublic' '-//OASIS//DTD DocBook XML' file://${PREFIX}/etc/xml/docbook ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add 'delegateSystem' 'http://www.oasis-open.org/docbook/' file://${PREFIX}/etc/xml/docbook ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add 'delegateURI' 'http://www.oasis-open.org/docbook/' file://${PREFIX}/etc/xml/docbook ${PREFIX}/etc/xml/catalog",
+			"for DTDVERSION in 4.1.2 4.2 4.3 4.4",
+			"do",
+				"run_no_eval xmlcatalog --noout --add 'public' \"-//OASIS//DTD DocBook XML V$DTDVERSION//EN\" 'http://www.oasis-open.org/docbook/xml/$DTDVERSION/docbookx.dtd' ${PREFIX}/etc/xml/docbook",
+				"run_no_eval xmlcatalog --noout --add 'rewriteSystem' http://www.oasis-open.org/docbook/xml/$DTDVERSION file://${PREFIX}/share/xml/docbook/xml-dtd-4.5 ${PREFIX}/etc/xml/docbook",
+				"run_no_eval xmlcatalog --noout --add 'rewriteURI' http://www.oasis-open.org/docbook/xml/$DTDVERSION file://${PREFIX}/share/xml/docbook/xml-dtd-4.5 ${PREFIX}/etc/xml/docbook",
+				"run_no_eval xmlcatalog --noout --add 'delegateSystem' http://www.oasis-open.org/docbook/xml/$DTDVERSION/ file://${PREFIX}/xml/docbook ${PREFIX}/etc/xml/catalog",
+				"run_no_eval xmlcatalog --noout --add 'delegateURI' http://www.oasis-open.org/docbook/xml/$DTDVERSION/ file://${PREFIX}/etc/xml/docbook ${PREFIX}/etc/xml/catalog",
+			"done"
 		]
 	},
+	"slots": {
+		"~": "([0-9]+)"
+	},
 	"host": {
-		"default": true,
+		"default": false,
 		"debian8": [
 			"docbook-xml-dtd"
 		],

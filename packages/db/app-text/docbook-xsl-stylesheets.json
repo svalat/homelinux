@@ -23,16 +23,24 @@
 	],
 	"steps": {
 		"configure": [
-			"run mkdir -p ${PREFIX}/share/docbook-xsl/",
-			"run cp -r -v * ${PREFIX}/share/docbook-xsl/"
+			"run install -v -m755 -d ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION}",
+			"run cp -v -R VERSION assembly common eclipse epub epub3 extensions fo highlighting html htmlhelp images javahelp lib manpages params profiling roundtrip slides template tests tools webhelp website xhtml xhtml-1_1 xhtml5 ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION}",
+			"run ln -sf VERSION ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION}/VERSION.xsl",
+			"run install -v -m644 -D README ${PREFIX}/share/doc/docbook-xsl-${VERSION}/README.txt",
+			"run install -v -m644    RELEASE-NOTES* NEWS* ${PREFIX}/share/doc/docbook-xsl-${VERSION}"
 		],
 		"build": [],
 		"postinstall": [
-			"#run xmlcatalog --add ${PREFIX}/etc/sgml/docbook.cat ${PREFIX}/share/docbook-xsl/docbook.cat"
+			"test -d /etc/xml || run install -v -m755 -d /etc/xml",
+			"test -f /etc/xml/catalog || run xmlcatalog --noout --create ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add rewriteSystem http://docbook.sourceforge.net/release/xsl/${VERSION} ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION} ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add rewriteURI http://docbook.sourceforge.net/release/xsl/${VERSION} ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION} ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add rewriteSystem http://docbook.sourceforge.net/release/xsl/current ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION} ${PREFIX}/etc/xml/catalog",
+			"run_no_eval xmlcatalog --noout --add rewriteURI http://docbook.sourceforge.net/release/xsl/current ${PREFIX}/share/xml/docbook/xsl-stylesheets-${VERSION} ${PREFIX}/etc/xml/catalog"
 		]
 	},
 	"host": {
-		"default": true,
+		"default": false,
 		"debian8": [
 			"docbook-xsl"
 		],

@@ -43,15 +43,16 @@
 		"test&utils? dev-libs/elfutils",
 		"test&utils? dev-libs/libelf"
 	],
+	"flags": {
+		"LDFLAGS": ["-L${HL_PREFIX}/lib"],
+		"CFLAGS": ["-I${HL_PREFIX}/include"]
+	},
 	"configure": {
 		"": [
 			"--with-threads=posix",
 			"--disable-compile-warnings",
-			"--enable-man",
 			"--with-pcre=internal",
-			"--enable-libmount=no",
-			"LDFLAGS=-L$PREFIX/lib",
-			"CFLAGS=-I$PREFIX/include"
+			"--enable-libmount=no"
 		],
 		"iconv": [
 			"--$with-libiconv"

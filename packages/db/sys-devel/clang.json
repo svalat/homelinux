@@ -36,7 +36,7 @@
 	},
 	"steps": {
 		"prepare": [
-			"hl_module_load clang-${SLOT}"
+			"run_sh hl_module_load add clang-${SLOT}"
 		]
 	},
 	"module": "clang-${SLOT}",

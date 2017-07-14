@@ -13,7 +13,7 @@
 	"md5": {},
 	"subdir": "phonon-${VERSION}",
 	"urls": [
-		"http://download.kde.org/stable/phonon/${VERSION}/src//phonon-${VERSION}.tar.xz"
+		"http://download.kde.org/stable/phonon/${VERSION}/phonon-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"virtual/pkgconfig",

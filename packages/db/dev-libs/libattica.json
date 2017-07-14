@@ -16,7 +16,8 @@
 		"http://download.kde.org/stable/attica/attica-${VERSION}.tar.bz2"
 	],
 	"deps": [
-		"dev-qt/qt :4"
+		"qt4? dev-qt/qt :4",
+		"qt5? dev-qt/qt :5"
 	],
 	"configure": {
 		"": [
@@ -25,7 +26,9 @@
 	},
 	"use": [
 		"debug",
-		"test"
+		"test",
+		"qt4",
+		"+qt5"
 	],
 	"host": {
 		"default": false,

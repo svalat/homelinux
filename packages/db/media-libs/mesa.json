@@ -65,6 +65,7 @@
 	],
 	"configure": {
 		"": [
+			"--disable-llvm-shared-libs"
 		],
 		"gentoo": [
 			"--enable-dri",
@@ -74,7 +75,6 @@
 			"--with-platforms=x11",
 			"--with-va-libdir=/usr//va/drivers",
 			"--with-clang-libdir=/usr/lib",
-			"--enable-llvm-shared-libs",
 			"--with-dri-drivers=,swrast,i915,i965,nouveau,radeon,r200",
 			"--with-gallium-drivers=,swrast,svga,nouveau,i915,ilo,r300,r600,radeonsi,freedreno"
 		],

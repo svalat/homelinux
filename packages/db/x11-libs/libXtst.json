@@ -3,7 +3,7 @@
 	"name": "x11-libs/libXtst",
 	"homepage": "",
 	"versions": [
-		"1.2.3"
+		"1.2.1"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {

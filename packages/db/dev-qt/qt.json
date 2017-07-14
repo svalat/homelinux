@@ -74,6 +74,9 @@
 			"-opensource",
 			"-release",
 			"-confirm-license",
+			"-fontconfig"
+		],
+		"gentoo": [
 			"-system-zlib",
 			"-system-libpng",
 			"-system-libjpeg",
@@ -137,6 +140,7 @@
 		"gentoo": [ "dev-qt/qt" ]
 	},
 	"use" : [
+		"gentoo",
 		"FIXME",
 		"aqua",
 		"-debug",

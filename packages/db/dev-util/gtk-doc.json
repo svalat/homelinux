@@ -16,9 +16,14 @@
 		"https://download.gnome.org/sources/gtk-doc/$(echo $VERSION | cut -d '.' -f 1-2)/gtk-doc-${VERSION}.tar.xz"
 	],
 	"deps": [
+		"app-text/docbook-xml-dtd",
+		"docbook-xsl-stylesheets",
 		"dev-util/itstool"
 	],
 	"configure": {
+		"": [
+			"--with-xml-catalog=${PREFIX}/etc/xml/catalog"
+		]
 	},
 	"host": {
 		"default": false,
