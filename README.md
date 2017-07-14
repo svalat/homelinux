@@ -199,7 +199,7 @@ is the priority of debian versus gentoo depending on which distribution your pre
 Create packages
 ---------------
 
-To create package, check [doc/package.md](doc/package.md). If you don't want to provide full packages but just want to use
+To create package, check [doc/packages.md](doc/packages.md). If you don't want to provide full packages but just want to use
 as most as possible the default options, you can use the quick package approach defined into [doc/quickpackage.md](doc/quickpackage.md).
 
 About libxml2 and Python
