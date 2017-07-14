@@ -30,6 +30,14 @@ Consider the conversion as *semi-automatic*, there is still some bugs you will h
 
 You also habe to provide the URLs and REGEXP for the version crawling which *cannot be deduced automatically* from the Gentoo packaeg.
 
+A word about regexp
+-------------------
+
+You will have to define regexp to grab the version from websites. Notice that we automatically escape
+point (`.`) such a way that it is interpreted as the letter not the "accept all" commonly used by regexp.
+
+This feature is automatically disabled it it find one already escaped point.
+
 Example
 -------
 
