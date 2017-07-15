@@ -74,7 +74,9 @@
 			"-opensource",
 			"-release",
 			"-confirm-license",
-			"-fontconfig"
+			"-fontconfig",
+			"-I$(hl prefix-of libX11)/include",
+			"-L$(hl prefix-of libX11)/lib"
 		],
 		"gentoo": [
 			"-system-zlib",

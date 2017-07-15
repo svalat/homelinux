@@ -89,10 +89,10 @@
 			"--$with-linux-vga="
 		],
 		"X": [
-			"--$with-x="
+			"--$with-x"
 		],
 		"qt4": [
-			"--$with-qt=qt4"
+			"--$with-qt"
 		],
 		"wxwidgets": [
 			"--$enable-wxwidgets"

@@ -18,6 +18,9 @@
 	"deps": [
 	],
 	"configure": {
+		"": [
+			"--with-x11-libdir=$(hl prefix-of libX11)/lib"
+		]
 	},
 	"host": {
 		"default": false,
