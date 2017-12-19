@@ -1,7 +1,7 @@
 
 /*****************************************************
 			 PROJECT  : homelinux
-			 VERSION  : 2.0.0-dev
+			 VERSION  : 2.0.0
 			 DATE     : 06/2017
 			 AUTHOR   : Valat Sébastien
 			 LICENSE  : CeCILL-C

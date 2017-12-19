@@ -1,6 +1,6 @@
 {
   "name": "homelinux-html-link-extractor",
-  "version": "2.0.0-dev",
+  "version": "2.0.0",
   "description": "A script to extract links from html page and filter them with a regexp",
   "main": "index.js",
   "scripts": {
