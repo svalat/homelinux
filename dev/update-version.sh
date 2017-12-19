@@ -1,10 +1,10 @@
 #!/bin/bash
 ######################################################
-#           Project : HomeLinux                      #
-#           Version : 2.0.0-dev                      #
-#           Date    : 01/2016                        #
-#           Licence : BSD                            #
-#           Authors : Sebastien Valat                #
+#            PROJECT  : homelinux                    #
+#            VERSION  : 2.0.0                        #
+#            DATE     : 06/2017                      #
+#            AUTHOR   : Valat Sébastien              #
+#            LICENSE  : CeCILL-C                     #
 ######################################################
 
 ######################################################

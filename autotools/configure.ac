@@ -1,6 +1,6 @@
 ######################################################
 #            PROJECT  : homelinux                    #
-#            VERSION  : 2.0.0-dev                    #
+#            VERSION  : 2.0.0                        #
 #            DATE     : 06/2017                      #
 #            AUTHOR   : Valat Sébastien              #
 #            LICENSE  : CeCILL-C                     #
@@ -8,7 +8,7 @@
 
 ######################################################
 AC_PREREQ([2.63])
-AC_INIT([homelinux], [2.0.0-dev], [sebastien.valat-dev@orange.fr])
+AC_INIT([homelinux], [2.0.0], [sebastien.valat-dev@orange.fr])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS([src/config.h:src/config-autotools.h.in])
