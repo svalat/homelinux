@@ -9,7 +9,7 @@
 	"vfetcher": {
 		"mode": "ftp",
 		"url": "ftp://distrib-coffee.ipsl.jussieu.fr/pub/mirrors/ctan/systems/texlive/Source/",
-		"regexp": "texlive-latex-([0-9]+.?[0-9]*.?[0-9]*.?[0-9]*)-source.(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"regexp": "texlive-([0-9]+)-source.(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
 	},
 	"md5": {},
 	"subdir": "texlive-latex-${VERSION}",

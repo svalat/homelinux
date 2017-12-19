@@ -117,9 +117,18 @@ void ProviderDebian::updateDb(void)
 		//get url
 		std::string repo = json["repos"][i].asString();
 
+		//setup defaults
+		StringMap state;
+		state["Package"]="";
+		state["Version"]="";
+		state["Build-Depends"]="";
+		state["Homepage"]="";
+		state["Binary"]="";
+		state["Directory"]="";
+		state["Section"]="";
+
 		//load
 		std::string content;
-		StringMap state;
 		std::string cur;
 		if (System::runAndRead(content,"curl "+repo+"/source/Sources.xz | xz -d"))
 		{
@@ -130,7 +139,10 @@ void ProviderDebian::updateDb(void)
 				{
 					DebianDbEntry entry;
 					entry.name = state["Package"];
-					entry.version = Helper::split(state["Version"],'-').front();
+					if (state["Version"].empty())
+						entry.version = "0.0.0";
+					else
+						entry.version = Helper::split(state["Version"],'-').front();
 					entry.deps = state["Build-Depends"];
 					entry.homepage = state["Homepage"];
 					//todo split on ', '

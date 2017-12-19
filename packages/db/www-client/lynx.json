@@ -2,13 +2,13 @@
 	"name": "www-client/lynx",
 	"homepage": "http://lynx.isc.org/",
 	"versions": [
-		"2.8.8rel.2"
+		"2.8.8"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://invisible-island.net/lynx/tarballs/",
-		"regexp": "lynx([0-9]+.[0-9]+.?[0-9]*.?[0-9]*rel.[0-9]+).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "http",
+		"url": "http://lynx.invisible-island.net/release/",
+		"regexp": "lynx([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "lynx$(echo ${VERSION} | cut -f 1 -d r | sed -e 's/\\./-/g')",

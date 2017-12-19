@@ -24,7 +24,7 @@ CrawlerHtml::CrawlerHtml(Prefix * prefix)
 {
 	//check if have node
 	assume(System::hasCommand("node -v"),"You need to install nodejs to crawl html pages !");
-	
+
 	//get node path
 	std::string path = prefix->getFilePath("/share/homelinux/html-link-extractor/");
 	nodeScript = path + "index.js";

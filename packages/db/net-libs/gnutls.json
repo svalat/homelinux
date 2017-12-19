@@ -6,8 +6,13 @@
 		"3.4.7"
 	],
 	"vfetcher": {
+		"subdir": {
+			"mode": "ftp",
+			"url": "ftp://ftp.gnutls.org/gcrypt/gnutls/",
+			"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)/"
+		},
 		"mode": "ftp",
-		"url": "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.4/",
+		"url": "ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION}/",
 		"regexp": "gnutls-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},

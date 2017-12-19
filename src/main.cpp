@@ -51,7 +51,7 @@ Commandsl:\n\
     fetch-versions    : Fetch versions of given package (work only\n\
                         for db packages.\n\
     env               : Setup the environement variable to load.\n\
-	edit              : Open the given package in editor.\n\
+    edit              : Open the given package in editor.\n\
     unenv             : Reset the environnement variables by removing the homelinux entries.\n\
     switch            : Switch the environnement variables to the given prefix.\n\
     is-pack-installed : Check if the given package is installed or not.\n\

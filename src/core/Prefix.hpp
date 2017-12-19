@@ -69,13 +69,13 @@ class Prefix
 		void exportConfig(std::ostream & out = std::cout);
 		void validate(void);
 		void crawl(void);
+		void applyMirrors(StringList &urls);
 	private:
 		bool isLocalyInstalled(const PackageDef & pack);
 		bool loadPackageNoInherit(PackageDef & out,const std::string & packageName);
 		Provider & getProvider(const std::string & name);
 		void loadConfig(void);
 		QuickPackage & getQuickPackage(void);
-		void applyMirrors(StringList &urls);
 		void applyMirrors(Json::Value & urls);
 		std::string applyMirrors(const std::string & url);
 	private:

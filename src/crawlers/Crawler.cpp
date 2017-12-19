@@ -9,6 +9,7 @@
 /********************  HEADERS  *********************/
 #include <cassert>
 #include <core/VersionMatcher.hpp>
+#include <core/Prefix.hpp>
 #include "Crawler.hpp"
 
 /*******************  NAMESPACE  ********************/
@@ -46,6 +47,9 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 	else if (params["url"].isArray())
 		for (Json::ArrayIndex i = 0 ; i < params["url"].size() ; i++)
 			urls.push_back(params["url"][i].asString());
+
+	//apply mirror
+	this->prefix->applyMirrors(urls);
 
 	//manage subdir
 	if (params["subdir"].isObject())

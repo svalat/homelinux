@@ -225,6 +225,34 @@ is to install python:2 into homelinux :
 hl install libxml2 python:2
 ```
 
+Crawling github
+---------------
+
+Homelinux contain a crawler to grab last version of all packages automatically, you can invoke it by using :
+
+```sh
+hl crawl
+```
+
+But this command can start to show some warnings if it grab to quicly from github hitting a limit imposed on their server.
+To overcome this issue, you need to go into you github settings (you need an account) and go in developper settings.
+There you can add a new OAuth application. Fill it and your will get :
+
+ * A client ID
+ * A client Secret
+
+Then open `~/.homelinux.json` and put your keys here :
+
+```json
+{
+        "github" : 
+        {
+                "clientId" : "XXXXXXXXXXXXXXX",
+                "clientSecret" : "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        }
+}
+```
+
 Similar tools
 -------------
 
