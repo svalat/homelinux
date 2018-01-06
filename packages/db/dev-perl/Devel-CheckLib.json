@@ -1,0 +1,38 @@
+{
+	"api": 1,
+	"name": "dev-perl/Devel-CheckLib",
+	"homepage": "",
+	"versions": [
+		"1.11"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://search.cpan.org/~mattn/Devel-CheckLib-1.11/",
+		"regexp": "^Devel-CheckLib-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)",
+		"tag": "option",
+		"enclose": false
+	},
+	"md5": {},
+	"subdir": "Devel-CheckLib-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/M/MA/MATTN/Devel-CheckLib-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Devel-CheckLib"
+		],
+		"centos7": [
+			"Devel-CheckLib"
+		],
+		"gentoo": [
+			"dev-perl/Devel-CheckLib"
+		]
+	}
+}

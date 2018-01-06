@@ -10,3 +10,12 @@ dev/gentoo-pkg-converter/node_modules/
 dev/gentoo-pkg-converter/portage-latest.tar.bz2
 dev/gentoo-pkg-converter/portage-stable/
 autotools/autom4te.cache/
+Makefile.in
+autotools/INSTALL
+autotools/aclocal.m4
+autotools/compile
+autotools/configure
+autotools/depcomp
+autotools/install-sh
+autotools/missing
+

@@ -51,12 +51,16 @@ void CrawlerHtml::internalRun(std::string url)
 	//debug
 	HL_DEBUG_ARG("CrawlerHtml","Crawling %1").arg(url).end();
 
+	//option
+	bool enclose = options.get("enclose",true).asBool();
+
 	//prepare regexp
 	std::string reg = txtRegexp;
 	Helper::replaceInPlace(reg,"\\","\\\\");
 	Helper::replaceInPlace(reg,"\"","\\\"");
 	Helper::replaceInPlace(reg,"$","\\$");
-	reg = "^[ \n]*" + reg + "[ \n]*$";
+	if (enclose)
+		reg = "^[ \n]*" + reg + "[ \n]*$";
 	
 	//tag
 	std::string tag = options.get("tag","a").asString();

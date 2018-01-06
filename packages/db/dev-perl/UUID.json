@@ -1,0 +1,39 @@
+{
+	"api": 1,
+	"name": "dev-perl/UUID",
+	"homepage": "",
+	"versions": [
+		"0.27"
+	],
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://search.cpan.org/~jrm/UUID-0.27/",
+		"regexp": "^UUID-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)",
+		"tag": "option",
+		"enclose": false
+	},
+	"md5": {},
+	"subdir": "UUID-${VERSION}",
+	"urls": [
+		"http://search.cpan.org/CPAN/authors/id/J/JR/JRM/UUID-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-perl/Devel-CheckLib"
+	],
+	"configure": {},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Devel-CheckLib"
+		],
+		"centos7": [
+			"Devel-CheckLib"
+		],
+		"gentoo": [
+			"dev-perl/Devel-CheckLib"
+		]
+	}
+}
