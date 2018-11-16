@@ -25,14 +25,9 @@
 	],
 	"flags" : 
 	{
-		"CFLAGS" : 
-		[
-			"-O3 -march=native",
-			"-I/home/sebv/Projects/homelinux/src/core/tests/data//include"
-		],
+		"CFLAGS" : [ "-O3 -march=native" ],
 		"CXXFLAGS" : [ "$CFLAGS" ],
-		"LDFLAGS" : [ "-L/home/sebv/Projects/homelinux/src/core/tests/data//lib" ],
-		"MAKEOPTS" : [ "-j8" ]
+		"MAKEOPTS" : [ "-j4", "-j8" ]
 	},
 	"homepage" : "http://tiswww.case.edu/php/chet/bash/bashtop.html",
 	"host" : 
@@ -108,7 +103,9 @@
 	{
 		"mode" : "ftp",
 		"regexp" : "bash-([0-9]+\\.[0-9]+).tar.gz",
-		"url" : "http://ftp.gnu.org/gnu/bash/"
+		"subdir" : null,
+		"url" : "http://ftp.gnu.org/gnu/bash/",
+		"urls" : null
 	},
 	"vspecific" : null,
 	"warn" : null

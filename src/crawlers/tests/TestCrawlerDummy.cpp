@@ -8,6 +8,8 @@
 
 /********************  HEADERS  *********************/
 #include <gtest/gtest.h>
+#include <base/Config.hpp>
+#include <core/Prefix.hpp>
 #include "../CrawlerDummy.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -16,13 +18,17 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(CrawlerDummy,constructor)
 {
-	CrawlerDummy crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerDummy crawler(&prefix);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerDummy,run)
 {
-	CrawlerDummy crawler(NULL);
+	Config cfg;
+	Prefix prefix(&cfg,TEST_DATA_PATH);
+	CrawlerDummy crawler(&prefix);
 
 	Json::Value config;
 	config["mode"] = "dummy";

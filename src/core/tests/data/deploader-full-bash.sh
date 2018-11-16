@@ -11,11 +11,11 @@ HL_PREFIX="/TEST/"
 HL_HOMECACHE="false"
 
 #Compiler flags
-HL_MAKEOPTS="-j8"
-HL_CFLAGS="-O3 -march=native -I/home/sebv/Projects/homelinux/src/core/tests/data//include"
+HL_MAKEOPTS="-j4 -j8"
+HL_CFLAGS="-O3 -march=native"
 HL_CXXFLAGS="$CFLAGS"
 HL_FFLAGS=""
-HL_LDFLAGS="-L/home/sebv/Projects/homelinux/src/core/tests/data//lib"
+HL_LDFLAGS=""
 
 #Pack infos
 NAME="hl/sys-libs/ncurses"
@@ -46,15 +46,11 @@ PACK_JSON="
 	\"deps\" : [ \"gpm? sys-libs/gpm\" ],
 	\"flags\" : 
 	{
-		\"CFLAGS\" : 
-		[
-			\"-O3 -march=native\",
-			\"-I/home/sebv/Projects/homelinux/src/core/tests/data//include\"
-		],
+		\"CFLAGS\" : [ \"-O3 -march=native\" ],
 		\"CXXFLAGS\" : [ \"\$CFLAGS\" ],
 		\"FFLAGS\" : null,
-		\"LDFLAGS\" : [ \"-L/home/sebv/Projects/homelinux/src/core/tests/data//lib\" ],
-		\"MAKEOPTS\" : [ \"-j8\" ]
+		\"LDFLAGS\" : null,
+		\"MAKEOPTS\" : [ \"-j4\", \"-j8\" ]
 	},
 	\"homepage\" : \"https://www.gnu.org/software/ncurses/ http://dickey.his.com/ncurses/\",
 	\"host\" : 
@@ -142,7 +138,9 @@ PACK_JSON="
 	{
 		\"mode\" : \"ftp\",
 		\"regexp\" : \"ncurses-([0-9]+\\\\.[0-9]+\\\\.?[0-9]*\\\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)\",
-		\"url\" : \"ftp://ftp.gnu.org/pub/gnu/ncurses/\"
+		\"subdir\" : null,
+		\"url\" : \"ftp://ftp.gnu.org/pub/gnu/ncurses/\",
+		\"urls\" : null
 	},
 	\"vspecific\" : null,
 	\"warn\" : null
@@ -281,11 +279,11 @@ HL_PREFIX="/TEST/"
 HL_HOMECACHE="false"
 
 #Compiler flags
-HL_MAKEOPTS="-j8"
-HL_CFLAGS="-O3 -march=native -I/home/sebv/Projects/homelinux/src/core/tests/data//include"
+HL_MAKEOPTS="-j4 -j8"
+HL_CFLAGS="-O3 -march=native"
 HL_CXXFLAGS="$CFLAGS"
 HL_FFLAGS=""
-HL_LDFLAGS="-L/home/sebv/Projects/homelinux/src/core/tests/data//lib"
+HL_LDFLAGS=""
 
 #Pack infos
 NAME="hl/app-shells/bash"
@@ -327,15 +325,11 @@ PACK_JSON="
 	],
 	\"flags\" : 
 	{
-		\"CFLAGS\" : 
-		[
-			\"-O3 -march=native\",
-			\"-I/home/sebv/Projects/homelinux/src/core/tests/data//include\"
-		],
+		\"CFLAGS\" : [ \"-O3 -march=native\" ],
 		\"CXXFLAGS\" : [ \"\$CFLAGS\" ],
 		\"FFLAGS\" : null,
-		\"LDFLAGS\" : [ \"-L/home/sebv/Projects/homelinux/src/core/tests/data//lib\" ],
-		\"MAKEOPTS\" : [ \"-j8\" ]
+		\"LDFLAGS\" : null,
+		\"MAKEOPTS\" : [ \"-j4\", \"-j8\" ]
 	},
 	\"homepage\" : \"http://tiswww.case.edu/php/chet/bash/bashtop.html\",
 	\"host\" : 
@@ -414,7 +408,9 @@ PACK_JSON="
 	{
 		\"mode\" : \"ftp\",
 		\"regexp\" : \"bash-([0-9]+\\\\.[0-9]+).tar.gz\",
-		\"url\" : \"http://ftp.gnu.org/gnu/bash/\"
+		\"subdir\" : null,
+		\"url\" : \"http://ftp.gnu.org/gnu/bash/\",
+		\"urls\" : null
 	},
 	\"vspecific\" : null,
 	\"warn\" : null

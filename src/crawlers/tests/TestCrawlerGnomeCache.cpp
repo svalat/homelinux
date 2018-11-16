@@ -8,6 +8,8 @@
 
 /********************  HEADERS  *********************/
 #include <gtest/gtest.h>
+#include <base/Config.hpp>
+#include <core/Prefix.hpp>
 #include "../CrawlerGnomeCache.hpp"
 
 /***************** USING NAMESPACE ******************/
@@ -16,13 +18,17 @@ using namespace hl;
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,constructor)
 {
-	CrawlerGnomeCache crawler(NULL);
+	Config config;
+	Prefix prefix(&config,TEST_DATA_PATH);
+	CrawlerGnomeCache crawler(&prefix);
 }
 
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,run)
 {
-	CrawlerGnomeCache crawler(NULL);
+	Config cfg;
+	Prefix prefix(&cfg,TEST_DATA_PATH);
+	CrawlerGnomeCache crawler(&prefix);
 
 	Json::Value config;
 	config["mode"] = "gnome-cache";
@@ -40,7 +46,9 @@ TEST(CrawlerGnomeCache,run)
 /*******************  FUNCTION  *********************/
 TEST(CrawlerGnomeCache,run_invalid)
 {
-	CrawlerGnomeCache crawler(NULL);
+	Config cfg;
+	Prefix prefix(&cfg,TEST_DATA_PATH);
+	CrawlerGnomeCache crawler(&prefix);
 
 	Json::Value config;
 	config["mode"] = "gnome-cache";
