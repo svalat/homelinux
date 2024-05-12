@@ -86,6 +86,34 @@ to this prefix first to make it as active prefix.
 
 	eval "`hl switch $HOME/usrbase`"
 
+Common user config file
+-----------------------
+
+I commonly have this in my user config file (`~/.homelinux.json`) :
+
+```json
+
+{
+	"ccache" : false,
+	"crawlerThreads" : 4,
+	"crawlerTimeout" : 60,
+	"editor" : "nano",
+	"github": {
+		"clientId": "HERE YOU OWN GITHUB CLIENT ID",
+		"clientSecret": "HERE YOU OWN GITHUB SECRET"
+	},
+	"homecache" : false,
+	"host" : "default",
+	"makeJ" : 8,
+	"modules" : null,
+	"packageOverride" : null,
+	"prefix" : [ "/home/sebv/hl" ],
+	"pyEnv" : true,
+	"temp" : "/tmp/homelinux-sebv"
+}
+
+```
+
 Basic usage
 -----------
 
@@ -261,6 +289,7 @@ Here you can find some realy interesting similar tools. If I miss some interesti
  * https://nixos.org/nix/
  * https://hpcugent.github.io/easybuild/
  * https://github.com/LLNL/spack
+ * https://guix.gnu.org/
 
 Licence
 -------
