@@ -11,5 +11,5 @@
 set(RE2_BUILD_TESTING OFF)
 
 ######################################################
-add_subdirectory(gmock-1.7.0)
+add_subdirectory(googletest-1.14.0)
 add_subdirectory(jsoncpp/dist)

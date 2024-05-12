@@ -12,7 +12,7 @@
 ######################################################
 #Setup paths to gtest/gmock headers and library
 MACRO(setup_internal_gmock_and_gtest)
-	set(GMOCK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/extern-deps/gmock-1.7.0)
+	set(GMOCK_SOURCE_DIR ${CMAKE_SOURCE_DIR}/extern-deps/googletest-1.14.0)
 	set(GMOCK_INCLUDE_DIR ${GMOCK_SOURCE_DIR}/include)
 	set(GMOCK_INCLUDE_DIRS ${GMOCK_SOURCE_DIR}/include)
 	set(GMOCK_BOTH_LIBRARIES gmock gmock_main)
@@ -39,7 +39,7 @@ MACRO(homelinux_enable_cxx_11)
 		CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
 		if(COMPILER_SUPPORTS_CXX11)
 			message(STATUS "Using -std=c++0x")
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")	
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 		else()
 			message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 or C++0x support. Please use a different C++ compiler.")
 		endif()
