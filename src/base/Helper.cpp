@@ -24,7 +24,7 @@ namespace hl
 StringList Helper::split(const std::string & value,char separator,bool keepEmpty)
 {
 	//vars
-	char buffer[4096];
+	char buffer[8*4096];
 	StringList res;
 	
 	//read
@@ -38,7 +38,7 @@ StringList Helper::split(const std::string & value,char separator,bool keepEmpty
 			res.push_back(buffer);
 		} else if (value[i] != separator) {
 			buffer[cnt++] = value[i];
-			assume(cnt < 4096,"Split element is too large, should be shorter than 1024 characters !");
+			assumeArg(cnt < sizeof(buffer),"Split element (on %2) is too large, should be shorter than %1 characters !").arg(sizeof(buffer)).arg(separator).end();
 		}
 	}
 	

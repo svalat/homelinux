@@ -337,7 +337,10 @@ bool System::runAndRead(std::string & out,const std::string & cmd)
 	sprintf(buffer,"/tmp/hl-internal-run-and-read-%d-%d.out",getpid(),id++);
 	//std::string tmp = mktemp(buffer);
 	std::string tmp = buffer;
-	
+
+	//debug
+	HL_DEBUG_ARG("System","Run and read command : %1").arg(cmd).end();
+
 	//run
 	int status = system((cmd + " > "+tmp).c_str());
 

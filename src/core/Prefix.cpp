@@ -359,7 +359,7 @@ void Prefix::crawl(void)
 {
 	updateDb();
 	Provider & p = getProvider("homelinux");
-	HL_MESSAGE_ARG("Update DB of provier %1").arg("homelinux").end();
+	HL_MESSAGE_ARG("Update DB of provider %1").arg("homelinux").end();
 	p.updateDb();
 }
 
@@ -386,7 +386,7 @@ void Prefix::updateDb(void)
 		if (*prov != "homelinux")
 		{
 			Provider & p = getProvider(*prov);
-			HL_MESSAGE_ARG("Update DB of provier %1").arg(*prov).end();
+			HL_MESSAGE_ARG("Update DB of provider %1").arg(*prov).end();
 			p.updateDb();
 		}
 	}
@@ -503,7 +503,7 @@ void Prefix::updateCache(void)
 	forEach(StringList,prov,prefixConfig.providers)
 	{
 		Provider & p = getProvider(*prov);
-		HL_MESSAGE_ARG("Update cache of provier %1").arg(*prov).end();
+		HL_MESSAGE_ARG("Update cache of provider %1").arg(*prov).end();
 		p.updateCache();
 	}
 }
