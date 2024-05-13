@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http",
-		"url": "https://sourceware.org/pub/bzip2/",
-		"regexp": "bzip2-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+		"url": "http://www.bzip.org/downloads.html",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*) source[ \\n]+tarball"
 	},
 	"md5" : {},
 	"subdir": "bzip2-${VERSION}",
 	"urls" : [
-		"https://sourceware.org/pub/bzip2/${VERSION}/bzip2-${VERSION}.tar.gz"
+		"http://www.bzip.org/${VERSION}/bzip2-${VERSION}.tar.gz"
 	],
 	"deps": [
 	],

@@ -479,6 +479,8 @@ function hl_build()
 		echo $HL_BUILDDIR > "$1"
 	elif [ -f rules.ninja ] && [ ! -f Makefile ]; then
 		run ninja
+	elif [ -f build.ninja ] && [ ! -f Makefile ]; then
+		run ninja
 	else
 		run make ${HL_MAKEOPTS}
 	fi
@@ -497,6 +499,8 @@ function hl_install()
 		run_sh cd cmakebuild
 	fi
 	if [ -f rules.ninja ] && [ ! -f Makefile ]; then
+		run ninja install
+	elif [ -f build.ninja ] && [ ! -f Makefile ]; then
 		run ninja install
 	else
 		run make install

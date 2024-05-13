@@ -6,9 +6,9 @@
 		"1.0.1" 
 	],
 	"vfetcher": {
-		"mode": "http-apache-list",
-		"url": "https://www.openssl.org/source/",
-		"regexp": "openssl-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*[a-z]).tar.gz"
+		"mode": "github",
+		"url": "github://openssl/openssl",
+		"regexp": "openssl-([0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9]+)?)"
 	},
 	"md5" : {},
 	"subdir": "openssl-${VERSION}",

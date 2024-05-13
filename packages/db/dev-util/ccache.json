@@ -1,19 +1,19 @@
 {
 	"name": "dev-util/ccache",
 	"homepage": "https://ccache.samba.org/",
-	"inherit": "models/autotools",
+	"inherit": "models/cmake",
 	"versions": [ 
 		"3.2.4" 
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://ccache.samba.org/",
-		"regexp": "Version ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*) has been released"
+		"mode": "github",
+		"url": "github://ccache/ccache",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "ccache-${VERSION}",
 	"urls" : [
-		"https://www.samba.org/ftp/ccache/ccache-${VERSION}.tar.gz"
+		"github://ccache/ccache"
 	],
 	"steps": {
 		"postinstall": [
@@ -26,6 +26,14 @@
 	},
 	"deps": [
 	],
+	"vspecific": {
+		">4.9" : {
+			"inherit": "models/cmake"
+		},
+		"<4.9" : {
+			"inherit": "models/autotools"
+		}
+	},
 	"host": {
 		"default": false,
 		"debian8": [ "ccache" ],

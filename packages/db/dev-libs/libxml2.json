@@ -18,7 +18,7 @@
 	"deps": [
 		"dev-util/gtk-doc-am",
 		"virtual/pkgconfig",
-		"python? dev-lang/python:2",
+		"python? dev-lang/python",
 		"sys-libs/zlib",
 		"hppa? sys-devel/binutils",
 		"icu? dev-libs/icu",
