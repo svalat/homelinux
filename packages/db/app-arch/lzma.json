@@ -36,10 +36,19 @@
 			"run make -f makefile.gcc"
 		],
 		"install": [
-			"run cp lzma $PREFIX/bin/lzmacon"
+			"run cp lzma $PREFIX/bin/lzma"
 		]
 	},
 	"tested": {
 		"centos7": "16.04"
+	},
+	"vspecific": {
+		">=23.01": {
+			"steps": {
+				"install": [
+                 		       "run cp _o/lzma $PREFIX/bin/lzma"
+		                ]
+			}
+		}
 	}
 }

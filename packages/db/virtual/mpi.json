@@ -1,0 +1,38 @@
+{
+	"name": "virtual/mpi",
+	"homepage": "",
+	"versions": [
+		"1.0"
+	],
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "dummy",
+		"url": "",
+		"regexp": ""
+	},
+	"md5": {},
+	"subdir": "mpi-${VERSION}",
+	"urls": [
+		""
+	],
+	"deps": [
+		"openmpi? sys-cluster/openmpi",
+		"mpich? sys-cluster/mpich"
+	],
+	"configure": {},
+	"use": [
+		"+openmpi", "-mpich"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"mpi-default"
+		],
+		"centos7": [
+			"mpi-default"
+		],
+		"gentoo": [
+			"virtual/mpi"
+		]
+	}
+}

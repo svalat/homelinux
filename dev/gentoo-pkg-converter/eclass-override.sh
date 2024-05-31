@@ -231,4 +231,9 @@ gnome2_src_configure()
 	echo "$@" > /tmp/hl_pkg_convert_conf.txt
 }
 
+multilib_src_configure()
+{
+	ignore
+}
+
 MULTILIB_USEDEP=""

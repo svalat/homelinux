@@ -1,0 +1,28 @@
+{
+	"name": "dev-libs/libelf",
+	"homepage": "https://sourceware.org/elfutils/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"0.191" 
+	],
+	"vfetcher": {
+		"mode": "http-apache-list",
+		"url": "https://sourceware.org/elfutils/ftp/",
+		"regexp": "([0-9]+\\.[0-9]+)/"
+	},
+	"md5" : {},
+	"subdir": "libelf-${VERSION}",
+	"urls" : [
+		"https://sourceware.org/elfutils/ftp/${VERSION}/elfutils-${VERSION}.tar.bz2"
+	],
+	"deps": [
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "libelf-dev" ],
+		"centos7": [ "libelf", "libelf-devel" ],
+		"gentoo": [ "dev-libs/libelf" ]
+	}
+}

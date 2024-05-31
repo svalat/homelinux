@@ -1,0 +1,56 @@
+{
+	"name": "sci-libs/netcdf",
+	"homepage": "https://www.unidata.ucar.edu/software/netcdf/",
+	"inherit": "models/cmake",
+	"versions": [ 
+		"4.9.2" 
+	],
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://Unidata/netcdf-c",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "netcdf-c-${VERSION}",
+	"urls" : [
+		"https://downloads.unidata.ucar.edu/netcdf-c/${VERSION}/netcdf-c-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/libxml2",
+		"dap? net-misc/curl",
+		"hdf5? sci-libs/hdf5",
+		"doxygen? app-text/doxygen"
+	],
+	"use": ["-dap", "+hdf5", "-hdf4", "-doxygen", "-examples", "tests"],
+	"configure": {
+		"": [
+			"-DENABLE_DAP_REMOTE_TESTS=OFF",
+			"-DENABLE_LIBXML2=ON",
+			"-DBUILD_UTILITIES=ON"
+		],
+		"dap": [
+			"-DENABLE_DAP=$ON"
+		],
+		"doxygen": [
+			"-DENABLE_DOXYGEN=$ON"
+		],
+		"examples": [
+			"-DENABLE_EXAMPLES=$(usex examples)"
+		],
+		"hdf4": [
+			"-DENABLE_HDF4=$ON",
+			"-DENABLE_NETCDF_4=$ON"
+		],
+		"hdf5": [
+			"-DENABLE_HDF5=$ON",
+			"-DENABLE_NETCDF_5=$ON"
+		],
+		"tests": [
+			"-DENABLE_TESTS=$ON"
+		]
+	},
+	"host": {
+		"default": false,
+		"gentoo": [ "sci-libs/netcdf" ]
+	}
+}
