@@ -34,7 +34,7 @@ typedef std::vector<std::string> EnvPrefixVector;
 class EnvSetup
 {
 	public:
-		EnvSetup(const Config * config);
+		EnvSetup(const Config * config, bool loadActualEnv = true);
 		void loadCurrent(void);
 		void addPrefix(const std::string & prefix);
 		void removeExisting(void);
@@ -44,7 +44,7 @@ class EnvSetup
 		void enableCCache(std::ostream & out = std::cout);
 		void enablePyEnv(std::ostream & out = std::cout);
 	private:
-		void setupEmpty(void);
+		void setupEmpty(bool loadActualEnv = true);
 		void prepend(const std::string & varname,const std::string & value, const std::string & sep = ":");
 		void append(const std::string & varname,const std::string & value, const std::string & sep = ":");
 		void removeExisting(const std::string & varname,const char separator = ':');

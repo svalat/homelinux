@@ -35,7 +35,7 @@ TEST(EnvSetup,loadCurrent)
 TEST(EnvSetup,addPrefix)
 {
 	Config config;
-	EnvSetup env(&config);
+	EnvSetup env(&config, false);
 	env.addPrefix("/home/USER/usr");
 	std::stringstream out;
 	env.print(out);
@@ -46,7 +46,7 @@ TEST(EnvSetup,addPrefix)
 TEST(EnvSetup,removeExisting)
 {
 	Config config;
-	EnvSetup env(&config);
+	EnvSetup env(&config, false);
 	env.addPrefix("/home/USER/usr");
 	env.removeExisting();
 	std::stringstream out;

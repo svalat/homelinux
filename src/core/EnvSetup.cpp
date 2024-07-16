@@ -34,14 +34,14 @@ static const char * gblVarNames[] = {
 * managed environnement variables.
 * @param config Define the user config class to use;
 **/
-EnvSetup::EnvSetup(const Config * config)
+EnvSetup::EnvSetup(const Config * config, bool loadActualEnv)
 {
 	//check
 	assert(config != NULL);
 	
 	//setup
 	this->config = config;
-	this->setupEmpty();
+	this->setupEmpty(loadActualEnv);
 }
 
 /*******************  FUNCTION  *********************/
@@ -49,13 +49,27 @@ EnvSetup::EnvSetup(const Config * config)
 * More used for unit tests it setup the default values to empty
 * for all used variables.
 **/
-void EnvSetup::setupEmpty(void)
+void EnvSetup::setupEmpty(bool loadActualEnv)
 {
 	//set to empty
 	//for (auto & var : gblVarNames)
 	int i = 0;
-	while(gblVarNames[i] != NULL)
-		env[gblVarNames[i++]] = "";
+	while(gblVarNames[i] != NULL) {
+		//extract name
+		const char * varName = gblVarNames[i];
+
+		//load current env state
+		const char * currentValue = "";
+		if (loadActualEnv) {
+			currentValue = getenv(varName);
+			if (currentValue == NULL)
+				currentValue = "";
+		}
+
+		//apply
+		env[varName] = currentValue;
+		i++;
+	}
 }
 
 /*******************  FUNCTION  *********************/

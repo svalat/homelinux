@@ -311,7 +311,7 @@ void ProviderHomelinux::updateDb(void)
 
 	//create thread entries to not create in threads
 	for (int i = 0 ; i < cntThreads ; i++)
-		crawlers[i].empty();
+		crawlers.emplace();
 
 	//load html provider to setup npm environnement befaore using threads
 	getCrawler(0,"html","");
