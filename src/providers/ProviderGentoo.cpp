@@ -32,9 +32,9 @@ ProviderGentoo::ProviderGentoo(Prefix * prefix, bool unitTest)
 
 	//load config
 	const Json::Value & json = prefix->getConfig().gentoo;
-	server = json.get("server","gentoo.mirrors.ovh.net").asString();
+	server = json.get("server","ftp.free.fr").asString();
 	port = json.get("port",21).asString();
-	distfiles = json.get("distfiles","gentoo-distfiles/distfiles").asString();
+	distfiles = json.get("distfiles","mirrors/ftp.gentoo.org").asString();
 }
 
 /*******************  FUNCTION  *********************/

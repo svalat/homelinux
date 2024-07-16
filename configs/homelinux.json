@@ -18,15 +18,15 @@
 	"packageOverride": {
 	},
 	"gentoo" : {
-		"server":"gentoo.mirrors.ovh.net",
+		"server":"ftp.free.fr",
 		"port": 21,
-		"distfiles": "gentoo-distfiles/distfiles/"
+		"distfiles": "/mirrors/ftp.gentoo.org/"
 	},
 	"debian": {
 		"repos": [
-			"http://ftp2.fr.debian.org/debian/dists/jessie/main/",
-			"http://ftp2.fr.debian.org/debian/dists/jessie/contrib/",
-			"http://ftp2.fr.debian.org/debian/dists/jessie/non-free/"
+			"http://ftp2.fr.debian.org/debian/dists/bookworm/main/",
+			"http://ftp2.fr.debian.org/debian/dists/bookworm/contrib/",
+			"http://ftp2.fr.debian.org/debian/dists/bookworm/non-free/"
 		]
 	},
 	"mirrors": {
