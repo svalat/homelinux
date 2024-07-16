@@ -1,14 +1,23 @@
+# cmake build
 /build*
+
+# IDE's
 .kdev4/
 homelinux.kdev4
 *.orig
 .c9
 .vscode
+
+# nodejs
 src/crawlers/html-link-extractor/node_modules/
 src/crawlers/html-link-extractor/package-lock.json 
+
+# generated files when running localy
 dev/gentoo-pkg-converter/node_modules/
 dev/gentoo-pkg-converter/portage-latest.tar.bz2
 dev/gentoo-pkg-converter/portage-stable/
+
+# autotools
 autotools/autom4te.cache/
 Makefile.in
 autotools/INSTALL
@@ -19,3 +28,5 @@ autotools/depcomp
 autotools/install-sh
 autotools/missing
 
+# when copying back
+packages/db/cache.json
