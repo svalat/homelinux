@@ -31,6 +31,7 @@ pytest ./build_and_test_on_distributions.p
 # python
 import os
 import sys
+import json
 import shutil
 import subprocess
 import tempfile
@@ -63,6 +64,21 @@ def jump_in_dir(path: str, erase_first = False, create = False):
         yield
     finally:
         os.chdir(oldpwd)
+
+###########################################################
+@contextmanager
+def enable_ccache():
+    # keep old
+    old_env_path = os.environ['PATH']
+
+    # enable ccache
+    os.environ['PATH'] = "/usr/lib/ccache/bin:" + os.environ['PATH']
+
+    # run
+    try:
+        yield
+    finally:
+        os.environ['PATH'] = old_env_path
 
 ###########################################################
 def assert_shell_command(command: str) -> None:
@@ -121,9 +137,9 @@ class PodmanContainerHandler:
         print(f"Running : {cmd}")
         self.container_id = subprocess.check_output(cmd).decode().split('\n')[0]
         print(self.container_id)
-        self.assert_run("mkdir /home/build", in_build=False)
+        self.assert_run("mkdir -p /home/build", in_build=False)
 
-    def assert_run(self, command: str, in_build = True):
+    def assert_run(self, command: str, in_build = True, capture_out = True):
         bash_command = f"/bin/bash -c \"{command}\""
         print("")
         print(f"- {bash_command}")
@@ -133,12 +149,26 @@ class PodmanContainerHandler:
         else:
             cmd = ['podman', 'exec', '-it',                      self.container_id, "/bin/bash", "-c", command]
         print(f"Running {cmd}")
-        status = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        msg = status.stdout.decode('utf-8')
+        if capture_out:
+            status = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            msg = status.stdout.decode('utf-8')
+        else:
+            status = subprocess.run(cmd)
+            msg = ""
         output_dump = f"+++++++++++++++++++++++++++++++\n{msg}\n+++++++++++++++++++++++++++++++\n"
         #print(output_dump)
         if status.returncode != 0:
             raise Exception(f"Fail to execute in image : {self.image}, command : {command}\n{output_dump}")
+
+    def commit(self, new_name: str) -> None:
+        cmd = ['podman', 'commit', self.container_id, new_name]
+        print(f"Running : {cmd}")
+        out = subprocess.check_output(cmd).decode().split('\n')[0]
+        status = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        msg = status.stdout.decode('utf-8')
+        output_dump = f"+++++++++++++++++++++++++++++++\n{msg}\n+++++++++++++++++++++++++++++++\n"
+        if status.returncode != 0:
+            raise Exception(f"Fail to execute in image : {self.image}, command : {cmd}\n{output_dump}")
 
     def stop(self):
         if self.container_id:
@@ -211,7 +241,7 @@ BUILD_PARAMETERS_ALL = {
 }
 
 ######################################################
-BUILD_PARAMETERS = {
+BUILD_PARAMETERS_UNIQ = {
     "distributions": {
         "ubuntu:24.04": [
             "apt update",
@@ -226,6 +256,10 @@ BUILD_PARAMETERS = {
         "debug": "--enable-debug",
     }
 }
+
+######################################################
+#BUILD_PARAMETERS = BUILD_PARAMETERS_ALL
+BUILD_PARAMETERS = BUILD_PARAMETERS_UNIQ
 
 ######################################################
 def gen_distr_paramatrized():
@@ -248,6 +282,46 @@ def test_prep_image(dist_name_version):
     container.build(dist_name_version)
 
 ######################################################
+def test_current_host_debug_no_tests():
+    # get homelinux source path
+    sources = get_homelinux_source_path()
+
+    # infos
+    cores = multiprocessing.cpu_count()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with jump_in_dir(tmpdir):
+            with enable_ccache():
+                assert_shell_command(f"{sources}/configure --enable-debug CFLAGS=-Werror CXXFLAGS=-Werror")
+                assert_shell_command(f"make -j{cores}")
+
+######################################################
+def test_current_host_debug_disable_tests():
+    # get homelinux source path
+    sources = get_homelinux_source_path()
+
+    # infos
+    cores = multiprocessing.cpu_count()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with jump_in_dir(tmpdir):
+            with enable_ccache():
+                assert_shell_command(f"{sources}/configure --enable-debug --disable-tests CFLAGS=-Werror CXXFLAGS=-Werror")
+                assert_shell_command(f"make -j{cores}")
+
+######################################################
+def test_current_host_debug_tests():
+    # get homelinux source path
+    sources = get_homelinux_source_path()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with jump_in_dir(tmpdir):
+            with enable_ccache():
+                assert_shell_command(f"{sources}/configure --enable-debug --enable-tests CFLAGS=-Werror CXXFLAGS=-Werror")
+                assert_shell_command("make -j8")
+                assert_shell_command("ctest --output-on-failure")
+
+######################################################
 @pytest.mark.parametrize("dist_name_version, compiler, variant", gen_distr_paramatrized())
 def test_distribution(dist_name_version: str, compiler:str, variant:str):
     # extract options
@@ -260,46 +334,20 @@ def test_distribution(dist_name_version: str, compiler:str, variant:str):
     # build & start container to run commands in
     with in_container(f"homelinux/{dist_name_version}") as container:
         # to perform tests
-        container.assert_run(f"/mnt/homelinux-sources/configure --enable-tests {variant_options} {compiler_options}")
+        container.assert_run(f"/mnt/homelinux-sources/configure --prefix=/home/ubuntu/usr-hl --enable-tests {variant_options} {compiler_options}")
         container.assert_run(f"make -j{cores}")
         container.assert_run(f"ctest --output-on-failure")
+        container.assert_run(f"make install")
+        container.assert_run(f"/home/ubuntu/usr-hl/bin/hl update-db")
+        container.commit(f"homelinux/installed_{dist_name_version}")
 
 ######################################################
-def test_current_host_debug_no_tests():
-    # get homelinux source path
-    sources = get_homelinux_source_path()
-
-    # infos
-    cores = multiprocessing.cpu_count()
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with jump_in_dir(tmpdir):
-            assert_shell_command(f"{sources}/configure --enable-debug CFLAGS=-Werror CXXFLAGS=-Werror")
-            assert_shell_command(f"make")
-
-######################################################
-def test_current_host_debug_disable_tests():
-    # get homelinux source path
-    sources = get_homelinux_source_path()
-
-    # infos
-    cores = multiprocessing.cpu_count()
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with jump_in_dir(tmpdir):
-            assert_shell_command(f"{sources}/configure --enable-debug --disable-tests CFLAGS=-Werror CXXFLAGS=-Werror")
-            assert_shell_command(f"make -j{cores}")
-
-######################################################
-def test_current_host_debug_tests():
-    # get homelinux source path
-    sources = get_homelinux_source_path()
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with jump_in_dir(tmpdir):
-            assert_shell_command(f"{sources}/configure --enable-debug --enable-tests CFLAGS=-Werror CXXFLAGS=-Werror")
-            assert_shell_command("make -j8")
-            assert_shell_command("ctest --output-on-failure")
+@pytest.mark.parametrize("dist_name_version", BUILD_PARAMETERS['distributions'].keys())
+def test_distribution_installing_package_bash(dist_name_version):
+    # build & start container to run commands in
+    with in_container(f"homelinux/installed_{dist_name_version}") as container:
+        # TODO make install of native deps
+        container.assert_run(f"yes | /home/ubuntu/usr-hl/bin/hl install bash", capture_out=False)
 
 ######################################################
 # To be able to run as a standard program directly and not call via pytest command

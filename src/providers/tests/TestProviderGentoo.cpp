@@ -1,10 +1,10 @@
 
 /*****************************************************
-             PROJECT  : homelinux
-             VERSION  : 2.0.0
-             DATE     : 06/2017
-             AUTHOR   : Valat Sébastien
-             LICENSE  : CeCILL-C
+			 PROJECT  : homelinux
+			 VERSION  : 2.0.0
+			 DATE     : 06/2017
+			 AUTHOR   : Valat Sébastien
+			 LICENSE  : CeCILL-C
 *****************************************************/
 
 /********************  HEADERS  *********************/
@@ -29,7 +29,7 @@ TEST(ProviderGentoo,constructor)
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,getPackage_ok_full)
 {
-    Config config;
+	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
 	
 	ProviderGentoo provider(&prefix);
@@ -41,7 +41,7 @@ TEST(ProviderGentoo,getPackage_ok_full)
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,getPackage_ok_short)
 {
-    Config config;
+	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
 	
 	ProviderGentoo provider(&prefix);
@@ -53,7 +53,7 @@ TEST(ProviderGentoo,getPackage_ok_short)
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,getPackage_not_ok_1)
 {
-    Config config;
+	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
 	
 	ProviderGentoo provider(&prefix);
@@ -65,7 +65,7 @@ TEST(ProviderGentoo,getPackage_not_ok_1)
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,getPackage_not_ok_2)
 {
-    Config config;
+	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
 	
 	ProviderGentoo provider(&prefix);
@@ -77,7 +77,7 @@ TEST(ProviderGentoo,getPackage_not_ok_2)
 /*******************  FUNCTION  *********************/
 TEST(ProviderGentoo,getPackage_check_content)
 {
-    Config config;
+	Config config;
 	Prefix prefix(&config,TEST_DATA_PATH);
 	
 	ProviderGentoo provider(&prefix);
