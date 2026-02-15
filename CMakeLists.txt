@@ -8,7 +8,7 @@
 
 ######################################################
 #Usage of OBJECT keyword in add_library require 2.8.8 (or something like that, need to check)
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 project(homelinux)
 
 ######################################################
@@ -61,4 +61,4 @@ install(CODE "
 
 ######################################################
 #we create a symlink for lib64 to avoid detection issues
-install_symlink(lib ${CMAKE_INSTALL_PREFIX}/lib64)
+install_symlink(lib DESTINATION ${CMAKE_INSTALL_PREFIX}/lib64)

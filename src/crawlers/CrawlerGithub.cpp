@@ -76,6 +76,8 @@ void CrawlerGithub::internalRun(std::string url)
 	if (json.isArray())
 	{
 		for (Json::ArrayIndex i = 0 ; i < json.size() ; i++)
+			scanValue(json[i]["name"].asString());
+		for (Json::ArrayIndex i = 0 ; i < json.size() ; i++)
 			scanValue(json[i][key].asString());
 	}
 }

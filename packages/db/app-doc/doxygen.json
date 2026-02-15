@@ -6,14 +6,14 @@
 		"1.8.10"
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://ftp.stack.nl/pub/users/dimitri/",
-		"regexp": "doxygen-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).src.tar.gz"
+		"mode": "github",
+		"url": "github://doxygen/doxygen",
+		"regexp": "Doxygen release ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "doxygen-${VERSION}",
 	"urls" : [
-		"ftp://ftp.stack.nl/pub/users/dimitri/doxygen-${VERSION}.src.tar.gz"
+		"github://doxygen/doxygen"
 	],
 	"warn": [
 		"Remove flex 2.6.0 when new versions comes"

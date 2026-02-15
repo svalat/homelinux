@@ -6,14 +6,14 @@
 		"1.1.28" 
 	],
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://xmlsoft.org/libxslt/",
+		"mode": "http-gnome-cache",
+		"url": "https://download.gnome.org/sources/libxslt/cache.json",
 		"regexp": "libxslt-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
 	},
 	"md5" : {},
 	"subdir": "libxslt-${VERSION}",
 	"urls" : [
-		"ftp://xmlsoft.org/libxslt/libxslt-${VERSION}.tar.gz"
+		"github://GNOME/libxslt"
 	],
 	"deps": [
 		"dev-libs/libxml2"

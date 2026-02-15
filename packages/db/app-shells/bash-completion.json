@@ -1,6 +1,6 @@
 {
 	"name": "app-shells/bash-completion",
-	"homepage": "http://http://bash-completion.alioth.debian.org",
+	"homepage": "https://github.com/scop/bash-completion",
 	"inherit": "models/autotools",
 	"versions": [ 
 		"1.0", 
@@ -11,9 +11,9 @@
 		"2.1"
 	],
 	"vfetcher": {
-		"mode": "http-apache-list",
-		"url": "http://bash-completion.alioth.debian.org/files/",
-		"regexp": "bash-completion-([0-9]+\\.[0-9]+).tar.bz2"
+		"mode": "github",
+		"url": "github://scop/bash-completion",
+		"regexp": "v([0-9]+\\.[0-9]+\\.[0-9]+)"
 	},
 	"md5" : {},
 	"subdir": "bash-completion-${VERSION}",

@@ -1,19 +1,19 @@
 {
 	"name": "app-crypt/p11-kit",
-	"homepage": "http://p11-glue.freedesktop.org/.html",
+	"homepage": "https://p11-glue.github.io/p11-glue/p11-kit.html",
 	"inherit": "models/autotools",
 	"versions": [ 
 		"0.23.1"
 	],
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://p11-glue.freedesktop.org/releases/",
-		"regexp": "p11-kit-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"mode": "github",
+		"url": "github://p11-glue/p11-kit",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "p11-kit-${VERSION}",
 	"urls" : [
-		"http://p11-glue.freedesktop.org/releases/p11-kit-${VERSION}.tar.gz"
+		"https://github.com/p11-glue/p11-kit/releases/download/${VERSION}/p11-kit-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"asn1? dev-libs/libtasn1",
