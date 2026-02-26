@@ -1,15 +1,14 @@
 {
 	"name": "dev-cpp/eigen",
-	"homepage": "http://eigen.tuxfamily.org/",
+	"homepage": "https://libeigen.gitlab.io/",
 	"versions": [
 		"3.3.3"
 	],
 	"inherit": "models/cmake",
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://bitbucket.org/eigen/eigen/downloads/?tab=tags",
-		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)",
-		"tag": "td"
+		"mode": "gitlab",
+		"url": "gitlab://gitlab.com/libeigen/eigen",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "eigen-eigen-*",

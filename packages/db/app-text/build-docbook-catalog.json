@@ -1,19 +1,19 @@
 {
 	"name": "app-text/build-docbook-catalog",
-	"homepage": "https://sources.gentoo.org/gentoo-src/build-docbook-catalog/",
+	"homepage": "https://gitweb.gentoo.org/proj/build-docbook-catalog.git/",
 	"versions": [
 		"1.20"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "gentoo",
-		"url": "XXXXXXX",
-		"regexp": "build-docbook-catalog-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "http",
+		"url": "https://gitweb.gentoo.org/proj/build-docbook-catalog.git/refs/tags",
+		"regexp": "v?([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "build-docbook-catalog-${VERSION}",
 	"urls": [
-		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/build-docbook-catalog-${VERSION}.tar.xz"
+		"https://gitweb.gentoo.org/proj/build-docbook-catalog.git/snapshot/build-docbook-catalog-${VERSION}.tar.bz2"
 	],
 	"deps": [
 		"dev-libs/libxml2"

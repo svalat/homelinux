@@ -8,14 +8,9 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"subdir": {
-			"mode": "html",
-			"url": "http://docbook.org/xml/",
-			"regexp": "([0-9]+.[0-9]+)/"
-		},
 		"mode": "html",
-		"url": "http://docbook.org/xml/${SVERSION}/",
-		"regexp": "docbook-xml-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).zip"
+		"url": "https://cdn.docbook.org/schema/",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*)/"
 	},
 	"md5": {},
 	"subdir": "./",

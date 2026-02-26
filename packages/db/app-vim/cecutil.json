@@ -2,13 +2,17 @@
 	"name": "app-vim/cecutil",
 	"homepage": "http://www.vim.org/scripts/script.php?script_id=1066",
 	"versions": [
-		"17"
+		"17",
+		"16",
+		"15",
+		"14"
 	],
 	"inherit": "models/vim",
 	"vfetcher": {
-		"mode": "gentoo",
-		"url": "",
-		"regexp": "cecutil-([0-9]+.?[0-9]*.?[0-9]*.?[0-9]*).(tar.bz2|tar.xz|tar.gz)"
+		"mode": "http",
+		"url": "https://www.vim.org/scripts/script.php?script_id=1066",
+		"regexp": "([0-9]+)",
+		"tag": "td"
 	},
 	"md5": {},
 	"subdir": "cecutil-${VERSION}",
