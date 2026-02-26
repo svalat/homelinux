@@ -23,6 +23,7 @@
 #include <crawlers/CrawlerHtml.hpp>
 #include <crawlers/CrawlerGentoo.hpp>
 #include <crawlers/CrawlerGithub.hpp>
+#include <crawlers/CrawlerGitlab.hpp>
 #include <crawlers/CrawlerGnomeCache.hpp>
 
 /*******************  NAMESPACE  ********************/
@@ -179,6 +180,8 @@ Crawler * ProviderHomelinux::getCrawler(int threadId,const std::string & name,co
 		ret = crawlers[threadId]["html"] = new CrawlerHtml(prefix);
 	else if (name == "github")
 		ret = crawlers[threadId]["github"] = new CrawlerGithub(prefix);
+	else if (name == "gitlab")
+		ret = crawlers[threadId]["gitlab"] = new CrawlerGitlab(prefix);
 	else if (name == "gnome-cache")
 		ret = crawlers[threadId]["gnome-cache"] = new CrawlerGnomeCache(prefix);
 	else if (name == "gentoo")

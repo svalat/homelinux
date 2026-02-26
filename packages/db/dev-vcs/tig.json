@@ -6,14 +6,14 @@
 		"2.1" 
 	],
 	"vfetcher": {
-		"mode": "http-apache-list",
-		"url": "http://jonas.nitro.dk/tig/releases/",
-		"regexp": "tig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+		"mode": "github",
+		"url": "github://jonas/tig",
+		"regexp": "tig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5" : {},
 	"subdir": "tig-${VERSION}",
 	"urls" : [
-		"http://jonas.nitro.dk/tig/releases/tig-${VERSION}.tar.gz"
+		"github://jonas/tig"
 	],
 	"deps": [
 		"sys-libs/ncurses"

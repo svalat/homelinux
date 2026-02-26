@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http-gnome-cache",
-		"url": "http://ftp.gnome.org/mirror/gnome.org/sources/gdk-pixbuf/cache.json",
+		"url": "https://download.gnome.org/sources/gdk-pixbuf/cache.json",
 		"regexp": "gdk-pixbuf-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},
 	"subdir": "gdk-pixbuf-$VERSION",
 	"urls" : [
-		"http://ftp.gnome.org/mirror/gnome.org/sources/gdk-pixbuf/$(echo $VERSION | cut -d '.' -f 1-2)/gdk-pixbuf-${VERSION}.tar.xz"
+		"https://download.gnome.org/sources/gdk-pixbuf/$(echo $VERSION | cut -d '.' -f 1-2)/gdk-pixbuf-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-libs/glib:2",

@@ -7,13 +7,13 @@
 	],
 	"vfetcher": {
 		"mode": "http-gnome-cache",
-		"url": "http://ftp.gnome.org/mirror/gnome.org/sources/atk/cache.json",
+		"url": "https://download.gnome.org/sources/atk/cache.json",
 		"regexp": "atk-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.xz"
 	},
 	"md5" : {},
 	"subdir": "atk-${VERSION}",
 	"urls" : [
-		"http://ftp.gnome.org/mirror/gnome.org/sources/atk/$(echo $VERSION | cut -d '.' -f 1-2)/atk-${VERSION}.tar.xz"
+		"https://download.gnome.org/sources/atk/$(echo $VERSION | cut -d '.' -f 1-2)/atk-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-libs/glib",
