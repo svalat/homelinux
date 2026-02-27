@@ -17,7 +17,7 @@ namespace hl
 
 /*******************  FUNCTION  *********************/
 CrawlerGitlab::CrawlerGitlab(Prefix * prefix) 
-		   :Crawler("github",prefix)
+		   :Crawler("gitlab",prefix)
 {
 	
 }
@@ -32,14 +32,14 @@ void CrawlerGitlab::internalRun(std::string url)
 	HL_DEBUG_ARG("CrawlerGitlab","Crawling %1").arg(url).end();
 	
 	//check address
-	if (Helper::startBy(url,"github://") == false)
+	if (Helper::startBy(url,"gitlab://") == false)
 	{
-		HL_ERROR_ARG("Gitlab addresses should start by github://, as %1").arg(url).end();
+		HL_ERROR_ARG("Gitlab addresses should start by gitlab://, as %1").arg(url).end();
 		return;
 	}
 
 	//build name
-	Helper::replaceInPlace(url,"github://","");
+	Helper::replaceInPlace(url,"gitlab://","");
 	
 	//errors
 	if (Helper::endBy(url,"/"))
@@ -53,7 +53,7 @@ void CrawlerGitlab::internalRun(std::string url)
 	assumeArg(first_slash != std::string::npos, "Fail to find server address, not / in : %1")
 		.arg(url)
 		.end();
-	std::string server = url.substr(0, first_slash);
+	std::string server = url.substr(0, first_slash + 1);
 	Helper::replaceInPlace(url,server,"");
 
 	//set id
@@ -65,15 +65,15 @@ void CrawlerGitlab::internalRun(std::string url)
 
 	//fetch
 	Json::Value json;
-	if (forceTag == false && System::downloadJson(json,"https://" + server + "/api/v4/projects/" + url + "/releases") && json.size() > 0)
+	if (forceTag == false && System::downloadJson(json,"https://" + server + "/api/v4/projects/" + project_id + "/releases") && json.size() > 0)
 	{
 		key = "name";
-	} else if (System::downloadJson(json,"https://" + server + "/api/v4/projects/" + url + "/tags")) {
+	} else if (System::downloadJson(json,"https://" + server + "/api/v4/projects/" + project_id + "/tags")) {
 		key = "name";
 	} else {
 		HL_ERROR_ARG("Package %1 fail to get github versions via release/tags : %2")
 			.arg(packageName)
-			.arg("github://"+url).end();
+			.arg("gitlab://"+url).end();
 		return;
 	}
 
