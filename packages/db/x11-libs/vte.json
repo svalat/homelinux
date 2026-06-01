@@ -8,14 +8,14 @@
 	"inherit": "models/autotools",
 	"TODO": "Find a way to fetch from git",
 	"vfetcher": {
-		"mode": "http-gnome-cache",
-		"url": "http://ftp.acc.umu.se/pub/GNOME/sources/vte/cache.json",
-		"regexp": "vte-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz|zip|tbz2)"
+		"mode": "gitlab",
+		"url": "gitlab://gitlab.gnome.org/GNOME/vte",
+		"regexp": "Release ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "vte-${VERSION}",
 	"urls": [
-		"http://ftp.acc.umu.se/pub/GNOME/sources/vte/${SVERSION}/vte-${VERSION}.tar.xz"
+		"https://gitlab.gnome.org/api/v4/projects/1893/packages/generic/vte/${VERSION}/vte-${VERSION}.tar.xz"
 	],
 	"deps": [
 		"dev-libs/glib:2",

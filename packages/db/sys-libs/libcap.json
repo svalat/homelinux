@@ -1,19 +1,20 @@
 {
 	"name": "sys-libs/libcap",
-	"homepage": "http://www.friedhoff.org/posixfilecaps.html",
+	"homepage": "https://sites.google.com/site/fullycapable/",
 	"versions": [
 		"2.24"
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "gentoo",
-		"url": "XXXXXXX",
-		"regexp": "libcap-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "http",
+		"url": "https://sites.google.com/site/fullycapable/release-notes-for-libcap",
+		"regexp": "Release notes for ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)",
+		"enclose": true
 	},
 	"md5": {},
 	"subdir": "libcap-${VERSION}",
 	"urls": [
-		"ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/distfiles/libcap-${VERSION}.tar.bz2"
+		"https://git.kernel.org/pub/scm/libs/libcap/libcap.git/snapshot/libcap-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"sys-apps/attr",

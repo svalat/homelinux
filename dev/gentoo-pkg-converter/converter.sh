@@ -25,7 +25,7 @@ function yesno()
 
 ######################################################
 if [ ! -d portage-stable ]; then
-	wget ftp://gentoo.mirrors.ovh.net/gentoo-distfiles/snapshots/portage-latest.tar.bz2
+	wget http://ftp.free.fr/mirrors/ftp.gentoo.org/snapshots/portage-latest.tar.bz2
 	tar -xf portage-latest.tar.bz2
 	mv portage portage-stable
 	#git clone git@github.com:coreos/portage-stable.git

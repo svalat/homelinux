@@ -7,14 +7,14 @@
 	"inherit": "models/cmake",
 	"TODO": "Find a solution to crawl the script in html page",
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://releases.llvm.org/download.html",
-		"regexp": "Download LLVM ([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"mode": "github",
+		"url": "github://llvm/llvm-project",
+		"regexp": "llvmorg-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "cfe-${VERSION}.src",
 	"urls": [
-		"http://releases.llvm.org/${VERSION}/cfe-${VERSION}.src.tar.xz"
+		"https://github.com/llvm/llvm-project/releases/download/llvmorg-${VERSION}/llvm-project-${VERSION}.src.tar.xz"
 	],
 	"deps": [
 		"sys-devel/llvm",

@@ -6,16 +6,14 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "http://freedesktop.org/wiki/Software/shared-mime-info/",
-		"regexp": "shared-mime-info-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+		"mode": "gitlab",
+		"url": "gitlab://gitlab.freedesktop.org/xdg/shared-mime-info",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
 	"subdir": "shared-mime-info-${VERSION}",
 	"urls": [
-		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.xz",
-		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.bz2",
-		"http://freedesktop.org/~hadess/shared-mime-info-${VERSION}.tar.gz"
+		"hhttps://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/${VERSION}/shared-mime-info-${VERSION}.tar.bz"
 	],
 	"deps": [
 		"dev-libs/glib :2",

@@ -7,8 +7,10 @@
 	"inherit": "models/perl",
 	"vfetcher": {
 		"mode": "http",
-		"url": "http://cpansearch.perl.org/src/PETDANCE/",
-		"regexp": "ack-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)/"
+		"url": "https://metacpan.org/dist/ack",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)",
+		"enclose": false,
+		"tag": "option"
 	},
 	"md5": {},
 	"subdir": "ack-${VERSION}",

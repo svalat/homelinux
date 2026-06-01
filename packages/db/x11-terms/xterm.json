@@ -6,8 +6,8 @@
 	],
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "ftp",
-		"url": "ftp://invisible-island.net/xterm/",
+		"mode": "http",
+		"url": "https://invisible-island.net/archives/xterm/",
 		"regexp": "xterm-([0-9]+).(tar.bz2|tar.gz|tbz|tgz|tar.xz)"
 	},
 	"md5": {},
