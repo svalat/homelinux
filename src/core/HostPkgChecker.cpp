@@ -148,7 +148,7 @@ bool HostPkgChecker::presentOnSystemDebian(const StringList & pkgList) const
 	//for (auto & pack : pkgList)
 	forEachConst(StringList,pack,pkgList)
 	{
-		if (System::runCommand("dpkg -s "+*pack+" 2>/deb/null") != 0)
+		if (System::runCommand("dpkg -s "+*pack+" 2>/dev/null >/dev/null") != 0)
 			return false;
 	}
 	

@@ -323,7 +323,7 @@ std::string PackageDef::getRealPrefix(const std::string & prefix,bool stow) cons
 	if (module.empty())
 	{
 		if (stow && getShortName() != "stow")
-			return prefix+"/stow/"+getSlotName();
+			return prefix+"/stow/"+getStowName();
 		else 
 			return prefix;
 	} else {
