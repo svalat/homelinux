@@ -186,3 +186,15 @@ Package inheritance
 For the internal packages. A package ca inherit from a model (or another package). In that case it will extend the already
 available dependencies, use flags, configure options, slots.... You can also override the building steps to provide you own
 commands.
+
+Multiconfiguration
+------------------
+
+There are some packages which requires to be built sevaral times with different sets
+of options to get all the required binary files. An example of this is libfft which requires
+a build for single or double precision.
+
+In this case, we can provide multiple configuration to be performed and call one after the other
+during the build process.
+
+Look on FFTW package to see how it is used.

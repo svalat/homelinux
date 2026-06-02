@@ -13,6 +13,7 @@
 		"https://fftw.org/pub/fftw/fftw-${VERSION}.tar.gz"
 	],
 	"deps": [
+		"mpi? virtual/mpi"
 	],
 	"use": [
 		"mpi",
@@ -25,21 +26,15 @@
 		"": {
 			"seq-float64": { 
 				"": [ "--disable-single"],
-				"static": [ "--$disable-shared" ]
+				"static": [ "--$disable-shared" ],
+				"openmp": [ "--$enable-openmp" ],
+				"mpi": [ "--$enable-mpi" ]
 			},
 			"seq-float32": {
 				"": [ "--enable-single" ],
-				"static": [ "--$disable-shared" ]
-			}
-		},
-		"openmp": {
-			"openmp-float64": {
-				"": [ "--enable-openmp", "--disable-single"],
-				"static": [ "--$disable-shared" ]
-			},
-			"openmp-float32": {
-				"": [ "--enable-openmp", "--enable-single" ],
-				"static": [ "--$disable-shared" ]
+				"static": [ "--$disable-shared" ],
+				"openmp": [ "--$enable-openmp" ],
+				"mpi": [ "--$enable-mpi" ]
 			}
 		}
 	},
