@@ -2,9 +2,6 @@
 	"name": "app-arch/pbzip2",
 	"homepage": "http://compression.ca/pbzip2/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"1.1.13"
-	],
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://launchpad.net/pbzip2/+announcements",
@@ -35,5 +32,12 @@
 	},
 	"tested": {
 		"centos7": "16.02"
-	}
+	},
+	"versions": [ 
+		"1.1.13",
+		"1.1.12",
+		"1.1.11",
+		"1.1.10",
+		"1.1.8"
+	]
 }

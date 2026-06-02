@@ -1,0 +1,27 @@
+{
+	"name": "virtual/libffi",
+	"homepage": "NONE",
+	"inherit": "models/virtual",
+	"versions": [ 
+		"0.1" 
+	],
+	"vfetcher": {
+		"mode": "none",
+		"url": "none",
+		"regexp": "none"
+	},
+	"md5" : {},
+	"subdir": "none",
+	"urls" : [
+		"none"
+	],
+	"deps": [
+		"dev-libs/libffi"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	}
+}

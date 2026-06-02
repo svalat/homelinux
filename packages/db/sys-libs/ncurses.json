@@ -1,9 +1,6 @@
 {
 	"name": "sys-libs/ncurses",
 	"homepage": "https://www.gnu.org/software/ncurses/ http://dickey.his.com/ncurses/",
-	"versions": [
-		"6.0"
-	],
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
@@ -17,33 +14,36 @@
 		"mirror://http-gnu/gnu/ncurses/ncurses-${VERSION}.tar.gz"
 	],
 	"deps": [
-		"dev-util/pkgconfig",
-		"gpm? sys-libs/gpm"
+		"dev-util/pkgconfig"
 	],
 	"configure": {
-		"": [ "--with-shared", "--enable-pc-files" ]
+		"": [ "--with-shared" ]
 	},
-	"use": [
-		"ada",
-		"+cxx",
-		"debug",
-		"doc",
-		"gpm",
-		"minimal",
-		"profile",
-		"static-libs",
-		"test",
-		"threads",
-		"tinfo",
-		"trace",
-		"unicode"
-	],
+	"use": [],
 	"host": {
 		"default": false,
-		"debian8": [
-			"libncurses-dev"
-		],
+		"debian8": [ "libncurses-dev" ],
 		"centos7": [ "ncurses", "ncurses-devel" ],
 		"gentoo": [ "sys-libs/ncurses" ]
-	}
+	},
+	"versions": [
+		"6.6",
+		"6.5",
+		"6.4",
+		"6.3",
+		"6.2",
+		"6.1",
+		"6.0",
+		"5.9",
+		"5.8",
+		"5.7",
+		"5.6",
+		"5.5",
+		"5.4",
+		"5.3",
+		"5.2",
+		"5.1",
+		"5.0",
+		"4.2"
+	]
 }

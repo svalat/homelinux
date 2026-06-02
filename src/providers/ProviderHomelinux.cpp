@@ -139,6 +139,7 @@ void ProviderHomelinux::updateCache(void)
 {
 	//setup
 	Regexp regexp("([A-Za-z0-9_-]+/[A-Za-z0-9+_-]+)\\.json");
+	Regexp exclude("((versions.json)|(cache.json))$");
 	std::string path = prefix->getFilePath("/homelinux/packages/db");
 	
 	//check
@@ -149,7 +150,7 @@ void ProviderHomelinux::updateCache(void)
 	forEach(StringList,file,lst)
 	{
 		std::string packageName;
-		if (regexp.match(*file,packageName))
+		if (regexp.match(*file,packageName) && !exclude.match(*file))
 			cache.push_back(packageName);
 	}
 	
@@ -300,7 +301,7 @@ void ProviderHomelinux::updateDb(void)
 	std::string path = prefix->getFilePath("/homelinux/packages/db/");
 	StringList tmp = System::findFiles(path,path);
 	forEach(StringList,it,tmp)
-		if (Helper::endBy(*it,".json") && *it != "cache.json" && *it != "versions.json")
+		if (Helper::endBy(*it,".json") && !Helper::endBy(*it,"cache.json") && !Helper::endBy(*it, "versions.json"))
 			files.push_back(*it);
 
 	//compute number of threads we want

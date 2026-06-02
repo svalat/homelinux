@@ -2,9 +2,6 @@
 	"name": "sys-apps/hwloc",
 	"homepage": "http://www.open-mpi.org/projects/hwloc/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"1.11.1"
-	],
 	"vfetcher": {
 		"mode": "http",
 		"url": "https://www.open-mpi.org/software/hwloc/v1.11/",
@@ -24,5 +21,21 @@
 		"debian8": [ "hwloc" ],
 		"centos7": [ "hwloc", "hwloc-devel" ],
 		"gentoo": [ "sys-apps/hwloc" ]
-	}
+	},
+	"versions": [ 
+		"1.11.13",
+		"1.11.12",
+		"1.11.11",
+		"1.11.10",
+		"1.11.9",
+		"1.11.8",
+		"1.11.7",
+		"1.11.6",
+		"1.11.5",
+		"1.11.4",
+		"1.11.3",
+		"1.11.2",
+		"1.11.1",
+		"1.11.0"
+	]
 }

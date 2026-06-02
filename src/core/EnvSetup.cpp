@@ -227,7 +227,7 @@ bool EnvSetup::hasPrefix(const std::string & prefix)
 void EnvSetup::loadModules(bool load,std::ostream & out)
 {
     //module command
-    out << "if ! module 1>/dev/null 2>/dev/null ; then hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/init/$(basename $SHELL); fi" << std::endl;
+    out << "if ! module 1>/dev/null 2>/dev/null ; then hl is-pack-installed sys-apps/modules > /dev/null && . $(hl prefix-of sys-apps/modules)/Modules/current/$(basename $SHELL); fi" << std::endl;
     
     //modules
 	//for (auto & module : config->modules)

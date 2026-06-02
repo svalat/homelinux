@@ -1,0 +1,66 @@
+{
+	"name": "app-editors/nano",
+	"homepage": "http://www.nano-editor.org/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.5.0"
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "mirror://http-gnu/pub/gnu/nano",
+		"regexp": "nano-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "nano-${VERSION}",
+	"urls" : [
+		"mirror://http-gnu/gnu/nano/nano-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"sys-libs/ncurses[#unicode]",
+		"magic? sys-apps/file",
+		"nls? virtual/libintl",
+		"-ncurses&slang? sys-libs/slang",
+		"nls? sys-devel/gettext",
+		"virtual/pkgconfig"
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "nano" ],
+		"centos7": [ "nano" ],
+		"gentoo": [ "app-editors/nano" ]
+	},
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of ncurses)/include/ncurses" ],
+		"LDFLAGS": [ "-L$(hl prefix-of ncurses)/lib" ]
+	},
+	"configure": {
+			"-minimal": [
+				"--$enable-color",
+				"--$enable-multibuffer",
+				"--$enable-nanorc"
+			],
+			"": [ "--disable-wrapping-as-root" ],
+			"magic" : [ "--$enable-libmagic" ],
+			"spell": [ "--$enable-speller" ],
+			"justify": [ "--$enable-justify" ],
+			"debug": [ "--$enable-debug" ],
+			"nls": [ "--$enable-nls" ],
+			"unicode" : [ "--$enable-utf8" ],
+			"minimal" : [ "--$enble-tiny" ]
+	},
+	"use": [
+		"debug",
+		"justify",
+		"magic",
+		"minimal",
+		"ncurses",
+		"nls",
+		"slang",
+		"+spell",
+		"static",
+		"unicode"
+	],
+	"tested": {
+		"centos7": "2.8.5"
+	}
+}

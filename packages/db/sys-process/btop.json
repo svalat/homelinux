@@ -1,0 +1,55 @@
+{
+	"name": "sys-process/btop",
+	"homepage": "https://github.com/aristocratos/btop",
+	"inherit": "models/cmake",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://aristocratos/btop",
+		"regexp": "v([0-9]+.[0-9]+.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "btop-${VERSION}",
+	"urls" : [
+		"https://github.com/aristocratos/btop/archive/refs/tags/v${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"flags": {},
+	"host": {
+		"default": false,
+		"debian8": [ "btop" ],
+		"centos7": [ "btop" ],
+		"gentoo": [ "sys-process/btop" ]
+	},
+	"versions": [
+		"1.4.7",
+		"1.4.6",
+		"1.4.5",
+		"1.4.4",
+		"1.4.3",
+		"1.4.2",
+		"1.4.1",
+		"1.4.0",
+		"1.3.2",
+		"1.3.1",
+		"1.3.0",
+		"1.2.13",
+		"1.2.12",
+		"1.2.11",
+		"1.2.10",
+		"1.2.9",
+		"1.2.8",
+		"1.2.7",
+		"1.2.6",
+		"1.2.5",
+		"1.2.4",
+		"1.2.3",
+		"1.2.2",
+		"1.2.1",
+		"1.2.0",
+		"1.1.4",
+		"1.1.3",
+		"1.1.2",
+		"1.1.1",
+		"1.1.0"
+	]
+}

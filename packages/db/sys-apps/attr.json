@@ -1,19 +1,18 @@
 {
 	"name": "sys-apps/attr",
 	"homepage": "http://savannah.nongnu.org/projects/attr",
-	"versions": [
-		"2.4.47"
-	],
 	"inherit": "models/autotools",
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://download.savannah.gnu.org/releases/attr/",
-		"regexp": "attr-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).src.(tar.bz2|tar.gz|tbz|tar.xz)"
+		"regexp": "attr-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)(.src)?.(tar.bz2|tar.gz|tbz|tar.xz)"
 	},
 	"md5": {},
 	"subdir": "attr-${VERSION}",
 	"urls": [
-		"http://download.savannah.gnu.org/releases/attr/attr-${VERSION}.tar.bz2"
+		"http://download.savannah.gnu.org/releases/attr/attr-${VERSION}.tar.xz",
+		"http://download.savannah.gnu.org/releases/attr/attr-${VERSION}.tar.bz2",
+		"http://download.savannah.gnu.org/releases/attr/attr-${VERSION}.src.tar.gz"
 	],
 	"deps": [
 		"nls? sys-devel/gettext",
@@ -41,5 +40,15 @@
 		],
 		"centos7": [ "attr" ],
 		"gentoo": [ "sys-apps/attr" ]
-	}
+	},
+	"versions": [
+		"2.5.2",
+		"2.5.1",
+		"2.5.0",
+		"2.4.48",
+		"2.4.47",
+		"2.4.46",
+		"2.4.45",
+		"2.4.44"
+	]
 }

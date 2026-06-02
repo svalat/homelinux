@@ -2,9 +2,6 @@
 	"name": "dev-util/ccache",
 	"homepage": "https://ccache.samba.org/",
 	"inherit": "models/cmake",
-	"versions": [ 
-		"3.2.4" 
-	],
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://ccache/ccache",
@@ -24,6 +21,15 @@
 			"run ln -sf $PREFIX/bin/ccache $PREFIX/bin/ccache-links/c++"
 		]
 	},
+	"todo": [
+		"Handle deps Blake3",
+		"Handle deps CppHttplib",
+		"Handle deps Fmt",
+		"Handle deps TlExpected",
+		"Handle deps TlExpected",
+		"Handle deps Xxhash",
+		"Handle deps Zstd"
+	],
 	"deps": [
 	],
 	"vspecific": {
@@ -39,5 +45,38 @@
 		"debian8": [ "ccache" ],
 		"centos7": false,
 		"gentoo": [ "dev-util/ccache" ]
-	}
+	},
+	"versions": [ 
+		"4.13.6",
+		"4.13.5",
+		"4.13.4",
+		"4.13.3",
+		"4.13.2",
+		"4.13.1",
+		"4.13",
+		"4.12.3",
+		"4.12.2",
+		"4.12.1",
+		"4.12",
+		"4.11.3",
+		"4.11.2",
+		"4.11.1",
+		"4.11",
+		"4.10.2",
+		"4.10.1",
+		"4.10",
+		"4.9.1",
+		"4.9",
+		"4.8.3",
+		"4.8.2",
+		"4.8.1",
+		"4.8",
+		"4.7.5",
+		"4.7.4",
+		"4.7.3",
+		"4.7.2",
+		"4.7.1",
+		"4.7",
+		"3.2.4"
+	]
 }

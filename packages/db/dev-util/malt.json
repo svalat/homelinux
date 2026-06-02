@@ -1,10 +1,7 @@
 {
 	"name": "dev-util/malt",
 	"homepage": "https://memtt.github.io/",
-	"inherit": "models/autotools",
-	"versions": [ 
-		"1.2.2" 
-	],
+	"inherit": "models/cmake",
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://memtt/malt",
@@ -13,11 +10,14 @@
 	"md5" : {},
 	"subdir": "malt-${VERSION}",
 	"urls" : [
+		"https://github.com/memtt/malt/releases/download/v${VERSION}/malt-${VERSION}.tar.xz",
+		"https://github.com/memtt/malt/releases/download/v${VERSION}/malt-${VERSION}.tar.bz2",
+		"https://github.com/memtt/malt/releases/download/v${VERSION}/malt-${VERSION}.tar.gz",
 		"github://memtt/malt"
 	],
+	"use": ["-libelf"],
 	"deps": [
-		"net-libs/nodejs",
-		"dev-libs/libelf",
+		"libelf? dev-libs/libelf",
 		"sys-libs/libunwind"
 	],
 	"host": {
@@ -25,5 +25,26 @@
 		"debian8": false,
 		"centos7": false,
 		"gentoo": "dev-util/malt"
-	}
+	},
+	"versions": [ 
+		"1.6.1",
+		"1.6.0",
+		"1.5.0",
+		"1.4.1",
+		"1.4.0",
+		"1.3.1",
+		"1.3.0",
+		"1.2.6",
+		"1.2.5",
+		"1.2.4",
+		"1.2.3",
+		"1.2.2",
+		"1.2.1",
+		"1.2.0",
+		"1.1.0",
+		"1.0.0",
+		"0.3.0",
+		"0.2.0",
+		"0.1.0"
+	]
 }

@@ -1,0 +1,31 @@
+{
+	"name": "virtual/nodejs",
+	"homepage": "NONE",
+	"inherit": "models/virtual",
+	"versions": [ 
+		"0.1"
+	],
+	"vfetcher": {
+		"mode": "none",
+		"url": "none",
+		"regexp": "none"
+	},
+	"md5" : {},
+	"subdir": "none",
+	"urls" : [
+		"none"
+	],
+	"use": [
+		"+bin"
+	],
+	"deps": [
+		"+bin? net-libs/nodejs-bin",
+		"-bin? net-libs/nodejs"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	}
+}

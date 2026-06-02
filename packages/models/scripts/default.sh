@@ -381,6 +381,16 @@ function hl_configure_auto()
 	fi
 }
 
+function hl_configre_cmake_fallback_autotools()
+{
+	run_sh cd $HL_PACKDIR
+	if which cmake >/dev/null 2>/dev/null; then
+		hl_configure_cmake
+	else
+		hl_configure_autotools
+	fi
+}
+
 function hl_configure_perl()
 {
 	#two types because we encoutered an issue on centos7

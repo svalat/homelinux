@@ -2,9 +2,6 @@
 	"name": "dev-util/pkgconfig",
 	"homepage": "http://www.freedesktop.org/wiki/Software/pkg-config/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"0.29" 
-	],
 	"vfetcher": {
 		"mode": "http-apache-list",
 		"url": "http://pkgconfig.freedesktop.org/releases/",
@@ -25,5 +22,22 @@
 	},
 	"configure": {
 		"": [ "--with-internal-glib" ]
-	}
+	},
+	"versions": [ 
+		"0.29.2",
+		"0.29.1",
+		"0.29",
+		"0.28",
+		"0.27.1",
+		"0.27",
+		"0.26",
+		"0.25",
+		"0.24",
+		"0.23",
+		"0.22",
+		"0.21",
+		"0.20",
+		"0.19",
+		"0.18.1"
+	]
 }

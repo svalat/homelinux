@@ -1,0 +1,64 @@
+{
+	"api": 1,
+	"name": "dev-libs/libevent",
+	"homepage": "http://libevent.org/",
+	"versions": [
+		"2.1.8"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://libevent/libevent",
+		"regexp": "release-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)-stable"
+	},
+	"md5": {},
+	"subdir": "libevent-${VERSION}-stable",
+	"urls": [
+		"https://github.com/libevent/libevent/releases/download/release-${VERSION}-stable/libevent-${VERSION}-stable.tar.gz"
+	],
+	"deps": [
+		"ssl&-libressl? dev-libs/openssl",
+		"ssl&libressl? dev-libs/libressl"
+	],
+	"configure": {
+		"": [
+			"--disable-samples"
+		],
+		"debug": [
+			"--$enable-debug-mode",
+			"--$enable-malloc-replacement"
+		],
+		"ssl": [
+			"--$enable-openssl"
+		],
+		"static-libs": [
+			"--$enable-static"
+		],
+		"test": [
+			"--$enable-libevent-regress"
+		],
+		"threads": [
+			"--$enable-thread-support"
+		]
+	},
+	"use": [
+		"debug",
+		"libressl",
+		"+ssl",
+		"static-libs",
+		"test",
+		"+threads"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"libevent"
+		],
+		"centos7": [
+			"libevent"
+		],
+		"gentoo": [
+			"dev-libs/libevent"
+		]
+	}
+}

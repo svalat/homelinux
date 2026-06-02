@@ -69,8 +69,9 @@ StringList Crawler::run(const std::string & packageName,Json::Value & params,con
 			//for (auto u : tmp)
 			forEach(StringList,u,tmp)
 			{
-				Helper::replaceInPlace(*u,"${SVERSION}",*v);
-				urls.push_back(*u);
+				std::string buf = *u;
+				Helper::replaceInPlace(buf,"${SVERSION}",*v);
+				urls.push_back(buf);
 			}
 		}
 	}

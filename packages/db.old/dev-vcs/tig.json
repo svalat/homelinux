@@ -1,0 +1,30 @@
+{
+	"name": "dev-vcs/tig",
+	"homepage": "http://jonas.nitro.dk/tig/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"2.1" 
+	],
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://jonas/tig",
+		"regexp": "tig-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "tig-${VERSION}",
+	"urls" : [
+		"github://jonas/tig"
+	],
+	"deps": [
+		"sys-libs/ncurses"
+	],
+	"configure": {
+		"": [ "--with-ncurses=$(hl prefix-of sys-libs/ncurses)","LDFLAGS=-L$(hl prefix-of sys-libs/ncurses)/lib" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "tig" ],
+		"centos7": [ "tig" ],
+		"gentoo": [ "dev-vcs/tig" ]
+	}
+}

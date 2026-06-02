@@ -2,9 +2,6 @@
 	"name": "sys-devel/autoconf",
 	"homepage": "https://www.gnu.org/software/autoconf/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"2.69"
-	],
 	"vfetcher": {
 		"mode": "http",
 		"url": "mirror://http-gnu/gnu/autoconf/",
@@ -23,5 +20,34 @@
 		"debian8": [ "autoconf" ],
 		"centos7": [ "autoconf" ],
 		"gentoo": [ "sys-devel/autoconf" ]
-	}
+	},
+	"versions": [ 
+		"2.73",
+		"2.72",
+		"2.71",
+		"2.70",
+		"2.69",
+		"2.68",
+		"2.67",
+		"2.66",
+		"2.65",
+		"2.64",
+		"2.63",
+		"2.62",
+		"2.61",
+		"2.60",
+		"2.59",
+		"2.58",
+		"2.57",
+		"2.56",
+		"2.55",
+		"2.54",
+		"2.53",
+		"2.52",
+		"2.50",
+		"2.13",
+		"2.12",
+		"2.11",
+		"2.10"
+	]
 }

@@ -1,0 +1,35 @@
+{
+	"name": "sys-cluster/ucx",
+	"homepage": "https://openucx.org/",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://openucx/ucx",
+		"regexp": "v([0-9]+.[0-9]+.[0-9]+)"
+	},
+	"md5" : {},
+	"subdir": "ucx-${VERSION}",
+	"urls" : [
+		"https://github.com/openucx/ucx/releases/download/v${VERSION}/ucx-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"host": {
+		"default": false,
+		"debian8": [ "libuxc" ],
+		"centos7": [ "libuxc", "libuxc-devel" ],
+		"gentoo": [ "sys-cluster/ucx" ]
+	},
+	"versions": [ 
+		"1.20.1",
+		"1.20.0",
+		"1.19.1",
+		"1.19.0",
+		"1.18.1",
+		"1.18.0",
+		"1.17.0",
+		"1.16.0",
+		"1.11.1"
+	]
+}

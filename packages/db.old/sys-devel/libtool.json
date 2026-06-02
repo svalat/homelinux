@@ -1,0 +1,42 @@
+{
+	"name": "sys-devel/libtool",
+	"homepage": "https://www.gnu.org/software/libtool/",
+	"versions": [
+		"2.4.6"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/libtool",
+		"regexp": "libtool-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "libtool-${VERSION}",
+	"urls": [
+		"mirror://http-gnu/gnu/libtool/libtool-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"TODO? sys-devel/gnuconfig",
+		"sys-devel/autoconf",
+		"sys-devel/automake",
+		"app-arch/xz-utils",
+		"sys-devel/m4"
+	],
+	"configure": {
+		"": [
+			"--disable-ltdl-install"
+		]
+	},
+	"use": [
+		"vanilla",
+		"-TODO"
+	],
+	"host": {
+		"default": true,
+		"debian8": [
+			"libtool"
+		], 
+		"centos7": [ "libtool" ],
+		"gentoo": [ "sys-devel/libtool" ]
+	}
+}

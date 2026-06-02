@@ -2,19 +2,16 @@
 	"api": 1,
 	"name": "app-misc/tmux",
 	"homepage": "http://tmux.github.io/",
-	"versions": [
-		"2.5"
-	],
 	"inherit": "models/autotools-autogen",
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://tmux/tmux",
-		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*[a-z]?)"
 	},
 	"md5": {},
 	"subdir": "tmux-${VERSION}",
 	"urls": [
-		"github://tmux/tmux"
+		"https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz"
 	],
 	"deps": [
 		"dev-libs/libevent:0",
@@ -61,5 +58,37 @@
 		"gentoo": [
 			"app-misc/tmux"
 		]
-	}
+	},
+	"versions": [
+		"3.6b",
+		"3.6a",
+		"3.6",
+		"3.5a",
+		"3.5",
+		"3.4",
+		"3.3a",
+		"3.3",
+		"3.2a",
+		"3.2",
+		"3.1c",
+		"3.1b",
+		"3.1a",
+		"3.1",
+		"3.0a",
+		"3.0",
+		"2.9a",
+		"2.9",
+		"2.8",
+		"2.7",
+		"2.6",
+		"2.5",
+		"2.4",
+		"2.3",
+		"2.2",
+		"2.1",
+		"2.0",
+		"1.9a",
+		"1.9",
+		"1.8"
+	]
 }

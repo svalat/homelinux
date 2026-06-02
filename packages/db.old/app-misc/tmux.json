@@ -1,0 +1,65 @@
+{
+	"api": 1,
+	"name": "app-misc/tmux",
+	"homepage": "http://tmux.github.io/",
+	"versions": [
+		"2.5"
+	],
+	"inherit": "models/autotools-autogen",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://tmux/tmux",
+		"regexp": "([0-9]+.[0-9]+.?[0-9]*.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "tmux-${VERSION}",
+	"urls": [
+		"github://tmux/tmux"
+	],
+	"deps": [
+		"dev-libs/libevent:0",
+		"sys-libs/ncurses:0",
+		"virtual/pkgconfig",
+		"utempter&kernel_linux? sys-libs/libutempter",
+		"selinux? sec-policy/selinux-screen",
+		"vim-syntax? app-editors/vim"
+	],
+	"configure": {
+		"": [
+			"--sysconfdir=${PREFIX}/etc"
+		],
+		"debug": [
+			"--$enable-debug"
+		],
+		"utempter": [
+			"--$enable-utempter"
+		]
+	},
+	"vspecific": {
+		"~2.5": {
+			"patch": [
+				"tmux-2.5-ncurses-flags.patch"
+			]
+		}
+	},
+	"use": [
+		"debug",
+		"selinux",
+		"utempter",
+		"vim-syntax",
+		"kernel_FreeBSD",
+		"kernel_linux"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"tmux"
+		],
+		"centos7": [
+			"tmux"
+		],
+		"gentoo": [
+			"app-misc/tmux"
+		]
+	}
+}

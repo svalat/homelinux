@@ -1,0 +1,36 @@
+{
+	"api": 1,
+	"name": "dev-util/re2c",
+	"homepage": "http://re2c.org/",
+	"versions": [
+		"0.16"
+	],
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "http://re2c.org/install/install.html",
+		"regexp": "re2c-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+	},
+	"md5": {},
+	"subdir": "re2c-${VERSION}",
+	"urls": [
+		"https://github.com/skvadrik/re2c/releases/download/${VERSION}/re2c-${VERSION}.tar.gz"
+	],
+	"deps": [],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"re2c"
+		],
+		"centos7": [
+			"re2c"
+		],
+		"gentoo": [
+			"dev-util/re2c"
+		]
+	}
+}

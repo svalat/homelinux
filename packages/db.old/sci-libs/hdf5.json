@@ -1,0 +1,69 @@
+{
+	"name": "sci-libs/hdf5",
+	"homepage": "https://www.hdfgroup.org/HDF5/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.14.4.3" 
+	],
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://HDFGroup/hdf5",
+		"regexp": "hdf5_([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "hdf5-$(echo ${VERSION} | sed -e 's/[.]/-/3')",
+	"urls" : [
+		"https://github.com/HDFGroup/hdf5/releases/download/hdf5_${VERSION}/hdf5-$(echo ${VERSION} | sed -e 's/[.]/-/3').tar.gz"
+	],
+	"deps": [
+		"mpi? virtual/mpi",
+		"szip? virtual/szip",
+		"zlib? sys-libs/zlib"
+	],
+	"use": ["-dap", "+hdf5", "-doxygen", "-examples", "-cxx", "-fortran", "-hl", "-tests", "-threads", "-unsupported", "+mpi", "-szip", "+zlib"],
+	"TODO": [
+		"--enable-build-mode=$(usex debug debug production)",
+		"--with-default-plugindir=\"${EPREFIX}/usr/$(get_libdir)/${PN}/plugin\"",
+		"--with-examplesdir=\"\\${datarootdir}/doc/${PF}/examples\"",
+		"$(use_enable debug codestack)"
+	],
+	"configure": {
+		"": [
+			"--disable-static",
+			"--disable-doxygen-errors",
+			"--enable-deprecated-symbols"
+		],
+		"cxx": [
+			"--$enable-cxx"
+		],
+		"fortran": [
+			"--$enable-fortran"
+		],
+		"hl": [
+			"--$enable-hl"
+		],
+		"mpi": [
+			"--$enable-parallel"
+		],
+		"tests": [
+			"--$enable-tests"
+		],
+		"threads": [
+			"--$enable-threadsafe",
+			"--$with-pthread"
+		],
+		"unsupported": [
+			"--$enable-unsupported"
+		],
+		"szip": [
+			"--$with-szlib"
+		],
+		"zlib": [
+			"--$with-zlib"
+		]
+	},
+	"host": {
+		"default": false,
+		"gentoo": [ "sci-libs/hdf5" ]
+	}
+}

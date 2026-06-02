@@ -2,9 +2,6 @@
 	"name": "sci-libs/hdf5",
 	"homepage": "https://www.hdfgroup.org/HDF5/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"1.14.4.3" 
-	],
 	"vfetcher": {
 		"mode": "github",
 		"url": "github://HDFGroup/hdf5",
@@ -20,7 +17,7 @@
 		"szip? virtual/szip",
 		"zlib? sys-libs/zlib"
 	],
-	"use": ["-dap", "+hdf5", "-doxygen", "-examples", "-cxx", "-fortran", "-hl", "-tests", "-threads", "-unsupported", "+mpi", "-szip", "+zlib"],
+	"use": ["-dap", "+hdf5", "-doxygen", "-examples", "-cxx", "-fortran", "-hl", "-tests", "-threads", "-unsupported", "-mpi", "-szip", "+zlib"],
 	"TODO": [
 		"--enable-build-mode=$(usex debug debug production)",
 		"--with-default-plugindir=\"${EPREFIX}/usr/$(get_libdir)/${PN}/plugin\"",
@@ -49,7 +46,6 @@
 			"--$enable-tests"
 		],
 		"threads": [
-			"--$enable-threadsafe",
 			"--$with-pthread"
 		],
 		"unsupported": [
@@ -65,5 +61,11 @@
 	"host": {
 		"default": false,
 		"gentoo": [ "sci-libs/hdf5" ]
-	}
+	},
+	"versions": [ 
+		"1.14.6",
+		"1.14.5",
+		"1.14.4.3",
+		"1.14.4.2"
+	]
 }

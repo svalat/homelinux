@@ -1,0 +1,29 @@
+{
+	"name": "dev-util/malt",
+	"homepage": "https://memtt.github.io/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.2.2" 
+	],
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://memtt/malt",
+		"regexp": "v([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5" : {},
+	"subdir": "malt-${VERSION}",
+	"urls" : [
+		"github://memtt/malt"
+	],
+	"deps": [
+		"net-libs/nodejs",
+		"dev-libs/libelf",
+		"sys-libs/libunwind"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": "dev-util/malt"
+	}
+}

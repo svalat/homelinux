@@ -2,9 +2,6 @@
 	"name": "sys-cluster/scalasca",
 	"homepage": "http://www.scalasca.org",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"2.3.1" 
-	],
 	"vfetcher": {
 		"mode": "http",
 		"url": "http://www.scalasca.org/software/scalasca-2.x/download.html",
@@ -23,5 +20,9 @@
 		"debian8": false,
 		"centos7": false,
 		"gentoo": false
-	}
+	},
+	"versions": [ 
+		"2.6.2",
+		"2.3.1"
+	]
 }

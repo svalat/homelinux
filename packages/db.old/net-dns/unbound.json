@@ -1,0 +1,34 @@
+{
+	"name": "net-dns/unbound",
+	"homepage": "http://unbound.net/",
+	"inherit": "models/autotools",
+	"versions": [ 
+		"1.5.7" 
+	],
+	"vfetcher": {
+		"mode": "http",
+		"url": "http://unbound.net/download.html",
+		"regexp": "unbound-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "unbound-${VERSION}",
+	"urls" : [
+		"http://unbound.net/downloads/unbound-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"dev-libs/openssl",
+		"dev-libs/expat"
+	],
+	"configure": {
+		"": [ 
+			"--with-libexpat=$(hl prefix-of dev-libs/expat)", 
+			"--with-ssl=$(hl prefix-of dev-libs/openssl)"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "unbound-dev" ],
+		"centos7": [ "unbound", "unbound-devel" ],
+		"gentoo": [ "net-dns/unbound" ]
+	}
+}

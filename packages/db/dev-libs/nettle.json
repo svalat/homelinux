@@ -2,9 +2,6 @@
 	"name": "dev-libs/nettle",
 	"homepage": "http://www.lysator.liu.se/~nisse/nettle/",
 	"inherit": "models/autotools",
-	"versions": [ 
-		"3.1.1"
-	],
 	"vfetcher": {
 		"mode": "http",
 		"url": "mirror://http-gnu/gnu/nettle/",
@@ -26,5 +23,38 @@
 		"debian8": [ "nettle-bin", "nettle-dev" ],
 		"centos7": [ "nettle", "nettle-devel" ],
 		"gentoo": [ "dev-libs/nettle" ]
-	}
+	},
+	"versions": [
+		"4.0",
+		"3.10.2",
+		"3.10.1",
+		"3.10",
+		"3.9.1",
+		"3.9",
+		"3.8.1",
+		"3.8",
+		"3.7.3",
+		"3.7.2",
+		"3.7.1",
+		"3.7",
+		"3.6",
+		"3.5.1",
+		"3.5",
+		"3.4.1",
+		"3.4",
+		"3.3",
+		"3.2",
+		"3.1.1",
+		"3.1",
+		"3.0",
+		"2.7.1",
+		"2.7",
+		"2.6",
+		"2.5",
+		"2.4",
+		"2.3",
+		"2.2",
+		"2.1",
+		"2.0"
+	]
 }

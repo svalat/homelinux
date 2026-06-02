@@ -1,9 +1,6 @@
 {
 	"name": "app-arch/lzma",
 	"homepage": "http://www.7-zip.org/sdk.html",
-	"versions": [
-		"16.02"
-	],
 	"inherit": "models/default",
 	"vfetcher": {
 		"mode": "http",
@@ -46,9 +43,30 @@
 		">=23.01": {
 			"steps": {
 				"install": [
-                 		       "run cp _o/lzma $PREFIX/bin/lzma"
-		                ]
+					"run cp _o/lzma $PREFIX/bin/lzma"
+				]
 			}
 		}
-	}
+	},
+	"versions": [
+		"26.01",
+		"26.00",
+		"25.01",
+		"25.00",
+		"24.09",
+		"24.05",
+		"23.01",
+		"21.07",
+		"21.06",
+		"19.00",
+		"18.06",
+		"18.05",
+		"18.01",
+		"16.02",
+		"9.35",
+		"9.20",
+		"9.11",
+		"9.04",
+		"4.62"
+	]
 }

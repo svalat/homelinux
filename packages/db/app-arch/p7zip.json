@@ -1,19 +1,16 @@
 {
 	"name": "app-arch/p7zip",
 	"homepage": "http://p7zip.sourceforge.net/",
-	"versions": [
-		"16.02"
-	],
 	"inherit": "models/default",
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://sourceforge.net/projects/p7zip/files/p7zip/",
-		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+		"mode": "github",
+		"url": "github://ip7z/7zip",
+		"regexp": "v?([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
 	},
 	"md5": {},
-	"subdir": "p7zip_${VERSION}",
+	"subdir": ".",
 	"urls": [
-		"sourceforge://p7zip/p7zip/${VERSION}/p7zip_${VERSION}_src_all.tar.bz2"
+		"https://github.com/ip7z/7zip/releases/download/${VERSION}/7z$(echo ${VERSION} | sed -e 's/\\.//g')-src.tar.xz"
 	],
 	"deps": [
 		"kde? x11-libs/wxGTK:3.0[X] kde-base/kdelibs",
@@ -35,9 +32,26 @@
 		"abi_x86_x32"
 	],
 	"steps": {
-		"configure": [
-			"run sed -i install.sh -e s#DEST_HOME=/usr/local#DEST_HOME=$PREFIX#g",
-			"run sed -i makefile.common -e s#DEST_HOME=/usr/local#DEST_HOME=$PREFIX#g"
+		"configure": [],
+		"build": [
+			"run_sh cd CPP/7zip/Bundles/Alone",
+			"run make -f makefile.gcc -j8 CC=gcc CXX=g++",
+			"run_sh cd ../Alone2",
+			"run make -f makefile.gcc -j8 CC=gcc CXX=g++",
+			"run_sh cd ../Format7zF",
+			"run make -f makefile.gcc -j8 CC=gcc CXX=g++",
+			"run_sh cd ../../../../"
+		],
+		"install": [
+			"run mkdir -p ${HL_PREFIX}/bin",
+			"run cp CPP/7zip/Bundles/Alone/_o/7za ${HL_PREFIX}/bin",
+			"run cp CPP/7zip/Bundles/Alone2/_o/7zz ${HL_PREFIX}/bin/7z",
+			"run cp CPP/7zip/Bundles/Alone2/_o/7zz ${HL_PREFIX}/bin/p7zip",
+			"run mkdir -p ${HL_PREFIX}/lib64/p7zip",
+			"run cp CPP/7zip/Bundles/Format7zF/_o/7z.so ${HL_PREFIX}/lib64/p7zip/",
+			"run cp CPP/7zip/Bundles/Alone/_o/7za ${HL_PREFIX}/lib64/p7zip/",
+			"run cp CPP/7zip/Bundles/Alone2/_o/7zz ${HL_PREFIX}/lib64/p7zip/7z",
+			"run cp CPP/7zip/Bundles/Alone2/_o/7zz ${HL_PREFIX}/lib64/p7zip/p7zip"
 		]
 	},
 	"host": {
@@ -47,5 +61,62 @@
 		],
 		"centos7": false,
 		"gentoo": [ "app-arch/p7zip" ]
-	}
+	},
+	"versions": [
+		"26.01",
+		"26.00",
+		"25.01",
+		"25.00",
+		"24.09",
+		"24.08",
+		"24.07",
+		"24.06",
+		"24.05",
+		"23.01",
+		"22.01",
+		"22.00",
+		"21.07",
+		"16.02",
+		"15.14.1",
+		"15.14",
+		"15.09",
+		"9.38.1",
+		"9.38",
+		"9.20.1",
+		"9.20",
+		"9.13",
+		"9.04",
+		"4.65",
+		"4.61",
+		"4.58",
+		"4.57",
+		"4.55",
+		"4.53",
+		"4.51",
+		"4.49",
+		"4.48",
+		"4.47",
+		"4.45",
+		"4.44",
+		"4.43",
+		"4.42",
+		"4.39",
+		"4.37",
+		"4.33",
+		"4.30",
+		"4.29",
+		"4.27",
+		"4.20",
+		"4.18",
+		"4.16",
+		"4.14.01",
+		"4.14",
+		"4.13",
+		"4.12",
+		"4.10",
+		"0.91",
+		"0.90",
+		"0.81",
+		"0.80"
+	]
 }
