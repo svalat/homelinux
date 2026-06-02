@@ -26,22 +26,28 @@
 			"@preinstall",
 			"@extract",
 			"@patch",
-			"@prepare",
-			"@configure"
+			"@prepare"
 		],
 		"postbuild": [
-			"@test",
-			"@install",
-			"@manifest",
 			"@merge",
 			"@module",
 			"@postinstall",
 			"@clean"
 		],
-		"main" : [
+		"fullpipeline": [
 			"@prebuild",
-			"@build",
+			"@singlebuild",
 			"@postbuild"
+		],
+		"singlebuild": [
+			"@configure",
+			"@build",
+			"@test",
+			"@install",
+			"@manifest"
+		],
+		"main" : [
+			"@fullpipeline"
 		]
 	}
 }

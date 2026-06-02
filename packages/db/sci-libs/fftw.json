@@ -1,0 +1,75 @@
+{
+	"name": "sci-libs/fftw",
+	"homepage": "https://fftw.org/",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "html",
+		"url": "https://fftw.org/pub/fftw/",
+		"regexp": "fftw-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "fftw-${VERSION}",
+	"urls" : [
+		"https://fftw.org/pub/fftw/fftw-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"use": [
+		"mpi",
+		"-static",
+		"+openmp"
+	],
+	"configure": {
+	},
+	"multiconfigure": {
+		"": {
+			"seq-float64": { 
+				"": [ "--disable-single"],
+				"static": [ "--$disable-shared" ]
+			},
+			"seq-float32": {
+				"": [ "--enable-single" ],
+				"static": [ "--$disable-shared" ]
+			}
+		},
+		"openmp": {
+			"openmp-float64": {
+				"": [ "--enable-openmp", "--disable-single"],
+				"static": [ "--$disable-shared" ]
+			},
+			"openmp-float32": {
+				"": [ "--enable-openmp", "--enable-single" ],
+				"static": [ "--$disable-shared" ]
+			}
+		}
+	},
+	"steps": {
+		"fullpipeline": [
+			"@prebuild",
+			"hl_pack_multiconfigure",
+			"@postbuild"
+		]
+	},
+	"host": {
+		"default": false,
+		"debian8": ["libfftw3-bin", "fftw-dev"],
+		"gentoo": [ "sci-libs/hdf5" ]
+	},
+	"versions": [ 
+		"3.3.11",
+		"3.3.10",
+		"3.3.9",
+		"3.3.8",
+		"3.3.7",
+		"3.3.5",
+		"3.3.4",
+		"3.3.3",
+		"3.3.2",
+		"3.2.2",
+		"2.1.5",
+		"1.14.6",
+		"1.14.5",
+		"1.14.4.3",
+		"1.14.4.2"
+	]
+}

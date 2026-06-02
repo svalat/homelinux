@@ -71,6 +71,7 @@ void PackageDef::loadJson(const Json::Value & json)
 	Helper::jsonToObj(deps,json["deps"]);
 	this->host = json["host"];
 	Helper::jsonToObj(configure,json["configure"]);
+	Helper::jsonToObj(multiconfigure,json["multiconfigure"]);
 	Helper::jsonToObj(vspecific,json["vspecific"]);
 	Helper::jsonToObj(steps,json["steps"]);
 	Helper::jsonToObj(conflicts,json["conflicts"]);
@@ -104,6 +105,7 @@ void PackageDef::save(Json::Value & json)
 	Helper::toJson(json["deps"],deps);
 	json["host"] = host;
 	Helper::toJson(json["configure"],configure);
+	Helper::toJson(json["multiconfigure"],multiconfigure);
 	Helper::toJson(json["vspecific"],vspecific);
 	Helper::toJson(json["steps"],steps);
 	Helper::toJson(json["conflicts"],conflicts);
@@ -144,6 +146,8 @@ void PackageDef::merge(const PackageDef & def)
 	if (def.host.isNull() == false)
 		Helper::merge(host,def.host);
 	Helper::merge(configure,def.configure,false);
+	forEachConst(JsonMap,it,def.multiconfigure)
+		multiconfigure[it->first] = it->second;
 	forEachConst(JsonMap,it,def.vspecific)
 		vspecific[it->first] = it->second;
 	Helper::merge(steps,def.steps,true);
@@ -356,13 +360,23 @@ std::string PackageDef::getPackInstalled(const std::string & prefix) const
 **/
 std::string PackageDef::getBuildOptions(void) const
 {
+	return this->getBuildOptions(this->configure);
+}
+
+/*******************  FUNCTION  *********************/
+/**
+ * Generate build option based on `configure` entries of package
+ * depending on use flags enabling
+**/
+std::string PackageDef::getBuildOptions(const StringMapList & configure) const
+{
 	//vars
 	StringList lst;
 	UseFlagState state;
 
 	//loop on all entries
 	//for (auto & criteria : this->configure)
-	forEachConst(StringMapList,criteria,this->configure)
+	forEachConst(StringMapList,criteria,configure)
 	{
 		//get status
 		try{
@@ -402,6 +416,48 @@ std::string PackageDef::getBuildOptions(void) const
 
 	//join
 	return Helper::join(lst,' ');
+}
+
+/*******************  FUNCTION  *********************/
+StringMap PackageDef::getMultiConfigureOptions(void) const
+{
+	//vars
+	StringMap result;
+	UseFlagState state;
+
+	//loop on all entries
+	//for (auto & criteria : this->configure)
+	forEachConst(JsonMap,criteria,multiconfigure)
+	{
+		//get status
+		try{
+			state = use.getApplyStatusWithAnd(criteria->first);
+		} catch (std::runtime_error & err) {
+			HL_FATAL_ARG("%2\nInvalid flag in %1, see previous message !").arg(name).arg(err.what()).end();
+		}
+
+		//we ignore AUTO
+		if (state == FLAG_ENABLED)
+		{
+			//parse as map
+			JsonMap builds;
+			Helper::jsonToObj(builds, criteria->second);
+
+			//loop on all
+			forEachConst(JsonMap,build,builds) {
+				//parse
+				std::string name = build->first;
+				StringMapList configure;
+				Helper::jsonToObj(configure, build->second);
+
+				//gen config options
+				result[name] = this->getBuildOptions(configure);
+			}
+		}
+	}
+
+	//ok
+	return result;
 }
 
 /*******************  FUNCTION  *********************/
@@ -525,6 +581,21 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 			}
 		out << "}" << std::endl;
 	}
+
+	//multi configure build
+	out << std::endl << "#package steps for multi configure build" << std::endl;
+	out << "function hl_pack_multiconfigure()" << std::endl;
+	out << "{" << std::endl;
+	StringMap configures = this->getMultiConfigureOptions();
+	forEachConst(StringMap, build, configures)
+	{
+		out << "\t#" << build->first << std::endl;
+		out << "\tinfo \"Multi configure build : " << build->first << "\"" << std::endl;
+		out << "\tBUILD_OPTIONS=\"" << build->second << "\"" << std::endl;
+		out << "\trun_sh hl_pack_singlebuild" << std::endl;
+		out << std::endl;
+	}
+	out << "}" << std::endl;
 
 	//parallel install or not
 	out << std::endl << "#Main calls to run" << std::endl;

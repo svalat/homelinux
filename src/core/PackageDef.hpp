@@ -58,6 +58,8 @@ struct PackageDef
 	std::string getShortVersion(void) const;
 	std::string getRealPrefix(const std::string & prefix,bool stow) const;
 	std::string getBuildOptions(void) const;
+	std::string getBuildOptions(const StringMapList & configure) const;
+	StringMap getMultiConfigureOptions(void) const;
 	std::string getPackInstalled(const std::string & prefix) const;
 	std::string getPatchList(const std::string & perfix) const;
 	void genScript(std::ostream & out,Prefix & prefix,bool parallelInstall);
@@ -91,6 +93,11 @@ struct PackageDef
 	 * of options to be used.
 	**/
 	StringMapList configure;
+	/**
+	 * Map of configuration to apply when needing to build the package in multiple
+	 * build steps with different configuration. An example is FFTW.
+	 */
+	JsonMap multiconfigure;
 	/**
 	 * The values of this map can contain all entries to ovveride in package
 	 * it is applied only if the key (version selecor) match the selected version.
