@@ -1,0 +1,43 @@
+{
+	"name": "dev-perl/Text-Unidecode",
+	"homepage": "",
+	"inherit": "models/perl",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.cpan.org/authors/id/S/SB/SBURKE/",
+		"regexp": "Text-Unidecode-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5": {},
+	"subdir": "Text-Unidecode-${VERSION}",
+	"urls": [
+		"https://www.cpan.org/authors/id/S/SB/SBURKE/Text-Unidecode-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"perl-core/ExtUtils-MakeMaker"
+	],
+	"configure": {},
+	"use": [
+		""
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"Text-Unidecode"
+		],
+		"centos7": [
+			"Text-Unidecode"
+		],
+		"gentoo": [
+			"dev-perl/Text-Unidecode"
+		]
+	},
+	"versions": [
+		"1.30",
+		"1.27",
+		"1.24",
+		"1.23",
+		"1.22",
+		"1.01",
+		"0.04"
+	]
+}

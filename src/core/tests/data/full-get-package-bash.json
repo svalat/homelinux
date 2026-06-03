@@ -40,6 +40,7 @@
 	"inherit" : "models/auto",
 	"md5" : null,
 	"module" : "",
+	"multiconfigure" : null,
 	"name" : "hl/app-shells/bash",
 	"patch" : null,
 	"scripts" : [ "models/scripts/default.sh" ],
@@ -52,22 +53,14 @@
 		"configure" : [ "hl_configure_autotools" ],
 		"download" : [ "hl_download" ],
 		"extract" : [ "hl_extract" ],
+		"fullpipeline" : [ "@prebuild", "@singlebuild", "@postbuild" ],
 		"install" : [ "hl_install" ],
-		"main" : [ "@prebuild", "@build", "@postbuild" ],
+		"main" : [ "@fullpipeline" ],
 		"manifest" : [ "hl_manifest" ],
 		"merge" : [ "hl_merge" ],
 		"module" : [ "hl_module" ],
 		"patch" : [ "hl_patch" ],
-		"postbuild" : 
-		[
-			"@test",
-			"@install",
-			"@manifest",
-			"@merge",
-			"@module",
-			"@postinstall",
-			"@clean"
-		],
+		"postbuild" : [ "@merge", "@module", "@postinstall", "@clean" ],
 		"postinstall" : null,
 		"prebuild" : 
 		[
@@ -76,11 +69,11 @@
 			"@preinstall",
 			"@extract",
 			"@patch",
-			"@prepare",
-			"@configure"
+			"@prepare"
 		],
 		"preinstall" : null,
 		"prepare" : null,
+		"singlebuild" : [ "@configure", "@build", "@test", "@install", "@manifest" ],
 		"test" : null
 	},
 	"subdir" : "bash-${VERSION}",

@@ -1,0 +1,39 @@
+{
+	"name": "dev-lang/python-hl-venv",
+	"homepage": "https://www.python.org/",
+	"inherit": "models/virtual",
+	"vfetcher": {
+		"mode": "none",
+		"url": "none",
+		"regexp": "none"
+	},
+	"md5" : {},
+	"subdir": "none",
+	"urls" : ["none"],
+	"deps": [
+		"system? dev-lang/python-hl-venv",
+		"hl? dev-lang/python"
+	],
+	"host": {
+		"default": false,
+		"debian8": false,
+		"centos7": false,
+		"gentoo": false
+	},
+	"use": [
+		"+system",
+		"-hl"
+	],
+	"configure": {
+	},
+	"steps": {
+		"configure": [],
+		"build": [],
+		"install": [
+			"run python3 -m venv ${PREFIX}"
+		]
+	},
+	"versions": [ 
+		"0.1"
+	]
+}

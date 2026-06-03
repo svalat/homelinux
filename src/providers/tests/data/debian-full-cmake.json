@@ -16,6 +16,7 @@
 	"inherit" : "models/auto",
 	"md5" : null,
 	"module" : "",
+	"multiconfigure" : null,
 	"name" : "debian/cmake",
 	"patch" : null,
 	"scripts" : null,

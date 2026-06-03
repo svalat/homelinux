@@ -1,0 +1,142 @@
+{
+	"name": "sys-devel/gdb",
+	"homepage": "http://sourceware.org/gdb/",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/gdb/",
+		"regexp": "gdb-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).(tar.bz2|tar.gz|tbz|tar.xz)"
+	},
+	"md5": {},
+	"subdir": "gdb-${VERSION}",
+	"urls": [
+		"mirror://http-gnu/gdb/gdb-${VERSION}.tar.xz"
+	],
+	"flags": {
+		"CFLAGS": [ "-I$(hl prefix-of python)/include" ],
+		"LDFLAGS": [ "-L$(hl prefix-of python)/lib" ]
+	},
+	"deps": [
+		"sys-apps/texinfo",
+		"client? sys-libs/ncurses :0",
+		"client? sys-libs/readline :0",
+		"client? virtual/yacc",
+		"client&expat? dev-libs/expat",
+		"client&lzma? app-arch/xz-utils",
+		"client&zlib? sys-libs/zlib",
+		"app-arch/xz-utils",
+		"client&test? dev-util/dejagnu",
+		"client&nls? sys-devel/gettext"
+	],
+	"configure": {
+		"": [
+			"--disable-werror",
+			"--disable-binutils",
+			"--disable-etc",
+			"--disable-gas",
+			"--disable-gold",
+			"--disable-gprof",
+			"--disable-ld",
+			"--enable-64-bit-bfd",
+			"--disable-install-libbfd",
+			"--disable-install-libiberty",
+			"--without-guile",
+			"--disable-readline",
+			"--with-system-readline",
+			"--enable-targets=all"
+		],
+		"gentoo": [
+			"--with-separate-debug-dir=$PREFIX/usr/lib/debug"
+		],
+		"server": [
+			"--$enable-gdbserver"
+		],
+		"expat": [
+			"--$with-expat"
+		],
+		"lzma": [
+			"--$with-lzma"
+		],
+		"nls": [
+			"--$enable-nls"
+		],
+		"python": [
+			"--$with-python"
+		],
+		"zlib": [
+			"--$with-zlib"
+		]
+	},
+	"use": [
+		"+client",
+		"expat",
+		"lzma",
+		"multitarget",
+		"nls",
+		"+python",
+		"+server",
+		"test",
+		"vanilla",
+		"zlib",
+		"gentoo"
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"gdb"
+		], 
+		"centos7": "gdb",
+		"gentoo": [ "sys-devel/gdb" ]
+	},
+	"versions": [
+		"17.2",
+		"17.1",
+		"16.3",
+		"16.2",
+		"16.1",
+		"15.2",
+		"15.1",
+		"14.2",
+		"14.1",
+		"13.2",
+		"13.1",
+		"12.1",
+		"11.2",
+		"11.1",
+		"10.2",
+		"10.1",
+		"9.2",
+		"9.1",
+		"8.3.1",
+		"8.3",
+		"8.2.1",
+		"8.2",
+		"8.1.1",
+		"8.1",
+		"8.0.1",
+		"8.0",
+		"7.12.1",
+		"7.12",
+		"7.11.1",
+		"7.11",
+		"7.10.1",
+		"7.10",
+		"7.9.1",
+		"7.9",
+		"7.8.2",
+		"7.8.1",
+		"7.8",
+		"7.7.1",
+		"7.7",
+		"7.6.2",
+		"7.6.1",
+		"7.6",
+		"7.5.1",
+		"7.5",
+		"7.4.1",
+		"7.4",
+		"7.3.1",
+		"5.3",
+		"5.2.1"
+	]
+}

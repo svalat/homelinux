@@ -27,6 +27,7 @@
 		"3.8" : "7fc43b4622767e4d815d75685e1d0807"
 	},
 	"module" : "gcc-${SLOT}",
+	"multiconfigure" : null,
 	"name" : "app-shell/bash2",
 	"patch" : [ "bash-2.3-fix-other-spell.patch" ],
 	"scripts" : [ "models/scripts/opt.sh" ],

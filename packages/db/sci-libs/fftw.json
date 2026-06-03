@@ -24,13 +24,19 @@
 	},
 	"multiconfigure": {
 		"": {
-			"seq-float64": { 
-				"": [ "--disable-single"],
+			"float128": {
+				"": [ "--enable-long-double" ],
 				"static": [ "--$disable-shared" ],
 				"openmp": [ "--$enable-openmp" ],
 				"mpi": [ "--$enable-mpi" ]
 			},
-			"seq-float32": {
+			"float64": { 
+				"": [ "--disable-single" ],
+				"static": [ "--$disable-shared" ],
+				"openmp": [ "--$enable-openmp" ],
+				"mpi": [ "--$enable-mpi" ]
+			},
+			"float32": {
 				"": [ "--enable-single" ],
 				"static": [ "--$disable-shared" ],
 				"openmp": [ "--$enable-openmp" ],

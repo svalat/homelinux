@@ -449,6 +449,13 @@ function hl_configure_autotools()
 				$BUILD_OPTIONS
 }
 
+function hl_configure_meson()
+{
+	run_sh cd $HL_PACKDIR
+	run mkdir builddir
+	run meson setup --prefix "${PREFIX}" $BUILD_OPTIONS builddir
+}
+
 function hl_configure_cmake()
 {
 	run mkdir -p $HL_BUILDDIR
@@ -491,6 +498,8 @@ function hl_build()
 		run ninja
 	elif [ -f build.ninja ] && [ ! -f Makefile ]; then
 		run ninja
+	elif [ -f meson.meson ] && [ ! -f Makefile ]; then
+		run meson build
 	else
 		run make ${HL_MAKEOPTS}
 	fi
@@ -512,6 +521,8 @@ function hl_install()
 		run ninja install
 	elif [ -f build.ninja ] && [ ! -f Makefile ]; then
 		run ninja install
+	elif [ -f meson.meson ] && [ ! -f Makefile ]; then
+		run meson install
 	else
 		run make install
 	fi

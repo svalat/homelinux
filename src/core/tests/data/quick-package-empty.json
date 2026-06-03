@@ -13,6 +13,7 @@
 	"inherit" : "models/auto",
 	"md5" : null,
 	"module" : "",
+	"multiconfigure" : null,
 	"name" : "none/empty",
 	"patch" : null,
 	"scripts" : null,

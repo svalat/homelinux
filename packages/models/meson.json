@@ -1,0 +1,19 @@
+{
+	"api": 1,
+	"name": "models/meson",
+	"deps": [
+		"dev-build/meson"
+	],
+	"inherit": "models/default",
+	"steps": {
+		"configure": [
+			"hl_configure_meson"
+		 ],
+		"compile": [
+			"hl_build"
+		],
+		"install": [
+			"hl_install"
+		]
+	}
+}

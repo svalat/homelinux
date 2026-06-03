@@ -1,0 +1,51 @@
+{
+	"name": "sys-libs/readline",
+	"homepage": "http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "mirror://http-gnu/pub/gnu/readline/",
+		"regexp": "readline-([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "readline-${VERSION}",
+	"urls" : [
+		"mirror://http-gnu/pub/gnu/readline/readline-${VERSION}.tar.gz"
+	],
+	"deps": [
+		
+	],
+	"configure": {
+		"": [ "--enable-widec" ]
+	},
+	"host": {
+		"default": true,
+		"debian8": [ "libreadline-dev" ],
+		"centos7": [ "readline", "readline-devel" ],
+		"gentoo": [ "sys-libs/readline" ]
+	},
+	"versions": [ 
+		"8.3",
+		"8.2.13",
+		"8.2",
+		"8.1.2",
+		"8.1",
+		"8.0",
+		"7.0",
+		"6.3",
+		"6.2",
+		"6.1",
+		"6.0",
+		"5.2",
+		"5.1",
+		"5.0",
+		"4.3",
+		"4.2",
+		"4.1",
+		"4.0",
+		"2.2.1",
+		"2.2",
+		"2.1",
+		"2.0"
+	]
+}

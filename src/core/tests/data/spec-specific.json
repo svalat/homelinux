@@ -42,6 +42,7 @@
 		"2.5" : "eff5bc1ef8ec9d03e640fc4370f5eacd"
 	},
 	"module" : "gcc-${VERSION}",
+	"multiconfigure" : null,
 	"name" : "app-shell/bash",
 	"patch" : [ "bash-2.3-fix-spell.patch" ],
 	"scripts" : [ "models/scripts/default.sh" ],

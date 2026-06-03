@@ -587,13 +587,17 @@ void PackageDef::genScript(std::ostream & out,Prefix & prefix,bool parallelInsta
 	out << "function hl_pack_multiconfigure()" << std::endl;
 	out << "{" << std::endl;
 	StringMap configures = this->getMultiConfigureOptions();
-	forEachConst(StringMap, build, configures)
-	{
-		out << "\t#" << build->first << std::endl;
-		out << "\tinfo \"Multi configure build : " << build->first << "\"" << std::endl;
-		out << "\tBUILD_OPTIONS=\"" << build->second << "\"" << std::endl;
-		out << "\trun_sh hl_pack_singlebuild" << std::endl;
-		out << std::endl;
+	if (configures.empty()) {
+		out << "\ttrue" << std::endl;
+	} else {
+		forEachConst(StringMap, build, configures)
+		{
+			out << "\t#" << build->first << std::endl;
+			out << "\tinfo \"Multi configure build : " << build->first << "\"" << std::endl;
+			out << "\tBUILD_OPTIONS=\"" << build->second << "\"" << std::endl;
+			out << "\trun_sh hl_pack_singlebuild" << std::endl;
+			out << std::endl;
+		}
 	}
 	out << "}" << std::endl;
 

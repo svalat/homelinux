@@ -1,0 +1,53 @@
+{
+	"name": "app-arch/cabextract",
+	"homepage": "http://www.cabextract.org.uk/",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "https://www.cabextract.org.uk/old/",
+		"regexp": "cabextract ([0-9]+.[0-9]+.?[0-9]*.?[0-9]*) source code"
+	},
+	"md5" : {},
+	"subdir": "cabextract-${VERSION}",
+	"urls" : [
+		"http://www.cabextract.org.uk/cabextract-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"extras? dev-lang/perl"
+	],
+	"configure": {
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "cabextract" ],
+		"centos7": false,
+		"gentoo": [ "app-arch/cabextract" ]
+	},
+	"use": [ 
+		"extras"
+	],
+	"tested": {
+		"centos7": "1.6"
+	},
+	"versions": [ 
+		"1.11",
+		"1.10",
+		"1.9.1",
+		"1.9",
+		"1.8",
+		"1.7",
+		"1.6",
+		"1.5",
+		"1.4",
+		"1.3",
+		"1.2",
+		"1.1",
+		"1.0",
+		"0.6",
+		"0.5",
+		"0.4",
+		"0.3",
+		"0.2",
+		"0.1"
+	]
+}

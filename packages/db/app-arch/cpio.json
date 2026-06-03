@@ -1,0 +1,46 @@
+{
+	"name": "app-arch/cpio",
+	"homepage": "https://www.gnu.org/software/cpio/cpio.html",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "http",
+		"url": "mirror://http-gnu/gnu/cpio/",
+		"regexp": "cpio-([0-9]+.[0-9]+.?[0-9]*.?[0-9]*).tar.gz"
+	},
+	"md5" : {},
+	"subdir": "cpio-${VERSION}",
+	"urls" : [
+		"mirror://http-gnu/gnu/cpio/cpio-${VERSION}.tar.gz"
+	],
+	"deps": [
+	],
+	"configure": {
+		"nls": [ "--$enable-nls" ]
+	},
+	"host": {
+		"default": false,
+		"debian8": [ "cpio" ],
+		"centos7": [ "cpio" ],
+		"gentoo": [ "app-arch/cpio" ]
+	},
+	"use": [ 
+		"nls"
+	],
+	"tested": {
+		"centos7": "2.12"
+	},
+	"versions": [ 
+		"2.15",
+		"2.14",
+		"2.13",
+		"2.12",
+		"2.11",
+		"2.10",
+		"2.9",
+		"2.8",
+		"2.7",
+		"2.6",
+		"2.5",
+		"2.4.2"
+	]
+}

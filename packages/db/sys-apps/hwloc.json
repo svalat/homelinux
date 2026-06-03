@@ -3,9 +3,10 @@
 	"homepage": "http://www.open-mpi.org/projects/hwloc/",
 	"inherit": "models/autotools",
 	"vfetcher": {
-		"mode": "http",
-		"url": "https://www.open-mpi.org/software/hwloc/v1.11/",
-		"regexp": "hwloc-([0-9]+.[0-9]+.[0-9]+).tar.gz"
+		"mode": "github",
+		"url": "github://open-mpi/hwloc",
+		"regexp": "hwloc-([0-9]+.[0-9]+.[0-9]+)",
+		"forcetag": true
 	},
 	"md5" : {},
 	"subdir": "hwloc-${VERSION}",
@@ -23,6 +24,17 @@
 		"gentoo": [ "sys-apps/hwloc" ]
 	},
 	"versions": [ 
+		"2.13.0",
+		"2.12.2",
+		"2.12.1",
+		"2.12.0",
+		"2.11.2",
+		"2.11.1",
+		"2.11.0",
+		"2.10.0",
+		"2.9.3",
+		"2.9.2",
+		"2.9.1",
 		"1.11.13",
 		"1.11.12",
 		"1.11.11",

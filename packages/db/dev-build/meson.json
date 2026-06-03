@@ -1,0 +1,63 @@
+{
+	"name": "dev-build/meson",
+	"homepage": "https://mesonbuild.com/",
+	"inherit": "models/autotools",
+	"vfetcher": {
+		"mode": "github",
+		"url": "github://mesonbuild/meson",
+		"regexp": "([0-9]+\\.[0-9]+\\.?[0-9]*\\.?[0-9]*)"
+	},
+	"md5": {},
+	"subdir": "meson-${VERSION}",
+	"urls": [
+		"https://github.com/mesonbuild/meson/releases/download/${VERSION}/meson-${VERSION}.tar.gz"
+	],
+	"deps": [
+		"virtual/python"
+	],
+	"configure": {
+	},
+	"steps": {
+		"configure": [
+			"hl_configure_meson"
+		],
+		"build": [],
+		"install": [
+			"run pip install \"--prefix=${PREFIX}\" ."
+		]
+	},
+	"use": [
+	],
+	"host": {
+		"default": false,
+		"debian8": [
+			"meson"
+		],
+		"centos7": [
+			"meson"
+		],
+		"gentoo": [
+			"dev-build/meson"
+		]
+	},
+	"versions": [
+		"1.11.1",
+		"1.11.0",
+		"1.10.2",
+		"1.10.1",
+		"1.10.0",
+		"1.9.2",
+		"1.9.1",
+		"1.9.0",
+		"1.8.5",
+		"1.8.4",
+		"1.8.3",
+		"1.8.2",
+		"1.8.1",
+		"1.8.0",
+		"1.7.2",
+		"1.7.1",
+		"1.7.0",
+		"1.6.1"
+	]
+}
