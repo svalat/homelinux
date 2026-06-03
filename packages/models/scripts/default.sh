@@ -583,10 +583,19 @@ EOF
 	fi
 }
 
+function hl_clean_install()
+{
+	if [ ! -z "$STOW_NAME" ]; then
+		if [ -d "${HL_PREFIX}/stow/${STOW_NAME}" ]; then
+			run stow "--dir=$HL_PREFIX/stow" "--target=$HL_PREFIX" -D "$STOW_NAME"
+		fi
+	fi
+}
+
 function hl_merge()
 {
 	if [ ! -z "$STOW_NAME" ]; then
-		run stow --dir=$HL_PREFIX/stow --target=$HL_PREFIX -S $STOW_NAME
+		run stow "--dir=$HL_PREFIX/stow" "--target=$HL_PREFIX" -S "$STOW_NAME"
 	fi
 }
 

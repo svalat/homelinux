@@ -14,6 +14,7 @@
 		"configure": [ "hl_configure" ],
 		"build": [ "hl_build" ],
 		"test": [ ],
+		"cleaninstall": [ "hl_clean_install" ],
 		"install": [ "hl_install" ],
 		"merge": [ "hl_merge" ],
 		"postinstall": [],
@@ -43,6 +44,7 @@
 			"@configure",
 			"@build",
 			"@test",
+			"@cleaninstall",
 			"@install",
 			"@manifest"
 		],
