@@ -1,5 +1,5 @@
 {
-	"name": "sys-devel/binutils",
+	"name": "dev-util/binutils",
 	"homepage": "https://www.gnu.org/software/binutils/",
 	"versions": [
 		"2.28"

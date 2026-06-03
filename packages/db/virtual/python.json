@@ -1,5 +1,5 @@
 {
-	"name": "dev-lang/python-hl-venv",
+	"name": "virtual/python",
 	"homepage": "https://www.python.org/",
 	"inherit": "models/virtual",
 	"vfetcher": {

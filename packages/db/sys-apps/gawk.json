@@ -1,5 +1,5 @@
 {
-	"name": "app-alternatives/awk",
+	"name": "sys-apps/gawk",
 	"homepage": "https://www.gnu.org/software/gawk/",
 	"inherit": "models/autotools",
 	"vfetcher": {
@@ -28,7 +28,7 @@
 			"awk"
 		],
 		"gentoo": [
-			"app-alternatives/awk"
+			"sys-app/awk"
 		]
 	},
 	"versions": [
